@@ -114,7 +114,7 @@
 
 
                             If is_Screen_Font_Resize = True Then
-                                If Not TypeOf ctl Is FSearch_Filter And Not TypeOf ctl Is DateRange_Flate And Not TypeOf ctl Is Zuby.ADGV.AdvancedDataGridViewSearchToolBar Then
+                                If Not TypeOf ctl Is FSearch_Filter And Not TypeOf ctl Is DateRange_Flate And Not TypeOf ctl Is Zuby.ADGV.AdvancedDataGridViewSearchToolBar And Not TypeOf ctl Is SearchItemControl Then
                                     f = ctl.Font
                                     fontRatioW = ctl.Width / c.originalWidth
                                     fontRatioH = ctl.Height / c.originalHeight
@@ -136,7 +136,7 @@
             End Try
 
             '-- Recursive call for controls contained in the current control
-            If ctl.Controls.Count > 0 And Not TypeOf ctl Is FSearch_Filter And Not TypeOf ctl Is DateRange_Flate Then ResizeAllControls(ctl)
+            If ctl.Controls.Count > 0 And Not TypeOf ctl Is FSearch_Filter And Not TypeOf ctl Is DateRange_Flate And Not TypeOf ctl Is SearchItemControl Then ResizeAllControls(ctl)
 
         Next '-- For Each
     End Sub

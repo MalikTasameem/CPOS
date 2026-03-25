@@ -11,7 +11,7 @@ Module MY_Settings
     Public DB_Authentication As String = 0
     Public SqlConStr As String = ""
     Public isCenterSys As Boolean = False
-    Public S_Default As String = 1
+    Public S_Default As String = 1 ' 0 = BY BARCODE , 1 = BY ITEM_NAME , 2 = BY BY ITEM NUM
     Public POS_Search_Type As String = 1
     Public ST_Last_Pch_Price As Boolean = True
     Public SP_Notes_CL As Boolean = True
