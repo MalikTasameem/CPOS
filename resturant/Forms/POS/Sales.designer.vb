@@ -1,0 +1,2044 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class Sales
+    Inherits System.Windows.Forms.Form
+
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()>
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales))
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
+        Me.MoveToBill_Btn = New System.Windows.Forms.Button()
+        Me.Down_Bill_btn = New System.Windows.Forms.Button()
+        Me.Up_Bill_btn = New System.Windows.Forms.Button()
+        Me.Show_Cash_btn = New System.Windows.Forms.Button()
+        Me.OpenCahDR_Btn = New System.Windows.Forms.Button()
+        Me.DGV_Control_btn = New System.Windows.Forms.Button()
+        Me.RemoveCatButton = New System.Windows.Forms.Button()
+        Me.ADDCatButton = New System.Windows.Forms.Button()
+        Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.IM_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.تعديلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضالتكلفةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.إيجارالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.جدولحجزالخدمةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.إدراجموظفللخدمةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IM_Count_LB = New System.Windows.Forms.Label()
+        Me.User_Name_lb = New System.Windows.Forms.Label()
+        Me.DiscountPanel = New System.Windows.Forms.Panel()
+        Me.Calc_Dicount_Btn = New System.Windows.Forms.Button()
+        Me.Discount_txt = New System.Windows.Forms.TextBox()
+        Me.Discount_MenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.تخفيضبنسبةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Total_TextBox = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.PauseCmb = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Piedmoney_txt = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Pure_txt = New System.Windows.Forms.TextBox()
+        Me.Notes_txt = New System.Windows.Forms.TextBox()
+        Me.AG_Grid = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.AG_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Agent_name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Balance_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Bill_ID_Txt = New System.Windows.Forms.TextBox()
+        Me.Label3525 = New System.Windows.Forms.Label()
+        Me.VoidLb = New System.Windows.Forms.Label()
+        Me.AG_SH_txt = New System.Windows.Forms.TextBox()
+        Me.AG_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.عرضرصيدالعميلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضفواتيرالزبونToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.كشفحسابالعميلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.إضافةكعميلجديدToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DateTimeEx = New System.Windows.Forms.DateTimePicker()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.IM_Show_CxtMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IM_Qty_LB = New System.Windows.Forms.Label()
+        Me.BillNumTxt = New System.Windows.Forms.TextBox()
+        Me.Print_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.طباعةورقةA5ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.طباعةورقA4ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.طباعةورقA4ملاحظاتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.طباعةورقةA4ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ورقةA4تصميمجاهزToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.طباعةورقةA4تصميمجاهز2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.طباعةإذنصـــرفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.طباعةإذنصـــرفA4ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.طباعةالتسليموالإستلامToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.تحديدنوعالطباعـــةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Search_By_Bar_CB = New System.Windows.Forms.CheckBox()
+        Me.IM_Info_Timer = New System.Windows.Forms.Timer(Me.components)
+        Me.Show_IM_Rtn_btn = New System.Windows.Forms.Button()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Rtn_Count_txt = New System.Windows.Forms.TextBox()
+        Me.Project_cm = New System.Windows.Forms.ComboBox()
+        Me.ReceiptsMetroGrid = New MetroFramework.Controls.MetroGrid()
+        Me.Receipt_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Receipt_Num_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PAYMENT_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Value_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AG_Show_Balance_CB = New System.Windows.Forms.CheckBox()
+        Me.Marketer_Lb = New System.Windows.Forms.Label()
+        Me.AG_Panel = New System.Windows.Forms.Panel()
+        Me.Show_IM_btn2 = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Show_AG_Projects_btn = New System.Windows.Forms.Button()
+        Me.BillNumPanel = New System.Windows.Forms.Panel()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Panel16 = New System.Windows.Forms.Panel()
+        Me.Show_SumPied_CB = New System.Windows.Forms.CheckBox()
+        Me.Show_Bill_Rest_CB = New System.Windows.Forms.CheckBox()
+        Me.Show_Bill_CB = New System.Windows.Forms.CheckBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Check_Compute_txt = New System.Windows.Forms.TextBox()
+        Me.Clear_Check_btn = New System.Windows.Forms.Button()
+        Me.IM_Check_Panel = New System.Windows.Forms.Panel()
+        Me.AGMetroGrid = New System.Windows.Forms.DataGridView()
+        Me.Bill_IMID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Check_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Barcode_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Serial_Code_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.U_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Date_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ST_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IMNUM_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EX_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.D_Valid_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IMUnit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.QTY_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Price_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IM_Discount_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Total_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Notes_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IM_NOTE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.AG_Label = New System.Windows.Forms.Label()
+        Me.UN_Void_ContextMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Rsv_Panel = New System.Windows.Forms.Panel()
+        Me.Rsv_Qty_TXT = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.ExitFormButton = New System.Windows.Forms.Button()
+        Me.Edit_butt = New System.Windows.Forms.Button()
+        Me.Print_btn = New System.Windows.Forms.Button()
+        Me.DeliveryingButton = New System.Windows.Forms.Button()
+        Me.SBPauseBtn = New System.Windows.Forms.Button()
+        Me.New_butt = New System.Windows.Forms.Button()
+        Me.Save_butt = New System.Windows.Forms.Button()
+        Me.Delete_butt = New System.Windows.Forms.Button()
+        Me.Markter_Cm = New resturant.FSearch_Filter()
+        Me.IM_ContextMenuStrip.SuspendLayout()
+        Me.DiscountPanel.SuspendLayout()
+        Me.Discount_MenuStrip.SuspendLayout()
+        CType(Me.AG_Grid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.AG_ContextMenuStrip.SuspendLayout()
+        Me.IM_Show_CxtMStrip.SuspendLayout()
+        Me.Print_ContextMenuStrip.SuspendLayout()
+        CType(Me.ReceiptsMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.AG_Panel.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.BillNumPanel.SuspendLayout()
+        Me.Panel10.SuspendLayout()
+        Me.Panel13.SuspendLayout()
+        Me.Panel14.SuspendLayout()
+        Me.Panel16.SuspendLayout()
+        Me.IM_Check_Panel.SuspendLayout()
+        CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        Me.Rsv_Panel.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'MetroToolTip1
+        '
+        Me.MetroToolTip1.Style = MetroFramework.MetroColorStyle.Blue
+        Me.MetroToolTip1.StyleManager = Nothing
+        Me.MetroToolTip1.Theme = MetroFramework.MetroThemeStyle.Light
+        '
+        'MoveToBill_Btn
+        '
+        Me.MoveToBill_Btn.BackColor = System.Drawing.SystemColors.Control
+        Me.MoveToBill_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_ok_173061
+        Me.MoveToBill_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.MoveToBill_Btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.MoveToBill_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MoveToBill_Btn.ForeColor = System.Drawing.Color.DarkRed
+        Me.MoveToBill_Btn.Location = New System.Drawing.Point(2, 3)
+        Me.MoveToBill_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.MoveToBill_Btn.Name = "MoveToBill_Btn"
+        Me.MoveToBill_Btn.Size = New System.Drawing.Size(25, 27)
+        Me.MoveToBill_Btn.TabIndex = 633
+        Me.MetroToolTip1.SetToolTip(Me.MoveToBill_Btn, "فتح الفاتورة المعلقة")
+        Me.MoveToBill_Btn.UseVisualStyleBackColor = False
+        '
+        'Down_Bill_btn
+        '
+        Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Down_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_Down
+        Me.Down_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Down_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 5)
+        Me.Down_Bill_btn.Name = "Down_Bill_btn"
+        Me.Down_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Down_Bill_btn.Size = New System.Drawing.Size(27, 30)
+        Me.Down_Bill_btn.TabIndex = 624
+        Me.Down_Bill_btn.TabStop = False
+        Me.MetroToolTip1.SetToolTip(Me.Down_Bill_btn, "الفاتورة السابقة")
+        Me.Down_Bill_btn.UseVisualStyleBackColor = False
+        '
+        'Up_Bill_btn
+        '
+        Me.Up_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Up_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_up_3017922
+        Me.Up_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Up_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(127, 5)
+        Me.Up_Bill_btn.Name = "Up_Bill_btn"
+        Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Up_Bill_btn.Size = New System.Drawing.Size(27, 30)
+        Me.Up_Bill_btn.TabIndex = 623
+        Me.Up_Bill_btn.TabStop = False
+        Me.MetroToolTip1.SetToolTip(Me.Up_Bill_btn, "الفاتورة التالية")
+        Me.Up_Bill_btn.UseVisualStyleBackColor = False
+        '
+        'Show_Cash_btn
+        '
+        Me.Show_Cash_btn.BackColor = System.Drawing.SystemColors.Menu
+        Me.Show_Cash_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_money_299107
+        Me.Show_Cash_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Show_Cash_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_Cash_btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Show_Cash_btn.Location = New System.Drawing.Point(742, 653)
+        Me.Show_Cash_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Show_Cash_btn.Name = "Show_Cash_btn"
+        Me.Show_Cash_btn.Size = New System.Drawing.Size(45, 38)
+        Me.Show_Cash_btn.TabIndex = 655
+        Me.MetroToolTip1.SetToolTip(Me.Show_Cash_btn, "عرض المقبوض")
+        Me.Show_Cash_btn.UseVisualStyleBackColor = False
+        '
+        'OpenCahDR_Btn
+        '
+        Me.OpenCahDR_Btn.BackColor = System.Drawing.SystemColors.Menu
+        Me.OpenCahDR_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.Drawer_64
+        Me.OpenCahDR_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.Black
+        Me.OpenCahDR_Btn.Location = New System.Drawing.Point(789, 653)
+        Me.OpenCahDR_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
+        Me.OpenCahDR_Btn.Size = New System.Drawing.Size(45, 38)
+        Me.OpenCahDR_Btn.TabIndex = 654
+        Me.MetroToolTip1.SetToolTip(Me.OpenCahDR_Btn, "فتح صندوق النقود")
+        Me.OpenCahDR_Btn.UseVisualStyleBackColor = False
+        '
+        'DGV_Control_btn
+        '
+        Me.DGV_Control_btn.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.DGV_Control_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.DGV_Control_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.DGV_Control_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.DGV_Control_btn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.DGV_Control_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_menu_1814109
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(820, 162)
+        Me.DGV_Control_btn.Name = "DGV_Control_btn"
+        Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.DGV_Control_btn.Size = New System.Drawing.Size(48, 30)
+        Me.DGV_Control_btn.TabIndex = 648
+        Me.DGV_Control_btn.TabStop = False
+        Me.DGV_Control_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroToolTip1.SetToolTip(Me.DGV_Control_btn, "عرض بيانات الجدول")
+        Me.DGV_Control_btn.UseVisualStyleBackColor = False
+        '
+        'RemoveCatButton
+        '
+        Me.RemoveCatButton.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.RemoveCatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.RemoveCatButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.RemoveCatButton.Enabled = False
+        Me.RemoveCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.RemoveCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.RemoveCatButton.Image = CType(resources.GetObject("RemoveCatButton.Image"), System.Drawing.Image)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(820, 386)
+        Me.RemoveCatButton.Name = "RemoveCatButton"
+        Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.RemoveCatButton.Size = New System.Drawing.Size(48, 125)
+        Me.RemoveCatButton.TabIndex = 395
+        Me.RemoveCatButton.TabStop = False
+        Me.RemoveCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف الحدد")
+        Me.RemoveCatButton.UseVisualStyleBackColor = False
+        '
+        'ADDCatButton
+        '
+        Me.ADDCatButton.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ADDCatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ADDCatButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ADDCatButton.Enabled = False
+        Me.ADDCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.ADDCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.ADDCatButton.Image = CType(resources.GetObject("ADDCatButton.Image"), System.Drawing.Image)
+        Me.ADDCatButton.Location = New System.Drawing.Point(820, 193)
+        Me.ADDCatButton.Name = "ADDCatButton"
+        Me.ADDCatButton.Size = New System.Drawing.Size(48, 192)
+        Me.ADDCatButton.TabIndex = 396
+        Me.ADDCatButton.TabStop = False
+        Me.ADDCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroToolTip1.SetToolTip(Me.ADDCatButton, "إضافة الصنف المحدد")
+        Me.ADDCatButton.UseVisualStyleBackColor = False
+        '
+        'NULLContextMenuStrip
+        '
+        Me.NULLContextMenuStrip.Name = "NULLContextMenuStrip"
+        Me.NULLContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.NULLContextMenuStrip.Size = New System.Drawing.Size(61, 4)
+        '
+        'IM_ContextMenuStrip
+        '
+        Me.IM_ContextMenuStrip.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.تعديلToolStripMenuItem, Me.عرضالتكلفةToolStripMenuItem, Me.عرضربحالفاتورةToolStripMenuItem, Me.عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem, Me.إيجارالصنفToolStripMenuItem, Me.جدولحجزالخدمةToolStripMenuItem, Me.إدراجموظفللخدمةToolStripMenuItem})
+        Me.IM_ContextMenuStrip.Name = "IM_ContextMenuStrip"
+        Me.IM_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.IM_ContextMenuStrip.Size = New System.Drawing.Size(237, 172)
+        '
+        'تعديلToolStripMenuItem
+        '
+        Me.تعديلToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.تعديلToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_icon_136_document_edit_314724
+        Me.تعديلToolStripMenuItem.Name = "تعديلToolStripMenuItem"
+        Me.تعديلToolStripMenuItem.Size = New System.Drawing.Size(236, 24)
+        Me.تعديلToolStripMenuItem.Text = "تعديل بيانات الصنف "
+        '
+        'عرضالتكلفةToolStripMenuItem
+        '
+        Me.عرضالتكلفةToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.عرضالتكلفةToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_hand_cursor_2639827
+        Me.عرضالتكلفةToolStripMenuItem.Name = "عرضالتكلفةToolStripMenuItem"
+        Me.عرضالتكلفةToolStripMenuItem.Size = New System.Drawing.Size(236, 24)
+        Me.عرضالتكلفةToolStripMenuItem.Text = "عرض التكلفة"
+        '
+        'عرضربحالفاتورةToolStripMenuItem
+        '
+        Me.عرضربحالفاتورةToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.عرضربحالفاتورةToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.iconfinder_money_299107
+        Me.عرضربحالفاتورةToolStripMenuItem.Name = "عرضربحالفاتورةToolStripMenuItem"
+        Me.عرضربحالفاتورةToolStripMenuItem.Size = New System.Drawing.Size(236, 24)
+        Me.عرضربحالفاتورةToolStripMenuItem.Text = "عرض ربح الفاتورة"
+        '
+        'عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem
+        '
+        Me.عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_search_46834
+        Me.عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem.Name = "عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem"
+        Me.عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem.Size = New System.Drawing.Size(236, 24)
+        Me.عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem.Text = "عرض أخر 10 مبيعات للصنف"
+        '
+        'إيجارالصنفToolStripMenuItem
+        '
+        Me.إيجارالصنفToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.إيجارالصنفToolStripMenuItem.Name = "إيجارالصنفToolStripMenuItem"
+        Me.إيجارالصنفToolStripMenuItem.Size = New System.Drawing.Size(236, 24)
+        Me.إيجارالصنفToolStripMenuItem.Text = "إيجار الصنف"
+        '
+        'جدولحجزالخدمةToolStripMenuItem
+        '
+        Me.جدولحجزالخدمةToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.جدولحجزالخدمةToolStripMenuItem.Name = "جدولحجزالخدمةToolStripMenuItem"
+        Me.جدولحجزالخدمةToolStripMenuItem.Size = New System.Drawing.Size(236, 24)
+        Me.جدولحجزالخدمةToolStripMenuItem.Text = "جدول حجز الخدمة"
+        '
+        'إدراجموظفللخدمةToolStripMenuItem
+        '
+        Me.إدراجموظفللخدمةToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.إدراجموظفللخدمةToolStripMenuItem.Name = "إدراجموظفللخدمةToolStripMenuItem"
+        Me.إدراجموظفللخدمةToolStripMenuItem.Size = New System.Drawing.Size(236, 24)
+        Me.إدراجموظفللخدمةToolStripMenuItem.Text = "إدراج موظف للخدمة"
+        '
+        'IM_Count_LB
+        '
+        Me.IM_Count_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.IM_Count_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.IM_Count_LB.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Count_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.IM_Count_LB.Location = New System.Drawing.Point(113, 670)
+        Me.IM_Count_LB.Name = "IM_Count_LB"
+        Me.IM_Count_LB.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.IM_Count_LB.Size = New System.Drawing.Size(109, 25)
+        Me.IM_Count_LB.TabIndex = 614
+        Me.IM_Count_LB.Text = "المواد : 0"
+        Me.IM_Count_LB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'User_Name_lb
+        '
+        Me.User_Name_lb.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.User_Name_lb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.User_Name_lb.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.User_Name_lb.ForeColor = System.Drawing.Color.Blue
+        Me.User_Name_lb.Location = New System.Drawing.Point(223, 670)
+        Me.User_Name_lb.Name = "User_Name_lb"
+        Me.User_Name_lb.Size = New System.Drawing.Size(518, 25)
+        Me.User_Name_lb.TabIndex = 630
+        Me.User_Name_lb.Text = "المستخدم"
+        Me.User_Name_lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'DiscountPanel
+        '
+        Me.DiscountPanel.Controls.Add(Me.Calc_Dicount_Btn)
+        Me.DiscountPanel.Controls.Add(Me.Discount_txt)
+        Me.DiscountPanel.Controls.Add(Me.Label13)
+        Me.DiscountPanel.Controls.Add(Me.Total_TextBox)
+        Me.DiscountPanel.Controls.Add(Me.Label6)
+        Me.DiscountPanel.Location = New System.Drawing.Point(2, 512)
+        Me.DiscountPanel.Name = "DiscountPanel"
+        Me.DiscountPanel.Size = New System.Drawing.Size(183, 60)
+        Me.DiscountPanel.TabIndex = 634
+        '
+        'Calc_Dicount_Btn
+        '
+        Me.Calc_Dicount_Btn.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Calc_Dicount_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_ok_173061
+        Me.Calc_Dicount_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Calc_Dicount_Btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Calc_Dicount_Btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Calc_Dicount_Btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.Calc_Dicount_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Calc_Dicount_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.Calc_Dicount_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Calc_Dicount_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(4, 33)
+        Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
+        Me.Calc_Dicount_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(23, 23)
+        Me.Calc_Dicount_Btn.TabIndex = 662
+        Me.Calc_Dicount_Btn.TabStop = False
+        Me.Calc_Dicount_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Calc_Dicount_Btn.UseVisualStyleBackColor = False
+        '
+        'Discount_txt
+        '
+        Me.Discount_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Discount_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Discount_txt.ContextMenuStrip = Me.Discount_MenuStrip
+        Me.Discount_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
+        Me.Discount_txt.ForeColor = System.Drawing.Color.Black
+        Me.Discount_txt.Location = New System.Drawing.Point(3, 31)
+        Me.Discount_txt.MaxLength = 200
+        Me.Discount_txt.Name = "Discount_txt"
+        Me.Discount_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Discount_txt.Size = New System.Drawing.Size(117, 26)
+        Me.Discount_txt.TabIndex = 617
+        '
+        'Discount_MenuStrip
+        '
+        Me.Discount_MenuStrip.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Discount_MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.تخفيضبنسبةToolStripMenuItem})
+        Me.Discount_MenuStrip.Name = "Discount_MenuStrip"
+        Me.Discount_MenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Discount_MenuStrip.Size = New System.Drawing.Size(150, 28)
+        '
+        'تخفيضبنسبةToolStripMenuItem
+        '
+        Me.تخفيضبنسبةToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.تخفيضبنسبةToolStripMenuItem.Name = "تخفيضبنسبةToolStripMenuItem"
+        Me.تخفيضبنسبةToolStripMenuItem.Size = New System.Drawing.Size(149, 24)
+        Me.تخفيضبنسبةToolStripMenuItem.Text = "تخفيض بنسبة"
+        '
+        'Label13
+        '
+        Me.Label13.Font = New System.Drawing.Font("JF Flat", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(122, 34)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(57, 19)
+        Me.Label13.TabIndex = 618
+        Me.Label13.Text = "التخفيض"
+        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Total_TextBox
+        '
+        Me.Total_TextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Total_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Total_TextBox.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Total_TextBox.ForeColor = System.Drawing.Color.Black
+        Me.Total_TextBox.Location = New System.Drawing.Point(3, 3)
+        Me.Total_TextBox.MaxLength = 200
+        Me.Total_TextBox.Name = "Total_TextBox"
+        Me.Total_TextBox.ReadOnly = True
+        Me.Total_TextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Total_TextBox.Size = New System.Drawing.Size(117, 26)
+        Me.Total_TextBox.TabIndex = 289
+        '
+        'Label6
+        '
+        Me.Label6.Font = New System.Drawing.Font("JF Flat", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(123, 8)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(58, 19)
+        Me.Label6.TabIndex = 387
+        Me.Label6.Text = "الإجمالي"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'PauseCmb
+        '
+        Me.PauseCmb.BackColor = System.Drawing.SystemColors.Window
+        Me.PauseCmb.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PauseCmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.PauseCmb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.PauseCmb.Font = New System.Drawing.Font("JF Flat", 9.25!)
+        Me.PauseCmb.FormattingEnabled = True
+        Me.PauseCmb.Items.AddRange(New Object() {"123456789"})
+        Me.PauseCmb.Location = New System.Drawing.Point(29, 2)
+        Me.PauseCmb.Name = "PauseCmb"
+        Me.PauseCmb.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.PauseCmb.Size = New System.Drawing.Size(210, 29)
+        Me.PauseCmb.TabIndex = 632
+        '
+        'Label4
+        '
+        Me.Label4.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(103, 7)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(109, 21)
+        Me.Label4.TabIndex = 622
+        Me.Label4.Text = "إجمالي المستلم"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Piedmoney_txt
+        '
+        Me.Piedmoney_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Piedmoney_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Piedmoney_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Piedmoney_txt.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Piedmoney_txt.Location = New System.Drawing.Point(3, 3)
+        Me.Piedmoney_txt.MaxLength = 200
+        Me.Piedmoney_txt.Name = "Piedmoney_txt"
+        Me.Piedmoney_txt.ReadOnly = True
+        Me.Piedmoney_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Piedmoney_txt.Size = New System.Drawing.Size(97, 28)
+        Me.Piedmoney_txt.TabIndex = 621
+        '
+        'Label17
+        '
+        Me.Label17.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(177, 583)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(60, 24)
+        Me.Label17.TabIndex = 620
+        Me.Label17.Text = "الصافي"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Pure_txt
+        '
+        Me.Pure_txt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Pure_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Pure_txt.Font = New System.Drawing.Font("Stencil", 22.0!)
+        Me.Pure_txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Pure_txt.Location = New System.Drawing.Point(3, 573)
+        Me.Pure_txt.MaxLength = 200
+        Me.Pure_txt.Name = "Pure_txt"
+        Me.Pure_txt.ReadOnly = True
+        Me.Pure_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Pure_txt.Size = New System.Drawing.Size(171, 42)
+        Me.Pure_txt.TabIndex = 619
+        Me.Pure_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Notes_txt
+        '
+        Me.Notes_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Notes_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Notes_txt.Font = New System.Drawing.Font("JF Flat", 10.5!)
+        Me.Notes_txt.ForeColor = System.Drawing.Color.Black
+        Me.Notes_txt.Location = New System.Drawing.Point(187, 512)
+        Me.Notes_txt.MaxLength = 250
+        Me.Notes_txt.Name = "Notes_txt"
+        Me.Notes_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Notes_txt.Size = New System.Drawing.Size(681, 32)
+        Me.Notes_txt.TabIndex = 608
+        '
+        'AG_Grid
+        '
+        Me.AG_Grid.AllowUserToAddRows = False
+        Me.AG_Grid.AllowUserToDeleteRows = False
+        Me.AG_Grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.AG_Grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.AG_Grid.BackgroundColor = System.Drawing.Color.White
+        Me.AG_Grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AG_Grid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
+        Me.AG_Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.AG_Grid.ColumnHeadersVisible = False
+        Me.AG_Grid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.AG_ID_CL, Me.Agent_name_CL, Me.Balance_CL})
+        Me.AG_Grid.Cursor = System.Windows.Forms.Cursors.Hand
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AG_Grid.DefaultCellStyle = DataGridViewCellStyle15
+        Me.AG_Grid.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
+        Me.AG_Grid.Location = New System.Drawing.Point(0, 33)
+        Me.AG_Grid.MultiSelect = False
+        Me.AG_Grid.Name = "AG_Grid"
+        Me.AG_Grid.ReadOnly = True
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AG_Grid.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
+        Me.AG_Grid.RowHeadersVisible = False
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AG_Grid.RowsDefaultCellStyle = DataGridViewCellStyle17
+        Me.AG_Grid.RowTemplate.Height = 30
+        Me.AG_Grid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AG_Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.AG_Grid.Size = New System.Drawing.Size(358, 2)
+        Me.AG_Grid.TabIndex = 614
+        Me.AG_Grid.Visible = False
+        '
+        'AG_ID_CL
+        '
+        Me.AG_ID_CL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.AG_ID_CL.DataPropertyName = "AG_ID"
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AG_ID_CL.DefaultCellStyle = DataGridViewCellStyle14
+        Me.AG_ID_CL.FillWeight = 5.0!
+        Me.AG_ID_CL.Frozen = True
+        Me.AG_ID_CL.HeaderText = "رقم الصنف"
+        Me.AG_ID_CL.Name = "AG_ID_CL"
+        Me.AG_ID_CL.ReadOnly = True
+        Me.AG_ID_CL.Visible = False
+        Me.AG_ID_CL.Width = 5
+        '
+        'Agent_name_CL
+        '
+        Me.Agent_name_CL.DataPropertyName = "Ag_name"
+        Me.Agent_name_CL.FillWeight = 163.6258!
+        Me.Agent_name_CL.HeaderText = "الصنف"
+        Me.Agent_name_CL.Name = "Agent_name_CL"
+        Me.Agent_name_CL.ReadOnly = True
+        '
+        'Balance_CL
+        '
+        Me.Balance_CL.DataPropertyName = "T_Balance"
+        Me.Balance_CL.FillWeight = 40.0!
+        Me.Balance_CL.HeaderText = "الوحدة"
+        Me.Balance_CL.Name = "Balance_CL"
+        Me.Balance_CL.ReadOnly = True
+        '
+        'Bill_ID_Txt
+        '
+        Me.Bill_ID_Txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Bill_ID_Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Bill_ID_Txt.ContextMenuStrip = Me.NULLContextMenuStrip
+        Me.Bill_ID_Txt.Font = New System.Drawing.Font("Times New Roman", 14.75!, System.Drawing.FontStyle.Bold)
+        Me.Bill_ID_Txt.ForeColor = System.Drawing.Color.Black
+        Me.Bill_ID_Txt.Location = New System.Drawing.Point(31, 5)
+        Me.Bill_ID_Txt.MaxLength = 250
+        Me.Bill_ID_Txt.Name = "Bill_ID_Txt"
+        Me.Bill_ID_Txt.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.Bill_ID_Txt.Size = New System.Drawing.Size(95, 30)
+        Me.Bill_ID_Txt.TabIndex = 625
+        Me.Bill_ID_Txt.Text = "---"
+        Me.Bill_ID_Txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label3525
+        '
+        Me.Label3525.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3525.Location = New System.Drawing.Point(363, 1)
+        Me.Label3525.Name = "Label3525"
+        Me.Label3525.Size = New System.Drawing.Size(52, 32)
+        Me.Label3525.TabIndex = 379
+        Me.Label3525.Text = "الزبون :"
+        Me.Label3525.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'VoidLb
+        '
+        Me.VoidLb.BackColor = System.Drawing.Color.IndianRed
+        Me.VoidLb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.VoidLb.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VoidLb.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.VoidLb.Location = New System.Drawing.Point(2, 42)
+        Me.VoidLb.Name = "VoidLb"
+        Me.VoidLb.Size = New System.Drawing.Size(268, 36)
+        Me.VoidLb.TabIndex = 402
+        Me.VoidLb.Text = "فاتورة ملغية"
+        Me.VoidLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.VoidLb.Visible = False
+        '
+        'AG_SH_txt
+        '
+        Me.AG_SH_txt.BackColor = System.Drawing.Color.LightGray
+        Me.AG_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.AG_SH_txt.ContextMenuStrip = Me.AG_ContextMenuStrip
+        Me.AG_SH_txt.Enabled = False
+        Me.AG_SH_txt.Font = New System.Drawing.Font("JF Flat", 10.0!)
+        Me.AG_SH_txt.Location = New System.Drawing.Point(25, 1)
+        Me.AG_SH_txt.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.AG_SH_txt.Name = "AG_SH_txt"
+        Me.AG_SH_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.AG_SH_txt.Size = New System.Drawing.Size(333, 31)
+        Me.AG_SH_txt.TabIndex = 613
+        Me.AG_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'AG_ContextMenuStrip
+        '
+        Me.AG_ContextMenuStrip.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.AG_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.عرضرصيدالعميلToolStripMenuItem, Me.عرضفواتيرالزبونToolStripMenuItem, Me.كشفحسابالعميلToolStripMenuItem, Me.إضافةكعميلجديدToolStripMenuItem})
+        Me.AG_ContextMenuStrip.Name = "AG_ContextMenuStrip"
+        Me.AG_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.AG_ContextMenuStrip.Size = New System.Drawing.Size(188, 100)
+        '
+        'عرضرصيدالعميلToolStripMenuItem
+        '
+        Me.عرضرصيدالعميلToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.عرضرصيدالعميلToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_search_46834
+        Me.عرضرصيدالعميلToolStripMenuItem.Name = "عرضرصيدالعميلToolStripMenuItem"
+        Me.عرضرصيدالعميلToolStripMenuItem.Size = New System.Drawing.Size(187, 24)
+        Me.عرضرصيدالعميلToolStripMenuItem.Text = "عرض رصيد العميل"
+        '
+        'عرضفواتيرالزبونToolStripMenuItem
+        '
+        Me.عرضفواتيرالزبونToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.عرضفواتيرالزبونToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_search_46834
+        Me.عرضفواتيرالزبونToolStripMenuItem.Name = "عرضفواتيرالزبونToolStripMenuItem"
+        Me.عرضفواتيرالزبونToolStripMenuItem.Size = New System.Drawing.Size(187, 24)
+        Me.عرضفواتيرالزبونToolStripMenuItem.Text = "عرض فواتير العميل"
+        '
+        'كشفحسابالعميلToolStripMenuItem
+        '
+        Me.كشفحسابالعميلToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.كشفحسابالعميلToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_Money_Increase_379473
+        Me.كشفحسابالعميلToolStripMenuItem.Name = "كشفحسابالعميلToolStripMenuItem"
+        Me.كشفحسابالعميلToolStripMenuItem.Size = New System.Drawing.Size(187, 24)
+        Me.كشفحسابالعميلToolStripMenuItem.Text = "كشف حساب العميل"
+        '
+        'إضافةكعميلجديدToolStripMenuItem
+        '
+        Me.إضافةكعميلجديدToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.إضافةكعميلجديدToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_Add_27831
+        Me.إضافةكعميلجديدToolStripMenuItem.Name = "إضافةكعميلجديدToolStripMenuItem"
+        Me.إضافةكعميلجديدToolStripMenuItem.Size = New System.Drawing.Size(187, 24)
+        Me.إضافةكعميلجديدToolStripMenuItem.Text = "إضافة كزبون جديد +"
+        '
+        'DateTimeEx
+        '
+        Me.DateTimeEx.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimeEx.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.DateTimeEx.CustomFormat = "dd/MM/yyyy"
+        Me.DateTimeEx.Font = New System.Drawing.Font("Times New Roman", 13.25!, System.Drawing.FontStyle.Bold)
+        Me.DateTimeEx.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DateTimeEx.Location = New System.Drawing.Point(2, 5)
+        Me.DateTimeEx.Name = "DateTimeEx"
+        Me.DateTimeEx.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.DateTimeEx.RightToLeftLayout = True
+        Me.DateTimeEx.Size = New System.Drawing.Size(160, 28)
+        Me.DateTimeEx.TabIndex = 383
+        '
+        'Label5
+        '
+        Me.Label5.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(165, 9)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(54, 21)
+        Me.Label5.TabIndex = 384
+        Me.Label5.Text = "التاريخ :"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label16
+        '
+        Me.Label16.BackColor = System.Drawing.SystemColors.Control
+        Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label16.Font = New System.Drawing.Font("JF Flat", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label16.Location = New System.Drawing.Point(2, 1)
+        Me.Label16.Name = "Label16"
+        Me.Label16.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Label16.Size = New System.Drawing.Size(268, 40)
+        Me.Label16.TabIndex = 617
+        Me.Label16.Text = "فاتورة مبيعات"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'IM_Show_CxtMStrip
+        '
+        Me.IM_Show_CxtMStrip.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_Show_CxtMStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+        Me.IM_Show_CxtMStrip.Name = "IM_ContextMenuStrip"
+        Me.IM_Show_CxtMStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.IM_Show_CxtMStrip.Size = New System.Drawing.Size(211, 32)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Image = Global.resturant.My.Resources.Resources.iconfinder_search_126577
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(210, 28)
+        Me.ToolStripMenuItem1.Text = "عرض تفاصيل الصنف"
+        '
+        'IM_Qty_LB
+        '
+        Me.IM_Qty_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.IM_Qty_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.IM_Qty_LB.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Qty_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.IM_Qty_LB.Location = New System.Drawing.Point(3, 670)
+        Me.IM_Qty_LB.Name = "IM_Qty_LB"
+        Me.IM_Qty_LB.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.IM_Qty_LB.Size = New System.Drawing.Size(109, 25)
+        Me.IM_Qty_LB.TabIndex = 643
+        Me.IM_Qty_LB.Text = "الكميات : 0"
+        Me.IM_Qty_LB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'BillNumTxt
+        '
+        Me.BillNumTxt.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.BillNumTxt.BackColor = System.Drawing.SystemColors.Control
+        Me.BillNumTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.BillNumTxt.Font = New System.Drawing.Font("Times New Roman", 13.0!, System.Drawing.FontStyle.Bold)
+        Me.BillNumTxt.Location = New System.Drawing.Point(2, 6)
+        Me.BillNumTxt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.BillNumTxt.Name = "BillNumTxt"
+        Me.BillNumTxt.ReadOnly = True
+        Me.BillNumTxt.Size = New System.Drawing.Size(108, 27)
+        Me.BillNumTxt.TabIndex = 649
+        Me.BillNumTxt.Tag = "2"
+        Me.BillNumTxt.Text = "1"
+        Me.BillNumTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Print_ContextMenuStrip
+        '
+        Me.Print_ContextMenuStrip.Font = New System.Drawing.Font("Arial", 13.25!)
+        Me.Print_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem, Me.طباعةورقةA5ToolStripMenuItem, Me.طباعةورقA4ToolStripMenuItem, Me.طباعةورقA4ملاحظاتالصنفToolStripMenuItem, Me.طباعةورقةA4ToolStripMenuItem, Me.ورقةA4تصميمجاهزToolStripMenuItem, Me.طباعةورقةA4تصميمجاهز2ToolStripMenuItem, Me.طباعةإذنصـــرفToolStripMenuItem, Me.طباعةإذنصـــرفA4ToolStripMenuItem, Me.طباعةالتسليموالإستلامToolStripMenuItem, Me.تحديدنوعالطباعـــةToolStripMenuItem})
+        Me.Print_ContextMenuStrip.Name = "AG_ContextMenuStrip"
+        Me.Print_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Print_ContextMenuStrip.Size = New System.Drawing.Size(257, 246)
+        '
+        'إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem
+        '
+        Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.iconfinder_038_029_share_link_friends_send_mail_android_material_3171647
+        Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Name = "إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem"
+        Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Text = "إرسال الفاتورة للبريد الإلكتروني"
+        '
+        'طباعةورقةA5ToolStripMenuItem
+        '
+        Me.طباعةورقةA5ToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.طباعةورقةA5ToolStripMenuItem.Name = "طباعةورقةA5ToolStripMenuItem"
+        Me.طباعةورقةA5ToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.طباعةورقةA5ToolStripMenuItem.Text = "طباعة ورقة A5"
+        Me.طباعةورقةA5ToolStripMenuItem.Visible = False
+        '
+        'طباعةورقA4ToolStripMenuItem
+        '
+        Me.طباعةورقA4ToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.طباعةورقA4ToolStripMenuItem.Name = "طباعةورقA4ToolStripMenuItem"
+        Me.طباعةورقA4ToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.طباعةورقA4ToolStripMenuItem.Text = "طباعة ورق A4"
+        Me.طباعةورقA4ToolStripMenuItem.Visible = False
+        '
+        'طباعةورقA4ملاحظاتالصنفToolStripMenuItem
+        '
+        Me.طباعةورقA4ملاحظاتالصنفToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.طباعةورقA4ملاحظاتالصنفToolStripMenuItem.Name = "طباعةورقA4ملاحظاتالصنفToolStripMenuItem"
+        Me.طباعةورقA4ملاحظاتالصنفToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.طباعةورقA4ملاحظاتالصنفToolStripMenuItem.Text = "طباعة ورق A4 + ملاحظات الصنف"
+        Me.طباعةورقA4ملاحظاتالصنفToolStripMenuItem.Visible = False
+        '
+        'طباعةورقةA4ToolStripMenuItem
+        '
+        Me.طباعةورقةA4ToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.طباعةورقةA4ToolStripMenuItem.Name = "طباعةورقةA4ToolStripMenuItem"
+        Me.طباعةورقةA4ToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.طباعةورقةA4ToolStripMenuItem.Text = "طباعة ورقة A4_2"
+        Me.طباعةورقةA4ToolStripMenuItem.Visible = False
+        '
+        'ورقةA4تصميمجاهزToolStripMenuItem
+        '
+        Me.ورقةA4تصميمجاهزToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ورقةA4تصميمجاهزToolStripMenuItem.Name = "ورقةA4تصميمجاهزToolStripMenuItem"
+        Me.ورقةA4تصميمجاهزToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.ورقةA4تصميمجاهزToolStripMenuItem.Text = "طباعة ورقة A4 تصميم جاهز"
+        Me.ورقةA4تصميمجاهزToolStripMenuItem.Visible = False
+        '
+        'طباعةورقةA4تصميمجاهز2ToolStripMenuItem
+        '
+        Me.طباعةورقةA4تصميمجاهز2ToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.طباعةورقةA4تصميمجاهز2ToolStripMenuItem.Name = "طباعةورقةA4تصميمجاهز2ToolStripMenuItem"
+        Me.طباعةورقةA4تصميمجاهز2ToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.طباعةورقةA4تصميمجاهز2ToolStripMenuItem.Text = "طباعة ورقة A4 تصميم جاهز 2"
+        Me.طباعةورقةA4تصميمجاهز2ToolStripMenuItem.Visible = False
+        '
+        'طباعةإذنصـــرفToolStripMenuItem
+        '
+        Me.طباعةإذنصـــرفToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.طباعةإذنصـــرفToolStripMenuItem.Name = "طباعةإذنصـــرفToolStripMenuItem"
+        Me.طباعةإذنصـــرفToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.طباعةإذنصـــرفToolStripMenuItem.Text = "طباعة إذن صـــرف A5"
+        '
+        'طباعةإذنصـــرفA4ToolStripMenuItem
+        '
+        Me.طباعةإذنصـــرفA4ToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.طباعةإذنصـــرفA4ToolStripMenuItem.Name = "طباعةإذنصـــرفA4ToolStripMenuItem"
+        Me.طباعةإذنصـــرفA4ToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.طباعةإذنصـــرفA4ToolStripMenuItem.Text = "طباعة إذن صـــرف A4"
+        '
+        'طباعةالتسليموالإستلامToolStripMenuItem
+        '
+        Me.طباعةالتسليموالإستلامToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.طباعةالتسليموالإستلامToolStripMenuItem.Name = "طباعةالتسليموالإستلامToolStripMenuItem"
+        Me.طباعةالتسليموالإستلامToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.طباعةالتسليموالإستلامToolStripMenuItem.Text = "طباعة التسليم و الإستلام"
+        Me.طباعةالتسليموالإستلامToolStripMenuItem.Visible = False
+        '
+        'تحديدنوعالطباعـــةToolStripMenuItem
+        '
+        Me.تحديدنوعالطباعـــةToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.تحديدنوعالطباعـــةToolStripMenuItem.Name = "تحديدنوعالطباعـــةToolStripMenuItem"
+        Me.تحديدنوعالطباعـــةToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
+        Me.تحديدنوعالطباعـــةToolStripMenuItem.Text = "تحديد نوع الطباعـــة"
+        '
+        'Search_By_Bar_CB
+        '
+        Me.Search_By_Bar_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Search_By_Bar_CB.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Search_By_Bar_CB.Location = New System.Drawing.Point(158, 7)
+        Me.Search_By_Bar_CB.Name = "Search_By_Bar_CB"
+        Me.Search_By_Bar_CB.Size = New System.Drawing.Size(66, 25)
+        Me.Search_By_Bar_CB.TabIndex = 653
+        Me.Search_By_Bar_CB.Text = "باركود"
+        Me.Search_By_Bar_CB.UseVisualStyleBackColor = True
+        '
+        'IM_Info_Timer
+        '
+        Me.IM_Info_Timer.Interval = 500
+        '
+        'Show_IM_Rtn_btn
+        '
+        Me.Show_IM_Rtn_btn.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Show_IM_Rtn_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_IM_Rtn_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Show_IM_Rtn_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.Show_IM_Rtn_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Show_IM_Rtn_btn.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_IM_Rtn_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Show_IM_Rtn_btn.Location = New System.Drawing.Point(4, 617)
+        Me.Show_IM_Rtn_btn.Name = "Show_IM_Rtn_btn"
+        Me.Show_IM_Rtn_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Show_IM_Rtn_btn.Size = New System.Drawing.Size(53, 30)
+        Me.Show_IM_Rtn_btn.TabIndex = 661
+        Me.Show_IM_Rtn_btn.TabStop = False
+        Me.Show_IM_Rtn_btn.Text = "عرض"
+        Me.Show_IM_Rtn_btn.UseVisualStyleBackColor = False
+        '
+        'Label18
+        '
+        Me.Label18.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label18.Location = New System.Drawing.Point(177, 620)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(49, 24)
+        Me.Label18.TabIndex = 660
+        Me.Label18.Text = "الراجع"
+        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Rtn_Count_txt
+        '
+        Me.Rtn_Count_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Rtn_Count_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Rtn_Count_txt.Font = New System.Drawing.Font("Stencil", 14.0!)
+        Me.Rtn_Count_txt.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Rtn_Count_txt.Location = New System.Drawing.Point(59, 617)
+        Me.Rtn_Count_txt.MaxLength = 200
+        Me.Rtn_Count_txt.Name = "Rtn_Count_txt"
+        Me.Rtn_Count_txt.ReadOnly = True
+        Me.Rtn_Count_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Rtn_Count_txt.Size = New System.Drawing.Size(115, 30)
+        Me.Rtn_Count_txt.TabIndex = 659
+        '
+        'Project_cm
+        '
+        Me.Project_cm.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.Project_cm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.Project_cm.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Project_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Project_cm.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Project_cm.FormattingEnabled = True
+        Me.Project_cm.Location = New System.Drawing.Point(26, 6)
+        Me.Project_cm.Name = "Project_cm"
+        Me.Project_cm.Size = New System.Drawing.Size(205, 24)
+        Me.Project_cm.TabIndex = 662
+        '
+        'ReceiptsMetroGrid
+        '
+        Me.ReceiptsMetroGrid.AllowUserToAddRows = False
+        Me.ReceiptsMetroGrid.AllowUserToDeleteRows = False
+        Me.ReceiptsMetroGrid.AllowUserToResizeRows = False
+        Me.ReceiptsMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.ReceiptsMetroGrid.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.ReceiptsMetroGrid.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ReceiptsMetroGrid.CausesValidation = False
+        Me.ReceiptsMetroGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+        Me.ReceiptsMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ReceiptsMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle18
+        Me.ReceiptsMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ReceiptsMetroGrid.ColumnHeadersVisible = False
+        Me.ReceiptsMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Receipt_T_ID_CL, Me.Receipt_Num_CL, Me.PAYMENT_NAME_CL, Me.DataGridViewTextBoxColumn3, Me.Value_CL})
+        Me.ReceiptsMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("JF Flat", 12.0!)
+        DataGridViewCellStyle20.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ReceiptsMetroGrid.DefaultCellStyle = DataGridViewCellStyle20
+        Me.ReceiptsMetroGrid.EnableHeadersVisualStyles = False
+        Me.ReceiptsMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        Me.ReceiptsMetroGrid.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.ReceiptsMetroGrid.Location = New System.Drawing.Point(667, 546)
+        Me.ReceiptsMetroGrid.MultiSelect = False
+        Me.ReceiptsMetroGrid.Name = "ReceiptsMetroGrid"
+        Me.ReceiptsMetroGrid.ReadOnly = True
+        Me.ReceiptsMetroGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ReceiptsMetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle21
+        Me.ReceiptsMetroGrid.RowHeadersVisible = False
+        Me.ReceiptsMetroGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("JF Flat", 10.0!)
+        DataGridViewCellStyle22.ForeColor = System.Drawing.Color.Black
+        Me.ReceiptsMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle22
+        Me.ReceiptsMetroGrid.RowTemplate.Height = 30
+        Me.ReceiptsMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ReceiptsMetroGrid.Size = New System.Drawing.Size(282, 67)
+        Me.ReceiptsMetroGrid.TabIndex = 664
+        Me.ReceiptsMetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
+        '
+        'Receipt_T_ID_CL
+        '
+        Me.Receipt_T_ID_CL.DataPropertyName = "T_ID"
+        Me.Receipt_T_ID_CL.HeaderText = "رقم الآلي"
+        Me.Receipt_T_ID_CL.Name = "Receipt_T_ID_CL"
+        Me.Receipt_T_ID_CL.ReadOnly = True
+        Me.Receipt_T_ID_CL.Visible = False
+        '
+        'Receipt_Num_CL
+        '
+        Me.Receipt_Num_CL.DataPropertyName = "Receipt_Num"
+        Me.Receipt_Num_CL.FillWeight = 49.65193!
+        Me.Receipt_Num_CL.HeaderText = "ر.الإيصال"
+        Me.Receipt_Num_CL.Name = "Receipt_Num_CL"
+        Me.Receipt_Num_CL.ReadOnly = True
+        Me.Receipt_Num_CL.Visible = False
+        '
+        'PAYMENT_NAME_CL
+        '
+        Me.PAYMENT_NAME_CL.DataPropertyName = "PAYMENT_NAME"
+        Me.PAYMENT_NAME_CL.HeaderText = "طريقة الدفع"
+        Me.PAYMENT_NAME_CL.Name = "PAYMENT_NAME_CL"
+        Me.PAYMENT_NAME_CL.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "Type_Name"
+        Me.DataGridViewTextBoxColumn3.FillWeight = 108.9268!
+        Me.DataGridViewTextBoxColumn3.HeaderText = "النوع"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'Value_CL
+        '
+        Me.Value_CL.DataPropertyName = "Value"
+        DataGridViewCellStyle19.Format = "N2"
+        Me.Value_CL.DefaultCellStyle = DataGridViewCellStyle19
+        Me.Value_CL.FillWeight = 61.42132!
+        Me.Value_CL.HeaderText = "المبلغ"
+        Me.Value_CL.Name = "Value_CL"
+        Me.Value_CL.ReadOnly = True
+        '
+        'AG_Show_Balance_CB
+        '
+        Me.AG_Show_Balance_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.AG_Show_Balance_CB.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.AG_Show_Balance_CB.Location = New System.Drawing.Point(100, 4)
+        Me.AG_Show_Balance_CB.Name = "AG_Show_Balance_CB"
+        Me.AG_Show_Balance_CB.Size = New System.Drawing.Size(128, 20)
+        Me.AG_Show_Balance_CB.TabIndex = 674
+        Me.AG_Show_Balance_CB.Text = "إظهار الديون فالفاتورة"
+        Me.AG_Show_Balance_CB.UseVisualStyleBackColor = True
+        '
+        'Marketer_Lb
+        '
+        Me.Marketer_Lb.BackColor = System.Drawing.Color.Transparent
+        Me.Marketer_Lb.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Marketer_Lb.Location = New System.Drawing.Point(236, 87)
+        Me.Marketer_Lb.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Marketer_Lb.Name = "Marketer_Lb"
+        Me.Marketer_Lb.Size = New System.Drawing.Size(64, 21)
+        Me.Marketer_Lb.TabIndex = 677
+        Me.Marketer_Lb.Text = "المسوق :"
+        Me.Marketer_Lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'AG_Panel
+        '
+        Me.AG_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.AG_Panel.Controls.Add(Me.AG_Grid)
+        Me.AG_Panel.Controls.Add(Me.Show_IM_btn2)
+        Me.AG_Panel.Controls.Add(Me.Label3525)
+        Me.AG_Panel.Controls.Add(Me.AG_SH_txt)
+        Me.AG_Panel.Location = New System.Drawing.Point(582, 42)
+        Me.AG_Panel.Name = "AG_Panel"
+        Me.AG_Panel.Size = New System.Drawing.Size(422, 38)
+        Me.AG_Panel.TabIndex = 679
+        '
+        'Show_IM_btn2
+        '
+        Me.Show_IM_btn2.BackColor = System.Drawing.Color.White
+        Me.Show_IM_btn2.BackgroundImage = Global.resturant.My.Resources.Resources.if_download_173000
+        Me.Show_IM_btn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Show_IM_btn2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_IM_btn2.Enabled = False
+        Me.Show_IM_btn2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Show_IM_btn2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_IM_btn2.Location = New System.Drawing.Point(1, 1)
+        Me.Show_IM_btn2.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Show_IM_btn2.Name = "Show_IM_btn2"
+        Me.Show_IM_btn2.Size = New System.Drawing.Size(24, 31)
+        Me.Show_IM_btn2.TabIndex = 616
+        Me.Show_IM_btn2.UseVisualStyleBackColor = False
+        '
+        'Panel2
+        '
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.Label7)
+        Me.Panel2.Controls.Add(Me.Project_cm)
+        Me.Panel2.Controls.Add(Me.Show_AG_Projects_btn)
+        Me.Panel2.Location = New System.Drawing.Point(276, 42)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(305, 38)
+        Me.Panel2.TabIndex = 680
+        '
+        'Label7
+        '
+        Me.Label7.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(232, 8)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(65, 21)
+        Me.Label7.TabIndex = 683
+        Me.Label7.Text = "الزبون 2 :"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Show_AG_Projects_btn
+        '
+        Me.Show_AG_Projects_btn.BackColor = System.Drawing.Color.White
+        Me.Show_AG_Projects_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
+        Me.Show_AG_Projects_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Show_AG_Projects_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_AG_Projects_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Show_AG_Projects_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_AG_Projects_btn.Location = New System.Drawing.Point(2, 3)
+        Me.Show_AG_Projects_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Show_AG_Projects_btn.Name = "Show_AG_Projects_btn"
+        Me.Show_AG_Projects_btn.Size = New System.Drawing.Size(24, 31)
+        Me.Show_AG_Projects_btn.TabIndex = 663
+        Me.Show_AG_Projects_btn.UseVisualStyleBackColor = False
+        '
+        'BillNumPanel
+        '
+        Me.BillNumPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.BillNumPanel.Controls.Add(Me.Bill_ID_Txt)
+        Me.BillNumPanel.Controls.Add(Me.Down_Bill_btn)
+        Me.BillNumPanel.Controls.Add(Me.Up_Bill_btn)
+        Me.BillNumPanel.Controls.Add(Me.Search_By_Bar_CB)
+        Me.BillNumPanel.Location = New System.Drawing.Point(773, 1)
+        Me.BillNumPanel.Name = "BillNumPanel"
+        Me.BillNumPanel.Size = New System.Drawing.Size(231, 40)
+        Me.BillNumPanel.TabIndex = 687
+        '
+        'Panel10
+        '
+        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel10.Controls.Add(Me.DateTimeEx)
+        Me.Panel10.Controls.Add(Me.Label5)
+        Me.Panel10.Location = New System.Drawing.Point(546, 1)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(226, 40)
+        Me.Panel10.TabIndex = 688
+        '
+        'Panel13
+        '
+        Me.Panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel13.Controls.Add(Me.Piedmoney_txt)
+        Me.Panel13.Controls.Add(Me.Label4)
+        Me.Panel13.Location = New System.Drawing.Point(742, 615)
+        Me.Panel13.Name = "Panel13"
+        Me.Panel13.Size = New System.Drawing.Size(262, 36)
+        Me.Panel13.TabIndex = 691
+        '
+        'Panel14
+        '
+        Me.Panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel14.Controls.Add(Me.Label15)
+        Me.Panel14.Controls.Add(Me.PauseCmb)
+        Me.Panel14.Controls.Add(Me.MoveToBill_Btn)
+        Me.Panel14.Location = New System.Drawing.Point(371, 82)
+        Me.Panel14.Name = "Panel14"
+        Me.Panel14.Size = New System.Drawing.Size(362, 37)
+        Me.Panel14.TabIndex = 692
+        '
+        'Label15
+        '
+        Me.Label15.BackColor = System.Drawing.Color.Transparent
+        Me.Label15.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(243, 6)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(116, 21)
+        Me.Label15.TabIndex = 674
+        Me.Label15.Text = "الفواتير المعلقة :"
+        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Panel16
+        '
+        Me.Panel16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel16.Controls.Add(Me.Show_SumPied_CB)
+        Me.Panel16.Controls.Add(Me.Show_Bill_Rest_CB)
+        Me.Panel16.Controls.Add(Me.AG_Show_Balance_CB)
+        Me.Panel16.Controls.Add(Me.Show_Bill_CB)
+        Me.Panel16.Location = New System.Drawing.Point(188, 545)
+        Me.Panel16.Name = "Panel16"
+        Me.Panel16.Size = New System.Drawing.Size(473, 35)
+        Me.Panel16.TabIndex = 694
+        '
+        'Show_SumPied_CB
+        '
+        Me.Show_SumPied_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_SumPied_CB.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Show_SumPied_CB.Location = New System.Drawing.Point(2, 4)
+        Me.Show_SumPied_CB.Name = "Show_SumPied_CB"
+        Me.Show_SumPied_CB.Size = New System.Drawing.Size(91, 20)
+        Me.Show_SumPied_CB.TabIndex = 702
+        Me.Show_SumPied_CB.Text = "إظهار المدفوع"
+        Me.Show_SumPied_CB.UseVisualStyleBackColor = True
+        '
+        'Show_Bill_Rest_CB
+        '
+        Me.Show_Bill_Rest_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_Bill_Rest_CB.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Show_Bill_Rest_CB.Location = New System.Drawing.Point(235, 4)
+        Me.Show_Bill_Rest_CB.Name = "Show_Bill_Rest_CB"
+        Me.Show_Bill_Rest_CB.Size = New System.Drawing.Size(114, 20)
+        Me.Show_Bill_Rest_CB.TabIndex = 697
+        Me.Show_Bill_Rest_CB.Text = "إظهار باقي الفاتورة"
+        Me.Show_Bill_Rest_CB.UseVisualStyleBackColor = True
+        '
+        'Show_Bill_CB
+        '
+        Me.Show_Bill_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_Bill_CB.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Show_Bill_CB.Location = New System.Drawing.Point(356, 4)
+        Me.Show_Bill_CB.Name = "Show_Bill_CB"
+        Me.Show_Bill_CB.Size = New System.Drawing.Size(94, 20)
+        Me.Show_Bill_CB.TabIndex = 675
+        Me.Show_Bill_CB.Text = "معاينة الفاتورة"
+        Me.Show_Bill_CB.UseVisualStyleBackColor = True
+        '
+        'Label27
+        '
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(870, 517)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(62, 21)
+        Me.Label27.TabIndex = 695
+        Me.Label27.Text = "ملاحظة :"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Check_Compute_txt
+        '
+        Me.Check_Compute_txt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Check_Compute_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Check_Compute_txt.Font = New System.Drawing.Font("Stencil", 22.0!)
+        Me.Check_Compute_txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Check_Compute_txt.Location = New System.Drawing.Point(2, 1)
+        Me.Check_Compute_txt.MaxLength = 200
+        Me.Check_Compute_txt.Name = "Check_Compute_txt"
+        Me.Check_Compute_txt.ReadOnly = True
+        Me.Check_Compute_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Check_Compute_txt.Size = New System.Drawing.Size(180, 42)
+        Me.Check_Compute_txt.TabIndex = 697
+        Me.Check_Compute_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Clear_Check_btn
+        '
+        Me.Clear_Check_btn.BackColor = System.Drawing.Color.White
+        Me.Clear_Check_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Clear_Check_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Clear_Check_btn.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Clear_Check_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Clear_Check_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Clear_Check_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Clear_Check_btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Clear_Check_btn.ForeColor = System.Drawing.Color.Black
+        Me.Clear_Check_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Clear_Check_btn.Location = New System.Drawing.Point(184, 1)
+        Me.Clear_Check_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Clear_Check_btn.Name = "Clear_Check_btn"
+        Me.Clear_Check_btn.Size = New System.Drawing.Size(80, 42)
+        Me.Clear_Check_btn.TabIndex = 698
+        Me.Clear_Check_btn.Text = "F10"
+        Me.Clear_Check_btn.UseVisualStyleBackColor = False
+        '
+        'IM_Check_Panel
+        '
+        Me.IM_Check_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.IM_Check_Panel.Controls.Add(Me.Check_Compute_txt)
+        Me.IM_Check_Panel.Controls.Add(Me.Clear_Check_btn)
+        Me.IM_Check_Panel.Location = New System.Drawing.Point(3, 114)
+        Me.IM_Check_Panel.Name = "IM_Check_Panel"
+        Me.IM_Check_Panel.Size = New System.Drawing.Size(267, 46)
+        Me.IM_Check_Panel.TabIndex = 699
+        '
+        'AGMetroGrid
+        '
+        Me.AGMetroGrid.AllowUserToAddRows = False
+        Me.AGMetroGrid.AllowUserToDeleteRows = False
+        Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.AGMetroGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Bill_IMID_CL, Me.Check_CL, Me.Barcode_CL, Me.Serial_Code_CL, Me.U_ID_CL, Me.Date_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.IM_Discount_CL, Me.Total_CL, Me.Notes_CL, Me.T_ID_CL, Me.ST_ID_CL, Me.IM_NOTE_CL})
+        Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.AGMetroGrid.Location = New System.Drawing.Point(4, 162)
+        Me.AGMetroGrid.MultiSelect = False
+        Me.AGMetroGrid.Name = "AGMetroGrid"
+        Me.AGMetroGrid.ReadOnly = True
+        Me.AGMetroGrid.RowHeadersVisible = False
+        Me.AGMetroGrid.RowTemplate.ContextMenuStrip = Me.IM_ContextMenuStrip
+        Me.AGMetroGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
+        Me.AGMetroGrid.RowTemplate.Height = 30
+        Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.AGMetroGrid.Size = New System.Drawing.Size(815, 349)
+        Me.AGMetroGrid.TabIndex = 700
+        '
+        'Bill_IMID_CL
+        '
+        Me.Bill_IMID_CL.DataPropertyName = "IM_ID"
+        Me.Bill_IMID_CL.HeaderText = "IM_ID"
+        Me.Bill_IMID_CL.Name = "Bill_IMID_CL"
+        Me.Bill_IMID_CL.ReadOnly = True
+        Me.Bill_IMID_CL.Visible = False
+        '
+        'Check_CL
+        '
+        Me.Check_CL.DataPropertyName = "is_Check"
+        Me.Check_CL.FillWeight = 30.0!
+        Me.Check_CL.HeaderText = "."
+        Me.Check_CL.Name = "Check_CL"
+        Me.Check_CL.ReadOnly = True
+        Me.Check_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'Barcode_CL
+        '
+        Me.Barcode_CL.DataPropertyName = "Barcode"
+        Me.Barcode_CL.FillWeight = 91.83587!
+        Me.Barcode_CL.HeaderText = "باركود"
+        Me.Barcode_CL.Name = "Barcode_CL"
+        Me.Barcode_CL.ReadOnly = True
+        Me.Barcode_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'Serial_Code_CL
+        '
+        Me.Serial_Code_CL.DataPropertyName = "Serial_Code"
+        Me.Serial_Code_CL.FillWeight = 91.83587!
+        Me.Serial_Code_CL.HeaderText = "التسلسل"
+        Me.Serial_Code_CL.Name = "Serial_Code_CL"
+        Me.Serial_Code_CL.ReadOnly = True
+        Me.Serial_Code_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'U_ID_CL
+        '
+        Me.U_ID_CL.DataPropertyName = "U_ID"
+        Me.U_ID_CL.HeaderText = "U_ID"
+        Me.U_ID_CL.Name = "U_ID_CL"
+        Me.U_ID_CL.ReadOnly = True
+        Me.U_ID_CL.Visible = False
+        '
+        'Date_CL
+        '
+        Me.Date_CL.DataPropertyName = "Date"
+        Me.Date_CL.FillWeight = 91.83587!
+        Me.Date_CL.HeaderText = "تاريخ"
+        Me.Date_CL.Name = "Date_CL"
+        Me.Date_CL.ReadOnly = True
+        '
+        'ST_Name_CL
+        '
+        Me.ST_Name_CL.DataPropertyName = "St_Name"
+        Me.ST_Name_CL.FillWeight = 91.83587!
+        Me.ST_Name_CL.HeaderText = "مخزن"
+        Me.ST_Name_CL.Name = "ST_Name_CL"
+        Me.ST_Name_CL.ReadOnly = True
+        '
+        'IMNUM_CL
+        '
+        Me.IMNUM_CL.DataPropertyName = "IM_Num"
+        Me.IMNUM_CL.FillWeight = 91.83587!
+        Me.IMNUM_CL.HeaderText = "رقم"
+        Me.IMNUM_CL.Name = "IMNUM_CL"
+        Me.IMNUM_CL.ReadOnly = True
+        '
+        'EX_Name_CL
+        '
+        Me.EX_Name_CL.DataPropertyName = "item_name"
+        Me.EX_Name_CL.FillWeight = 91.83587!
+        Me.EX_Name_CL.HeaderText = "الصنف"
+        Me.EX_Name_CL.Name = "EX_Name_CL"
+        Me.EX_Name_CL.ReadOnly = True
+        '
+        'D_Valid_CL
+        '
+        Me.D_Valid_CL.DataPropertyName = "D_Vaild"
+        Me.D_Valid_CL.FillWeight = 91.83587!
+        Me.D_Valid_CL.HeaderText = "صلاحية"
+        Me.D_Valid_CL.Name = "D_Valid_CL"
+        Me.D_Valid_CL.ReadOnly = True
+        '
+        'IMUnit_CL
+        '
+        Me.IMUnit_CL.DataPropertyName = "Unit_Name"
+        Me.IMUnit_CL.FillWeight = 91.83587!
+        Me.IMUnit_CL.HeaderText = "الوحدة"
+        Me.IMUnit_CL.Name = "IMUnit_CL"
+        Me.IMUnit_CL.ReadOnly = True
+        '
+        'QTY_CL
+        '
+        Me.QTY_CL.DataPropertyName = "QTY"
+        Me.QTY_CL.FillWeight = 91.83587!
+        Me.QTY_CL.HeaderText = "كمية"
+        Me.QTY_CL.Name = "QTY_CL"
+        Me.QTY_CL.ReadOnly = True
+        '
+        'Price_CL
+        '
+        Me.Price_CL.DataPropertyName = "Price"
+        DataGridViewCellStyle23.Format = "N3"
+        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle23
+        Me.Price_CL.FillWeight = 91.83587!
+        Me.Price_CL.HeaderText = "السعر"
+        Me.Price_CL.Name = "Price_CL"
+        Me.Price_CL.ReadOnly = True
+        '
+        'IM_Discount_CL
+        '
+        Me.IM_Discount_CL.DataPropertyName = "IM_Discount"
+        Me.IM_Discount_CL.HeaderText = "خصم"
+        Me.IM_Discount_CL.Name = "IM_Discount_CL"
+        Me.IM_Discount_CL.ReadOnly = True
+        '
+        'Total_CL
+        '
+        Me.Total_CL.DataPropertyName = "T_Price"
+        DataGridViewCellStyle24.Format = "N3"
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle24
+        Me.Total_CL.FillWeight = 91.83587!
+        Me.Total_CL.HeaderText = "إجمالي"
+        Me.Total_CL.Name = "Total_CL"
+        Me.Total_CL.ReadOnly = True
+        '
+        'Notes_CL
+        '
+        Me.Notes_CL.DataPropertyName = "Notes"
+        Me.Notes_CL.FillWeight = 91.83587!
+        Me.Notes_CL.HeaderText = "ملاحظة"
+        Me.Notes_CL.Name = "Notes_CL"
+        Me.Notes_CL.ReadOnly = True
+        '
+        'T_ID_CL
+        '
+        Me.T_ID_CL.DataPropertyName = "T_ID"
+        Me.T_ID_CL.HeaderText = "T_ID"
+        Me.T_ID_CL.Name = "T_ID_CL"
+        Me.T_ID_CL.ReadOnly = True
+        Me.T_ID_CL.Visible = False
+        '
+        'ST_ID_CL
+        '
+        Me.ST_ID_CL.DataPropertyName = "ST_ID"
+        Me.ST_ID_CL.HeaderText = "ST_ID"
+        Me.ST_ID_CL.Name = "ST_ID_CL"
+        Me.ST_ID_CL.ReadOnly = True
+        Me.ST_ID_CL.Visible = False
+        '
+        'IM_NOTE_CL
+        '
+        Me.IM_NOTE_CL.DataPropertyName = "IM_NOTE"
+        Me.IM_NOTE_CL.HeaderText = "م.الصنف"
+        Me.IM_NOTE_CL.Name = "IM_NOTE_CL"
+        Me.IM_NOTE_CL.ReadOnly = True
+        '
+        'Panel1
+        '
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label23)
+        Me.Panel1.Controls.Add(Me.BillNumTxt)
+        Me.Panel1.Location = New System.Drawing.Point(276, 1)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(269, 40)
+        Me.Panel1.TabIndex = 701
+        '
+        'Label23
+        '
+        Me.Label23.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(114, 9)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(98, 21)
+        Me.Label23.TabIndex = 384
+        Me.Label23.Text = "الرقم اليومي :"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'AG_Label
+        '
+        Me.AG_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.AG_Label.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AG_Label.ForeColor = System.Drawing.Color.Black
+        Me.AG_Label.Location = New System.Drawing.Point(735, 82)
+        Me.AG_Label.Name = "AG_Label"
+        Me.AG_Label.Size = New System.Drawing.Size(268, 37)
+        Me.AG_Label.TabIndex = 703
+        Me.AG_Label.Text = "رصيد الحساب:"
+        Me.AG_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'UN_Void_ContextMStrip
+        '
+        Me.UN_Void_ContextMStrip.Name = "UN_Void_ContextMStrip"
+        Me.UN_Void_ContextMStrip.Size = New System.Drawing.Size(61, 4)
+        '
+        'Rsv_Panel
+        '
+        Me.Rsv_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Rsv_Panel.Controls.Add(Me.Rsv_Qty_TXT)
+        Me.Rsv_Panel.Controls.Add(Me.Label20)
+        Me.Rsv_Panel.Location = New System.Drawing.Point(472, 631)
+        Me.Rsv_Panel.Name = "Rsv_Panel"
+        Me.Rsv_Panel.Size = New System.Drawing.Size(268, 36)
+        Me.Rsv_Panel.TabIndex = 705
+        Me.Rsv_Panel.Visible = False
+        '
+        'Rsv_Qty_TXT
+        '
+        Me.Rsv_Qty_TXT.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.Rsv_Qty_TXT.Font = New System.Drawing.Font("Times New Roman", 14.25!)
+        Me.Rsv_Qty_TXT.ForeColor = System.Drawing.Color.Black
+        Me.Rsv_Qty_TXT.Location = New System.Drawing.Point(2, 3)
+        Me.Rsv_Qty_TXT.Name = "Rsv_Qty_TXT"
+        Me.Rsv_Qty_TXT.ReadOnly = True
+        Me.Rsv_Qty_TXT.Size = New System.Drawing.Size(123, 29)
+        Me.Rsv_Qty_TXT.TabIndex = 641
+        Me.Rsv_Qty_TXT.Text = "00"
+        Me.Rsv_Qty_TXT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label20
+        '
+        Me.Label20.BackColor = System.Drawing.Color.Transparent
+        Me.Label20.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.ForeColor = System.Drawing.Color.Black
+        Me.Label20.Location = New System.Drawing.Point(129, 7)
+        Me.Label20.Name = "Label20"
+        Me.Label20.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Label20.Size = New System.Drawing.Size(116, 21)
+        Me.Label20.TabIndex = 642
+        Me.Label20.Text = "كمية محجوزة :"
+        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'ExitFormButton
+        '
+        Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
+        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
+        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ExitFormButton.Location = New System.Drawing.Point(837, 653)
+        Me.ExitFormButton.Name = "ExitFormButton"
+        Me.ExitFormButton.Size = New System.Drawing.Size(167, 38)
+        Me.ExitFormButton.TabIndex = 656
+        Me.ExitFormButton.Text = "خروج"
+        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ExitFormButton.UseVisualStyleBackColor = False
+        '
+        'Edit_butt
+        '
+        Me.Edit_butt.BackColor = System.Drawing.Color.White
+        Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Edit_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Edit_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Edit_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__3_
+        Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Edit_butt.Location = New System.Drawing.Point(869, 294)
+        Me.Edit_butt.Name = "Edit_butt"
+        Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Edit_butt.Size = New System.Drawing.Size(130, 40)
+        Me.Edit_butt.TabIndex = 647
+        Me.Edit_butt.TabStop = False
+        Me.Edit_butt.Text = "تعديـل F3"
+        Me.Edit_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Edit_butt.UseVisualStyleBackColor = False
+        '
+        'Print_btn
+        '
+        Me.Print_btn.BackColor = System.Drawing.Color.White
+        Me.Print_btn.ContextMenuStrip = Me.Print_ContextMenuStrip
+        Me.Print_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Print_btn.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Print_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Print_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Print_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Print_btn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Print_btn.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__2_
+        Me.Print_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Print_btn.Location = New System.Drawing.Point(870, 250)
+        Me.Print_btn.Name = "Print_btn"
+        Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Print_btn.Size = New System.Drawing.Size(130, 40)
+        Me.Print_btn.TabIndex = 307
+        Me.Print_btn.TabStop = False
+        Me.Print_btn.Text = "طباعة F2"
+        Me.Print_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Print_btn.UseVisualStyleBackColor = False
+        '
+        'DeliveryingButton
+        '
+        Me.DeliveryingButton.BackColor = System.Drawing.Color.White
+        Me.DeliveryingButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.DeliveryingButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.DeliveryingButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.DeliveryingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.DeliveryingButton.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DeliveryingButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.DeliveryingButton.Image = CType(resources.GetObject("DeliveryingButton.Image"), System.Drawing.Image)
+        Me.DeliveryingButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.DeliveryingButton.Location = New System.Drawing.Point(951, 546)
+        Me.DeliveryingButton.Name = "DeliveryingButton"
+        Me.DeliveryingButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.DeliveryingButton.Size = New System.Drawing.Size(52, 68)
+        Me.DeliveryingButton.TabIndex = 304
+        Me.DeliveryingButton.TabStop = False
+        Me.DeliveryingButton.Text = "دفع"
+        Me.DeliveryingButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.DeliveryingButton.UseVisualStyleBackColor = False
+        '
+        'SBPauseBtn
+        '
+        Me.SBPauseBtn.BackColor = System.Drawing.Color.White
+        Me.SBPauseBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SBPauseBtn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SBPauseBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.SBPauseBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.SBPauseBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.SBPauseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SBPauseBtn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SBPauseBtn.ForeColor = System.Drawing.Color.Black
+        Me.SBPauseBtn.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__5_
+        Me.SBPauseBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.SBPauseBtn.Location = New System.Drawing.Point(869, 382)
+        Me.SBPauseBtn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.SBPauseBtn.Name = "SBPauseBtn"
+        Me.SBPauseBtn.Size = New System.Drawing.Size(130, 40)
+        Me.SBPauseBtn.TabIndex = 631
+        Me.SBPauseBtn.Text = "تعليق F7"
+        Me.SBPauseBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SBPauseBtn.UseVisualStyleBackColor = False
+        '
+        'New_butt
+        '
+        Me.New_butt.BackColor = System.Drawing.Color.White
+        Me.New_butt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.New_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.New_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.New_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.New_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.New_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.New_butt.ForeColor = System.Drawing.Color.Black
+        Me.New_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools
+        Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.New_butt.Location = New System.Drawing.Point(870, 162)
+        Me.New_butt.Name = "New_butt"
+        Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.New_butt.Size = New System.Drawing.Size(130, 40)
+        Me.New_butt.TabIndex = 294
+        Me.New_butt.Text = " فاتورة جديدة F1"
+        Me.New_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.New_butt.UseVisualStyleBackColor = False
+        '
+        'Save_butt
+        '
+        Me.Save_butt.BackColor = System.Drawing.Color.White
+        Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Save_butt.Enabled = False
+        Me.Save_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Save_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Save_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__1_
+        Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Save_butt.Location = New System.Drawing.Point(870, 206)
+        Me.Save_butt.Name = "Save_butt"
+        Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Save_butt.Size = New System.Drawing.Size(130, 40)
+        Me.Save_butt.TabIndex = 293
+        Me.Save_butt.TabStop = False
+        Me.Save_butt.Text = "حفظ F12"
+        Me.Save_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Save_butt.UseVisualStyleBackColor = False
+        '
+        'Delete_butt
+        '
+        Me.Delete_butt.BackColor = System.Drawing.Color.White
+        Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Delete_butt.Enabled = False
+        Me.Delete_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Delete_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Delete_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__4_
+        Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Delete_butt.Location = New System.Drawing.Point(869, 338)
+        Me.Delete_butt.Name = "Delete_butt"
+        Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Delete_butt.Size = New System.Drawing.Size(130, 40)
+        Me.Delete_butt.TabIndex = 296
+        Me.Delete_butt.Text = " إلغاء F4"
+        Me.Delete_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Delete_butt.UseVisualStyleBackColor = False
+        '
+        'Markter_Cm
+        '
+        Me.Markter_Cm.CancelSearchImage = CType(resources.GetObject("Markter_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.Markter_Cm.Location = New System.Drawing.Point(2, 79)
+        Me.Markter_Cm.Name = "Markter_Cm"
+        Me.Markter_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Markter_Cm.Size = New System.Drawing.Size(232, 34)
+        Me.Markter_Cm.SQL_Column = "ST_name"
+        Me.Markter_Cm.SQL_ID = "ST_ID"
+        Me.Markter_Cm.SQL_IsNumericSearchField = False
+        Me.Markter_Cm.SQL_ListSize = 200
+        Me.Markter_Cm.SQL_NumberOfRows = 200
+        Me.Markter_Cm.SQL_OrderByField = "ST_name"
+        Me.Markter_Cm.SQL_SearchField = "ST_name"
+        Me.Markter_Cm.SQL_Table = "Marketers"
+        Me.Markter_Cm.TabIndex = 702
+        Me.Markter_Cm.TextMaxLength = 250
+        Me.Markter_Cm.Textt = ""
+        '
+        'Sales
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 21.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
+        Me.ClientSize = New System.Drawing.Size(1004, 695)
+        Me.Controls.Add(Me.Rsv_Panel)
+        Me.Controls.Add(Me.AG_Label)
+        Me.Controls.Add(Me.Marketer_Lb)
+        Me.Controls.Add(Me.Markter_Cm)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.AGMetroGrid)
+        Me.Controls.Add(Me.IM_Check_Panel)
+        Me.Controls.Add(Me.Label27)
+        Me.Controls.Add(Me.Panel16)
+        Me.Controls.Add(Me.Panel14)
+        Me.Controls.Add(Me.Panel13)
+        Me.Controls.Add(Me.Panel10)
+        Me.Controls.Add(Me.VoidLb)
+        Me.Controls.Add(Me.BillNumPanel)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.ReceiptsMetroGrid)
+        Me.Controls.Add(Me.Show_IM_Rtn_btn)
+        Me.Controls.Add(Me.Label18)
+        Me.Controls.Add(Me.Rtn_Count_txt)
+        Me.Controls.Add(Me.ExitFormButton)
+        Me.Controls.Add(Me.Show_Cash_btn)
+        Me.Controls.Add(Me.OpenCahDR_Btn)
+        Me.Controls.Add(Me.DGV_Control_btn)
+        Me.Controls.Add(Me.Edit_butt)
+        Me.Controls.Add(Me.IM_Qty_LB)
+        Me.Controls.Add(Me.IM_Count_LB)
+        Me.Controls.Add(Me.User_Name_lb)
+        Me.Controls.Add(Me.Notes_txt)
+        Me.Controls.Add(Me.DiscountPanel)
+        Me.Controls.Add(Me.Label17)
+        Me.Controls.Add(Me.Pure_txt)
+        Me.Controls.Add(Me.Print_btn)
+        Me.Controls.Add(Me.DeliveryingButton)
+        Me.Controls.Add(Me.SBPauseBtn)
+        Me.Controls.Add(Me.New_butt)
+        Me.Controls.Add(Me.Save_butt)
+        Me.Controls.Add(Me.Delete_butt)
+        Me.Controls.Add(Me.Label16)
+        Me.Controls.Add(Me.RemoveCatButton)
+        Me.Controls.Add(Me.ADDCatButton)
+        Me.Controls.Add(Me.AG_Panel)
+        Me.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
+        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Name = "Sales"
+        Me.Padding = New System.Windows.Forms.Padding(27, 97, 27, 32)
+        Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "شاشة المبيعات"
+        Me.IM_ContextMenuStrip.ResumeLayout(False)
+        Me.DiscountPanel.ResumeLayout(False)
+        Me.DiscountPanel.PerformLayout()
+        Me.Discount_MenuStrip.ResumeLayout(False)
+        CType(Me.AG_Grid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.AG_ContextMenuStrip.ResumeLayout(False)
+        Me.IM_Show_CxtMStrip.ResumeLayout(False)
+        Me.Print_ContextMenuStrip.ResumeLayout(False)
+        CType(Me.ReceiptsMetroGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.AG_Panel.ResumeLayout(False)
+        Me.AG_Panel.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.BillNumPanel.ResumeLayout(False)
+        Me.BillNumPanel.PerformLayout()
+        Me.Panel10.ResumeLayout(False)
+        Me.Panel13.ResumeLayout(False)
+        Me.Panel13.PerformLayout()
+        Me.Panel14.ResumeLayout(False)
+        Me.Panel16.ResumeLayout(False)
+        Me.IM_Check_Panel.ResumeLayout(False)
+        Me.IM_Check_Panel.PerformLayout()
+        CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.Rsv_Panel.ResumeLayout(False)
+        Me.Rsv_Panel.PerformLayout()
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+    Friend WithEvents MetroToolTip1 As MetroFramework.Components.MetroToolTip
+    Friend WithEvents New_butt As System.Windows.Forms.Button
+    Friend WithEvents Save_butt As System.Windows.Forms.Button
+    Friend WithEvents Delete_butt As System.Windows.Forms.Button
+    Friend WithEvents Total_TextBox As System.Windows.Forms.TextBox
+    Friend WithEvents Label3525 As System.Windows.Forms.Label
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents DateTimeEx As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents ADDCatButton As System.Windows.Forms.Button
+    Friend WithEvents RemoveCatButton As System.Windows.Forms.Button
+    Friend WithEvents DeliveryingButton As System.Windows.Forms.Button
+    Friend WithEvents NULLContextMenuStrip As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents VoidLb As System.Windows.Forms.Label
+    Public WithEvents AG_Grid As DevComponents.DotNetBar.Controls.DataGridViewX
+    Friend WithEvents Show_IM_btn2 As System.Windows.Forms.Button
+    Friend WithEvents AG_SH_txt As System.Windows.Forms.TextBox
+    Friend WithEvents Notes_txt As System.Windows.Forms.TextBox
+    Friend WithEvents IM_Count_LB As System.Windows.Forms.Label
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents Pure_txt As System.Windows.Forms.TextBox
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents Print_btn As System.Windows.Forms.Button
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Piedmoney_txt As System.Windows.Forms.TextBox
+    Friend WithEvents Down_Bill_btn As System.Windows.Forms.Button
+    Friend WithEvents Up_Bill_btn As System.Windows.Forms.Button
+    Friend WithEvents Bill_ID_Txt As System.Windows.Forms.TextBox
+    Friend WithEvents User_Name_lb As System.Windows.Forms.Label
+    Friend WithEvents SBPauseBtn As System.Windows.Forms.Button
+    Friend WithEvents PauseCmb As System.Windows.Forms.ComboBox
+    Friend WithEvents MoveToBill_Btn As System.Windows.Forms.Button
+    Friend WithEvents DiscountPanel As System.Windows.Forms.Panel
+    Friend WithEvents Discount_txt As System.Windows.Forms.TextBox
+    Friend WithEvents IM_Qty_LB As System.Windows.Forms.Label
+    Friend WithEvents Edit_butt As System.Windows.Forms.Button
+    Friend WithEvents DGV_Control_btn As System.Windows.Forms.Button
+    Friend WithEvents BillNumTxt As System.Windows.Forms.TextBox
+    Friend WithEvents IM_ContextMenuStrip As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents تعديلToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents عرضالتكلفةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Search_By_Bar_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents OpenCahDR_Btn As System.Windows.Forms.Button
+    Friend WithEvents Show_Cash_btn As System.Windows.Forms.Button
+    Friend WithEvents ExitFormButton As System.Windows.Forms.Button
+    Friend WithEvents IM_Info_Timer As System.Windows.Forms.Timer
+    Friend WithEvents AG_ContextMenuStrip As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents عرضرصيدالعميلToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents كشفحسابالعميلToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents إضافةكعميلجديدToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Print_ContextMenuStrip As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents Show_IM_Rtn_btn As System.Windows.Forms.Button
+    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents Rtn_Count_txt As System.Windows.Forms.TextBox
+    Public WithEvents Calc_Dicount_Btn As System.Windows.Forms.Button
+    Friend WithEvents طباعةورقةA5ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents طباعةورقA4ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents طباعةورقةA4ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ورقةA4تصميمجاهزToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents طباعةإذنصـــرفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Project_cm As System.Windows.Forms.ComboBox
+    Friend WithEvents Show_AG_Projects_btn As System.Windows.Forms.Button
+    Friend WithEvents ReceiptsMetroGrid As MetroFramework.Controls.MetroGrid
+    Friend WithEvents عرضفواتيرالزبونToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AG_Show_Balance_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents IM_Show_CxtMStrip As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents طباعةورقةA4تصميمجاهز2ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Marketer_Lb As System.Windows.Forms.Label
+    Friend WithEvents AG_Panel As System.Windows.Forms.Panel
+    Friend WithEvents Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents BillNumPanel As System.Windows.Forms.Panel
+    Friend WithEvents Panel10 As System.Windows.Forms.Panel
+    Friend WithEvents Panel13 As System.Windows.Forms.Panel
+    Friend WithEvents Panel14 As System.Windows.Forms.Panel
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents Panel16 As System.Windows.Forms.Panel
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents Show_Bill_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents طباعةورقA4ملاحظاتالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Show_Bill_Rest_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents Check_Compute_txt As System.Windows.Forms.TextBox
+    Friend WithEvents Clear_Check_btn As System.Windows.Forms.Button
+    Friend WithEvents IM_Check_Panel As System.Windows.Forms.Panel
+    Friend WithEvents AGMetroGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents AG_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Agent_name_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Balance_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents عرضربحالفاتورةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Show_SumPied_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents Markter_Cm As resturant.FSearch_Filter
+    Friend WithEvents Discount_MenuStrip As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents تخفيضبنسبةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AG_Label As System.Windows.Forms.Label
+    Friend WithEvents UN_Void_ContextMStrip As ContextMenuStrip
+    Friend WithEvents إيجارالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Rsv_Panel As System.Windows.Forms.Panel
+    Friend WithEvents Rsv_Qty_TXT As System.Windows.Forms.TextBox
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents طباعةإذنصـــرفA4ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents طباعةالتسليموالإستلامToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Bill_IMID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Check_CL As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents Barcode_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Serial_Code_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents U_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Date_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ST_Name_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents IMNUM_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents EX_Name_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents D_Valid_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents IMUnit_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents QTY_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Price_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents IM_Discount_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Total_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Notes_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents T_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ST_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents IM_NOTE_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents تحديدنوعالطباعـــةToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents جدولحجزالخدمةToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents إدراجموظفللخدمةToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Receipt_T_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Receipt_Num_CL As DataGridViewTextBoxColumn
+    Friend WithEvents PAYMENT_NAME_CL As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
+    Friend WithEvents Value_CL As DataGridViewTextBoxColumn
+End Class
