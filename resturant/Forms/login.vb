@@ -809,6 +809,7 @@ Public Class login
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
         Dim frm As New Frm_ThemeSettings
         frm.ShowDialog()
-
+        ThemeManager.LoadDefaultSystemTheme()
+        ThemeManager.ApplyThemeToForm(Me)
     End Sub
 End Class
