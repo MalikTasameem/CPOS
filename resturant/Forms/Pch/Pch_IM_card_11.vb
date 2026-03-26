@@ -20,6 +20,7 @@
     End Sub
 
 
+
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         If St_Count() = 1 Then All_St_Panel.Visible = False

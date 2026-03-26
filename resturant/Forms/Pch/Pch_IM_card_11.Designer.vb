@@ -1090,4 +1090,5 @@ Partial Class Pch_IM_card_11
     Friend WithEvents Exit_Btn As Button
     Friend WithEvents mySearchControl As SearchItemControl
     Friend WithEvents ADD_New_IM_btn As Button
+
 End Class
