@@ -155,13 +155,13 @@ Public Class AgentsMenu
     Private Sub Switch_Sales_Agent(T_ID As Integer, AG_ID As Integer, On_Update As Boolean)
         Save_AG_Name(T_ID, AG_ID, On_Update)
         Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, F_Sales.SB_ID, 1, 3)
-        If AG_ID <> Default_AG_ID Then
-            F_Sales.AG_SH_txt.Text = AG_Cm.Textt  'IM_SH_txt.Text
-        End If
-        F_Sales.AG_Grid.Visible = False
-        F_Sales.AG_ID = AG_ID
-        F_Sales.AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-        F_Sales.Fill_All_AG_Proj()
+        'If AG_ID <> Default_AG_ID Then
+        '    F_Sales.AG_SH_txt.Text = AG_Cm.Textt  'IM_SH_txt.Text
+        'End If
+        'F_Sales.AG_Grid.Visible = False
+        'F_Sales.AG_ID = AG_ID
+        'F_Sales.AG_SH_txt.BackColor = Color.LightGoldenrodYellow
+        'F_Sales.Fill_All_AG_Proj()
         Me.Close()
     End Sub
 

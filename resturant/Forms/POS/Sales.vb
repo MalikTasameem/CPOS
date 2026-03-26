@@ -310,7 +310,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             C.Dr.Read()
 
             AG_ID = C.Dr("AG_ID")
-            GET_AG()
+            AG_Cm.Set_IM_By_ID(AG_ID)
+            'GET_AG()
             AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
             Fill_All_AG_Proj()
             Project_cm.SelectedValue = C.Dr("Proj_ID")
@@ -375,8 +376,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     'End Sub
 
     Private Sub Enable_Fields()
-        AG_SH_txt.Enabled = True
-        Show_IM_btn2.Enabled = True
+        AG_Cm.Enabled = True
+        ' Show_IM_btn2.Enabled = True
         DateTimeEx.Enabled = True
         Notes_txt.Enabled = True
         Project_cm.Enabled = True
@@ -386,8 +387,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Disable_Fields()
-        AG_SH_txt.Enabled = False
-        Show_IM_btn2.Enabled = False
+        AG_Cm.Enabled = False
+        ' Show_IM_btn2.Enabled = False
         DateTimeEx.Enabled = False
         Notes_txt.Enabled = False
         Project_cm.Enabled = False
@@ -424,15 +425,13 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
             AGMetroGrid.BackgroundColor = Color.LightGreen
             AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
-            AG_SH_txt.Enabled = False
-            '  AddFastAGButton.Enabled = False
+            AG_Cm.Enabled = False
             Save_butt.Enabled = False
         Else
             isDepended = 0
             AGMetroGrid.BackgroundColor = Color.LightYellow
             AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
-            AG_SH_txt.Enabled = True
-            ' AddFastAGButton.Enabled = True
+            AG_Cm.Enabled = True
             Save_butt.Enabled = True
         End If
 
@@ -443,8 +442,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Save_butt.Enabled = True
         ' Delete_butt.Enabled = False
         Me.Text = "فاتورة مبيعات جديدة"
-        AG_Grid.Visible = False
-        AG_SH_txt.Enabled = True
+        'AG_Grid.Visible = False
+        AG_Cm.Enabled = True
     End Sub
     Private Sub DeleteOrUpdateStateBt()
         Disable_Fields()
@@ -625,20 +624,17 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
         If AGMetroGrid.Rows.Count > 0 Then
 
-            If String.IsNullOrWhiteSpace(AG_SH_txt.Text) = False And AG_ID = 0 Then
+            If AG_ID = 0 Then
                 Beep()
                 MsgBox("حدد إسم العميل", MsgBoxStyle.Critical, "خطأ في الإعتماد")
-                AG_SH_txt.Select()
+                AG_Cm.Focus()
             Else
-                If String.IsNullOrWhiteSpace(AG_SH_txt.Text) Then
-                    ' AG_SH_txt.Text = "نقدي"
+                If String.IsNullOrWhiteSpace(AG_Cm.Textt) Then
                     AG_ID = Default_AG_ID
-                    AG_Grid.Visible = False
+                    AG_Cm.Set_IM_By_ID(AG_ID)
                 End If
                 Beep()
-                'If is_With_Travel_CB.Checked = True Then AG_Balance_Update_Travel(T_ID, Travel_cm.SelectedValue, Cr_Name_cm.SelectedValue, Cr_Adress_txt.Text, Cr_Phone_txt.Text)
 
-                'Close_Sale()
                 Save_AG_Name(T_ID, AG_ID, On_Update)
                 Save_About(T_ID, Notes_txt.Text)
                 Save_Date(T_ID, DateTimeEx)
@@ -1068,14 +1064,14 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub ADD_Fast_AG()
-        If AG_ID <> Default_AG_ID Or GET_AG_NO_SPACES(AG_SH_txt.Text) = True Then
+        If GET_AG_NO_SPACES(AG_Cm.Textt) = True Then 'AG_Cm.TXT_ID.Text <> 0 Or
             MsgBox("هذا العميل موجود بالفعل", MsgBoxStyle.Critical, "إضافة عميل")
-        ElseIf String.IsNullOrWhiteSpace(AG_SH_txt.Text) Then
+        ElseIf String.IsNullOrWhiteSpace(AG_Cm.Textt) Then
             MsgBox("أدخل اسم العميل الجديد", MsgBoxStyle.Exclamation)
-            AG_SH_txt.Select()
+            AG_Cm.Focus()
         Else
             Beep()
-            If MessageBox.Show(" إضافة " + AG_SH_txt.Text + " إلى قائمة العملاء ", " إضافة العميل ", MessageBoxButtons.YesNo,
+            If MessageBox.Show(" إضافة " + AG_Cm.Textt + " إلى قائمة العملاء ", " إضافة العميل ", MessageBoxButtons.YesNo,
                                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
                 Insert_Fast_AG()
             End If
@@ -1088,7 +1084,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         sqlComm.CommandText = "Agents_insert"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@AG_ID", 0)
-        sqlComm.Parameters.AddWithValue("@Ag_name", AG_SH_txt.Text)
+        sqlComm.Parameters.AddWithValue("@Ag_name", AG_Cm.Textt)
         sqlComm.Parameters.AddWithValue("@Barcode", "")
         sqlComm.Parameters.AddWithValue("@Type_ID", Cr_Type_ID)
         sqlComm.Parameters.AddWithValue("@E_mail", "")
@@ -1096,10 +1092,9 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تمت إضافة العميــل", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" (من شاشة المبيعات) الزبون:" & AG_SH_txt.Text, 0, 27, 1)
+            Network_Edit_Tracker_insert(" (من شاشة المبيعات) الزبون:" & AG_Cm.Textt, 0, 27, 1)
             New_AG_ID = sqlComm.Parameters("@AG_ID").Value.ToString()
 
-            Load_AG()
         End If
         Return New_AG_ID
     End Function
@@ -1487,118 +1482,118 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     'End Sub
 
 
-    '-------------------------------------------------------------------------<AGENTS FILTER>
-    Public Sub Load_AG()
-        Dim c As New C
+    ''-------------------------------------------------------------------------<AGENTS FILTER>
+    'Public Sub Load_AG()
+    '    Dim c As New C
 
-        Try
-            AG_Dt.Clear()
-            Dim s As String
-            s = "select AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Ag_name Like '%" & AG_SH_txt.Text & "%' AND Type_ID <> '" & Suply_Type_ID & "' Order by Ag_name ASC"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(AG_Dt)
-            AG_Grid.DataSource = AG_Dt
-            If AG_Dt.Rows.Count > 0 Then
-                AG_Grid.Visible = True
-                AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
-            Else
-                AG_Grid.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    '    Try
+    '        AG_Dt.Clear()
+    '        Dim s As String
+    '        s = "select AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Ag_name Like '%" & AG_SH_txt.Text & "%' AND Type_ID <> '" & Suply_Type_ID & "' Order by Ag_name ASC"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(AG_Dt)
+    '        AG_Grid.DataSource = AG_Dt
+    '        If AG_Dt.Rows.Count > 0 Then
+    '            AG_Grid.Visible = True
+    '            AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
+    '        Else
+    '            AG_Grid.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
-    Public Sub GET_AG()
-        Dim c As New C
+    'Public Sub GET_AG()
+    '    Dim c As New C
 
-        Try
-            AG_Dt.Clear()
-            Dim s As String
-            s = "select Ag_name from Agents WHERE Ag_ID = '" & AG_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                AG_SH_txt.Text = c.Dr("Ag_name")
-                AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-                AG_Grid.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    '    Try
+    '        AG_Dt.Clear()
+    '        Dim s As String
+    '        s = "select Ag_name from Agents WHERE Ag_ID = '" & AG_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            AG_SH_txt.Text = c.Dr("Ag_name")
+    '            AG_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '            AG_Grid.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
-    Private Sub AG_SH_txt_Enter(sender As Object, e As EventArgs) Handles AG_SH_txt.Enter
-        Set_Ar_Language()
-    End Sub
+    'Private Sub AG_SH_txt_Enter(sender As Object, e As EventArgs)
+    '    Set_Ar_Language()
+    'End Sub
 
-    Private Sub AG_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles AG_SH_txt.KeyDown
-        If e.KeyCode = Keys.Down Then AG_Grid.Select()
+    'Private Sub AG_SH_txt_KeyDown(sender As Object, e As KeyEventArgs)
+    '    If e.KeyCode = Keys.Down Then AG_Grid.Select()
 
-        If e.KeyCode = Keys.Return Then If AG_Grid.Visible = True Then Fetch_ItemToList2()
+    '    If e.KeyCode = Keys.Return Then If AG_Grid.Visible = True Then Fetch_ItemToList2()
 
-        If e.KeyCode = Keys.Delete Then AG_SH_txt.Clear()
-    End Sub
+    '    If e.KeyCode = Keys.Delete Then AG_SH_txt.Clear()
+    'End Sub
 
-    Private Sub AG_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles AG_SH_txt.TextChanged
-        If AG_SH_txt.Text.Count > 0 Then
-            Load_AG()
-        Else
-            AG_Grid.Visible = False
-            AG_ID = SB_Default_AG
-            Save_AG_Name(T_ID, AG_ID, On_Update)
-        End If
-        Check_AG_Pied()
+    'Private Sub AG_SH_txt_TextChanged(sender As Object, e As EventArgs)
+    '    If AG_SH_txt.Text.Count > 0 Then
+    '        Load_AG()
+    '    Else
+    '        AG_Grid.Visible = False
+    '        AG_ID = SB_Default_AG
+    '        Save_AG_Name(T_ID, AG_ID, On_Update)
+    '    End If
+    '    Check_AG_Pied()
 
-    End Sub
+    'End Sub
 
-    Private Sub Check_AG_Pied()
-        If S_Stores = False Then
-            If AG_ID = Default_AG_ID Then
-                AG_SH_txt.BackColor = Color.LightGray
-            Else
-                AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-            End If
-        End If
-    End Sub
+    'Private Sub Check_AG_Pied()
+    '    If S_Stores = False Then
+    '        If AG_ID = Default_AG_ID Then
+    '            AG_SH_txt.BackColor = Color.LightGray
+    '        Else
+    '            AG_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '        End If
+    '    End If
+    'End Sub
 
-    Private Sub AG_Grid_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles AG_Grid.CellClick
-        Fetch_ItemToList2()
-    End Sub
+    'Private Sub AG_Grid_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+    '    Fetch_ItemToList2()
+    'End Sub
 
-    Private Sub AG_Grid_KeyDown(sender As Object, e As KeyEventArgs) Handles AG_Grid.KeyDown
-        If e.KeyCode = Keys.Return Then Fetch_ItemToList2()
-        If e.KeyCode = Keys.Up Then If AG_Grid.CurrentRow.Index = 0 Then AG_SH_txt.Select()
-    End Sub
+    'Private Sub AG_Grid_KeyDown(sender As Object, e As KeyEventArgs)
+    '    If e.KeyCode = Keys.Return Then Fetch_ItemToList2()
+    '    If e.KeyCode = Keys.Up Then If AG_Grid.CurrentRow.Index = 0 Then AG_SH_txt.Select()
+    'End Sub
 
     Public Sub Fetch_ItemToList2()
-        If AG_Grid.Rows.Count > 0 Then
+        If AG_Cm.TXT_ID.Text > 0 Then
 
             PREV_AG_ID = AG_ID
-            AG_ID = AG_Grid.CurrentRow.Cells(0).Value
-            AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
-            AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-            AG_Grid.Visible = False
-            AG_Label.Text = "رصيد الحســاب: ( " & AG_Grid.CurrentRow.Cells(2).Value & " ) "
+            AG_ID = AG_Cm.TXT_ID.Text
+            'AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
+            'AG_SH_txt.BackColor = Color.LightGoldenrodYellow
+            'AG_Grid.Visible = False
+            'AG_Label.Text = "رصيد الحســاب: ( " & AG_Grid.CurrentRow.Cells(2).Value & " ) "
             If U_AG_Skip_Max = False Then
                 If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
                     MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك فتح فاتورة جديدة له", MsgBoxStyle.Critical, "خطأ فالإدراج")
                     AG_ID = PREV_AG_ID
-                    GET_AG()
+                    '  GET_AG()
                     'AG_SH_txt.BackColor = Color.LightGoldenrodYellow
                 Else
                     Save_AG_Name(T_ID, AG_ID, On_Update)
-                    Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_SH_txt.Text, SB_ID, 1, 3)
-                    Check_AG_Pied()
+                    Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, SB_ID, 1, 3)
+                    '   Check_AG_Pied()
                     Fill_All_AG_Proj()
                 End If
             Else
                 If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then MsgBox("هذا الزبون قد تخطى سقف الدين الخاص به", MsgBoxStyle.Exclamation, "تنويه ")
                 Save_AG_Name(T_ID, AG_ID, On_Update)
-                Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_SH_txt.Text, SB_ID, 1, 3)
-                Check_AG_Pied()
+                Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, SB_ID, 1, 3)
+                '  Check_AG_Pied()
                 Fill_All_AG_Proj()
             End If
 
@@ -1606,30 +1601,30 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-    Private Sub Show_IM_btn2_Click(sender As Object, e As EventArgs) Handles Show_IM_btn2.Click
-        If AG_Grid.Visible = True Then
-            AG_Grid.Visible = False
+    'Private Sub Show_IM_btn2_Click(sender As Object, e As EventArgs)
+    '    If AG_Grid.Visible = True Then
+    '        AG_Grid.Visible = False
 
-        Else
-            Fill_All_AG()
-            AG_Grid.Visible = True
-            AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
+    '    Else
+    '        Fill_All_AG()
+    '        AG_Grid.Visible = True
+    '        AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
 
-        End If
-    End Sub
+    '    End If
+    'End Sub
 
-    Private Sub Fill_All_AG()
-        Try
-            Dim C As New C
-            AG_Dt.Clear()
-            Dim s As String = "SELECT top 100 AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Type_ID <> '" & Suply_Type_ID & "' Order by Ag_name ASC"
-            C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
-            C.Da.Fill(AG_Dt)
-            AG_Grid.DataSource = AG_Dt
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Private Sub Fill_All_AG()
+    '    Try
+    '        Dim C As New C
+    '        AG_Dt.Clear()
+    '        Dim s As String = "SELECT top 100 AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Type_ID <> '" & Suply_Type_ID & "' Order by Ag_name ASC"
+    '        C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
+    '        C.Da.Fill(AG_Dt)
+    '        AG_Grid.DataSource = AG_Dt
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
     '-------------------------------------------------------------------------</AGENTS FILTER>
 
@@ -2199,8 +2194,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                     Project_cm.Enabled = True
                     Show_AG_Projects_btn.Enabled = True
                     DiscountPanel.Enabled = True
-                    AG_SH_txt.Enabled = True
-                    Show_IM_btn2.Enabled = True
+                    AG_Cm.Enabled = True
+                    'Show_IM_btn2.Enabled = True
                     Markter_Cm.Enabled = True
                     Ebable_CatFields()
                     Edit_butt.Text = "إيقاف التعديل"
@@ -2222,8 +2217,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                 Show_AG_Projects_btn.Enabled = False
                 DiscountPanel.Enabled = False
 
-                AG_SH_txt.Enabled = True
-                Show_IM_btn2.Enabled = True
+                AG_Cm.Enabled = True
+                'Show_IM_btn2.Enabled = True
                 Markter_Cm.Enabled = False
 
                 SelectStateBt()
@@ -2310,7 +2305,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub عرضرصيدالعميلToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles عرضرصيدالعميلToolStripMenuItem.Click
-        MsgBox(Show_AG_T_Balance(AG_ID).ToString(), MsgBoxStyle.Information, "رصيد العميل : " & AG_SH_txt.Text)
+        MsgBox(Show_AG_T_Balance(AG_ID).ToString(), MsgBoxStyle.Information, "رصيد العميل : " & AG_Cm.Textt)
     End Sub
 
 
@@ -2476,18 +2471,25 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         If e.KeyCode = Keys.Return Then Save_Date(T_ID, DateTimeEx)
     End Sub
 
-
-    Private Sub AG_Grid_VisibleChanged(sender As Object, e As EventArgs) Handles AG_Grid.VisibleChanged
-        If AG_Grid.Visible = True Then
-
-            Me.Controls.Add(AG_Grid)
-            AG_Grid.BringToFront()
-            AG_Grid.Location = New Point(AG_Panel.Location.X, AG_Panel.Location.Y + AG_Panel.Size.Height + 1)
-        Else
-            AG_Panel.Controls.Add(AG_Grid)
-            AG_Grid.Location = New Point(AG_SH_txt.Location.X, AG_SH_txt.Location.Y + AG_SH_txt.Size.Height + 1)
+    Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
+        If AG_Cm.TXT_ID.Text > 0 Then
+            Fetch_ItemToList2()
+            AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
         End If
     End Sub
+
+
+    'Private Sub AG_Grid_VisibleChanged(sender As Object, e As EventArgs)
+    '    If AG_Grid.Visible = True Then
+
+    '        Me.Controls.Add(AG_Grid)
+    '        AG_Grid.BringToFront()
+    '        AG_Grid.Location = New Point(AG_Panel.Location.X, AG_Panel.Location.Y + AG_Panel.Size.Height + 1)
+    '    Else
+    '        AG_Panel.Controls.Add(AG_Grid)
+    '        AG_Grid.Location = New Point(AG_SH_txt.Location.X, AG_SH_txt.Location.Y + AG_SH_txt.Size.Height + 1)
+    '    End If
+    'End Sub
 
 
     'Private Sub IMDataGridViewX_VisibleChanged(sender As Object, e As EventArgs)
@@ -2629,7 +2631,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     'End Sub
 
 
-    Private Sub AG_SH_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AG_SH_txt.MouseDoubleClick
+    Private Sub AG_SH_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs)
         F_AgentsMenu = New AgentsMenu
         ' Set_Form(F_AgentsMenu, IMPanel)
         F_AgentsMenu.ShowDialog()

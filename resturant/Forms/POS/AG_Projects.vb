@@ -47,7 +47,7 @@
     End Sub
 
     Private Sub STORES_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = " خدمات العميل : " + F_Sales.AG_SH_txt.Text
+        Me.Text = " خدمات العميل : " + F_Sales.AG_Cm.Textt
         Load_StoreData()
     End Sub
 
