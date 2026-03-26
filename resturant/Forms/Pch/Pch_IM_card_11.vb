@@ -19,10 +19,41 @@
 
     End Sub
 
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            ' =========================================================
+            ' 🌟 1. تعيين التاجات يدوياً للثيمات (بدون استخدام For Each نهائياً)
+            ' =========================================================
 
+            ' أزرار الإضافة والحفظ (تأخذ اللون الأساسي للثيم)
+            If ADDCatButton IsNot Nothing Then ADDCatButton.Tag = "SAVE"
+            If ADD_New_IM_btn IsNot Nothing Then ADD_New_IM_btn.Tag = "GENERAL"
+            If Add_Valid_Btn IsNot Nothing Then Add_Valid_Btn.Tag = "GENERAL"
+            If Confirm_ADD_bercent IsNot Nothing Then Confirm_ADD_bercent.Tag = "GENERAL"
+            If Ass_U_btn IsNot Nothing Then Ass_U_btn.Tag = "GENERAL"
+            If IM_CalcAvgCost_btn IsNot Nothing Then IM_CalcAvgCost_btn.Tag = "GENERAL"
+
+            ' أزرار الحذف والإلغاء والخروج (تأخذ اللون الأحمر أو التحذيري)
+            If Exit_Btn IsNot Nothing Then Exit_Btn.Tag = "DELETE"
+            If Remove_Valid_Btn IsNot Nothing Then Remove_Valid_Btn.Tag = "DELETE"
+
+            ' =========================================================
+            ' 🌟 2. تطبيق الثيم الإجباري
+            ' =========================================================
+            ThemeManager.ApplyThemeToForm(Me)
+
+        Catch ex As Exception
+            ' تجاهل أخطاء الثيمات لكي لا يتوقف الفورم عن العمل
+        End Try
         If St_Count() = 1 Then All_St_Panel.Visible = False
         '  FormType = 2
         Check_View_Control()
@@ -771,5 +802,9 @@
     Private Sub ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ADD_New_IM_btn.Click
         IM_ADD_New.ShowDialog()
         If is_Add_New_IM = True Then QtyTextBox.Select()
+    End Sub
+
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
     End Sub
 End Class

@@ -62,6 +62,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            ModernLoader.ShowLoader()
             ' =========================================================
             ' 🌟 تعيين التاجات يدوياً للثيمات (يُمنع استخدام For Each نهائياً)
             ' =========================================================
@@ -117,8 +118,9 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 New_butt.Enabled = False
                 SearchButton.Enabled = False
             End If
-
+            ModernLoader.CloseLoader()
         Catch ex As Exception
+            ModernLoader.CloseLoader()
         End Try
     End Sub
 
