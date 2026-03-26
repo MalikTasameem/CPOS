@@ -32,6 +32,49 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Public Disc As Double = 0
     Public Pure As Double = 0
     Public Barcode_IM As String = ""
+    'Private WithEvents PulseTimer As New System.Windows.Forms.Timer() With {.Interval = 30}
+    'Private PulseFactor As Double = 0.0
+    'Private PulseStep As Double = 0.05
+    'Private BaseStateColor As System.Drawing.Color = System.Drawing.Color.Black
+    'Private FadedColor As System.Drawing.Color = System.Drawing.Color.LightGray
+    'Private Sub PulseTimer_Tick(sender As Object, e As EventArgs) Handles PulseTimer.Tick
+    '    If lblFormState Is Nothing Then Return
+
+    '    ' حساب معامل التوهج والخفوت بنعومة
+    '    PulseFactor += PulseStep
+
+    '    If PulseFactor >= 1.0 Then
+    '        PulseFactor = 1.0
+    '        PulseStep = -0.05 ' عكس الاتجاه للخفوت
+    '    ElseIf PulseFactor <= 0.0 Then
+    '        PulseFactor = 0.0
+    '        PulseStep = 0.05 ' عكس الاتجاه للتوهج
+    '    End If
+
+    '    ' دمج الألوان (Color Interpolation)
+    '    Dim r As Integer = CInt(BaseStateColor.R + (FadedColor.R - BaseStateColor.R) * PulseFactor)
+    '    Dim g As Integer = CInt(BaseStateColor.G + (FadedColor.G - BaseStateColor.G) * PulseFactor)
+    '    Dim b As Integer = CInt(BaseStateColor.B + (FadedColor.B - BaseStateColor.B) * PulseFactor)
+
+    '    ' تطبيق اللون وإجبار الواجهة على التحديث الفوري (هنا السر في ظهور الوميض!)
+    '    lblFormState.ForeColor = System.Drawing.Color.FromArgb(r, g, b)
+    '    lblFormState.Refresh()
+    'End Sub
+
+    ' =========================================================
+    ' 🌟 الدالة التي تستدعيها في أزرار الحفظ والإلغاء
+    ' =========================================================
+    ' =========================================================
+    ' 🌟 دالة التحكم في مؤشر حالة الفاتورة البصري (ثابت بدون وميض)
+    ' =========================================================
+    Private Sub UpdateFormStateIndicator(ByVal StateText As String, ByVal StateColor As System.Drawing.Color)
+        If lblFormState IsNot Nothing Then
+            lblFormState.Text = "⬤  " & StateText
+            lblFormState.ForeColor = StateColor
+            lblFormState.Visible = True
+            lblFormState.Refresh() ' لإجبار الشاشة على إظهار اللون الجديد فوراً
+        End If
+    End Sub
 
     ' =========================================================
     ' 🌟 إضافة الظل الاحترافي (Drop Shadow) للفورم الفريملس
@@ -50,7 +93,25 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Me.Dispose()
         FormType = 0
     End Sub
+    ' =========================================================
+    ' 🌟 دالة التحكم في مؤشر حالة الفاتورة البصري (مع الوميض)
+    ' =========================================================
+    'Private Sub UpdateFormStateIndicator(ByVal StateText As String, ByVal StateColor As Color, Optional ByVal ShouldPulse As Boolean = False)
+    '    If lblFormState IsNot Nothing Then
+    '        lblFormState.Text = "⬤  " & StateText
+    '        BaseStateColor = StateColor ' حفظ اللون الأصلي
+    '        lblFormState.Visible = True
 
+    '        If ShouldPulse Then
+    '            PulseFactor = 0.0 ' تصفير العداد
+    '            PulseStep = 0.05
+    '            PulseTimer.Start() ' تشغيل تأثير التنفس
+    '        Else
+    '            PulseTimer.Stop() ' إيقاف التأثير
+    '            lblFormState.ForeColor = BaseStateColor ' إرجاع اللون للسطوع الكامل
+    '        End If
+    '    End If
+    'End Sub
     Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.F1 Then If New_butt.Enabled = True Then New_butt_Click(sender, e)
         If e.KeyCode = Keys.F2 Then If Print_btn.Enabled = True Then Print_btn_Click(sender, e)
@@ -321,12 +382,14 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             DiscountPanel.Enabled = False
             DeliveryingButton.Enabled = False
             Aggregate_Btn.Enabled = False
+            UpdateFormStateIndicator("فاتورة ملغاة", Color.Crimson)
         Else
             If isDepended = False Then
                 Save_butt.Enabled = True
                 DiscountPanel.Enabled = True
                 Print_btn.Enabled = False
                 Enable_Fields()
+                UpdateFormStateIndicator("محفوظة", Color.DodgerBlue)
             Else
                 Print_btn.Enabled = True
                 'AGMetroGrid.BackgroundColor = Color.LightGreen
@@ -340,6 +403,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Delete_butt.Enabled = True
             DeliveryingButton.Enabled = True
             Aggregate_Btn.Enabled = False
+            UpdateFormStateIndicator("مُرحّلة / معتمدة", Color.BlueViolet)
         End If
         Me.Text = "فاتورة مشتريات "
     End Sub
@@ -372,6 +436,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
         If On_Update = True Then Edit_butt_Click(sender, e)
         Call_New_Bill()
+        UpdateFormStateIndicator("فاتورة جديدة", Color.LimeGreen)
     End Sub
 
     Private Sub Call_New_Bill()
@@ -418,6 +483,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                     Beep()
                     If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟", "تعديل فاتورة", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
                         '  Edit_butt.BackColor = Color.GreenYellow
+                        UpdateFormStateIndicator("قيد التعديل", Color.DarkOrange)
                         On_Update = True
                         AGMetroGrid.Enabled = True
                         'AGMetroGrid.BackgroundColor = Color.LightYellow
@@ -475,12 +541,14 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             If IM_min_QTY = False Then
                 If IM_Check_Neg_QTY_For_Cancel_Pch() = 1 Then
                     MsgBox(" لا يمكن سحب كمية بالسالب للصنف  " & Str_Name, MsgBoxStyle.Exclamation)
+
                     Exit Sub
                 End If
             End If
         End If
         Beep()
         If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
+            UpdateFormStateIndicator("فاتورة ملغاة", Color.Crimson)
             Cancel_Bill()
         End If
     End Sub
@@ -904,7 +972,12 @@ Public Class Pch : Inherits System.Windows.Forms.Form
 
     Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
         FormType = 2
-        If AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And AGMetroGrid.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
+
+        ' بدلاً من فحص اللون، نفحص المتغير البرمجي لحالة التعديل (On_Update)
+        ' نستخدم AndAlso لتسريع التنفيذ وتفادي الأخطاء
+        If On_Update = True AndAlso AGMetroGrid.Rows.Count > 0 Then
+            Change_IM_Details.ShowDialog()
+        End If
     End Sub
 
     Dim Tmp_Bill_ID As Integer
@@ -913,7 +986,13 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Bill_ID_Txt.Text = Pch_ID - 1
         Get_T_ID()
     End Sub
-
+    ' تايمر للتحكم في وميض حالة الفورم (600 مللي ثانية تعطي وميضاً هادئاً وغير مزعج)
+    Private WithEvents StateTimer As New Timer With {.Interval = 600}
+    Private Sub StateTimer_Tick(sender As Object, e As EventArgs) Handles StateTimer.Tick
+        If lblFormState IsNot Nothing Then
+            lblFormState.Visible = Not lblFormState.Visible ' عكس الحالة (إظهار/إخفاء)
+        End If
+    End Sub
     Public Sub Get_T_ID()
         Dim C As New C
         Dim S As String = "Select T_ID From Agents_Balance_MV Where Pch_ID = '" & Convert.ToInt64(Bill_ID_Txt.Text) & "'"

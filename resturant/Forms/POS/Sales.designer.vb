@@ -2026,6 +2026,7 @@ Partial Class Sales
     Friend WithEvents D_Valid_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents IMUnit_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents QTY_CL As System.Windows.Forms.DataGridViewTextBoxColumn
+
     Friend WithEvents Price_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents IM_Discount_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Total_CL As System.Windows.Forms.DataGridViewTextBoxColumn
