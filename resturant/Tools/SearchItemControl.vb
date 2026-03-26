@@ -5,7 +5,7 @@
     Public WithEvents txtSearch As New TextBox()
     Private WithEvents cmbSearchBy As New ComboBox()
     Private WithEvents dgvResults As New DataGridView()
-    Private WithEvents btnClear As New Button()
+    Public WithEvents btnClear As New Button()
     Private WithEvents btnRefresh As New Button()
     Private WithEvents btnToggleView As New Button()
 
