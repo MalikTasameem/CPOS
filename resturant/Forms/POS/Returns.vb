@@ -196,7 +196,7 @@ Public Class Returns : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub HandleItemSelected(itemId As Integer)
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
         PriceTextBox.Clear()
         IM_ID = itemId
         Get_Unit = False

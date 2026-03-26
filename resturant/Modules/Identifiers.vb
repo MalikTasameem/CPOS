@@ -127,6 +127,7 @@
     Public F_Pch_IM_card As Pch_IM_card_11
     Public F_Invoice_IM_card As Invoice_IM_card
     Public F_SB_IM_card As SB_IM_card
+    Public F_IMEX_IM_card As IMEX_IM_card
 
     '--------------------
     ' Public SqlConnection As String = ""

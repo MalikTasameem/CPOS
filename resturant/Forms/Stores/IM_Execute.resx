@@ -153,34 +153,26 @@
   <metadata name="Total_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="IM_ID_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="item_name_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="isValid_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="IM_NUM_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="IM_Show_CxtMStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>362, 11</value>
   </metadata>
-  <metadata name="AG_ID_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Agent_name_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Balance_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="AG_Cm.CancelSearchImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGTSURBVDhPvVO7SkNBEE20EdFOiY2PX9DKxCLoP0SRcN3Z
+        OZtVUgh+QXp/wtpKUlmksbAIgiIEbP0METHKuey9bDYGKz2wcO+ZnbOzM2crlf8AgJqq1p1zu9ba1TT+
+        G6qq2gbwBOArWmNVfbDWHqYJU/DeLwK4YaK19t4550Wk0el0Gqp6BmAYRK+NMQtpfoEqgD6Ad1WVNBjA
+        PafGmA+KpcEcAEyo5CSNpaBY2Dt9TQAjVb1L+RlgZUP2bILNsmyDJ/BKrVZrHsDVT6cBOAdwyW/nHHs2
+        npimqu5TSER2jDFrqvrKPsRiQWQM4Lnb7S4B2GMOrVEKichBqGib/8aYLQC5mHPuGMBFIeK9X+EeTjLk
+        1EshVd0MZFZwhViz2fwMIy9FCFoj8LVSiBCRFwCDmCvEUhGCPgPwGHM5ALhwwlHMs9pUhEMJN2jHfI5e
+        rzdnrb0F8JaKxaDPaFq+ANogjedQ1eUgxsoG7BkHwEXD0mch1udzSvMnwMp4zdCz+NFyjSg4s5JZYH9o
+        DfpMRNbT+J/gG0f57QEKYH0kAAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>54</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAgIAAAAEAIAAoCAEAFgAAACgAAACAAAAAAAEAAAEAIAAAAAAAAAABABMLAAATCwAAAAAAAAAA

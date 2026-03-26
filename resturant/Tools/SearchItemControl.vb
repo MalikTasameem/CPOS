@@ -14,6 +14,8 @@
     Private _itemsTable_Barcode As DataTable
 
 
+
+
     Public Property ItemsTable As DataTable
         Get
             Return _itemsTable
@@ -200,7 +202,9 @@
     Private isShowingAll As Boolean = False
 
     ' الحدث: عند اختيار صنف
-    Public Event ItemSelected(ByVal itemId As Integer)
+    'Public Event ItemSelected(ByVal itemId As Integer)
+
+    Public Event ItemSelected(ByVal itemId As Integer, ByVal isValid As String)
 
     ' ToolTip
     Private tt As New ToolTip()
@@ -357,11 +361,14 @@
             Dim row As DataGridViewRow = dgvResults.CurrentRow
             Dim itemId As Integer = CInt(row.Cells("ItemID").Value)
             Dim itemName As String = row.Cells("ItemName").Value.ToString()
+            Dim isValid As String = row.Cells("isValid").Value.ToString()
+
 
             txtSearch.Text = itemName
             txtSearch.BackColor = SystemColors.Info
 
-            RaiseEvent ItemSelected(itemId)
+            'RaiseEvent ItemSelected(itemId)
+            RaiseEvent ItemSelected(itemId, isValid)
 
             dgvResults.Visible = False
             Me.Height = txtSearch.Height + 10
@@ -457,44 +464,78 @@
     '-------------------------------------------------------------------
     ' دالة لاختيار صنف بناءً على رقم IM_ID
     '-------------------------------------------------------------------
+
     Public Sub SelectItemById(ByVal itemId As Integer)
-        ' تحقق من أن البيانات موجودة
         If _itemsTable Is Nothing OrElse _itemsTable.Rows.Count = 0 Then
             MessageBox.Show("جدول الأصناف فارغ.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
-        ' البحث عن الصف في الجدول
         Dim foundRows() As DataRow = _itemsTable.Select("ItemID = " & itemId)
         If foundRows.Length = 0 Then
             MessageBox.Show("لم يتم العثور على الصنف المطلوب.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Exit Sub
         End If
 
-        ' عرض الصف المحدد فقط في DataGridView
         Dim dtFiltered As DataTable = _itemsTable.Clone()
         dtFiltered.ImportRow(foundRows(0))
         dgvResults.DataSource = dtFiltered
         dgvResults.Visible = True
 
-        ' تهيئة الأعمدة
         SetupGridColumns()
-
-        ' تحديد الصف الحالي
         dgvResults.CurrentCell = dgvResults.Rows(0).Cells(1)
 
-        ' تعبئة مربع البحث بالاسم
         Dim itemName As String = foundRows(0)("ItemName").ToString()
+        Dim isValid As String = foundRows(0)("isValid").ToString()
+
         txtSearch.Text = itemName
         txtSearch.BackColor = SystemColors.Info
 
-        ' إطلاق الحدث ItemSelected
-        RaiseEvent ItemSelected(itemId)
+        RaiseEvent ItemSelected(itemId, isValid)
 
-        ' إخفاء الجدول بعد الاختيار (اختياري)
         dgvResults.Visible = False
         Me.Height = txtSearch.Height + 10
     End Sub
+
+    'Public Sub SelectItemById(ByVal itemId As Integer)
+    '    ' تحقق من أن البيانات موجودة
+    '    If _itemsTable Is Nothing OrElse _itemsTable.Rows.Count = 0 Then
+    '        MessageBox.Show("جدول الأصناف فارغ.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '        Exit Sub
+    '    End If
+
+    '    ' البحث عن الصف في الجدول
+    '    Dim foundRows() As DataRow = _itemsTable.Select("ItemID = " & itemId)
+    '    If foundRows.Length = 0 Then
+    '        MessageBox.Show("لم يتم العثور على الصنف المطلوب.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    '        Exit Sub
+    '    End If
+
+    '    ' عرض الصف المحدد فقط في DataGridView
+    '    Dim dtFiltered As DataTable = _itemsTable.Clone()
+    '    dtFiltered.ImportRow(foundRows(0))
+    '    dgvResults.DataSource = dtFiltered
+    '    dgvResults.Visible = True
+
+    '    ' تهيئة الأعمدة
+    '    SetupGridColumns()
+
+    '    ' تحديد الصف الحالي
+    '    dgvResults.CurrentCell = dgvResults.Rows(0).Cells(1)
+
+    '    ' تعبئة مربع البحث بالاسم
+    '    Dim itemName As String = foundRows(0)("ItemName").ToString()
+    '    txtSearch.Text = itemName
+    '    txtSearch.BackColor = SystemColors.Info
+
+    '    ' إطلاق الحدث ItemSelected
+    '    RaiseEvent ItemSelected(itemId)
+
+
+    '    ' إخفاء الجدول بعد الاختيار (اختياري)
+    '    dgvResults.Visible = False
+    '    Me.Height = txtSearch.Height + 10
+    'End Sub
 
     '------------------------------------------------------------------------------------------------------------------------------------------------------------
 

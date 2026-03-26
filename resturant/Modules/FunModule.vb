@@ -777,7 +777,8 @@ Module FunModule
                     With F_IM_Execute
                         .T_ID = C.Dr("T_ID")
                         .AG_ID = C.Dr("AG_ID")
-                        .GET_AG()
+                        .AG_Cm.Set_IM_By_ID(.AG_ID)
+                        '.GET_AG()
                         .Bill_ID_Txt.Text = S_Sub_Code & (C.Dr("Bill_ID")) ' - START_ID).ToString
                         .Bill_ID = C.Dr("Bill_ID")
                         .Title_txt.Text = C.Dr("Receipt_Title")
@@ -2595,9 +2596,9 @@ Module FunModule
             IM_Dt.Clear()
 
             If SB_Sch_With_QTY = False Then
-                s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode from IM_Menu_V  Order by item_name ASC"
+                s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode ,isValid from IM_Menu_V  Order by item_name ASC"
             Else
-                s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode from IM_All_V_With_QTY  Order by item_name ASC"
+                s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode ,isValid from IM_All_V_With_QTY  Order by item_name ASC"
             End If
             c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
             c.Da.Fill(IM_Dt)

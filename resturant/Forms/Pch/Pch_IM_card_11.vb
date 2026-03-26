@@ -78,13 +78,20 @@
 
     End Sub
 
-    Private Sub HandleItemSelected(itemId As Integer)
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
         IM_ID = itemId
         Get_Unit = False
         Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
         Load_IM_ALL_QTY(IM_ID, ALL_QTY, ALL_QTY_txt, U_Cargo)
         Fetch_IM_Units()
         QtyTextBox.Select()
+
+        If isValid = 1 Then
+            Valid_Panel.Visible = True
+            D_Valid.Value = Date.Now
+        Else
+            Valid_Panel.Visible = False
+        End If
 
     End Sub
 
