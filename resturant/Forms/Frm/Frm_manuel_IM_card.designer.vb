@@ -86,8 +86,6 @@ Partial Class Frm_manuel_IM_card
         Me.ADDCatButton = New System.Windows.Forms.Button()
         Me.Exit_Btn = New System.Windows.Forms.Button()
         Me.ADD_New_IM_btn = New System.Windows.Forms.Button()
-        Me.mySearchControl = New resturant.SearchItemControl()
-        Me.bercent_ADD_txt = New resturant.F3NumericTextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.is_Prudoct_RD = New System.Windows.Forms.RadioButton()
         Me.is_Row_RD = New System.Windows.Forms.RadioButton()
@@ -95,6 +93,8 @@ Partial Class Frm_manuel_IM_card
         Me.Valid_Panel_2 = New System.Windows.Forms.Panel()
         Me.Valid_cm = New System.Windows.Forms.ComboBox()
         Me.Valid_QTY_txt = New System.Windows.Forms.TextBox()
+        Me.mySearchControl = New resturant.SearchItemControl()
+        Me.bercent_ADD_txt = New resturant.F3NumericTextBox()
         Me.IM_Valid_Note_Panel.SuspendLayout()
         Me.Panel15.SuspendLayout()
         Me.Two_Panel.SuspendLayout()
@@ -412,9 +412,9 @@ Partial Class Frm_manuel_IM_card
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(65, 7)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 20)
+        Me.Label2.Size = New System.Drawing.Size(59, 20)
         Me.Label2.TabIndex = 604
-        Me.Label2.Text = "الشراء :"
+        Me.Label2.Text = "التكلفة :"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'PriceTextBox
@@ -935,32 +935,6 @@ Partial Class Frm_manuel_IM_card
         Me.ADD_New_IM_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ADD_New_IM_btn.UseVisualStyleBackColor = False
         '
-        'mySearchControl
-        '
-        Me.mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.mySearchControl.DefaultSearchField = "إسم الصنف"
-        Me.mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
-        Me.mySearchControl.ItemsTable = Nothing
-        Me.mySearchControl.itemsTable_Barcode = Nothing
-        Me.mySearchControl.Location = New System.Drawing.Point(311, 5)
-        Me.mySearchControl.Margin = New System.Windows.Forms.Padding(0)
-        Me.mySearchControl.MarginBetweenSearchAndGrid = 15
-        Me.mySearchControl.MaxGridHeight = 400
-        Me.mySearchControl.Name = "mySearchControl"
-        Me.mySearchControl.Size = New System.Drawing.Size(738, 35)
-        Me.mySearchControl.TabIndex = 1047
-        '
-        'bercent_ADD_txt
-        '
-        Me.bercent_ADD_txt.BackColor = System.Drawing.Color.Lavender
-        Me.bercent_ADD_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.bercent_ADD_txt.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.bercent_ADD_txt.Location = New System.Drawing.Point(45, 235)
-        Me.bercent_ADD_txt.MaxLength = 18
-        Me.bercent_ADD_txt.Name = "bercent_ADD_txt"
-        Me.bercent_ADD_txt.Size = New System.Drawing.Size(75, 26)
-        Me.bercent_ADD_txt.TabIndex = 1039
-        '
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -1012,16 +986,15 @@ Partial Class Frm_manuel_IM_card
         Me.is_Not_Qty_CB.Text = "بدون خصم كمية"
         Me.is_Not_Qty_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.is_Not_Qty_CB.UseVisualStyleBackColor = True
-        Me.is_Not_Qty_CB.Visible = False
         '
         'Valid_Panel_2
         '
         Me.Valid_Panel_2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_Panel_2.Controls.Add(Me.Valid_cm)
         Me.Valid_Panel_2.Controls.Add(Me.Valid_QTY_txt)
-        Me.Valid_Panel_2.Location = New System.Drawing.Point(825, 233)
+        Me.Valid_Panel_2.Location = New System.Drawing.Point(250, 120)
         Me.Valid_Panel_2.Name = "Valid_Panel_2"
-        Me.Valid_Panel_2.Size = New System.Drawing.Size(224, 36)
+        Me.Valid_Panel_2.Size = New System.Drawing.Size(193, 36)
         Me.Valid_Panel_2.TabIndex = 1052
         '
         'Valid_cm
@@ -1032,9 +1005,9 @@ Partial Class Frm_manuel_IM_card
         Me.Valid_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Valid_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Valid_cm.FormattingEnabled = True
-        Me.Valid_cm.Location = New System.Drawing.Point(102, 4)
+        Me.Valid_cm.Location = New System.Drawing.Point(84, 3)
         Me.Valid_cm.Name = "Valid_cm"
-        Me.Valid_cm.Size = New System.Drawing.Size(118, 28)
+        Me.Valid_cm.Size = New System.Drawing.Size(104, 28)
         Me.Valid_cm.TabIndex = 639
         '
         'Valid_QTY_txt
@@ -1043,16 +1016,42 @@ Partial Class Frm_manuel_IM_card
         Me.Valid_QTY_txt.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Valid_QTY_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_QTY_txt.Enabled = False
-        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 13.25!)
+        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 11.25!)
         Me.Valid_QTY_txt.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Valid_QTY_txt.Location = New System.Drawing.Point(2, 4)
+        Me.Valid_QTY_txt.Location = New System.Drawing.Point(1, 6)
         Me.Valid_QTY_txt.Name = "Valid_QTY_txt"
-        Me.Valid_QTY_txt.Size = New System.Drawing.Size(96, 28)
+        Me.Valid_QTY_txt.Size = New System.Drawing.Size(79, 25)
         Me.Valid_QTY_txt.TabIndex = 640
         Me.Valid_QTY_txt.Text = "00"
         Me.Valid_QTY_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Pch_IM_card
+        'mySearchControl
+        '
+        Me.mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mySearchControl.DefaultSearchField = "إسم الصنف"
+        Me.mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
+        Me.mySearchControl.ItemsTable = Nothing
+        Me.mySearchControl.itemsTable_Barcode = Nothing
+        Me.mySearchControl.Location = New System.Drawing.Point(318, 5)
+        Me.mySearchControl.Margin = New System.Windows.Forms.Padding(0)
+        Me.mySearchControl.MarginBetweenSearchAndGrid = 15
+        Me.mySearchControl.MaxGridHeight = 400
+        Me.mySearchControl.Name = "mySearchControl"
+        Me.mySearchControl.Size = New System.Drawing.Size(731, 35)
+        Me.mySearchControl.TabIndex = 1047
+        '
+        'bercent_ADD_txt
+        '
+        Me.bercent_ADD_txt.BackColor = System.Drawing.Color.Lavender
+        Me.bercent_ADD_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.bercent_ADD_txt.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bercent_ADD_txt.Location = New System.Drawing.Point(45, 235)
+        Me.bercent_ADD_txt.MaxLength = 18
+        Me.bercent_ADD_txt.Name = "bercent_ADD_txt"
+        Me.bercent_ADD_txt.Size = New System.Drawing.Size(75, 26)
+        Me.bercent_ADD_txt.TabIndex = 1039
+        '
+        'Frm_manuel_IM_card
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -1092,7 +1091,7 @@ Partial Class Frm_manuel_IM_card
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Pch_IM_card"
+        Me.Name = "Frm_manuel_IM_card"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "الصنف"

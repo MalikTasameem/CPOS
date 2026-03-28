@@ -130,6 +130,7 @@
     Public F_IMEX_IM_card As IMEX_IM_card
     Public F_Stores_Trans_IM_card As Stores_Trans_IM_card
     Public F_Frm_manuel_IM_card As Frm_manuel_IM_card
+    Public F_Frm_auto_IM_card As Frm_auto_IM_card
     '--------------------
     ' Public SqlConnection As String = ""
 

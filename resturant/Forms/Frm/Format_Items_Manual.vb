@@ -11,24 +11,21 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     Public isVoid As Boolean
 
     Dim Valid_Dt As New DataTable
-    '  Public Receipts_DT As New DataTable
 
     Public isCashReceipt_Success As Boolean = False
     Public isShowingDetails As Boolean = False
 
-    Dim IM_ID As Integer = 0
-    Dim IM_Dt As New DataTable
-    Dim IM_QTY As Double = 0
+    '  Dim IM_ID As Integer = 0
+    ' Dim IM_Dt As New DataTable
+    ' Dim IM_QTY As Double = 0
     Public TOTAL As Double = 0
-    '  Public Disc As Double = 0
-    ' Public Pure As Double = 0
+
     Public AG_ID As Integer = 0
     Dim AG_Dt As New DataTable
-    Dim U_Dt As New DataTable
+    ' Dim U_Dt As New DataTable
     Dim Get_Unit As Boolean = False
-    Dim Cost As Double = 0
+    'Dim Cost As Double = 0
 
-    ' Public isNewBill As Integer
     Public Barcode As String
     Dim isPied As Integer = 0
     Dim BillUser_ID As Integer
@@ -36,11 +33,11 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     Dim Bill_DT As New DataTable
     Dim Bill_DT_2 As New DataTable
     Dim Bill_DT_3 As New DataTable
-    '   Dim U_ID As Integer
-    Dim U_Cargo As Double = 1
-    Dim ALL_QTY As Double = 0
-    Dim isStore As Integer
-    Public Barcode_IM As String = ""
+
+    'Dim U_Cargo As Double = 1
+    'Dim ALL_QTY As Double = 0
+    'Dim isStore As Integer
+    'Public Barcode_IM As String = ""
     Public Bill_ID As Integer
 
     Public On_Update As Boolean
@@ -48,7 +45,6 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         FormType = 0
         Me.Dispose()
-        'F_MainForm.Fill_ALL_IM()
     End Sub
 
     Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -62,28 +58,11 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
             Case Keys.F4
                 If Delete_butt.Enabled = True Then Delete_butt_Click(sender, e)
 
-            Case Keys.F5
-                IM_SH_txt.Select()
-            Case Keys.F8
-                Barcode_SH_txt.Select()
+                'Case Keys.F5
+                '    IM_SH_txt.Select()
+                'Case Keys.F8
+                '    Barcode_SH_txt.Select()
 
-                'Case 107 'Add
-                '    If BillMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
-                '        If BillMetroGrid.Rows.Count > 0 Then
-                '            Dim Def As Integer = 1
-                '            Change_IM_Qty(Def)
-                '        End If
-                '    End If
-
-                'Case 109 'Subtrac
-                '    If BillMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
-                '        If BillMetroGrid.Rows.Count > 0 Then
-                '            If BillMetroGrid.CurrentRow.Cells("QTY_CL").Value > 1 Then
-                '                Dim Def As Integer = -1
-                '                Change_IM_Qty(Def)
-                '            End If
-                '        End If
-                '    End If
 
         End Select
     End Sub
@@ -106,38 +85,37 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-    Public Sub Load_ST()
-        Dim c As New C
-        Try
-            Dim s As String
-            s = "select ST_ID,ST_name from STORES ORDER By ST_ID ASC"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(c.Dt)
-            ST_cm.DataSource = c.Dt
-            ST_cm.DisplayMember = "ST_name"
-            ST_cm.ValueMember = "ST_ID"
-            ST_cm.SelectedIndex = 0
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Public Sub Load_ST()
+    '    Dim c As New C
+    '    Try
+    '        Dim s As String
+    '        s = "select ST_ID,ST_name from STORES ORDER By ST_ID ASC"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(c.Dt)
+    '        ST_cm.DataSource = c.Dt
+    '        ST_cm.DisplayMember = "ST_name"
+    '        ST_cm.ValueMember = "ST_ID"
+    '        ST_cm.SelectedIndex = 0
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
-        If IM_ID > 0 Then
-            Show_IM_Details.IM_ID = IM_ID
-            Show_IM_Details.ShowDialog()
-        End If
+        'If IM_ID > 0 Then
+        '    Show_IM_Details.IM_ID = IM_ID
+        '    Show_IM_Details.ShowDialog()
+        'End If
     End Sub
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
-        If St_Count() = 1 Then All_St_Panel.Visible = False
+        '   If St_Count() = 1 Then All_St_Panel.Visible = False
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
 
         FormType = 9
-        Load_ST()
+        ' Load_ST()
         Get_Last_T_ID()
 
         EditState = Edit_butt.Text
@@ -150,36 +128,25 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
             New_butt.Enabled = False
         End If
 
-        If My_Settings.S_Default = 0 Then
-            Barcode_SH_txt.Select()
-        Else
-            IM_SH_txt.Select()
-        End If
+        'If My_Settings.S_Default = 0 Then
+        '    Barcode_SH_txt.Select()
+        'Else
+        '    IM_SH_txt.Select()
+        'End If
 
-        'Min_SP_Panel.Visible = S_Allow_MinSP
-        'Min_SP_Panel_2.Visible = S_Allow_MinSP
 
     End Sub
 
     Public Sub Check_View_Control()
-        'AGMetroGrid.Columns("Date_CL").Visible = MY_Settings.S_Date_CL
         AGMetroGrid.Columns("ST_NAME_CL").Visible = MY_Settings.S_ST_Name_CL
         AGMetroGrid.Columns("D_Valid_CL").Visible = MY_Settings.S_D_Valid_CL
         AGMetroGrid.Columns("U_Name_CL").Visible = MY_Settings.S_IMUnit_CL
 
         AGMetroGrid.Columns("Rtn_Price_CL").Visible = MY_Settings.S_Price_CL
         AGMetroGrid.Columns("T_Price_CL").Visible = MY_Settings.S_Total_CL
-        'AGMetroGrid.Columns("Notes_CL").Visible = MY_Settings.SP_Notes_CL
-        'AGMetroGrid.Columns("IMNUM_CL").Visible = MY_Settings.S_IMNUM_CL
 
-        'AGMetroGrid.Columns("Barcode_CL").Visible = MY_Settings.S_Barcode_CL
-        'AGMetroGrid.Columns("Serial_Code_CL").Visible = MY_Settings.S_Serial_Code_CL
-
-        'AGMetroGrid.Columns("IM_NOTE_CL").Visible = MY_Settings.S_IM_NOTE_CL
-
-
-        Min_SP_Panel.Visible = S_Allow_MinSP
-        Min_SP_Panel_2.Visible = S_Allow_MinSP
+        'Min_SP_Panel.Visible = S_Allow_MinSP
+        'Min_SP_Panel_2.Visible = S_Allow_MinSP
     End Sub
 
     Public Sub Get_Last_T_ID()
@@ -201,7 +168,6 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
                 SelectStateBt()
             Else
                 Call_New_Bill()
-                'SELECT_MAX()
             End If
 
         Catch ex As Exception
@@ -327,22 +293,22 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Disable_CatFields()
-        IM_SH_txt.Enabled = False
-        Show_IM_btn.Enabled = False
-        Barcode_SH_txt.Enabled = False
-        QtyTextBox.Enabled = False
-        PriceTextBox.Enabled = False
+        'IM_SH_txt.Enabled = False
+        'Show_IM_btn.Enabled = False
+        'Barcode_SH_txt.Enabled = False
+        'QtyTextBox.Enabled = False
+        'PriceTextBox.Enabled = False
         ADDCatButton.Enabled = False
         RemoveCatButton.Enabled = False
         RemoveCatButton_2.Enabled = False
     End Sub
 
     Private Sub Ebable_CatFields()
-        IM_SH_txt.Enabled = True
-        Show_IM_btn.Enabled = True
-        Barcode_SH_txt.Enabled = True
-        QtyTextBox.Enabled = True
-        PriceTextBox.Enabled = True
+        'IM_SH_txt.Enabled = True
+        'Show_IM_btn.Enabled = True
+        'Barcode_SH_txt.Enabled = True
+        'QtyTextBox.Enabled = True
+        'PriceTextBox.Enabled = True
         ADDCatButton.Enabled = True
         RemoveCatButton.Enabled = True
         RemoveCatButton_2.Enabled = True
@@ -374,11 +340,11 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         Save_butt.Enabled = True
         Delete_butt.Enabled = False
         Me.Text = "فاتورة تصنيع جديدة"
-        If My_Settings.S_Default = 0 Then
-            Barcode_SH_txt.Select()
-        Else
-            IM_SH_txt.Select()
-        End If
+        'If My_Settings.S_Default = 0 Then
+        '    Barcode_SH_txt.Select()
+        'Else
+        '    IM_SH_txt.Select()
+        'End If
     End Sub
     Private Sub DeleteOrUpdateStateBt()
         Disable_Fields()
@@ -457,24 +423,13 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
             VoidLb.Visible = False
         End If
 
-
         Me.Text = "عرض بيانات فاتورة"
 
-        'If BillUser_ID <> USER_ID Then
-        '    If User_isAdmin = False Then
-        '        BillMetroGrid.BackgroundColor = Color.Gray
-        '        BillMetroGrid.RowsDefaultCellStyle.BackColor = Color.Gray
-        '        Delete_butt.Enabled = False
-        '        Save_butt.Enabled = False
-        '        Disable_CatFields()
-        '    End If
+        'If My_Settings.S_Default = 0 Then
+        '    Barcode_SH_txt.Select()
+        'Else
+        '    IM_SH_txt.Select()
         'End If
-
-        If My_Settings.S_Default = 0 Then
-            Barcode_SH_txt.Select()
-        Else
-            IM_SH_txt.Select()
-        End If
 
     End Sub
 
@@ -482,14 +437,14 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         isCashReceipt_Success = False
         T_ID = 0
         Notes_txt.Clear()
-        PriceTextBox.Clear()
+        '  PriceTextBox.Clear()
         Bill_DT.Clear()
         Bill_DT_2.Clear()
         DateTimeEx.Text = Date.Now
         VoidLb.Visible = False
         isVoid = False
         isDepended = False
-        ClearCatFields()
+        '  ClearCatFields()
         Me.Text = FormState
         Title_txt.Clear()
         EMP_FS.Textt = ""
@@ -666,210 +621,209 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
 
 
 
-    Private Sub ADD_IM()
-        If IM_ID = 0 Then
-            MsgBox("حددالصنف", MsgBoxStyle.Exclamation)
-            IM_SH_txt.Select()
-        Else
-            If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
+    'Private Sub ADD_IM()
+    '    If IM_ID = 0 Then
+    '        MsgBox("حددالصنف", MsgBoxStyle.Exclamation)
+    '        IM_SH_txt.Select()
+    '    Else
+    '        If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
 
-            If is_Row_RD.Checked = True Then
-                If IM_min_QTY = False Then
-                    If IM_Check_Neg_QTY_() = 1 Then
-                        MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
-                        Exit Sub
-                    End If
-                End If
-            End If
-
-
-            If is_Row_RD.Checked = False And isStore = 2 Then
-                If IM_min_QTY = False Then
-                    If IM_Check_Neg_QTY_2() = 1 Then
-                        MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
-                        Exit Sub
-                    End If
-                End If
-            End If
+    '        If is_Row_RD.Checked = True Then
+    '            If IM_min_QTY = False Then
+    '                If IM_Check_Neg_QTY_() = 1 Then
+    '                    MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
+    '                    Exit Sub
+    '                End If
+    '            End If
+    '        End If
 
 
-            If Valid_Panel.Visible = True Then
-                If D_Valid.Value.Date <= Date.Now.Date Then
-                    MsgBox("صنف منتهية صلاحيته لا يمكن إدراجه", MsgBoxStyle.Critical, "خطأ")
-                    Exit Sub
-                End If
-            End If
+    '        If is_Row_RD.Checked = False And isStore = 2 Then
+    '            If IM_min_QTY = False Then
+    '                If IM_Check_Neg_QTY_2() = 1 Then
+    '                    MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
+    '                    Exit Sub
+    '                End If
+    '            End If
+    '        End If
 
 
-            For i = 0 To BillMetroGrid.Rows.Count - 1
-                If BillMetroGrid.Rows(i).Cells("Bill_IMID_CL").Value = IM_ID Then
-                    Beep()
-                    If MessageBox.Show(" هذا الصنف تم إدراجه بالفاتورة ... هل تريد الإستمرار ؟ ", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
-                        Exit Sub
-                    Else
-                        Insert_Cat()
-                        Exit Sub
-                    End If
-                End If
-            Next
-
-            If isStore <> 2 Then
-                Insert_Cat()
-            Else
-                Insert_Cat_2()
-            End If
-
-        End If
-    End Sub
-
-    Private Sub Insert_Cat_2()
-        If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
-        Dim Row_Index As Integer = 0
-        If AGMetroGrid.Rows.Count > 0 Then Row_Index = AGMetroGrid.CurrentCell.RowIndex + 1
-        Dim sqlComm As New SqlClient.SqlCommand()
-        sqlComm.CommandText = "FRM_Details_Insert"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@Pch_T_ID", T_ID)
-        sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
-        sqlComm.Parameters.AddWithValue("@U_ID", IM_Unit_cm.SelectedValue)
-        sqlComm.Parameters.AddWithValue("@Price", 0)
-        If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
-        sqlComm.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
-        sqlComm.Parameters.AddWithValue("@QYT", QtyTextBox.Text)
-        sqlComm.Parameters.AddWithValue("@Total", 0)
-        sqlComm.Parameters.AddWithValue("@Barcode", Barcode_IM)
-        If String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSale", NewSalePrice_txt.Text)
-        If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSaleByOne", NewSaleByOne.Text)
-
-        If String.IsNullOrWhiteSpace(Min_SP_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP", Convert.ToDouble(Min_SP_txt.Text))
-        If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text))
+    '        If Valid_Panel.Visible = True Then
+    '            If D_Valid.Value.Date <= Date.Now.Date Then
+    '                MsgBox("صنف منتهية صلاحيته لا يمكن إدراجه", MsgBoxStyle.Critical, "خطأ")
+    '                Exit Sub
+    '            End If
+    '        End If
 
 
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Update_Total()
-            ClearCatFields()
-            Pch_Contents_SELECT_Bill()
-            If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("FRM_IM_NAME_CL")
-            If MY_Settings.S_Default = 0 Then
-                Barcode_SH_txt.Select()
-            Else
-                IM_SH_txt.Select()
-            End If
-        End If
+    '        For i = 0 To BillMetroGrid.Rows.Count - 1
+    '            If BillMetroGrid.Rows(i).Cells("Bill_IMID_CL").Value = IM_ID Then
+    '                Beep()
+    '                If MessageBox.Show(" هذا الصنف تم إدراجه بالفاتورة ... هل تريد الإستمرار ؟ ", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
+    '                    Exit Sub
+    '                Else
+    '                    Insert_Cat()
+    '                    Exit Sub
+    '                End If
+    '            End If
+    '        Next
 
-    End Sub
+    '        If isStore <> 2 Then
+    '            Insert_Cat()
+    '        Else
+    '            Insert_Cat_2()
+    '        End If
 
-    Private Function IM_Check_Neg_QTY_()
-        Dim C As New C
-        Dim F As Integer = 0
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "IM_Check_Neg_QTY_"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@F", 0)
-            .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
-            .Parameters.AddWithValue("@IM_ID", IM_ID)
-            .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
-            .Parameters.AddWithValue("@Enterd_Qty", QtyTextBox.Text)
-            .Parameters.AddWithValue("@Cargo", U_Cargo)
+    '    End If
+    'End Sub
 
-            .Parameters("@F").Direction = ParameterDirection.Output
-            If SQL_SP_EXEC(C.Com) Then
-                F = .Parameters("@F").Value
-            End If
-        End With
+    'Private Sub Insert_Cat_2()
+    '    If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
+    '    Dim Row_Index As Integer = 0
+    '    If AGMetroGrid.Rows.Count > 0 Then Row_Index = AGMetroGrid.CurrentCell.RowIndex + 1
+    '    Dim sqlComm As New SqlClient.SqlCommand()
+    '    sqlComm.CommandText = "FRM_Details_Insert"
+    '    sqlComm.CommandType = CommandType.StoredProcedure
+    '    sqlComm.Parameters.AddWithValue("@Pch_T_ID", T_ID)
+    '    sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
+    '    sqlComm.Parameters.AddWithValue("@U_ID", IM_Unit_cm.SelectedValue)
+    '    sqlComm.Parameters.AddWithValue("@Price", 0)
+    '    If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
+    '    sqlComm.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+    '    sqlComm.Parameters.AddWithValue("@QYT", QtyTextBox.Text)
+    '    sqlComm.Parameters.AddWithValue("@Total", 0)
+    '    sqlComm.Parameters.AddWithValue("@Barcode", Barcode_IM)
+    '    If String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSale", NewSalePrice_txt.Text)
+    '    If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSaleByOne", NewSaleByOne.Text)
 
-        Return F
-    End Function
+    '    If String.IsNullOrWhiteSpace(Min_SP_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP", Convert.ToDouble(Min_SP_txt.Text))
+    '    If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text))
 
-    Private Function IM_Check_Neg_QTY_2()
-        Dim C As New C
-        Dim F As Integer = 0
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "IM_Check_Neg_QTY_For_Format_IM"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@F", 0)
-            .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
-            .Parameters.AddWithValue("@IM_ID", IM_ID)
-            .Parameters.AddWithValue("@Enterd_Qty", Convert.ToDouble(QtyTextBox.Text) * U_Cargo)
-            .Parameters("@F").Direction = ParameterDirection.Output
-            If SQL_SP_EXEC(C.Com) Then F = .Parameters("@F").Value
-        End With
 
-        Return F
-    End Function
+    '    If SQL_SP_EXEC(sqlComm) = True Then
+    '        Update_Total()
+    '        ClearCatFields()
+    '        Pch_Contents_SELECT_Bill()
+    '        If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("FRM_IM_NAME_CL")
+    '        If MY_Settings.S_Default = 0 Then
+    '            Barcode_SH_txt.Select()
+    '        Else
+    '            IM_SH_txt.Select()
+    '        End If
+    '    End If
+
+    'End Sub
+
+    'Private Function IM_Check_Neg_QTY_()
+    '    Dim C As New C
+    '    Dim F As Integer = 0
+    '    With C.Com
+    '        .Connection = C.Con
+    '        .CommandText = "IM_Check_Neg_QTY_"
+    '        .CommandType = CommandType.StoredProcedure
+    '        .Parameters.AddWithValue("@F", 0)
+    '        .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+    '        .Parameters.AddWithValue("@IM_ID", IM_ID)
+    '        .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
+    '        .Parameters.AddWithValue("@Enterd_Qty", QtyTextBox.Text)
+    '        .Parameters.AddWithValue("@Cargo", U_Cargo)
+
+    '        .Parameters("@F").Direction = ParameterDirection.Output
+    '        If SQL_SP_EXEC(C.Com) Then
+    '            F = .Parameters("@F").Value
+    '        End If
+    '    End With
+
+    '    Return F
+    'End Function
+
+    'Private Function IM_Check_Neg_QTY_2()
+    '    Dim C As New C
+    '    Dim F As Integer = 0
+    '    With C.Com
+    '        .Connection = C.Con
+    '        .CommandText = "IM_Check_Neg_QTY_For_Format_IM"
+    '        .CommandType = CommandType.StoredProcedure
+    '        .Parameters.AddWithValue("@F", 0)
+    '        .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+    '        .Parameters.AddWithValue("@IM_ID", IM_ID)
+    '        .Parameters.AddWithValue("@Enterd_Qty", Convert.ToDouble(QtyTextBox.Text) * U_Cargo)
+    '        .Parameters("@F").Direction = ParameterDirection.Output
+    '        If SQL_SP_EXEC(C.Com) Then F = .Parameters("@F").Value
+    '    End With
+
+    '    Return F
+    'End Function
 
 
     Private Sub Update_Total()
         If String.IsNullOrWhiteSpace(Pure_txt.Text) = False Then Save_Total(T_ID, TOTAL, 0)
     End Sub
 
-    Private Sub ClearCatFields()
-        IM_SH_txt.Clear()
-        Barcode_SH_txt.Clear()
-        Current_QTY.Clear()
-        PriceTextBox.Clear()
-        QtyTextBox.Clear()
-        U_Dt.Clear()
-        ALL_QTY_txt.Clear()
-        NewSalePrice_txt.Clear()
-        Prev_Sale_Unit_txt.Clear()
-        PrevMin_SP_txt.Clear()
-        Min_SP_By_One_txt.Clear()
-        Min_SP_txt.Clear()
-        Barcode_IM = ""
-    End Sub
+    'Private Sub ClearCatFields()
+    '    IM_SH_txt.Clear()
+    '    Barcode_SH_txt.Clear()
+    '    Current_QTY.Clear()
+    '    PriceTextBox.Clear()
+    '    QtyTextBox.Clear()
+    '    U_Dt.Clear()
+    '    ALL_QTY_txt.Clear()
+    '    NewSalePrice_txt.Clear()
+    '    Prev_Sale_Unit_txt.Clear()
+    '    PrevMin_SP_txt.Clear()
+    '    Min_SP_By_One_txt.Clear()
+    '    Min_SP_txt.Clear()
+    '    Barcode_IM = ""
+    'End Sub
 
 
-    Private Sub Insert_Cat()
-        If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
-        Dim Row_Index As Integer = 0
-        ' If AGMetroGrid.Rows.Count > 0 Then Row_Index = AGMetroGrid.CurrentCell.RowIndex + 1
-        Dim sqlComm As New SqlClient.SqlCommand()
-        sqlComm.CommandText = "[FRM_Manual_Details_Insert]"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@Pch_T_ID", T_ID)
-        sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
-        sqlComm.Parameters.AddWithValue("@U_ID", IM_Unit_cm.SelectedValue)
-        sqlComm.Parameters.AddWithValue("@Price", PriceTextBox.Text)
-        If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
-        If Valid_Panel_2.Visible = True Then
-            sqlComm.Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
-            sqlComm.Parameters.AddWithValue("@Current_QTY", Convert.ToDouble(Current_QTY.Text))
-        End If
-        sqlComm.Parameters.AddWithValue("@Barcode", Barcode_IM)
+    'Private Sub Insert_Cat()
+    '    If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
+    '    Dim Row_Index As Integer = 0
+    '    ' If AGMetroGrid.Rows.Count > 0 Then Row_Index = AGMetroGrid.CurrentCell.RowIndex + 1
+    '    Dim sqlComm As New SqlClient.SqlCommand()
+    '    sqlComm.CommandText = "[FRM_Manual_Details_Insert]"
+    '    sqlComm.CommandType = CommandType.StoredProcedure
+    '    sqlComm.Parameters.AddWithValue("@Pch_T_ID", T_ID)
+    '    sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
+    '    sqlComm.Parameters.AddWithValue("@U_ID", IM_Unit_cm.SelectedValue)
+    '    sqlComm.Parameters.AddWithValue("@Price", PriceTextBox.Text)
+    '    If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
+    '    If Valid_Panel_2.Visible = True Then
+    '        sqlComm.Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
+    '        sqlComm.Parameters.AddWithValue("@Current_QTY", Convert.ToDouble(Current_QTY.Text))
+    '    End If
+    '    sqlComm.Parameters.AddWithValue("@Barcode", Barcode_IM)
 
-        sqlComm.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
-        sqlComm.Parameters.AddWithValue("@QYT", QtyTextBox.Text)
-        sqlComm.Parameters.AddWithValue("@Total", 0)
-        If String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSale", NewSalePrice_txt.Text)
-        If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSaleByOne", NewSaleByOne.Text)
+    '    sqlComm.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+    '    sqlComm.Parameters.AddWithValue("@QYT", QtyTextBox.Text)
+    '    sqlComm.Parameters.AddWithValue("@Total", 0)
+    '    If String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSale", NewSalePrice_txt.Text)
+    '    If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSaleByOne", NewSaleByOne.Text)
 
-        If String.IsNullOrWhiteSpace(Min_SP_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP", Convert.ToDouble(Min_SP_txt.Text))
-        If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text))
+    '    If String.IsNullOrWhiteSpace(Min_SP_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP", Convert.ToDouble(Min_SP_txt.Text))
+    '    If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text))
 
-        sqlComm.Parameters.AddWithValue("@is_Product", is_Prudoct_RD.Checked)
-        sqlComm.Parameters.AddWithValue("@is_Not_Qty", is_Not_Qty_CB.Checked)
+    '    sqlComm.Parameters.AddWithValue("@is_Product", is_Prudoct_RD.Checked)
+    '    sqlComm.Parameters.AddWithValue("@is_Not_Qty", is_Not_Qty_CB.Checked)
 
 
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" الصنف:" + IM_SH_txt.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " البيع:" _
-                           + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, Bill_ID_Txt.Text, 18, 1)
+    '    If SQL_SP_EXEC(sqlComm) = True Then
+    '        Network_Edit_Tracker_insert(" الصنف:" + IM_SH_txt.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " البيع:" _
+    '                       + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, Bill_ID_Txt.Text, 18, 1)
 
-            'FRM_Manual_Set_Cost()
-            Update_Total()
-            ClearCatFields()
-            Pch_Contents_SELECT_Bill()
-            '    If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("FRM_IM_NAME_CL")
-            If MY_Settings.S_Default = 0 Then
-                Barcode_SH_txt.Select()
-            Else
-                IM_SH_txt.Select()
-            End If
-        End If
 
-    End Sub
+    '        Update_Total()
+    '        ClearCatFields()
+    '        Pch_Contents_SELECT_Bill()
+    '        If MY_Settings.S_Default = 0 Then
+    '            Barcode_SH_txt.Select()
+    '        Else
+    '            IM_SH_txt.Select()
+    '        End If
+    '    End If
+
+    'End Sub
 
     Public Sub Pch_Contents_SELECT_Bill()
 
@@ -928,29 +882,16 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
             CheckedListBox1.Items.Add(CL)
         Next
 
-
         CheckedListBox2.Items.Clear()
         For i As Integer = 0 To ServicesGrid.ColumnCount - 1
             Dim CL = ServicesGrid.Columns(i).HeaderText
             CheckedListBox2.Items.Add(CL)
         Next
 
-
-
-
-
         BillMetroGrid.Columns(7).Tag = 1
         BillMetroGrid.Columns(8).Tag = 1
         BillMetroGrid.Columns(9).Tag = 1
         BillMetroGrid.Columns("T_ID_CL").Visible = False
-
-
-
-        'Dim TOTAL = 0
-        'For i = 0 To AGMetroGrid.Rows.Count - 1
-        '    TOTAL = TOTAL + AGMetroGrid.Rows(i).Cells("T_Price_CL").Value '* BillMetroGrid.Rows(i).Cells("QTY_CL").Value)
-        'Next
-        'Pure_txt.Text = TOTAL.ToString("N")
 
     End Sub
 
@@ -973,45 +914,37 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
             'FRM_Manual_Set_Cost()
             Pch_Contents_SELECT_Bill()
             If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("FRM_IM_NAME_CL")
-            If MY_Settings.S_Default = 0 Then
-                Barcode_SH_txt.Select()
-            Else
-                IM_SH_txt.Select()
-            End If
+            'If MY_Settings.S_Default = 0 Then
+            '    Barcode_SH_txt.Select()
+            'Else
+            '    IM_SH_txt.Select()
+            'End If
         End If
     End Sub
 
-    Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
-        Check_Only_Float(sender, e)
-    End Sub
+    'Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs)
+    '    Check_Only_Float(sender, e)
+    'End Sub
 
-    Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
-        Check_Point_in_FloatNum(sender, e)
-    End Sub
+    'Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs)
+    '    Check_Point_in_FloatNum(sender, e)
+    'End Sub
 
-    Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
+    'Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs)
 
-        Select Case e.KeyCode
-            Case Keys.Return : NewSalePrice_txt.Select()
-            Case Keys.Up : Barcode_SH_txt.Select()
-            Case Keys.Down : If BillMetroGrid.Rows.Count > 0 = True Then BillMetroGrid.Select()
-            Case Keys.Right : PriceTextBox.Select()
-        End Select
+    '    Select Case e.KeyCode
+    '        Case Keys.Return : NewSalePrice_txt.Select()
+    '        Case Keys.Up : Barcode_SH_txt.Select()
+    '        Case Keys.Down : If BillMetroGrid.Rows.Count > 0 = True Then BillMetroGrid.Select()
+    '        Case Keys.Right : PriceTextBox.Select()
+    '    End Select
 
-    End Sub
+    'End Sub
 
 
     Private Sub RemoveCatButton_Click(sender As Object, e As EventArgs) Handles RemoveCatButton.Click
 
         If AGMetroGrid.Rows.Count > 0 Then
-
-
-            'If IM_min_QTY = False Then
-            '    If IM_Check_Neg_QTY_For_Update_FR_IM() = 1 Then
-            '        MsgBox("في حالة خذف الصنف ستصبح كمية المخزون سالبة", MsgBoxStyle.Critical, "خطأ")
-            '        Exit Sub
-            '    End If
-            'End If
 
             If MessageBox.Show(" حذف الصنف " + AGMetroGrid.CurrentRow.Cells("FRM_IM_NAME_CL").Value, "تأكيد", MessageBoxButtons.OKCancel,
                                MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
@@ -1040,297 +973,297 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     End Function
 
 
-    Public Sub Load_IM()
-        Dim c As New C
+    'Public Sub Load_IM()
+    '    Dim c As New C
 
-        Try
-            IM_Dt.Clear()
-            c.Str = IM_Serach(IM_SH_txt.Text)
-            c.Da = New SqlClient.SqlDataAdapter(c.Str, c.Con)
-            c.Da.Fill(IM_Dt)
-            IMDataGridViewX.DataSource = IM_Dt
-            If IM_Dt.Rows.Count > 0 Then
-                IMDataGridViewX.Visible = True
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            Else
-                IMDataGridViewX.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-
-
-    Private Sub IM_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_SH_txt.KeyDown
-
-        Select Case e.KeyCode
-            Case Keys.Return
-                If IMDataGridViewX.Visible = True Then
-                    Fetch_ItemToList()
-                Else
-                    QtyTextBox.Select()
-                End If
-
-            Case Keys.Down
-                If IMDataGridViewX.Visible = True Then
-                    IMDataGridViewX.Select()
-                Else
-                    QtyTextBox.Select()
-                End If
-
-            Case Keys.Left : Barcode_SH_txt.Select()
-            Case Keys.Delete : IM_SH_txt.Clear()
-
-        End Select
+    '    Try
+    '        IM_Dt.Clear()
+    '        c.Str = IM_Serach(IM_SH_txt.Text)
+    '        c.Da = New SqlClient.SqlDataAdapter(c.Str, c.Con)
+    '        c.Da.Fill(IM_Dt)
+    '        IMDataGridViewX.DataSource = IM_Dt
+    '        If IM_Dt.Rows.Count > 0 Then
+    '            IMDataGridViewX.Visible = True
+    '            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+    '        Else
+    '            IMDataGridViewX.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
 
-    End Sub
 
-    Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
-        If IM_SH_txt.Text.Count > 0 Then
-            Load_IM()
-        Else
-            IMDataGridViewX.Visible = False
-            IM_ID = 0
-            U_Dt.Clear()
-            Current_QTY.Clear()
-            PriceTextBox.Clear()
-            NewSalePrice_txt.Clear()
-            ALL_QTY_txt.Clear()
-            Prev_Sale_Unit_txt.Clear()
-            Valid_Dt.Clear()
-            Valid_Panel.Visible = False
-            Valid_Panel_2.Visible = False
-        End If
-        If IM_ID = 0 Then
-            IM_SH_txt.BackColor = Color.LightGray
-        Else
-            IM_SH_txt.BackColor = Color.LightGoldenrodYellow
-        End If
+    'Private Sub IM_SH_txt_KeyDown(sender As Object, e As KeyEventArgs)
 
-    End Sub
+    '    Select Case e.KeyCode
+    '        Case Keys.Return
+    '            If IMDataGridViewX.Visible = True Then
+    '                Fetch_ItemToList()
+    '            Else
+    '                QtyTextBox.Select()
+    '            End If
 
-    Private Sub IMDataGridViewX_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles IMDataGridViewX.CellClick
-        Fetch_ItemToList()
-    End Sub
+    '        Case Keys.Down
+    '            If IMDataGridViewX.Visible = True Then
+    '                IMDataGridViewX.Select()
+    '            Else
+    '                QtyTextBox.Select()
+    '            End If
 
-    Private Sub IMDataGridViewX_KeyDown(sender As Object, e As KeyEventArgs) Handles IMDataGridViewX.KeyDown
-        If e.KeyCode = Keys.Return Then Fetch_ItemToList()
-        If e.KeyCode = Keys.Up Then If IMDataGridViewX.CurrentRow.Index = 0 Then IM_SH_txt.Select()
-    End Sub
+    '        Case Keys.Left : Barcode_SH_txt.Select()
+    '        Case Keys.Delete : IM_SH_txt.Clear()
 
-    Private Sub Fetch_ItemToList()
-        If IMDataGridViewX.Rows.Count > 0 Then
-            IM_ID = IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value
-            IM_SH_txt.Text = IMDataGridViewX.CurrentRow.Cells("item_name_CL").Value
-            ' IM_QTY = IMDataGridViewX.CurrentRow.Cells("QtySH_CL").Value
-            IM_SH_txt.BackColor = Color.LightGoldenrodYellow
-            Get_Unit = False
-            Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-            Load_IM_ALL_QTY(IM_ID, ALL_QTY, ALL_QTY_txt, U_Cargo)
-            Fetch_IM_Units()
-            IMDataGridViewX.Visible = False
-            QtyTextBox.Select()
-            Load_is_Store_Type()
-
-            If is_Row_RD.Checked = True Then
-                If IMDataGridViewX.CurrentRow.Cells("isValid_CL").Value = 1 Then
-                    Valid_Panel_2.Visible = True
-                    Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
-                    IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
-                Else
-                    Valid_Panel_2.Visible = False
-                End If
-            Else
-
-                If IMDataGridViewX.CurrentRow.Cells("isValid_CL").Value = 1 Then
-                    Valid_Panel.Visible = True
-                Else
-                    Valid_Panel.Visible = False
-                End If
-
-            End If
-
-        End If
-    End Sub
+    '    End Select
 
 
-    Public Sub Load_is_Store_Type()
-        Dim c As New C
-        Try
-            Dim s As String
-            s = "select isStore from IM_MENU WHERE IM_ID = '" & IM_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                isStore = c.Dr("isStore")
-                If isStore = 0 Then
-                    PriceTextBox.ReadOnly = False
-                Else
-                    PriceTextBox.ReadOnly = True
-                End If
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'End Sub
 
-    Private Sub Fetch_IM_Units()
-        Get_Unit = False
-        Dim c As New C
-        U_Dt.Clear()
-        Try
-            Dim s As String
-            s = "select U_ID,U_Name from IM_Menu_Units_V  WHERE IM_ID = '" & IM_ID & "' Order By U_Cargo Asc"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(U_Dt)
-            IM_Unit_cm.DataSource = U_Dt
-            IM_Unit_cm.DisplayMember = "U_Name"
-            IM_Unit_cm.ValueMember = "U_ID"
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        Get_Unit = True
-        IM_Fetch_QTY()
-    End Sub
+    'Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs)
+    '    If IM_SH_txt.Text.Count > 0 Then
+    '        Load_IM()
+    '    Else
+    '        IMDataGridViewX.Visible = False
+    '        IM_ID = 0
+    '        U_Dt.Clear()
+    '        Current_QTY.Clear()
+    '        PriceTextBox.Clear()
+    '        NewSalePrice_txt.Clear()
+    '        ALL_QTY_txt.Clear()
+    '        Prev_Sale_Unit_txt.Clear()
+    '        Valid_Dt.Clear()
+    '        Valid_Panel.Visible = False
+    '        Valid_Panel_2.Visible = False
+    '    End If
+    '    If IM_ID = 0 Then
+    '        IM_SH_txt.BackColor = Color.LightGray
+    '    Else
+    '        IM_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '    End If
 
-    Private Sub Show_IM_btn_Click(sender As Object, e As EventArgs) Handles Show_IM_btn.Click
-        If IMDataGridViewX.Visible = True Then
-            IMDataGridViewX.Visible = False
-        Else
-            Load_ALL_IM()
-        End If
-    End Sub
+    'End Sub
 
-    Public Sub Load_ALL_IM()
-        Dim c As New C
+    'Private Sub IMDataGridViewX_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+    '    Fetch_ItemToList()
+    'End Sub
 
-        Try
-            IM_Dt.Clear()
-            Dim s As String
-            s = "select IM_ID,item_name,isValid from IM_All_V  Order by item_name ASC"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(IM_Dt)
-            IMDataGridViewX.DataSource = IM_Dt
-            If IM_Dt.Rows.Count > 0 Then
-                IMDataGridViewX.Visible = True
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            Else
-                IMDataGridViewX.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Private Sub IMDataGridViewX_KeyDown(sender As Object, e As KeyEventArgs)
+    '    If e.KeyCode = Keys.Return Then Fetch_ItemToList()
+    '    If e.KeyCode = Keys.Up Then If IMDataGridViewX.CurrentRow.Index = 0 Then IM_SH_txt.Select()
+    'End Sub
 
-    Private Sub Barcode_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Barcode_SH_txt.KeyDown
-        Select Case e.KeyCode
-            Case Keys.Return : If String.IsNullOrWhiteSpace(Barcode_SH_txt.Text) = False Then Load_IM_Barcode()
-            Case Keys.Down : QtyTextBox.Select()
-            Case Keys.Delete
-                Barcode_SH_txt.Clear()
-                Barcode_IM = ""
-        End Select
-    End Sub
+    'Private Sub Fetch_ItemToList()
+    '    If IMDataGridViewX.Rows.Count > 0 Then
+    '        IM_ID = IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value
+    '        IM_SH_txt.Text = IMDataGridViewX.CurrentRow.Cells("item_name_CL").Value
+    '        IM_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '        Get_Unit = False
+    '        Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
+    '        Load_IM_ALL_QTY(IM_ID, ALL_QTY, ALL_QTY_txt, U_Cargo)
+    '        Fetch_IM_Units()
+    '        IMDataGridViewX.Visible = False
+    '        QtyTextBox.Select()
+    '        Load_is_Store_Type()
 
-    Public Sub Load_IM_Barcode()
-        If S_is_Multi_BAR = True Then
-            If Check_IF_Multi_BAR() > 1 Then
-                SELECT_Multi_Bar()
-                Exit Sub
-            End If
-        End If
+    '        If is_Row_RD.Checked = True Then
+    '            If IMDataGridViewX.CurrentRow.Cells("isValid_CL").Value = 1 Then
+    '                Valid_Panel_2.Visible = True
+    '                Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
+    '                IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
+    '            Else
+    '                Valid_Panel_2.Visible = False
+    '            End If
+    '        Else
 
-        Dim c As New C
-        IM_Dt.Clear()
-        Try
-            Dim s As String
-            If Sh_ByNum_CB.Checked = True Then
-                s = "select IM_ID,item_name,isValid from IM_All_V WHERE IM_NUM = '" & Barcode_SH_txt.Text & "' And isStore = 1"
-            Else
-                s = "select U_IM_ID,IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
-            End If
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
+    '            If IMDataGridViewX.CurrentRow.Cells("isValid_CL").Value = 1 Then
+    '                Valid_Panel.Visible = True
+    '            Else
+    '                Valid_Panel.Visible = False
+    '            End If
 
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                IM_ID = c.Dr("IM_ID")
-                IM_SH_txt.Text = c.Dr("item_name")
-                If Sh_ByNum_CB.Checked = False Then Barcode_IM = Barcode_SH_txt.Text
+    '        End If
 
-                If c.Dr("isValid") = 1 Then
-                    Valid_Panel.Visible = True
-                Else
-                    Valid_Panel.Visible = False
-                End If
+    '    End If
+    'End Sub
 
-                IMDataGridViewX.Visible = False
-                QtyTextBox.Select()
-                Fetch_IM_Units()
-                Barcode_SH_txt.Clear()
-                If Sh_ByNum_CB.Checked = False Then IM_Unit_cm.SelectedValue = c.Dr("U_IM_ID")
-            Else
-                MsgBox("لم يتم التعرف على الإدخال ", MsgBoxStyle.Exclamation)
-                Barcode_IM = ""
-            End If
 
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Public Sub Load_is_Store_Type()
+    '    Dim c As New C
+    '    Try
+    '        Dim s As String
+    '        s = "select isStore from IM_MENU WHERE IM_ID = '" & IM_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            isStore = c.Dr("isStore")
+    '            If isStore = 0 Then
+    '                PriceTextBox.ReadOnly = False
+    '            Else
+    '                PriceTextBox.ReadOnly = True
+    '            End If
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
-    Private Function Check_IF_Multi_BAR()
-        Dim c As New C
-        IM_Dt.Clear()
-        Try
-            Dim s As String
-            s = "select COUNT(U_IM_ID) AS C from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                Return c.Dr("C")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    'Private Sub Fetch_IM_Units()
+    '    Get_Unit = False
+    '    Dim c As New C
+    '    U_Dt.Clear()
+    '    Try
+    '        Dim s As String
+    '        s = "select U_ID,U_Name from IM_Menu_Units_V  WHERE IM_ID = '" & IM_ID & "' Order By U_Cargo Asc"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(U_Dt)
+    '        IM_Unit_cm.DataSource = U_Dt
+    '        IM_Unit_cm.DisplayMember = "U_Name"
+    '        IM_Unit_cm.ValueMember = "U_ID"
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    '    Get_Unit = True
+    '    IM_Fetch_QTY()
+    'End Sub
 
-        Return 1
-    End Function
+    'Private Sub Show_IM_btn_Click(sender As Object, e As EventArgs)
+    '    If IMDataGridViewX.Visible = True Then
+    '        IMDataGridViewX.Visible = False
+    '    Else
+    '        Load_ALL_IM()
+    '    End If
+    'End Sub
 
-    Private Sub SELECT_Multi_Bar()
-        Dim c As New C
-        Try
-            IM_Dt.Clear()
-            Dim s As String
-            s = "select IM_ID,item_name,isValid from IM_All_BY_BAR_V WHERE Barcode  = '" & Barcode_SH_txt.Text & "' Order by item_name ASC"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(IM_Dt)
-            IMDataGridViewX.DataSource = IM_Dt
-            If IM_Dt.Rows.Count > 0 Then
-                IMDataGridViewX.Visible = True
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            Else
-                IMDataGridViewX.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Public Sub Load_ALL_IM()
+    '    Dim c As New C
 
-    Private Sub NewSalePrice_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles NewSalePrice_txt.KeyDown
-        Select Case e.KeyCode
-            Case Keys.Return : If ADDCatButton.Enabled = True Then ADD_IM()
-            Case Keys.Up : Barcode_SH_txt.Select()
-            Case Keys.Right : QtyTextBox.Select()
-        End Select
-    End Sub
+    '    Try
+    '        IM_Dt.Clear()
+    '        Dim s As String
+    '        s = "select IM_ID,item_name,isValid from IM_All_V  Order by item_name ASC"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(IM_Dt)
+    '        IMDataGridViewX.DataSource = IM_Dt
+    '        If IM_Dt.Rows.Count > 0 Then
+    '            IMDataGridViewX.Visible = True
+    '            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+    '        Else
+    '            IMDataGridViewX.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
+
+    'Private Sub Barcode_SH_txt_KeyDown(sender As Object, e As KeyEventArgs)
+    '    Select Case e.KeyCode
+    '        Case Keys.Return : If String.IsNullOrWhiteSpace(Barcode_SH_txt.Text) = False Then Load_IM_Barcode()
+    '        Case Keys.Down : QtyTextBox.Select()
+    '        Case Keys.Delete
+    '            Barcode_SH_txt.Clear()
+    '            Barcode_IM = ""
+    '    End Select
+    'End Sub
+
+    'Public Sub Load_IM_Barcode()
+    '    If S_is_Multi_BAR = True Then
+    '        If Check_IF_Multi_BAR() > 1 Then
+    '            SELECT_Multi_Bar()
+    '            Exit Sub
+    '        End If
+    '    End If
+
+    '    Dim c As New C
+    '    IM_Dt.Clear()
+    '    Try
+    '        Dim s As String
+    '        If Sh_ByNum_CB.Checked = True Then
+    '            s = "select IM_ID,item_name,isValid from IM_All_V WHERE IM_NUM = '" & Barcode_SH_txt.Text & "' And isStore = 1"
+    '        Else
+    '            s = "select U_IM_ID,IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
+    '        End If
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            IM_ID = c.Dr("IM_ID")
+    '            IM_SH_txt.Text = c.Dr("item_name")
+    '            If Sh_ByNum_CB.Checked = False Then Barcode_IM = Barcode_SH_txt.Text
+
+    '            If c.Dr("isValid") = 1 Then
+    '                Valid_Panel.Visible = True
+    '            Else
+    '                Valid_Panel.Visible = False
+    '            End If
+
+    '            IMDataGridViewX.Visible = False
+    '            QtyTextBox.Select()
+    '            Fetch_IM_Units()
+    '            Barcode_SH_txt.Clear()
+    '            If Sh_ByNum_CB.Checked = False Then IM_Unit_cm.SelectedValue = c.Dr("U_IM_ID")
+    '        Else
+    '            MsgBox("لم يتم التعرف على الإدخال ", MsgBoxStyle.Exclamation)
+    '            Barcode_IM = ""
+    '        End If
+
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
+
+    'Private Function Check_IF_Multi_BAR()
+    '    Dim c As New C
+    '    IM_Dt.Clear()
+    '    Try
+    '        Dim s As String
+    '        s = "select COUNT(U_IM_ID) AS C from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            Return c.Dr("C")
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+
+    '    Return 1
+    'End Function
+
+    'Private Sub SELECT_Multi_Bar()
+    '    Dim c As New C
+    '    Try
+    '        IM_Dt.Clear()
+    '        Dim s As String
+    '        s = "select IM_ID,item_name,isValid from IM_All_BY_BAR_V WHERE Barcode  = '" & Barcode_SH_txt.Text & "' Order by item_name ASC"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(IM_Dt)
+    '        IMDataGridViewX.DataSource = IM_Dt
+    '        If IM_Dt.Rows.Count > 0 Then
+    '            IMDataGridViewX.Visible = True
+    '            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+    '        Else
+    '            IMDataGridViewX.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
+
+    'Private Sub NewSalePrice_txt_KeyDown(sender As Object, e As KeyEventArgs)
+    '    Select Case e.KeyCode
+    '        Case Keys.Return : If ADDCatButton.Enabled = True Then ADD_IM()
+    '        Case Keys.Up : Barcode_SH_txt.Select()
+    '        Case Keys.Right : QtyTextBox.Select()
+    '    End Select
+    'End Sub
+
 
     Dim Tmp_Bill_ID As Integer
     Private Sub Down_Bill_btn_Click(sender As Object, e As EventArgs) Handles Down_Bill_btn.Click
@@ -1416,197 +1349,196 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     End Sub
 
 
-    Private Sub Sh_ByNum_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Sh_ByNum_CB.CheckedChanged
-        CB_CHecked(sender)
-        IMDataGridViewX.Columns("IM_NUM_CL").Visible = Sh_ByNum_CB.Checked
-        Barcode_SH_txt.Select()
-    End Sub
+    'Private Sub Sh_ByNum_CB_CheckedChanged(sender As Object, e As EventArgs)
+    '    CB_CHecked(sender)
+    '    IMDataGridViewX.Columns("IM_NUM_CL").Visible = Sh_ByNum_CB.Checked
+    '    Barcode_SH_txt.Select()
+    'End Sub
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
         Me.Close()
     End Sub
 
-    Private Sub IM_Unit_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles IM_Unit_cm.SelectedValueChanged
-        If Get_Unit = True Then IM_Fetch_QTY()
-        If Valid_Panel_2.Visible = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
-    End Sub
+    'Private Sub IM_Unit_cm_SelectedValueChanged(sender As Object, e As EventArgs)
+    '    If Get_Unit = True Then IM_Fetch_QTY()
+    '    If Valid_Panel_2.Visible = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
+    'End Sub
 
-    Private Sub IM_Fetch_QTY()
-        Dim c As New C
-        Try
-            Dim s As String
-            s = "select U_ID,U_Cargo,Price from IM_Menu_Units_V WHERE U_ID = '" & IM_Unit_cm.SelectedValue & "' AND IM_ID = '" & IM_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                U_Cargo = c.Dr("U_Cargo")
-                Prev_Sale_Unit_txt.Text = c.Dr("Price")
-                Dim N As Double = (Convert.ToDouble(IM_QTY) / c.Dr("U_Cargo"))
-                Current_QTY.Text = N.ToString("N")
-                ALL_QTY_txt.Text = ALL_QTY / U_Cargo
-                ' U_ID = c.Dr("U_ID")
-                If U_Cargo > 1 Then
-                    One_Panel.Visible = True
-                    Two_Panel.Visible = True
-                    NewSaleByOne.Visible = True
-                    Min_SP_By_One_Lb.Visible = True
-                    Min_SP_By_One_txt.Visible = True
+    'Private Sub IM_Fetch_QTY()
+    '    Dim c As New C
+    '    Try
+    '        Dim s As String
+    '        s = "select U_ID,U_Cargo,Price from IM_Menu_Units_V WHERE U_ID = '" & IM_Unit_cm.SelectedValue & "' AND IM_ID = '" & IM_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            U_Cargo = c.Dr("U_Cargo")
+    '            Prev_Sale_Unit_txt.Text = c.Dr("Price")
+    '            Dim N As Double = (Convert.ToDouble(IM_QTY) / c.Dr("U_Cargo"))
+    '            Current_QTY.Text = N.ToString("N")
+    '            ALL_QTY_txt.Text = ALL_QTY / U_Cargo
+    '            If U_Cargo > 1 Then
+    '                One_Panel.Visible = True
+    '                Two_Panel.Visible = True
+    '                NewSaleByOne.Visible = True
+    '                Min_SP_By_One_Lb.Visible = True
+    '                Min_SP_By_One_txt.Visible = True
 
-                Else
-                    One_Panel.Visible = False
-                    Two_Panel.Visible = False
-                    NewSaleByOne.Visible = False
+    '            Else
+    '                One_Panel.Visible = False
+    '                Two_Panel.Visible = False
+    '                NewSaleByOne.Visible = False
 
-                    Min_SP_By_One_Lb.Visible = False
-                    Min_SP_By_One_txt.Visible = False
-                End If
+    '                Min_SP_By_One_Lb.Visible = False
+    '                Min_SP_By_One_txt.Visible = False
+    '            End If
 
-                CalcAvgCost()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    '            CalcAvgCost()
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
 
-        c = New C
-        Try
-            Dim s As String
-            s = "select CONVERT(Numeric(18,3),Cost) AS Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                PriceTextBox.Text = c.Dr("Cost") * U_Cargo
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    '    c = New C
+    '    Try
+    '        Dim s As String
+    '        s = "select CONVERT(Numeric(18,3),Cost) AS Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            PriceTextBox.Text = c.Dr("Cost") * U_Cargo
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
 
-    End Sub
+    'End Sub
 
-    Private Sub CalcAvgCost()
-        If S_Stores = True Then
-            If String.IsNullOrWhiteSpace(Current_QTY.Text) Then Current_QTY.Text = "0"
-            If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "0"
-            If Current_QTY.Text.Count > 0 Then If Convert.ToDouble(Current_QTY.Text) > 0 Then IM_Set_Avg()
-        End If
-    End Sub
+    'Private Sub CalcAvgCost()
+    '    If S_Stores = True Then
+    '        If String.IsNullOrWhiteSpace(Current_QTY.Text) Then Current_QTY.Text = "0"
+    '        If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "0"
+    '        If Current_QTY.Text.Count > 0 Then If Convert.ToDouble(Current_QTY.Text) > 0 Then IM_Set_Avg()
+    '    End If
+    'End Sub
 
-    Public Sub IM_Set_Avg()
-        Dim Prev_Cost As Double = 0
-        Dim Prev_Qty As Double = 0
-        If String.IsNullOrWhiteSpace(PriceTextBox.Text) Then PriceTextBox.Text = "0"
+    'Public Sub IM_Set_Avg()
+    '    Dim Prev_Cost As Double = 0
+    '    Dim Prev_Qty As Double = 0
+    '    If String.IsNullOrWhiteSpace(PriceTextBox.Text) Then PriceTextBox.Text = "0"
 
-        Dim c As New C
-        c = New C
-        Try
-            Dim s As String
-            s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                Prev_Qty = c.Dr("QTY")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        '------------------------------------------------------------------------------------------------
+    '    Dim c As New C
+    '    c = New C
+    '    Try
+    '        Dim s As String
+    '        s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            Prev_Qty = c.Dr("QTY")
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    '    '------------------------------------------------------------------------------------------------
 
-        c = New C
-        Try
-            Dim s As String
-            s = "select Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                Prev_Cost = c.Dr("Cost")
-                NewSalePrice_txt.Text =
-                 ((((Prev_Cost * Prev_Qty) + (Convert.ToDouble(PriceTextBox.Text) * Convert.ToDouble(QtyTextBox.Text))) / (Prev_Qty + Convert.ToDouble(QtyTextBox.Text))) * U_Cargo).ToString("0.00")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    '    c = New C
+    '    Try
+    '        Dim s As String
+    '        s = "select Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            Prev_Cost = c.Dr("Cost")
+    '            NewSalePrice_txt.Text =
+    '             ((((Prev_Cost * Prev_Qty) + (Convert.ToDouble(PriceTextBox.Text) * Convert.ToDouble(QtyTextBox.Text))) / (Prev_Qty + Convert.ToDouble(QtyTextBox.Text))) * U_Cargo).ToString("0.00")
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
 
-    End Sub
+    'End Sub
 
-    Private Sub IM_CalcAvgCost_btn_Click(sender As Object, e As EventArgs) Handles IM_CalcAvgCost_btn.Click
-        If IM_ID > 0 Then
-            If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
-            IM_Calc_Avg(True)
-        End If
-    End Sub
+    'Private Sub IM_CalcAvgCost_btn_Click(sender As Object, e As EventArgs)
+    '    If IM_ID > 0 Then
+    '        If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
+    '        IM_Calc_Avg(True)
+    '    End If
+    'End Sub
 
-    Public Function IM_Calc_Avg(isMsg As Boolean)
-        Dim c As New C
-        Dim Prev_Cost As Double = 0
-        Dim Prev_Qty As Double = 0
+    'Public Function IM_Calc_Avg(isMsg As Boolean)
+    '    Dim c As New C
+    '    Dim Prev_Cost As Double = 0
+    '    Dim Prev_Qty As Double = 0
 
-        Try
-            Dim s As String
-            s = "select Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                Prev_Cost = c.Dr("Cost") * U_Cargo
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    '    Try
+    '        Dim s As String
+    '        s = "select Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            Prev_Cost = c.Dr("Cost") * U_Cargo
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
 
-        c = New C
-        Try
-            Dim s As String
-            s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                Prev_Qty = c.Dr("QTY") / U_Cargo
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-
-        Dim AVG_COST As Double = ((Prev_Cost * Prev_Qty) +
-                                  ((Convert.ToDouble(PriceTextBox.Text) / U_Cargo) * (Convert.ToDouble(QtyTextBox.Text) * U_Cargo))) _
-                              / (Prev_Qty + (Convert.ToDouble(QtyTextBox.Text)))
-
-        If isMsg = True Then MsgBox((AVG_COST).ToString("00.00"), MsgBoxStyle.Information, "إجمالي التكلفــة")
-
-        Return AVG_COST
-    End Function
-
-    Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
-        Check_Only_Float(sender, e)
-    End Sub
+    '    c = New C
+    '    Try
+    '        Dim s As String
+    '        s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            Prev_Qty = c.Dr("QTY") / U_Cargo
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
 
 
-    Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
-        Check_Point_in_FloatNum(sender, e)
-    End Sub
+    '    Dim AVG_COST As Double = ((Prev_Cost * Prev_Qty) +
+    '                              ((Convert.ToDouble(PriceTextBox.Text) / U_Cargo) * (Convert.ToDouble(QtyTextBox.Text) * U_Cargo))) _
+    '                          / (Prev_Qty + (Convert.ToDouble(QtyTextBox.Text)))
+
+    '    If isMsg = True Then MsgBox((AVG_COST).ToString("00.00"), MsgBoxStyle.Information, "إجمالي التكلفــة")
+
+    '    Return AVG_COST
+    'End Function
+
+    'Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs)
+    '    Check_Only_Float(sender, e)
+    'End Sub
 
 
-    Private Sub ALL_QTY_txt_TextChanged(sender As Object, e As EventArgs) Handles ALL_QTY_txt.TextChanged
-        If Not String.IsNullOrWhiteSpace(ALL_QTY_txt.Text) Then
-            Dim N As Double = ALL_QTY_txt.Text
-            ALL_QTY_txt.Text = N.ToString("N")
-        End If
-    End Sub
+    'Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs)
+    '    Check_Point_in_FloatNum(sender, e)
+    'End Sub
 
-    Private Sub is_Prudoct_RD_CheckedChanged(sender As Object, e As EventArgs) Handles is_Prudoct_RD.CheckedChanged, is_Row_RD.CheckedChanged
-        CB_CHecked(sender)
-        is_Not_Qty_CB.Visible = is_Row_RD.Checked
-    End Sub
+
+    'Private Sub ALL_QTY_txt_TextChanged(sender As Object, e As EventArgs)
+    '    If Not String.IsNullOrWhiteSpace(ALL_QTY_txt.Text) Then
+    '        Dim N As Double = ALL_QTY_txt.Text
+    '        ALL_QTY_txt.Text = N.ToString("N")
+    '    End If
+    'End Sub
+
+    'Private Sub is_Prudoct_RD_CheckedChanged(sender As Object, e As EventArgs)
+    '    CB_CHecked(sender)
+    '    is_Not_Qty_CB.Visible = is_Row_RD.Checked
+    'End Sub
 
     Private Sub RemoveCatButton_2_Click(sender As Object, e As EventArgs) Handles RemoveCatButton_2.Click
 
@@ -1659,15 +1591,13 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
                + " التكلفة:" + ServicesGrid.CurrentRow.Cells(3).Value.ToString, Bill_ID_Txt.Text, 14, 2)
             End If
 
-
             'FRM_Manual_Set_Cost()
             Pch_Contents_SELECT_Bill()
-            ' If Row_Index > 0 Then BillMetroGrid.CurrentCell = BillMetroGrid.Rows(Row_Index - 1).Cells("T_ID_CL")
-            If MY_Settings.S_Default = 0 Then
-                Barcode_SH_txt.Select()
-            Else
-                IM_SH_txt.Select()
-            End If
+            'If MY_Settings.S_Default = 0 Then
+            '    Barcode_SH_txt.Select()
+            'Else
+            '    IM_SH_txt.Select()
+            'End If
         End If
 
 
@@ -1689,18 +1619,18 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         If SQL_SP_EXEC(sqlComm) = True Then Pch_Contents_SELECT_Bill()
     End Sub
 
-    Private Sub Valid_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles Valid_cm.SelectedValueChanged
-        If Get_Unit = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
-    End Sub
+    'Private Sub Valid_cm_SelectedValueChanged(sender As Object, e As EventArgs)
+    '    If Get_Unit = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
+    'End Sub
 
-    Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles ST_cm.SelectedValueChanged
-        If Get_Unit = True Then
-            Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-            IM_Fetch_QTY()
-            If Valid_Panel_2.Visible = True Then Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
-            If Get_Unit = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
-        End If
-    End Sub
+    'Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs)
+    '    If Get_Unit = True Then
+    '        Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
+    '        IM_Fetch_QTY()
+    '        If Valid_Panel_2.Visible = True Then Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
+    '        If Get_Unit = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
+    '    End If
+    'End Sub
 
     Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
         FormType = 9
@@ -1818,83 +1748,83 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         If e.KeyCode = Keys.Return Then Save_Title_Name(T_ID, Title_txt.Text)
     End Sub
 
-    Private Sub IMDataGridViewX_VisibleChanged(sender As Object, e As EventArgs) Handles IMDataGridViewX.VisibleChanged
-        If IMDataGridViewX.Visible = True Then
-            Me.Controls.Add(IMDataGridViewX)
-            IMDataGridViewX.BringToFront()
-            IMDataGridViewX.Location = New Point(IM_Panel.Location.X, IM_Panel.Location.Y + IM_Panel.Size.Height + 1)
-        Else
-            IM_Panel.Controls.Add(IMDataGridViewX)
-            IMDataGridViewX.Location = New Point(IM_SH_txt.Location.X, IM_SH_txt.Location.Y + IM_SH_txt.Size.Height + 1)
-        End If
-    End Sub
+    'Private Sub IMDataGridViewX_VisibleChanged(sender As Object, e As EventArgs)
+    '    If IMDataGridViewX.Visible = True Then
+    '        Me.Controls.Add(IMDataGridViewX)
+    '        IMDataGridViewX.BringToFront()
+    '        IMDataGridViewX.Location = New Point(IM_Panel.Location.X, IM_Panel.Location.Y + IM_Panel.Size.Height + 1)
+    '    Else
+    '        IM_Panel.Controls.Add(IMDataGridViewX)
+    '        IMDataGridViewX.Location = New Point(IM_SH_txt.Location.X, IM_SH_txt.Location.Y + IM_SH_txt.Size.Height + 1)
+    '    End If
+    'End Sub
 
-    Private Sub NewSalePrice_txt_TextChanged_1(sender As Object, e As EventArgs) Handles NewSalePrice_txt.TextChanged
-        Check_Point_in_FloatNum(sender, e)
-        If Not String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) And U_Cargo > 1 Then
-            NewSaleByOne.Text = (Convert.ToDouble(NewSalePrice_txt.Text) / U_Cargo).ToString("N")
-        Else
-            NewSaleByOne.Clear()
-        End If
-    End Sub
+    'Private Sub NewSalePrice_txt_TextChanged_1(sender As Object, e As EventArgs)
+    '    Check_Point_in_FloatNum(sender, e)
+    '    If Not String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) And U_Cargo > 1 Then
+    '        NewSaleByOne.Text = (Convert.ToDouble(NewSalePrice_txt.Text) / U_Cargo).ToString("N")
+    '    Else
+    '        NewSaleByOne.Clear()
+    '    End If
+    'End Sub
 
-    Private Sub Min_SP_txt_TextChanged(sender As Object, e As EventArgs) Handles Min_SP_txt.TextChanged
-        Check_Point_in_FloatNum(sender, e)
-        If Not String.IsNullOrWhiteSpace(Min_SP_txt.Text) And U_Cargo > 1 Then
-            Min_SP_By_One_txt.Text = (Convert.ToDouble(Min_SP_txt.Text) / U_Cargo).ToString("N")
-        Else
-            Min_SP_By_One_txt.Clear()
-        End If
-    End Sub
+    'Private Sub Min_SP_txt_TextChanged(sender As Object, e As EventArgs)
+    '    Check_Point_in_FloatNum(sender, e)
+    '    If Not String.IsNullOrWhiteSpace(Min_SP_txt.Text) And U_Cargo > 1 Then
+    '        Min_SP_By_One_txt.Text = (Convert.ToDouble(Min_SP_txt.Text) / U_Cargo).ToString("N")
+    '    Else
+    '        Min_SP_By_One_txt.Clear()
+    '    End If
+    'End Sub
 
-    Private Sub Min_SP_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Min_SP_txt.KeyPress, Min_SP_By_One_txt.KeyPress
-        Check_Only_Float(sender, e)
-    End Sub
+    ''Private Sub Min_SP_txt_KeyPress(sender As Object, e As KeyPressEventArgs)
+    ''    Check_Only_Float(sender, e)
+    ''End Sub
 
-    Private Sub Min_SP_By_One_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Min_SP_By_One_txt.KeyPress
-        Check_Point_in_FloatNum(sender, e)
-    End Sub
+    'Private Sub Min_SP_By_One_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Min_SP_By_One_txt.KeyPress
+    '    Check_Point_in_FloatNum(sender, e)
+    'End Sub
 
 
-    Private Sub Min_SP_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Min_SP_txt.KeyDown
+    'Private Sub Min_SP_txt_KeyDown(sender As Object, e As KeyEventArgs)
 
-        Select Case e.KeyCode
-            Case Keys.Up
-                NewSalePrice_txt.Select()
-            Case Keys.Return
-                Min_SP_By_One_txt.Select()
-        End Select
+    '    Select Case e.KeyCode
+    '        Case Keys.Up
+    '            NewSalePrice_txt.Select()
+    '        Case Keys.Return
+    '            Min_SP_By_One_txt.Select()
+    '    End Select
 
-    End Sub
+    'End Sub
 
-    Private Sub Barcode_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles Barcode_SH_txt.TextChanged
-        If Sh_ByNum_CB.Checked = True And Barcode_SH_txt.Text.Count > 0 Then
-            Load_IMByNum()
-        Else
-            IMDataGridViewX.Visible = False
-        End If
-    End Sub
+    'Private Sub Barcode_SH_txt_TextChanged(sender As Object, e As EventArgs)
+    '    If Sh_ByNum_CB.Checked = True And Barcode_SH_txt.Text.Count > 0 Then
+    '        Load_IMByNum()
+    '    Else
+    '        IMDataGridViewX.Visible = False
+    '    End If
+    'End Sub
 
-    Public Sub Load_IMByNum()
-        Dim c As New C
+    'Public Sub Load_IMByNum()
+    '    Dim c As New C
 
-        Try
-            IM_Dt.Clear()
-            Dim s As String
-            s = "select IM_ID,item_name,isValid,IM_NUM from IM_All_V WHERE IM_NUM Like '%" & Barcode_SH_txt.Text & "%' Order by item_name ASC"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(IM_Dt)
-            IMDataGridViewX.DataSource = IM_Dt
-            If IM_Dt.Rows.Count > 0 Then
-                IMDataGridViewX.Visible = True
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            Else
-                IMDataGridViewX.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    '    Try
+    '        IM_Dt.Clear()
+    '        Dim s As String
+    '        s = "select IM_ID,item_name,isValid,IM_NUM from IM_All_V WHERE IM_NUM Like '%" & Barcode_SH_txt.Text & "%' Order by item_name ASC"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(IM_Dt)
+    '        IMDataGridViewX.DataSource = IM_Dt
+    '        If IM_Dt.Rows.Count > 0 Then
+    '            IMDataGridViewX.Visible = True
+    '            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+    '        Else
+    '            IMDataGridViewX.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
     Private Sub MakeBarcode_btn_Click(sender As Object, e As EventArgs) Handles MakeBarcode_btn.Click
         printbarcode.Auto_Print = True
@@ -1920,10 +1850,6 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
                 ServicesGrid.Enabled = True
                 ServicesGrid.BackgroundColor = Color.LightYellow
                 ServicesGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
-
-                'ADDCatButton.Enabled = True
-                'RemoveCatButton.Enabled = True
-                'RemoveCatButton_2.Enabled = True
 
                 Ebable_CatFields()
                 Edit_butt.Text = "إيقاف التعديل"
@@ -2002,36 +1928,36 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         If e.KeyCode = Keys.Return Then AG_Balance_Update_Date_Deliver(T_ID, Deliver_DateTimePicker1)
     End Sub
 
-    Private Sub IM_SH_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles IM_SH_txt.MouseDoubleClick
-        Items_Search.ShowDialog()
-        If GLOBAL_IM_ID > 0 Then
-            Load_IM_By_ID(IMDataGridViewX)
-            For i = 0 To IMDataGridViewX.Rows.Count - 1
-                If IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value = GLOBAL_IM_ID Then
-                    Exit For
-                End If
-            Next
-            Fetch_ItemToList()
-        End If
+    'Private Sub IM_SH_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs)
+    '    Items_Search.ShowDialog()
+    '    If GLOBAL_IM_ID > 0 Then
+    '        Load_IM_By_ID(IMDataGridViewX)
+    '        For i = 0 To IMDataGridViewX.Rows.Count - 1
+    '            If IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value = GLOBAL_IM_ID Then
+    '                Exit For
+    '            End If
+    '        Next
+    '        Fetch_ItemToList()
+    '    End If
 
-    End Sub
+    'End Sub
 
     Private Sub Format_Items_Manual_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         Check_View_Control()
     End Sub
 
-    Private Sub is_Not_Qty_CB_CheckedChanged(sender As Object, e As EventArgs) Handles is_Not_Qty_CB.CheckedChanged
-        CB_CHecked(sender)
-    End Sub
+    'Private Sub is_Not_Qty_CB_CheckedChanged(sender As Object, e As EventArgs)
+    ''    CB_CHecked(sender)
+    ''End Sub
 
-    Private Sub BillMetroGrid_BackgroundColorChanged(sender As Object, e As EventArgs) Handles BillMetroGrid.BackgroundColorChanged
+    'Private Sub BillMetroGrid_BackgroundColorChanged(sender As Object, e As EventArgs) Handles BillMetroGrid.BackgroundColorChanged
 
-        'AGMetroGrid.BackgroundColor = BillMetroGrid.BackgroundColor
-        'AGMetroGrid.RowsDefaultCellStyle.BackColor = BillMetroGrid.RowsDefaultCellStyle.BackColor
+    '    'AGMetroGrid.BackgroundColor = BillMetroGrid.BackgroundColor
+    '    'AGMetroGrid.RowsDefaultCellStyle.BackColor = BillMetroGrid.RowsDefaultCellStyle.BackColor
 
-        'ServicesGrid.BackgroundColor = BillMetroGrid.BackgroundColor
-        'ServicesGrid.RowsDefaultCellStyle.BackColor = BillMetroGrid.RowsDefaultCellStyle.BackColor
-    End Sub
+    '    'ServicesGrid.BackgroundColor = BillMetroGrid.BackgroundColor
+    '    'ServicesGrid.RowsDefaultCellStyle.BackColor = BillMetroGrid.RowsDefaultCellStyle.BackColor
+    'End Sub
 
 
     Private Sub ServicesGrid_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles ServicesGrid.RowsRemoved
@@ -2086,14 +2012,14 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If is_Not_Qty_CB.Checked = True Then
-            query("UPDATE [FRM_Contents_Details] SET [is_Not_Qty] = 1 WHERE T_ID = " & BillMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
-            Pch_Contents_SELECT_Bill()
-        Else
-            query("UPDATE [FRM_Contents_Details] SET [is_Not_Qty] = 0 WHERE T_ID = " & BillMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
-            Pch_Contents_SELECT_Bill()
-        End If
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
+        'If is_Not_Qty_CB.Checked = True Then
+        '    query("UPDATE [FRM_Contents_Details] SET [is_Not_Qty] = 1 WHERE T_ID = " & BillMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
+        '    Pch_Contents_SELECT_Bill()
+        'Else
+        '    query("UPDATE [FRM_Contents_Details] SET [is_Not_Qty] = 0 WHERE T_ID = " & BillMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
+        '    Pch_Contents_SELECT_Bill()
+        'End If
     End Sub
 
 
@@ -2101,18 +2027,18 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
 
     Public Sub FRM_Manual_MOVE_FROM_SB(PCH_T_ID)
         Dim TYPE As String = ""
-        If is_Row_RD.Checked = True Then
-            TYPE = "FRM_Contents_Details"
-        Else
-            TYPE = "FRM_Details"
-        End If
+        'If is_Row_RD.Checked = True Then
+        '    TYPE = "FRM_Contents_Details"
+        'Else
+        TYPE = "FRM_Details"
+        'End If
 
         Dim sqlComm As New SqlClient.SqlCommand
         sqlComm.CommandText = "[FRM_Manual_MOVE_FROM_SB]"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@SB_T_ID", PCH_T_ID)
         sqlComm.Parameters.AddWithValue("@FRM_T_ID", T_ID)
-        sqlComm.Parameters.AddWithValue("@is_Not_Qty", is_Not_Qty_CB.Checked)
+        sqlComm.Parameters.AddWithValue("@is_Not_Qty", False) 'is_Not_Qty_CB.Checked
         sqlComm.Parameters.AddWithValue("@TYPE", TYPE)
 
         If SQL_SP_EXEC(sqlComm) = True Then Pch_Contents_SELECT_Bill()
