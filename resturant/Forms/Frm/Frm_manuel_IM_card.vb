@@ -1,4 +1,4 @@
-﻿Public Class Pch_IM_card_11 : Inherits System.Windows.Forms.Form
+﻿Public Class Frm_manuel_IM_card : Inherits System.Windows.Forms.Form
 
     ' Dim DefaultFormState As String = ""
     Public T_ID As Integer
@@ -8,53 +8,22 @@
     Public IM_ID As Integer = 0
     Dim IM_QTY As Double = 0
     Dim U_Dt As New DataTable
+    Dim Valid_Dt As New DataTable
     Dim Get_Unit As Boolean = False
     Dim U_Cargo As Double = 1
     Dim ALL_QTY As Double = 0
     Dim U_ID As Integer
     Public Barcode_IM As String = ""
-
+    Dim isStore As Integer
 
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Me.Dispose()
 
     End Sub
 
-    Protected Overrides ReadOnly Property CreateParams As CreateParams
-        Get
-            Const CS_DROPSHADOW As Integer = &H20000
-            Dim cp As CreateParams = MyBase.CreateParams
-            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
-            Return cp
-        End Get
-    End Property
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
-            ' =========================================================
-            ' 🌟 1. تعيين التاجات يدوياً للثيمات (بدون استخدام For Each نهائياً)
-            ' =========================================================
 
-            ' أزرار الإضافة والحفظ (تأخذ اللون الأساسي للثيم)
-            If ADDCatButton IsNot Nothing Then ADDCatButton.Tag = "SAVE"
-            If ADD_New_IM_btn IsNot Nothing Then ADD_New_IM_btn.Tag = "GENERAL"
-            If Add_Valid_Btn IsNot Nothing Then Add_Valid_Btn.Tag = "GENERAL"
-            If Confirm_ADD_bercent IsNot Nothing Then Confirm_ADD_bercent.Tag = "GENERAL"
-            If Ass_U_btn IsNot Nothing Then Ass_U_btn.Tag = "GENERAL"
-            If IM_CalcAvgCost_btn IsNot Nothing Then IM_CalcAvgCost_btn.Tag = "GENERAL"
-
-            ' أزرار الحذف والإلغاء والخروج (تأخذ اللون الأحمر أو التحذيري)
-            If Exit_Btn IsNot Nothing Then Exit_Btn.Tag = "DELETE"
-            If Remove_Valid_Btn IsNot Nothing Then Remove_Valid_Btn.Tag = "DELETE"
-
-            ' =========================================================
-            ' 🌟 2. تطبيق الثيم الإجباري
-            ' =========================================================
-            ThemeManager.ApplyThemeToForm(Me)
-
-        Catch ex As Exception
-            ' تجاهل أخطاء الثيمات لكي لا يتوقف الفورم عن العمل
-        End Try
         If St_Count() = 1 Then All_St_Panel.Visible = False
         '  FormType = 2
         Check_View_Control()
@@ -87,12 +56,48 @@
         Fetch_IM_Units()
         QtyTextBox.Select()
 
-        If isValid = 1 Then
-            Valid_Panel.Visible = True
+        Load_is_Store_Type()
+
+        If is_Row_RD.Checked = True Then
+            If isValid = 1 Then
+                Valid_Panel_2.Visible = True
+                Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
+                IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
+            Else
+                Valid_Panel_2.Visible = False
+            End If
         Else
-            Valid_Panel.Visible = False
+
+            If isValid = 1 Then
+                Valid_Panel.Visible = True
+            Else
+                Valid_Panel.Visible = False
+            End If
+
         End If
 
+    End Sub
+
+    Public Sub Load_is_Store_Type()
+        Dim c As New C
+        Try
+            Dim s As String
+            s = "select isStore from IM_MENU WHERE IM_ID = '" & IM_ID & "'"
+            c.Com = New SqlClient.SqlCommand(s, c.Con)
+            c.Con.Open()
+            c.Dr = c.Com.ExecuteReader
+            If c.Dr.HasRows Then
+                c.Dr.Read()
+                isStore = c.Dr("isStore")
+                If isStore = 0 Then
+                    PriceTextBox.ReadOnly = False
+                Else
+                    PriceTextBox.ReadOnly = True
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
 
@@ -120,81 +125,217 @@
         End Sub
 
 
-    Private Function IM_Check_Neg_QTY_For_Cancel_Pch()
-            Dim C As New C
-            Dim F As Integer = 0
-            With C.Com
-                .Connection = C.Con
-                .CommandText = "IM_Check_Neg_QTY_For_Cancel_Pch"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@F", 0)
-                .Parameters.AddWithValue("@T_ID", T_ID)
-                .Parameters.Add("@Str_Name", SqlDbType.Char, 1500)
-                .Parameters("@F").Direction = ParameterDirection.Output
-                .Parameters("@Str_Name").Direction = ParameterDirection.Output
-                If SQL_SP_EXEC(C.Com) Then
-                    F = .Parameters("@F").Value
-                    Str_Name = .Parameters("@Str_Name").Value
-                End If
-            End With
-            Return F
-        End Function
-
-
     Private Sub ADDCatButton_Click(sender As Object, e As EventArgs) Handles ADDCatButton.Click
 
 
-            If IM_ID = 0 Then
-                MsgBox("حددالصنف", MsgBoxStyle.Exclamation)
-            '  SELECT_IM()
-        ElseIf String.IsNullOrWhiteSpace(PriceTextBox.Text) Then
-                MsgBox("حدد سعر القطعة", MsgBoxStyle.Exclamation)
-                PriceTextBox.Select()
-            Else
-                If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
-            For i = 0 To F_Pch.AGMetroGrid.Rows.Count - 1
-                If F_Pch.AGMetroGrid.Rows(i).Cells("EX_ID_CL").Value = IM_ID And F_Pch.AGMetroGrid.Rows(i).Cells("St_ID_CL").Value = ST_cm.SelectedValue Then
+        If IM_ID = 0 Then
+            MsgBox("حددالصنف", MsgBoxStyle.Exclamation)
+            mySearchControl.txtSearch.Select()
+        Else
+            If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
 
-                    If Valid_Panel.Visible = True Then
-                        If F_Pch.AGMetroGrid.Rows(i).Cells("D_Valid_CL").Value = D_Valid.Text Then
-                            If MessageBox.Show(" تم إدخال الصنف ... هل تريد الإستمرار ", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then
-                                Exit Sub
-                            End If
+            If is_Row_RD.Checked = True Then
+                If IM_min_QTY = False Then
+                    If IM_Check_Neg_QTY_() = 1 Then
+                        MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
+                        Exit Sub
+                    End If
+                End If
+            End If
 
-                        End If
+
+            If is_Row_RD.Checked = False And isStore = 2 Then
+                If IM_min_QTY = False Then
+                    If IM_Check_Neg_QTY_2() = 1 Then
+                        MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
+                        Exit Sub
+                    End If
+                End If
+            End If
+
+
+            If Valid_Panel.Visible = True Then
+                If D_Valid.Value.Date <= Date.Now.Date Then
+                    MsgBox("صنف منتهية صلاحيته لا يمكن إدراجه", MsgBoxStyle.Critical, "خطأ")
+                    Exit Sub
+                End If
+            End If
+
+
+            For i = 0 To F_Format_Items_Manual.BillMetroGrid.Rows.Count - 1
+                If F_Format_Items_Manual.BillMetroGrid.Rows(i).Cells("Bill_IMID_CL").Value = IM_ID Then
+                    Beep()
+                    If MessageBox.Show(" هذا الصنف تم إدراجه بالفاتورة ... هل تريد الإستمرار ؟ ", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
+                        Exit Sub
                     Else
-                        If MessageBox.Show(" تم إدخال الصنف ... هل تريد الإستمرار ", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then
-                            Exit Sub
-                        End If
-
+                        Insert_Cat()
+                        Exit Sub
                     End If
                 End If
             Next
 
-            If Not String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) And Convert.ToDouble(Prev_Sale_Unit_txt.Text) > 0 Then
-                    If Convert.ToDouble(ALL_QTY_txt.Text) > 0 Then
-                        If Convert.ToDouble(NewSalePrice_txt.Text) < IM_Calc_Avg(False, IM_ID) Then
-                            If MessageBox.Show(" سعر البيع أقل من التكلفة .. هل تريد الإستمرار ", "تحذير", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Cancel Then
-                                Exit Sub
-                            End If
-                        End If
-                    End If
-                End If
-
-
-                If Valid_Panel.Visible = True Then
-                    If Ban_Expierd_IM_MV = True Then
-                        If D_Valid.Value.Date <= Date.Now.Date Then
-                            MsgBox("صنف منتهية صلاحيته لا يمكن شرائه", MsgBoxStyle.Critical, "خطأ")
-                            Exit Sub
-                        End If
-                    End If
-                End If
-
+            If isStore <> 2 Then
                 Insert_Cat()
+            Else
+                Insert_Cat_2()
             End If
 
-        End Sub
+        End If
+    End Sub
+
+    Private Function IM_Check_Neg_QTY_()
+        Dim C As New C
+        Dim F As Integer = 0
+        With C.Com
+            .Connection = C.Con
+            .CommandText = "IM_Check_Neg_QTY_"
+            .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@F", 0)
+            .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+            .Parameters.AddWithValue("@IM_ID", IM_ID)
+            .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
+            .Parameters.AddWithValue("@Enterd_Qty", QtyTextBox.Text)
+            .Parameters.AddWithValue("@Cargo", U_Cargo)
+
+            .Parameters("@F").Direction = ParameterDirection.Output
+            If SQL_SP_EXEC(C.Com) Then
+                F = .Parameters("@F").Value
+            End If
+        End With
+
+        Return F
+    End Function
+
+    Private Function IM_Check_Neg_QTY_2()
+        Dim C As New C
+        Dim F As Integer = 0
+        With C.Com
+            .Connection = C.Con
+            .CommandText = "IM_Check_Neg_QTY_For_Format_IM"
+            .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@F", 0)
+            .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+            .Parameters.AddWithValue("@IM_ID", IM_ID)
+            .Parameters.AddWithValue("@Enterd_Qty", Convert.ToDouble(QtyTextBox.Text) * U_Cargo)
+            .Parameters("@F").Direction = ParameterDirection.Output
+            If SQL_SP_EXEC(C.Com) Then F = .Parameters("@F").Value
+        End With
+
+        Return F
+    End Function
+
+
+    Private Sub Insert_Cat()
+        If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
+        Dim Row_Index As Integer = 0
+        Dim sqlComm As New SqlClient.SqlCommand()
+        sqlComm.CommandText = "[FRM_Manual_Details_Insert]"
+        sqlComm.CommandType = CommandType.StoredProcedure
+        sqlComm.Parameters.AddWithValue("@Pch_T_ID", T_ID)
+        sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
+        sqlComm.Parameters.AddWithValue("@U_ID", IM_Unit_cm.SelectedValue)
+        sqlComm.Parameters.AddWithValue("@Price", PriceTextBox.Text)
+        If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
+        If Valid_Panel_2.Visible = True Then
+            sqlComm.Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
+            sqlComm.Parameters.AddWithValue("@Current_QTY", Convert.ToDouble(Current_QTY.Text))
+        End If
+        sqlComm.Parameters.AddWithValue("@Barcode", Barcode_IM)
+
+        sqlComm.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+        sqlComm.Parameters.AddWithValue("@QYT", QtyTextBox.Text)
+        sqlComm.Parameters.AddWithValue("@Total", 0)
+        If String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSale", NewSalePrice_txt.Text)
+        If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSaleByOne", NewSaleByOne.Text)
+
+        If String.IsNullOrWhiteSpace(Min_SP_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP", Convert.ToDouble(Min_SP_txt.Text))
+        If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text))
+
+        sqlComm.Parameters.AddWithValue("@is_Product", is_Prudoct_RD.Checked)
+        sqlComm.Parameters.AddWithValue("@is_Not_Qty", is_Not_Qty_CB.Checked)
+
+
+        If SQL_SP_EXEC(sqlComm) = True Then
+            Network_Edit_Tracker_insert(" الصنف:" + mySearchControl.txtSearch.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " البيع:" _
+                           + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, F_Format_Items_Manual.Bill_ID_Txt.Text, 18, 1)
+
+            'Update_Total()
+            ClearCatFields()
+            F_Format_Items_Manual.Pch_Contents_SELECT_Bill()
+            'If MY_Settings.S_Default = 0 Then
+            '    Barcode_SH_txt.Select()
+            'Else
+            '    IM_SH_txt.Select()
+            'End If
+        End If
+
+    End Sub
+
+
+    Private Sub is_Prudoct_RD_CheckedChanged(sender As Object, e As EventArgs) Handles is_Prudoct_RD.CheckedChanged, is_Row_RD.CheckedChanged
+        CB_CHecked(sender)
+        is_Not_Qty_CB.Visible = is_Row_RD.Checked
+    End Sub
+
+    Private Function IM_Check_Neg_QTY_For_Cancel_FRM_Details()
+        Dim C As New C
+        Dim F As Integer = 0
+        With C.Com
+            .Connection = C.Con
+            .CommandText = "IM_Check_Neg_QTY_For_Cancel_FRM_Details"
+            .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@F", 0)
+            .Parameters.AddWithValue("@T_ID", T_ID)
+            .Parameters.Add("@Str_Name", SqlDbType.Char, 1500)
+            .Parameters("@F").Direction = ParameterDirection.Output
+            .Parameters("@Str_Name").Direction = ParameterDirection.Output
+            If SQL_SP_EXEC(C.Com) Then
+                F = .Parameters("@F").Value
+                Str_Name = .Parameters("@Str_Name").Value
+            End If
+        End With
+        Return F
+    End Function
+
+
+
+    Private Sub Insert_Cat_2()
+        If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
+        Dim Row_Index As Integer = 0
+        If F_Format_Items_Manual.AGMetroGrid.Rows.Count > 0 Then Row_Index = F_Format_Items_Manual.AGMetroGrid.CurrentCell.RowIndex + 1
+        Dim sqlComm As New SqlClient.SqlCommand()
+        sqlComm.CommandText = "FRM_Details_Insert"
+        sqlComm.CommandType = CommandType.StoredProcedure
+        sqlComm.Parameters.AddWithValue("@Pch_T_ID", T_ID)
+        sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
+        sqlComm.Parameters.AddWithValue("@U_ID", IM_Unit_cm.SelectedValue)
+        sqlComm.Parameters.AddWithValue("@Price", 0)
+        If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
+        sqlComm.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+        sqlComm.Parameters.AddWithValue("@QYT", QtyTextBox.Text)
+        sqlComm.Parameters.AddWithValue("@Total", 0)
+        sqlComm.Parameters.AddWithValue("@Barcode", Barcode_IM)
+        If String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSale", NewSalePrice_txt.Text)
+        If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSaleByOne", NewSaleByOne.Text)
+
+        If String.IsNullOrWhiteSpace(Min_SP_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP", Convert.ToDouble(Min_SP_txt.Text))
+        If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text))
+
+
+        If SQL_SP_EXEC(sqlComm) = True Then
+            'Update_Total()
+            ClearCatFields()
+            F_Format_Items_Manual.Pch_Contents_SELECT_Bill()
+            If Row_Index > 0 Then F_Format_Items_Manual.AGMetroGrid.CurrentCell = F_Format_Items_Manual.AGMetroGrid.Rows(Row_Index).Cells("FRM_IM_NAME_CL")
+            'If MY_Settings.S_Default = 0 Then
+            '    Barcode_SH_txt.Select()
+            'Else
+            '    IM_SH_txt.Select()
+            'End If
+        End If
+
+    End Sub
+
 
 
     Private Sub ClearCatFields()
@@ -217,55 +358,55 @@
     End Sub
 
 
-    Private Sub Insert_Cat()
-            Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
-            'Dim Row_Index As Integer = 0
-            'If AGMetroGrid.Rows.Count > 0 Then Row_Index = AGMetroGrid.CurrentCell.RowIndex + 1
-            If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
+    'Private Sub Insert_Cat()
+    '        Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
+    '        'Dim Row_Index As Integer = 0
+    '        'If AGMetroGrid.Rows.Count > 0 Then Row_Index = AGMetroGrid.CurrentCell.RowIndex + 1
+    '        If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
 
-            Dim sqlComm As New SqlClient.SqlCommand()
-            sqlComm.CommandText = "Pch_Details_Insert"
-            sqlComm.CommandType = CommandType.StoredProcedure
-            sqlComm.Parameters.AddWithValue("@T_ID", 0)
-            sqlComm.Parameters.AddWithValue("@Pch_T_ID", T_ID)
-            sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
-            sqlComm.Parameters.AddWithValue("@U_ID", U_ID)
-        sqlComm.Parameters.AddWithValue("@Price", Convert.ToDouble(PriceTextBox.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
-        If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
-            sqlComm.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
-            sqlComm.Parameters.AddWithValue("@QYT", QtyTextBox.Text)
-        sqlComm.Parameters.AddWithValue("@Total", Convert.ToDouble(QtyTextBox.Text) * (Convert.ToDouble(PriceTextBox.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text)))
-        If String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSale", Convert.ToDouble(NewSalePrice_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
-        If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSaleByOne", Convert.ToDouble(NewSaleByOne.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
+    '        Dim sqlComm As New SqlClient.SqlCommand()
+    '        sqlComm.CommandText = "Pch_Details_Insert"
+    '        sqlComm.CommandType = CommandType.StoredProcedure
+    '        sqlComm.Parameters.AddWithValue("@T_ID", 0)
+    '        sqlComm.Parameters.AddWithValue("@Pch_T_ID", T_ID)
+    '        sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
+    '        sqlComm.Parameters.AddWithValue("@U_ID", U_ID)
+    '    sqlComm.Parameters.AddWithValue("@Price", Convert.ToDouble(PriceTextBox.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
+    '    If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
+    '        sqlComm.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+    '        sqlComm.Parameters.AddWithValue("@QYT", QtyTextBox.Text)
+    '    sqlComm.Parameters.AddWithValue("@Total", Convert.ToDouble(QtyTextBox.Text) * (Convert.ToDouble(PriceTextBox.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text)))
+    '    If String.IsNullOrWhiteSpace(NewSalePrice_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSale", Convert.ToDouble(NewSalePrice_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
+    '    If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then sqlComm.Parameters.AddWithValue("@NewSaleByOne", Convert.ToDouble(NewSaleByOne.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
 
-        If String.IsNullOrWhiteSpace(Min_SP_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP", Convert.ToDouble(Min_SP_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
-        If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
+    '    If String.IsNullOrWhiteSpace(Min_SP_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP", Convert.ToDouble(Min_SP_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
+    '    If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
 
-        If String.IsNullOrWhiteSpace(Min_SP_2_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_2", Convert.ToDouble(Min_SP_2_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
-        If String.IsNullOrWhiteSpace(Min_SP_2_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_2_ByOne", Convert.ToDouble(Min_SP_2_By_One_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
+    '    If String.IsNullOrWhiteSpace(Min_SP_2_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_2", Convert.ToDouble(Min_SP_2_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
+    '    If String.IsNullOrWhiteSpace(Min_SP_2_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_2_ByOne", Convert.ToDouble(Min_SP_2_By_One_txt.Text) * Convert.ToDouble(F_Pch.Cr_Equal_TXT.Text))
 
-        sqlComm.Parameters.AddWithValue("@On_Update", F_Pch.On_Update)
-        sqlComm.Parameters.AddWithValue("@Barcode", Barcode_IM)
+    '    sqlComm.Parameters.AddWithValue("@On_Update", F_Pch.On_Update)
+    '    sqlComm.Parameters.AddWithValue("@Barcode", Barcode_IM)
 
-            sqlComm.Parameters("@T_ID").Direction = ParameterDirection.Output
+    '        sqlComm.Parameters("@T_ID").Direction = ParameterDirection.Output
 
-            If SQL_SP_EXEC(sqlComm) = True Then
+    '        If SQL_SP_EXEC(sqlComm) = True Then
 
-                Indx_ID = sqlComm.Parameters("@T_ID").Value
-            Valid_Notes_Insert()
+    '            Indx_ID = sqlComm.Parameters("@T_ID").Value
+    '        Valid_Notes_Insert()
 
-            If F_Pch.On_Update = True Then DependingUpdatedBill(T_ID)
+    '        If F_Pch.On_Update = True Then DependingUpdatedBill(T_ID)
 
-            Network_Edit_Tracker_insert(" الصنف:" + mySearchControl.txtSearch.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " البيع:" _
-                                        + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, F_Pch.Bill_ID_Txt.Text, 7, 1)
+    '        Network_Edit_Tracker_insert(" الصنف:" + mySearchControl.txtSearch.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " البيع:" _
+    '                                    + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, F_Pch.Bill_ID_Txt.Text, 7, 1)
 
-            F_Pch.Pch_Contents_SELECT_Bill()
+    '        F_Pch.Pch_Contents_SELECT_Bill()
 
-            Me.Close()
+    '        Me.Close()
 
-        End If
+    '    End If
 
-        End Sub
+    '    End Sub
 
     Private Sub Valid_Notes_Insert()
 
@@ -809,9 +950,5 @@
     Private Sub ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ADD_New_IM_btn.Click
         IM_ADD_New.ShowDialog()
         If is_Add_New_IM = True Then QtyTextBox.Select()
-    End Sub
-
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-        Me.Close()
     End Sub
 End Class
