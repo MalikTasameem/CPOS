@@ -1393,7 +1393,10 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub ADDCatButton_Click(sender As Object, e As EventArgs) Handles ADDCatButton.Click
-        ADD_IM()
+        'ADD_IM()
+        F_Frm_manuel_IM_card = New Frm_manuel_IM_card
+        F_Frm_manuel_IM_card.T_ID = T_ID
+        F_Frm_manuel_IM_card.ShowDialog()
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
