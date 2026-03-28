@@ -17,6 +17,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Public isCashReceipt_Success As Boolean = False
     Public isShowingDetails As Boolean = False
 
+
     Public IM_ID As Integer = 0
     Public Barcode As String = ""
     ' Public Barcode_IM As String = ""
@@ -49,6 +50,55 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Public is_Order_IM_Print As Boolean = False
 
     Dim Old_Disc As Double = 0
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    ' تفعيل الظل الاحترافي للفورم
+    Protected Overrides ReadOnly Property CreateParams() As CreateParams
+        Get
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or &H20000
+            Return cp
+        End Get
+    End Property
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp
+        drag = False
+    End Sub
+
+
+
+    Private Sub MaxFormButton_Click(sender As Object, e As EventArgs) Handles MaxFormButton.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.WindowState = FormWindowState.Maximized
+            MaxFormButton.Text = "🗗" ' تغيير الرمز ليدل على التصغير
+        Else
+            Me.WindowState = FormWindowState.Normal
+            MaxFormButton.Text = "⬜" ' إرجاع الرمز للمربع
+        End If
+    End Sub
+    ' =========================================================
+    Private Sub UpdateFormStateIndicator(ByVal StateText As String, ByVal StateColor As System.Drawing.Color)
+        If lblFormState IsNot Nothing Then
+            lblFormState.Text = "⬤  " & StateText
+            lblFormState.ForeColor = StateColor
+            lblFormState.Visible = True
+            lblFormState.Refresh() ' لإجبار الشاشة على إظهار اللون الجديد فوراً
+        End If
+    End Sub
 
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         If On_Update = True Then Edit_butt_Click(sender, e)
@@ -185,55 +235,99 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' If St_Count() = 1 Then All_St_Panel.Visible = False
-        FormType = 1
 
-        Check_View_Control()
-        rs.FindAllControls(Me)
-        Me.WindowState = FormWindowState.Maximized
-        EditState = Edit_butt.Text
-        'Load_ST()
+        Try
+            If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
+            If Title_Label IsNot Nothing Then Title_Label.Tag = "TITLE_TRANSPARENT"
+            If ExitFormButton IsNot Nothing Then ExitFormButton.Tag = "DELETE"
+            If MaxFormButton IsNot Nothing Then MaxFormButton.Tag = "GENERAL"
 
-        Delete_butt.Visible = U_SalesVoid
+            ' 2. أزرار التحكم الرئيسية
+            If New_butt IsNot Nothing Then New_butt.Tag = "GENERAL"
+            If Save_butt IsNot Nothing Then Save_butt.Tag = "SAVE"
+            If Edit_butt IsNot Nothing Then Edit_butt.Tag = "GENERAL"
+            If Delete_butt IsNot Nothing Then Delete_butt.Tag = "DELETE"
+            If Print_btn IsNot Nothing Then Print_btn.Tag = "PRINT"
+            If SBPauseBtn IsNot Nothing Then SBPauseBtn.Tag = "GENERAL"
+            If DeliveryingButton IsNot Nothing Then DeliveryingButton.Tag = "SAVE"
 
-        If U_SalesDis = True And isDiscount = True Then
-            DiscountPanel.Visible = True
-        Else
-            DiscountPanel.Visible = False
-        End If
+            ' 3. أزرار التحكم في الجدول (الأصناف)
+            If ADDCatButton IsNot Nothing Then ADDCatButton.Tag = "GENERAL"
+            If RemoveCatButton IsNot Nothing Then RemoveCatButton.Tag = "DELETE"
+            If DGV_Control_btn IsNot Nothing Then DGV_Control_btn.Tag = "GENERAL"
+            If Clear_Check_btn IsNot Nothing Then Clear_Check_btn.Tag = "GENERAL"
 
-        Edit_butt.Visible = U_SB_Update
-        ' Min_SP_CB.Visible = U_Sell_Under_Min_SP
-        ' Min_SP_2_CB.Visible = U_Sell_Under_Min_SP_2
-        Show_Cash_btn.Visible = U_SB_Show_Cash
+            ' 4. أزرار التنقل والعمليات الجانبية
+            If Up_Bill_btn IsNot Nothing Then Up_Bill_btn.Tag = "GENERAL"
+            If Down_Bill_btn IsNot Nothing Then Down_Bill_btn.Tag = "GENERAL"
+            '  If Show_IM_btn2 IsNot Nothing Then Show_IM_btn2.Tag = "GENERAL"
+            If Calc_Dicount_Btn IsNot Nothing Then Calc_Dicount_Btn.Tag = "GENERAL"
+            If Show_AG_Projects_btn IsNot Nothing Then Show_AG_Projects_btn.Tag = "GENERAL"
+            If Show_IM_Rtn_btn IsNot Nothing Then Show_IM_Rtn_btn.Tag = "GENERAL"
+            If OpenCahDR_Btn IsNot Nothing Then OpenCahDR_Btn.Tag = "GENERAL"
+            If Show_Cash_btn IsNot Nothing Then Show_Cash_btn.Tag = "GENERAL"
+            If MoveToBill_Btn IsNot Nothing Then MoveToBill_Btn.Tag = "GENERAL"
 
-        'If U_SB_IM_Update = True Then
-        '    PriceTextBox.ReadOnly = False
-        '    Bercent_TXT.ReadOnly = False
-        'Else
-        '    PriceTextBox.ReadOnly = True
-        '    Bercent_TXT.ReadOnly = True
-        'End If
+            ' تطبيق الثيم الإجباري باستخدام محرك الثيمات
+            ThemeManager.ApplyThemeToForm(Me)
+            ModernLoader.ShowLoader()
 
-        AG_Show_Balance_CB.Checked = MY_Settings.SB_AG_Show_Balance
-        Show_Bill_CB.Checked = MY_Settings.SB_Show_Bill
-        Show_Bill_Rest_CB.Checked = MY_Settings.SB_Show_Bill_Rest
-        Show_SumPied_CB.Checked = MY_Settings.SB_Show_SumPied
+            FormType = 1
+
+            rs.FindAllControls(Me)
+            NewStateBt()
+            Check_View_Control()
+            rs.FindAllControls(Me)
+            Me.WindowState = FormWindowState.Maximized
+            EditState = Edit_butt.Text
+            'Load_ST()
+
+            Delete_butt.Visible = U_SalesVoid
+
+            If U_SalesDis = True And isDiscount = True Then
+                DiscountPanel.Visible = True
+            Else
+                DiscountPanel.Visible = False
+            End If
+
+            Edit_butt.Visible = U_SB_Update
+            ' Min_SP_CB.Visible = U_Sell_Under_Min_SP
+            ' Min_SP_2_CB.Visible = U_Sell_Under_Min_SP_2
+            Show_Cash_btn.Visible = U_SB_Show_Cash
+
+            'If U_SB_IM_Update = True Then
+            '    PriceTextBox.ReadOnly = False
+            '    Bercent_TXT.ReadOnly = False
+            'Else
+            '    PriceTextBox.ReadOnly = True
+            '    Bercent_TXT.ReadOnly = True
+            'End If
+
+            AG_Show_Balance_CB.Checked = MY_Settings.SB_AG_Show_Balance
+            Show_Bill_CB.Checked = MY_Settings.SB_Show_Bill
+            Show_Bill_Rest_CB.Checked = MY_Settings.SB_Show_Bill_Rest
+            Show_SumPied_CB.Checked = MY_Settings.SB_Show_SumPied
 
 
-        عرضالتكلفةToolStripMenuItem.Visible = U_SB_Show_IM_COST
+            عرضالتكلفةToolStripMenuItem.Visible = U_SB_Show_IM_COST
 
-        Show_Cash_btn.Visible = S_Pr
+            Show_Cash_btn.Visible = S_Pr
 
-        If isShowing_Trans = True Then
-            T_ID = T_ID_Trans
-            Fill_Bill_Info()
-            SB_Contents_SELECT_Bill()
-            SelectStateBt()
-            New_butt.Enabled = False
-            SBPauseBtn.Enabled = False
-        Else
-            If Open_NewBill_When_OpenSale = True Then ResetNewBill()
-        End If
+            If isShowing_Trans = True Then
+                T_ID = T_ID_Trans
+                Fill_Bill_Info()
+                SB_Contents_SELECT_Bill()
+                SelectStateBt()
+                New_butt.Enabled = False
+                SBPauseBtn.Enabled = False
+            Else
+                If Open_NewBill_When_OpenSale = True Then ResetNewBill()
+            End If
+            ModernLoader.CloseLoader()
+        Catch ex As Exception
+            ModernLoader.CloseLoader()
+        End Try
+
 
     End Sub
 
@@ -423,27 +517,50 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         If F = True Then
             isDepended = 1
 
-            AGMetroGrid.BackgroundColor = Color.LightGreen
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
+            'AGMetroGrid.BackgroundColor = Color.LightGreen
+            'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
             AG_Cm.Enabled = False
             Save_butt.Enabled = False
         Else
             isDepended = 0
-            AGMetroGrid.BackgroundColor = Color.LightYellow
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+            'AGMetroGrid.BackgroundColor = Color.LightYellow
+            'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
             AG_Cm.Enabled = True
             Save_butt.Enabled = True
         End If
 
     End Sub
 
-    Private Sub NewStateBt()
-        Enable_Fields()
+    'Private Sub NewStateBt()
+    '    Enable_Fields()
+    '    Save_butt.Enabled = True
+    '    ' Delete_butt.Enabled = False
+    '    Me.Text = "فاتورة مبيعات جديدة"
+    '    'AG_Grid.Visible = False
+    '    AG_Cm.Enabled = True
+    'End Sub
+    Public Sub NewStateBt()
+        ' 1. تصفير المعرفات لضمان جلب رقم جديد من قاعدة البيانات عند الحفظ
+        T_ID = 0
+        Pied_T_ID = 0
+        isNewBill = 1 ' تأكيد أننا في وضع إضافة
+        On_Update = False
+
+        ' 2. تنظيف الواجهة
+
+        AGMetroGrid.Rows.Clear()
+
+        ' 3. جلب الرقم التسلسلي الجديد (تأكد أن الدالة جلب المعرف تعمل)
+        ' عادة يتم جلب الرقم من السيرفر عند الحفظ، ولكن للعرض:
+        Bill_ID_Txt.Text = "تلقائي"
+
+        ' 4. تحديث حالة الثيم البصرية
+        UpdateFormStateIndicator("فاتورة جديدة", System.Drawing.Color.LimeGreen)
+
+        ' 5. تفعيل الأزرار
         Save_butt.Enabled = True
-        ' Delete_butt.Enabled = False
-        Me.Text = "فاتورة مبيعات جديدة"
-        'AG_Grid.Visible = False
-        AG_Cm.Enabled = True
+        Edit_butt.Enabled = False
+        Delete_butt.Enabled = False
     End Sub
     Private Sub DeleteOrUpdateStateBt()
         Disable_Fields()
@@ -460,61 +577,73 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Public Sub SelectStateBt()
-        Edit_butt.Text = EditState
-        If isVoid = True Then
-            VoidLb.Visible = True
-            Disable_Fields()
-            Save_butt.Enabled = False
-            Edit_butt.Enabled = False
-            Delete_butt.Enabled = False
-            AGMetroGrid.Enabled = True
-            AGMetroGrid.BackgroundColor = Color.IndianRed
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
-            Print_btn.Enabled = False
-            DiscountPanel.Enabled = False
-            DeliveryingButton.Enabled = False
-        Else
+        Try
+            ' 1. إعدادات الواجهة الأساسية
+            Edit_butt.Text = EditState
+            Me.Text = "فاتورة مبيعات "
+            VoidLb.Visible = False
 
-            If isDepended = False Then
+            ' 2. توجيه حالة الفاتورة (ملغاة - معلقة - مرحلة)
+            If isVoid Then
+                ' 🔴 --- حالة: فاتورة ملغاة ---
+                VoidLb.Visible = True
+                UpdateFormStateIndicator("فاتورة ملغاة", System.Drawing.Color.Crimson)
+
+                Disable_Fields()
+                Save_butt.Enabled = False
+                Edit_butt.Enabled = False
+                Delete_butt.Enabled = False
+                Print_btn.Enabled = False
+                DiscountPanel.Enabled = False
+                DeliveryingButton.Enabled = False
+                AGMetroGrid.Enabled = True
+
+            ElseIf isDepended = False Then
+                ' 🟡 --- حالة: فاتورة معلقة / غير مرحلة ---
+                UpdateFormStateIndicator("فاتورة معلقة", System.Drawing.Color.Goldenrod)
+
+                Enable_Fields()
                 Save_butt.Enabled = True
                 Edit_butt.Enabled = False
+                Delete_butt.Enabled = True
                 Print_btn.Enabled = False
-                AGMetroGrid.BackgroundColor = Color.LightYellow
-                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
-                Enable_Fields()
                 DiscountPanel.Enabled = True
+
             Else
+                ' 🟣 --- حالة: فاتورة مُرحّلة / معتمدة ---
+                UpdateFormStateIndicator("مُرحّلة / معتمدة", System.Drawing.Color.BlueViolet)
+
+                Disable_Fields()
                 Save_butt.Enabled = False
                 Edit_butt.Enabled = True
+                Delete_butt.Enabled = True
                 Print_btn.Enabled = True
-                AGMetroGrid.BackgroundColor = Color.LightGreen
-                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
-                Disable_Fields()
                 DiscountPanel.Enabled = False
                 DeliveryingButton.Enabled = True
             End If
 
-            VoidLb.Visible = False
-            Delete_butt.Enabled = True
-
-            If U_Save_otherBill = False And BillUser_ID <> USER_ID Then
-                If Edit_butt.Enabled = True Then Edit_butt.Enabled = False
-                If Save_butt.Enabled = True Then Save_butt.Enabled = False
-                If Delete_butt.Enabled = True Then Delete_butt.Enabled = False
+            ' 3. فحص صلاحيات المستخدم (تطبق فقط إذا لم تكن الفاتورة ملغاة)
+            ' استخدمنا AndAlso لتسريع التنفيذ برمجياً
+            If Not isVoid AndAlso (U_Save_otherBill = False AndAlso BillUser_ID <> USER_ID) Then
+                Save_butt.Enabled = False
+                Edit_butt.Enabled = False
+                Delete_butt.Enabled = False
+                AGMetroGrid.Enabled = False
                 Disable_CatFields()
                 Disable_Fields()
-                If AGMetroGrid.Enabled = True Then AGMetroGrid.Enabled = False
             End If
 
-        End If
+            ' 4. تحديث البيانات النهائية للمكونات
+            If AGMetroGrid.Rows.Count = 0 Then
+                DateTimeEx.Value = Date.Now
+            End If
 
-        'SELECT_IM()
+            Pied_T_ID = Get_Reciept_ID()
+            Get_Rtn_Count()
 
-        Me.Text = "فاتورة مبيعات "
-
-        If AGMetroGrid.Rows.Count = 0 Then DateTimeEx.Value = Date.Now
-        Pied_T_ID = Get_Reciept_ID()
-        Get_Rtn_Count()
+        Catch ex As Exception
+            ' تفادي أي خطأ مفاجئ أثناء تحميل حالة الواجهة
+        End Try
     End Sub
 
     Public Function Get_Reciept_ID()
@@ -571,7 +700,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Discount_txt.Clear()
         Disc = 0
         Me.Text = FormState
-        Edit_butt.BackColor = Color.WhiteSmoke
+        '     Edit_butt.BackColor = Color.WhiteSmoke
         Edit_butt.Text = EditState
         On_Update = False
         SB_ID = 0
@@ -2098,6 +2227,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
         If On_Update = True Then Edit_butt_Click(sender, e)
         ResetNewBill()
+        UpdateFormStateIndicator("فاتورة جديدة", System.Drawing.Color.LimeGreen)
     End Sub
 
     Private Sub Load_PauseBills()
@@ -2183,10 +2313,11 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                 Beep()
                 If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
                              MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-                    Edit_butt.BackColor = Color.GreenYellow
+                    UpdateFormStateIndicator("قيد التعديل", System.Drawing.Color.DarkOrange)
+                    '     Edit_butt.BackColor = Color.GreenYellow
                     On_Update = True
-                    AGMetroGrid.BackgroundColor = Color.LightYellow
-                    AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+                    'AGMetroGrid.BackgroundColor = Color.LightYellow
+                    'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
                     ADDCatButton.Enabled = True
                     RemoveCatButton.Enabled = True
                     Notes_txt.Enabled = True
@@ -2210,7 +2341,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                 AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
                 On_Update = False
                 Edit_butt.Text = EditState
-                Edit_butt.BackColor = Color.White
+                '   Edit_butt.BackColor = Color.White
                 Notes_txt.Enabled = False
                 DateTimeEx.Enabled = False
                 Project_cm.Enabled = False
@@ -2577,12 +2708,19 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
+        ' استدعاء الدالة البرمجية مباشرة
         Mov_To_Edit_IM()
     End Sub
 
     Private Sub Mov_To_Edit_IM()
+        ' تحديد نوع النموذج للمبيعات (1)
         FormType = 1
-        If AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And AGMetroGrid.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
+
+        ' التحقق برمجياً: إذا كانت الفاتورة قيد التعديل أو جديدة، وكان هناك أصناف في الجدول
+        ' نستخدم المتغير On_Update الذي يمثل حالة "قيد التعديل" في المبيعات
+        If On_Update = True AndAlso AGMetroGrid.Rows.Count > 0 Then
+            Change_IM_Details.ShowDialog()
+        End If
     End Sub
 
     Private Sub AGMetroGrid_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles AGMetroGrid.RowsAdded
