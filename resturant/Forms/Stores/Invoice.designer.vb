@@ -21,6 +21,7 @@ Partial Class Invoice
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.lblFormState = New System.Windows.Forms.Label()
         Me.Title_Label = New System.Windows.Forms.Label()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.ActionBar_Panel = New System.Windows.Forms.Panel()
@@ -91,7 +92,6 @@ Partial Class Invoice
         Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.تعديلصلاحياتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.علاضبطاقةالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.lblFormState = New System.Windows.Forms.Label()
         Me.TitleBar_Panel.SuspendLayout()
         Me.ActionBar_Panel.SuspendLayout()
         Me.Header_Panel.SuspendLayout()
@@ -119,6 +119,16 @@ Partial Class Invoice
         Me.TitleBar_Panel.Size = New System.Drawing.Size(1200, 36)
         Me.TitleBar_Panel.TabIndex = 8
         Me.TitleBar_Panel.Tag = "HEADER"
+        '
+        'lblFormState
+        '
+        Me.lblFormState.Dock = System.Windows.Forms.DockStyle.Left
+        Me.lblFormState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.lblFormState.Location = New System.Drawing.Point(45, 0)
+        Me.lblFormState.Name = "lblFormState"
+        Me.lblFormState.Size = New System.Drawing.Size(570, 36)
+        Me.lblFormState.TabIndex = 692
+        Me.lblFormState.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Title_Label
         '
@@ -766,16 +776,6 @@ Partial Class Invoice
         Me.علاضبطاقةالصنفToolStripMenuItem.Name = "علاضبطاقةالصنفToolStripMenuItem"
         Me.علاضبطاقةالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.علاضبطاقةالصنفToolStripMenuItem.Text = "عرض بطاقة الصنف"
-        '
-        'lblFormState
-        '
-        Me.lblFormState.Dock = System.Windows.Forms.DockStyle.Left
-        Me.lblFormState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.lblFormState.Location = New System.Drawing.Point(45, 0)
-        Me.lblFormState.Name = "lblFormState"
-        Me.lblFormState.Size = New System.Drawing.Size(570, 36)
-        Me.lblFormState.TabIndex = 692
-        Me.lblFormState.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Invoice
         '
