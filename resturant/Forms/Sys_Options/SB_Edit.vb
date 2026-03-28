@@ -380,7 +380,7 @@ Public Class SB_Edit
 
         N_Point_Fter_CM.Text = MY_Settings.N_Point_Fter
 
-
+        IM_Search_Default_Cm.SelectedIndex = MY_Settings.S_Default
     End Sub
 
     Private Sub SHOWphto()
@@ -557,6 +557,7 @@ Public Class SB_Edit
 
             MY_Settings.N_Point_Fter = N_Point_Fter_CM.Text
 
+            MY_Settings.S_Default = IM_Search_Default_Cm.SelectedIndex
 
             Save_AppSetting()
 

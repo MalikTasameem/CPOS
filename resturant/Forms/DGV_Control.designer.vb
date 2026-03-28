@@ -38,6 +38,7 @@ Partial Class DGV_Control
         Me.Proj_CB = New System.Windows.Forms.CheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.OtherTabPage = New System.Windows.Forms.TabPage()
+        Me.IM_Discount_CB = New System.Windows.Forms.CheckBox()
         Me.IM_NOTE_CB = New System.Windows.Forms.CheckBox()
         Me.SB_Sch_With_QTY_CB = New System.Windows.Forms.CheckBox()
         Me.Serial_Code_CB = New System.Windows.Forms.CheckBox()
@@ -53,7 +54,6 @@ Partial Class DGV_Control
         Me.IMPR_MINPR_CB = New System.Windows.Forms.CheckBox()
         Me.IMPR_BAR_CB = New System.Windows.Forms.CheckBox()
         Me.IMPR_IMNUM_CB = New System.Windows.Forms.CheckBox()
-        Me.IM_Discount_CB = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.OtherTabPage.SuspendLayout()
         Me.StTabPage.SuspendLayout()
@@ -218,6 +218,7 @@ Partial Class DGV_Control
         Me.S_Deafult_cm.Name = "S_Deafult_cm"
         Me.S_Deafult_cm.Size = New System.Drawing.Size(184, 29)
         Me.S_Deafult_cm.TabIndex = 628
+        Me.S_Deafult_cm.Visible = False
         '
         'Label1
         '
@@ -228,6 +229,7 @@ Partial Class DGV_Control
         Me.Label1.Size = New System.Drawing.Size(210, 24)
         Me.Label1.TabIndex = 629
         Me.Label1.Text = "طريقة إدخال الصنف الإفتراضية"
+        Me.Label1.Visible = False
         '
         'Notes_cb
         '
@@ -321,6 +323,21 @@ Partial Class DGV_Control
         Me.OtherTabPage.Size = New System.Drawing.Size(484, 387)
         Me.OtherTabPage.TabIndex = 0
         Me.OtherTabPage.Text = "عرض عام"
+        '
+        'IM_Discount_CB
+        '
+        Me.IM_Discount_CB.AutoSize = True
+        Me.IM_Discount_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.IM_Discount_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IM_Discount_CB.Font = New System.Drawing.Font("JF Flat", 10.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Discount_CB.Location = New System.Drawing.Point(29, 6)
+        Me.IM_Discount_CB.Name = "IM_Discount_CB"
+        Me.IM_Discount_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.IM_Discount_CB.Size = New System.Drawing.Size(107, 28)
+        Me.IM_Discount_CB.TabIndex = 638
+        Me.IM_Discount_CB.Text = "خصم الصنف"
+        Me.IM_Discount_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.IM_Discount_CB.UseVisualStyleBackColor = True
         '
         'IM_NOTE_CB
         '
@@ -568,21 +585,6 @@ Partial Class DGV_Control
         Me.IMPR_IMNUM_CB.Text = "رقم الصنف"
         Me.IMPR_IMNUM_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.IMPR_IMNUM_CB.UseVisualStyleBackColor = False
-        '
-        'IM_Discount_CB
-        '
-        Me.IM_Discount_CB.AutoSize = True
-        Me.IM_Discount_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.IM_Discount_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Discount_CB.Font = New System.Drawing.Font("JF Flat", 10.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_Discount_CB.Location = New System.Drawing.Point(29, 6)
-        Me.IM_Discount_CB.Name = "IM_Discount_CB"
-        Me.IM_Discount_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_Discount_CB.Size = New System.Drawing.Size(107, 28)
-        Me.IM_Discount_CB.TabIndex = 638
-        Me.IM_Discount_CB.Text = "خصم الصنف"
-        Me.IM_Discount_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.IM_Discount_CB.UseVisualStyleBackColor = True
         '
         'DGV_Control
         '

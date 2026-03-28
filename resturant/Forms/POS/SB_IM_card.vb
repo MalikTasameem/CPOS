@@ -128,16 +128,16 @@
     End Sub
 
 
-    Private Sub ClearFields()
+    'Private Sub ClearFields()
 
-        T_ID = 0
-        PriceTextBox.Clear()
-        ClearCatFields()
-        Disc = 0
-        On_Update = False
-        SB_ID = 0
-        ST_cm.SelectedValue = SB_ST_ID
-        End Sub
+    '    T_ID = 0
+    '    PriceTextBox.Clear()
+    '    ClearCatFields()
+    '    Disc = 0
+    '    On_Update = False
+    '    SB_ID = 0
+    '    ST_cm.SelectedValue = SB_ST_ID
+    '    End Sub
 
 
     Public Sub ADD_IM()

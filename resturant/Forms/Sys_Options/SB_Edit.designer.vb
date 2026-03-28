@@ -180,6 +180,8 @@ Partial Class SB_Edit
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
+        Me.GroupBox21 = New System.Windows.Forms.GroupBox()
+        Me.IM_Search_Default_Cm = New System.Windows.Forms.ComboBox()
         Me.GroupBox2.SuspendLayout()
         Me.CustPageTypeGroupBox.SuspendLayout()
         Me.DiscountGroupBox.SuspendLayout()
@@ -220,6 +222,7 @@ Partial Class SB_Edit
         Me.GroupBox20.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.GroupBox21.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox2
@@ -904,6 +907,7 @@ Partial Class SB_Edit
         'TabPage7
         '
         Me.TabPage7.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage7.Controls.Add(Me.GroupBox21)
         Me.TabPage7.Controls.Add(Me.SERVER_IMG_PATH_txt)
         Me.TabPage7.Controls.Add(Me.Label26)
         Me.TabPage7.Controls.Add(Me.QTY_ALERT_SOUND_CB)
@@ -2320,6 +2324,31 @@ Partial Class SB_Edit
         Me.Save_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Save_butt.UseVisualStyleBackColor = False
         '
+        'GroupBox21
+        '
+        Me.GroupBox21.Controls.Add(Me.IM_Search_Default_Cm)
+        Me.GroupBox21.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox21.Location = New System.Drawing.Point(33, 6)
+        Me.GroupBox21.Name = "GroupBox21"
+        Me.GroupBox21.Size = New System.Drawing.Size(205, 58)
+        Me.GroupBox21.TabIndex = 637
+        Me.GroupBox21.TabStop = False
+        Me.GroupBox21.Text = "بحث الصنف الإفتراضي"
+        '
+        'IM_Search_Default_Cm
+        '
+        Me.IM_Search_Default_Cm.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.IM_Search_Default_Cm.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.IM_Search_Default_Cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.IM_Search_Default_Cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IM_Search_Default_Cm.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.IM_Search_Default_Cm.FormattingEnabled = True
+        Me.IM_Search_Default_Cm.Items.AddRange(New Object() {"رقم الصنف", "إسم الصنف", "باركود الصنف"})
+        Me.IM_Search_Default_Cm.Location = New System.Drawing.Point(3, 25)
+        Me.IM_Search_Default_Cm.Name = "IM_Search_Default_Cm"
+        Me.IM_Search_Default_Cm.Size = New System.Drawing.Size(199, 29)
+        Me.IM_Search_Default_Cm.TabIndex = 616
+        '
         'SB_Edit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
@@ -2394,6 +2423,7 @@ Partial Class SB_Edit
         Me.GroupBox4.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.GroupBox21.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -2555,4 +2585,6 @@ Partial Class SB_Edit
     Friend WithEvents SelectColorButton_CREDIT As Button
     Friend WithEvents GroupBox20 As GroupBox
     Friend WithEvents N_Point_Fter_CM As ComboBox
+    Friend WithEvents GroupBox21 As GroupBox
+    Public WithEvents IM_Search_Default_Cm As ComboBox
 End Class

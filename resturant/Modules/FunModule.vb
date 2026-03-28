@@ -2610,7 +2610,7 @@ Module FunModule
         IM_Dt_Barcodes = New DataTable
         Try
             IM_Dt_Barcodes.Clear()
-            s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode from IM_All_Barcodes_V  Order by item_name ASC"
+            s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode,isValid from IM_All_Barcodes_V  Order by item_name ASC"
             c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
             c.Da.Fill(IM_Dt_Barcodes)
         Catch ex As Exception
@@ -2622,7 +2622,7 @@ Module FunModule
         IM_Units_Dt = New DataTable
         Try
             IM_Units_Dt.Clear()
-            s = "select U_IM_ID,IM_ID,item_name,U_Name,U_ID,U_Cargo,Price,Min_SP,Min_SP_2,Barcode from IM_Menu_Units_V Order By IM_ID,U_ID Asc"
+            s = "select U_IM_ID,IM_ID,item_name,U_Name,U_ID,U_Cargo,Price,Min_SP,Min_SP_2,Barcode,isValid from IM_Menu_Units_V Order By IM_ID,U_ID Asc"
             c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
             c.Da.Fill(IM_Units_Dt)
         Catch ex As Exception

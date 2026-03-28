@@ -619,6 +619,8 @@
 
     Private Sub SearchItemControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Refresh_Data()
+
+        cmbSearchBy.SelectedIndex = MY_Settings.S_Default
     End Sub
 
 

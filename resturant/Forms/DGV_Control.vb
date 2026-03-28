@@ -167,7 +167,7 @@
                 SB_Sch_With_QTY_CB.Checked = MY_Settings.SB_Sch_With_QTY
         End Select
 
-        S_Deafult_cm.SelectedIndex = MY_Settings.S_Default
+        'S_Deafult_cm.SelectedIndex = MY_Settings.S_Default
     End Sub
 
     Private Sub Back_Btn_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
@@ -252,7 +252,7 @@
     Private Sub S_Deafult_cm_SelectedIndexChanged(sender As Object, e As EventArgs) Handles S_Deafult_cm.SelectedIndexChanged
         'Select Case FormType
         '    Case 1
-        MY_Settings.S_Default = S_Deafult_cm.SelectedIndex
+        'MY_Settings.S_Default = S_Deafult_cm.SelectedIndex
         'End Select
         Save_AppSetting()
     End Sub

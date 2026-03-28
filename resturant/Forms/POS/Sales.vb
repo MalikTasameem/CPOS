@@ -542,10 +542,10 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     'End Sub
     Public Sub NewStateBt()
         ' 1. تصفير المعرفات لضمان جلب رقم جديد من قاعدة البيانات عند الحفظ
-        T_ID = 0
-        Pied_T_ID = 0
-        isNewBill = 1 ' تأكيد أننا في وضع إضافة
-        On_Update = False
+        'T_ID = 0
+        'Pied_T_ID = 0
+        'isNewBill = 1 ' تأكيد أننا في وضع إضافة
+        'On_Update = False
 
         ' 2. تنظيف الواجهة
 
@@ -562,6 +562,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Save_butt.Enabled = True
         Edit_butt.Enabled = False
         Delete_butt.Enabled = False
+        Enable_Fields()
     End Sub
     Private Sub DeleteOrUpdateStateBt()
         Disable_Fields()
