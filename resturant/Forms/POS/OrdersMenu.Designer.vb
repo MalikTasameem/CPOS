@@ -236,9 +236,7 @@ Partial Class OrdersMenu
         Me.TotalTextBox.Size = New System.Drawing.Size(129, 26)
         Me.TotalTextBox.TabIndex = 451
         Me.TotalTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label14
-        '
+
         Me.Label14.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent

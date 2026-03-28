@@ -238,6 +238,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
         Try
             If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
+
             If Title_Label IsNot Nothing Then Title_Label.Tag = "TITLE_TRANSPARENT"
             If ExitFormButton IsNot Nothing Then ExitFormButton.Tag = "DELETE"
             If MaxFormButton IsNot Nothing Then MaxFormButton.Tag = "GENERAL"
@@ -277,7 +278,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             rs.FindAllControls(Me)
             NewStateBt()
             Check_View_Control()
-            rs.FindAllControls(Me)
+
             Me.WindowState = FormWindowState.Maximized
             EditState = Edit_butt.Text
             'Load_ST()
@@ -2921,27 +2922,5 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-    Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs)
 
-    End Sub
-
-    Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs)
-
-    End Sub
-
-    Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs)
-
-    End Sub
-
-    Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs)
-
-    End Sub
-
-    Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs)
-
-    End Sub
 End Class
