@@ -46,7 +46,81 @@
         'If e.KeyCode = Keys.F8 Then Barcode_SH_txt.Select()
     End Sub
 
+    'Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    '    '  If St_Count() = 1 Then All_St_Panel.Visible = False
+    '    FormType = 4
+    '    Check_View_Control()
+    '    rs.FindAllControls(Me)
+    '    Me.WindowState = FormWindowState.Maximized
+
+    '    EditState = Edit_butt.Text
+    '    DefaultFormState = Me.Text
+    '    Disable_Fields()
+    '    'Load_ST()
+
+    '    Get_Last_T_ID()
+
+    '    If isShowing_Trans = True Then
+    '        Select_ExpBill(T_ID_Trans)
+    '        SelectStateBt()
+    '        New_butt.Enabled = False
+    '        SearchButton.Enabled = False
+    '    End If
+
+    '    'If My_Settings.S_Default = 0 Then
+    '    '    Barcode_SH_txt.Select()
+    '    'Else
+    '    '    IM_SH_txt.Select()
+    '    'End If
+    '    Make_Hints()
+    'End Sub
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            ' =========================================================
+            ' 🌟 1. تعيين التاجات للأدوات الأصلية الموجودة في الفورم فقط
+            ' =========================================================
+            If ExitFormButton IsNot Nothing Then ExitFormButton.Tag = "DELETE"
+            If Label16 IsNot Nothing Then Label16.Tag = "TITLE_TRANSPARENT" ' عنوان الفورم
+            If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Tag = "TITLE_TRANSPARENT"
+
+            ' حاويات التنظيم الأصلية الموجودة في كودك (لجعل خلفيتها تتبع الثيم)
+            If Panel1 IsNot Nothing Then Panel1.Tag = "TRANSPARENT"
+            If Panel2 IsNot Nothing Then Panel2.Tag = "TRANSPARENT"
+            If Panel3 IsNot Nothing Then Panel3.Tag = "TRANSPARENT"
+            If Panel9 IsNot Nothing Then Panel9.Tag = "TRANSPARENT"
+            If Panel13 IsNot Nothing Then Panel13.Tag = "TRANSPARENT"
+
+            ' أزرار الإجراءات
+            If New_butt IsNot Nothing Then New_butt.Tag = "GENERAL"
+            If Save_butt IsNot Nothing Then Save_butt.Tag = "SAVE"
+            If Edit_butt IsNot Nothing Then Edit_butt.Tag = "GENERAL"
+            If Delete_butt IsNot Nothing Then Delete_butt.Tag = "DELETE"
+            If Print_btn IsNot Nothing Then Print_btn.Tag = "PRINT"
+            If SearchButton IsNot Nothing Then SearchButton.Tag = "GENERAL"
+
+            ' أزرار البحث والتنقل
+            If Up_Bill_btn IsNot Nothing Then Up_Bill_btn.Tag = "GENERAL"
+            If Down_Bill_btn IsNot Nothing Then Down_Bill_btn.Tag = "GENERAL"
+            If ClearSearch_btn IsNot Nothing Then ClearSearch_btn.Tag = "GENERAL"
+
+            ' أزرار الأدوات الجانبية
+            If ADDCatButton IsNot Nothing Then ADDCatButton.Tag = "GENERAL"
+            If RemoveCatButton IsNot Nothing Then RemoveCatButton.Tag = "DELETE"
+            If IM_btn IsNot Nothing Then IM_btn.Tag = "GENERAL"
+            If MakeBarcode_btn IsNot Nothing Then MakeBarcode_btn.Tag = "GENERAL"
+            If DGV_Control_btn IsNot Nothing Then DGV_Control_btn.Tag = "GENERAL"
+
+            ' =========================================================
+            ' 🌟 2. تطبيق الثيم
+            ' =========================================================
+            ThemeManager.ApplyThemeToForm(Me)
+
+        Catch ex As Exception
+        End Try
+
+        ' =========================================================
+        ' 🌟 3. الكود الأصلي للتحميل الخاص بك
+        ' =========================================================
         '  If St_Count() = 1 Then All_St_Panel.Visible = False
         FormType = 4
         Check_View_Control()

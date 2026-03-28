@@ -94,7 +94,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Private Sub UpdateFormStateIndicator(ByVal StateText As String, ByVal StateColor As System.Drawing.Color)
         If lblFormState IsNot Nothing Then
             lblFormState.Text = "⬤  " & StateText
-            lblFormState.ForeColor = StateColor
+            lblFormState.BackColor = StateColor
             lblFormState.Visible = True
             lblFormState.Refresh() ' لإجبار الشاشة على إظهار اللون الجديد فوراً
         End If
