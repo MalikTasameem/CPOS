@@ -85,6 +85,10 @@
             dgvResults.Columns("ItemID").Visible = False ' مخفي لكنه موجود
         End If
 
+        If dgvResults.Columns.Contains("isValid") Then
+            dgvResults.Columns("isValid").Visible = False ' مخفي لكنه موجود
+        End If
+
         If dgvResults.Columns.Contains("IM_NUMBER") Then
             dgvResults.Columns("IM_NUMBER").Visible = True
             dgvResults.Columns("IM_NUMBER").Width = CInt(dgvResults.Width * 0.2)
@@ -260,6 +264,7 @@
         btnClear.FlatStyle = FlatStyle.Flat
         btnClear.BackColor = Color.LightGray
         btnClear.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        btnClear.ForeColor = Color.DarkRed
         Me.Controls.Add(btnClear)
 
 
@@ -272,6 +277,7 @@
         btnRefresh.FlatStyle = FlatStyle.Flat
         btnRefresh.BackColor = Color.LightGray
         btnRefresh.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        btnRefresh.ForeColor = Color.Blue
         Me.Controls.Add(btnRefresh)
 
 
