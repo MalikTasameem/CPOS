@@ -489,7 +489,7 @@ Partial Class SB_IM_card
         Me.Barcode_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Barcode_SH_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Barcode_SH_txt.ForeColor = System.Drawing.Color.Blue
-        Me.Barcode_SH_txt.Location = New System.Drawing.Point(618, 43)
+        Me.Barcode_SH_txt.Location = New System.Drawing.Point(618, 58)
         Me.Barcode_SH_txt.Name = "Barcode_SH_txt"
         Me.Barcode_SH_txt.Size = New System.Drawing.Size(330, 29)
         Me.Barcode_SH_txt.TabIndex = 1064
@@ -499,7 +499,7 @@ Partial Class SB_IM_card
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label1.Location = New System.Drawing.Point(951, 48)
+        Me.Label1.Location = New System.Drawing.Point(951, 63)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(91, 20)
         Me.Label1.TabIndex = 1065

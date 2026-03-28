@@ -473,6 +473,18 @@
     <Compile Include="Forms\Stores\IMEX_IM_card.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Stores\Inside_Sales_IM_card.designer.vb">
+      <DependentUpon>Inside_Sales_IM_card.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Stores\Inside_Sales_IM_card.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Stores\Outside_Sales_IM_card.designer.vb">
+      <DependentUpon>Outside_Sales_IM_card.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Stores\Outside_Sales_IM_card.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Stores\Stores_Trans_IM_card.designer.vb">
       <DependentUpon>Stores_Trans_IM_card.vb</DependentUpon>
     </Compile>
@@ -1627,6 +1639,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Stores\IMEX_IM_card.resx">
       <DependentUpon>IMEX_IM_card.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Stores\Inside_Sales_IM_card.resx">
+      <DependentUpon>Inside_Sales_IM_card.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Stores\Outside_Sales_IM_card.resx">
+      <DependentUpon>Outside_Sales_IM_card.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Stores\Stores_Trans_IM_card.resx">
       <DependentUpon>Stores_Trans_IM_card.vb</DependentUpon>

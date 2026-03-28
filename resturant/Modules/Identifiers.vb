@@ -131,6 +131,8 @@
     Public F_Stores_Trans_IM_card As Stores_Trans_IM_card
     Public F_Frm_manuel_IM_card As Frm_manuel_IM_card
     Public F_Frm_auto_IM_card As Frm_auto_IM_card
+    Public F_Inside_Sales_IM_card As Inside_Sales_IM_card
+    Public F_Outside_Sales_IM_card As Outside_Sales_IM_card
     '--------------------
     ' Public SqlConnection As String = ""
 
