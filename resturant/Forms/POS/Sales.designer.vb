@@ -25,6 +25,7 @@ Partial Class Sales
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales))
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.lblFormState = New System.Windows.Forms.Label()
@@ -52,6 +53,8 @@ Partial Class Sales
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
+        Me.Pure_txt = New System.Windows.Forms.TextBox()
+        Me.Discount_txt1 = New System.Windows.Forms.TextBox()
         Me.Calc_Dicount_Btn = New System.Windows.Forms.Button()
         Me.Discount_txt = New System.Windows.Forms.TextBox()
         Me.Discount_MenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -63,7 +66,6 @@ Partial Class Sales
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Piedmoney_txt = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.Pure_txt = New System.Windows.Forms.TextBox()
         Me.Notes_txt = New System.Windows.Forms.TextBox()
         Me.Bill_ID_Txt = New System.Windows.Forms.TextBox()
         Me.VoidLb = New System.Windows.Forms.Label()
@@ -110,6 +112,7 @@ Partial Class Sales
         Me.Show_AG_Projects_btn = New System.Windows.Forms.Button()
         Me.BillNumPanel = New System.Windows.Forms.Panel()
         Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Label23 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.Panel14 = New System.Windows.Forms.Panel()
@@ -142,7 +145,6 @@ Partial Class Sales
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IM_NOTE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Label23 = New System.Windows.Forms.Label()
         Me.AG_Label = New System.Windows.Forms.Label()
         Me.UN_Void_ContextMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Rsv_Panel = New System.Windows.Forms.Panel()
@@ -156,10 +158,12 @@ Partial Class Sales
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.Delete_butt = New System.Windows.Forms.Button()
         Me.Label24 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Markter_Cm = New resturant.FSearch_Filter()
         Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
         Me.IM_ContextMenuStrip.SuspendLayout()
+        Me.DiscountPanel.SuspendLayout()
         Me.Discount_MenuStrip.SuspendLayout()
         Me.AG_ContextMenuStrip.SuspendLayout()
         Me.IM_Show_CxtMStrip.SuspendLayout()
@@ -174,6 +178,7 @@ Partial Class Sales
         Me.IM_Check_Panel.SuspendLayout()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Rsv_Panel.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TitleBar_Panel
@@ -194,11 +199,11 @@ Partial Class Sales
         '
         Me.lblFormState.Dock = System.Windows.Forms.DockStyle.Left
         Me.lblFormState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.lblFormState.Location = New System.Drawing.Point(90, 0)
+        Me.lblFormState.Location = New System.Drawing.Point(84, 0)
         Me.lblFormState.Name = "lblFormState"
-        Me.lblFormState.Size = New System.Drawing.Size(200, 35)
+        Me.lblFormState.Size = New System.Drawing.Size(491, 35)
         Me.lblFormState.TabIndex = 691
-        Me.lblFormState.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblFormState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Title_Label
         '
@@ -219,9 +224,9 @@ Partial Class Sales
         Me.MaxFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MaxFormButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold)
         Me.MaxFormButton.ForeColor = System.Drawing.Color.White
-        Me.MaxFormButton.Location = New System.Drawing.Point(45, 0)
+        Me.MaxFormButton.Location = New System.Drawing.Point(42, 0)
         Me.MaxFormButton.Name = "MaxFormButton"
-        Me.MaxFormButton.Size = New System.Drawing.Size(45, 35)
+        Me.MaxFormButton.Size = New System.Drawing.Size(42, 35)
         Me.MaxFormButton.TabIndex = 2
         Me.MaxFormButton.Text = "⬜"
         Me.MaxFormButton.UseVisualStyleBackColor = True
@@ -237,7 +242,7 @@ Partial Class Sales
         Me.ExitFormButton.ForeColor = System.Drawing.Color.White
         Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(45, 35)
+        Me.ExitFormButton.Size = New System.Drawing.Size(42, 35)
         Me.ExitFormButton.TabIndex = 0
         Me.ExitFormButton.Text = "❌"
         Me.ExitFormButton.UseVisualStyleBackColor = True
@@ -255,9 +260,9 @@ Partial Class Sales
         Me.MoveToBill_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 12.0!)
         Me.MoveToBill_Btn.ForeColor = System.Drawing.Color.DarkRed
-        Me.MoveToBill_Btn.Location = New System.Drawing.Point(2, 3)
+        Me.MoveToBill_Btn.Location = New System.Drawing.Point(2, 6)
         Me.MoveToBill_Btn.Name = "MoveToBill_Btn"
-        Me.MoveToBill_Btn.Size = New System.Drawing.Size(25, 27)
+        Me.MoveToBill_Btn.Size = New System.Drawing.Size(27, 24)
         Me.MoveToBill_Btn.TabIndex = 633
         Me.MoveToBill_Btn.Text = "📌"
         Me.MetroToolTip1.SetToolTip(Me.MoveToBill_Btn, "فتح الفاتورة المعلقة")
@@ -269,7 +274,7 @@ Partial Class Sales
         Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial", 12.0!)
-        Me.Down_Bill_btn.Location = New System.Drawing.Point(99, 4)
+        Me.Down_Bill_btn.Location = New System.Drawing.Point(136, 4)
         Me.Down_Bill_btn.Name = "Down_Bill_btn"
         Me.Down_Bill_btn.Size = New System.Drawing.Size(27, 30)
         Me.Down_Bill_btn.TabIndex = 624
@@ -283,7 +288,7 @@ Partial Class Sales
         Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial", 12.0!)
-        Me.Up_Bill_btn.Location = New System.Drawing.Point(234, 4)
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(271, 4)
         Me.Up_Bill_btn.Name = "Up_Bill_btn"
         Me.Up_Bill_btn.Size = New System.Drawing.Size(27, 30)
         Me.Up_Bill_btn.TabIndex = 623
@@ -325,9 +330,9 @@ Partial Class Sales
         Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DGV_Control_btn.Font = New System.Drawing.Font("Arial", 12.0!)
-        Me.DGV_Control_btn.Location = New System.Drawing.Point(820, 199)
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(955, 230)
         Me.DGV_Control_btn.Name = "DGV_Control_btn"
-        Me.DGV_Control_btn.Size = New System.Drawing.Size(48, 30)
+        Me.DGV_Control_btn.Size = New System.Drawing.Size(48, 31)
         Me.DGV_Control_btn.TabIndex = 648
         Me.DGV_Control_btn.Text = "⚙️"
         Me.MetroToolTip1.SetToolTip(Me.DGV_Control_btn, "عرض بيانات الجدول")
@@ -340,7 +345,7 @@ Partial Class Sales
         Me.RemoveCatButton.Enabled = False
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.RemoveCatButton.Font = New System.Drawing.Font("Arial", 14.0!)
-        Me.RemoveCatButton.Location = New System.Drawing.Point(820, 423)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(955, 423)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.Size = New System.Drawing.Size(48, 125)
         Me.RemoveCatButton.TabIndex = 395
@@ -355,9 +360,9 @@ Partial Class Sales
         Me.ADDCatButton.Enabled = False
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ADDCatButton.Font = New System.Drawing.Font("Arial", 14.0!)
-        Me.ADDCatButton.Location = New System.Drawing.Point(820, 230)
+        Me.ADDCatButton.Location = New System.Drawing.Point(955, 263)
         Me.ADDCatButton.Name = "ADDCatButton"
-        Me.ADDCatButton.Size = New System.Drawing.Size(48, 192)
+        Me.ADDCatButton.Size = New System.Drawing.Size(48, 157)
         Me.ADDCatButton.TabIndex = 396
         Me.ADDCatButton.Text = "➕"
         Me.MetroToolTip1.SetToolTip(Me.ADDCatButton, "إضافة الصنف المحدد")
@@ -427,35 +432,55 @@ Partial Class Sales
         '
         'IM_Count_LB
         '
-        Me.IM_Count_LB.Location = New System.Drawing.Point(0, 0)
+        Me.IM_Count_LB.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.IM_Count_LB.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_Count_LB.Location = New System.Drawing.Point(641, 707)
         Me.IM_Count_LB.Name = "IM_Count_LB"
-        Me.IM_Count_LB.Size = New System.Drawing.Size(100, 23)
+        Me.IM_Count_LB.Size = New System.Drawing.Size(162, 23)
         Me.IM_Count_LB.TabIndex = 716
         '
         'User_Name_lb
         '
-        Me.User_Name_lb.Location = New System.Drawing.Point(0, 0)
+        Me.User_Name_lb.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.User_Name_lb.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.User_Name_lb.Location = New System.Drawing.Point(806, 707)
         Me.User_Name_lb.Name = "User_Name_lb"
-        Me.User_Name_lb.Size = New System.Drawing.Size(100, 23)
+        Me.User_Name_lb.Size = New System.Drawing.Size(201, 23)
         Me.User_Name_lb.TabIndex = 717
         '
         'DiscountPanel
         '
-        Me.DiscountPanel.Location = New System.Drawing.Point(0, 34)
+        Me.DiscountPanel.Controls.Add(Me.Pure_txt)
+        Me.DiscountPanel.Controls.Add(Me.Discount_txt1)
+        Me.DiscountPanel.Location = New System.Drawing.Point(12, 652)
         Me.DiscountPanel.Name = "DiscountPanel"
-        Me.DiscountPanel.Size = New System.Drawing.Size(200, 71)
+        Me.DiscountPanel.Size = New System.Drawing.Size(226, 71)
         Me.DiscountPanel.TabIndex = 719
+        '
+        'Pure_txt
+        '
+        Me.Pure_txt.Location = New System.Drawing.Point(9, 10)
+        Me.Pure_txt.Name = "Pure_txt"
+        Me.Pure_txt.Size = New System.Drawing.Size(144, 21)
+        Me.Pure_txt.TabIndex = 721
+        '
+        'Discount_txt1
+        '
+        Me.Discount_txt1.Location = New System.Drawing.Point(9, 39)
+        Me.Discount_txt1.Name = "Discount_txt1"
+        Me.Discount_txt1.Size = New System.Drawing.Size(144, 21)
+        Me.Discount_txt1.TabIndex = 722
         '
         'Calc_Dicount_Btn
         '
-        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(0, 0)
+        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(20, 20)
         Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
         Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(75, 23)
         Me.Calc_Dicount_Btn.TabIndex = 0
         '
         'Discount_txt
         '
-        Me.Discount_txt.Location = New System.Drawing.Point(0, 0)
+        Me.Discount_txt.Location = New System.Drawing.Point(100, 100)
         Me.Discount_txt.Name = "Discount_txt"
         Me.Discount_txt.Size = New System.Drawing.Size(100, 20)
         Me.Discount_txt.TabIndex = 0
@@ -477,21 +502,21 @@ Partial Class Sales
         '
         'Label13
         '
-        Me.Label13.Location = New System.Drawing.Point(0, 0)
+        Me.Label13.Location = New System.Drawing.Point(20, 30)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(100, 23)
         Me.Label13.TabIndex = 0
         '
         'Total_TextBox
         '
-        Me.Total_TextBox.Location = New System.Drawing.Point(0, 0)
+        Me.Total_TextBox.Location = New System.Drawing.Point(20, 40)
         Me.Total_TextBox.Name = "Total_TextBox"
         Me.Total_TextBox.Size = New System.Drawing.Size(100, 20)
         Me.Total_TextBox.TabIndex = 0
         '
         'Label6
         '
-        Me.Label6.Location = New System.Drawing.Point(0, 0)
+        Me.Label6.Location = New System.Drawing.Point(20, 50)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(100, 23)
         Me.Label6.TabIndex = 0
@@ -505,7 +530,7 @@ Partial Class Sales
         '
         'Label4
         '
-        Me.Label4.Location = New System.Drawing.Point(0, 0)
+        Me.Label4.Location = New System.Drawing.Point(20, 60)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(100, 23)
         Me.Label4.TabIndex = 1
@@ -513,45 +538,40 @@ Partial Class Sales
         'Piedmoney_txt
         '
         Me.Piedmoney_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
-        Me.Piedmoney_txt.Location = New System.Drawing.Point(0, 0)
+        Me.Piedmoney_txt.Location = New System.Drawing.Point(20, 70)
         Me.Piedmoney_txt.Name = "Piedmoney_txt"
         Me.Piedmoney_txt.Size = New System.Drawing.Size(164, 28)
         Me.Piedmoney_txt.TabIndex = 0
         '
         'Label17
         '
-        Me.Label17.Location = New System.Drawing.Point(0, 0)
+        Me.Label17.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.Label17.Location = New System.Drawing.Point(91, 624)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(100, 23)
+        Me.Label17.Size = New System.Drawing.Size(62, 23)
         Me.Label17.TabIndex = 720
-        '
-        'Pure_txt
-        '
-        Me.Pure_txt.Location = New System.Drawing.Point(0, 0)
-        Me.Pure_txt.Name = "Pure_txt"
-        Me.Pure_txt.Size = New System.Drawing.Size(100, 21)
-        Me.Pure_txt.TabIndex = 721
         '
         'Notes_txt
         '
-        Me.Notes_txt.Location = New System.Drawing.Point(0, 0)
+        Me.Notes_txt.Location = New System.Drawing.Point(4, 554)
         Me.Notes_txt.Name = "Notes_txt"
-        Me.Notes_txt.Size = New System.Drawing.Size(100, 21)
+        Me.Notes_txt.Size = New System.Drawing.Size(945, 21)
         Me.Notes_txt.TabIndex = 718
         '
         'Bill_ID_Txt
         '
         Me.Bill_ID_Txt.Font = New System.Drawing.Font("Times New Roman", 14.75!, System.Drawing.FontStyle.Bold)
-        Me.Bill_ID_Txt.Location = New System.Drawing.Point(130, 4)
+        Me.Bill_ID_Txt.Location = New System.Drawing.Point(167, 4)
         Me.Bill_ID_Txt.Name = "Bill_ID_Txt"
         Me.Bill_ID_Txt.Size = New System.Drawing.Size(100, 30)
         Me.Bill_ID_Txt.TabIndex = 0
         '
         'VoidLb
         '
-        Me.VoidLb.Location = New System.Drawing.Point(0, 0)
+        Me.VoidLb.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.VoidLb.Location = New System.Drawing.Point(12, 624)
         Me.VoidLb.Name = "VoidLb"
-        Me.VoidLb.Size = New System.Drawing.Size(100, 23)
+        Me.VoidLb.Size = New System.Drawing.Size(73, 23)
         Me.VoidLb.TabIndex = 711
         '
         'AG_ContextMenuStrip
@@ -595,21 +615,24 @@ Partial Class Sales
         Me.DateTimeEx.CustomFormat = "dd/MM/yyyy"
         Me.DateTimeEx.Font = New System.Drawing.Font("Times New Roman", 13.25!, System.Drawing.FontStyle.Bold)
         Me.DateTimeEx.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTimeEx.Location = New System.Drawing.Point(168, 4)
+        Me.DateTimeEx.Location = New System.Drawing.Point(171, 4)
         Me.DateTimeEx.Name = "DateTimeEx"
         Me.DateTimeEx.Size = New System.Drawing.Size(133, 28)
         Me.DateTimeEx.TabIndex = 0
         '
         'Label5
         '
-        Me.Label5.Location = New System.Drawing.Point(0, 0)
+        Me.Label5.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Label5.Location = New System.Drawing.Point(12, 588)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(100, 23)
+        Me.Label5.Size = New System.Drawing.Size(73, 23)
         Me.Label5.TabIndex = 1
         '
         'Label16
         '
-        Me.Label16.Location = New System.Drawing.Point(0, 0)
+        Me.Label16.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.Label16.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label16.Location = New System.Drawing.Point(535, 707)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(100, 23)
         Me.Label16.TabIndex = 722
@@ -630,9 +653,11 @@ Partial Class Sales
         '
         'IM_Qty_LB
         '
-        Me.IM_Qty_LB.Location = New System.Drawing.Point(0, 0)
+        Me.IM_Qty_LB.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.IM_Qty_LB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_Qty_LB.Location = New System.Drawing.Point(371, 707)
         Me.IM_Qty_LB.Name = "IM_Qty_LB"
-        Me.IM_Qty_LB.Size = New System.Drawing.Size(100, 23)
+        Me.IM_Qty_LB.Size = New System.Drawing.Size(158, 23)
         Me.IM_Qty_LB.TabIndex = 715
         '
         'BillNumTxt
@@ -731,30 +756,35 @@ Partial Class Sales
         '
         'Search_By_Bar_CB
         '
-        Me.Search_By_Bar_CB.Location = New System.Drawing.Point(11, 4)
+        Me.Search_By_Bar_CB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Search_By_Bar_CB.Location = New System.Drawing.Point(4, 4)
         Me.Search_By_Bar_CB.Name = "Search_By_Bar_CB"
-        Me.Search_By_Bar_CB.Size = New System.Drawing.Size(85, 24)
+        Me.Search_By_Bar_CB.Size = New System.Drawing.Size(126, 30)
         Me.Search_By_Bar_CB.TabIndex = 625
+        Me.Search_By_Bar_CB.Text = "البحث بالباركود"
         '
         'Show_IM_Rtn_btn
         '
-        Me.Show_IM_Rtn_btn.Location = New System.Drawing.Point(0, 0)
+        Me.Show_IM_Rtn_btn.Location = New System.Drawing.Point(159, 624)
         Me.Show_IM_Rtn_btn.Name = "Show_IM_Rtn_btn"
         Me.Show_IM_Rtn_btn.Size = New System.Drawing.Size(75, 23)
         Me.Show_IM_Rtn_btn.TabIndex = 712
         '
         'Label18
         '
-        Me.Label18.Location = New System.Drawing.Point(0, 0)
+        Me.Label18.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.Label18.Location = New System.Drawing.Point(91, 588)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(100, 23)
+        Me.Label18.Size = New System.Drawing.Size(65, 23)
         Me.Label18.TabIndex = 713
         '
         'Rtn_Count_txt
         '
-        Me.Rtn_Count_txt.Location = New System.Drawing.Point(0, 0)
+        Me.Rtn_Count_txt.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.Rtn_Count_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Rtn_Count_txt.Location = New System.Drawing.Point(244, 708)
         Me.Rtn_Count_txt.Name = "Rtn_Count_txt"
-        Me.Rtn_Count_txt.Size = New System.Drawing.Size(100, 21)
+        Me.Rtn_Count_txt.Size = New System.Drawing.Size(119, 23)
         Me.Rtn_Count_txt.TabIndex = 714
         '
         'Project_cm
@@ -869,7 +899,7 @@ Partial Class Sales
         '
         Me.AG_Show_Balance_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.AG_Show_Balance_CB.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.AG_Show_Balance_CB.Location = New System.Drawing.Point(100, 4)
+        Me.AG_Show_Balance_CB.Location = New System.Drawing.Point(106, 7)
         Me.AG_Show_Balance_CB.Name = "AG_Show_Balance_CB"
         Me.AG_Show_Balance_CB.Size = New System.Drawing.Size(128, 20)
         Me.AG_Show_Balance_CB.TabIndex = 674
@@ -879,8 +909,8 @@ Partial Class Sales
         'Marketer_Lb
         '
         Me.Marketer_Lb.BackColor = System.Drawing.Color.Transparent
-        Me.Marketer_Lb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Marketer_Lb.Location = New System.Drawing.Point(242, 117)
+        Me.Marketer_Lb.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Marketer_Lb.Location = New System.Drawing.Point(239, 61)
         Me.Marketer_Lb.Name = "Marketer_Lb"
         Me.Marketer_Lb.Size = New System.Drawing.Size(64, 21)
         Me.Marketer_Lb.TabIndex = 677
@@ -893,14 +923,14 @@ Partial Class Sales
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.Project_cm)
         Me.Panel2.Controls.Add(Me.Show_AG_Projects_btn)
-        Me.Panel2.Location = New System.Drawing.Point(699, 153)
+        Me.Panel2.Location = New System.Drawing.Point(699, 131)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(305, 37)
         Me.Panel2.TabIndex = 680
         '
         'Label7
         '
-        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.Location = New System.Drawing.Point(230, 9)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(65, 21)
@@ -928,9 +958,9 @@ Partial Class Sales
         Me.BillNumPanel.Controls.Add(Me.Down_Bill_btn)
         Me.BillNumPanel.Controls.Add(Me.Up_Bill_btn)
         Me.BillNumPanel.Controls.Add(Me.Search_By_Bar_CB)
-        Me.BillNumPanel.Location = New System.Drawing.Point(732, 47)
+        Me.BillNumPanel.Location = New System.Drawing.Point(699, 47)
         Me.BillNumPanel.Name = "BillNumPanel"
-        Me.BillNumPanel.Size = New System.Drawing.Size(272, 40)
+        Me.BillNumPanel.Size = New System.Drawing.Size(305, 40)
         Me.BillNumPanel.TabIndex = 687
         '
         'Panel10
@@ -940,16 +970,25 @@ Partial Class Sales
         Me.Panel10.Controls.Add(Me.Label1)
         Me.Panel10.Controls.Add(Me.BillNumTxt)
         Me.Panel10.Controls.Add(Me.DateTimeEx)
-        Me.Panel10.Controls.Add(Me.Label5)
-        Me.Panel10.Location = New System.Drawing.Point(368, 46)
+        Me.Panel10.Location = New System.Drawing.Point(334, 47)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(355, 40)
+        Me.Panel10.Size = New System.Drawing.Size(358, 40)
         Me.Panel10.TabIndex = 688
+        '
+        'Label23
+        '
+        Me.Label23.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(87, 10)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(75, 21)
+        Me.Label23.TabIndex = 384
+        Me.Label23.Text = "الرقم اليومي :"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label1
         '
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(307, 5)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        Me.Label1.Location = New System.Drawing.Point(307, 8)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(45, 21)
         Me.Label1.TabIndex = 386
@@ -963,7 +1002,7 @@ Partial Class Sales
         Me.Panel13.Controls.Add(Me.Label4)
         Me.Panel13.Location = New System.Drawing.Point(742, 652)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(262, 36)
+        Me.Panel13.Size = New System.Drawing.Size(262, 39)
         Me.Panel13.TabIndex = 691
         '
         'Panel14
@@ -972,7 +1011,7 @@ Partial Class Sales
         Me.Panel14.Controls.Add(Me.Label15)
         Me.Panel14.Controls.Add(Me.PauseCmb)
         Me.Panel14.Controls.Add(Me.MoveToBill_Btn)
-        Me.Panel14.Location = New System.Drawing.Point(334, 153)
+        Me.Panel14.Location = New System.Drawing.Point(334, 131)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(362, 37)
         Me.Panel14.TabIndex = 692
@@ -980,7 +1019,7 @@ Partial Class Sales
         'Label15
         '
         Me.Label15.BackColor = System.Drawing.Color.Transparent
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.Location = New System.Drawing.Point(243, 6)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(116, 21)
@@ -1004,7 +1043,7 @@ Partial Class Sales
         '
         Me.Show_SumPied_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_SumPied_CB.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Show_SumPied_CB.Location = New System.Drawing.Point(2, 4)
+        Me.Show_SumPied_CB.Location = New System.Drawing.Point(8, 7)
         Me.Show_SumPied_CB.Name = "Show_SumPied_CB"
         Me.Show_SumPied_CB.Size = New System.Drawing.Size(91, 20)
         Me.Show_SumPied_CB.TabIndex = 702
@@ -1015,7 +1054,7 @@ Partial Class Sales
         '
         Me.Show_Bill_Rest_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Bill_Rest_CB.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Show_Bill_Rest_CB.Location = New System.Drawing.Point(235, 4)
+        Me.Show_Bill_Rest_CB.Location = New System.Drawing.Point(241, 7)
         Me.Show_Bill_Rest_CB.Name = "Show_Bill_Rest_CB"
         Me.Show_Bill_Rest_CB.Size = New System.Drawing.Size(114, 20)
         Me.Show_Bill_Rest_CB.TabIndex = 697
@@ -1026,7 +1065,7 @@ Partial Class Sales
         '
         Me.Show_Bill_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Bill_CB.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Show_Bill_CB.Location = New System.Drawing.Point(356, 4)
+        Me.Show_Bill_CB.Location = New System.Drawing.Point(362, 7)
         Me.Show_Bill_CB.Name = "Show_Bill_CB"
         Me.Show_Bill_CB.Size = New System.Drawing.Size(94, 20)
         Me.Show_Bill_CB.TabIndex = 675
@@ -1036,10 +1075,10 @@ Partial Class Sales
         'Label27
         '
         Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label27.Location = New System.Drawing.Point(890, 559)
+        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(951, 554)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(62, 21)
+        Me.Label27.Size = New System.Drawing.Size(56, 21)
         Me.Label27.TabIndex = 695
         Me.Label27.Text = "ملاحظة :"
         Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1054,7 +1093,7 @@ Partial Class Sales
         Me.Check_Compute_txt.Name = "Check_Compute_txt"
         Me.Check_Compute_txt.ReadOnly = True
         Me.Check_Compute_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Check_Compute_txt.Size = New System.Drawing.Size(200, 42)
+        Me.Check_Compute_txt.Size = New System.Drawing.Size(211, 42)
         Me.Check_Compute_txt.TabIndex = 697
         Me.Check_Compute_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1068,9 +1107,9 @@ Partial Class Sales
         Me.Clear_Check_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Clear_Check_btn.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Clear_Check_btn.ForeColor = System.Drawing.Color.Black
-        Me.Clear_Check_btn.Location = New System.Drawing.Point(205, 1)
+        Me.Clear_Check_btn.Location = New System.Drawing.Point(215, 1)
         Me.Clear_Check_btn.Name = "Clear_Check_btn"
-        Me.Clear_Check_btn.Size = New System.Drawing.Size(80, 42)
+        Me.Clear_Check_btn.Size = New System.Drawing.Size(81, 42)
         Me.Clear_Check_btn.TabIndex = 698
         Me.Clear_Check_btn.Text = "🧹 F10"
         Me.Clear_Check_btn.UseVisualStyleBackColor = False
@@ -1080,9 +1119,9 @@ Partial Class Sales
         Me.IM_Check_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_Check_Panel.Controls.Add(Me.Check_Compute_txt)
         Me.IM_Check_Panel.Controls.Add(Me.Clear_Check_btn)
-        Me.IM_Check_Panel.Location = New System.Drawing.Point(3, 151)
+        Me.IM_Check_Panel.Location = New System.Drawing.Point(3, 122)
         Me.IM_Check_Panel.Name = "IM_Check_Panel"
-        Me.IM_Check_Panel.Size = New System.Drawing.Size(290, 46)
+        Me.IM_Check_Panel.Size = New System.Drawing.Size(300, 46)
         Me.IM_Check_Panel.TabIndex = 699
         '
         'AGMetroGrid
@@ -1091,10 +1130,18 @@ Partial Class Sales
         Me.AGMetroGrid.AllowUserToDeleteRows = False
         Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.AGMetroGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AGMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Bill_IMID_CL, Me.Check_CL, Me.Barcode_CL, Me.Serial_Code_CL, Me.U_ID_CL, Me.Date_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.IM_Discount_CL, Me.Total_CL, Me.Notes_CL, Me.T_ID_CL, Me.ST_ID_CL, Me.IM_NOTE_CL})
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AGMetroGrid.Location = New System.Drawing.Point(4, 199)
+        Me.AGMetroGrid.Location = New System.Drawing.Point(4, 230)
         Me.AGMetroGrid.MultiSelect = False
         Me.AGMetroGrid.Name = "AGMetroGrid"
         Me.AGMetroGrid.ReadOnly = True
@@ -1103,7 +1150,7 @@ Partial Class Sales
         Me.AGMetroGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
         Me.AGMetroGrid.RowTemplate.Height = 30
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMetroGrid.Size = New System.Drawing.Size(815, 349)
+        Me.AGMetroGrid.Size = New System.Drawing.Size(945, 318)
         Me.AGMetroGrid.TabIndex = 700
         '
         'Bill_IMID_CL
@@ -1208,8 +1255,8 @@ Partial Class Sales
         'Price_CL
         '
         Me.Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle6.Format = "N3"
-        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle7.Format = "N3"
+        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle7
         Me.Price_CL.FillWeight = 91.83587!
         Me.Price_CL.HeaderText = "السعر"
         Me.Price_CL.Name = "Price_CL"
@@ -1225,8 +1272,8 @@ Partial Class Sales
         'Total_CL
         '
         Me.Total_CL.DataPropertyName = "T_Price"
-        DataGridViewCellStyle7.Format = "N3"
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle8.Format = "N3"
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle8
         Me.Total_CL.FillWeight = 91.83587!
         Me.Total_CL.HeaderText = "إجمالي"
         Me.Total_CL.Name = "Total_CL"
@@ -1262,16 +1309,6 @@ Partial Class Sales
         Me.IM_NOTE_CL.HeaderText = "م.الصنف"
         Me.IM_NOTE_CL.Name = "IM_NOTE_CL"
         Me.IM_NOTE_CL.ReadOnly = True
-        '
-        'Label23
-        '
-        Me.Label23.Font = New System.Drawing.Font("Microsoft Tai Le", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(87, 10)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(75, 21)
-        Me.Label23.TabIndex = 384
-        Me.Label23.Text = "الرقم اليومي :"
-        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'AG_Label
         '
@@ -1332,10 +1369,10 @@ Partial Class Sales
         Me.Edit_butt.BackColor = System.Drawing.Color.White
         Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit_butt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Edit_butt.Location = New System.Drawing.Point(869, 331)
+        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Edit_butt.Location = New System.Drawing.Point(430, 6)
         Me.Edit_butt.Name = "Edit_butt"
-        Me.Edit_butt.Size = New System.Drawing.Size(135, 40)
+        Me.Edit_butt.Size = New System.Drawing.Size(135, 36)
         Me.Edit_butt.TabIndex = 647
         Me.Edit_butt.Text = "✏️ تعديـل F3"
         Me.Edit_butt.UseVisualStyleBackColor = False
@@ -1346,10 +1383,10 @@ Partial Class Sales
         Me.Print_btn.ContextMenuStrip = Me.Print_ContextMenuStrip
         Me.Print_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Print_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Print_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Print_btn.Location = New System.Drawing.Point(870, 287)
+        Me.Print_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Print_btn.Location = New System.Drawing.Point(289, 6)
         Me.Print_btn.Name = "Print_btn"
-        Me.Print_btn.Size = New System.Drawing.Size(135, 40)
+        Me.Print_btn.Size = New System.Drawing.Size(135, 36)
         Me.Print_btn.TabIndex = 307
         Me.Print_btn.Text = "🖨️ طباعة F2"
         Me.Print_btn.UseVisualStyleBackColor = False
@@ -1359,10 +1396,10 @@ Partial Class Sales
         Me.DeliveryingButton.BackColor = System.Drawing.Color.White
         Me.DeliveryingButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DeliveryingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DeliveryingButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.DeliveryingButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DeliveryingButton.Location = New System.Drawing.Point(951, 583)
         Me.DeliveryingButton.Name = "DeliveryingButton"
-        Me.DeliveryingButton.Size = New System.Drawing.Size(52, 68)
+        Me.DeliveryingButton.Size = New System.Drawing.Size(53, 68)
         Me.DeliveryingButton.TabIndex = 304
         Me.DeliveryingButton.Text = "🚚 دفع"
         Me.DeliveryingButton.UseVisualStyleBackColor = False
@@ -1372,10 +1409,10 @@ Partial Class Sales
         Me.SBPauseBtn.BackColor = System.Drawing.Color.White
         Me.SBPauseBtn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SBPauseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SBPauseBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.SBPauseBtn.Location = New System.Drawing.Point(869, 419)
+        Me.SBPauseBtn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.SBPauseBtn.Location = New System.Drawing.Point(7, 6)
         Me.SBPauseBtn.Name = "SBPauseBtn"
-        Me.SBPauseBtn.Size = New System.Drawing.Size(135, 40)
+        Me.SBPauseBtn.Size = New System.Drawing.Size(135, 36)
         Me.SBPauseBtn.TabIndex = 631
         Me.SBPauseBtn.Text = "⏸️ تعليق F7"
         Me.SBPauseBtn.UseVisualStyleBackColor = False
@@ -1385,10 +1422,10 @@ Partial Class Sales
         Me.New_butt.BackColor = System.Drawing.Color.White
         Me.New_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.New_butt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.New_butt.Location = New System.Drawing.Point(870, 199)
+        Me.New_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.New_butt.Location = New System.Drawing.Point(813, 6)
         Me.New_butt.Name = "New_butt"
-        Me.New_butt.Size = New System.Drawing.Size(135, 40)
+        Me.New_butt.Size = New System.Drawing.Size(185, 36)
         Me.New_butt.TabIndex = 294
         Me.New_butt.Text = "📄 فاتورة جديدة F1"
         Me.New_butt.UseVisualStyleBackColor = False
@@ -1399,10 +1436,10 @@ Partial Class Sales
         Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Save_butt.Enabled = False
         Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Save_butt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Save_butt.Location = New System.Drawing.Point(870, 243)
+        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Save_butt.Location = New System.Drawing.Point(571, 6)
         Me.Save_butt.Name = "Save_butt"
-        Me.Save_butt.Size = New System.Drawing.Size(135, 40)
+        Me.Save_butt.Size = New System.Drawing.Size(236, 36)
         Me.Save_butt.TabIndex = 293
         Me.Save_butt.Text = "💾 حفظ F12"
         Me.Save_butt.UseVisualStyleBackColor = False
@@ -1413,17 +1450,17 @@ Partial Class Sales
         Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Delete_butt.Enabled = False
         Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Delete_butt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Delete_butt.Location = New System.Drawing.Point(869, 375)
+        Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Delete_butt.Location = New System.Drawing.Point(148, 6)
         Me.Delete_butt.Name = "Delete_butt"
-        Me.Delete_butt.Size = New System.Drawing.Size(135, 40)
+        Me.Delete_butt.Size = New System.Drawing.Size(135, 36)
         Me.Delete_butt.TabIndex = 296
         Me.Delete_butt.Text = "🗑️ إلغاء F4"
         Me.Delete_butt.UseVisualStyleBackColor = False
         '
         'Label24
         '
-        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label24.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label24.Location = New System.Drawing.Point(947, 92)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(50, 34)
@@ -1431,13 +1468,27 @@ Partial Class Sales
         Me.Label24.Text = "الزبون :"
         Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'Panel1
+        '
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Edit_butt)
+        Me.Panel1.Controls.Add(Me.Print_btn)
+        Me.Panel1.Controls.Add(Me.SBPauseBtn)
+        Me.Panel1.Controls.Add(Me.New_butt)
+        Me.Panel1.Controls.Add(Me.Save_butt)
+        Me.Panel1.Controls.Add(Me.Delete_butt)
+        Me.Panel1.Location = New System.Drawing.Point(4, 177)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1003, 49)
+        Me.Panel1.TabIndex = 723
+        '
         'Markter_Cm
         '
         Me.Markter_Cm.CancelSearchImage = CType(resources.GetObject("Markter_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.Markter_Cm.Location = New System.Drawing.Point(4, 111)
+        Me.Markter_Cm.Location = New System.Drawing.Point(4, 52)
         Me.Markter_Cm.Name = "Markter_Cm"
         Me.Markter_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Markter_Cm.Size = New System.Drawing.Size(232, 34)
+        Me.Markter_Cm.Size = New System.Drawing.Size(234, 34)
         Me.Markter_Cm.SQL_Column = "ST_name"
         Me.Markter_Cm.SQL_ID = "ST_ID"
         Me.Markter_Cm.SQL_IsNumericSearchField = False
@@ -1479,6 +1530,8 @@ Partial Class Sales
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1015, 731)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Marketer_Lb)
         Me.Controls.Add(Me.Markter_Cm)
         Me.Controls.Add(Me.AG_Label)
@@ -1503,20 +1556,13 @@ Partial Class Sales
         Me.Controls.Add(Me.Show_Cash_btn)
         Me.Controls.Add(Me.OpenCahDR_Btn)
         Me.Controls.Add(Me.DGV_Control_btn)
-        Me.Controls.Add(Me.Edit_butt)
         Me.Controls.Add(Me.IM_Qty_LB)
         Me.Controls.Add(Me.IM_Count_LB)
         Me.Controls.Add(Me.User_Name_lb)
         Me.Controls.Add(Me.Notes_txt)
         Me.Controls.Add(Me.DiscountPanel)
         Me.Controls.Add(Me.Label17)
-        Me.Controls.Add(Me.Pure_txt)
-        Me.Controls.Add(Me.Print_btn)
         Me.Controls.Add(Me.DeliveryingButton)
-        Me.Controls.Add(Me.SBPauseBtn)
-        Me.Controls.Add(Me.New_butt)
-        Me.Controls.Add(Me.Save_butt)
-        Me.Controls.Add(Me.Delete_butt)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.RemoveCatButton)
         Me.Controls.Add(Me.ADDCatButton)
@@ -1532,6 +1578,8 @@ Partial Class Sales
         Me.TitleBar_Panel.ResumeLayout(False)
         Me.TitleBar_Panel.PerformLayout()
         Me.IM_ContextMenuStrip.ResumeLayout(False)
+        Me.DiscountPanel.ResumeLayout(False)
+        Me.DiscountPanel.PerformLayout()
         Me.Discount_MenuStrip.ResumeLayout(False)
         Me.AG_ContextMenuStrip.ResumeLayout(False)
         Me.IM_Show_CxtMStrip.ResumeLayout(False)
@@ -1551,6 +1599,7 @@ Partial Class Sales
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Rsv_Panel.ResumeLayout(False)
         Me.Rsv_Panel.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1689,4 +1738,6 @@ Partial Class Sales
     Friend WithEvents Label24 As Label
     Friend WithEvents AG_Cm As resturant.FSearch_Filter
     Friend WithEvents Label1 As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Discount_txt1 As TextBox
 End Class

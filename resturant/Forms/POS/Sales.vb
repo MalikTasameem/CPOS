@@ -94,7 +94,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Private Sub UpdateFormStateIndicator(ByVal StateText As String, ByVal StateColor As System.Drawing.Color)
         If lblFormState IsNot Nothing Then
             lblFormState.Text = "⬤  " & StateText
-            lblFormState.ForeColor = StateColor
+            lblFormState.BackColor = StateColor
             lblFormState.Visible = True
             lblFormState.Refresh() ' لإجبار الشاشة على إظهار اللون الجديد فوراً
         End If
@@ -425,7 +425,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
 
             If C.Dr("Discount") > 0 Then
-                Discount_txt.Text = C.Dr("Discount")
+                Discount_txt1.Text = C.Dr("Discount")
                 Disc = C.Dr("Discount")
                 'If Discount_Distribute = False Then Pure_txt.Text = C.Dr("Total") - C.Dr("Discount")
                 Old_Disc = Disc
@@ -699,7 +699,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         isVoid = False
         isDepended = False
         '  ClearCatFields()
-        Discount_txt.Clear()
+        Discount_txt1.Clear()
         Disc = 0
         Me.Text = FormState
         '     Edit_butt.BackColor = Color.WhiteSmoke
@@ -833,7 +833,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Private Sub Delete_butt_Click(sender As Object, e As EventArgs) Handles Delete_butt.Click
 
         Beep()
-        If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel, _
+        If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel,
                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
             Cancel_Bill()
         End If
@@ -868,7 +868,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         TOTAL = 0
         TOTAL_Check = 0
 
-        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Disc = 0
+        If String.IsNullOrWhiteSpace(Discount_txt1.Text) Then Disc = 0
         Dim QTY As Double = 0
         For i = 0 To AGMetroGrid.Rows.Count - 1
             TOTAL = TOTAL + AGMetroGrid.Rows(i).Cells("Total_CL").Value
@@ -1861,21 +1861,21 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     '    End If
     'End Sub
 
-    Private Sub Discount_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Discount_txt.KeyDown
+    Private Sub Discount_txt1_KeyDown(sender As Object, e As KeyEventArgs) Handles Discount_txt1.KeyDown
 
-        If Not String.IsNullOrWhiteSpace(Discount_txt.Text) Then
+        If Not String.IsNullOrWhiteSpace(Discount_txt1.Text) Then
             Discount_calc()
         End If
 
     End Sub
 
 
-    Private Sub Discount_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Discount_txt.KeyPress
+    Private Sub Discount_txt1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Discount_txt1.KeyPress
         Check_Only_Float(sender, e)
     End Sub
 
-    Private Sub Discount_txt_KeyUp(sender As Object, e As KeyEventArgs) Handles Discount_txt.KeyUp
-        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then
+    Private Sub Discount_txt1_KeyUp(sender As Object, e As KeyEventArgs) Handles Discount_txt1.KeyUp
+        If String.IsNullOrWhiteSpace(Discount_txt1.Text) Then
             Disc = 0
             Pure_txt.Text = TOTAL
         Else
@@ -1883,7 +1883,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-    Private Sub Discount_txt_TextChanged(sender As Object, e As EventArgs) Handles Discount_txt.TextChanged
+    Private Sub Discount_txt1_TextChanged(sender As Object, e As EventArgs) Handles Discount_txt1.TextChanged
         Check_Point_in_FloatNum(sender, e)
     End Sub
 
@@ -2362,7 +2362,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Sub Close_Sale()
-        Update_Discount(T_ID, Discount_txt.Text)
+        Update_Discount(T_ID, Discount_txt1.Text)
         Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & Disc.ToString, Bill_ID_Txt.Text, 1, 3)
     End Sub
 
@@ -2460,14 +2460,14 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
 
     Public Sub Discount_calc()
-        Disc = Convert.ToDouble(Discount_txt.Text)
+        Disc = Convert.ToDouble(Discount_txt1.Text)
         Pure_txt.Text = TOTAL - Disc
         Pure = TOTAL - Disc
     End Sub
 
     Private Sub Begin_Discount()
 
-        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
+        If String.IsNullOrWhiteSpace(Discount_txt1.Text) Then Discount_txt1.Text = "0"
 
         Discount_calc()
 
@@ -2788,7 +2788,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         F_Percent_Disc.TOTAL = TOTAL
         F_Percent_Disc.ShowDialog()
         Fill_Bill_Info()
-        'F_Sales.Discount_txt.Text = (TOTAL * (Discount_txt.Text / 100))
+        'F_Sales.Discount_txt1.Text = (TOTAL * (Discount_txt1.Text / 100))
         'F_Sales.Discount_calc()
     End Sub
 

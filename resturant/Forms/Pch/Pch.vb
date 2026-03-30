@@ -61,16 +61,14 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     '    lblFormState.Refresh()
     'End Sub
 
-    ' =========================================================
-    ' 🌟 الدالة التي تستدعيها في أزرار الحفظ والإلغاء
-    ' =========================================================
+
     ' =========================================================
     ' 🌟 دالة التحكم في مؤشر حالة الفاتورة البصري (ثابت بدون وميض)
     ' =========================================================
     Private Sub UpdateFormStateIndicator(ByVal StateText As String, ByVal StateColor As System.Drawing.Color)
         If lblFormState IsNot Nothing Then
             lblFormState.Text = "⬤  " & StateText
-            lblFormState.ForeColor = StateColor
+            lblFormState.BackColor = StateColor
             lblFormState.Visible = True
             lblFormState.Refresh() ' لإجبار الشاشة على إظهار اللون الجديد فوراً
         End If

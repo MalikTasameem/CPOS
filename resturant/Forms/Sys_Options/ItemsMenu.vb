@@ -18,12 +18,16 @@ Public Class ItemsMenu
     Dim Unit_Dt As New DataTable
     Dim ALERT_Q_Dt As New DataTable
     Dim IM_Def_Unit_Cargo As Double = 1
+
     Dim isValid As Boolean = False
 
     Dim Get_COUNTER As Boolean = False
     Public IM_PH_PATH As String = ""
     Dim Valid_St As String = "لا"
     Dim isShort_St As String = "لا"
+
+
+
     Dim is_New_IM As Boolean
 
     Private Sub NonePhotoButton_Click(sender As Object, e As EventArgs) Handles NonePhotoButton.Click
@@ -69,6 +73,65 @@ Public Class ItemsMenu
 
     Private Sub ItemsMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+
+        Try
+            ' =========================================================
+            ' 🌟 1. تعيين التاجات للأدوات الأصلية لتفعيل الثيم (بدون Loop)
+            ' =========================================================
+            TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed
+            TabControl1.SizeMode = TabSizeMode.Fixed ' اختياري لضبط الأحجام
+            TabControl1.Appearance = TabAppearance.FlatButtons ' هذا السطر يدمر الخلفية البيضاء الإفتراضية للويندوز
+            TabControl1.ItemSize = New Size(140, 35) ' تكبير حجم التابات لتصبح مثل الأزرار الأنيقة
+            ' الشريط العلوي (TitleBar) والعنوان
+            If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
+            If Title_Label IsNot Nothing Then Title_Label.Tag = "TITLE_TRANSPARENT"
+
+            ' أزرار التحكم في الفورم (إغلاق، تكبير، تصغير)
+            If ExitFormButton IsNot Nothing Then ExitFormButton.Tag = "DELETE"
+            If MaximizeFormButton IsNot Nothing Then MaximizeFormButton.Tag = "GENERAL"
+            If MinimizeFormButton IsNot Nothing Then MinimizeFormButton.Tag = "GENERAL"
+            ' داخل دالة ItemsMenu_Load تحت استدعاء تطبيق الثيم
+
+            ' حاويات التبويب والتنظيم
+            If TabControl1 IsNot Nothing Then TabControl1.Tag = "TRANSPARENT"
+            If TabPage1 IsNot Nothing Then TabPage1.Tag = "TRANSPARENT"
+            If TouchTabPage IsNot Nothing Then TouchTabPage.Tag = "TRANSPARENT"
+            If TabPage4 IsNot Nothing Then TabPage4.Tag = "TRANSPARENT"
+            If Frm_TabPage IsNot Nothing Then Frm_TabPage.Tag = "TRANSPARENT"
+            If Panel1 IsNot Nothing Then Panel1.Tag = "TRANSPARENT"
+            For Each tp As TabPage In TabControl1.TabPages
+                tp.BackColor = Me.BackColor ' ستأخذ لون خلفية الفورم التي تلونت بالثيم
+            Next
+
+            ' أزرار الإجراءات الأساسية
+            If NewEmpButton IsNot Nothing Then NewEmpButton.Tag = "GENERAL"
+            If SaveButton IsNot Nothing Then SaveButton.Tag = "SAVE"
+            If DeleteButton IsNot Nothing Then DeleteButton.Tag = "DELETE"
+            If IM_MV_btn IsNot Nothing Then IM_MV_btn.Tag = "GENERAL"
+            If MakeBarcode_btn IsNot Nothing Then MakeBarcode_btn.Tag = "GENERAL"
+            If Recount_Cost_btn IsNot Nothing Then Recount_Cost_btn.Tag = "GENERAL"
+
+            ' أزرار العمليات الفرعية
+            If ADD_NewGM_Btn IsNot Nothing Then ADD_NewGM_Btn.Tag = "GENERAL"
+            If Show_IM_btn IsNot Nothing Then Show_IM_btn.Tag = "GENERAL"
+            If IMPH_Btn IsNot Nothing Then IMPH_Btn.Tag = "GENERAL"
+            If IMPH_None_btn IsNot Nothing Then IMPH_None_btn.Tag = "GENERAL"
+            If Open_Camera_btn IsNot Nothing Then Open_Camera_btn.Tag = "GENERAL"
+            If InsertU_btn IsNot Nothing Then InsertU_btn.Tag = "GENERAL"
+            If DeleteU_btn IsNot Nothing Then DeleteU_btn.Tag = "DELETE"
+            If ADD_ST_ALERT_QTY_btn IsNot Nothing Then ADD_ST_ALERT_QTY_btn.Tag = "GENERAL"
+            If REMOVE_ST_ALERT_QTY_btn IsNot Nothing Then REMOVE_ST_ALERT_QTY_btn.Tag = "DELETE"
+
+            ' =========================================================
+            ' 🌟 2. تطبيق الثيم برمجياً
+            ' =========================================================
+            ThemeManager.ApplyThemeToForm(Me)
+
+        Catch ex As Exception
+            ' تفادي أي خطأ إذا كانت إحدى الأدوات غير محملة
+        End Try
+
+        Rs.FindAllControls(Me)
         Load_GM()
         Load_Units(IM_Unit_cm)
         Coutnt_IM()
@@ -81,7 +144,64 @@ Public Class ItemsMenu
             IM_SH_txt.Text = Str_
             Begin_Fetch()
         End If
+    End Sub
+    Protected Overrides ReadOnly Property CreateParams() As CreateParams
+        Get
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or &H20000
+            Return cp
+        End Get
+    End Property
+    Private Sub TabControl1_DrawItem(sender As Object, e As DrawItemEventArgs) Handles TabControl1.DrawItem
+        Dim g As Graphics = e.Graphics
+        Dim tp As TabPage = TabControl1.TabPages(e.Index)
 
+        Dim isSelected As Boolean = (e.State And DrawItemState.Selected) = DrawItemState.Selected
+
+        ' 1. مسح الأرضية بالكامل بلون الفورم
+        g.FillRectangle(New SolidBrush(ThemeManager.FormBackColor), e.Bounds)
+
+        ' 2. إعداد الألوان
+        Dim bgBrush As Brush
+        Dim textBrush As Brush
+
+        If isSelected Then
+            bgBrush = New SolidBrush(ThemeManager.AccentColor) ' لون بارز للتاب المفتوح
+            textBrush = New SolidBrush(Color.White)
+        Else
+            bgBrush = New SolidBrush(ThemeManager.CardBackColor)
+            textBrush = New SolidBrush(ThemeManager.TextPrimaryColor)
+        End If
+
+        ' 3. رسم مربع التاب 
+        Dim rect As Rectangle = e.Bounds
+        rect.Inflate(-1, -1)
+        g.FillRectangle(bgBrush, rect)
+
+        ' 4. رسم النص في المنتصف مع دعم اتجاه اليمين لليسار (RTL)
+        Dim sf As New StringFormat() With {
+            .Alignment = StringAlignment.Center,
+            .LineAlignment = StringAlignment.Center,
+            .FormatFlags = StringFormatFlags.DirectionRightToLeft
+        }
+        g.DrawString(tp.Text, TabControl1.Font, textBrush, rect, sf)
+    End Sub
+    Private Sub MaximizeFormButton_Click(sender As Object, e As EventArgs) Handles MaximizeFormButton.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            ' تكبير الفورم ليملا الشاشة باستثناء شريط المهام
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+            Me.WindowState = FormWindowState.Maximized
+            MaximizeFormButton.Text = "❐" ' تغيير الرمز لـ استعادة
+        Else
+            ' إرجاع الفورم لحجمه الطبيعي
+            Me.WindowState = FormWindowState.Normal
+            MaximizeFormButton.Text = "⬜" ' تغيير الرمز لـ تكبير
+        End If
+    End Sub
+
+    ' إضافة سريعة لزر التصغير (لتنزيل الفورم لشريط المهام)
+    Private Sub MinimizeFormButton_Click(sender As Object, e As EventArgs) Handles MinimizeFormButton.Click
+        Me.WindowState = FormWindowState.Minimized
     End Sub
 
     Private Sub Make_Hints()
@@ -1132,9 +1252,9 @@ Public Class ItemsMenu
         End If
     End Sub
 
-    'Private Sub ItemsMenu_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-    '    Rs.ResizeAllControls(Me)
-    'End Sub
+    Private Sub ItemsMenu_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        Rs.ResizeAllControls(Me)
+    End Sub
 
 
     Private Sub IM_Num_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Num_txt.KeyDown
