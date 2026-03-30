@@ -24,7 +24,6 @@ Partial Class Items_Search
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Items_Search))
-        Me.lblTitle = New System.Windows.Forms.Label()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GM_Serach = New System.Windows.Forms.ComboBox()
@@ -46,25 +45,12 @@ Partial Class Items_Search
         Me.QTY_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Price_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ADD_NewGM_Btn = New System.Windows.Forms.Button()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.OnKeyBoard1 = New resturant.OnKeyBoard()
+        Me.kbPanel = New System.Windows.Forms.Panel()
+        Me.KeyboardBtn = New System.Windows.Forms.Button()
+        Me.KB = New resturant.OnKeyBoard()
         CType(Me.IMDataGridViewX, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
+        Me.kbPanel.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'lblTitle
-        '
-        Me.lblTitle.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
-        Me.lblTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.lblTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.lblTitle.Location = New System.Drawing.Point(3, 2)
-        Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.lblTitle.Size = New System.Drawing.Size(112, 34)
-        Me.lblTitle.TabIndex = 0
-        Me.lblTitle.Text = "بحث عن صنف"
-        Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'ExitFormButton
         '
@@ -87,7 +73,7 @@ Partial Class Items_Search
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 10.25!)
-        Me.Label2.Location = New System.Drawing.Point(912, 6)
+        Me.Label2.Location = New System.Drawing.Point(937, 6)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(63, 17)
         Me.Label2.TabIndex = 1
@@ -99,7 +85,7 @@ Partial Class Items_Search
         Me.GM_Serach.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.GM_Serach.Font = New System.Drawing.Font("Tahoma", 10.25!)
         Me.GM_Serach.FormattingEnabled = True
-        Me.GM_Serach.Location = New System.Drawing.Point(645, 2)
+        Me.GM_Serach.Location = New System.Drawing.Point(670, 2)
         Me.GM_Serach.Name = "GM_Serach"
         Me.GM_Serach.Size = New System.Drawing.Size(261, 25)
         Me.GM_Serach.TabIndex = 2
@@ -110,18 +96,18 @@ Partial Class Items_Search
         Me.Show_IM_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Show_IM_btn.Font = New System.Drawing.Font("Tahoma", 10.25!)
-        Me.Show_IM_btn.Location = New System.Drawing.Point(601, 1)
+        Me.Show_IM_btn.Location = New System.Drawing.Point(643, 3)
         Me.Show_IM_btn.Name = "Show_IM_btn"
-        Me.Show_IM_btn.Size = New System.Drawing.Size(41, 27)
+        Me.Show_IM_btn.Size = New System.Drawing.Size(25, 25)
         Me.Show_IM_btn.TabIndex = 3
-        Me.Show_IM_btn.Text = "فلتر"
+        Me.Show_IM_btn.Text = "📌"
         Me.Show_IM_btn.UseVisualStyleBackColor = False
         '
         'lblSearch
         '
         Me.lblSearch.AutoSize = True
         Me.lblSearch.Font = New System.Drawing.Font("Tahoma", 10.25!)
-        Me.lblSearch.Location = New System.Drawing.Point(923, 40)
+        Me.lblSearch.Location = New System.Drawing.Point(945, 42)
         Me.lblSearch.Name = "lblSearch"
         Me.lblSearch.Size = New System.Drawing.Size(52, 17)
         Me.lblSearch.TabIndex = 4
@@ -135,7 +121,7 @@ Partial Class Items_Search
         Me.txtSearch.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.Location = New System.Drawing.Point(601, 36)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(317, 26)
+        Me.txtSearch.Size = New System.Drawing.Size(341, 26)
         Me.txtSearch.TabIndex = 5
         '
         'btnSearchName
@@ -144,7 +130,7 @@ Partial Class Items_Search
         Me.btnSearchName.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSearchName.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSearchName.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.btnSearchName.Location = New System.Drawing.Point(399, 2)
+        Me.btnSearchName.Location = New System.Drawing.Point(281, 2)
         Me.btnSearchName.Name = "btnSearchName"
         Me.btnSearchName.Size = New System.Drawing.Size(133, 33)
         Me.btnSearchName.TabIndex = 6
@@ -157,7 +143,7 @@ Partial Class Items_Search
         Me.btnSearchBarcode.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSearchBarcode.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSearchBarcode.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.btnSearchBarcode.Location = New System.Drawing.Point(260, 2)
+        Me.btnSearchBarcode.Location = New System.Drawing.Point(142, 2)
         Me.btnSearchBarcode.Name = "btnSearchBarcode"
         Me.btnSearchBarcode.Size = New System.Drawing.Size(133, 33)
         Me.btnSearchBarcode.TabIndex = 7
@@ -170,7 +156,7 @@ Partial Class Items_Search
         Me.btnSearchItemNo.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSearchItemNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSearchItemNo.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.btnSearchItemNo.Location = New System.Drawing.Point(121, 2)
+        Me.btnSearchItemNo.Location = New System.Drawing.Point(3, 2)
         Me.btnSearchItemNo.Name = "btnSearchItemNo"
         Me.btnSearchItemNo.Size = New System.Drawing.Size(133, 33)
         Me.btnSearchItemNo.TabIndex = 8
@@ -226,7 +212,7 @@ Partial Class Items_Search
         Me.IMDataGridViewX.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.IMDataGridViewX.RowTemplate.Height = 30
         Me.IMDataGridViewX.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.IMDataGridViewX.Size = New System.Drawing.Size(999, 313)
+        Me.IMDataGridViewX.Size = New System.Drawing.Size(999, 590)
         Me.IMDataGridViewX.TabIndex = 11
         '
         'IM_ID_CL
@@ -331,33 +317,50 @@ Partial Class Items_Search
         Me.ADD_NewGM_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ADD_NewGM_Btn.UseVisualStyleBackColor = False
         '
-        'Panel1
+        'kbPanel
         '
-        Me.Panel1.Controls.Add(Me.OnKeyBoard1)
-        Me.Panel1.Location = New System.Drawing.Point(3, 383)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(999, 274)
-        Me.Panel1.TabIndex = 21
+        Me.kbPanel.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.kbPanel.Controls.Add(Me.KB)
+        Me.kbPanel.Location = New System.Drawing.Point(3, 390)
+        Me.kbPanel.Name = "kbPanel"
+        Me.kbPanel.Size = New System.Drawing.Size(999, 267)
+        Me.kbPanel.TabIndex = 21
         '
-        'OnKeyBoard1
+        'KeyboardBtn
         '
-        Me.OnKeyBoard1.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.OnKeyBoard1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.OnKeyBoard1.Location = New System.Drawing.Point(0, 0)
-        Me.OnKeyBoard1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.OnKeyBoard1.Name = "OnKeyBoard1"
-        Me.OnKeyBoard1.Size = New System.Drawing.Size(999, 274)
-        Me.OnKeyBoard1.TabIndex = 0
+        Me.KeyboardBtn.BackColor = System.Drawing.Color.White
+        Me.KeyboardBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.KeyboardBtn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.KeyboardBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.KeyboardBtn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KeyboardBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.KeyboardBtn.Location = New System.Drawing.Point(415, 660)
+        Me.KeyboardBtn.Name = "KeyboardBtn"
+        Me.KeyboardBtn.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.KeyboardBtn.Size = New System.Drawing.Size(149, 34)
+        Me.KeyboardBtn.TabIndex = 22
+        Me.KeyboardBtn.Text = "⌨ لوحة المفاتيح"
+        Me.KeyboardBtn.UseVisualStyleBackColor = False
+        '
+        'KB
+        '
+        Me.KB.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.KB.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.KB.Location = New System.Drawing.Point(0, 0)
+        Me.KB.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.KB.Name = "KB"
+        Me.KB.Size = New System.Drawing.Size(999, 267)
+        Me.KB.TabIndex = 0
         '
         'Items_Search
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1003, 695)
-        Me.ControlBox = False
-        Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.ADD_NewGM_Btn)
         Me.Controls.Add(Me.IMDataGridViewX)
+        Me.Controls.Add(Me.KeyboardBtn)
+        Me.Controls.Add(Me.kbPanel)
+        Me.Controls.Add(Me.ADD_NewGM_Btn)
         Me.Controls.Add(Me.lblHint)
         Me.Controls.Add(Me.btnSearchItemNo)
         Me.Controls.Add(Me.btnSearchBarcode)
@@ -368,24 +371,22 @@ Partial Class Items_Search
         Me.Controls.Add(Me.GM_Serach)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.ExitFormButton)
-        Me.Controls.Add(Me.lblTitle)
         Me.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.MinimizeBox = False
         Me.Name = "Items_Search"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "بحث عن صنف"
         CType(Me.IMDataGridViewX, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
+        Me.kbPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents GM_Serach As System.Windows.Forms.ComboBox
@@ -407,8 +408,9 @@ Partial Class Items_Search
     Friend WithEvents QTY_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Price_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ADD_NewGM_Btn As System.Windows.Forms.Button
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents OnKeyBoard1 As OnKeyBoard
+    Friend WithEvents kbPanel As Panel
+    Friend WithEvents KeyboardBtn As Button
+    Friend WithEvents KB As OnKeyBoard
 End Class
 '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 '<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _

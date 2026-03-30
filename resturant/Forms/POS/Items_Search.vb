@@ -5,18 +5,17 @@ Public Class Items_Search
     Dim IM_DT As New DataTable
     Private CurrentSearchColumn As String = "item_name"
 
-    Private KB As OnKeyBoard
+    'Private KB As OnKeyBoard
 
     Private Sub InitKeyboard()
-        KB = New OnKeyBoard()
-        KB.Dock = DockStyle.Fill
-        KB.Height = 220
-        KB.Visible = True
 
-        Panel1.Controls.Add(KB)
-        KB.BringToFront()
+        'KB = New OnKeyBoard()
+        'kbPanel.Controls.Clear()
+        'KB.Dock = DockStyle.Fill
+        'kbPanel.Controls.Add(KB)
+        'KB.BringToFront()
 
-        AddHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
+        'AddHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
     End Sub
 
     Private Sub HandleKeyboardInput(sender As Object, e As EventArgs)
@@ -33,22 +32,23 @@ Public Class Items_Search
                 Case "BSPACE"
                     txtSearch.SelectedText = " "
 
-                Case "BBACK", "BDELETE"
+                Case "BBACK", "BDELETE", "BBACKSPACE"
                     If txtSearch.TextLength > 0 Then
                         txtSearch.Text = txtSearch.Text.Substring(0, txtSearch.TextLength - 1)
                         txtSearch.SelectionStart = txtSearch.TextLength
                     End If
 
                 Case "BENTER"
-                    If IMDataGridViewX.Rows.Count > 0 Then
-                        Fetch_ItemToList()
-                    End If
+                    Fetch_ItemToList()
 
                 Case "BLANG"
                 ' لا نفعل شيئًا هنا لأن الفورم نفسه يتولى تبديل اللغة
 
                 Case "BCAPS"
                     ' لاحقًا إذا أردت نضيف منطق الحروف الكبيرة
+
+
+
 
                 Case Else
                     txtSearch.SelectedText = bt.Text
@@ -78,6 +78,8 @@ Public Class Items_Search
         ADD_NewGM_Btn.Visible = U_ADD_Pch
 
         SetSearchMode("item_name", btnSearchName)
+
+        AddHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
 
         'InitKeyboard()
     End Sub
@@ -292,6 +294,17 @@ Public Class Items_Search
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         Load_IM(CurrentSearchColumn, txtSearch.Text.Trim())
     End Sub
+
+    Private Sub KeyboardBtn_Click(sender As Object, e As EventArgs) Handles KeyboardBtn.Click
+        If IMDataGridViewX.Height = 320 Then
+
+            IMDataGridViewX.Size = New Size(999, 590)
+        Else
+            'kbPanel.Controls.Clear()
+            IMDataGridViewX.Size = New Size(999, 320)
+        End If
+    End Sub
+
 End Class
 
 
