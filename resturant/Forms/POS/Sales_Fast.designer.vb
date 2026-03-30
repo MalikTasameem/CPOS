@@ -22,9 +22,9 @@ Partial Class Sales_Fast
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales_Fast))
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.MoveToBill_Btn = New System.Windows.Forms.Button()
@@ -35,7 +35,6 @@ Partial Class Sales_Fast
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
         Me.Up_Bill_btn = New System.Windows.Forms.Button()
         Me.RemoveCatButton = New System.Windows.Forms.Button()
-        Me.PriceTextBox = New System.Windows.Forms.TextBox()
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
@@ -45,13 +44,10 @@ Partial Class Sales_Fast
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Pure_txt = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.QtyTextBox = New System.Windows.Forms.TextBox()
-        Me.Current_QTY = New System.Windows.Forms.TextBox()
         Me.IM_Unit_cm = New System.Windows.Forms.ComboBox()
         Me.Bill_ID_Txt = New System.Windows.Forms.TextBox()
         Me.VoidLb = New System.Windows.Forms.Label()
         Me.DateTimeEx = New System.Windows.Forms.DateTimePicker()
-        Me.Valid_QTY_txt = New System.Windows.Forms.TextBox()
         Me.IM_Qty_LB = New System.Windows.Forms.Label()
         Me.IMPanel = New System.Windows.Forms.Panel()
         Me.AG_SH_txt = New System.Windows.Forms.TextBox()
@@ -79,7 +75,6 @@ Partial Class Sales_Fast
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IM_NOTE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Bercent_TXT = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Notes_txt = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -125,7 +120,7 @@ Partial Class Sales_Fast
         Me.MoveToBill_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MoveToBill_Btn.ForeColor = System.Drawing.Color.DarkRed
-        Me.MoveToBill_Btn.Location = New System.Drawing.Point(516, 122)
+        Me.MoveToBill_Btn.Location = New System.Drawing.Point(447, 123)
         Me.MoveToBill_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MoveToBill_Btn.Name = "MoveToBill_Btn"
         Me.MoveToBill_Btn.Size = New System.Drawing.Size(29, 23)
@@ -270,23 +265,6 @@ Partial Class Sales_Fast
         Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف الحدد")
         Me.RemoveCatButton.UseVisualStyleBackColor = False
         '
-        'PriceTextBox
-        '
-        Me.PriceTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.PriceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PriceTextBox.Enabled = False
-        Me.PriceTextBox.Font = New System.Drawing.Font("Stencil", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PriceTextBox.ForeColor = System.Drawing.Color.DarkGreen
-        Me.PriceTextBox.Location = New System.Drawing.Point(188, 70)
-        Me.PriceTextBox.MaxLength = 250
-        Me.PriceTextBox.Name = "PriceTextBox"
-        Me.PriceTextBox.ReadOnly = True
-        Me.PriceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.PriceTextBox.Size = New System.Drawing.Size(10, 22)
-        Me.PriceTextBox.TabIndex = 292
-        Me.PriceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.PriceTextBox.Visible = False
-        '
         'IM_Count_LB
         '
         Me.IM_Count_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
@@ -406,44 +384,15 @@ Partial Class Sales_Fast
         Me.Label17.Text = "الصــافـــي"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'QtyTextBox
-        '
-        Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(200, 71)
-        Me.QtyTextBox.MaxLength = 250
-        Me.QtyTextBox.Name = "QtyTextBox"
-        Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.QtyTextBox.Size = New System.Drawing.Size(11, 21)
-        Me.QtyTextBox.TabIndex = 390
-        Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.QtyTextBox.Visible = False
-        '
-        'Current_QTY
-        '
-        Me.Current_QTY.BackColor = System.Drawing.SystemColors.HighlightText
-        Me.Current_QTY.Enabled = False
-        Me.Current_QTY.Font = New System.Drawing.Font("Times New Roman", 9.0!)
-        Me.Current_QTY.ForeColor = System.Drawing.Color.Firebrick
-        Me.Current_QTY.Location = New System.Drawing.Point(225, 72)
-        Me.Current_QTY.Name = "Current_QTY"
-        Me.Current_QTY.Size = New System.Drawing.Size(10, 21)
-        Me.Current_QTY.TabIndex = 606
-        Me.Current_QTY.Text = "00"
-        Me.Current_QTY.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.Current_QTY.Visible = False
-        '
         'IM_Unit_cm
         '
         Me.IM_Unit_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Unit_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Unit_cm.FormattingEnabled = True
-        Me.IM_Unit_cm.Location = New System.Drawing.Point(263, 46)
+        Me.IM_Unit_cm.Location = New System.Drawing.Point(191, 122)
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
-        Me.IM_Unit_cm.Size = New System.Drawing.Size(10, 23)
+        Me.IM_Unit_cm.Size = New System.Drawing.Size(92, 23)
         Me.IM_Unit_cm.TabIndex = 615
         Me.IM_Unit_cm.Visible = False
         '
@@ -489,20 +438,6 @@ Partial Class Sales_Fast
         Me.DateTimeEx.RightToLeftLayout = True
         Me.DateTimeEx.Size = New System.Drawing.Size(218, 29)
         Me.DateTimeEx.TabIndex = 383
-        '
-        'Valid_QTY_txt
-        '
-        Me.Valid_QTY_txt.BackColor = System.Drawing.SystemColors.HighlightText
-        Me.Valid_QTY_txt.Enabled = False
-        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Valid_QTY_txt.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Valid_QTY_txt.Location = New System.Drawing.Point(233, 46)
-        Me.Valid_QTY_txt.Name = "Valid_QTY_txt"
-        Me.Valid_QTY_txt.Size = New System.Drawing.Size(10, 21)
-        Me.Valid_QTY_txt.TabIndex = 640
-        Me.Valid_QTY_txt.Text = "00"
-        Me.Valid_QTY_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.Valid_QTY_txt.Visible = False
         '
         'IM_Qty_LB
         '
@@ -576,7 +511,7 @@ Partial Class Sales_Fast
         Me.PauseCmb.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PauseCmb.FormattingEnabled = True
         Me.PauseCmb.Items.AddRange(New Object() {"123456789"})
-        Me.PauseCmb.Location = New System.Drawing.Point(548, 122)
+        Me.PauseCmb.Location = New System.Drawing.Point(479, 123)
         Me.PauseCmb.Name = "PauseCmb"
         Me.PauseCmb.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.PauseCmb.Size = New System.Drawing.Size(131, 23)
@@ -612,7 +547,7 @@ Partial Class Sales_Fast
         Me.AGMetroGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
         Me.AGMetroGrid.RowTemplate.Height = 35
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMetroGrid.Size = New System.Drawing.Size(946, 256)
+        Me.AGMetroGrid.Size = New System.Drawing.Size(946, 254)
         Me.AGMetroGrid.TabIndex = 701
         '
         'Bill_IMID_CL
@@ -708,11 +643,11 @@ Partial Class Sales_Fast
         'QTY_CL
         '
         Me.QTY_CL.DataPropertyName = "QTY"
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Format = "N3"
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
-        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle7.Format = "N3"
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Transparent
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black
+        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle7
         Me.QTY_CL.FillWeight = 91.83587!
         Me.QTY_CL.HeaderText = "كمية"
         Me.QTY_CL.Name = "QTY_CL"
@@ -721,8 +656,8 @@ Partial Class Sales_Fast
         'Price_CL
         '
         Me.Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle5.Format = "N3"
-        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle8.Format = "N3"
+        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle8
         Me.Price_CL.FillWeight = 91.83587!
         Me.Price_CL.HeaderText = "السعر"
         Me.Price_CL.Name = "Price_CL"
@@ -738,8 +673,8 @@ Partial Class Sales_Fast
         'Total_CL
         '
         Me.Total_CL.DataPropertyName = "T_Price"
-        DataGridViewCellStyle6.Format = "N3"
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle9.Format = "N3"
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle9
         Me.Total_CL.FillWeight = 91.83587!
         Me.Total_CL.HeaderText = "إجمالي"
         Me.Total_CL.Name = "Total_CL"
@@ -776,17 +711,6 @@ Partial Class Sales_Fast
         Me.IM_NOTE_CL.Name = "IM_NOTE_CL"
         Me.IM_NOTE_CL.ReadOnly = True
         Me.IM_NOTE_CL.Visible = False
-        '
-        'Bercent_TXT
-        '
-        Me.Bercent_TXT.Font = New System.Drawing.Font("Times New Roman", 8.0!)
-        Me.Bercent_TXT.Location = New System.Drawing.Point(213, 73)
-        Me.Bercent_TXT.Name = "Bercent_TXT"
-        Me.Bercent_TXT.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Bercent_TXT.Size = New System.Drawing.Size(10, 20)
-        Me.Bercent_TXT.TabIndex = 702
-        Me.Bercent_TXT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.Bercent_TXT.Visible = False
         '
         'Label27
         '
@@ -841,10 +765,10 @@ Partial Class Sales_Fast
         Me.Valid_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Valid_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Valid_cm.FormattingEnabled = True
-        Me.Valid_cm.Location = New System.Drawing.Point(247, 44)
+        Me.Valid_cm.Location = New System.Drawing.Point(191, 96)
         Me.Valid_cm.Name = "Valid_cm"
         Me.Valid_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Valid_cm.Size = New System.Drawing.Size(10, 23)
+        Me.Valid_cm.Size = New System.Drawing.Size(92, 23)
         Me.Valid_cm.TabIndex = 711
         Me.Valid_cm.Visible = False
         '
@@ -880,9 +804,9 @@ Partial Class Sales_Fast
         Me.IM_Search_btn.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Search_btn.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.IM_Search_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.IM_Search_btn.Location = New System.Drawing.Point(902, 119)
+        Me.IM_Search_btn.Location = New System.Drawing.Point(902, 121)
         Me.IM_Search_btn.Name = "IM_Search_btn"
-        Me.IM_Search_btn.Size = New System.Drawing.Size(100, 28)
+        Me.IM_Search_btn.Size = New System.Drawing.Size(100, 27)
         Me.IM_Search_btn.TabIndex = 707
         Me.IM_Search_btn.Text = "بحث عن صنف"
         Me.IM_Search_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1079,10 +1003,10 @@ Partial Class Sales_Fast
         Me.Barcode_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Barcode_SH_txt.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Barcode_SH_txt.ForeColor = System.Drawing.Color.Blue
-        Me.Barcode_SH_txt.Location = New System.Drawing.Point(682, 120)
+        Me.Barcode_SH_txt.Location = New System.Drawing.Point(613, 121)
         Me.Barcode_SH_txt.Name = "Barcode_SH_txt"
-        Me.Barcode_SH_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Barcode_SH_txt.Size = New System.Drawing.Size(219, 27)
+        Me.Barcode_SH_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Barcode_SH_txt.Size = New System.Drawing.Size(288, 27)
         Me.Barcode_SH_txt.TabIndex = 602
         Me.Barcode_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1111,9 +1035,9 @@ Partial Class Sales_Fast
         '
         Me.Panel4.Controls.Add(Me.AGMetroGrid)
         Me.Panel4.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Panel4.Location = New System.Drawing.Point(1, 148)
+        Me.Panel4.Location = New System.Drawing.Point(1, 150)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(946, 256)
+        Me.Panel4.Size = New System.Drawing.Size(946, 254)
         Me.Panel4.TabIndex = 714
         '
         'Sales_Fast
@@ -1132,7 +1056,6 @@ Partial Class Sales_Fast
         Me.Controls.Add(Me.IM_Search_btn)
         Me.Controls.Add(Me.IM_Profet_btn)
         Me.Controls.Add(Me.DeliveryingButton)
-        Me.Controls.Add(Me.Bercent_TXT)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.VoidLb)
         Me.Controls.Add(Me.PauseCmb)
@@ -1140,7 +1063,6 @@ Partial Class Sales_Fast
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.RemoveCatButton)
         Me.Controls.Add(Me.IMPanel)
-        Me.Controls.Add(Me.Valid_QTY_txt)
         Me.Controls.Add(Me.ExitFormButton)
         Me.Controls.Add(Me.Edit_butt)
         Me.Controls.Add(Me.IM_Qty_LB)
@@ -1153,9 +1075,6 @@ Partial Class Sales_Fast
         Me.Controls.Add(Me.Save_butt)
         Me.Controls.Add(Me.Delete_butt)
         Me.Controls.Add(Me.Barcode_SH_txt)
-        Me.Controls.Add(Me.QtyTextBox)
-        Me.Controls.Add(Me.PriceTextBox)
-        Me.Controls.Add(Me.Current_QTY)
         Me.Controls.Add(Me.IM_Unit_cm)
         Me.Controls.Add(Me.Label27)
         Me.Controls.Add(Me.Notes_txt)
@@ -1186,17 +1105,14 @@ Partial Class Sales_Fast
 
     End Sub
     Friend WithEvents MetroToolTip1 As MetroFramework.Components.MetroToolTip
-    Friend WithEvents PriceTextBox As System.Windows.Forms.TextBox
     Friend WithEvents New_butt As System.Windows.Forms.Button
     Friend WithEvents Save_butt As System.Windows.Forms.Button
     Friend WithEvents Delete_butt As System.Windows.Forms.Button
     Friend WithEvents Total_TextBox As System.Windows.Forms.TextBox
     Friend WithEvents DateTimeEx As System.Windows.Forms.DateTimePicker
-    Friend WithEvents QtyTextBox As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents RemoveCatButton As System.Windows.Forms.Button
     Friend WithEvents VoidLb As System.Windows.Forms.Label
-    Friend WithEvents Current_QTY As System.Windows.Forms.TextBox
     Friend WithEvents IM_Count_LB As System.Windows.Forms.Label
     Friend WithEvents IM_Unit_cm As System.Windows.Forms.ComboBox
     Friend WithEvents Pure_txt As System.Windows.Forms.TextBox
@@ -1210,7 +1126,6 @@ Partial Class Sales_Fast
     Friend WithEvents SBPauseBtn As System.Windows.Forms.Button
     Friend WithEvents MoveToBill_Btn As System.Windows.Forms.Button
     Friend WithEvents DiscountPanel As System.Windows.Forms.Panel
-    Friend WithEvents Valid_QTY_txt As System.Windows.Forms.TextBox
     Friend WithEvents Discount_txt As System.Windows.Forms.TextBox
     Friend WithEvents IM_Qty_LB As System.Windows.Forms.Label
     Friend WithEvents Edit_butt As System.Windows.Forms.Button
@@ -1225,7 +1140,6 @@ Partial Class Sales_Fast
     Friend WithEvents PauseCmb As System.Windows.Forms.ComboBox
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents AGMetroGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents Bercent_TXT As System.Windows.Forms.TextBox
     Friend WithEvents DeliveryingButton As System.Windows.Forms.Button
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents Notes_txt As System.Windows.Forms.TextBox

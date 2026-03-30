@@ -128,7 +128,7 @@ Public Class IM_Keyboard
             Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
             Fetch_IM_Units()
             IMDataGridViewX.Visible = False
-            Sales_Fast.Load_IM_Change_Price()
+            'Sales_Fast.Load_IM_Change_Price()
             Sales_Fast.IM_Unit_cm.Text = IM_Unit_cm.Text
 
             If IMDataGridViewX.CurrentRow.Cells("isValid_CL").Value = 1 Then
@@ -149,9 +149,9 @@ Public Class IM_Keyboard
 
         Sales_Fast.IM_ID = IM_ID
         Sales_Fast.U_ID = U_ID
-        Sales_Fast.PriceTextBox.Text = PriceTextBox.Text
+        Sales_Fast.IM_Price = PriceTextBox.Text
         Sales_Fast.Barcode_IM = Barcode_IM
-        Sales_Fast.QtyTextBox.Text = QtyTextBox.Text
+        Sales_Fast.QtyTextBox = QtyTextBox.Text
         Sales_Fast.U_Cargo = U_Cargo
         Sales_Fast.Valid_TXT = Valid_cm.Text
 

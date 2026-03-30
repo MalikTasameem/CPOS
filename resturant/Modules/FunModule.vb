@@ -2295,22 +2295,22 @@ Module FunModule
         End Try
     End Sub
 
-    Public Sub Load_IM_ST_QTY_ST_INT(ByVal IM_ID As Integer, ByVal ST_ID As Integer, ByRef IM_QTY As Double)
-        Dim c As New C
-        Try
-            Dim s As String
-            s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "' AND ST_ID = '" & ST_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                IM_QTY = c.Dr("QTY")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Public Sub Load_IM_ST_QTY_ST_INT(ByVal IM_ID As Integer, ByVal ST_ID As Integer, ByRef IM_QTY As Double)
+    '    Dim c As New C
+    '    Try
+    '        Dim s As String
+    '        s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "' AND ST_ID = '" & ST_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            IM_QTY = c.Dr("QTY")
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
 
     Public Function IsIdInRange(id As Integer)

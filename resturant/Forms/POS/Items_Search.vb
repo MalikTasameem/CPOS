@@ -244,13 +244,6 @@ Public Class Items_Search
         SetSearchMode("IM_NUM", btnSearchItemNo)
     End Sub
 
-    'Private Sub btnClearSearch_Click(sender As Object, e As EventArgs) Handles btnClearSearch.Click
-    '    txtSearch.Text = ""
-    '    CurrentSearchColumn = "item_name"
-    '    IMDataGridViewX.DataSource = IM_DT
-    '    txtSearch.Focus()
-    'End Sub
-
     Private Sub Show_IM_btn_Click(sender As Object, e As EventArgs) Handles Show_IM_btn.Click
         Load_ALL_IM()
         If Not String.IsNullOrWhiteSpace(txtSearch.Text) Then
@@ -269,8 +262,6 @@ Public Class Items_Search
                 End If
         End Select
     End Sub
-
-
 
     Private Sub ResetSearchButtonsStyle()
         btnSearchName.BackColor = Color.White
@@ -301,165 +292,8 @@ Public Class Items_Search
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         Load_IM(CurrentSearchColumn, txtSearch.Text.Trim())
     End Sub
-
-    'Private Sub btnClearSearch_Click(sender As Object, e As EventArgs) Handles btnClearSearch.Click
-    '    txtSearch.Text = ""
-    '    Load_IM(CurrentSearchColumn, "")
-    '    txtSearch.Focus()
-    'End Sub
-
-
 End Class
 
 
 
 
-
-'Imports System.Data.SqlClient
-
-'Public Class Items_Search
-'    Dim IM_DT As New DataTable
-
-'    Private Sub STORES_Explorer_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-'        IM_Search_GM_ID = GM_Serach.SelectedValue
-'        Save_AppSetting()
-'        Me.Dispose()
-'    End Sub
-'    Private Sub STORES_Explorer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-'        'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
-'        fetch_GM()
-'        GM_Serach.SelectedValue = IM_Search_GM_ID
-'        GLOBAL_IM_ID = 0
-'        Load_ALL_IM()
-
-'        ADD_NewGM_Btn.Visible = U_ADD_Pch
-'    End Sub
-
-'    Public Sub fetch_GM()
-'        GM_Serach.DataSource = GetMailItems()
-'        GM_Serach.DisplayMember = "name"
-'        GM_Serach.ValueMember = "ID"
-'    End Sub
-
-'    Public Sub Load_IM(Search_Column As String, IM_SH_txt As TextBox)
-
-
-'        Dim Dv As DataView
-'        Dv = IM_DT.AsDataView
-'        Dv.RowFilter = IM_Serach(IM_SH_txt.Text, "[" & Search_Column & "]")
-'        IMDataGridViewX.DataSource = Dv
-
-'    End Sub
-
-'    Public Function IM_Serach(IM_SH As String, _SearchColumn As String) As String
-'        Dim words As String() = IM_SH.Split(New Char() {" "c})
-'        Dim Str As String = ""
-'        Dim IM_Str As String = ""
-'        Dim S_and As String = " and " & _SearchColumn & " Like "
-
-'        If words.Length() = 1 Then
-'            Str = _SearchColumn & "  = '" & IM_SH & "'  or " & _SearchColumn & "  like '%" & words(0) & "%' or " & _SearchColumn & "  like '%" & IM_SH & "' or " & _SearchColumn & "  like '" & IM_SH & "%'"
-'        Else
-'            IM_Str = "'%" & words(0) & "%'" & S_and
-
-'            For i = 1 To words.Length - 1
-
-'                If i = words.Length - 1 Then
-'                    IM_Str += "'%" & words(i) & "%'"
-'                Else
-'                    IM_Str += "'%" & words(i) & "%'" & S_and
-'                End If
-'            Next
-
-
-'            Str = _SearchColumn & "  like " & IM_Str
-
-'        End If
-'        Return Str
-'    End Function
-
-
-'    Private Sub IM_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_SH_txt.KeyDown
-'        Select Case e.KeyCode
-'            Case Keys.Return
-'                Search_From_Grid()
-'        End Select
-'    End Sub
-
-'    Public Sub Search_From_Grid()
-'        If IMDataGridViewX.RowCount > 0 Then Fetch_ItemToList()
-'    End Sub
-
-
-'    Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
-'        Load_IM("item_name", IM_SH_txt)
-'    End Sub
-
-
-'    Private Sub IMDataGridViewX_KeyDown(sender As Object, e As KeyEventArgs) Handles IMDataGridViewX.KeyDown
-'        If e.KeyCode = Keys.Return Then Fetch_ItemToList()
-'        If e.KeyCode = Keys.Up Then If IMDataGridViewX.CurrentRow.Index = 0 Then IM_SH_txt.Select()
-'    End Sub
-
-'    Private Sub Fetch_ItemToList()
-
-'        If IMDataGridViewX.Rows.Count > 0 Then
-'            GLOBAL_IM_ID = IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value
-'            Me.Close()
-'        End If
-
-'    End Sub
-
-'    Private Sub Show_IM_btn_Click(sender As Object, e As EventArgs) Handles Show_IM_btn.Click
-'        Load_ALL_IM()
-'    End Sub
-
-'    Private Sub Load_ALL_IM()
-'        Dim c As New C
-'        Dim GM_Str = ""
-
-'        If GM_Serach.SelectedValue > 0 Then GM_Str = " WHERE GM_ID = '" & GM_Serach.SelectedValue & "'"
-'        Try
-'            IM_Dt.Clear()
-'            Dim s As String
-'            If SB_Sch_With_QTY = False Then
-'                s = "select IM_ID,GM_NAME,Barcode,IM_NUM,item_name,U_Name,QTY,isValid,Price from IM_All_V " & GM_Str & "  Order by item_name ASC"
-'            Else
-'                s = "select IM_ID,GM_NAME,Barcode,IM_NUM,item_name,U_Name,QTY,isValid,Price from IM_All_V_With_QTY " & GM_Str & "  Order by item_name ASC"
-'            End If
-
-'            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-'            c.Da.Fill(IM_Dt)
-'            IMDataGridViewX.DataSource = IM_Dt
-'        Catch ex As Exception
-'            MsgBox(ex.Message)
-'        End Try
-'    End Sub
-
-'    Private Sub IMDataGridViewX_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles IMDataGridViewX.CellDoubleClick
-'        Fetch_ItemToList()
-'    End Sub
-
-'    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-'        Me.Close()
-'    End Sub
-
-'    Private Sub ADD_NewGM_Btn_Click(sender As Object, e As EventArgs) Handles ADD_NewGM_Btn.Click
-'        IM_ADD_New.ShowDialog()
-'    End Sub
-
-'    Private Sub Barcode_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles Barcode_SH_txt.TextChanged
-'        Load_IM("Barcode", Barcode_SH_txt)
-'    End Sub
-
-'    Private Sub IM_NUM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_NUM_SH_txt.TextChanged
-'        Load_IM("IM_Num", IM_NUM_SH_txt)
-
-'    End Sub
-
-'    Private Sub IM_SH_txt_KeyUp(sender As Object, e As KeyEventArgs) Handles IM_SH_txt.KeyUp, Barcode_SH_txt.KeyUp, IM_NUM_SH_txt.KeyUp
-
-'        If e.KeyCode = Keys.Down Then If IMDataGridViewX.Rows.Count > 0 Then IMDataGridViewX.Select()
-
-'    End Sub
-'End Class

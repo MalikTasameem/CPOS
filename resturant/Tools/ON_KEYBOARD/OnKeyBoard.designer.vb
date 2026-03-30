@@ -615,340 +615,340 @@ Partial Class OnKeyBoard
         '
         'Button53
         '
-        Me.Button53.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button53.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button53.Location = New System.Drawing.Point(3, 72)
         Me.Button53.Name = "Button53"
-        Me.Button53.Size = New System.Drawing.Size(70, 70)
+        Me.Button53.Size = New System.Drawing.Size(60, 60)
         Me.Button53.TabIndex = 86
         Me.Button53.Text = "ش"
         Me.Button53.UseVisualStyleBackColor = True
         '
         'Button10
         '
-        Me.Button10.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button10.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button10.Location = New System.Drawing.Point(773, 3)
         Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(70, 70)
+        Me.Button10.Size = New System.Drawing.Size(60, 60)
         Me.Button10.TabIndex = 85
         Me.Button10.Text = "د"
         Me.Button10.UseVisualStyleBackColor = True
         '
         'Button11
         '
-        Me.Button11.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button11.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button11.Location = New System.Drawing.Point(773, 72)
         Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(70, 70)
+        Me.Button11.Size = New System.Drawing.Size(60, 60)
         Me.Button11.TabIndex = 83
         Me.Button11.Text = "ذ"
         Me.Button11.UseVisualStyleBackColor = True
         '
         'Button12
         '
-        Me.Button12.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button12.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button12.Location = New System.Drawing.Point(703, 3)
         Me.Button12.Name = "Button12"
-        Me.Button12.Size = New System.Drawing.Size(70, 70)
+        Me.Button12.Size = New System.Drawing.Size(60, 60)
         Me.Button12.TabIndex = 82
         Me.Button12.Text = "ج"
         Me.Button12.UseVisualStyleBackColor = True
         '
         'Button13
         '
-        Me.Button13.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button13.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button13.Location = New System.Drawing.Point(564, 142)
         Me.Button13.Name = "Button13"
-        Me.Button13.Size = New System.Drawing.Size(70, 70)
+        Me.Button13.Size = New System.Drawing.Size(60, 60)
         Me.Button13.TabIndex = 80
         Me.Button13.Text = "و"
         Me.Button13.UseVisualStyleBackColor = True
         '
         'Button14
         '
-        Me.Button14.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button14.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button14.Location = New System.Drawing.Point(634, 142)
         Me.Button14.Name = "Button14"
-        Me.Button14.Size = New System.Drawing.Size(70, 70)
+        Me.Button14.Size = New System.Drawing.Size(60, 60)
         Me.Button14.TabIndex = 79
         Me.Button14.Text = "ز"
         Me.Button14.UseVisualStyleBackColor = True
         '
         'Button16
         '
-        Me.Button16.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button16.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button16.Location = New System.Drawing.Point(704, 142)
         Me.Button16.Name = "Button16"
-        Me.Button16.Size = New System.Drawing.Size(70, 70)
+        Me.Button16.Size = New System.Drawing.Size(60, 60)
         Me.Button16.TabIndex = 78
         Me.Button16.Text = "ظ"
         Me.Button16.UseVisualStyleBackColor = True
         '
         'Button18
         '
-        Me.Button18.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button18.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button18.Location = New System.Drawing.Point(563, 72)
         Me.Button18.Name = "Button18"
-        Me.Button18.Size = New System.Drawing.Size(70, 70)
+        Me.Button18.Size = New System.Drawing.Size(60, 60)
         Me.Button18.TabIndex = 77
         Me.Button18.Text = "م"
         Me.Button18.UseVisualStyleBackColor = True
         '
         'Button19
         '
-        Me.Button19.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button19.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button19.Location = New System.Drawing.Point(633, 72)
         Me.Button19.Name = "Button19"
-        Me.Button19.Size = New System.Drawing.Size(70, 70)
+        Me.Button19.Size = New System.Drawing.Size(60, 60)
         Me.Button19.TabIndex = 76
         Me.Button19.Text = "ك"
         Me.Button19.UseVisualStyleBackColor = True
         '
         'Button20
         '
-        Me.Button20.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button20.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button20.Location = New System.Drawing.Point(703, 72)
         Me.Button20.Name = "Button20"
-        Me.Button20.Size = New System.Drawing.Size(70, 70)
+        Me.Button20.Size = New System.Drawing.Size(60, 60)
         Me.Button20.TabIndex = 75
         Me.Button20.Text = "ط"
         Me.Button20.UseVisualStyleBackColor = True
         '
         'Button21
         '
-        Me.Button21.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button21.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button21.Location = New System.Drawing.Point(633, 3)
         Me.Button21.Name = "Button21"
-        Me.Button21.Size = New System.Drawing.Size(70, 70)
+        Me.Button21.Size = New System.Drawing.Size(60, 60)
         Me.Button21.TabIndex = 74
         Me.Button21.Text = "ح"
         Me.Button21.UseVisualStyleBackColor = True
         '
         'Button22
         '
-        Me.Button22.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button22.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button22.Location = New System.Drawing.Point(563, 3)
         Me.Button22.Name = "Button22"
-        Me.Button22.Size = New System.Drawing.Size(70, 70)
+        Me.Button22.Size = New System.Drawing.Size(60, 60)
         Me.Button22.TabIndex = 73
         Me.Button22.Text = "خ"
         Me.Button22.UseVisualStyleBackColor = True
         '
         'Button24
         '
-        Me.Button24.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button24.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button24.Location = New System.Drawing.Point(493, 3)
         Me.Button24.Name = "Button24"
-        Me.Button24.Size = New System.Drawing.Size(70, 70)
+        Me.Button24.Size = New System.Drawing.Size(60, 60)
         Me.Button24.TabIndex = 72
         Me.Button24.Text = "ه"
         Me.Button24.UseVisualStyleBackColor = True
         '
         'Button25
         '
-        Me.Button25.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button25.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button25.Location = New System.Drawing.Point(494, 142)
         Me.Button25.Name = "Button25"
-        Me.Button25.Size = New System.Drawing.Size(70, 70)
+        Me.Button25.Size = New System.Drawing.Size(60, 60)
         Me.Button25.TabIndex = 71
         Me.Button25.Text = "ة"
         Me.Button25.UseVisualStyleBackColor = True
         '
         'Button26
         '
-        Me.Button26.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button26.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button26.Location = New System.Drawing.Point(493, 72)
         Me.Button26.Name = "Button26"
-        Me.Button26.Size = New System.Drawing.Size(70, 70)
+        Me.Button26.Size = New System.Drawing.Size(60, 60)
         Me.Button26.TabIndex = 70
         Me.Button26.Text = "ن"
         Me.Button26.UseVisualStyleBackColor = True
         '
         'Button27
         '
-        Me.Button27.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button27.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button27.Location = New System.Drawing.Point(423, 3)
         Me.Button27.Name = "Button27"
-        Me.Button27.Size = New System.Drawing.Size(70, 70)
+        Me.Button27.Size = New System.Drawing.Size(60, 60)
         Me.Button27.TabIndex = 69
         Me.Button27.Text = "ع"
         Me.Button27.UseVisualStyleBackColor = True
         '
         'Button28
         '
-        Me.Button28.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button28.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button28.Location = New System.Drawing.Point(284, 142)
         Me.Button28.Name = "Button28"
-        Me.Button28.Size = New System.Drawing.Size(70, 70)
+        Me.Button28.Size = New System.Drawing.Size(60, 60)
         Me.Button28.TabIndex = 68
         Me.Button28.Text = "ر"
         Me.Button28.UseVisualStyleBackColor = True
         '
         'Button29
         '
-        Me.Button29.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button29.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button29.Location = New System.Drawing.Point(354, 142)
         Me.Button29.Name = "Button29"
-        Me.Button29.Size = New System.Drawing.Size(70, 70)
+        Me.Button29.Size = New System.Drawing.Size(60, 60)
         Me.Button29.TabIndex = 67
         Me.Button29.Text = "لا"
         Me.Button29.UseVisualStyleBackColor = True
         '
         'Button30
         '
-        Me.Button30.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button30.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button30.Location = New System.Drawing.Point(424, 142)
         Me.Button30.Name = "Button30"
-        Me.Button30.Size = New System.Drawing.Size(70, 70)
+        Me.Button30.Size = New System.Drawing.Size(60, 60)
         Me.Button30.TabIndex = 66
         Me.Button30.Text = "ى"
         Me.Button30.UseVisualStyleBackColor = True
         '
         'Button31
         '
-        Me.Button31.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button31.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button31.Location = New System.Drawing.Point(283, 72)
         Me.Button31.Name = "Button31"
-        Me.Button31.Size = New System.Drawing.Size(70, 70)
+        Me.Button31.Size = New System.Drawing.Size(60, 60)
         Me.Button31.TabIndex = 65
         Me.Button31.Text = "ل"
         Me.Button31.UseVisualStyleBackColor = True
         '
         'Button32
         '
-        Me.Button32.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button32.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button32.Location = New System.Drawing.Point(353, 72)
         Me.Button32.Name = "Button32"
-        Me.Button32.Size = New System.Drawing.Size(70, 70)
+        Me.Button32.Size = New System.Drawing.Size(60, 60)
         Me.Button32.TabIndex = 64
         Me.Button32.Text = "ا"
         Me.Button32.UseVisualStyleBackColor = True
         '
         'Button37
         '
-        Me.Button37.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button37.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button37.Location = New System.Drawing.Point(423, 72)
         Me.Button37.Name = "Button37"
-        Me.Button37.Size = New System.Drawing.Size(70, 70)
+        Me.Button37.Size = New System.Drawing.Size(60, 60)
         Me.Button37.TabIndex = 63
         Me.Button37.Text = "ت"
         Me.Button37.UseVisualStyleBackColor = True
         '
         'Button38
         '
-        Me.Button38.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button38.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button38.Location = New System.Drawing.Point(353, 3)
         Me.Button38.Name = "Button38"
-        Me.Button38.Size = New System.Drawing.Size(70, 70)
+        Me.Button38.Size = New System.Drawing.Size(60, 60)
         Me.Button38.TabIndex = 62
         Me.Button38.Text = "غ"
         Me.Button38.UseVisualStyleBackColor = True
         '
         'Button40
         '
-        Me.Button40.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button40.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button40.Location = New System.Drawing.Point(283, 3)
         Me.Button40.Name = "Button40"
-        Me.Button40.Size = New System.Drawing.Size(70, 70)
+        Me.Button40.Size = New System.Drawing.Size(60, 60)
         Me.Button40.TabIndex = 61
         Me.Button40.Text = "ف"
         Me.Button40.UseVisualStyleBackColor = True
         '
         'Button41
         '
-        Me.Button41.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button41.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button41.Location = New System.Drawing.Point(213, 3)
         Me.Button41.Name = "Button41"
-        Me.Button41.Size = New System.Drawing.Size(70, 70)
+        Me.Button41.Size = New System.Drawing.Size(60, 60)
         Me.Button41.TabIndex = 60
         Me.Button41.Text = "ق"
         Me.Button41.UseVisualStyleBackColor = True
         '
         'Button42
         '
-        Me.Button42.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button42.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button42.Location = New System.Drawing.Point(71, 142)
         Me.Button42.Name = "Button42"
-        Me.Button42.Size = New System.Drawing.Size(73, 70)
+        Me.Button42.Size = New System.Drawing.Size(60, 60)
         Me.Button42.TabIndex = 56
         Me.Button42.Text = "ئ"
         Me.Button42.UseVisualStyleBackColor = True
         '
         'Button43
         '
-        Me.Button43.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button43.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button43.Location = New System.Drawing.Point(144, 142)
         Me.Button43.Name = "Button43"
-        Me.Button43.Size = New System.Drawing.Size(70, 70)
+        Me.Button43.Size = New System.Drawing.Size(60, 60)
         Me.Button43.TabIndex = 55
         Me.Button43.Text = "ء"
         Me.Button43.UseVisualStyleBackColor = True
         '
         'Button44
         '
-        Me.Button44.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button44.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button44.Location = New System.Drawing.Point(214, 142)
         Me.Button44.Name = "Button44"
-        Me.Button44.Size = New System.Drawing.Size(70, 70)
+        Me.Button44.Size = New System.Drawing.Size(60, 60)
         Me.Button44.TabIndex = 54
         Me.Button44.Text = "ؤ"
         Me.Button44.UseVisualStyleBackColor = True
         '
         'Button45
         '
-        Me.Button45.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button45.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button45.Location = New System.Drawing.Point(73, 72)
         Me.Button45.Name = "Button45"
-        Me.Button45.Size = New System.Drawing.Size(70, 70)
+        Me.Button45.Size = New System.Drawing.Size(60, 60)
         Me.Button45.TabIndex = 53
         Me.Button45.Text = "س"
         Me.Button45.UseVisualStyleBackColor = True
         '
         'Button46
         '
-        Me.Button46.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button46.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button46.Location = New System.Drawing.Point(143, 72)
         Me.Button46.Name = "Button46"
-        Me.Button46.Size = New System.Drawing.Size(70, 70)
+        Me.Button46.Size = New System.Drawing.Size(60, 60)
         Me.Button46.TabIndex = 52
         Me.Button46.Text = "ي"
         Me.Button46.UseVisualStyleBackColor = True
         '
         'Button47
         '
-        Me.Button47.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button47.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button47.Location = New System.Drawing.Point(213, 72)
         Me.Button47.Name = "Button47"
-        Me.Button47.Size = New System.Drawing.Size(70, 70)
+        Me.Button47.Size = New System.Drawing.Size(60, 60)
         Me.Button47.TabIndex = 51
         Me.Button47.Text = "ب"
         Me.Button47.UseVisualStyleBackColor = True
         '
         'Button50
         '
-        Me.Button50.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button50.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button50.Location = New System.Drawing.Point(143, 3)
         Me.Button50.Name = "Button50"
-        Me.Button50.Size = New System.Drawing.Size(70, 70)
+        Me.Button50.Size = New System.Drawing.Size(60, 60)
         Me.Button50.TabIndex = 50
         Me.Button50.Text = "ث"
         Me.Button50.UseVisualStyleBackColor = True
         '
         'Button51
         '
-        Me.Button51.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button51.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button51.Location = New System.Drawing.Point(73, 3)
         Me.Button51.Name = "Button51"
-        Me.Button51.Size = New System.Drawing.Size(70, 70)
+        Me.Button51.Size = New System.Drawing.Size(60, 60)
         Me.Button51.TabIndex = 49
         Me.Button51.Text = "ص"
         Me.Button51.UseVisualStyleBackColor = True
         '
         'Button52
         '
-        Me.Button52.Font = New System.Drawing.Font("Sakkal Majalla", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button52.Font = New System.Drawing.Font("Sakkal Majalla", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button52.Location = New System.Drawing.Point(3, 3)
         Me.Button52.Name = "Button52"
-        Me.Button52.Size = New System.Drawing.Size(70, 70)
+        Me.Button52.Size = New System.Drawing.Size(60, 60)
         Me.Button52.TabIndex = 48
         Me.Button52.Text = "ض"
         Me.Button52.UseVisualStyleBackColor = True
@@ -989,7 +989,7 @@ Partial Class OnKeyBoard
         Me.AR.Controls.Add(Me.Button30)
         Me.AR.Controls.Add(Me.Button28)
         Me.AR.Controls.Add(Me.Button29)
-        Me.AR.Location = New System.Drawing.Point(0, 0)
+        Me.AR.Location = New System.Drawing.Point(5, 3)
         Me.AR.Name = "AR"
         Me.AR.Size = New System.Drawing.Size(844, 215)
         Me.AR.TabIndex = 89
@@ -997,7 +997,6 @@ Partial Class OnKeyBoard
         'EN
         '
         Me.EN.Controls.Add(Me.BRAN)
-        Me.EN.Controls.Add(Me.AR)
         Me.EN.Controls.Add(Me.W)
         Me.EN.Controls.Add(Me.Button48)
         Me.EN.Controls.Add(Me.Button23)
@@ -1030,7 +1029,7 @@ Partial Class OnKeyBoard
         Me.EN.Controls.Add(Me.V)
         Me.EN.Controls.Add(Me.N)
         Me.EN.Controls.Add(Me.B)
-        Me.EN.Location = New System.Drawing.Point(1, 2)
+        Me.EN.Location = New System.Drawing.Point(5, 278)
         Me.EN.Name = "EN"
         Me.EN.Size = New System.Drawing.Size(844, 215)
         Me.EN.TabIndex = 90
@@ -1059,8 +1058,9 @@ Partial Class OnKeyBoard
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.AR)
         Me.Name = "OnKeyBoard"
-        Me.Size = New System.Drawing.Size(1030, 279)
+        Me.Size = New System.Drawing.Size(1031, 607)
         Me.AR.ResumeLayout(False)
         Me.EN.ResumeLayout(False)
         Me.ResumeLayout(False)

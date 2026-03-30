@@ -47,7 +47,9 @@ Partial Class Items_Search
         Me.Price_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ADD_NewGM_Btn = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.OnKeyBoard1 = New resturant.OnKeyBoard()
         CType(Me.IMDataGridViewX, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblTitle
@@ -224,7 +226,7 @@ Partial Class Items_Search
         Me.IMDataGridViewX.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.IMDataGridViewX.RowTemplate.Height = 30
         Me.IMDataGridViewX.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.IMDataGridViewX.Size = New System.Drawing.Size(999, 577)
+        Me.IMDataGridViewX.Size = New System.Drawing.Size(999, 313)
         Me.IMDataGridViewX.TabIndex = 11
         '
         'IM_ID_CL
@@ -331,16 +333,27 @@ Partial Class Items_Search
         '
         'Panel1
         '
-        Me.Panel1.Location = New System.Drawing.Point(3, 647)
+        Me.Panel1.Controls.Add(Me.OnKeyBoard1)
+        Me.Panel1.Location = New System.Drawing.Point(3, 383)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(999, 10)
+        Me.Panel1.Size = New System.Drawing.Size(999, 274)
         Me.Panel1.TabIndex = 21
+        '
+        'OnKeyBoard1
+        '
+        Me.OnKeyBoard1.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.OnKeyBoard1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.OnKeyBoard1.Location = New System.Drawing.Point(0, 0)
+        Me.OnKeyBoard1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.OnKeyBoard1.Name = "OnKeyBoard1"
+        Me.OnKeyBoard1.Size = New System.Drawing.Size(999, 274)
+        Me.OnKeyBoard1.TabIndex = 0
         '
         'Items_Search
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1004, 695)
+        Me.ClientSize = New System.Drawing.Size(1003, 695)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ADD_NewGM_Btn)
@@ -366,6 +379,7 @@ Partial Class Items_Search
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "بحث عن صنف"
         CType(Me.IMDataGridViewX, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -394,6 +408,7 @@ Partial Class Items_Search
     Friend WithEvents Price_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ADD_NewGM_Btn As System.Windows.Forms.Button
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents OnKeyBoard1 As OnKeyBoard
 End Class
 '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 '<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
