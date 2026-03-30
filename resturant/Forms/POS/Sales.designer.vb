@@ -147,9 +147,6 @@ Partial Class Sales
         Me.IM_NOTE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AG_Label = New System.Windows.Forms.Label()
         Me.UN_Void_ContextMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.Rsv_Panel = New System.Windows.Forms.Panel()
-        Me.Rsv_Qty_TXT = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
         Me.Edit_butt = New System.Windows.Forms.Button()
         Me.Print_btn = New System.Windows.Forms.Button()
         Me.DeliveryingButton = New System.Windows.Forms.Button()
@@ -177,7 +174,6 @@ Partial Class Sales
         Me.Panel16.SuspendLayout()
         Me.IM_Check_Panel.SuspendLayout()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Rsv_Panel.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -509,7 +505,7 @@ Partial Class Sales
         '
         'Total_TextBox
         '
-        Me.Total_TextBox.Location = New System.Drawing.Point(20, 40)
+        Me.Total_TextBox.Location = New System.Drawing.Point(144, 21)
         Me.Total_TextBox.Name = "Total_TextBox"
         Me.Total_TextBox.Size = New System.Drawing.Size(100, 20)
         Me.Total_TextBox.TabIndex = 0
@@ -910,7 +906,7 @@ Partial Class Sales
         '
         Me.Marketer_Lb.BackColor = System.Drawing.Color.Transparent
         Me.Marketer_Lb.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Marketer_Lb.Location = New System.Drawing.Point(239, 61)
+        Me.Marketer_Lb.Location = New System.Drawing.Point(241, 47)
         Me.Marketer_Lb.Name = "Marketer_Lb"
         Me.Marketer_Lb.Size = New System.Drawing.Size(64, 21)
         Me.Marketer_Lb.TabIndex = 677
@@ -1327,43 +1323,6 @@ Partial Class Sales
         Me.UN_Void_ContextMStrip.Name = "UN_Void_ContextMStrip"
         Me.UN_Void_ContextMStrip.Size = New System.Drawing.Size(61, 4)
         '
-        'Rsv_Panel
-        '
-        Me.Rsv_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Rsv_Panel.Controls.Add(Me.Rsv_Qty_TXT)
-        Me.Rsv_Panel.Controls.Add(Me.Label20)
-        Me.Rsv_Panel.Location = New System.Drawing.Point(368, 624)
-        Me.Rsv_Panel.Name = "Rsv_Panel"
-        Me.Rsv_Panel.Size = New System.Drawing.Size(268, 36)
-        Me.Rsv_Panel.TabIndex = 705
-        Me.Rsv_Panel.Visible = False
-        '
-        'Rsv_Qty_TXT
-        '
-        Me.Rsv_Qty_TXT.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Rsv_Qty_TXT.Font = New System.Drawing.Font("Times New Roman", 14.25!)
-        Me.Rsv_Qty_TXT.ForeColor = System.Drawing.Color.Black
-        Me.Rsv_Qty_TXT.Location = New System.Drawing.Point(2, 3)
-        Me.Rsv_Qty_TXT.Name = "Rsv_Qty_TXT"
-        Me.Rsv_Qty_TXT.ReadOnly = True
-        Me.Rsv_Qty_TXT.Size = New System.Drawing.Size(123, 29)
-        Me.Rsv_Qty_TXT.TabIndex = 641
-        Me.Rsv_Qty_TXT.Text = "00"
-        Me.Rsv_Qty_TXT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label20
-        '
-        Me.Label20.BackColor = System.Drawing.Color.Transparent
-        Me.Label20.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.Label20.ForeColor = System.Drawing.Color.Black
-        Me.Label20.Location = New System.Drawing.Point(129, 7)
-        Me.Label20.Name = "Label20"
-        Me.Label20.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label20.Size = New System.Drawing.Size(116, 21)
-        Me.Label20.TabIndex = 642
-        Me.Label20.Text = "كمية محجوزة :"
-        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'Edit_butt
         '
         Me.Edit_butt.BackColor = System.Drawing.Color.White
@@ -1485,7 +1444,7 @@ Partial Class Sales
         'Markter_Cm
         '
         Me.Markter_Cm.CancelSearchImage = CType(resources.GetObject("Markter_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.Markter_Cm.Location = New System.Drawing.Point(4, 52)
+        Me.Markter_Cm.Location = New System.Drawing.Point(3, 39)
         Me.Markter_Cm.Name = "Markter_Cm"
         Me.Markter_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Markter_Cm.Size = New System.Drawing.Size(234, 34)
@@ -1538,7 +1497,6 @@ Partial Class Sales
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.Label24)
         Me.Controls.Add(Me.AG_Cm)
-        Me.Controls.Add(Me.Rsv_Panel)
         Me.Controls.Add(Me.AGMetroGrid)
         Me.Controls.Add(Me.IM_Check_Panel)
         Me.Controls.Add(Me.Label27)
@@ -1597,8 +1555,6 @@ Partial Class Sales
         Me.IM_Check_Panel.ResumeLayout(False)
         Me.IM_Check_Panel.PerformLayout()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Rsv_Panel.ResumeLayout(False)
-        Me.Rsv_Panel.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1703,9 +1659,6 @@ Partial Class Sales
     Friend WithEvents AG_Label As System.Windows.Forms.Label
     Friend WithEvents UN_Void_ContextMStrip As ContextMenuStrip
     Friend WithEvents إيجارالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Rsv_Panel As System.Windows.Forms.Panel
-    Friend WithEvents Rsv_Qty_TXT As System.Windows.Forms.TextBox
-    Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents طباعةإذنصـــرفA4ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents طباعةالتسليموالإستلامToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Bill_IMID_CL As System.Windows.Forms.DataGridViewTextBoxColumn

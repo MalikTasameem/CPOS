@@ -3,7 +3,7 @@ Imports CrystalDecisions.CrystalReports.Engine
 
 Public Class Sales : Inherits System.Windows.Forms.Form
 
-    Dim rs As New Resizer
+    'Dim rs As New Resizer
     Dim FormState As String = ""
     Dim DefaultFormState As String = ""
     Dim EditState As String = ""
@@ -275,7 +275,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
             FormType = 1
 
-            rs.FindAllControls(Me)
+            'rs.FindAllControls(Me)
             NewStateBt()
             Check_View_Control()
 
@@ -549,11 +549,11 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
         ' 2. تنظيف الواجهة
 
-        AGMetroGrid.Rows.Clear()
+        'AGMetroGrid.Rows.Clear()
 
         ' 3. جلب الرقم التسلسلي الجديد (تأكد أن الدالة جلب المعرف تعمل)
         ' عادة يتم جلب الرقم من السيرفر عند الحفظ، ولكن للعرض:
-        Bill_ID_Txt.Text = "تلقائي"
+        '  Bill_ID_Txt.Text = "تلقائي"
 
         ' 4. تحديث حالة الثيم البصرية
         UpdateFormStateIndicator("فاتورة جديدة", System.Drawing.Color.LimeGreen)
@@ -855,9 +855,9 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        rs.ResizeAllControls(Me)
-    End Sub
+    'Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+    '    rs.ResizeAllControls(Me)
+    'End Sub
 
 
     Private Sub Tr_BankNum_TextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Total_TextBox.KeyPress
