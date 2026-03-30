@@ -936,7 +936,7 @@ Partial Class MainForm
         Me.TitleBar_Panel.Controls.Add(Me.MinBtn)
         Me.TitleBar_Panel.Controls.Add(Me.MaxBtn)
         Me.TitleBar_Panel.Controls.Add(Me.CloseBtn)
-        Me.TitleBar_Panel.Cursor = System.Windows.Forms.Cursors.SizeAll
+        Me.TitleBar_Panel.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
