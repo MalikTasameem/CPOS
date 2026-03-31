@@ -216,7 +216,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         If SQL_SP_EXEC(c.Com) = True Then
             SB_Contents_SELECT_Bill()
             AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
-            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString + " السعر:" + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, _
+            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString + " السعر:" + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString,
              Bill_ID_Txt.Text, 1, 3)
         End If
     End Sub
@@ -235,7 +235,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' If St_Count() = 1 Then All_St_Panel.Visible = False
-
+        SetupAnchors()
         Try
             If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
 
@@ -269,7 +269,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             If Show_Cash_btn IsNot Nothing Then Show_Cash_btn.Tag = "GENERAL"
             If MoveToBill_Btn IsNot Nothing Then MoveToBill_Btn.Tag = "GENERAL"
 
-            ' تطبيق الثيم الإجباري باستخدام محرك الثيمات
+            '''    تطبيق الثيم الإجباري باستخدام محرك الثيمات
             ThemeManager.ApplyThemeToForm(Me)
             ModernLoader.ShowLoader()
 
@@ -333,16 +333,16 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Public Sub Check_View_Control()
-        AGMetroGrid.Columns("Date_CL").Visible = My_Settings.S_Date_CL
-        AGMetroGrid.Columns("ST_Name_CL").Visible = My_Settings.S_ST_Name_CL
-        AGMetroGrid.Columns("D_Valid_CL").Visible = My_Settings.S_D_Valid_CL
-        AGMetroGrid.Columns("IMUnit_CL").Visible = My_Settings.S_IMUnit_CL
-        AGMetroGrid.Columns("Price_CL").Visible = My_Settings.S_Price_CL
-        AGMetroGrid.Columns("Total_CL").Visible = My_Settings.S_Total_CL
-        AGMetroGrid.Columns("Notes_CL").Visible = My_Settings.SP_Notes_CL
-        AGMetroGrid.Columns("IMNUM_CL").Visible = My_Settings.S_IMNUM_CL
-        AGMetroGrid.Columns("Barcode_CL").Visible = My_Settings.S_Barcode_CL
-        AGMetroGrid.Columns("Serial_Code_CL").Visible = My_Settings.S_Serial_Code_CL
+        AGMetroGrid.Columns("Date_CL").Visible = MY_Settings.S_Date_CL
+        AGMetroGrid.Columns("ST_Name_CL").Visible = MY_Settings.S_ST_Name_CL
+        AGMetroGrid.Columns("D_Valid_CL").Visible = MY_Settings.S_D_Valid_CL
+        AGMetroGrid.Columns("IMUnit_CL").Visible = MY_Settings.S_IMUnit_CL
+        AGMetroGrid.Columns("Price_CL").Visible = MY_Settings.S_Price_CL
+        AGMetroGrid.Columns("Total_CL").Visible = MY_Settings.S_Total_CL
+        AGMetroGrid.Columns("Notes_CL").Visible = MY_Settings.SP_Notes_CL
+        AGMetroGrid.Columns("IMNUM_CL").Visible = MY_Settings.S_IMNUM_CL
+        AGMetroGrid.Columns("Barcode_CL").Visible = MY_Settings.S_Barcode_CL
+        AGMetroGrid.Columns("Serial_Code_CL").Visible = MY_Settings.S_Serial_Code_CL
         AGMetroGrid.Columns("IM_NOTE_CL").Visible = MY_Settings.S_IM_NOTE_CL
         AGMetroGrid.Columns("IM_Discount_CL").Visible = MY_Settings.S_IM_Discount_CL
 
@@ -692,7 +692,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Pied_T_ID = 0
         Notes_txt.Clear()
         ' PriceTextBox.Clear()
-        Total_TextBox.Clear()
+        Total_TextBox1.Clear()
         Receipts_DT.Clear()
         DateTimeEx.Text = Date.Now
         VoidLb.Visible = False
@@ -860,7 +860,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     'End Sub
 
 
-    Private Sub Tr_BankNum_TextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Total_TextBox.KeyPress
+    Private Sub Tr_BankNum_TextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Total_TextBox1.KeyPress
         Check_Only_Int(sender, e)
     End Sub
 
@@ -877,7 +877,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             If AGMetroGrid.Rows(i).Cells("Check_CL").Value = True Then TOTAL_Check += AGMetroGrid.Rows(i).Cells("Total_CL").Value
         Next
 
-        Total_TextBox.Text = TOTAL.ToString(N_Point_Fter)
+        Total_TextBox1.Text = TOTAL.ToString(N_Point_Fter)
 
         If Discount_Distribute = False Then
             Pure = (TOTAL - Disc)
@@ -2796,7 +2796,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Show_AG_IM_SALES.ShowDialog()
     End Sub
 
-    Private Sub VoidLb_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles VoidLb.MouseDoubleClick
+    Private Sub VoidLb_MouseDoubleClick(sender As Object, e As MouseEventArgs)
 
         If U_SalesVoid = True Then
 
@@ -2923,5 +2923,61 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
+    Private Sub SetupAnchors()
+        ' 1. إيقاف التحجيم التلقائي وتفعيل الرسم المزدوج لمنع الوميض
+        Me.AutoScaleMode = AutoScaleMode.None
+        Me.DoubleBuffered = True
 
+        ' ==========================================
+        ' 🌟 2. الجريد الرئيسي والملاحظات (تمدد ديناميكي)
+        ' ==========================================
+        If AGMetroGrid IsNot Nothing Then AGMetroGrid.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        If Notes_txt IsNot Nothing Then Notes_txt.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        If Label27 IsNot Nothing Then Label27.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right ' كلمة "ملاحظة :"
+
+        ' ==========================================
+        ' 🌟 3. الأجزاء السفلية (الإجماليات، الخصم، الدفع، الإيصالات)
+        ' ==========================================
+        ' جهة اليسار (الإجماليات والخصم)
+        If DiscountPanel IsNot Nothing Then DiscountPanel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        If Panel16 IsNot Nothing Then Panel16.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left ' خيارات العرض (مدفوع، باقي، ديون)
+
+        ' جهة اليمين (الدفع، الإيصالات، والأزرار السفلية)
+        If ReceiptsMetroGrid IsNot Nothing Then ReceiptsMetroGrid.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        If Panel13 IsNot Nothing Then Panel13.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right ' المدفوع
+        If Show_Cash_btn IsNot Nothing Then Show_Cash_btn.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        If OpenCahDR_Btn IsNot Nothing Then OpenCahDR_Btn.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        If DeliveryingButton IsNot Nothing Then DeliveryingButton.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+
+        ' شريط المعلومات السفلي (اسم المستخدم، عدد الأصناف، الخ)
+        If User_Name_lb IsNot Nothing Then User_Name_lb.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        If IM_Count_LB IsNot Nothing Then IM_Count_LB.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        If IM_Qty_LB IsNot Nothing Then IM_Qty_LB.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        If Label16 IsNot Nothing Then Label16.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+
+        ' ==========================================
+        ' 🌟 4. الأجزاء العلوية (أزرار التحكم، بيانات الفاتورة والعميل)
+        ' ==========================================
+        ' شريط الأزرار الأساسي (حفظ، طباعة، إلغاء، جديد) - يتمدد بالعرض أو يبقى أعلى يسار
+        If Panel1 IsNot Nothing Then Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+
+        ' بيانات العميل والفاتورة (أعلى اليمين)
+        If BillNumPanel IsNot Nothing Then BillNumPanel.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If Panel10 IsNot Nothing Then Panel10.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' التاريخ والرقم اليومي
+        If Panel2 IsNot Nothing Then Panel2.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' الزبون 2 والمشروع
+        If Panel14 IsNot Nothing Then Panel14.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' الفواتير المعلقة
+        If AG_Cm IsNot Nothing Then AG_Cm.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' كومبو بوكس الزبون
+        If AG_Label IsNot Nothing Then AG_Label.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' رصيد الحساب
+        If Label24 IsNot Nothing Then Label24.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' كلمة "الزبون :"
+
+        ' أزرار التحكم بالجريد (يمين الجريد)
+        If DGV_Control_btn IsNot Nothing Then DGV_Control_btn.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If ADDCatButton IsNot Nothing Then ADDCatButton.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If RemoveCatButton IsNot Nothing Then RemoveCatButton.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+
+        ' بيانات إضافية (أعلى اليسار)
+        If IM_Check_Panel IsNot Nothing Then IM_Check_Panel.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        If Markter_Cm IsNot Nothing Then Markter_Cm.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        If Marketer_Lb IsNot Nothing Then Marketer_Lb.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+    End Sub
 End Class

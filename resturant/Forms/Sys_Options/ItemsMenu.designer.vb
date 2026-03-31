@@ -96,7 +96,7 @@ Partial Class ItemsMenu
         Me.GM_Serach = New System.Windows.Forms.ComboBox()
         Me.Price_txt = New System.Windows.Forms.TextBox()
         Me.IM_Unit_cm = New System.Windows.Forms.ComboBox()
-        Me.IMDataGridViewX = New DataGridView
+        Me.IMDataGridViewX = New System.Windows.Forms.DataGridView()
         Me.IM_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.item_name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.isValid_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
