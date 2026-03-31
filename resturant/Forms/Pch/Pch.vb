@@ -91,6 +91,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Me.Dispose()
         FormType = 0
     End Sub
+
     ' =========================================================
     ' 🌟 دالة التحكم في مؤشر حالة الفاتورة البصري (مع الوميض)
     ' =========================================================
@@ -121,6 +122,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            SetupAnchors()
             ModernLoader.ShowLoader()
             ' =========================================================
             ' 🌟 تعيين التاجات يدوياً للثيمات (يُمنع استخدام For Each نهائياً)
@@ -128,7 +130,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
             If Title_Label IsNot Nothing Then Title_Label.Tag = "TITLE_TRANSPARENT"
             If ExitFormButton IsNot Nothing Then ExitFormButton.Tag = "DELETE"
-            If MaxFormButton IsNot Nothing Then MaxFormButton.Tag = "GENERAL"
+            If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Tag = "DELETE"
+            If MaxFormButton IsNot Nothing Then MaxFormButton.Tag = "GENERAL" If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Tag = "DELETE"
 
             If New_butt IsNot Nothing Then New_butt.Tag = "GENERAL"
             If Save_butt IsNot Nothing Then Save_butt.Tag = "SAVE"
@@ -161,7 +164,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             FormType = 2
             Check_View_Control()
             Pch_Exp_Panel.Visible = S_Exp_Pch
-            rs.FindAllControls(Me)
+            '    rs.FindAllControls(Me)
             Me.WindowState = FormWindowState.Maximized
 
             EditState = Edit_butt.Text
@@ -204,6 +207,74 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Else
             Me.WindowState = FormWindowState.Maximized
             MaxFormButton.Text = "🗗"
+        End If
+    End Sub
+    Private Sub SetupAnchors()
+        ' إيقاف التحجيم التلقائي وتفعيل الرسم المزدوج لمنع الوميض
+        Me.AutoScaleMode = AutoScaleMode.None
+        Me.DoubleBuffered = True
+
+        ' ==========================================
+        ' 🌟 1. الجريد الرئيسي والملاحظات (تمدد ديناميكي)
+        ' ==========================================
+        If AGMetroGrid IsNot Nothing Then AGMetroGrid.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        If Notes_txt IsNot Nothing Then Notes_txt.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        If Label8 IsNot Nothing Then Label8.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right ' كلمة "ملاحظة :"
+
+        ' ==========================================
+        ' 🌟 2. الأجزاء السفلية (الإجماليات والخصم)
+        ' ==========================================
+        ' Panel3 في المشتريات واخذه Dock = Bottom من الديزاينر وأمورها طيبة، 
+        ' ومحتوياتها (Panel4, DiscountPanel, Panel5) تترتب تلقائياً بالدوك، فما فيش داعي نلعبوا بيهم بالـ Anchor!
+
+        ' ==========================================
+        ' 🌟 3. الأجزاء العلوية (أزرار التحكم، بيانات الفاتورة والمورد)
+        ' ==========================================
+        ' شريط الأزرار الأساسي (حفظ، طباعة، إلغاء، جديد) 
+        '   If Panel1 IsNot Nothing Then Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+
+        ' بيانات الفاتورة (أعلى اليمين)
+        If BillNumPanel IsNot Nothing Then BillNumPanel.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If Panel3 IsNot Nothing Then Panel3.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' التاريخ والرقم اليومي
+        If Panel2 IsNot Nothing Then Panel2.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If AG_Panel IsNot Nothing Then AG_Panel.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If Panel1 IsNot Nothing Then Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If BillNumPanel IsNot Nothing Then BillNumPanel.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' الفواتير المعلقة
+
+        ' بيانات المورد ورصيد الحساب (هذي اللي صايرة فيها السلاطة في الصورة)
+        If AG_SH_txt IsNot Nothing Then AG_SH_txt.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' كومبو المورد الفعلي
+        If Label25 IsNot Nothing Then Label25.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' رصيد الحساب
+        If Label24 IsNot Nothing Then Label24.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' كلمة "المورد :"
+
+        ' أزرار التحكم بالجريد (يمين الجريد)
+        If DGV_Control_btn IsNot Nothing Then DGV_Control_btn.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If ADDCatButton IsNot Nothing Then ADDCatButton.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If RemoveCatButton IsNot Nothing Then RemoveCatButton.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+
+        ' بيانات إضافية (أعلى اليسار)
+        '  If Panel1 IsNot Nothing Then Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        ' If Panel4 IsNot Nothing Then Panel4.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        If Label1 IsNot Nothing Then Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+    End Sub
+    Public Sub UpdatePchStatusUI()
+        If lblFormState Is Nothing Then Exit Sub
+
+        If isVoid Then
+            ' حالة الإلغاء
+            lblFormState.Text = "فاتورة ملغيــــة"
+            lblFormState.BackColor = Color.FromArgb(231, 76, 60) ' أحمر
+            lblFormState.ForeColor = Color.White
+        ElseIf isDepended Then
+            ' حالة الإعتماد
+            lblFormState.Text = "فاتورة معتمـــدة"
+            lblFormState.BackColor = Color.FromArgb(46, 204, 113) ' أخضر
+            lblFormState.ForeColor = Color.White
+        Else
+            ' حالة فاتورة جديدة أو قيد التحرير
+            lblFormState.Text = "فاتورة جديــــدة"
+            lblFormState.BackColor = Color.FromArgb(52, 152, 219) ' أزرق
+            lblFormState.ForeColor = Color.White
         End If
     End Sub
 
@@ -368,6 +439,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Public Sub SelectStateBt()
         If isVoid = True Then
             DeletedBillLabel.Visible = True
+            DeletedBillLabel.BackColor = Color.Red
             Print_btn.Enabled = False
             Disable_Fields()
             Save_butt.Enabled = False
@@ -380,7 +452,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             DiscountPanel.Enabled = False
             DeliveryingButton.Enabled = False
             Aggregate_Btn.Enabled = False
-            UpdateFormStateIndicator("فاتورة ملغاة", Color.Crimson)
+            UpdateFormStateIndicator("فاتورة ملغاة", Color.Red)
         Else
             If isDepended = False Then
                 Save_butt.Enabled = True
@@ -401,7 +473,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Delete_butt.Enabled = True
             DeliveryingButton.Enabled = True
             Aggregate_Btn.Enabled = False
-            UpdateFormStateIndicator("مُرحّلة / معتمدة", Color.BlueViolet)
+            UpdateFormStateIndicator("مُرحّلة / معتمدة", Color.LimeGreen)
         End If
         Me.Text = "فاتورة مشتريات "
     End Sub
@@ -434,7 +506,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
         If On_Update = True Then Edit_butt_Click(sender, e)
         Call_New_Bill()
-        UpdateFormStateIndicator("فاتورة جديدة", Color.LimeGreen)
+        UpdateFormStateIndicator("فاتورة جديدة", Color.Honeydew)
     End Sub
 
     Private Sub Call_New_Bill()
@@ -977,6 +1049,24 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Change_IM_Details.ShowDialog()
         End If
     End Sub
+    Private Sub AGMetroGrid_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles AGMetroGrid.CellMouseDoubleClick
+        ' التأكد من الضغط على صف حقيقي وليس الهيدر
+        If e.RowIndex >= 0 Then
+            ' إذا كانت الفاتورة معتمدة أو ملغية، نمنع التعديل المباشر
+            If isDepended Or isVoid Then
+                Beep()
+                Exit Sub
+            End If
+
+            Try
+                ' جلب بيانات الصنف (تأكد أن أسماء الأعمدة مطابقة للديزاينر عندك)
+                Change_IM_Details.ShowDialog()
+
+            Catch ex As Exception
+                MsgBox("خطأ في جلب بيانات الصنف: " & ex.Message)
+            End Try
+        End If
+    End Sub
 
     Dim Tmp_Bill_ID As Integer
     Private Sub Down_Bill_btn_Click(sender As Object, e As EventArgs) Handles Down_Bill_btn.Click
@@ -1281,6 +1371,12 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             End If
         End If
     End Sub
+
+    Private Sub DeletedBillLabel_Click(sender As Object, e As EventArgs) Handles DeletedBillLabel.Click
+
+    End Sub
+
+
 
     Private Sub تخفيضبنسبةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles تخفيضبنسبةToolStripMenuItem.Click
         Dim F_Percent_Disc As New Percent_Disc

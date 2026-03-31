@@ -53,10 +53,12 @@ Partial Class Sales
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Total_TextBox1 = New System.Windows.Forms.TextBox()
         Me.Pure_txt = New System.Windows.Forms.TextBox()
         Me.Discount_txt1 = New System.Windows.Forms.TextBox()
+        Me.IM_Qty_LB = New System.Windows.Forms.Label()
         Me.Calc_Dicount_Btn = New System.Windows.Forms.Button()
         Me.Show_IM_Rtn_btn = New System.Windows.Forms.Button()
         Me.Rtn_Count_txt = New System.Windows.Forms.TextBox()
@@ -79,7 +81,6 @@ Partial Class Sales
         Me.DateTimeEx = New System.Windows.Forms.DateTimePicker()
         Me.IM_Show_CxtMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.IM_Qty_LB = New System.Windows.Forms.Label()
         Me.BillNumTxt = New System.Windows.Forms.TextBox()
         Me.Print_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -117,7 +118,6 @@ Partial Class Sales
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.VoidLb = New System.Windows.Forms.Label()
-        Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Show_Bill_CB = New System.Windows.Forms.CheckBox()
@@ -160,6 +160,7 @@ Partial Class Sales
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.DeletedBillLabel = New System.Windows.Forms.Label()
         Me.Markter_Cm = New resturant.FSearch_Filter()
         Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
@@ -196,7 +197,7 @@ Partial Class Sales
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitleBar_Panel.Location = New System.Drawing.Point(1, 1)
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
-        Me.TitleBar_Panel.Size = New System.Drawing.Size(1167, 35)
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(1167, 37)
         Me.TitleBar_Panel.TabIndex = 0
         '
         'lblFormState
@@ -205,12 +206,13 @@ Partial Class Sales
         Me.lblFormState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.lblFormState.Location = New System.Drawing.Point(84, 0)
         Me.lblFormState.Name = "lblFormState"
-        Me.lblFormState.Size = New System.Drawing.Size(491, 35)
+        Me.lblFormState.Size = New System.Drawing.Size(424, 37)
         Me.lblFormState.TabIndex = 691
         Me.lblFormState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Title_Label
         '
+        Me.Title_Label.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Title_Label.AutoSize = True
         Me.Title_Label.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Title_Label.ForeColor = System.Drawing.Color.White
@@ -230,7 +232,7 @@ Partial Class Sales
         Me.MaxFormButton.ForeColor = System.Drawing.Color.White
         Me.MaxFormButton.Location = New System.Drawing.Point(42, 0)
         Me.MaxFormButton.Name = "MaxFormButton"
-        Me.MaxFormButton.Size = New System.Drawing.Size(42, 35)
+        Me.MaxFormButton.Size = New System.Drawing.Size(42, 37)
         Me.MaxFormButton.TabIndex = 2
         Me.MaxFormButton.Text = "⬜"
         Me.MaxFormButton.UseVisualStyleBackColor = True
@@ -246,9 +248,9 @@ Partial Class Sales
         Me.ExitFormButton.ForeColor = System.Drawing.Color.White
         Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(42, 35)
+        Me.ExitFormButton.Size = New System.Drawing.Size(42, 37)
         Me.ExitFormButton.TabIndex = 0
-        Me.ExitFormButton.Text = "❌"
+        Me.ExitFormButton.Text = "X"
         Me.ExitFormButton.UseVisualStyleBackColor = True
         '
         'MetroToolTip1
@@ -448,10 +450,12 @@ Partial Class Sales
         Me.DiscountPanel.BackColor = System.Drawing.Color.CornflowerBlue
         Me.DiscountPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.DiscountPanel.Controls.Add(Me.Label3)
+        Me.DiscountPanel.Controls.Add(Me.IM_Count_LB)
         Me.DiscountPanel.Controls.Add(Me.Label2)
         Me.DiscountPanel.Controls.Add(Me.Total_TextBox1)
         Me.DiscountPanel.Controls.Add(Me.Pure_txt)
         Me.DiscountPanel.Controls.Add(Me.Discount_txt1)
+        Me.DiscountPanel.Controls.Add(Me.IM_Qty_LB)
         Me.DiscountPanel.Controls.Add(Me.Calc_Dicount_Btn)
         Me.DiscountPanel.Controls.Add(Me.Show_IM_Rtn_btn)
         Me.DiscountPanel.Controls.Add(Me.Rtn_Count_txt)
@@ -471,6 +475,15 @@ Partial Class Sales
         Me.Label3.TabIndex = 724
         Me.Label3.Text = "الصافي"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'IM_Count_LB
+        '
+        Me.IM_Count_LB.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.IM_Count_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Count_LB.Location = New System.Drawing.Point(1, 142)
+        Me.IM_Count_LB.Name = "IM_Count_LB"
+        Me.IM_Count_LB.Size = New System.Drawing.Size(166, 23)
+        Me.IM_Count_LB.TabIndex = 716
         '
         'Label2
         '
@@ -507,21 +520,30 @@ Partial Class Sales
         Me.Discount_txt1.Size = New System.Drawing.Size(229, 29)
         Me.Discount_txt1.TabIndex = 722
         '
+        'IM_Qty_LB
+        '
+        Me.IM_Qty_LB.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.IM_Qty_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Qty_LB.Location = New System.Drawing.Point(180, 142)
+        Me.IM_Qty_LB.Name = "IM_Qty_LB"
+        Me.IM_Qty_LB.Size = New System.Drawing.Size(151, 23)
+        Me.IM_Qty_LB.TabIndex = 715
+        '
         'Calc_Dicount_Btn
         '
         Me.Calc_Dicount_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(239, 37)
+        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(235, 37)
         Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
-        Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(96, 30)
+        Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(104, 30)
         Me.Calc_Dicount_Btn.TabIndex = 0
         Me.Calc_Dicount_Btn.Text = "التخفيض"
         '
         'Show_IM_Rtn_btn
         '
         Me.Show_IM_Rtn_btn.Font = New System.Drawing.Font("Segoe UI", 7.75!)
-        Me.Show_IM_Rtn_btn.Location = New System.Drawing.Point(239, 108)
+        Me.Show_IM_Rtn_btn.Location = New System.Drawing.Point(235, 108)
         Me.Show_IM_Rtn_btn.Name = "Show_IM_Rtn_btn"
-        Me.Show_IM_Rtn_btn.Size = New System.Drawing.Size(91, 29)
+        Me.Show_IM_Rtn_btn.Size = New System.Drawing.Size(104, 29)
         Me.Show_IM_Rtn_btn.TabIndex = 712
         Me.Show_IM_Rtn_btn.Text = "عرض المرتجعات"
         '
@@ -675,15 +697,6 @@ Partial Class Sales
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(194, 22)
         Me.ToolStripMenuItem1.Text = "عرض تفاصيل الصنف"
-        '
-        'IM_Qty_LB
-        '
-        Me.IM_Qty_LB.BackColor = System.Drawing.SystemColors.ButtonShadow
-        Me.IM_Qty_LB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.IM_Qty_LB.Location = New System.Drawing.Point(1, 130)
-        Me.IM_Qty_LB.Name = "IM_Qty_LB"
-        Me.IM_Qty_LB.Size = New System.Drawing.Size(151, 23)
-        Me.IM_Qty_LB.TabIndex = 715
         '
         'BillNumTxt
         '
@@ -1045,7 +1058,6 @@ Partial Class Sales
         'Panel6
         '
         Me.Panel6.Controls.Add(Me.VoidLb)
-        Me.Panel6.Controls.Add(Me.IM_Count_LB)
         Me.Panel6.Controls.Add(Me.Label16)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel6.Location = New System.Drawing.Point(0, 81)
@@ -1064,20 +1076,11 @@ Partial Class Sales
         Me.VoidLb.Text = "الإجمالي"
         Me.VoidLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'IM_Count_LB
-        '
-        Me.IM_Count_LB.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.IM_Count_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.IM_Count_LB.Location = New System.Drawing.Point(51, 26)
-        Me.IM_Count_LB.Name = "IM_Count_LB"
-        Me.IM_Count_LB.Size = New System.Drawing.Size(166, 23)
-        Me.IM_Count_LB.TabIndex = 716
-        '
         'Label16
         '
         Me.Label16.BackColor = System.Drawing.SystemColors.ButtonShadow
         Me.Label16.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label16.Location = New System.Drawing.Point(51, 55)
+        Me.Label16.Location = New System.Drawing.Point(51, 54)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(166, 23)
         Me.Label16.TabIndex = 722
@@ -1139,7 +1142,7 @@ Partial Class Sales
         Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label27.Location = New System.Drawing.Point(1094, 554)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(56, 21)
+        Me.Label27.Size = New System.Drawing.Size(68, 21)
         Me.Label27.TabIndex = 695
         Me.Label27.Text = "ملاحظة :"
         Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1521,7 +1524,6 @@ Partial Class Sales
         Me.Panel4.Controls.Add(Me.Show_Cash_btn)
         Me.Panel4.Controls.Add(Me.User_Name_lb)
         Me.Panel4.Controls.Add(Me.OpenCahDR_Btn)
-        Me.Panel4.Controls.Add(Me.IM_Qty_LB)
         Me.Panel4.Controls.Add(Me.DeliveryingButton)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel4.Location = New System.Drawing.Point(842, 0)
@@ -1540,6 +1542,21 @@ Partial Class Sales
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(1167, 171)
         Me.Panel3.TabIndex = 726
+        '
+        'DeletedBillLabel
+        '
+        Me.DeletedBillLabel.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.DeletedBillLabel.BackColor = System.Drawing.Color.IndianRed
+        Me.DeletedBillLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DeletedBillLabel.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DeletedBillLabel.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.DeletedBillLabel.Location = New System.Drawing.Point(4, 83)
+        Me.DeletedBillLabel.Name = "DeletedBillLabel"
+        Me.DeletedBillLabel.Size = New System.Drawing.Size(233, 33)
+        Me.DeletedBillLabel.TabIndex = 727
+        Me.DeletedBillLabel.Text = "فاتورة ملغية"
+        Me.DeletedBillLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.DeletedBillLabel.Visible = False
         '
         'Markter_Cm
         '
@@ -1589,6 +1606,8 @@ Partial Class Sales
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1169, 758)
+        Me.Controls.Add(Me.AGMetroGrid)
+        Me.Controls.Add(Me.DeletedBillLabel)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Marketer_Lb)
         Me.Controls.Add(Me.Markter_Cm)
@@ -1596,7 +1615,6 @@ Partial Class Sales
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.Label24)
         Me.Controls.Add(Me.AG_Cm)
-        Me.Controls.Add(Me.AGMetroGrid)
         Me.Controls.Add(Me.IM_Check_Panel)
         Me.Controls.Add(Me.Label27)
         Me.Controls.Add(Me.Panel14)
@@ -1787,4 +1805,5 @@ Partial Class Sales
     Friend WithEvents IM_Count_LB As Label
     Friend WithEvents Label16 As Label
     Friend WithEvents Panel3 As Panel
+    Friend WithEvents DeletedBillLabel As Label
 End Class
