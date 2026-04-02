@@ -131,7 +131,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             If Title_Label IsNot Nothing Then Title_Label.Tag = "TITLE_TRANSPARENT"
             If ExitFormButton IsNot Nothing Then ExitFormButton.Tag = "DELETE"
             If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Tag = "DELETE"
-            If MaxFormButton IsNot Nothing Then MaxFormButton.Tag = "GENERAL" If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Tag = "DELETE"
+            If MaxFormButton IsNot Nothing Then MaxFormButton.Tag = "GENERAL"
+            If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Tag = "DELETE"
 
             If New_butt IsNot Nothing Then New_butt.Tag = "GENERAL"
             If Save_butt IsNot Nothing Then Save_butt.Tag = "SAVE"
@@ -1370,10 +1371,6 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 Get_T_ID()
             End If
         End If
-    End Sub
-
-    Private Sub DeletedBillLabel_Click(sender As Object, e As EventArgs) Handles DeletedBillLabel.Click
-
     End Sub
 
 

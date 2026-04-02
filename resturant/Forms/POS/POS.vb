@@ -67,6 +67,8 @@ Public Class POS
     Public DISCOUNT As Double = 0
     Public PURE As Double = 0
     Public PIED_OK As Boolean = False
+    Public isVoidBill As Boolean = False
+
     'Public Pay_ID As Integer = 1
 
     Private Sub SB_Delete_Last_Bill()
@@ -132,11 +134,30 @@ Public Class POS
 
     End Sub
 
+    'Private Sub Add()
+    '    If MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
+    '        If MetroGrid.Rows.Count > 0 Then
+    '            Dim Def As Integer = 1
+
+    '            If IM_min_QTY = False Then
+    '                If IM_Check_Neg_QTY_2() = 1 Then
+    '                    MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Exclamation, "")
+    '                    Exit Sub
+    '                Else
+    '                    Change_IM_Qty(Def)
+    '                End If
+    '            Else
+    '                Change_IM_Qty(Def)
+    '            End If
+    '        End If
+    '    End If
+    '    Barcode_txt.Clear()
+    'End Sub
     Private Sub Add()
-        If MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
+        ' تم استبدال فحص اللون بفحص حالة الاعتماد والإلغاء
+        If isDepended = 0 AndAlso isVoidBill = False Then
             If MetroGrid.Rows.Count > 0 Then
                 Dim Def As Integer = 1
-
                 If IM_min_QTY = False Then
                     If IM_Check_Neg_QTY_2() = 1 Then
                         MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Exclamation, "")
@@ -152,8 +173,20 @@ Public Class POS
         Barcode_txt.Clear()
     End Sub
 
+    'Private Sub Subtrac()
+    '    If MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
+    '        If MetroGrid.Rows.Count > 0 Then
+    '            If MetroGrid.CurrentRow.Cells("QTY_CL").Value > 1 Then
+    '                Dim Def As Integer = -1
+    '                Change_IM_Qty(Def)
+    '            End If
+    '        End If
+    '    End If
+    '    Barcode_txt.Clear()
+    'End Sub
     Private Sub Subtrac()
-        If MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
+        ' تم استبدال فحص اللون بفحص حالة الاعتماد والإلغاء
+        If isDepended = 0 AndAlso isVoidBill = False Then
             If MetroGrid.Rows.Count > 0 Then
                 If MetroGrid.CurrentRow.Cells("QTY_CL").Value > 1 Then
                     Dim Def As Integer = -1
@@ -163,8 +196,53 @@ Public Class POS
         End If
         Barcode_txt.Clear()
     End Sub
+    Private Sub Setup_UI_Tags_And_Borders()
+        ' --- 1. إبراز حدود البانلات (لإظهار الفواصل والظلال) ---
+        IMPanel.BorderStyle = BorderStyle.FixedSingle
+        SMPanel.BorderStyle = BorderStyle.FixedSingle
+        Panel2.BorderStyle = BorderStyle.FixedSingle
 
+        ' --- 2. إسناد التاقات (Tags) للأزرار المخصصة حسب طلبك ---
+        PrintBillButton.Tag = "PRINT"
+        SaveButton.Tag = "SAVE"
+        DeleteIMButton.Tag = "DELETE"
+        ExitButton.Tag = "CLOSE"
+
+        IMIncreaseButton.Tag = "GENERAL"
+        IMDicreaseButton.Tag = "GENERAL"
+        Compont_Btn.Tag = "GENERAL"
+
+        ' --- 3. لفة سريعة لإعطاء التاج (GENERAL) لكل الأزرار المتبقية ---
+        For Each ctrl As Control In GetAllControls(Me)
+            If TypeOf ctrl Is Button Then
+                Dim btn As Button = DirectCast(ctrl, Button)
+                ' نستثني أزرار شريط العنوان (عشان ما يتلونوش باللون العادي)
+                If btn.Name <> "ExitFormButton" AndAlso btn.Name <> "MaxFormButton" AndAlso btn.Name <> "MinFormButton" Then
+                    ' إذا كان الزر ما عنداش تاج مسبق (من اللي حددناهم فوق)، نعطيه GENERAL
+                    If btn.Tag Is Nothing OrElse btn.Tag.ToString() = "" Then
+                        btn.Tag = "GENERAL"
+                    End If
+                End If
+            End If
+        Next
+    End Sub
+
+    ' دالة مساعدة ضرورية للمرور على كل الأدوات حتى لو كانت مخفية داخل بانلات
+    Private Function GetAllControls(container As Control) As IEnumerable(Of Control)
+        Dim controls As New List(Of Control)
+        For Each ctrl As Control In container.Controls
+            controls.Add(ctrl)
+            controls.AddRange(GetAllControls(ctrl))
+        Next
+        Return controls
+    End Function
     Public Sub Sales_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            Setup_UI_Tags_And_Borders()
+            ThemeManager.ApplyThemeToForm(Me)
+        Catch ex As Exception
+        End Try
+
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         FormType = 1
         Load_ST()
@@ -384,14 +462,29 @@ Public Class POS
             AddHandler SMbtn.Click, AddressOf SMbtn_Click
             SMbtn.BackColor = Color.White
 
+            'If IsDBNull(row("BK_R")) Then
+            '    SMbtn.BackColor = System.Drawing.SystemColors.Info
+            'Else
+            '    SMbtn.BackColor = Color.FromArgb(Convert.ToInt32(row("BK_R")), Convert.ToInt32(row("BK_G")), Convert.ToInt32(row("BK_B")))
+            'End If
+
+            'If IsDBNull(row("FK_R")) = False Then
+            '    SMbtn.ForeColor = Color.FromArgb(Convert.ToInt32(row("FK_R")), Convert.ToInt32(row("FK_G")), Convert.ToInt32(row("FK_B")))
+            'End If
+            ' ==========================================
+            ' 🌟 السحر هنا: قراءة لون الثيم بدل SystemColors.Info
+            ' ==========================================
             If IsDBNull(row("BK_R")) Then
-                SMbtn.BackColor = System.Drawing.SystemColors.Info
+                SMbtn.BackColor = ThemeManager.POSCatBack
+                SMbtn.ForeColor = ThemeManager.POSCatFore
             Else
                 SMbtn.BackColor = Color.FromArgb(Convert.ToInt32(row("BK_R")), Convert.ToInt32(row("BK_G")), Convert.ToInt32(row("BK_B")))
-            End If
-
-            If IsDBNull(row("FK_R")) = False Then
-                SMbtn.ForeColor = Color.FromArgb(Convert.ToInt32(row("FK_R")), Convert.ToInt32(row("FK_G")), Convert.ToInt32(row("FK_B")))
+                ' إذا كان لون الخط غير محدد، نعطيه لون متناسق مع الخلفية
+                If IsDBNull(row("FK_R")) = False Then
+                    SMbtn.ForeColor = Color.FromArgb(Convert.ToInt32(row("FK_R")), Convert.ToInt32(row("FK_G")), Convert.ToInt32(row("FK_B")))
+                Else
+                    SMbtn.ForeColor = ThemeManager.GetContrastColor(SMbtn.BackColor)
+                End If
             End If
 
             y += (SMPanel.Size.Height / 10)
@@ -709,36 +802,68 @@ Public Class POS
                 Controls.Add(IMbtn)
                 IMbtn.Parent = IMPanel
                 AddHandler IMbtn.Click, AddressOf IMbtn_Click
+                'If IsDBNull(row("photo")) = False Then
+                '    IMbtn.BackColor = System.Drawing.SystemColors.Info
+                '    FontSize = ((w + h) / 180) + 1.5
+                '    IMbtn.Font = New System.Drawing.Font("JF Flat", FontSize, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CType(0, Byte))
+                '    Data = DirectCast(row("photo"), Byte())
+                '    Dim MS As New MemoryStream(Data)
+
+                '    Dim ImageH As Integer = (IMbtn.Size.Height / 2)
+                '    Dim ImageW As Integer = IMbtn.Size.Width
+                '    IMbtn.Image = ResizeImage(Image.FromStream(MS), ImageH, ImageW)
+                '    IMbtn.TextAlign = ContentAlignment.BottomCenter
+                '    IMbtn.ImageAlign = ContentAlignment.BottomCenter
+
+                '    '  IMbtn.ItemImage = ResizeImage(Image.FromStream(MS), ImageH, ImageW)
+
+                'Else
+                '    IMbtn.Image = Nothing
+                '    IMbtn.TextAlign = ContentAlignment.MiddleCenter
+
+                '    ' IMbtn.ItemImage = Nothing
+                'End If
+
+                'If IsDBNull(row("BK_R")) Then
+                '    IMbtn.BackColor = System.Drawing.SystemColors.Info
+                'Else
+                '    IMbtn.BackColor = Color.FromArgb(Convert.ToInt32(row("BK_R")), Convert.ToInt32(row("BK_G")), Convert.ToInt32(row("BK_B")))
+                'End If
+
+                'If IsDBNull(row("FK_R")) = False Then
+                '    IMbtn.ForeColor = Color.FromArgb(Convert.ToInt32(row("FK_R")), Convert.ToInt32(row("FK_G")), Convert.ToInt32(row("FK_B")))
+                'End If
+
+                ' ==========================================
+                ' 🌟 ألوان الثيم للأصناف
+                ' ==========================================
                 If IsDBNull(row("photo")) = False Then
-                    IMbtn.BackColor = System.Drawing.SystemColors.Info
+                    IMbtn.BackColor = ThemeManager.POSItemBack ' <--- بدلنا لون Info
                     FontSize = ((w + h) / 180) + 1.5
                     IMbtn.Font = New System.Drawing.Font("JF Flat", FontSize, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CType(0, Byte))
                     Data = DirectCast(row("photo"), Byte())
                     Dim MS As New MemoryStream(Data)
-
                     Dim ImageH As Integer = (IMbtn.Size.Height / 2)
                     Dim ImageW As Integer = IMbtn.Size.Width
                     IMbtn.Image = ResizeImage(Image.FromStream(MS), ImageH, ImageW)
                     IMbtn.TextAlign = ContentAlignment.BottomCenter
                     IMbtn.ImageAlign = ContentAlignment.BottomCenter
-
-                    '  IMbtn.ItemImage = ResizeImage(Image.FromStream(MS), ImageH, ImageW)
-
                 Else
                     IMbtn.Image = Nothing
                     IMbtn.TextAlign = ContentAlignment.MiddleCenter
-
-                    ' IMbtn.ItemImage = Nothing
                 End If
 
+                ' تلوين الزر بناءً على الداتا بيز أو الثيم
                 If IsDBNull(row("BK_R")) Then
-                    IMbtn.BackColor = System.Drawing.SystemColors.Info
+                    IMbtn.BackColor = ThemeManager.POSItemBack
+                    IMbtn.ForeColor = ThemeManager.POSItemFore
                 Else
                     IMbtn.BackColor = Color.FromArgb(Convert.ToInt32(row("BK_R")), Convert.ToInt32(row("BK_G")), Convert.ToInt32(row("BK_B")))
-                End If
-
-                If IsDBNull(row("FK_R")) = False Then
-                    IMbtn.ForeColor = Color.FromArgb(Convert.ToInt32(row("FK_R")), Convert.ToInt32(row("FK_G")), Convert.ToInt32(row("FK_B")))
+                    If IsDBNull(row("FK_R")) = False Then
+                        IMbtn.ForeColor = Color.FromArgb(Convert.ToInt32(row("FK_R")), Convert.ToInt32(row("FK_G")), Convert.ToInt32(row("FK_B")))
+                    Else
+                        IMbtn.ForeColor = ThemeManager.GetContrastColor(IMbtn.BackColor)
+                    End If
                 End If
 
                 Select Case POS_IM_COUNT
@@ -1060,7 +1185,8 @@ Public Class POS
 
 
         Fetch_IM()
-
+        isVoidBill = False
+        If Title_LB IsNot Nothing Then Title_LB.Text = "المبيعات السريعة (POS)"
         Switch_To_Cash = False
         If TB_ID > 0 Then AG_Balance_Update_Pure()
         Me.T_ID = 0
@@ -1218,8 +1344,8 @@ Public Class POS
 
                 Edit_butt.Enabled = True
 
-                MetroGrid.BackgroundColor = Color.LightGreen
-                MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
+                'MetroGrid.BackgroundColor = Color.LightGreen
+                'MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
                 TableLayoutPanel1.Enabled = False
 
                 Barcode_txt.Enabled = False
@@ -1227,8 +1353,8 @@ Public Class POS
 
             Else
 
-                MetroGrid.BackgroundColor = Color.LightYellow
-                MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+                'MetroGrid.BackgroundColor = Color.LightYellow
+                'MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
                 TableLayoutPanel1.Enabled = True
 
                 Barcode_txt.Enabled = True
@@ -1251,8 +1377,8 @@ Public Class POS
                 SaveButton.Enabled = False
                 Finish_Order_Btn.Enabled = False
                 Edit_butt.Enabled = False
-                MetroGrid.BackgroundColor = Color.IndianRed
-                MetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
+                'MetroGrid.BackgroundColor = Color.IndianRed
+                'MetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
 
             Else
                 VoidBillBtn.Enabled = True
@@ -2901,8 +3027,8 @@ Public Class POS
 
                 Edit_butt.BackColor = Color.GreenYellow
                 On_Update = True
-                MetroGrid.BackgroundColor = Color.LightYellow
-                MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+                'MetroGrid.BackgroundColor = Color.LightYellow
+                'MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
                 Barcode_txt.Enabled = True
                 IMPanel.Enabled = True
                 BillNotesButton.Enabled = True
@@ -3014,14 +3140,29 @@ Public Class POS
         Prepare_For_Rsv()
     End Sub
 
+    'Private Sub Prepare_For_Rsv()
+    '    If MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And MetroGrid.Rows.Count > 0 Then
+    '        'Dim F As New Rsv_IM_2
+    '        'F.IM_T_ID = F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value
+    '        'F.IM_NAME = F_POS.MetroGrid.CurrentRow.Cells("IM_NameCL").Value
+
+    '        'F.ShowDialog()
+
+    '        CalendarForm.IM_T_ID = F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value
+    '        CalendarForm.IM_NAME = F_POS.MetroGrid.CurrentRow.Cells("IM_NameCL").Value
+    '        CalendarForm.IM_ID = F_POS.MetroGrid.CurrentRow.Cells("IM_ID_CL").Value
+
+    '        If Not String.IsNullOrWhiteSpace(Cr_Phone) Then CalendarForm.Rsv_Info &= Cr_Phone
+    '        If Not String.IsNullOrWhiteSpace(AG_Name) Then CalendarForm.Rsv_Info &= " \ " & AG_Name
+
+    '        'CalendarForm.Cr_Phone = Cr_Phone
+    '        'CalendarForm.AG_NAME = AG_Name
+
+    '        CalendarForm.ShowDialog()
+    '    End If
+    'End Sub
     Private Sub Prepare_For_Rsv()
-        If MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And MetroGrid.Rows.Count > 0 Then
-            'Dim F As New Rsv_IM_2
-            'F.IM_T_ID = F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value
-            'F.IM_NAME = F_POS.MetroGrid.CurrentRow.Cells("IM_NameCL").Value
-
-            'F.ShowDialog()
-
+        If isDepended = 0 AndAlso isVoidBill = False AndAlso MetroGrid.Rows.Count > 0 Then
             CalendarForm.IM_T_ID = F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value
             CalendarForm.IM_NAME = F_POS.MetroGrid.CurrentRow.Cells("IM_NameCL").Value
             CalendarForm.IM_ID = F_POS.MetroGrid.CurrentRow.Cells("IM_ID_CL").Value
@@ -3029,20 +3170,25 @@ Public Class POS
             If Not String.IsNullOrWhiteSpace(Cr_Phone) Then CalendarForm.Rsv_Info &= Cr_Phone
             If Not String.IsNullOrWhiteSpace(AG_Name) Then CalendarForm.Rsv_Info &= " \ " & AG_Name
 
-            'CalendarForm.Cr_Phone = Cr_Phone
-            'CalendarForm.AG_NAME = AG_Name
-
             CalendarForm.ShowDialog()
         End If
     End Sub
 
-    Private Sub إدراجموظفللخدمةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles إدراجموظفللخدمةToolStripMenuItem.Click
-        If MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And MetroGrid.Rows.Count > 0 Then
-            Dim F As New SB_Contents_AGENTS
+    'Private Sub إدراجموظفللخدمةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles إدراجموظفللخدمةToolStripMenuItem.Click
+    '    If MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And MetroGrid.Rows.Count > 0 Then
+    '        Dim F As New SB_Contents_AGENTS
 
+    '        F.SB_T_ID = F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value
+    '        F.IM_NAME = F_POS.MetroGrid.CurrentRow.Cells("IM_NameCL").Value
+
+    '        F.ShowDialog()
+    '    End If
+    'End Sub
+    Private Sub إدراجموظفللخدمةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles إدراجموظفللخدمةToolStripMenuItem.Click
+        If isDepended = 0 AndAlso isVoidBill = False AndAlso MetroGrid.Rows.Count > 0 Then
+            Dim F As New SB_Contents_AGENTS
             F.SB_T_ID = F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value
             F.IM_NAME = F_POS.MetroGrid.CurrentRow.Cells("IM_NameCL").Value
-
             F.ShowDialog()
         End If
     End Sub
@@ -3070,6 +3216,9 @@ Public Class POS
 
         End If
     End Sub
+
+
+
 
 
     'Private Sub payment_Type_combo_SelectedValueChanged(sender As Object, e As EventArgs)

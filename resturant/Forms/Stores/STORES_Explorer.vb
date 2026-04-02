@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 'Imports Microsoft.Win32
 Public Class STORES_Explorer
-    Dim rs As New Resizer
+    'Dim rs As New Resizer
     Dim IM_DT As New DataTable
     Dim Get_IM As Boolean = False
 
@@ -10,12 +10,20 @@ Public Class STORES_Explorer
     Public is_Update_Unit_Cost As Boolean = False
 
     Private Sub STORES_Explorer_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        'F_MainForm.Fill_ALL_IM()
+        '   F_MainForm.Fill_ALL_IM()
         Me.Dispose()
     End Sub
     Private Sub STORES_Explorer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' 1. إعداد التكبير الديناميكي وإيقاف التحجيم التلقائي
+        SetupAnchors()
+
+        ' 2. تطبيق الثيم الإجباري 
+        Try
+            ThemeManager.ApplyThemeToForm(Me)
+        Catch ex As Exception
+        End Try
         ' 'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
-        rs.FindAllControls(Me)
+        'rs.FindAllControls(Me)
         Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
         Zuby.ADGV.AdvancedDataGridViewSearchToolBar.SetTranslations(Zuby.ADGV.AdvancedDataGridViewSearchToolBar.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
         '' Me.WindowState = FormWindowState.Maximized
@@ -27,6 +35,93 @@ Public Class STORES_Explorer
         ' Recover_STORES_Explorer_File_Setting(CheckedListBox1)
         'Check_View_Control()
         GM_Serach.Select()
+    End Sub
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
+
+    Private Sub MaxFormButton_Click(sender As Object, e As EventArgs) Handles MaxFormButton.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+            Me.WindowState = FormWindowState.Maximized
+            MaxFormButton.Text = "❐"
+        Else
+            Me.WindowState = FormWindowState.Normal
+            MaxFormButton.Text = "⬜"
+        End If
+        '   Me.WindowState = FormWindowState.Maximized
+    End Sub
+
+    Private Sub MinFormButton_Click(sender As Object, e As EventArgs) Handles MinFormButton.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    ' --- حركة الفورم (السحب والإفلات) ---
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, Title_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, Title_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, Title_LB.MouseUp
+        drag = False
+    End Sub
+
+
+    ' ==========================================
+    ' 🌟 نظام التكبير الديناميكي (بديل الريسايزر) 🌟
+    ' ==========================================
+    Private Sub SetupAnchors()
+        Me.AutoScaleMode = AutoScaleMode.None
+        Me.DoubleBuffered = True
+
+        ' 1. الجريدات الأساسية
+        If grid_panel IsNot Nothing Then grid_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        If gridv IsNot Nothing Then gridv.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+
+        ' 2. الأجزاء السفلية
+        '  If Panel3 IsNot Nothing Then Panel3.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        If textBox_total IsNot Nothing Then textBox_total.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        If Label3 IsNot Nothing Then Label3.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        If TOTAL_Grid IsNot Nothing Then TOTAL_Grid.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+
+        ' 3. شريط البحث والأجزاء العلوية
+        'If Panel2 IsNot Nothing Then Panel2.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        'If advancedDataGridViewSearchToolBar_main IsNot Nothing Then advancedDataGridViewSearchToolBar_main.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+
+        '' فلاتر البحث (يمين)
+        'If ST_cm IsNot Nothing Then ST_cm.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If GM_Serach IsNot Nothing Then GM_Serach.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If Print_type_Cmb IsNot Nothing Then Print_type_Cmb.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If IMNUM_CB IsNot Nothing Then IMNUM_CB.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If BarcodeSearch_CB IsNot Nothing Then BarcodeSearch_CB.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If Show_only_Zero_CB IsNot Nothing Then Show_only_Zero_CB.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If Label9 IsNot Nothing Then Label9.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If Label4 IsNot Nothing Then Label4.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If CMSearchTextBox IsNot Nothing Then CMSearchTextBox.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If CheckedListBox1 IsNot Nothing Then CheckedListBox1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+
+        ' أزرار العمليات العلوية (يسار)
+        'If EXCEL_BTN IsNot Nothing Then EXCEL_BTN.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        'If Button1 IsNot Nothing Then Button1.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        ''   If Button2 IsNot Nothing Then Button2.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        'If PrintButton IsNot Nothing Then PrintButton.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+
+        ' أزرار العمليات السفلية (يسار)
+        If Recount_Cost_btn IsNot Nothing Then Recount_Cost_btn.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        If Up_Update_btn IsNot Nothing Then Up_Update_btn.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        If IM_btn IsNot Nothing Then IM_btn.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
     End Sub
 
     Private Sub Make_Hints()
@@ -258,9 +353,9 @@ Public Class STORES_Explorer
         Next
         textBox_total.Text = gridv.Rows.Count.ToString
     End Sub
-    Private Sub STORES_Explorer_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        rs.ResizeAllControls(Me)
-    End Sub
+    'Private Sub STORES_Explorer_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+    '    '  rs.ResizeAllControls(Me)
+    'End Sub
 
     Private Sub CMSearchTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles CMSearchTextBox.KeyPress
         If e.KeyChar = "'" Then e.Handled = True
@@ -403,9 +498,7 @@ Public Class STORES_Explorer
     End Sub
 
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-        Me.Close()
-    End Sub
+
 
     Private Sub DataGridViewX_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles gridv.MouseDoubleClick
         If U_Update_IM_QTY = True Then
