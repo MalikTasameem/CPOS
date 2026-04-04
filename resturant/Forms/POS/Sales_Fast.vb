@@ -853,16 +853,19 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         '    End If
         'End If
 
-        If IM_Check_Neg_QTY_() = 1 Then
-            If QTY_ALERT_SOUND = True Then My.Computer.Audio.Play(Application.StartupPath & "\QTY ALERT.wav")
-            If IM_min_QTY = False Then
-                My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
-                MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
-                ClearCatFields()
-                Exit Sub
-            End If
-        End If
+        If IM_min_QTY = False Then
 
+            If IM_Check_Neg_QTY_() = 1 Then
+                If QTY_ALERT_SOUND = True Then My.Computer.Audio.Play(Application.StartupPath & "\QTY ALERT.wav")
+                If IM_min_QTY = False Then
+                    My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
+                    MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
+                    ClearCatFields()
+                    Exit Sub
+                End If
+            End If
+
+        End If
 
         If SB_IM_Alert_When_Repetition = True Then
             For i = 0 To AGMetroGrid.Rows.Count - 1

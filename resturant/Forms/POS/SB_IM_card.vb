@@ -213,6 +213,7 @@
                     End If
                 End If
 
+            If IM_min_QTY = False Then
 
                 If IM_Check_Neg_QTY_() = 1 Then
                     If QTY_ALERT_SOUND = True Then My.Computer.Audio.Play(Application.StartupPath & "\QTY ALERT.wav")
@@ -222,7 +223,10 @@
                     End If
                 End If
 
-                If Valid_Panel.Visible = True And Valid_cm.Items.Count > 0 Then
+            End If
+
+
+            If Valid_Panel.Visible = True And Valid_cm.Items.Count > 0 Then
                     If Ban_Expierd_IM_MV = True Then
 
                         If Convert.ToDateTime(Valid_cm.Text) <= Date.Now.Date Then
