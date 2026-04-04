@@ -409,18 +409,16 @@ Public Class MainForm
         RSV_IM = "أصناف مستأجرة"
         ORDER_IM = "بضاعــة قادمــة"
         ST_OTHER = "بضاعــة متوفرة في المخازن الأخرى"
+
         'Open_Bills = "فواتير مفتوحة"
 
         ALERT_DT.Columns.Add("FirstName", GetType(String))
         ALERT_DT.Columns.Add("LastName", GetType(String))
 
-
         For i = 0 To ALERT_DGV.Rows.Count - 1
             ALERT_DGV.Rows.Item(i).Visible = False
         Next
         'Check_For_OpenPierod()
-
-
 
         Fill_ALL_ALERT()
         Set_Data_Alert()

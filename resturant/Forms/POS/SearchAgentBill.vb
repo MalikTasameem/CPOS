@@ -5,27 +5,116 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
     Dim Bills_DT As New DataTable
     Dim Dv As New DataView
     Dim BalanceType As String = ""
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
     'Dim AG_ID As Integer
 
     Private Sub ExpSearch_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
     End Sub
+    Protected Overrides ReadOnly Property CreateParams() As CreateParams
+        Get
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or &H20000
+            Return cp
+        End Get
+    End Property
 
+    ' 2. برمجة زر الإغلاق العلوي
+    Private Sub TopCloseButton_Click(sender As Object, e As EventArgs) Handles TopCloseButton.Click
+        Me.Close()
+    End Sub
 
-    Private Sub ExpSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        rs.FindAllControls(Me)
+    ' 3. برمجة سحب الفورم من شريط العنوان
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
 
-        Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
-        Zuby.ADGV.AdvancedDataGridViewSearchToolBar.SetTranslations(Zuby.ADGV.AdvancedDataGridViewSearchToolBar.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
 
-        Markter_Cm.Visible = S_Marketers
-        Marketer_Lb.Visible = S_Marketers
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp
+        drag = False
+    End Sub
 
-        Bill_cmb.SelectedIndex = MY_Settings.AG_SH_Bill_Type
+    'Private Sub ExpSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    '    rs.FindAllControls(Me)
 
-        RPT_CM.SelectedIndex = 0
-        AG_Cm.Focus()
-        is_Auto_Select_CB.Checked = MY_Settings.SB_Search_Bill_Autot_Select
+    '    Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
+    '    Zuby.ADGV.AdvancedDataGridViewSearchToolBar.SetTranslations(Zuby.ADGV.AdvancedDataGridViewSearchToolBar.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
+
+    '    Markter_Cm.Visible = S_Marketers
+    '    Marketer_Lb.Visible = S_Marketers
+
+    '    Bill_cmb.SelectedIndex = MY_Settings.AG_SH_Bill_Type
+
+    '    RPT_CM.SelectedIndex = 0
+    '    AG_Cm.Focus()
+    '    is_Auto_Select_CB.Checked = MY_Settings.SB_Search_Bill_Autot_Select
+    'End Sub
+
+    Private Sub SearchAgentBill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            ' ==========================================
+            ' 1. إسناد التاقات (Tags) المعتمدة للثيم
+            ' ==========================================
+            '   If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
+            '   If Title_Label IsNot Nothing Then Title_Label.Tag = "TITLE_TRANSPARENT"
+            If TopCloseButton IsNot Nothing Then TopCloseButton.Tag = "DELETE"
+
+            ' الأزرار اللي ذكرتها
+            If Print_btn IsNot Nothing Then Print_btn.Tag = "PRINT"
+            If IM_Serach_btn IsNot Nothing Then IM_Serach_btn.Tag = "GENERAL"
+
+            ' تطبيق الثيم الإجباري الخاص بالمنظومة
+            ThemeManager.ApplyThemeToForm(Me)
+
+            ' ==========================================
+            ' 2. إعدادات الواجهة (Frameless)
+            ' ==========================================
+            ' التأكد من بقاء شريط العنوان في المقدمة باش ما يتغطاش بالفلاتر
+            If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.BringToFront()
+
+            ' ==========================================
+            ' 3. تهيئة أدوات تغيير الحجم (Resize)
+            ' ==========================================
+            ' لازم تكون بعد الثيم باش تاخذ الأبعاد الصحيحة
+            rs.FindAllControls(Me)
+
+            ' ==========================================
+            ' 4. تحميل ملفات الترجمة لشبكة البيانات (ADGV)
+            ' ==========================================
+            Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
+            Zuby.ADGV.AdvancedDataGridViewSearchToolBar.SetTranslations(Zuby.ADGV.AdvancedDataGridViewSearchToolBar.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
+
+            ' ==========================================
+            ' 5. تطبيق الصلاحيات والإعدادات المحفوظة
+            ' ==========================================
+            Markter_Cm.Visible = S_Marketers
+            Marketer_Lb.Visible = S_Marketers
+
+            Bill_cmb.SelectedIndex = MY_Settings.AG_SH_Bill_Type
+            is_Auto_Select_CB.Checked = MY_Settings.SB_Search_Bill_Autot_Select
+
+            ' ==========================================
+            ' 6. تجهيز الفلاتر والتركيز
+            ' ==========================================
+            If RPT_CM.Items.Count > 0 Then
+                RPT_CM.SelectedIndex = 0
+            End If
+
+            AG_Cm.Focus()
+
+        Catch ex As Exception
+            MsgBox("حدث خطأ أثناء تحميل شاشة البحث: " & vbCrLf & ex.Message, MsgBoxStyle.Critical, "خطأ التحميل")
+        End Try
     End Sub
 
     Public Sub Load_Data_2()
@@ -303,7 +392,7 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
         CB_CHecked(sender)
     End Sub
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 
@@ -483,4 +572,22 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            ' 1. تحديد أقصى حجم للفورم ليكون بحجم مساحة العمل فقط (لتفادي تغطية شريط المهام)
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+
+            ' 2. تكبير الفورم
+            Me.WindowState = FormWindowState.Maximized
+
+            ' 3. تغيير أيقونة الزر إلى (استعادة)
+            Button1.Text = "❐"
+        Else
+            ' 1. إرجاع الفورم لحجمه الطبيعي
+            Me.WindowState = FormWindowState.Normal
+
+            ' 2. تغيير أيقونة الزر إلى (تكبير)
+            Button1.Text = "⬜"
+        End If
+    End Sub
 End Class

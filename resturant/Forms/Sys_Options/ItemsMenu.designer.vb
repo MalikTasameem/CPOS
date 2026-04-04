@@ -624,7 +624,7 @@ Partial Class ItemsMenu
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Unit_DataGridView.DefaultCellStyle = DataGridViewCellStyle4
         Me.Unit_DataGridView.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
-        Me.Unit_DataGridView.Location = New System.Drawing.Point(3, 388)
+        Me.Unit_DataGridView.Location = New System.Drawing.Point(5, 388)
         Me.Unit_DataGridView.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Unit_DataGridView.MultiSelect = False
         Me.Unit_DataGridView.Name = "Unit_DataGridView"

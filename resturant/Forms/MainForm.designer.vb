@@ -521,13 +521,13 @@ Partial Class MainForm
         'FRM_Auto_LB
         '
         Me.FRM_Auto_LB.Name = "FRM_Auto_LB"
-        Me.FRM_Auto_LB.Size = New System.Drawing.Size(152, 24)
+        Me.FRM_Auto_LB.Size = New System.Drawing.Size(149, 24)
         Me.FRM_Auto_LB.Text = "تصنيع آلي"
         '
         'FRM_M_LB
         '
         Me.FRM_M_LB.Name = "FRM_M_LB"
-        Me.FRM_M_LB.Size = New System.Drawing.Size(152, 24)
+        Me.FRM_M_LB.Size = New System.Drawing.Size(149, 24)
         Me.FRM_M_LB.Text = "تصنيع يدوي"
         '
         'ToolStripSeparator5_Frm

@@ -404,14 +404,172 @@ Public Class ThemeManager
     '        If ctrl.HasChildren Then ApplyThemeToControls(ctrl.Controls)
     '    Next
     'End Sub
+    'Private Shared Sub ApplyThemeToControls(controls As Control.ControlCollection)
+    '    ' =========================================================
+    '    ' 🌟 تعريف الخطوط المطلوبة وتوحيدها على مستوى النظام
+    '    ' =========================================================
+    '    Dim gridAndFieldsFont As New Font("Segoe UI", 12.0!, FontStyle.Bold)
+    '    Dim normalTextFont As New Font("Segoe UI", 11.0!, FontStyle.Regular)
+
+    '    For Each ctrl As Control In controls
+    '        If ctrl.GetType().Name.Contains("AdvancedDataGridViewSearchToolBar") Or ctrl.GetType().Name.Contains("DateRange_Flate") Then
+    '            Continue For ' فوت الأداة هذي وامشِ للي بعدها
+    '        End If
+    '        ' --- 1. تلوين البانلات والتابات ---
+    '        If TypeOf ctrl Is Panel Or TypeOf ctrl Is GroupBox Or TypeOf ctrl Is TabPage Then
+    '            If ctrl.Tag IsNot Nothing Then
+    '                Select Case ctrl.Tag.ToString().ToUpper()
+    '                    Case "TRANSPARENT"
+    '                        If TypeOf ctrl Is TabPage Then
+    '                            ctrl.BackColor = FormBackColor
+    '                        Else
+    '                            ctrl.BackColor = Color.Transparent
+    '                        End If
+    '                    Case "TITLEBAR", "HEADER" : ctrl.BackColor = HeaderBackColor
+    '                    Case "SIDEBAR", "MENU" : ctrl.BackColor = SidebarBackColor
+    '                    Case "CARD", "DASHBOARD" : ctrl.BackColor = CardBackColor
+    '                    Case "TOTALS" : ctrl.BackColor = TotalsBack
+    '                    Case "ACCENT" : ctrl.BackColor = AccentColor
+    '                    Case Else : ctrl.BackColor = PanelBackColor
+    '                End Select
+    '            Else
+    '                If TypeOf ctrl Is TabPage Then
+    '                    ctrl.BackColor = FormBackColor
+    '                Else
+    '                    ctrl.BackColor = PanelBackColor
+    '                End If
+    '            End If
+    '        End If
+
+    '        ' --- 2. البارات ---
+    '        If TypeOf ctrl Is ToolStrip Then
+    '            Dim ts As ToolStrip = DirectCast(ctrl, ToolStrip)
+    '            ts.RenderMode = ToolStripRenderMode.System
+    '            If ctrl.Tag IsNot Nothing AndAlso (ctrl.Tag.ToString().ToUpper() = "SIDEBAR" Or ctrl.Tag.ToString().ToUpper() = "FOOTER") Then
+    '                ts.BackColor = SidebarBackColor : ts.ForeColor = GetContrastColor(SidebarBackColor)
+    '            Else
+    '                ts.BackColor = HeaderBackColor : ts.ForeColor = GetContrastColor(HeaderBackColor)
+    '            End If
+    '            For Each item As ToolStripItem In ts.Items
+    '                item.ForeColor = ts.ForeColor : item.BackColor = Color.Transparent
+    '            Next
+    '        End If
+
+    '        ' --- 3. النصوص والتشيك بوكس ---
+    '        If TypeOf ctrl Is Label Or TypeOf ctrl Is CheckBox Or TypeOf ctrl Is RadioButton Then
+    '            ' تطبيق خط النصوص العادية
+    '            ctrl.Font = normalTextFont
+
+    '            If TypeOf ctrl Is CheckBox Or TypeOf ctrl Is RadioButton Then
+    '                Dim btnBase = DirectCast(ctrl, ButtonBase)
+    '                btnBase.UseVisualStyleBackColor = False
+    '                btnBase.FlatStyle = FlatStyle.Standard
+    '            End If
+
+    '            Dim tagStr As String = If(ctrl.Tag IsNot Nothing, ctrl.Tag.ToString().ToUpper(), "")
+    '            Dim parentTag As String = If(ctrl.Parent IsNot Nothing AndAlso ctrl.Parent.Tag IsNot Nothing, ctrl.Parent.Tag.ToString().ToUpper(), "")
+
+    '            ctrl.BackColor = Color.Transparent
+
+    '            If tagStr.Contains("TITLE") Then
+    '                ctrl.ForeColor = GetContrastColor(HeaderBackColor)
+    '            ElseIf tagStr.Contains("SECONDARY") Then
+    '                ctrl.ForeColor = TextSecondaryColor
+    '            ElseIf tagStr.Contains("TOTALS") Then
+    '                ctrl.ForeColor = TotalsFore
+    '            ElseIf tagStr.Contains("ACCENT") Then
+    '                ctrl.ForeColor = AccentColor
+    '            ElseIf parentTag = "CARD" Then
+    '                ctrl.ForeColor = GetContrastColor(CardBackColor)
+    '            Else
+    '                ctrl.ForeColor = TextPrimaryColor
+    '            End If
+    '        End If
+
+    '        ' --- 4. حقول الإدخال والكومبو بوكس ---
+    '        If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Or TypeOf ctrl Is NumericUpDown Then
+    '            ' تطبيق الخط البولد للحقول
+    '            ctrl.Font = gridAndFieldsFont
+
+    '            If ctrl.Tag IsNot Nothing AndAlso ctrl.Tag.ToString().ToUpper() = "TOTALS" Then
+    '                ctrl.BackColor = TotalsBack : ctrl.ForeColor = TotalsFore
+    '            Else
+    '                ctrl.BackColor = If(IsDarkMode, Color.FromArgb(45, 45, 45), Color.White)
+    '                ctrl.ForeColor = If(IsDarkMode, Color.White, Color.Black)
+    '            End If
+    '        End If
+
+    '        ' --- 5. الجداول (الجريدات) ---
+    '        If TypeOf ctrl Is DataGridView Then
+    '            Dim dgv As DataGridView = DirectCast(ctrl, DataGridView)
+    '            dgv.EnableHeadersVisualStyles = False
+
+    '            ' 🌟 تطبيق الخطوط على الجريد 🌟
+    '            dgv.Font = gridAndFieldsFont
+    '            dgv.ColumnHeadersDefaultCellStyle.Font = gridAndFieldsFont
+    '            dgv.DefaultCellStyle.Font = gridAndFieldsFont
+
+    '            dgv.BackgroundColor = If(PanelBackColor.A = 0, Color.White, PanelBackColor)
+    '            dgv.GridColor = If(IsDarkMode, Color.FromArgb(60, 60, 60), Color.Silver)
+    '            dgv.ColumnHeadersDefaultCellStyle.BackColor = If(GridHeaderColor.A = 0, Color.FromArgb(236, 240, 241), GridHeaderColor)
+    '            dgv.ColumnHeadersDefaultCellStyle.ForeColor = If(TextPrimaryColor.A = 0, Color.Black, TextPrimaryColor)
+    '            dgv.DefaultCellStyle.BackColor = If(GridRowColor.A = 0, Color.White, GridRowColor)
+    '            dgv.DefaultCellStyle.ForeColor = If(TextPrimaryColor.A = 0, Color.Black, TextPrimaryColor)
+
+    '            ' 🌟 اللون المحدد المأخوذ من الصورة (أزرق ويندوز الصافي) 🌟
+    '            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215)
+    '            dgv.DefaultCellStyle.SelectionForeColor = Color.White
+
+    '            dgv.AlternatingRowsDefaultCellStyle.BackColor = If(GridAltRowColor.A = 0, Color.FromArgb(249, 250, 251), GridAltRowColor)
+    '        End If
+
+    '        ' --- 6. الأزرار ---
+    '        If TypeOf ctrl Is Button Then
+    '            Dim btn As Button = DirectCast(ctrl, Button)
+    '            If btn.Tag IsNot Nothing AndAlso btn.Tag.ToString().ToUpper() = "IGNORE" Then Continue For
+
+    '            ' تطبيق الخط البولد للأزرار
+    '            btn.Font = gridAndFieldsFont
+
+    '            btn.FlatStyle = FlatStyle.Flat
+    '            btn.FlatAppearance.BorderSize = 0
+
+    '            If btn.Tag IsNot Nothing Then
+    '                Select Case btn.Tag.ToString().ToUpper()
+    '                    Case "SAVE", "PAY", "CONFIRM", "PRIMARY" : btn.BackColor = BtnSaveBackColor : btn.ForeColor = BtnSaveForeColor
+    '                    Case "DELETE", "CANCEL", "CLOSE" : btn.BackColor = BtnDeleteBackColor : btn.ForeColor = BtnDeleteForeColor
+    '                    Case "PRINT", "REPORT" : btn.BackColor = BtnPrintBackColor : btn.ForeColor = BtnPrintForeColor
+    '                    Case "GENERAL", "SHORTCUT" : btn.BackColor = BtnGeneralBackColor : btn.ForeColor = BtnGeneralForeColor
+    '                    Case "CATEGORY" : btn.BackColor = POSCatBack : btn.ForeColor = POSCatFore
+    '                    Case "ITEM" : btn.BackColor = POSItemBack : btn.ForeColor = POSItemFore
+    '                    Case "NUMPAD" : btn.BackColor = NumpadBack : btn.ForeColor = NumpadFore
+    '                    Case "TRANSPARENT"
+    '                        btn.BackColor = If(btn.Parent IsNot Nothing, btn.Parent.BackColor, Color.Transparent)
+    '                        btn.ForeColor = TextPrimaryColor
+    '                    Case "APP_CONTROL"
+    '                        btn.BackColor = HeaderBackColor
+    '                        btn.ForeColor = GetContrastColor(HeaderBackColor)
+    '                        btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(40, GetContrastColor(HeaderBackColor))
+    '                    Case Else : btn.BackColor = BtnGeneralBackColor : btn.ForeColor = BtnGeneralForeColor
+    '                End Select
+    '            Else
+    '                btn.BackColor = BtnGeneralBackColor : btn.ForeColor = BtnGeneralForeColor
+    '            End If
+    '        End If
+
+    '        If ctrl.HasChildren Then ApplyThemeToControls(ctrl.Controls)
+    '    Next
+    'End Sub
     Private Shared Sub ApplyThemeToControls(controls As Control.ControlCollection)
         ' =========================================================
-        ' 🌟 تعريف الخطوط المطلوبة وتوحيدها على مستوى النظام
+        ' 🌟 تعريف خط الجريد فقط (لأنه ثابت 12 Bold كما طلبت)
         ' =========================================================
-        Dim gridAndFieldsFont As New Font("Segoe UI", 12.0!, FontStyle.Bold)
-        Dim normalTextFont As New Font("Segoe UI", 11.0!, FontStyle.Regular)
+        Dim gridFont As New Font("Segoe UI", 12.0!, FontStyle.Bold)
 
         For Each ctrl As Control In controls
+            If ctrl.GetType().Name.Contains("AdvancedDataGridViewSearchToolBar") Or ctrl.GetType().Name.Contains("DateRange_Flate") Then
+                Continue For ' فوت الأداة هذي وامشِ للي بعدها
+            End If
 
             ' --- 1. تلوين البانلات والتابات ---
             If TypeOf ctrl Is Panel Or TypeOf ctrl Is GroupBox Or TypeOf ctrl Is TabPage Then
@@ -455,8 +613,8 @@ Public Class ThemeManager
 
             ' --- 3. النصوص والتشيك بوكس ---
             If TypeOf ctrl Is Label Or TypeOf ctrl Is CheckBox Or TypeOf ctrl Is RadioButton Then
-                ' تطبيق خط النصوص العادية
-                ctrl.Font = normalTextFont
+                ' 💡 السحر هنا: تغيير الخط إلى Segoe UI مع الحفاظ على الحجم والـ Bold الأصلي من الديزاينر!
+                ctrl.Font = New Font("Segoe UI", ctrl.Font.Size, ctrl.Font.Style)
 
                 If TypeOf ctrl Is CheckBox Or TypeOf ctrl Is RadioButton Then
                     Dim btnBase = DirectCast(ctrl, ButtonBase)
@@ -486,8 +644,8 @@ Public Class ThemeManager
 
             ' --- 4. حقول الإدخال والكومبو بوكس ---
             If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Or TypeOf ctrl Is NumericUpDown Then
-                ' تطبيق الخط البولد للحقول
-                ctrl.Font = gridAndFieldsFont
+                ' الحفاظ على حجم خط الحقول الأصلي
+                ctrl.Font = New Font("Segoe UI", ctrl.Font.Size, ctrl.Font.Style)
 
                 If ctrl.Tag IsNot Nothing AndAlso ctrl.Tag.ToString().ToUpper() = "TOTALS" Then
                     ctrl.BackColor = TotalsBack : ctrl.ForeColor = TotalsFore
@@ -502,10 +660,10 @@ Public Class ThemeManager
                 Dim dgv As DataGridView = DirectCast(ctrl, DataGridView)
                 dgv.EnableHeadersVisualStyles = False
 
-                ' 🌟 تطبيق الخطوط على الجريد 🌟
-                dgv.Font = gridAndFieldsFont
-                dgv.ColumnHeadersDefaultCellStyle.Font = gridAndFieldsFont
-                dgv.DefaultCellStyle.Font = gridAndFieldsFont
+                ' 🌟 تطبيق الخط الموحد 12 Bold على الجريد فقط 🌟
+                dgv.Font = gridFont
+                dgv.ColumnHeadersDefaultCellStyle.Font = gridFont
+                dgv.DefaultCellStyle.Font = gridFont
 
                 dgv.BackgroundColor = If(PanelBackColor.A = 0, Color.White, PanelBackColor)
                 dgv.GridColor = If(IsDarkMode, Color.FromArgb(60, 60, 60), Color.Silver)
@@ -514,7 +672,6 @@ Public Class ThemeManager
                 dgv.DefaultCellStyle.BackColor = If(GridRowColor.A = 0, Color.White, GridRowColor)
                 dgv.DefaultCellStyle.ForeColor = If(TextPrimaryColor.A = 0, Color.Black, TextPrimaryColor)
 
-                ' 🌟 اللون المحدد المأخوذ من الصورة (أزرق ويندوز الصافي) 🌟
                 dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215)
                 dgv.DefaultCellStyle.SelectionForeColor = Color.White
 
@@ -526,8 +683,8 @@ Public Class ThemeManager
                 Dim btn As Button = DirectCast(ctrl, Button)
                 If btn.Tag IsNot Nothing AndAlso btn.Tag.ToString().ToUpper() = "IGNORE" Then Continue For
 
-                ' تطبيق الخط البولد للأزرار
-                btn.Font = gridAndFieldsFont
+                ' الحفاظ على حجم خط الأزرار الأصلي
+                btn.Font = New Font("Segoe UI", btn.Font.Size, btn.Font.Style)
 
                 btn.FlatStyle = FlatStyle.Flat
                 btn.FlatAppearance.BorderSize = 0
