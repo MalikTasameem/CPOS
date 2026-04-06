@@ -38,11 +38,13 @@ Partial Class SearchAgentBill
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ALL_time_CheckBox = New System.Windows.Forms.CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.DateRange_Flate = New resturant.DateRange_Flate()
         Me.advancedDataGridViewSearchToolBar_main = New Zuby.ADGV.AdvancedDataGridViewSearchToolBar()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.textBox_total = New System.Windows.Forms.TextBox()
         Me.Print_btn = New System.Windows.Forms.Button()
+        Me.textBox_total = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.IM_Serach_btn = New System.Windows.Forms.Button()
         Me.bindingSource_main = New System.Windows.Forms.BindingSource(Me.components)
@@ -57,17 +59,15 @@ Partial Class SearchAgentBill
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.AG_Cm = New resturant.FSearch_Filter()
         Me.Markter_Cm = New resturant.FSearch_Filter()
-        Me.DateRange_Flate = New resturant.DateRange_Flate()
-        Me.Panel6 = New System.Windows.Forms.Panel()
         CType(Me.advancedDataGridView_main, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.Panel6.SuspendLayout()
         Me.Panel3.SuspendLayout()
         CType(Me.bindingSource_main, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
         Me.TitleBar_Panel.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
         'MetroToolTip1
@@ -106,7 +106,7 @@ Partial Class SearchAgentBill
         '
         Me.Label32.AutoSize = True
         Me.Label32.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label32.Location = New System.Drawing.Point(514, 16)
+        Me.Label32.Location = New System.Drawing.Point(491, 16)
         Me.Label32.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(41, 17)
@@ -235,6 +235,17 @@ Partial Class SearchAgentBill
         Me.Panel2.Size = New System.Drawing.Size(633, 46)
         Me.Panel2.TabIndex = 909
         '
+        'DateRange_Flate
+        '
+        Me.DateRange_Flate.AutoSize = True
+        Me.DateRange_Flate.BackColor = System.Drawing.Color.White
+        Me.DateRange_Flate.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateRange_Flate.Location = New System.Drawing.Point(2, 4)
+        Me.DateRange_Flate.Margin = New System.Windows.Forms.Padding(2)
+        Me.DateRange_Flate.Name = "DateRange_Flate"
+        Me.DateRange_Flate.Size = New System.Drawing.Size(531, 41)
+        Me.DateRange_Flate.TabIndex = 0
+        '
         'advancedDataGridViewSearchToolBar_main
         '
         Me.advancedDataGridViewSearchToolBar_main.AllowMerge = False
@@ -262,6 +273,18 @@ Partial Class SearchAgentBill
         Me.Panel1.Size = New System.Drawing.Size(1045, 115)
         Me.Panel1.TabIndex = 910
         '
+        'Panel6
+        '
+        Me.Panel6.Controls.Add(Me.Label2)
+        Me.Panel6.Controls.Add(Me.Label3)
+        Me.Panel6.Controls.Add(Me.Print_btn)
+        Me.Panel6.Controls.Add(Me.TITLE_TXT)
+        Me.Panel6.Controls.Add(Me.textBox_total)
+        Me.Panel6.Location = New System.Drawing.Point(15, 15)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(552, 85)
+        Me.Panel6.TabIndex = 909
+        '
         'Label3
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -275,16 +298,6 @@ Partial Class SearchAgentBill
         Me.Label3.TabIndex = 908
         Me.Label3.Text = "الصفوف المستعرضة"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'textBox_total
-        '
-        Me.textBox_total.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.textBox_total.Location = New System.Drawing.Point(172, 31)
-        Me.textBox_total.Margin = New System.Windows.Forms.Padding(2)
-        Me.textBox_total.Name = "textBox_total"
-        Me.textBox_total.ReadOnly = True
-        Me.textBox_total.Size = New System.Drawing.Size(153, 27)
-        Me.textBox_total.TabIndex = 907
         '
         'Print_btn
         '
@@ -306,6 +319,16 @@ Partial Class SearchAgentBill
         Me.Print_btn.TabStop = False
         Me.Print_btn.Text = "طباعة"
         Me.Print_btn.UseVisualStyleBackColor = False
+        '
+        'textBox_total
+        '
+        Me.textBox_total.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textBox_total.Location = New System.Drawing.Point(172, 31)
+        Me.textBox_total.Margin = New System.Windows.Forms.Padding(2)
+        Me.textBox_total.Name = "textBox_total"
+        Me.textBox_total.ReadOnly = True
+        Me.textBox_total.Size = New System.Drawing.Size(153, 27)
+        Me.textBox_total.TabIndex = 907
         '
         'Panel3
         '
@@ -373,7 +396,7 @@ Partial Class SearchAgentBill
         Me.Marketer_Lb.AutoSize = True
         Me.Marketer_Lb.BackColor = System.Drawing.Color.Transparent
         Me.Marketer_Lb.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Marketer_Lb.Location = New System.Drawing.Point(955, 53)
+        Me.Marketer_Lb.Location = New System.Drawing.Point(955, 50)
         Me.Marketer_Lb.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Marketer_Lb.Name = "Marketer_Lb"
         Me.Marketer_Lb.Size = New System.Drawing.Size(58, 17)
@@ -472,18 +495,18 @@ Partial Class SearchAgentBill
         '
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AG_Cm.Location = New System.Drawing.Point(684, 6)
+        Me.AG_Cm.Location = New System.Drawing.Point(562, 6)
         Me.AG_Cm.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(269, 31)
+        Me.AG_Cm.Size = New System.Drawing.Size(391, 31)
         Me.AG_Cm.SQL_Column = "AG_NAME_B"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False
         Me.AG_Cm.SQL_ListSize = 200
         Me.AG_Cm.SQL_NumberOfRows = 200
-        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField = "AG_NAME"
+        Me.AG_Cm.SQL_OrderByField = "AG_NAME_B"
+        Me.AG_Cm.SQL_SearchField = "AG_NAME_B"
         Me.AG_Cm.SQL_SearchField_WHERE = ""
         Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
         Me.AG_Cm.TabIndex = 708
@@ -494,11 +517,11 @@ Partial Class SearchAgentBill
         '
         Me.Markter_Cm.CancelSearchImage = CType(resources.GetObject("Markter_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.Markter_Cm.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Markter_Cm.Location = New System.Drawing.Point(684, 44)
+        Me.Markter_Cm.Location = New System.Drawing.Point(650, 41)
         Me.Markter_Cm.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
         Me.Markter_Cm.Name = "Markter_Cm"
         Me.Markter_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Markter_Cm.Size = New System.Drawing.Size(269, 31)
+        Me.Markter_Cm.Size = New System.Drawing.Size(303, 31)
         Me.Markter_Cm.SQL_Column = "ST_name"
         Me.Markter_Cm.SQL_ID = "ST_ID"
         Me.Markter_Cm.SQL_IsNumericSearchField = False
@@ -511,29 +534,6 @@ Partial Class SearchAgentBill
         Me.Markter_Cm.TabIndex = 706
         Me.Markter_Cm.TextMaxLength = 250
         Me.Markter_Cm.Textt = ""
-        '
-        'DateRange_Flate
-        '
-        Me.DateRange_Flate.AutoSize = True
-        Me.DateRange_Flate.BackColor = System.Drawing.Color.White
-        Me.DateRange_Flate.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateRange_Flate.Location = New System.Drawing.Point(2, 4)
-        Me.DateRange_Flate.Margin = New System.Windows.Forms.Padding(2)
-        Me.DateRange_Flate.Name = "DateRange_Flate"
-        Me.DateRange_Flate.Size = New System.Drawing.Size(531, 41)
-        Me.DateRange_Flate.TabIndex = 0
-        '
-        'Panel6
-        '
-        Me.Panel6.Controls.Add(Me.Label2)
-        Me.Panel6.Controls.Add(Me.Label3)
-        Me.Panel6.Controls.Add(Me.Print_btn)
-        Me.Panel6.Controls.Add(Me.TITLE_TXT)
-        Me.Panel6.Controls.Add(Me.textBox_total)
-        Me.Panel6.Location = New System.Drawing.Point(15, 15)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(552, 85)
-        Me.Panel6.TabIndex = 909
         '
         'SearchAgentBill
         '
@@ -560,6 +560,8 @@ Partial Class SearchAgentBill
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         CType(Me.bindingSource_main, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
@@ -567,8 +569,6 @@ Partial Class SearchAgentBill
         Me.TitleBar_Panel.PerformLayout()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

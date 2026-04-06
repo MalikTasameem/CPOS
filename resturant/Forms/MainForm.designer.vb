@@ -1250,6 +1250,7 @@ Partial Class MainForm
         'ALERT_DGV
         '
         Me.ALERT_DGV.AllowUserToAddRows = False
+        Me.ALERT_DGV.AllowUserToDeleteRows = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(245, Byte), Integer), CType(CType(245, Byte), Integer))
         Me.ALERT_DGV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.ALERT_DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
@@ -1269,6 +1270,7 @@ Partial Class MainForm
         Me.ALERT_DGV.GridColor = System.Drawing.Color.Silver
         Me.ALERT_DGV.Location = New System.Drawing.Point(3, 70)
         Me.ALERT_DGV.Name = "ALERT_DGV"
+        Me.ALERT_DGV.ReadOnly = True
         Me.ALERT_DGV.RowHeadersVisible = False
         Me.ALERT_DGV.RowTemplate.Height = 40
         Me.ALERT_DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect

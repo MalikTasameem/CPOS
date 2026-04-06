@@ -418,7 +418,7 @@ Public Class MainForm
         For i = 0 To ALERT_DGV.Rows.Count - 1
             ALERT_DGV.Rows.Item(i).Visible = False
         Next
-        'Check_For_OpenPierod()
+        Check_For_OpenPierod()
 
         Fill_ALL_ALERT()
         Set_Data_Alert()

@@ -133,6 +133,7 @@
     Public F_Frm_auto_IM_card As Frm_auto_IM_card
     Public F_Inside_Sales_IM_card As Inside_Sales_IM_card
     Public F_Outside_Sales_IM_card As Outside_Sales_IM_card
+    Public F_ViewBill_IM_card As ViewBill_IM_card
     '--------------------
     ' Public SqlConnection As String = ""
 
