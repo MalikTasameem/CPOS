@@ -22,7 +22,14 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     Public IS_Show_Rctp As Boolean = False
     Dim AG_Balance As Double = 0
     Dim PREV_AG_ID As Integer
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
         FormType = 0
@@ -103,6 +110,42 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+
+        If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
+        'If Title_Label IsNot Nothing Then Title_Label.Tag = "TITLE_TRANSPARENT"
+        If ExitFormButton IsNot Nothing Then ExitFormButton.Tag = "DELETE"
+        'If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Tag = "DELETE"
+        If MaxFormButton IsNot Nothing Then MaxFormButton.Tag = "GENERAL"
+        'If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Tag = "DELETE"
+
+        If New_butt IsNot Nothing Then New_butt.Tag = "GENERAL"
+        If Save_butt IsNot Nothing Then Save_butt.Tag = "SAVE"
+        If Edit_butt IsNot Nothing Then Edit_butt.Tag = "GENERAL"
+        If Delete_butt IsNot Nothing Then Delete_butt.Tag = "DELETE"
+        If Print_btn IsNot Nothing Then Print_btn.Tag = "PRINT"
+        'If SearchButton IsNot Nothing Then SearchButton.Tag = "GENERAL"
+        'If MakeBarcode_btn IsNot Nothing Then MakeBarcode_btn.Tag = "GENERAL"
+        'If Aggregate_Btn IsNot Nothing Then Aggregate_Btn.Tag = "GENERAL"
+        'If DeliveryingButton IsNot Nothing Then DeliveryingButton.Tag = "SAVE"
+
+        If ADDCatButton IsNot Nothing Then ADDCatButton.Tag = "GENERAL"
+        If RemoveCatButton IsNot Nothing Then RemoveCatButton.Tag = "DELETE"
+
+
+        'If IM_btn IsNot Nothing Then IM_btn.Tag = "GENERAL"
+        'If Show_IM_btn2 IsNot Nothing Then Show_IM_btn2.Tag = "GENERAL"
+        If DGV_Control_btn IsNot Nothing Then DGV_Control_btn.Tag = "GENERAL"
+        If Up_Bill_btn IsNot Nothing Then Up_Bill_btn.Tag = "GENERAL"
+        If Down_Bill_btn IsNot Nothing Then Down_Bill_btn.Tag = "GENERAL"
+        If Calc_Dicount_Btn IsNot Nothing Then Calc_Dicount_Btn.Tag = "GENERAL"
+        'If ADD_Dist_btn IsNot Nothing Then ADD_Dist_btn.Tag = "GENERAL"
+        'If Remove_Dist_btn IsNot Nothing Then Remove_Dist_btn.Tag = "DELETE"
+
+        ' تطبيق الثيم الإجباري
+        ThemeManager.ApplyThemeToForm(Me)
+
+
+
         FormType = 10
         Check_View_Control()
         rs.FindAllControls(Me)
@@ -919,9 +962,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
         CB_CHecked(sender)
     End Sub
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-        Me.Close()
-    End Sub
+
 
     Private Sub إضافةكعميلجديدToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles إضافةكعميلجديدToolStripMenuItem.Click
         ADD_Fast_AG()
@@ -1082,7 +1123,49 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
         If dialog.ShowDialog() = DialogResult.OK Then CashPrint(get_prt_path(dialog.ListBox1.SelectedValue))
 
     End Sub
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
 
+    ' --- 2. زر تكبير واستعادة الفورم (ذكي وبدون تغطية شريط المهام) ---
+    Private Sub MaxFormButton_Click(sender As Object, e As EventArgs) Handles MaxFormButton.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            ' 💡 السر هنا: تحديد حجم مساحة العمل فقط (WorkingArea)
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+            Me.WindowState = FormWindowState.Maximized
+            MaxFormButton.Text = "❐" ' تغيير الرمز لاستعادة
+        Else
+            Me.WindowState = FormWindowState.Normal
+            MaxFormButton.Text = "⬜" ' تغيير الرمز لتكبير
+        End If
+    End Sub
+
+    ' --- 3. زر تصغير الفورم لشريط المهام ---
+    Private Sub MinFormButton_Click(sender As Object, e As EventArgs) Handles MinFormButton.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    ' --- 4. حركة الفورم (السحب والإفلات) عبر شريط العنوان ---
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, Title_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, Title_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, Title_LB.MouseUp
+        drag = False
+    End Sub
 
     Private Function get_prt_path(Sales_Page_ID As Integer)
 

@@ -147,6 +147,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             If ADDCatButton IsNot Nothing Then ADDCatButton.Tag = "GENERAL"
             If RemoveCatButton IsNot Nothing Then RemoveCatButton.Tag = "DELETE"
 
+
             If IM_btn IsNot Nothing Then IM_btn.Tag = "GENERAL"
             If Show_IM_btn2 IsNot Nothing Then Show_IM_btn2.Tag = "GENERAL"
             If DGV_Control_btn IsNot Nothing Then DGV_Control_btn.Tag = "GENERAL"
@@ -181,6 +182,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 New_butt.Enabled = False
                 SearchButton.Enabled = False
             End If
+            '  New_butt_Click(sender, e)
             ModernLoader.CloseLoader()
         Catch ex As Exception
             ModernLoader.CloseLoader()
@@ -258,23 +260,43 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         If Label1 IsNot Nothing Then Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Anchor = AnchorStyles.Top Or AnchorStyles.Left
     End Sub
+    'Public Sub UpdatePchStatusUI()
+    '    If lblFormState Is Nothing Then Exit Sub
+
+    '    If isVoid Then
+    '        ' حالة الإلغاء
+    '        lblFormState.Text = "فاتورة ملغيــــة"
+    '        lblFormState.BackColor = Color.FromArgb(231, 76, 60) ' أحمر
+    '        lblFormState.ForeColor = Color.White
+    '    ElseIf isDepended Then
+    '        ' حالة الإعتماد
+    '        lblFormState.Text = "فاتورة معتمـــدة"
+    '        lblFormState.BackColor = Color.FromArgb(46, 204, 113) ' أخضر
+    '        lblFormState.ForeColor = Color.White
+    '    Else
+    '        ' حالة فاتورة جديدة أو قيد التحرير
+    '        lblFormState.Text = "فاتورة جديــــدة"
+    '        lblFormState.BackColor = Color.FromArgb(52, 152, 219) ' أزرق
+    '        lblFormState.ForeColor = Color.White
+    '    End If
+    'End Sub
     Public Sub UpdatePchStatusUI()
         If lblFormState Is Nothing Then Exit Sub
 
-        If isVoid Then
-            ' حالة الإلغاء
+        If isVoid = True Then
+            ' حالة الإلغاء (أحمر)
             lblFormState.Text = "فاتورة ملغيــــة"
-            lblFormState.BackColor = Color.FromArgb(231, 76, 60) ' أحمر
+            lblFormState.BackColor = Color.FromArgb(231, 76, 60)
             lblFormState.ForeColor = Color.White
-        ElseIf isDepended Then
-            ' حالة الإعتماد
+        ElseIf isDepended = True Then
+            ' حالة الإعتماد بعد الحفظ (أخضر)
             lblFormState.Text = "فاتورة معتمـــدة"
-            lblFormState.BackColor = Color.FromArgb(46, 204, 113) ' أخضر
+            lblFormState.BackColor = Color.FromArgb(46, 204, 113)
             lblFormState.ForeColor = Color.White
         Else
-            ' حالة فاتورة جديدة أو قيد التحرير
+            ' الحالة الافتراضية عند اللود أو زر جديد (أزرق)
             lblFormState.Text = "فاتورة جديــــدة"
-            lblFormState.BackColor = Color.FromArgb(52, 152, 219) ' أزرق
+            lblFormState.BackColor = Color.FromArgb(52, 152, 219)
             lblFormState.ForeColor = Color.White
         End If
     End Sub
@@ -507,12 +529,13 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
         If On_Update = True Then Edit_butt_Click(sender, e)
         Call_New_Bill()
-        UpdateFormStateIndicator("فاتورة جديدة", Color.Honeydew)
+
     End Sub
 
     Private Sub Call_New_Bill()
         If T_ID > 0 Then
             If MessageBox.Show("فتح فاتورة جديدة", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
+                UpdateFormStateIndicator("فاتورة جديدة", Color.Honeydew)
                 ClearFields()
                 Insert_NewBill()
                 NewStateBt()

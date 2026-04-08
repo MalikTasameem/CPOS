@@ -2,6 +2,7 @@
     Dim S_ID As Integer
     Dim S_Name As String
     Private Sub Components_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         Load_StoreData()
         Load_GM_Groups()
     End Sub
@@ -17,7 +18,14 @@
         GM_Group_CM.DisplayMember = "Grp_Name"
         GM_Group_CM.ValueMember = "Grp_ID"
     End Sub
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
     Public Sub Load_StoreData()
         Dim c As New C
         Dim s As String = "select Comp_ID,Comp_Name from GM_Components ORDER BY Comp_ID Desc"

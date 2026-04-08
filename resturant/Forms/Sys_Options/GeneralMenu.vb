@@ -5,8 +5,16 @@ Public Class GeneralMenu
     Public GM_ID As Integer
     Dim GM_NAME As String
     Dim PRINTER_DT As New DataTable
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
     Private Sub SubMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         Check_Sys_Featurs()
         Load_SM()
@@ -14,7 +22,44 @@ Public Class GeneralMenu
         DisableTools()
         Load_Computers()
     End Sub
+    ' --- التكبير واستعادة الحجم ---
+    'Private Sub MaxFormButton_Click(sender As Object, e As EventArgs)
+    '    If Me.WindowState = FormWindowState.Normal Then
+    '        Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+    '        Me.WindowState = FormWindowState.Maximized
+    '        MaxFormButton.Text = "❐"
+    '    Else
+    '        Me.WindowState = FormWindowState.Normal
+    '        MaxFormButton.Text = "⬜"
+    '    End If
+    'End Sub
 
+    ' --- التصغير لشريط المهام ---
+    Private Sub MinFormButton_Click(sender As Object, e As EventArgs)
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    ' --- حركة الفورم والسحب بالماوس ---
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
+    End Sub
 
     Private Sub Check_Sys_Featurs()
         CP_Bill_Screen_GroupBox.Visible = S_Tables

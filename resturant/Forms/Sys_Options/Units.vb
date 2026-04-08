@@ -8,7 +8,14 @@ Public Class Units
         Un_Name_txt.Clear()
         Un_Cargo_txt.Clear()
     End Sub
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
     Public Sub Printer_Insert()
         Dim c As New C
         With c.Com
@@ -138,6 +145,7 @@ Public Class Units
 
     Private Sub Units_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_PrinterNames()
+        ThemeManager.ApplyThemeToForm(Me)
     End Sub
 
     Private Sub NewEmpButton_Click(sender As Object, e As EventArgs) Handles NewEmpButton.Click

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class GeneralMenu
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class GeneralMenu
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -28,13 +28,16 @@ Partial Class GeneralMenu
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GeneralMenu))
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.ExitFormButton = New System.Windows.Forms.Button()
+        Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.NewEmpButton = New System.Windows.Forms.Button()
         Me.EditEmpButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.SMPrinterComboBox = New System.Windows.Forms.ComboBox()
         Me.PrinterLabel = New System.Windows.Forms.Label()
-        Me.SMDataGridViewX = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.SMDataGridViewX = New DataGridView()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Rank_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -67,7 +70,7 @@ Partial Class GeneralMenu
         Me.PTR_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CP_Bill_Screen_GroupBox = New System.Windows.Forms.GroupBox()
         Me.Ksh_Screen_cmb = New System.Windows.Forms.ComboBox()
-        Me.ExitFormButton = New System.Windows.Forms.Button()
+        Me.TitleBar_Panel.SuspendLayout()
         CType(Me.SMDataGridViewX, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SMNamerrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PrinterErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -78,6 +81,48 @@ Partial Class GeneralMenu
         Me.CP_Bill_Screen_GroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
+        'TitleBar_Panel
+        '
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.ExitFormButton)
+        Me.TitleBar_Panel.Controls.Add(Me.TopTitle_LB)
+        Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
+        Me.TitleBar_Panel.Name = "TitleBar_Panel"
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(759, 40)
+        Me.TitleBar_Panel.TabIndex = 999
+        Me.TitleBar_Panel.Tag = "HEADER"
+        '
+        'ExitFormButton
+        '
+        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ExitFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ExitFormButton.FlatAppearance.BorderSize = 0
+        Me.ExitFormButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
+        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ExitFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.ForeColor = System.Drawing.Color.White
+        Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
+        Me.ExitFormButton.Name = "ExitFormButton"
+        Me.ExitFormButton.Size = New System.Drawing.Size(48, 40)
+        Me.ExitFormButton.TabIndex = 3
+        Me.ExitFormButton.Tag = "APP_CONTROL"
+        Me.ExitFormButton.Text = "X"
+        Me.ExitFormButton.UseVisualStyleBackColor = False
+        '
+        'TopTitle_LB
+        '
+        Me.TopTitle_LB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TopTitle_LB.AutoSize = True
+        Me.TopTitle_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.TopTitle_LB.ForeColor = System.Drawing.Color.White
+        Me.TopTitle_LB.Location = New System.Drawing.Point(666, 10)
+        Me.TopTitle_LB.Name = "TopTitle_LB"
+        Me.TopTitle_LB.Size = New System.Drawing.Size(77, 21)
+        Me.TopTitle_LB.TabIndex = 0
+        Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
+        Me.TopTitle_LB.Text = "التصنيفات"
+        '
         'Label1
         '
         Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Top
@@ -85,7 +130,7 @@ Partial Class GeneralMenu
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label1.Location = New System.Drawing.Point(333, 8)
+        Me.Label1.Location = New System.Drawing.Point(340, 8)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(83, 21)
@@ -100,15 +145,13 @@ Partial Class GeneralMenu
         Me.NewEmpButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.NewEmpButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NewEmpButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.NewEmpButton.Image = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.NewEmpButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.NewEmpButton.Location = New System.Drawing.Point(661, 511)
+        Me.NewEmpButton.Location = New System.Drawing.Point(661, 581)
         Me.NewEmpButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.NewEmpButton.Name = "NewEmpButton"
         Me.NewEmpButton.Size = New System.Drawing.Size(94, 42)
         Me.NewEmpButton.TabIndex = 195
         Me.NewEmpButton.Text = "جديد"
-        Me.NewEmpButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.NewEmpButton.UseVisualStyleBackColor = False
         '
         'EditEmpButton
@@ -120,15 +163,13 @@ Partial Class GeneralMenu
         Me.EditEmpButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.EditEmpButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.EditEmpButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.EditEmpButton.Image = Global.resturant.My.Resources.Resources.if_icon_136_document_edit_314724
         Me.EditEmpButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.EditEmpButton.Location = New System.Drawing.Point(449, 511)
+        Me.EditEmpButton.Location = New System.Drawing.Point(420, 581)
         Me.EditEmpButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.EditEmpButton.Name = "EditEmpButton"
         Me.EditEmpButton.Size = New System.Drawing.Size(111, 42)
         Me.EditEmpButton.TabIndex = 194
         Me.EditEmpButton.Text = "تعديل"
-        Me.EditEmpButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.EditEmpButton.UseVisualStyleBackColor = False
         '
         'SaveButton
@@ -140,15 +181,14 @@ Partial Class GeneralMenu
         Me.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.SaveButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.SaveButton.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
         Me.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.SaveButton.Location = New System.Drawing.Point(563, 511)
+        Me.SaveButton.Location = New System.Drawing.Point(533, 581)
         Me.SaveButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(94, 42)
+        Me.SaveButton.Size = New System.Drawing.Size(125, 42)
         Me.SaveButton.TabIndex = 193
+        Me.SaveButton.Tag = "SAVE"
         Me.SaveButton.Text = "حفظ"
-        Me.SaveButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.SaveButton.UseVisualStyleBackColor = False
         '
         'SMPrinterComboBox
@@ -163,7 +203,7 @@ Partial Class GeneralMenu
         Me.SMPrinterComboBox.FormattingEnabled = True
         Me.SMPrinterComboBox.IntegralHeight = False
         Me.SMPrinterComboBox.ItemHeight = 20
-        Me.SMPrinterComboBox.Location = New System.Drawing.Point(84, 7)
+        Me.SMPrinterComboBox.Location = New System.Drawing.Point(84, 6)
         Me.SMPrinterComboBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.SMPrinterComboBox.Name = "SMPrinterComboBox"
         Me.SMPrinterComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -212,7 +252,7 @@ Partial Class GeneralMenu
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.SMDataGridViewX.DefaultCellStyle = DataGridViewCellStyle2
         Me.SMDataGridViewX.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
-        Me.SMDataGridViewX.Location = New System.Drawing.Point(2, 2)
+        Me.SMDataGridViewX.Location = New System.Drawing.Point(2, 42)
         Me.SMDataGridViewX.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.SMDataGridViewX.MultiSelect = False
         Me.SMDataGridViewX.Name = "SMDataGridViewX"
@@ -266,22 +306,21 @@ Partial Class GeneralMenu
         Me.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DeleteButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DeleteButton.Image = Global.resturant.My.Resources.Resources.if_cancel_46786
         Me.DeleteButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.DeleteButton.Location = New System.Drawing.Point(349, 511)
+        Me.DeleteButton.Location = New System.Drawing.Point(324, 581)
         Me.DeleteButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.DeleteButton.Name = "DeleteButton"
         Me.DeleteButton.Size = New System.Drawing.Size(94, 42)
         Me.DeleteButton.TabIndex = 399
+        Me.DeleteButton.Tag = "DELETE"
         Me.DeleteButton.Text = "حذف"
-        Me.DeleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.DeleteButton.UseVisualStyleBackColor = False
         '
         'SMNameTextBox
         '
         Me.SMNameTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.SMNameTextBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SMNameTextBox.Location = New System.Drawing.Point(39, 3)
+        Me.SMNameTextBox.Location = New System.Drawing.Point(33, 3)
         Me.SMNameTextBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.SMNameTextBox.MaxLength = 200
         Me.SMNameTextBox.Name = "SMNameTextBox"
@@ -437,15 +476,15 @@ Partial Class GeneralMenu
         Me.Panel1.Controls.Add(Me.CP_Bill_Screen_GroupBox)
         Me.Panel1.Controls.Add(Me.SMNameTextBox)
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Location = New System.Drawing.Point(324, 2)
+        Me.Panel1.Location = New System.Drawing.Point(324, 42)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(433, 508)
+        Me.Panel1.Size = New System.Drawing.Size(433, 524)
         Me.Panel1.TabIndex = 494
         '
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(44, 41)
+        Me.Button2.Location = New System.Drawing.Point(33, 42)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(38, 32)
         Me.Button2.TabIndex = 713
@@ -456,10 +495,10 @@ Partial Class GeneralMenu
         'IM_CAT_SF
         '
         Me.IM_CAT_SF.CancelSearchImage = CType(resources.GetObject("IM_CAT_SF.CancelSearchImage"), System.Drawing.Image)
-        Me.IM_CAT_SF.Location = New System.Drawing.Point(83, 40)
+        Me.IM_CAT_SF.Location = New System.Drawing.Point(77, 40)
         Me.IM_CAT_SF.Name = "IM_CAT_SF"
         Me.IM_CAT_SF.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_CAT_SF.Size = New System.Drawing.Size(246, 34)
+        Me.IM_CAT_SF.Size = New System.Drawing.Size(247, 34)
         Me.IM_CAT_SF.SQL_Column = "NAME"
         Me.IM_CAT_SF.SQL_ID = "ID"
         Me.IM_CAT_SF.SQL_IsNumericSearchField = False
@@ -467,6 +506,7 @@ Partial Class GeneralMenu
         Me.IM_CAT_SF.SQL_NumberOfRows = 0
         Me.IM_CAT_SF.SQL_OrderByField = "NAME"
         Me.IM_CAT_SF.SQL_SearchField = "NAME"
+        Me.IM_CAT_SF.SQL_SearchField_WHERE = ""
         Me.IM_CAT_SF.SQL_Table = "IM_CAT"
         Me.IM_CAT_SF.TabIndex = 712
         Me.IM_CAT_SF.TextMaxLength = 250
@@ -478,7 +518,7 @@ Partial Class GeneralMenu
         Me.Label29.AutoSize = True
         Me.Label29.BackColor = System.Drawing.Color.Transparent
         Me.Label29.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label29.Location = New System.Drawing.Point(332, 48)
+        Me.Label29.Location = New System.Drawing.Point(339, 48)
         Me.Label29.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(40, 21)
@@ -501,7 +541,7 @@ Partial Class GeneralMenu
         Me.Touch_Screen_Panel.Controls.Add(Me.Label7)
         Me.Touch_Screen_Panel.Controls.Add(Me.BKPanel)
         Me.Touch_Screen_Panel.Controls.Add(Me.FKPanel)
-        Me.Touch_Screen_Panel.Location = New System.Drawing.Point(1, 313)
+        Me.Touch_Screen_Panel.Location = New System.Drawing.Point(1, 320)
         Me.Touch_Screen_Panel.Name = "Touch_Screen_Panel"
         Me.Touch_Screen_Panel.Size = New System.Drawing.Size(431, 124)
         Me.Touch_Screen_Panel.TabIndex = 499
@@ -512,7 +552,7 @@ Partial Class GeneralMenu
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(331, 91)
+        Me.Label2.Location = New System.Drawing.Point(334, 91)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(87, 19)
@@ -528,7 +568,7 @@ Partial Class GeneralMenu
         Me.Rank_Num_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Rank_Num_txt.MaxLength = 200
         Me.Rank_Num_txt.Name = "Rank_Num_txt"
-        Me.Rank_Num_txt.Size = New System.Drawing.Size(124, 27)
+        Me.Rank_Num_txt.Size = New System.Drawing.Size(128, 27)
         Me.Rank_Num_txt.TabIndex = 495
         '
         'is_Show_cb
@@ -559,37 +599,39 @@ Partial Class GeneralMenu
         Me.SubPrint_Panel.Controls.Add(Me.PrinterLabel)
         Me.SubPrint_Panel.Location = New System.Drawing.Point(2, 81)
         Me.SubPrint_Panel.Name = "SubPrint_Panel"
-        Me.SubPrint_Panel.Size = New System.Drawing.Size(430, 228)
+        Me.SubPrint_Panel.Size = New System.Drawing.Size(430, 233)
         Me.SubPrint_Panel.TabIndex = 498
         '
         'DeleteU_btn
         '
         Me.DeleteU_btn.BackColor = System.Drawing.Color.White
-        Me.DeleteU_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_minus_173055
         Me.DeleteU_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.DeleteU_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DeleteU_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DeleteU_btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DeleteU_btn.Location = New System.Drawing.Point(5, 8)
+        Me.DeleteU_btn.Location = New System.Drawing.Point(5, 5)
         Me.DeleteU_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.DeleteU_btn.Name = "DeleteU_btn"
-        Me.DeleteU_btn.Size = New System.Drawing.Size(38, 28)
+        Me.DeleteU_btn.Size = New System.Drawing.Size(30, 31)
         Me.DeleteU_btn.TabIndex = 706
+        Me.DeleteU_btn.Text = "➖"
+        Me.DeleteU_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.DeleteU_btn.UseVisualStyleBackColor = False
         '
         'InsertU_btn
         '
         Me.InsertU_btn.BackColor = System.Drawing.Color.White
-        Me.InsertU_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.InsertU_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.InsertU_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.InsertU_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.InsertU_btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.InsertU_btn.Location = New System.Drawing.Point(44, 8)
+        Me.InsertU_btn.Location = New System.Drawing.Point(39, 5)
         Me.InsertU_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.InsertU_btn.Name = "InsertU_btn"
-        Me.InsertU_btn.Size = New System.Drawing.Size(38, 28)
+        Me.InsertU_btn.Size = New System.Drawing.Size(42, 31)
         Me.InsertU_btn.TabIndex = 705
+        Me.InsertU_btn.Text = "➕"
+        Me.InsertU_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.InsertU_btn.UseVisualStyleBackColor = False
         '
         'PRINTER_GRID
@@ -617,7 +659,7 @@ Partial Class GeneralMenu
         Me.PRINTER_GRID.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
         Me.PRINTER_GRID.RowTemplate.Height = 30
         Me.PRINTER_GRID.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.PRINTER_GRID.Size = New System.Drawing.Size(423, 187)
+        Me.PRINTER_GRID.Size = New System.Drawing.Size(423, 190)
         Me.PRINTER_GRID.TabIndex = 704
         '
         'T_ID
@@ -640,10 +682,10 @@ Partial Class GeneralMenu
         Me.CP_Bill_Screen_GroupBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CP_Bill_Screen_GroupBox.Controls.Add(Me.Ksh_Screen_cmb)
         Me.CP_Bill_Screen_GroupBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CP_Bill_Screen_GroupBox.Location = New System.Drawing.Point(90, 437)
+        Me.CP_Bill_Screen_GroupBox.Location = New System.Drawing.Point(6, 453)
         Me.CP_Bill_Screen_GroupBox.Name = "CP_Bill_Screen_GroupBox"
         Me.CP_Bill_Screen_GroupBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.CP_Bill_Screen_GroupBox.Size = New System.Drawing.Size(339, 65)
+        Me.CP_Bill_Screen_GroupBox.Size = New System.Drawing.Size(421, 65)
         Me.CP_Bill_Screen_GroupBox.TabIndex = 497
         Me.CP_Bill_Screen_GroupBox.TabStop = False
         Me.CP_Bill_Screen_GroupBox.Text = "كمبيوتر عرض شاشة داخلية"
@@ -654,37 +696,19 @@ Partial Class GeneralMenu
         Me.Ksh_Screen_cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Ksh_Screen_cmb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Ksh_Screen_cmb.FormattingEnabled = True
-        Me.Ksh_Screen_cmb.Location = New System.Drawing.Point(6, 27)
+        Me.Ksh_Screen_cmb.Location = New System.Drawing.Point(10, 27)
         Me.Ksh_Screen_cmb.Name = "Ksh_Screen_cmb"
-        Me.Ksh_Screen_cmb.Size = New System.Drawing.Size(326, 29)
+        Me.Ksh_Screen_cmb.Size = New System.Drawing.Size(404, 29)
         Me.Ksh_Screen_cmb.TabIndex = 0
-        '
-        'ExitFormButton
-        '
-        Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
-        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
-        Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
-        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ExitFormButton.Location = New System.Drawing.Point(623, 558)
-        Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(134, 44)
-        Me.ExitFormButton.TabIndex = 495
-        Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'GeneralMenu
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(759, 601)
-        Me.Controls.Add(Me.ExitFormButton)
+        Me.ClientSize = New System.Drawing.Size(759, 636)
+        Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.DeleteButton)
         Me.Controls.Add(Me.SMDataGridViewX)
@@ -693,7 +717,7 @@ Partial Class GeneralMenu
         Me.Controls.Add(Me.SaveButton)
         Me.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -702,6 +726,8 @@ Partial Class GeneralMenu
         Me.Name = "GeneralMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "التصنيفات"
+        Me.TitleBar_Panel.ResumeLayout(False)
+        Me.TitleBar_Panel.PerformLayout()
         CType(Me.SMDataGridViewX, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SMNamerrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PrinterErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
@@ -716,13 +742,18 @@ Partial Class GeneralMenu
         Me.ResumeLayout(False)
 
     End Sub
+
+    Friend WithEvents TitleBar_Panel As System.Windows.Forms.Panel
+    Friend WithEvents TopTitle_LB As System.Windows.Forms.Label
+    Friend WithEvents ExitFormButton As System.Windows.Forms.Button
+
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents NewEmpButton As System.Windows.Forms.Button
     Friend WithEvents EditEmpButton As System.Windows.Forms.Button
     Friend WithEvents SaveButton As System.Windows.Forms.Button
     Friend WithEvents SMPrinterComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents PrinterLabel As System.Windows.Forms.Label
-    Public WithEvents SMDataGridViewX As DevComponents.DotNetBar.Controls.DataGridViewX
+    Public WithEvents SMDataGridViewX As DataGridView
     Friend WithEvents SMNamerrorProvider As System.Windows.Forms.ErrorProvider
     Friend WithEvents DeleteButton As System.Windows.Forms.Button
     Friend WithEvents SMNameTextBox As System.Windows.Forms.TextBox
@@ -742,7 +773,6 @@ Partial Class GeneralMenu
     Friend WithEvents Rank_Num_txt As System.Windows.Forms.TextBox
     Friend WithEvents CP_Bill_Screen_GroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents Ksh_Screen_cmb As System.Windows.Forms.ComboBox
-    Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Rank_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn4 As System.Windows.Forms.DataGridViewTextBoxColumn

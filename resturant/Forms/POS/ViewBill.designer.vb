@@ -31,6 +31,11 @@ Partial Class ViewBill
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ViewBill))
+        Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.MinFormButton = New System.Windows.Forms.Button()
+        Me.MaxFormButton = New System.Windows.Forms.Button()
+        Me.ExitFormButton = New System.Windows.Forms.Button()
+        Me.Title_LB = New System.Windows.Forms.Label()
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
         Me.Up_Bill_btn = New System.Windows.Forms.Button()
@@ -101,13 +106,14 @@ Partial Class ViewBill
         Me.Rsv_Panel = New System.Windows.Forms.Panel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Move_To_SB_btn = New System.Windows.Forms.Button()
-        Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Edit_butt = New System.Windows.Forms.Button()
         Me.Print_btn = New System.Windows.Forms.Button()
         Me.New_butt = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.Delete_butt = New System.Windows.Forms.Button()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.AG_Cm = New resturant.FSearch_Filter()
+        Me.TitleBar_Panel.SuspendLayout()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.IM_ContextMenuStrip.SuspendLayout()
         Me.DiscountPanel.SuspendLayout()
@@ -119,7 +125,85 @@ Partial Class ViewBill
         Me.Panel10.SuspendLayout()
         Me.Panel16.SuspendLayout()
         Me.Rsv_Panel.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'TitleBar_Panel
+        '
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.MinFormButton)
+        Me.TitleBar_Panel.Controls.Add(Me.MaxFormButton)
+        Me.TitleBar_Panel.Controls.Add(Me.ExitFormButton)
+        Me.TitleBar_Panel.Controls.Add(Me.Title_LB)
+        Me.TitleBar_Panel.Location = New System.Drawing.Point(0, -2)
+        Me.TitleBar_Panel.Name = "TitleBar_Panel"
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(1004, 36)
+        Me.TitleBar_Panel.TabIndex = 999
+        Me.TitleBar_Panel.Tag = "HEADER"
+        '
+        'MinFormButton
+        '
+        Me.MinFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.MinFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.MinFormButton.FlatAppearance.BorderSize = 0
+        Me.MinFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.MinFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.MinFormButton.ForeColor = System.Drawing.Color.White
+        Me.MinFormButton.Location = New System.Drawing.Point(90, 0)
+        Me.MinFormButton.Name = "MinFormButton"
+        Me.MinFormButton.Size = New System.Drawing.Size(45, 36)
+        Me.MinFormButton.TabIndex = 1
+        Me.MinFormButton.Tag = "APP_CONTROL"
+        Me.MinFormButton.Text = "ـ"
+        Me.MinFormButton.UseVisualStyleBackColor = False
+        '
+        'MaxFormButton
+        '
+        Me.MaxFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.MaxFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.MaxFormButton.FlatAppearance.BorderSize = 0
+        Me.MaxFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.MaxFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.MaxFormButton.ForeColor = System.Drawing.Color.White
+        Me.MaxFormButton.Location = New System.Drawing.Point(45, 0)
+        Me.MaxFormButton.Name = "MaxFormButton"
+        Me.MaxFormButton.Size = New System.Drawing.Size(45, 36)
+        Me.MaxFormButton.TabIndex = 2
+        Me.MaxFormButton.Tag = "APP_CONTROL"
+        Me.MaxFormButton.Text = "⬜"
+        Me.MaxFormButton.UseVisualStyleBackColor = False
+        '
+        'ExitFormButton
+        '
+        Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
+        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ExitFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ExitFormButton.FlatAppearance.BorderSize = 0
+        Me.ExitFormButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
+        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ExitFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.ForeColor = System.Drawing.Color.White
+        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
+        Me.ExitFormButton.Name = "ExitFormButton"
+        Me.ExitFormButton.Size = New System.Drawing.Size(45, 36)
+        Me.ExitFormButton.TabIndex = 3
+        Me.ExitFormButton.Tag = "APP_CONTROL"
+        Me.ExitFormButton.Text = "X"
+        Me.ExitFormButton.UseVisualStyleBackColor = False
+        '
+        'Title_LB
+        '
+        Me.Title_LB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Title_LB.AutoSize = True
+        Me.Title_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Title_LB.ForeColor = System.Drawing.Color.White
+        Me.Title_LB.Location = New System.Drawing.Point(1050, 9)
+        Me.Title_LB.Name = "Title_LB"
+        Me.Title_LB.Size = New System.Drawing.Size(110, 21)
+        Me.Title_LB.TabIndex = 0
+        Me.Title_LB.Tag = "TITLE_TRANSPARENT"
+        Me.Title_LB.Text = "عنوان الشاشــــة"
         '
         'MetroToolTip1
         '
@@ -130,7 +214,6 @@ Partial Class ViewBill
         'Down_Bill_btn
         '
         Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Down_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_Down
         Me.Down_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
@@ -139,19 +222,20 @@ Partial Class ViewBill
         Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Down_Bill_btn.Location = New System.Drawing.Point(5, 4)
+        Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 4)
         Me.Down_Bill_btn.Name = "Down_Bill_btn"
         Me.Down_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Down_Bill_btn.Size = New System.Drawing.Size(27, 29)
         Me.Down_Bill_btn.TabIndex = 624
         Me.Down_Bill_btn.TabStop = False
+        Me.Down_Bill_btn.Text = "▼"
+        Me.Down_Bill_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.MetroToolTip1.SetToolTip(Me.Down_Bill_btn, "الفاتورة السابقة")
         Me.Down_Bill_btn.UseVisualStyleBackColor = False
         '
         'Up_Bill_btn
         '
         Me.Up_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Up_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_up_3017922
         Me.Up_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
@@ -160,12 +244,14 @@ Partial Class ViewBill
         Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Bill_btn.Location = New System.Drawing.Point(117, 4)
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(128, 4)
         Me.Up_Bill_btn.Name = "Up_Bill_btn"
         Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Up_Bill_btn.Size = New System.Drawing.Size(27, 29)
+        Me.Up_Bill_btn.Size = New System.Drawing.Size(33, 29)
         Me.Up_Bill_btn.TabIndex = 623
         Me.Up_Bill_btn.TabStop = False
+        Me.Up_Bill_btn.Text = "▲"
+        Me.Up_Bill_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.MetroToolTip1.SetToolTip(Me.Up_Bill_btn, "الفاتورة التالية")
         Me.Up_Bill_btn.UseVisualStyleBackColor = False
         '
@@ -179,14 +265,13 @@ Partial Class ViewBill
         Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DGV_Control_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_menu_1814109
-        Me.DGV_Control_btn.Location = New System.Drawing.Point(825, 111)
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(949, 210)
         Me.DGV_Control_btn.Name = "DGV_Control_btn"
         Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.DGV_Control_btn.Size = New System.Drawing.Size(48, 25)
+        Me.DGV_Control_btn.Size = New System.Drawing.Size(49, 29)
         Me.DGV_Control_btn.TabIndex = 648
         Me.DGV_Control_btn.TabStop = False
-        Me.DGV_Control_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.DGV_Control_btn.Text = "⚙️"
         Me.MetroToolTip1.SetToolTip(Me.DGV_Control_btn, "عرض بيانات الجدول")
         Me.DGV_Control_btn.UseVisualStyleBackColor = False
         '
@@ -199,16 +284,16 @@ Partial Class ViewBill
         Me.RemoveCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.RemoveCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.RemoveCatButton.Image = Global.resturant.My.Resources.Resources.IM_REMOVE
-        Me.RemoveCatButton.Location = New System.Drawing.Point(825, 379)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(949, 415)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RemoveCatButton.Size = New System.Drawing.Size(48, 146)
+        Me.RemoveCatButton.Size = New System.Drawing.Size(49, 102)
         Me.RemoveCatButton.TabIndex = 395
         Me.RemoveCatButton.TabStop = False
-        Me.RemoveCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RemoveCatButton.Tag = "DELETE"
+        Me.RemoveCatButton.Text = "❌"
         Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف")
         Me.RemoveCatButton.UseVisualStyleBackColor = False
         '
@@ -221,16 +306,16 @@ Partial Class ViewBill
         Me.ADDCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.ADDCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADDCatButton.Image = Global.resturant.My.Resources.Resources.IM_ADD
-        Me.ADDCatButton.Location = New System.Drawing.Point(825, 137)
+        Me.ADDCatButton.Location = New System.Drawing.Point(949, 241)
         Me.ADDCatButton.Name = "ADDCatButton"
         Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ADDCatButton.Size = New System.Drawing.Size(48, 241)
+        Me.ADDCatButton.Size = New System.Drawing.Size(49, 172)
         Me.ADDCatButton.TabIndex = 396
         Me.ADDCatButton.TabStop = False
-        Me.ADDCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ADDCatButton.Tag = "GENERAL"
+        Me.ADDCatButton.Text = "➕"
         Me.MetroToolTip1.SetToolTip(Me.ADDCatButton, "إضافة الصنف")
         Me.ADDCatButton.UseVisualStyleBackColor = False
         '
@@ -253,7 +338,7 @@ Partial Class ViewBill
         Me.AGMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("JF Flat", 11.25!)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -264,7 +349,7 @@ Partial Class ViewBill
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("JF Flat", 11.25!)
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -274,14 +359,14 @@ Partial Class ViewBill
         Me.AGMetroGrid.EnableHeadersVisualStyles = False
         Me.AGMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         Me.AGMetroGrid.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.AGMetroGrid.Location = New System.Drawing.Point(2, 111)
+        Me.AGMetroGrid.Location = New System.Drawing.Point(2, 210)
         Me.AGMetroGrid.MultiSelect = False
         Me.AGMetroGrid.Name = "AGMetroGrid"
         Me.AGMetroGrid.ReadOnly = True
         Me.AGMetroGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -289,13 +374,13 @@ Partial Class ViewBill
         Me.AGMetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.AGMetroGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("JF Flat", 11.25!)
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
         Me.AGMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle7
         Me.AGMetroGrid.RowTemplate.ContextMenuStrip = Me.IM_ContextMenuStrip
         Me.AGMetroGrid.RowTemplate.Height = 35
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMetroGrid.Size = New System.Drawing.Size(821, 414)
+        Me.AGMetroGrid.Size = New System.Drawing.Size(941, 307)
         Me.AGMetroGrid.TabIndex = 290
         Me.AGMetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
@@ -417,31 +502,31 @@ Partial Class ViewBill
         '
         'IM_ContextMenuStrip
         '
-        Me.IM_ContextMenuStrip.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_ContextMenuStrip.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.IM_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.تعديلToolStripMenuItem, Me.عرضالتكلفةToolStripMenuItem})
         Me.IM_ContextMenuStrip.Name = "IM_ContextMenuStrip"
         Me.IM_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_ContextMenuStrip.Size = New System.Drawing.Size(215, 60)
+        Me.IM_ContextMenuStrip.Size = New System.Drawing.Size(203, 52)
         '
         'تعديلToolStripMenuItem
         '
         Me.تعديلToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_icon_136_document_edit_314724
         Me.تعديلToolStripMenuItem.Name = "تعديلToolStripMenuItem"
-        Me.تعديلToolStripMenuItem.Size = New System.Drawing.Size(214, 28)
+        Me.تعديلToolStripMenuItem.Size = New System.Drawing.Size(202, 24)
         Me.تعديلToolStripMenuItem.Text = "تعديل بيانات الصنف "
         '
         'عرضالتكلفةToolStripMenuItem
         '
         Me.عرضالتكلفةToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_hand_cursor_2639827
         Me.عرضالتكلفةToolStripMenuItem.Name = "عرضالتكلفةToolStripMenuItem"
-        Me.عرضالتكلفةToolStripMenuItem.Size = New System.Drawing.Size(214, 28)
+        Me.عرضالتكلفةToolStripMenuItem.Size = New System.Drawing.Size(202, 24)
         Me.عرضالتكلفةToolStripMenuItem.Text = "عرض التكلفة"
         '
         'IM_Count_LB
         '
         Me.IM_Count_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.IM_Count_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Count_LB.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_Count_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Count_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.IM_Count_LB.Location = New System.Drawing.Point(2, 670)
         Me.IM_Count_LB.Name = "IM_Count_LB"
@@ -455,7 +540,7 @@ Partial Class ViewBill
         '
         Me.User_Name_lb.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.User_Name_lb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.User_Name_lb.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.User_Name_lb.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.User_Name_lb.ForeColor = System.Drawing.Color.Blue
         Me.User_Name_lb.Location = New System.Drawing.Point(219, 670)
         Me.User_Name_lb.Name = "User_Name_lb"
@@ -466,14 +551,15 @@ Partial Class ViewBill
         '
         'DiscountPanel
         '
+        Me.DiscountPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.DiscountPanel.Controls.Add(Me.Calc_Dicount_Btn)
         Me.DiscountPanel.Controls.Add(Me.Discount_txt)
         Me.DiscountPanel.Controls.Add(Me.Total_TextBox)
         Me.DiscountPanel.Controls.Add(Me.Label6)
         Me.DiscountPanel.Controls.Add(Me.Label13)
-        Me.DiscountPanel.Location = New System.Drawing.Point(2, 565)
+        Me.DiscountPanel.Location = New System.Drawing.Point(2, 553)
         Me.DiscountPanel.Name = "DiscountPanel"
-        Me.DiscountPanel.Size = New System.Drawing.Size(193, 60)
+        Me.DiscountPanel.Size = New System.Drawing.Size(209, 70)
         Me.DiscountPanel.TabIndex = 634
         '
         'Calc_Dicount_Btn
@@ -489,7 +575,7 @@ Partial Class ViewBill
         Me.Calc_Dicount_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!, System.Drawing.FontStyle.Bold)
         Me.Calc_Dicount_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Calc_Dicount_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(4, 33)
+        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(4, 36)
         Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
         Me.Calc_Dicount_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(23, 23)
@@ -505,11 +591,11 @@ Partial Class ViewBill
         Me.Discount_txt.Enabled = False
         Me.Discount_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
         Me.Discount_txt.ForeColor = System.Drawing.Color.Black
-        Me.Discount_txt.Location = New System.Drawing.Point(3, 31)
+        Me.Discount_txt.Location = New System.Drawing.Point(3, 37)
         Me.Discount_txt.MaxLength = 200
         Me.Discount_txt.Name = "Discount_txt"
         Me.Discount_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Discount_txt.Size = New System.Drawing.Size(116, 26)
+        Me.Discount_txt.Size = New System.Drawing.Size(138, 26)
         Me.Discount_txt.TabIndex = 617
         '
         'Total_TextBox
@@ -518,18 +604,18 @@ Partial Class ViewBill
         Me.Total_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Total_TextBox.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_TextBox.ForeColor = System.Drawing.Color.Black
-        Me.Total_TextBox.Location = New System.Drawing.Point(3, 3)
+        Me.Total_TextBox.Location = New System.Drawing.Point(3, 6)
         Me.Total_TextBox.MaxLength = 200
         Me.Total_TextBox.Name = "Total_TextBox"
         Me.Total_TextBox.ReadOnly = True
         Me.Total_TextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Total_TextBox.Size = New System.Drawing.Size(116, 26)
+        Me.Total_TextBox.Size = New System.Drawing.Size(138, 26)
         Me.Total_TextBox.TabIndex = 289
         '
         'Label6
         '
-        Me.Label6.Font = New System.Drawing.Font("JF Flat", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(123, 7)
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(148, 9)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(58, 19)
         Me.Label6.TabIndex = 701
@@ -538,8 +624,8 @@ Partial Class ViewBill
         '
         'Label13
         '
-        Me.Label13.Font = New System.Drawing.Font("JF Flat", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(122, 35)
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(147, 40)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(57, 19)
         Me.Label13.TabIndex = 702
@@ -552,25 +638,25 @@ Partial Class ViewBill
         Me.Pure_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Pure_txt.Font = New System.Drawing.Font("Stencil", 22.0!)
         Me.Pure_txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Pure_txt.Location = New System.Drawing.Point(2, 627)
+        Me.Pure_txt.Location = New System.Drawing.Point(2, 624)
         Me.Pure_txt.MaxLength = 200
         Me.Pure_txt.Name = "Pure_txt"
         Me.Pure_txt.ReadOnly = True
         Me.Pure_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Pure_txt.Size = New System.Drawing.Size(196, 42)
+        Me.Pure_txt.Size = New System.Drawing.Size(209, 42)
         Me.Pure_txt.TabIndex = 619
         Me.Pure_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Notes_txt
         '
         Me.Notes_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Notes_txt.Font = New System.Drawing.Font("JF Flat", 11.0!)
+        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.Notes_txt.ForeColor = System.Drawing.Color.Black
-        Me.Notes_txt.Location = New System.Drawing.Point(3, 528)
+        Me.Notes_txt.Location = New System.Drawing.Point(2, 523)
         Me.Notes_txt.MaxLength = 250
         Me.Notes_txt.Name = "Notes_txt"
         Me.Notes_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Notes_txt.Size = New System.Drawing.Size(870, 33)
+        Me.Notes_txt.Size = New System.Drawing.Size(941, 27)
         Me.Notes_txt.TabIndex = 608
         '
         'Bill_ID_Txt
@@ -580,11 +666,11 @@ Partial Class ViewBill
         Me.Bill_ID_Txt.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.Bill_ID_Txt.Font = New System.Drawing.Font("Times New Roman", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Bill_ID_Txt.ForeColor = System.Drawing.Color.Black
-        Me.Bill_ID_Txt.Location = New System.Drawing.Point(33, 4)
+        Me.Bill_ID_Txt.Location = New System.Drawing.Point(35, 4)
         Me.Bill_ID_Txt.MaxLength = 250
         Me.Bill_ID_Txt.Name = "Bill_ID_Txt"
         Me.Bill_ID_Txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Bill_ID_Txt.Size = New System.Drawing.Size(83, 29)
+        Me.Bill_ID_Txt.Size = New System.Drawing.Size(89, 29)
         Me.Bill_ID_Txt.TabIndex = 625
         Me.Bill_ID_Txt.Text = "1234567"
         Me.Bill_ID_Txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -592,9 +678,9 @@ Partial Class ViewBill
         'VoidLb
         '
         Me.VoidLb.BackColor = System.Drawing.Color.IndianRed
-        Me.VoidLb.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.VoidLb.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.VoidLb.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.VoidLb.Location = New System.Drawing.Point(2, 42)
+        Me.VoidLb.Location = New System.Drawing.Point(2, 89)
         Me.VoidLb.Name = "VoidLb"
         Me.VoidLb.Size = New System.Drawing.Size(283, 32)
         Me.VoidLb.TabIndex = 402
@@ -604,35 +690,35 @@ Partial Class ViewBill
         '
         'AG_ContextMenuStrip
         '
-        Me.AG_ContextMenuStrip.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.AG_ContextMenuStrip.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.AG_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.عرضرصيدالعميلToolStripMenuItem, Me.كشفحسابالعميلToolStripMenuItem, Me.إضافةكعميلجديدToolStripMenuItem})
         Me.AG_ContextMenuStrip.Name = "AG_ContextMenuStrip"
         Me.AG_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_ContextMenuStrip.Size = New System.Drawing.Size(217, 88)
+        Me.AG_ContextMenuStrip.Size = New System.Drawing.Size(198, 76)
         '
         'عرضرصيدالعميلToolStripMenuItem
         '
         Me.عرضرصيدالعميلToolStripMenuItem.Name = "عرضرصيدالعميلToolStripMenuItem"
-        Me.عرضرصيدالعميلToolStripMenuItem.Size = New System.Drawing.Size(216, 28)
+        Me.عرضرصيدالعميلToolStripMenuItem.Size = New System.Drawing.Size(197, 24)
         Me.عرضرصيدالعميلToolStripMenuItem.Text = "عرض رصيد العميل"
         '
         'كشفحسابالعميلToolStripMenuItem
         '
         Me.كشفحسابالعميلToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_Money_Increase_379473
         Me.كشفحسابالعميلToolStripMenuItem.Name = "كشفحسابالعميلToolStripMenuItem"
-        Me.كشفحسابالعميلToolStripMenuItem.Size = New System.Drawing.Size(216, 28)
+        Me.كشفحسابالعميلToolStripMenuItem.Size = New System.Drawing.Size(197, 24)
         Me.كشفحسابالعميلToolStripMenuItem.Text = "كشف حساب العميل"
         '
         'إضافةكعميلجديدToolStripMenuItem
         '
         Me.إضافةكعميلجديدToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.إضافةكعميلجديدToolStripMenuItem.Name = "إضافةكعميلجديدToolStripMenuItem"
-        Me.إضافةكعميلجديدToolStripMenuItem.Size = New System.Drawing.Size(216, 28)
+        Me.إضافةكعميلجديدToolStripMenuItem.Size = New System.Drawing.Size(197, 24)
         Me.إضافةكعميلجديدToolStripMenuItem.Text = "إضافة كزبون جديد +"
         '
         'DateTimeEx
         '
-        Me.DateTimeEx.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimeEx.CalendarFont = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimeEx.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DateTimeEx.CustomFormat = "dd/MM/yyyy"
         Me.DateTimeEx.Font = New System.Drawing.Font("Times New Roman", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -646,24 +732,24 @@ Partial Class ViewBill
         '
         'IM_Show_CxtMStrip
         '
-        Me.IM_Show_CxtMStrip.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_Show_CxtMStrip.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Show_CxtMStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
         Me.IM_Show_CxtMStrip.Name = "IM_ContextMenuStrip"
         Me.IM_Show_CxtMStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_Show_CxtMStrip.Size = New System.Drawing.Size(211, 32)
+        Me.IM_Show_CxtMStrip.Size = New System.Drawing.Size(205, 28)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Image = Global.resturant.My.Resources.Resources.iconfinder_search_126577
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(210, 28)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(204, 24)
         Me.ToolStripMenuItem1.Text = "عرض تفاصيل الصنف"
         '
         'IM_Qty_LB
         '
         Me.IM_Qty_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.IM_Qty_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Qty_LB.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_Qty_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Qty_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.IM_Qty_LB.Location = New System.Drawing.Point(110, 670)
         Me.IM_Qty_LB.Name = "IM_Qty_LB"
@@ -675,33 +761,33 @@ Partial Class ViewBill
         '
         'Print_ContextMenuStrip
         '
-        Me.Print_ContextMenuStrip.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Print_ContextMenuStrip.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Print_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem, Me.تحديدنوعالطباعـــةToolStripMenuItem})
         Me.Print_ContextMenuStrip.Name = "AG_ContextMenuStrip"
         Me.Print_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Print_ContextMenuStrip.Size = New System.Drawing.Size(230, 48)
+        Me.Print_ContextMenuStrip.Size = New System.Drawing.Size(229, 48)
         '
         'إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem
         '
         Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!)
         Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Image = Global.resturant.My.Resources.Resources.iconfinder_038_029_share_link_friends_send_mail_android_material_3171647
         Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Name = "إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem"
-        Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Size = New System.Drawing.Size(228, 22)
         Me.إرسالالفاتورةللبريدالإلكترونيToolStripMenuItem.Text = "إرسال الفاتورة للبريد الإلكتروني"
         '
         'تحديدنوعالطباعـــةToolStripMenuItem
         '
         Me.تحديدنوعالطباعـــةToolStripMenuItem.Font = New System.Drawing.Font("Arial", 11.25!)
         Me.تحديدنوعالطباعـــةToolStripMenuItem.Name = "تحديدنوعالطباعـــةToolStripMenuItem"
-        Me.تحديدنوعالطباعـــةToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.تحديدنوعالطباعـــةToolStripMenuItem.Size = New System.Drawing.Size(228, 22)
         Me.تحديدنوعالطباعـــةToolStripMenuItem.Text = "تحديد نوع الطباعـــة"
         '
         'Search_By_Bar_CB
         '
         Me.Search_By_Bar_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Search_By_Bar_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Search_By_Bar_CB.Font = New System.Drawing.Font("JF Flat", 9.5!, System.Drawing.FontStyle.Bold)
-        Me.Search_By_Bar_CB.Location = New System.Drawing.Point(147, 5)
+        Me.Search_By_Bar_CB.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
+        Me.Search_By_Bar_CB.Location = New System.Drawing.Point(152, 5)
         Me.Search_By_Bar_CB.Name = "Search_By_Bar_CB"
         Me.Search_By_Bar_CB.Size = New System.Drawing.Size(67, 27)
         Me.Search_By_Bar_CB.TabIndex = 653
@@ -719,20 +805,20 @@ Partial Class ViewBill
         Me.Project_cm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Project_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Project_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Project_cm.Font = New System.Drawing.Font("JF Flat", 10.0!)
+        Me.Project_cm.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.Project_cm.FormattingEnabled = True
-        Me.Project_cm.Location = New System.Drawing.Point(29, 1)
+        Me.Project_cm.Location = New System.Drawing.Point(29, 2)
         Me.Project_cm.Name = "Project_cm"
-        Me.Project_cm.Size = New System.Drawing.Size(190, 31)
+        Me.Project_cm.Size = New System.Drawing.Size(190, 25)
         Me.Project_cm.TabIndex = 664
         '
         'Label16
         '
         Me.Label16.BackColor = System.Drawing.SystemColors.Control
         Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label16.Font = New System.Drawing.Font("JF Flat", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label16.Location = New System.Drawing.Point(2, 1)
+        Me.Label16.Location = New System.Drawing.Point(2, 39)
         Me.Label16.Name = "Label16"
         Me.Label16.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label16.Size = New System.Drawing.Size(531, 40)
@@ -747,9 +833,9 @@ Partial Class ViewBill
         Me.Panel9.Controls.Add(Me.Down_Bill_btn)
         Me.Panel9.Controls.Add(Me.Up_Bill_btn)
         Me.Panel9.Controls.Add(Me.Search_By_Bar_CB)
-        Me.Panel9.Location = New System.Drawing.Point(783, 1)
+        Me.Panel9.Location = New System.Drawing.Point(773, 39)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(220, 40)
+        Me.Panel9.Size = New System.Drawing.Size(227, 40)
         Me.Panel9.TabIndex = 690
         '
         'Panel2
@@ -758,14 +844,14 @@ Partial Class ViewBill
         Me.Panel2.Controls.Add(Me.Label4)
         Me.Panel2.Controls.Add(Me.Project_cm)
         Me.Panel2.Controls.Add(Me.Show_AG_Projects_btn)
-        Me.Panel2.Location = New System.Drawing.Point(297, 42)
+        Me.Panel2.Location = New System.Drawing.Point(297, 89)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(297, 38)
         Me.Panel2.TabIndex = 689
         '
         'Label4
         '
-        Me.Label4.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(227, 6)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(63, 21)
@@ -790,8 +876,8 @@ Partial Class ViewBill
         '
         'Label18
         '
-        Me.Label18.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(949, 51)
+        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(953, 104)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(52, 21)
         Me.Label18.TabIndex = 379
@@ -803,14 +889,14 @@ Partial Class ViewBill
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.Label3)
         Me.Panel10.Controls.Add(Me.DateTimeEx)
-        Me.Panel10.Location = New System.Drawing.Point(535, 1)
+        Me.Panel10.Location = New System.Drawing.Point(535, 39)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(246, 40)
+        Me.Panel10.Size = New System.Drawing.Size(235, 40)
         Me.Panel10.TabIndex = 693
         '
         'Label3
         '
-        Me.Label3.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(187, 9)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(54, 21)
@@ -820,8 +906,8 @@ Partial Class ViewBill
         '
         'Label17
         '
-        Me.Label17.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(201, 637)
+        Me.Label17.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(218, 635)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(60, 24)
         Me.Label17.TabIndex = 703
@@ -831,8 +917,8 @@ Partial Class ViewBill
         'Label27
         '
         Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(876, 534)
+        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(945, 525)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(62, 21)
@@ -853,7 +939,7 @@ Partial Class ViewBill
         '
         Me.Show_Bill_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Show_Bill_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Show_Bill_CB.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Show_Bill_CB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Show_Bill_CB.Location = New System.Drawing.Point(47, 4)
         Me.Show_Bill_CB.Name = "Show_Bill_CB"
         Me.Show_Bill_CB.Size = New System.Drawing.Size(121, 25)
@@ -867,9 +953,9 @@ Partial Class ViewBill
         Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label2.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label2.Location = New System.Drawing.Point(4, 76)
+        Me.Label2.Location = New System.Drawing.Point(2, 123)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(278, 32)
+        Me.Label2.Size = New System.Drawing.Size(283, 32)
         Me.Label2.TabIndex = 708
         Me.Label2.Text = "فاتـــــورة محجـــــوزة"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -890,19 +976,19 @@ Partial Class ViewBill
         '
         Me.BirthDateTime_LB.AutoSize = True
         Me.BirthDateTime_LB.BackColor = System.Drawing.Color.Transparent
-        Me.BirthDateTime_LB.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.BirthDateTime_LB.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.BirthDateTime_LB.ForeColor = System.Drawing.Color.DarkRed
         Me.BirthDateTime_LB.Location = New System.Drawing.Point(3, 7)
         Me.BirthDateTime_LB.Name = "BirthDateTime_LB"
         Me.BirthDateTime_LB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.BirthDateTime_LB.Size = New System.Drawing.Size(75, 17)
+        Me.BirthDateTime_LB.Size = New System.Drawing.Size(72, 19)
         Me.BirthDateTime_LB.TabIndex = 917
         Me.BirthDateTime_LB.Text = "(غير مدرج)"
         Me.BirthDateTime_LB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'END_RSV_DATE
         '
-        Me.END_RSV_DATE.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.END_RSV_DATE.CalendarFont = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.END_RSV_DATE.Checked = False
         Me.END_RSV_DATE.Cursor = System.Windows.Forms.Cursors.Hand
         Me.END_RSV_DATE.CustomFormat = "yyyy-MM-dd"
@@ -937,16 +1023,14 @@ Partial Class ViewBill
         Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Image = Global.resturant.My.Resources.Resources.if_ok_173061
+        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.BottomRight
-        Me.Button1.Location = New System.Drawing.Point(874, 377)
+        Me.Button1.Location = New System.Drawing.Point(3, 6)
         Me.Button1.Name = "Button1"
         Me.Button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Button1.Size = New System.Drawing.Size(130, 54)
+        Me.Button1.Size = New System.Drawing.Size(137, 32)
         Me.Button1.TabIndex = 707
         Me.Button1.Text = "حجز البضاعة"
-        Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button1.UseVisualStyleBackColor = False
         Me.Button1.Visible = False
         '
@@ -959,34 +1043,15 @@ Partial Class ViewBill
         Me.Move_To_SB_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Move_To_SB_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Move_To_SB_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Move_To_SB_btn.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Move_To_SB_btn.Image = Global.resturant.My.Resources.Resources.if_ok_173061
+        Me.Move_To_SB_btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Move_To_SB_btn.ImageAlign = System.Drawing.ContentAlignment.BottomRight
-        Me.Move_To_SB_btn.Location = New System.Drawing.Point(874, 321)
+        Me.Move_To_SB_btn.Location = New System.Drawing.Point(146, 6)
         Me.Move_To_SB_btn.Name = "Move_To_SB_btn"
         Me.Move_To_SB_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Move_To_SB_btn.Size = New System.Drawing.Size(130, 54)
+        Me.Move_To_SB_btn.Size = New System.Drawing.Size(179, 32)
         Me.Move_To_SB_btn.TabIndex = 706
         Me.Move_To_SB_btn.Text = "تحويل إلى فاتورة نهائية"
-        Me.Move_To_SB_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Move_To_SB_btn.UseVisualStyleBackColor = False
-        '
-        'ExitFormButton
-        '
-        Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
-        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
-        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(887, 657)
-        Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(117, 38)
-        Me.ExitFormButton.TabIndex = 656
-        Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'Edit_butt
         '
@@ -996,18 +1061,16 @@ Partial Class ViewBill
         Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Edit_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__3_
         Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Edit_butt.Location = New System.Drawing.Point(874, 237)
+        Me.Edit_butt.Location = New System.Drawing.Point(462, 6)
         Me.Edit_butt.Name = "Edit_butt"
         Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(130, 40)
+        Me.Edit_butt.Size = New System.Drawing.Size(122, 32)
         Me.Edit_butt.TabIndex = 647
         Me.Edit_butt.TabStop = False
         Me.Edit_butt.Text = "تعديـل F3"
-        Me.Edit_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Edit_butt.UseVisualStyleBackColor = False
         '
         'Print_btn
@@ -1019,18 +1082,16 @@ Partial Class ViewBill
         Me.Print_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Print_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Print_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Print_btn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Print_btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Print_btn.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__2_
         Me.Print_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Print_btn.Location = New System.Drawing.Point(874, 195)
+        Me.Print_btn.Location = New System.Drawing.Point(590, 6)
         Me.Print_btn.Name = "Print_btn"
         Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Print_btn.Size = New System.Drawing.Size(130, 40)
+        Me.Print_btn.Size = New System.Drawing.Size(122, 32)
         Me.Print_btn.TabIndex = 307
         Me.Print_btn.TabStop = False
         Me.Print_btn.Text = "طباعة F2"
-        Me.Print_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Print_btn.UseVisualStyleBackColor = False
         '
         'New_butt
@@ -1042,17 +1103,15 @@ Partial Class ViewBill
         Me.New_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.New_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.New_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.New_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.New_butt.ForeColor = System.Drawing.Color.Black
-        Me.New_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools
         Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.New_butt.Location = New System.Drawing.Point(874, 111)
+        Me.New_butt.Location = New System.Drawing.Point(864, 6)
         Me.New_butt.Name = "New_butt"
         Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.New_butt.Size = New System.Drawing.Size(130, 40)
+        Me.New_butt.Size = New System.Drawing.Size(122, 32)
         Me.New_butt.TabIndex = 294
         Me.New_butt.Text = " فاتورة جديدة F1"
-        Me.New_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.New_butt.UseVisualStyleBackColor = False
         '
         'Save_butt
@@ -1064,18 +1123,16 @@ Partial Class ViewBill
         Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Save_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Save_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__1_
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Save_butt.Location = New System.Drawing.Point(874, 153)
+        Me.Save_butt.Location = New System.Drawing.Point(717, 6)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Save_butt.Size = New System.Drawing.Size(130, 40)
+        Me.Save_butt.Size = New System.Drawing.Size(141, 32)
         Me.Save_butt.TabIndex = 293
         Me.Save_butt.TabStop = False
         Me.Save_butt.Text = "حفظ F12"
-        Me.Save_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Save_butt.UseVisualStyleBackColor = False
         '
         'Delete_butt
@@ -1087,24 +1144,37 @@ Partial Class ViewBill
         Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Delete_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Delete_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__4_
+        Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Delete_butt.Location = New System.Drawing.Point(874, 279)
+        Me.Delete_butt.Location = New System.Drawing.Point(334, 6)
         Me.Delete_butt.Name = "Delete_butt"
         Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Delete_butt.Size = New System.Drawing.Size(130, 40)
+        Me.Delete_butt.Size = New System.Drawing.Size(122, 32)
         Me.Delete_butt.TabIndex = 296
         Me.Delete_butt.Text = " إلغاء F4"
-        Me.Delete_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Delete_butt.UseVisualStyleBackColor = False
+        '
+        'Panel1
+        '
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.New_butt)
+        Me.Panel1.Controls.Add(Me.Delete_butt)
+        Me.Panel1.Controls.Add(Me.Save_butt)
+        Me.Panel1.Controls.Add(Me.Print_btn)
+        Me.Panel1.Controls.Add(Me.Edit_butt)
+        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.Move_To_SB_btn)
+        Me.Panel1.Location = New System.Drawing.Point(5, 159)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(993, 44)
+        Me.Panel1.TabIndex = 1000
         '
         'AG_Cm
         '
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.AG_Cm.ContextMenuStrip = Me.AG_ContextMenuStrip
         Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!)
-        Me.AG_Cm.Location = New System.Drawing.Point(596, 44)
+        Me.AG_Cm.Location = New System.Drawing.Point(596, 89)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.AG_Cm.Size = New System.Drawing.Size(351, 35)
@@ -1123,16 +1193,15 @@ Partial Class ViewBill
         '
         'ViewBill
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 21.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1004, 695)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label18)
         Me.Controls.Add(Me.AG_Cm)
         Me.Controls.Add(Me.Rsv_Panel)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Move_To_SB_btn)
         Me.Controls.Add(Me.Panel16)
         Me.Controls.Add(Me.Label27)
         Me.Controls.Add(Me.Label17)
@@ -1140,25 +1209,20 @@ Partial Class ViewBill
         Me.Controls.Add(Me.Panel9)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Label16)
-        Me.Controls.Add(Me.ExitFormButton)
         Me.Controls.Add(Me.DGV_Control_btn)
-        Me.Controls.Add(Me.Edit_butt)
         Me.Controls.Add(Me.IM_Qty_LB)
         Me.Controls.Add(Me.IM_Count_LB)
         Me.Controls.Add(Me.User_Name_lb)
         Me.Controls.Add(Me.Notes_txt)
         Me.Controls.Add(Me.DiscountPanel)
         Me.Controls.Add(Me.Pure_txt)
-        Me.Controls.Add(Me.Print_btn)
-        Me.Controls.Add(Me.New_butt)
-        Me.Controls.Add(Me.Save_butt)
-        Me.Controls.Add(Me.Delete_butt)
         Me.Controls.Add(Me.VoidLb)
         Me.Controls.Add(Me.AGMetroGrid)
         Me.Controls.Add(Me.RemoveCatButton)
         Me.Controls.Add(Me.ADDCatButton)
-        Me.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.Controls.Add(Me.TitleBar_Panel)
+        Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -1167,6 +1231,8 @@ Partial Class ViewBill
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "فاتورة عرض"
+        Me.TitleBar_Panel.ResumeLayout(False)
+        Me.TitleBar_Panel.PerformLayout()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.IM_ContextMenuStrip.ResumeLayout(False)
         Me.DiscountPanel.ResumeLayout(False)
@@ -1181,11 +1247,17 @@ Partial Class ViewBill
         Me.Panel16.ResumeLayout(False)
         Me.Rsv_Panel.ResumeLayout(False)
         Me.Rsv_Panel.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents MetroToolTip1 As MetroFramework.Components.MetroToolTip
+    Friend WithEvents TitleBar_Panel As System.Windows.Forms.Panel
+    Friend WithEvents Title_LB As System.Windows.Forms.Label
+    Friend WithEvents ExitFormButton As System.Windows.Forms.Button
+    Friend WithEvents MaxFormButton As System.Windows.Forms.Button
+    Friend WithEvents MinFormButton As System.Windows.Forms.Button
     Friend WithEvents New_butt As System.Windows.Forms.Button
     Friend WithEvents Save_butt As System.Windows.Forms.Button
     Friend WithEvents AGMetroGrid As MetroFramework.Controls.MetroGrid
@@ -1213,7 +1285,6 @@ Partial Class ViewBill
     Friend WithEvents تعديلToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents عرضالتكلفةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Search_By_Bar_CB As System.Windows.Forms.CheckBox
-    Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents IM_Info_Timer As System.Windows.Forms.Timer
     Friend WithEvents AG_ContextMenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents عرضرصيدالعميلToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1262,4 +1333,5 @@ Partial Class ViewBill
     Friend WithEvents Rsv_Panel As System.Windows.Forms.Panel
     Friend WithEvents تحديدنوعالطباعـــةToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AG_Cm As FSearch_Filter
+    Friend WithEvents Panel1 As Panel
 End Class

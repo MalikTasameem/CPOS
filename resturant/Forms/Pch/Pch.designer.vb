@@ -176,7 +176,7 @@ Partial Class Pch
         Me.TitleBar_Panel.Controls.Add(Me.Title_Label)
         Me.TitleBar_Panel.Controls.Add(Me.MaxFormButton)
         Me.TitleBar_Panel.Controls.Add(Me.ExitFormButton)
-        Me.TitleBar_Panel.Cursor = System.Windows.Forms.Cursors.SizeAll
+        Me.TitleBar_Panel.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitleBar_Panel.Location = New System.Drawing.Point(1, 1)
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
@@ -605,7 +605,7 @@ Partial Class Pch
         Me.Bill_ID_Txt.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.Bill_ID_Txt.Font = New System.Drawing.Font("Times New Roman", 14.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Bill_ID_Txt.ForeColor = System.Drawing.Color.Black
-        Me.Bill_ID_Txt.Location = New System.Drawing.Point(33, 4)
+        Me.Bill_ID_Txt.Location = New System.Drawing.Point(33, 3)
         Me.Bill_ID_Txt.MaxLength = 250
         Me.Bill_ID_Txt.Name = "Bill_ID_Txt"
         Me.Bill_ID_Txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -788,10 +788,10 @@ Partial Class Pch
         Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DGV_Control_btn.Location = New System.Drawing.Point(1059, 181)
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(1056, 181)
         Me.DGV_Control_btn.Name = "DGV_Control_btn"
         Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.DGV_Control_btn.Size = New System.Drawing.Size(43, 34)
+        Me.DGV_Control_btn.Size = New System.Drawing.Size(50, 34)
         Me.DGV_Control_btn.TabIndex = 653
         Me.DGV_Control_btn.TabStop = False
         Me.DGV_Control_btn.Text = "⚙️"
@@ -1042,10 +1042,10 @@ Partial Class Pch
         Me.Down_Bill_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Down_Bill_btn.Location = New System.Drawing.Point(159, 4)
+        Me.Down_Bill_btn.Location = New System.Drawing.Point(159, 2)
         Me.Down_Bill_btn.Name = "Down_Bill_btn"
         Me.Down_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Down_Bill_btn.Size = New System.Drawing.Size(29, 30)
+        Me.Down_Bill_btn.Size = New System.Drawing.Size(29, 32)
         Me.Down_Bill_btn.TabIndex = 668
         Me.Down_Bill_btn.TabStop = False
         Me.Down_Bill_btn.Text = "▲"
@@ -1062,10 +1062,10 @@ Partial Class Pch
         Me.Up_Bill_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Bill_btn.Location = New System.Drawing.Point(2, 4)
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(2, 2)
         Me.Up_Bill_btn.Name = "Up_Bill_btn"
         Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Up_Bill_btn.Size = New System.Drawing.Size(29, 30)
+        Me.Up_Bill_btn.Size = New System.Drawing.Size(29, 32)
         Me.Up_Bill_btn.TabIndex = 667
         Me.Up_Bill_btn.TabStop = False
         Me.Up_Bill_btn.Text = "▼"
@@ -1464,10 +1464,10 @@ Partial Class Pch
         Me.MakeBarcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MakeBarcode_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.MakeBarcode_btn.ForeColor = System.Drawing.Color.Black
-        Me.MakeBarcode_btn.Location = New System.Drawing.Point(1059, 465)
+        Me.MakeBarcode_btn.Location = New System.Drawing.Point(1056, 465)
         Me.MakeBarcode_btn.Name = "MakeBarcode_btn"
         Me.MakeBarcode_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.MakeBarcode_btn.Size = New System.Drawing.Size(43, 71)
+        Me.MakeBarcode_btn.Size = New System.Drawing.Size(50, 71)
         Me.MakeBarcode_btn.TabIndex = 307
         Me.MakeBarcode_btn.Text = "║▌║"
         Me.MakeBarcode_btn.UseVisualStyleBackColor = False
@@ -1584,10 +1584,10 @@ Partial Class Pch
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADDCatButton.Location = New System.Drawing.Point(1059, 220)
+        Me.ADDCatButton.Location = New System.Drawing.Point(1056, 220)
         Me.ADDCatButton.Name = "ADDCatButton"
         Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ADDCatButton.Size = New System.Drawing.Size(43, 171)
+        Me.ADDCatButton.Size = New System.Drawing.Size(50, 171)
         Me.ADDCatButton.TabIndex = 1012
         Me.ADDCatButton.TabStop = False
         Me.ADDCatButton.Tag = "GENERAL"
@@ -1605,10 +1605,10 @@ Partial Class Pch
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.RemoveCatButton.Location = New System.Drawing.Point(1059, 397)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(1056, 397)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RemoveCatButton.Size = New System.Drawing.Size(43, 61)
+        Me.RemoveCatButton.Size = New System.Drawing.Size(50, 61)
         Me.RemoveCatButton.TabIndex = 395
         Me.RemoveCatButton.TabStop = False
         Me.RemoveCatButton.Tag = "DELETE"

@@ -17,6 +17,14 @@
     End Sub
 
     Dim KEY_HANDLER As String
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
 
     Private Sub Make_New_Receipt()
         AG_Cm.Enabled = True
@@ -269,6 +277,7 @@
 
                     If C.Dr("isVoid") = 1 Then
                         Void_Lb.Visible = True
+                        Void_Lb.BackColor = Color.Red
                         .Fields_Panel.Enabled = False
                         .new_butt.Enabled = False
                         .save_butt.Enabled = False
@@ -620,7 +629,7 @@
 
     Private Sub Receipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
-
+        ThemeManager.ApplyThemeToForm(Me)
         EditState = Edit_butt.Text
         Edit_butt.Visible = U_Update_Receipt
         DeleteButton.Visible = U_Cancel_Receipt
@@ -740,6 +749,7 @@
             If FormType = 2 Then Select_Pch_Receipt(F_Pch.T_ID)
             If FormType = 8 Then Select_EX_Receipt(F_EXP_Details.T_ID)
             F_Receipt.Void_Lb.Visible = True
+            F_Receipt.Void_Lb.BackColor = Color.Red
             F_Receipt.Treasury_ComboBox.Text = Show_TR_T_Balance(F_Receipt.Treasury_ComboBox.SelectedValue)
             F_Receipt.print_butt.Enabled = False
             F_Receipt.Edit_butt.Enabled = False
