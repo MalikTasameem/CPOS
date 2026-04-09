@@ -80,12 +80,12 @@ Partial Class Notes
         Me.TopTitle_LB.AutoSize = True
         Me.TopTitle_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.TopTitle_LB.ForeColor = System.Drawing.Color.White
-        Me.TopTitle_LB.Location = New System.Drawing.Point(414, 9)
+        Me.TopTitle_LB.Location = New System.Drawing.Point(393, 9)
         Me.TopTitle_LB.Name = "TopTitle_LB"
-        Me.TopTitle_LB.Size = New System.Drawing.Size(78, 21)
+        Me.TopTitle_LB.Size = New System.Drawing.Size(93, 21)
         Me.TopTitle_LB.TabIndex = 0
         Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
-        Me.TopTitle_LB.Text = "الملاحظات"
+        Me.TopTitle_LB.Text = "الملاحظـــــات"
         '
         'S_listBox
         '
@@ -180,7 +180,7 @@ Partial Class Notes
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(293, 82)
+        Me.Label15.Location = New System.Drawing.Point(305, 82)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(59, 21)
         Me.Label15.TabIndex = 437
@@ -204,7 +204,7 @@ Partial Class Notes
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(293, 114)
+        Me.Label3.Location = New System.Drawing.Point(305, 114)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(71, 21)
@@ -257,7 +257,7 @@ Partial Class Notes
         Me.Label24.AutoSize = True
         Me.Label24.BackColor = System.Drawing.Color.Transparent
         Me.Label24.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(294, 50)
+        Me.Label24.Location = New System.Drawing.Point(306, 50)
         Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(116, 21)
@@ -290,13 +290,13 @@ Partial Class Notes
         Me.Button2.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button2.Location = New System.Drawing.Point(4, 45)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(38, 29)
         Me.Button2.TabIndex = 457
-        Me.Button2.Text = "+"
+        Me.Button2.Text = "➕"
         Me.Button2.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Button2.UseVisualStyleBackColor = False
         '

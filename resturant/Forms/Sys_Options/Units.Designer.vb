@@ -74,12 +74,12 @@ Partial Class Units
         Me.TopTitle_LB.AutoSize = True
         Me.TopTitle_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.TopTitle_LB.ForeColor = System.Drawing.Color.White
-        Me.TopTitle_LB.Location = New System.Drawing.Point(510, 9)
+        Me.TopTitle_LB.Location = New System.Drawing.Point(526, 9)
         Me.TopTitle_LB.Name = "TopTitle_LB"
-        Me.TopTitle_LB.Size = New System.Drawing.Size(63, 21)
+        Me.TopTitle_LB.Size = New System.Drawing.Size(78, 21)
         Me.TopTitle_LB.TabIndex = 0
         Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
-        Me.TopTitle_LB.Text = "الوحدات"
+        Me.TopTitle_LB.Text = "الوحـــــدات"
         '
         'Un_listBox
         '
@@ -101,13 +101,13 @@ Partial Class Units
         Me.FieldsPanel.Enabled = False
         Me.FieldsPanel.Location = New System.Drawing.Point(232, 46)
         Me.FieldsPanel.Name = "FieldsPanel"
-        Me.FieldsPanel.Size = New System.Drawing.Size(372, 184)
+        Me.FieldsPanel.Size = New System.Drawing.Size(378, 150)
         Me.FieldsPanel.TabIndex = 438
         '
         'Un_Cargo_txt
         '
         Me.Un_Cargo_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Un_Cargo_txt.Location = New System.Drawing.Point(5, 142)
+        Me.Un_Cargo_txt.Location = New System.Drawing.Point(5, 90)
         Me.Un_Cargo_txt.Name = "Un_Cargo_txt"
         Me.Un_Cargo_txt.Size = New System.Drawing.Size(256, 29)
         Me.Un_Cargo_txt.TabIndex = 407
@@ -118,7 +118,7 @@ Partial Class Units
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(278, 40)
+        Me.Label15.Location = New System.Drawing.Point(278, 29)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(82, 21)
         Me.Label15.TabIndex = 403
@@ -129,7 +129,7 @@ Partial Class Units
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.Transparent
         Me.Label17.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(267, 145)
+        Me.Label17.Location = New System.Drawing.Point(267, 93)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(99, 21)
         Me.Label17.TabIndex = 405
@@ -138,7 +138,7 @@ Partial Class Units
         'Un_Name_txt
         '
         Me.Un_Name_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Un_Name_txt.Location = New System.Drawing.Point(5, 37)
+        Me.Un_Name_txt.Location = New System.Drawing.Point(5, 26)
         Me.Un_Name_txt.Name = "Un_Name_txt"
         Me.Un_Name_txt.Size = New System.Drawing.Size(256, 29)
         Me.Un_Name_txt.TabIndex = 406
