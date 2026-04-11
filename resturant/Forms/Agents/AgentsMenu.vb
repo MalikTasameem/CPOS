@@ -8,13 +8,21 @@ Public Class AgentsMenu
     Private Sub AgentsMenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
     End Sub
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
     Private Sub AgentsMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         'rs.FindAllControls(Me)
         If U_Balance = False Then AG_Account_btn.Visible = False
         Fetch_Agents_Type()
 
-        If My_Settings.is_ByBarInput = True Then
+        If MY_Settings.is_ByBarInput = True Then
             Barcode_SH_txt.Select()
         Else
             'IM_SH_txt.Select()
