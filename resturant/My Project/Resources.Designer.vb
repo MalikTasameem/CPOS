@@ -233,6 +233,26 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Gemini_Generated_Image_96itaz96itaz96it() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Gemini_Generated_Image_96itaz96itaz96it", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Gemini_Generated_Image_96itaz96itaz96it_removebg_preview() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Gemini_Generated_Image_96itaz96itaz96it_removebg_preview", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property iconfinder_038_028_share_link_friends_send_android_material_3171669() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("iconfinder_038_028_share_link_friends_send_android_material_3171669", resourceCulture)

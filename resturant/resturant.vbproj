@@ -2215,6 +2215,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Class_Desktop.ico" />
+    <None Include="Resources\Gemini_Generated_Image_96itaz96itaz96it-removebg-preview.png" />
+    <None Include="Resources\Gemini_Generated_Image_96itaz96itaz96it.png" />
     <None Include="Resources\open-folder.png" />
     <None Include="Resources\percent.png" />
     <None Include="Resources\credit_card.png" />

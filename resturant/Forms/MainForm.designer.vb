@@ -895,10 +895,10 @@ Partial Class MainForm
         '
         'CompPictureBox
         '
-        Me.CompPictureBox.Image = Global.resturant.My.Resources.Resources.CLASS_Splash
-        Me.CompPictureBox.Location = New System.Drawing.Point(789, 10)
+        Me.CompPictureBox.Image = Global.resturant.My.Resources.Resources.Gemini_Generated_Image_96itaz96itaz96it_removebg_preview
+        Me.CompPictureBox.Location = New System.Drawing.Point(726, 2)
         Me.CompPictureBox.Name = "CompPictureBox"
-        Me.CompPictureBox.Size = New System.Drawing.Size(230, 88)
+        Me.CompPictureBox.Size = New System.Drawing.Size(288, 99)
         Me.CompPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.CompPictureBox.TabIndex = 3
         Me.CompPictureBox.TabStop = False
