@@ -34,7 +34,7 @@
         If e.KeyCode = Keys.F2 Then If Print_btn.Enabled = True Then Print_btn_Click(sender, e)
         If e.KeyCode = Keys.F3 Then If Edit_butt.Enabled = True Then If Edit_butt.Text = EditState Then Edit_butt_Click(sender, e)
         If e.KeyCode = Keys.F4 Then If Delete_butt.Enabled = True Then Delete_butt_Click(sender, e)
-        If e.KeyCode = Keys.F5 Then IM_SH_txt.Select()
+        If e.KeyCode = Keys.F5 Then EX_Cm.Select()
     End Sub
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -60,8 +60,8 @@
     End Sub
 
     Public Sub Get_Last_T_ID()
-        Try
-            Dim C As New C
+
+        Dim C As New C
             Dim S As String = "Select Top 1 T_ID From Agents_Balance_MV Where User_ID = '" & USER_ID & "' AND BsType_ID = 2 AND isDepended = 0 AND isVoid = 0  AND T_ID BETWEEN " & START_ID & " AND " & END_ID & "  ORDER BY T_ID DESC"
             C.Com = New SqlClient.SqlCommand(S, C.Con)
             C.Con.Open()
@@ -81,9 +81,7 @@
                 MsgBox(ex.Message)
             End Try
             C.Con.Close()
-        Catch ex As Exception
-            '...
-        End Try
+
     End Sub
 
     Public Sub SELECT_MAX()
@@ -119,21 +117,19 @@
     End Sub
 
     Private Sub Disable_CatFields()
-        IM_SH_txt.Enabled = False
-        Show_IM_btn.Enabled = False
+        EX_Cm.Enabled = False
         QtyTextBox.Enabled = False
         ADDCatButton.Enabled = False
         RemoveCatButton.Enabled = False
-        AG_Panel.Enabled = False
+        AG_Cm.Enabled = False
     End Sub
 
     Private Sub Ebable_CatFields()
-        IM_SH_txt.Enabled = True
-        Show_IM_btn.Enabled = True
+        EX_Cm.Enabled = True
         QtyTextBox.Enabled = True
         ADDCatButton.Enabled = True
         RemoveCatButton.Enabled = True
-        AG_Panel.Enabled = True
+        AG_Cm.Enabled = True
     End Sub
 
 
@@ -161,7 +157,7 @@
         Edit_butt.Enabled = False
         Delete_butt.Enabled = False
         Me.Text = "فاتورة مصروفات جديـدة"
-        IM_SH_txt.Select()
+        EX_Cm.Select()
     End Sub
     Private Sub DeleteOrUpdateStateBt()
         Disable_Fields()
@@ -234,7 +230,7 @@
         CreditTextBox.Clear()
         Receipts_DT.Clear()
         AG_ID = Default_AG_ID
-        AG_SH_txt.Clear()
+        AG_Cm.Textt = ""
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
@@ -298,15 +294,6 @@
 
 
             End If
-
-
-
-
-
-
-
-
-
 
 
             Switch_Dependcy(1)
@@ -390,14 +377,6 @@
         Check_Only_Int(sender, e)
     End Sub
 
-    Private Sub BackButton_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
-    'Private Sub AGMetroGrid_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles AGMetroGrid.CellEndEdit
-    '    Update_Cat()
-    'End Sub
-
 
     Private Sub AGMetroGrid_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles AGMetroGrid.RowsAdded
         Calc_Total()
@@ -422,7 +401,7 @@
     Private Sub ADDCatButton_Click(sender As Object, e As EventArgs) Handles ADDCatButton.Click
         If IM_ID = 0 Then
             MsgBox("حدد البند", MsgBoxStyle.Exclamation)
-            IM_SH_txt.Select()
+            EX_Cm.Select()
         Else
             If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
             Insert_Cat()
@@ -435,7 +414,7 @@
     End Sub
 
     Private Sub ClearCatFields()
-        IM_SH_txt.Clear()
+        EX_Cm.Textt = ""
         QtyTextBox.Clear()
         IM_Cost_txt.Clear()
     End Sub
@@ -493,12 +472,12 @@
         sqlComm.Parameters.AddWithValue("@Total", Convert.ToDouble(QtyTextBox.Text) * Convert.ToDouble(IM_Cost_txt.Text))
         If String.IsNullOrWhiteSpace(QtyTextBox.Text) = False Then sqlComm.Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox.Text))
         If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" المصروف:" & IM_SH_txt.Text & " العدد:" & QtyTextBox.Text & " السعر:" & IM_Cost_txt.Text, Bill_ID_Txt.Text, 2, 1)
+            Network_Edit_Tracker_insert(" المصروف:" & EX_Cm.Textt & " العدد:" & QtyTextBox.Text & " السعر:" & IM_Cost_txt.Text, Bill_ID_Txt.Text, 2, 1)
             SELECT_EXP_Cats(T_ID)
             Update_Total()
             ClearCatFields()
             'If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
-            IM_SH_txt.Select()
+            EX_Cm.Select()
         End If
 
     End Sub
@@ -532,7 +511,7 @@
             SELECT_EXP_Cats(T_ID)
             Update_Total()
             If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
-            IM_SH_txt.Select()
+            EX_Cm.Select()
         End If
 
     End Sub
@@ -582,123 +561,123 @@
         Me.Cursor = Cursors.Default
     End Sub
 
-    Public Sub Load_IM()
-        Dim c As New C
-        Try
-            IM_Dt.Clear()
-            Dim s As String
-            s = "select Ex_ID,Ex_Name from Expenses_Card WHERE Ex_Name Like '%" & IM_SH_txt.Text & "%'"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(IM_Dt)
-            IMDataGridViewX.DataSource = IM_Dt
-            If IM_Dt.Rows.Count > 0 Then
-                IMDataGridViewX.Visible = True
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            Else
-                IMDataGridViewX.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Public Sub Load_IM()
+    '    Dim c As New C
+    '    Try
+    '        IM_Dt.Clear()
+    '        Dim s As String
+    '        s = "select Ex_ID,Ex_Name from Expenses_Card WHERE Ex_Name Like '%" & IM_SH_txt.Text & "%'"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(IM_Dt)
+    '        IMDataGridViewX.DataSource = IM_Dt
+    '        If IM_Dt.Rows.Count > 0 Then
+    '            IMDataGridViewX.Visible = True
+    '            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+    '        Else
+    '            IMDataGridViewX.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
 
-    Private Sub IM_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_SH_txt.KeyDown
+    'Private Sub IM_SH_txt_KeyDown(sender As Object, e As KeyEventArgs)
 
-        Select Case e.KeyCode
-            Case Keys.Return
-                If IMDataGridViewX.Visible = True Then
-                    Fetch_ItemToList()
-                Else
-                    IM_Cost_txt.Select()
-                End If
+    '    Select Case e.KeyCode
+    '        Case Keys.Return
+    '            If IMDataGridViewX.Visible = True Then
+    '                Fetch_ItemToList()
+    '            Else
+    '                IM_Cost_txt.Select()
+    '            End If
 
-            Case Keys.Down
-                If IMDataGridViewX.Visible = True Then
-                    IMDataGridViewX.Select()
-                Else
-                    IM_Cost_txt.Select()
-                End If
-            Case Keys.Delete : IM_SH_txt.Clear()
+    '        Case Keys.Down
+    '            If IMDataGridViewX.Visible = True Then
+    '                IMDataGridViewX.Select()
+    '            Else
+    '                IM_Cost_txt.Select()
+    '            End If
+    '        Case Keys.Delete : IM_SH_txt.Clear()
 
-        End Select
-
-
-    End Sub
-
-    Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
-        If IM_SH_txt.Text.Count > 0 Then
-            Load_IM()
-        Else
-            IMDataGridViewX.Visible = False
-            IM_ID = 0
-            IM_Cost_txt.Clear()
-        End If
-
-        If IM_ID = 0 Then
-            IM_SH_txt.BackColor = Color.LightGray
-        Else
-            IM_SH_txt.BackColor = Color.LightGoldenrodYellow
-        End If
-    End Sub
-
-    Private Sub IMDataGridViewX_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles IMDataGridViewX.CellClick
-        Fetch_ItemToList()
-    End Sub
-
-    Private Sub IMDataGridViewX_KeyDown(sender As Object, e As KeyEventArgs) Handles IMDataGridViewX.KeyDown
-        If e.KeyCode = Keys.Return Then
-            Fetch_ItemToList()
-        End If
-
-        If e.KeyCode = Keys.Up Then
-            If IMDataGridViewX.CurrentRow.Index = 0 Then
-                IM_SH_txt.Select()
-            End If
-        End If
-    End Sub
-
-    Private Sub Fetch_ItemToList()
-        If IMDataGridViewX.Rows.Count > 0 Then
-            IM_ID = IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value
-            IM_SH_txt.Text = IMDataGridViewX.CurrentRow.Cells("item_name_CL").Value
-            IM_SH_txt.BackColor = Color.LightGoldenrodYellow
-            IMDataGridViewX.Visible = False
-            IM_Cost_txt.Select()
-        End If
-    End Sub
+    '    End Select
 
 
+    'End Sub
 
-    Private Sub Show_IM_btn_Click(sender As Object, e As EventArgs) Handles Show_IM_btn.Click
-        If IMDataGridViewX.Visible = True Then
-            IMDataGridViewX.Visible = False
-        Else
-            IMDataGridViewX.Visible = True
-            Load_ALL_AG()
-        End If
-    End Sub
+    'Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs)
+    '    If IM_SH_txt.Text.Count > 0 Then
+    '        Load_IM()
+    '    Else
+    '        IMDataGridViewX.Visible = False
+    '        IM_ID = 0
+    '        IM_Cost_txt.Clear()
+    '    End If
 
-    Public Sub Load_ALL_AG()
-        Dim c As New C
+    '    If IM_ID = 0 Then
+    '        IM_SH_txt.BackColor = Color.LightGray
+    '    Else
+    '        IM_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '    End If
+    'End Sub
 
-        Try
-            IM_Dt.Clear()
-            Dim s As String
-            s = "select Ex_ID,Ex_Name from Expenses_Card Order By Ex_Name ASC"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(IM_Dt)
-            IMDataGridViewX.DataSource = IM_Dt
-            If IM_Dt.Rows.Count > 0 Then
-                IMDataGridViewX.Visible = True
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            Else
-                IMDataGridViewX.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Private Sub IMDataGridViewX_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+    '    Fetch_ItemToList()
+    'End Sub
+
+    'Private Sub IMDataGridViewX_KeyDown(sender As Object, e As KeyEventArgs)
+    '    If e.KeyCode = Keys.Return Then
+    '        Fetch_ItemToList()
+    '    End If
+
+    '    If e.KeyCode = Keys.Up Then
+    '        If IMDataGridViewX.CurrentRow.Index = 0 Then
+    '            IM_SH_txt.Select()
+    '        End If
+    '    End If
+    'End Sub
+
+    'Private Sub Fetch_ItemToList()
+    '    If IMDataGridViewX.Rows.Count > 0 Then
+    '        IM_ID = IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value
+    '        IM_SH_txt.Text = IMDataGridViewX.CurrentRow.Cells("item_name_CL").Value
+    '        IM_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '        IMDataGridViewX.Visible = False
+    '        IM_Cost_txt.Select()
+    '    End If
+    'End Sub
+
+
+
+    'Private Sub Show_IM_btn_Click(sender As Object, e As EventArgs)
+    '    If IMDataGridViewX.Visible = True Then
+    '        IMDataGridViewX.Visible = False
+    '    Else
+    '        IMDataGridViewX.Visible = True
+    '        Load_ALL_AG()
+    '    End If
+    'End Sub
+
+    'Public Sub Load_ALL_AG()
+    '    Dim c As New C
+
+    '    Try
+    '        IM_Dt.Clear()
+    '        Dim s As String
+    '        s = "select Ex_ID,Ex_Name from Expenses_Card Order By Ex_Name ASC"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(IM_Dt)
+    '        IMDataGridViewX.DataSource = IM_Dt
+    '        If IM_Dt.Rows.Count > 0 Then
+    '            IMDataGridViewX.Visible = True
+    '            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+    '        Else
+    '            IMDataGridViewX.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
 
     Dim Tmp_Bill_ID As Integer
@@ -758,7 +737,7 @@
             With pp
                 .rp.SetParameterValue(0, "  رقم الفاتورة :  " + Bill_ID_Txt.Text + vbNewLine + " تاريخ : " + DateTimeEx.Value)
                 .rp.SetParameterValue(1, USER_NAME)
-                .rp.SetParameterValue(2, My_Settings.Server_Desc)
+                .rp.SetParameterValue(2, MY_Settings.Server_Desc)
                 .rp.SetParameterValue(3, T_ID)
                 .rp.SetParameterValue(4, Total_TextBox.Text)
                 .rp.SetParameterValue(5, IM_Qty_LB.Text)
@@ -810,17 +789,17 @@
         If e.KeyCode = Keys.Return Then Save_Title_Name(T_ID, Title_txt.Text)
     End Sub
 
-    Private Sub IMDataGridViewX_VisibleChanged(sender As Object, e As EventArgs) Handles IMDataGridViewX.VisibleChanged
-        If IMDataGridViewX.Visible = True Then
+    'Private Sub IMDataGridViewX_VisibleChanged(sender As Object, e As EventArgs)
+    '    If IMDataGridViewX.Visible = True Then
 
-            Me.Controls.Add(IMDataGridViewX)
-            IMDataGridViewX.BringToFront()
-            IMDataGridViewX.Location = New Point(IM_Panel.Location.X, IM_Panel.Location.Y + IM_Panel.Size.Height + 1)
-        Else
-            IM_Panel.Controls.Add(IMDataGridViewX)
-            IMDataGridViewX.Location = New Point(IM_SH_txt.Location.X, IM_SH_txt.Location.Y + IM_SH_txt.Size.Height + 1)
-        End If
-    End Sub
+    '        Me.Controls.Add(IMDataGridViewX)
+    '        IMDataGridViewX.BringToFront()
+    '        IMDataGridViewX.Location = New Point(IM_Panel.Location.X, IM_Panel.Location.Y + IM_Panel.Size.Height + 1)
+    '    Else
+    '        IM_Panel.Controls.Add(IMDataGridViewX)
+    '        IMDataGridViewX.Location = New Point(IM_SH_txt.Location.X, IM_SH_txt.Location.Y + IM_SH_txt.Size.Height + 1)
+    '    End If
+    'End Sub
 
     Private Sub DeliveryingButton_Click(sender As Object, e As EventArgs) Handles DeliveryingButton.Click
         If isDepended = True Then
@@ -878,144 +857,17 @@
         Calc_Credit()
     End Sub
 
-    '-------------------------------------------------------------------------<AGENTS FILTER>
-    Public Sub Load_AG()
-        Dim c As New C
-
-        Try
-            AG_Dt.Clear()
-            Dim s As String
-            s = "select AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AG_EXP_CARD_V WHERE Ag_name Like '%" & AG_SH_txt.Text & "%' "
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(AG_Dt)
-            AG_Grid.DataSource = AG_Dt
-            If AG_Dt.Rows.Count > 0 Then
-                AG_Grid.Visible = True
-                AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
-            Else
-                AG_Grid.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-    Public Sub GET_AG()
-        Dim c As New C
-
-        Try
-            AG_Dt.Clear()
-            Dim s As String
-            s = "select Ag_name from Agents WHERE Ag_ID = '" & AG_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                AG_SH_txt.Text = c.Dr("Ag_name")
-                AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-                AG_Grid.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub AG_SH_txt_Enter(sender As Object, e As EventArgs) Handles AG_SH_txt.Enter
-        Set_Ar_Language()
-    End Sub
-
-    Private Sub AG_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles AG_SH_txt.KeyDown
-        If e.KeyCode = Keys.Down Then AG_Grid.Select()
-        If e.KeyCode = Keys.Return Then If AG_Grid.Visible = True Then Fetch_ItemToList2()
-        If e.KeyCode = Keys.Delete Then AG_SH_txt.Clear()
-    End Sub
-
-    Private Sub AG_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles AG_SH_txt.TextChanged
-        If AG_SH_txt.Text.Count > 0 Then
-            Load_AG()
-        Else
-            AG_Grid.Visible = False
-            AG_ID = Default_AG_ID
+    Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
+        If AG_Cm.TXT_ID.Text > 0 Then
+            AG_ID = AG_Cm.TXT_ID.Text
             Save_AG_Name(T_ID, AG_ID, On_Update)
         End If
-        Check_AG_Pied()
-
     End Sub
 
-    Private Sub Check_AG_Pied()
-        If S_Stores = False Then
-            If AG_ID = Default_AG_ID Then
-                AG_SH_txt.BackColor = Color.LightGray
-            Else
-                AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-            End If
+    Private Sub EX_Cm_ID_Changed(sender As Object, e As EventArgs) Handles EX_Cm.ID_Changed
+        If EX_Cm.TXT_ID.Text > 0 Then
+            IM_ID = EX_Cm.TXT_ID.Text
+            IM_Cost_txt.Select()
         End If
     End Sub
-
-    Private Sub AG_Grid_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles AG_Grid.CellClick
-        Fetch_ItemToList2()
-    End Sub
-
-    Private Sub AG_Grid_KeyDown(sender As Object, e As KeyEventArgs) Handles AG_Grid.KeyDown
-        If e.KeyCode = Keys.Return Then Fetch_ItemToList2()
-        If e.KeyCode = Keys.Up Then If AG_Grid.CurrentRow.Index = 0 Then AG_SH_txt.Select()
-    End Sub
-
-    Public Sub Fetch_ItemToList2()
-        If AG_Grid.Rows.Count > 0 Then
-            AG_ID = AG_Grid.CurrentRow.Cells(0).Value
-            AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
-            AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-            AG_Grid.Visible = False
-            Save_AG_Name(T_ID, AG_ID, On_Update)
-            Check_AG_Pied()
-        End If
-    End Sub
-
-    Private Sub Show_IM_btn2_Click(sender As Object, e As EventArgs) Handles Show_IM_btn2.Click
-        If AG_Grid.Visible = True Then
-            AG_Grid.Visible = False
-
-            'Panel1.Controls.Add(AG_Grid)
-            'AG_Grid.Location = New Point(AG_SH_txt.Location.X, AG_SH_txt.Location.Y + AG_SH_txt.Size.Height + 1)
-
-        Else
-            Fill_All_AG()
-            AG_Grid.Visible = True
-            AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
-
-            'Me.Controls.Add(AG_Grid)
-            'AG_Grid.BringToFront()
-            'AG_Grid.Location = New Point(Panel1.Location.X, Panel1.Location.Y + Panel1.Size.Height + 1)
-
-        End If
-    End Sub
-
-    Private Sub Fill_All_AG()
-        Try
-            Dim C As New C
-            AG_Dt.Clear()
-            Dim s As String = "SELECT AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AG_EXP_CARD_V  Order by Ag_name ASC"
-            C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
-            C.Da.Fill(AG_Dt)
-            AG_Grid.DataSource = AG_Dt
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub AG_Grid_VisibleChanged(sender As Object, e As EventArgs) Handles AG_Grid.VisibleChanged
-        If AG_Grid.Visible = True Then
-
-            Me.Controls.Add(AG_Grid)
-            AG_Grid.BringToFront()
-            AG_Grid.Location = New Point(AG_Panel.Location.X, AG_Panel.Location.Y + AG_Panel.Size.Height + 1)
-        Else
-            AG_Panel.Controls.Add(AG_Grid)
-            AG_Grid.Location = New Point(AG_SH_txt.Location.X, AG_SH_txt.Location.Y + AG_SH_txt.Size.Height + 1)
-        End If
-    End Sub
-
-    '-------------------------------------------------------------------------</AGENTS FILTER>
 End Class
