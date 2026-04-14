@@ -141,12 +141,6 @@
   <metadata name="Total_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="IM_ID_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="item_name_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="Receipt_T_ID_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -157,15 +151,6 @@
     <value>True</value>
   </metadata>
   <metadata name="Value_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="AG_ID_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Agent_name_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Balance_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="CustodyMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -193,6 +178,32 @@
         tcZ5Ni+ITXadifH2v7gvtQRlr1/28MEUB7z3yOViifvbXgnSjR9XUuX6oZsV4MJxGDBxyqx/V5C0srQx
         a+OowvxfwfiVYAEb1+KTiHEaHEaEkEEslq5bkM925KSZLEp+5JJJ15OgST5JJZizG/BhiSRkUffF2k+n
         MppE3GgssRu5O3WrANq22u67PH//2Q==
+</value>
+  </data>
+  <data name="EX_Cm.CancelSearchImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGTSURBVDhPvVO7SkNBEE20EdFOiY2PX9DKxCLoP0SRcN3Z
+        OZtVUgh+QXp/wtpKUlmksbAIgiIEbP0METHKuey9bDYGKz2wcO+ZnbOzM2crlf8AgJqq1p1zu9ba1TT+
+        G6qq2gbwBOArWmNVfbDWHqYJU/DeLwK4YaK19t4550Wk0el0Gqp6BmAYRK+NMQtpfoEqgD6Ad1WVNBjA
+        PafGmA+KpcEcAEyo5CSNpaBY2Dt9TQAjVb1L+RlgZUP2bILNsmyDJ/BKrVZrHsDVT6cBOAdwyW/nHHs2
+        npimqu5TSER2jDFrqvrKPsRiQWQM4Lnb7S4B2GMOrVEKichBqGib/8aYLQC5mHPuGMBFIeK9X+EeTjLk
+        1EshVd0MZFZwhViz2fwMIy9FCFoj8LVSiBCRFwCDmCvEUhGCPgPwGHM5ALhwwlHMs9pUhEMJN2jHfI5e
+        rzdnrb0F8JaKxaDPaFq+ANogjedQ1eUgxsoG7BkHwEXD0mch1udzSvMnwMp4zdCz+NFyjSg4s5JZYH9o
+        DfpMRNbT+J/gG0f57QEKYH0kAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="AG_Cm.CancelSearchImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGTSURBVDhPvVO7SkNBEE20EdFOiY2PX9DKxCLoP0SRcN3Z
+        OZtVUgh+QXp/wtpKUlmksbAIgiIEbP0METHKuey9bDYGKz2wcO+ZnbOzM2crlf8AgJqq1p1zu9ba1TT+
+        G6qq2gbwBOArWmNVfbDWHqYJU/DeLwK4YaK19t4550Wk0el0Gqp6BmAYRK+NMQtpfoEqgD6Ad1WVNBjA
+        PafGmA+KpcEcAEyo5CSNpaBY2Dt9TQAjVb1L+RlgZUP2bILNsmyDJ/BKrVZrHsDVT6cBOAdwyW/nHHs2
+        npimqu5TSER2jDFrqvrKPsRiQWQM4Lnb7S4B2GMOrVEKichBqGib/8aYLQC5mHPuGMBFIeK9X+EeTjLk
+        1EshVd0MZFZwhViz2fwMIy9FCFoj8LVSiBCRFwCDmCvEUhGCPgPwGHM5ALhwwlHMs9pUhEMJN2jHfI5e
+        rzdnrb0F8JaKxaDPaFq+ANogjedQ1eUgxsoG7BkHwEXD0mch1udzSvMnwMp4zdCz+NFyjSg4s5JZYH9o
+        DfpMRNbT+J/gG0f57QEKYH0kAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

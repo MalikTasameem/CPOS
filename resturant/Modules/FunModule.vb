@@ -836,7 +836,8 @@ Module FunModule
                     With F_EXP_Details
                         .T_ID = C.Dr("T_ID")
                         .AG_ID = C.Dr("AG_ID")
-                        .GET_AG()
+                        .AG_Cm.Set_IM_By_ID(.AG_ID)
+                        '.GET_AG()
                         .Bill_ID_Txt.Text = S_Sub_Code & (C.Dr("Bill_ID")) ' - START_ID).ToString
                         .Bill_ID = C.Dr("Bill_ID")
                         .Notes_txt.Text = C.Dr("About")

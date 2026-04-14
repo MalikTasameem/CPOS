@@ -403,16 +403,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property iconfinder_multimedia() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("iconfinder_multimedia", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property iconfinder_other_arrow_left_other_glyph_763233() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("iconfinder_other-arrow-left-other-glyph_763233", resourceCulture)
@@ -486,16 +476,6 @@ Namespace My.Resources
         Friend ReadOnly Property if_Add_27831() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("if_Add_27831", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property if_alert_46778() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("if_alert_46778", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

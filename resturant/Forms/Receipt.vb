@@ -1020,4 +1020,8 @@
         End Try
 
     End Sub
+
+    Private Sub Back_Btn_Click(sender As Object, e As EventArgs) Handles Back_Btn.Click
+        Me.Close()
+    End Sub
 End Class

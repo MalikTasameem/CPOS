@@ -25,6 +25,7 @@ Partial Class Receipt
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Receipt))
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.Void_Lb = New System.Windows.Forms.Label()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.AG_Show_Balance_CB = New System.Windows.Forms.CheckBox()
@@ -37,12 +38,12 @@ Partial Class Receipt
         Me.إضافةالإيصالإلىقائمةالعهدToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Up_Bill_btn = New System.Windows.Forms.Button()
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
-        Me.Void_Lb = New System.Windows.Forms.Label()
         Me.DeleteButton = New System.Windows.Forms.Button()
         Me.Fields_Panel = New System.Windows.Forms.Panel()
         Me.CR_Phone_Txt = New System.Windows.Forms.TextBox()
         Me.Treasury_Balance = New System.Windows.Forms.TextBox()
         Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.Receipt_Title_combobox = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Barcode_SH_txt = New System.Windows.Forms.TextBox()
@@ -75,7 +76,6 @@ Partial Class Receipt
         Me.print_butt = New System.Windows.Forms.Button()
         Me.save_butt = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
         Me.Rct_Move_Panel.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -95,6 +95,21 @@ Partial Class Receipt
         Me.TitleBar_Panel.Size = New System.Drawing.Size(702, 40)
         Me.TitleBar_Panel.TabIndex = 999
         Me.TitleBar_Panel.Tag = "HEADER"
+        '
+        'Void_Lb
+        '
+        Me.Void_Lb.BackColor = System.Drawing.Color.Red
+        Me.Void_Lb.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Void_Lb.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Void_Lb.ForeColor = System.Drawing.Color.White
+        Me.Void_Lb.Location = New System.Drawing.Point(45, 0)
+        Me.Void_Lb.Name = "Void_Lb"
+        Me.Void_Lb.Size = New System.Drawing.Size(520, 40)
+        Me.Void_Lb.TabIndex = 382
+        Me.Void_Lb.Tag = "DELETE"
+        Me.Void_Lb.Text = "إيصال ملغي"
+        Me.Void_Lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Void_Lb.Visible = False
         '
         'ExitFormButton
         '
@@ -267,21 +282,6 @@ Partial Class Receipt
         Me.Down_Bill_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Down_Bill_btn.UseVisualStyleBackColor = False
         '
-        'Void_Lb
-        '
-        Me.Void_Lb.BackColor = System.Drawing.Color.Red
-        Me.Void_Lb.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Void_Lb.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Void_Lb.ForeColor = System.Drawing.Color.White
-        Me.Void_Lb.Location = New System.Drawing.Point(45, 0)
-        Me.Void_Lb.Name = "Void_Lb"
-        Me.Void_Lb.Size = New System.Drawing.Size(520, 40)
-        Me.Void_Lb.TabIndex = 382
-        Me.Void_Lb.Tag = "DELETE"
-        Me.Void_Lb.Text = "إيصال ملغي"
-        Me.Void_Lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Void_Lb.Visible = False
-        '
         'DeleteButton
         '
         Me.DeleteButton.BackColor = System.Drawing.Color.WhiteSmoke
@@ -374,6 +374,27 @@ Partial Class Receipt
         Me.NULLContextMenuStrip.Name = "NULLContextMenuStrip"
         Me.NULLContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.NULLContextMenuStrip.Size = New System.Drawing.Size(61, 4)
+        '
+        'AG_Cm
+        '
+        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 13.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AG_Cm.Location = New System.Drawing.Point(142, 78)
+        Me.AG_Cm.Name = "AG_Cm"
+        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.AG_Cm.Size = New System.Drawing.Size(469, 33)
+        Me.AG_Cm.SQL_Column = "AG_NAME"
+        Me.AG_Cm.SQL_ID = "AG_ID"
+        Me.AG_Cm.SQL_IsNumericSearchField = False
+        Me.AG_Cm.SQL_ListSize = 200
+        Me.AG_Cm.SQL_NumberOfRows = 200
+        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField_WHERE = ""
+        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
+        Me.AG_Cm.TabIndex = 1
+        Me.AG_Cm.TextMaxLength = 250
+        Me.AG_Cm.Textt = ""
         '
         'Receipt_Title_combobox
         '
@@ -806,27 +827,6 @@ Partial Class Receipt
         Me.save_butt.Tag = "SAVE"
         Me.save_butt.Text = "حفظ F12"
         Me.save_butt.UseVisualStyleBackColor = False
-        '
-        'AG_Cm
-        '
-        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 13.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AG_Cm.Location = New System.Drawing.Point(142, 78)
-        Me.AG_Cm.Name = "AG_Cm"
-        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(469, 33)
-        Me.AG_Cm.SQL_Column = "AG_NAME"
-        Me.AG_Cm.SQL_ID = "AG_ID"
-        Me.AG_Cm.SQL_IsNumericSearchField = False
-        Me.AG_Cm.SQL_ListSize = 200
-        Me.AG_Cm.SQL_NumberOfRows = 200
-        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField_WHERE = ""
-        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
-        Me.AG_Cm.TabIndex = 1
-        Me.AG_Cm.TextMaxLength = 250
-        Me.AG_Cm.Textt = ""
         '
         'Receipt
         '

@@ -31,6 +31,9 @@ Partial Class IM_Execute
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IM_Execute))
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
+        Me.DGV_Control_btn = New System.Windows.Forms.Button()
+        Me.ADDCatButton = New System.Windows.Forms.Button()
+        Me.RemoveCatButton = New System.Windows.Forms.Button()
         Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AGMetroGrid = New MetroFramework.Controls.MetroGrid()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -47,6 +50,7 @@ Partial Class IM_Execute
         Me.DeletedBillLabel = New System.Windows.Forms.Label()
         Me.Notes_txt = New System.Windows.Forms.TextBox()
         Me.IM_Show_CxtMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Bill_ID_Txt = New System.Windows.Forms.TextBox()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.IM_Count_LB = New System.Windows.Forms.Label()
@@ -59,17 +63,13 @@ Partial Class IM_Execute
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
         Me.Up_Bill_btn = New System.Windows.Forms.Button()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Print_btn = New System.Windows.Forms.Button()
-        Me.DGV_Control_btn = New System.Windows.Forms.Button()
         Me.SearchButton = New System.Windows.Forms.Button()
-        Me.ADDCatButton = New System.Windows.Forms.Button()
-        Me.RemoveCatButton = New System.Windows.Forms.Button()
         Me.New_butt = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.Edit_butt = New System.Windows.Forms.Button()
@@ -88,6 +88,68 @@ Partial Class IM_Execute
         Me.MetroToolTip1.Style = MetroFramework.MetroColorStyle.Blue
         Me.MetroToolTip1.StyleManager = Nothing
         Me.MetroToolTip1.Theme = MetroFramework.MetroThemeStyle.Light
+        '
+        'DGV_Control_btn
+        '
+        Me.DGV_Control_btn.BackColor = System.Drawing.Color.White
+        Me.DGV_Control_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.DGV_Control_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.DGV_Control_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.DGV_Control_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_menu_1814109
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(823, 118)
+        Me.DGV_Control_btn.Name = "DGV_Control_btn"
+        Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.DGV_Control_btn.Size = New System.Drawing.Size(48, 25)
+        Me.DGV_Control_btn.TabIndex = 658
+        Me.DGV_Control_btn.TabStop = False
+        Me.MetroToolTip1.SetToolTip(Me.DGV_Control_btn, "عرض بيانات الجدول")
+        Me.DGV_Control_btn.UseVisualStyleBackColor = False
+        '
+        'ADDCatButton
+        '
+        Me.ADDCatButton.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ADDCatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ADDCatButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ADDCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.ADDCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.ADDCatButton.Image = Global.resturant.My.Resources.Resources.IM_ADD
+        Me.ADDCatButton.Location = New System.Drawing.Point(823, 144)
+        Me.ADDCatButton.Name = "ADDCatButton"
+        Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ADDCatButton.Size = New System.Drawing.Size(48, 196)
+        Me.ADDCatButton.TabIndex = 396
+        Me.ADDCatButton.TabStop = False
+        Me.ADDCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroToolTip1.SetToolTip(Me.ADDCatButton, "إضافة الصنف")
+        Me.ADDCatButton.UseVisualStyleBackColor = False
+        '
+        'RemoveCatButton
+        '
+        Me.RemoveCatButton.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.RemoveCatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.RemoveCatButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.RemoveCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.RemoveCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.RemoveCatButton.Image = Global.resturant.My.Resources.Resources.IM_REMOVE
+        Me.RemoveCatButton.Location = New System.Drawing.Point(823, 340)
+        Me.RemoveCatButton.Name = "RemoveCatButton"
+        Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.RemoveCatButton.Size = New System.Drawing.Size(48, 196)
+        Me.RemoveCatButton.TabIndex = 395
+        Me.RemoveCatButton.TabStop = False
+        Me.RemoveCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف المختار")
+        Me.RemoveCatButton.UseVisualStyleBackColor = False
         '
         'NULLContextMenuStrip
         '
@@ -149,7 +211,7 @@ Partial Class IM_Execute
         Me.AGMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.AGMetroGrid.RowTemplate.Height = 40
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMetroGrid.Size = New System.Drawing.Size(822, 498)
+        Me.AGMetroGrid.Size = New System.Drawing.Size(817, 498)
         Me.AGMetroGrid.TabIndex = 290
         Me.AGMetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
@@ -282,6 +344,13 @@ Partial Class IM_Execute
         Me.IM_Show_CxtMStrip.Name = "IM_ContextMenuStrip"
         Me.IM_Show_CxtMStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.IM_Show_CxtMStrip.Size = New System.Drawing.Size(211, 32)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Image = Global.resturant.My.Resources.Resources.iconfinder_search_126577
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(210, 28)
+        Me.ToolStripMenuItem1.Text = "عرض تفاصيل الصنف"
         '
         'Bill_ID_Txt
         '
@@ -434,28 +503,6 @@ Partial Class IM_Execute
         Me.Panel9.Size = New System.Drawing.Size(141, 40)
         Me.Panel9.TabIndex = 710
         '
-        'Label6
-        '
-        Me.Label6.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label6.Location = New System.Drawing.Point(228, 663)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(68, 24)
-        Me.Label6.TabIndex = 714
-        Me.Label6.Text = "الإجمالي"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label27
-        '
-        Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(875, 626)
-        Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(62, 21)
-        Me.Label27.TabIndex = 715
-        Me.Label27.Text = "ملاحظة :"
-        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'Down_Bill_btn
         '
         Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
@@ -496,12 +543,27 @@ Partial Class IM_Execute
         Me.Up_Bill_btn.TabStop = False
         Me.Up_Bill_btn.UseVisualStyleBackColor = False
         '
-        'ToolStripMenuItem1
+        'Label6
         '
-        Me.ToolStripMenuItem1.Image = Global.resturant.My.Resources.Resources.iconfinder_search_126577
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(210, 28)
-        Me.ToolStripMenuItem1.Text = "عرض تفاصيل الصنف"
+        Me.Label6.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label6.Location = New System.Drawing.Point(228, 663)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(68, 24)
+        Me.Label6.TabIndex = 714
+        Me.Label6.Text = "الإجمالي"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label27
+        '
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(875, 626)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(62, 21)
+        Me.Label27.TabIndex = 715
+        Me.Label27.Text = "ملاحظة :"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'ExitFormButton
         '
@@ -533,7 +595,7 @@ Partial Class IM_Execute
         Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Print_btn.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__2_
         Me.Print_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Print_btn.Location = New System.Drawing.Point(875, 204)
+        Me.Print_btn.Location = New System.Drawing.Point(873, 204)
         Me.Print_btn.Name = "Print_btn"
         Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Print_btn.Size = New System.Drawing.Size(130, 40)
@@ -542,26 +604,6 @@ Partial Class IM_Execute
         Me.Print_btn.Text = "طباعة F2"
         Me.Print_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Print_btn.UseVisualStyleBackColor = False
-        '
-        'DGV_Control_btn
-        '
-        Me.DGV_Control_btn.BackColor = System.Drawing.Color.White
-        Me.DGV_Control_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.DGV_Control_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.DGV_Control_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DGV_Control_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_menu_1814109
-        Me.DGV_Control_btn.Location = New System.Drawing.Point(825, 118)
-        Me.DGV_Control_btn.Name = "DGV_Control_btn"
-        Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.DGV_Control_btn.Size = New System.Drawing.Size(48, 25)
-        Me.DGV_Control_btn.TabIndex = 658
-        Me.DGV_Control_btn.TabStop = False
-        Me.MetroToolTip1.SetToolTip(Me.DGV_Control_btn, "عرض بيانات الجدول")
-        Me.DGV_Control_btn.UseVisualStyleBackColor = False
         '
         'SearchButton
         '
@@ -575,7 +617,7 @@ Partial Class IM_Execute
         Me.SearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.SearchButton.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.SearchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.SearchButton.Location = New System.Drawing.Point(875, 335)
+        Me.SearchButton.Location = New System.Drawing.Point(873, 335)
         Me.SearchButton.Name = "SearchButton"
         Me.SearchButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.SearchButton.Size = New System.Drawing.Size(130, 40)
@@ -584,48 +626,6 @@ Partial Class IM_Execute
         Me.SearchButton.Text = "بحث"
         Me.SearchButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.SearchButton.UseVisualStyleBackColor = False
-        '
-        'ADDCatButton
-        '
-        Me.ADDCatButton.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ADDCatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ADDCatButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ADDCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.ADDCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADDCatButton.Image = Global.resturant.My.Resources.Resources.IM_ADD
-        Me.ADDCatButton.Location = New System.Drawing.Point(825, 144)
-        Me.ADDCatButton.Name = "ADDCatButton"
-        Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ADDCatButton.Size = New System.Drawing.Size(48, 196)
-        Me.ADDCatButton.TabIndex = 396
-        Me.ADDCatButton.TabStop = False
-        Me.ADDCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroToolTip1.SetToolTip(Me.ADDCatButton, "إضافة الصنف")
-        Me.ADDCatButton.UseVisualStyleBackColor = False
-        '
-        'RemoveCatButton
-        '
-        Me.RemoveCatButton.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.RemoveCatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.RemoveCatButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.RemoveCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.RemoveCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.RemoveCatButton.Image = Global.resturant.My.Resources.Resources.IM_REMOVE
-        Me.RemoveCatButton.Location = New System.Drawing.Point(825, 340)
-        Me.RemoveCatButton.Name = "RemoveCatButton"
-        Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RemoveCatButton.Size = New System.Drawing.Size(48, 196)
-        Me.RemoveCatButton.TabIndex = 395
-        Me.RemoveCatButton.TabStop = False
-        Me.RemoveCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف المختار")
-        Me.RemoveCatButton.UseVisualStyleBackColor = False
         '
         'New_butt
         '
@@ -640,7 +640,7 @@ Partial Class IM_Execute
         Me.New_butt.ForeColor = System.Drawing.Color.Black
         Me.New_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools
         Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.New_butt.Location = New System.Drawing.Point(875, 118)
+        Me.New_butt.Location = New System.Drawing.Point(873, 118)
         Me.New_butt.Name = "New_butt"
         Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.New_butt.Size = New System.Drawing.Size(130, 40)
@@ -662,7 +662,7 @@ Partial Class IM_Execute
         Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Save_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__1_
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Save_butt.Location = New System.Drawing.Point(875, 161)
+        Me.Save_butt.Location = New System.Drawing.Point(873, 161)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Save_butt.Size = New System.Drawing.Size(130, 40)
@@ -685,7 +685,7 @@ Partial Class IM_Execute
         Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Edit_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__3_
         Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Edit_butt.Location = New System.Drawing.Point(875, 247)
+        Me.Edit_butt.Location = New System.Drawing.Point(873, 247)
         Me.Edit_butt.Name = "Edit_butt"
         Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Edit_butt.Size = New System.Drawing.Size(130, 40)
@@ -707,7 +707,7 @@ Partial Class IM_Execute
         Me.Delete_butt.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Delete_butt.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__4_
         Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Delete_butt.Location = New System.Drawing.Point(875, 291)
+        Me.Delete_butt.Location = New System.Drawing.Point(873, 291)
         Me.Delete_butt.Name = "Delete_butt"
         Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Delete_butt.Size = New System.Drawing.Size(130, 40)
