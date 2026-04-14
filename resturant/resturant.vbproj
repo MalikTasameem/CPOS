@@ -503,6 +503,30 @@
     <Compile Include="Forms\Treasurey\AG_Transfers.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="NEW_CPOS_DES\frmBuySell.Designer.vb">
+      <DependentUpon>frmBuySell.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NEW_CPOS_DES\frmBuySell.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NEW_CPOS_DES\frmInternationalShipping.Designer.vb">
+      <DependentUpon>frmInternationalShipping.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NEW_CPOS_DES\frmInternationalShipping.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NEW_CPOS_DES\frmTransfers.Designer.vb">
+      <DependentUpon>frmTransfers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NEW_CPOS_DES\frmTransfers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NEW_CPOS_DES\frmWithdrawalDeposit.Designer.vb">
+      <DependentUpon>frmWithdrawalDeposit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NEW_CPOS_DES\frmWithdrawalDeposit.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="NEW_CPOS_DES\Frm_DashboardButtons.Designer.vb">
       <DependentUpon>Frm_DashboardButtons.vb</DependentUpon>
     </Compile>
@@ -1660,6 +1684,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Treasurey\AG_Transfers.resx">
       <DependentUpon>AG_Transfers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NEW_CPOS_DES\frmBuySell.resx">
+      <DependentUpon>frmBuySell.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NEW_CPOS_DES\frmInternationalShipping.resx">
+      <DependentUpon>frmInternationalShipping.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NEW_CPOS_DES\frmTransfers.resx">
+      <DependentUpon>frmTransfers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NEW_CPOS_DES\frmWithdrawalDeposit.resx">
+      <DependentUpon>frmWithdrawalDeposit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NEW_CPOS_DES\Frm_DashboardButtons.resx">
       <DependentUpon>Frm_DashboardButtons.vb</DependentUpon>

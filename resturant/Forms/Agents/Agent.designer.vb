@@ -27,6 +27,11 @@ Partial Class Agent
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Agent))
+        Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.MinFormButton = New System.Windows.Forms.Button()
+        Me.TopTitle_LB = New System.Windows.Forms.Label()
+        Me.MaxFormButton = New System.Windows.Forms.Button()
+        Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Refreg_Balance_btn = New System.Windows.Forms.Button()
         Me.Add_Prev_Balance_btn = New System.Windows.Forms.Button()
         Me.FieldsPanel = New System.Windows.Forms.Panel()
@@ -37,8 +42,12 @@ Partial Class Agent
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Cr_CM = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.New_butt = New System.Windows.Forms.Button()
+        Me.Delete_butt = New System.Windows.Forms.Button()
         Me.Email_txt = New System.Windows.Forms.TextBox()
+        Me.Save_butt = New System.Windows.Forms.Button()
         Me.IM_SH_txt = New System.Windows.Forms.TextBox()
+        Me.Edit_butt = New System.Windows.Forms.Button()
         Me.BillPictureBox = New System.Windows.Forms.PictureBox()
         Me.AG_BalanceTextBox = New System.Windows.Forms.TextBox()
         Me.Max_Debit_txt = New System.Windows.Forms.TextBox()
@@ -60,15 +69,10 @@ Partial Class Agent
         Me.Label1 = New System.Windows.Forms.Label()
         Me.AG_Phone_TextBox = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.IMDataGridViewX = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.IMDataGridViewX = New System.Windows.Forms.DataGridView()
         Me.IM_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Barcode_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Agent_name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ExitFormButton = New System.Windows.Forms.Button()
-        Me.Delete_butt = New System.Windows.Forms.Button()
-        Me.Edit_butt = New System.Windows.Forms.Button()
-        Me.New_butt = New System.Windows.Forms.Button()
-        Me.Save_butt = New System.Windows.Forms.Button()
         Me.AG_NAMEErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.BarError = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
@@ -90,6 +94,8 @@ Partial Class Agent
         Me.ToolStripStatusLabel7 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel8 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel9 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TitleBar_Panel.SuspendLayout()
         Me.FieldsPanel.SuspendLayout()
         CType(Me.BillPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Salary_GP.SuspendLayout()
@@ -97,10 +103,89 @@ Partial Class Agent
         CType(Me.AG_NAMEErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarError, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'TitleBar_Panel
+        '
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.MinFormButton)
+        Me.TitleBar_Panel.Controls.Add(Me.TopTitle_LB)
+        Me.TitleBar_Panel.Controls.Add(Me.MaxFormButton)
+        Me.TitleBar_Panel.Controls.Add(Me.ExitFormButton)
+        Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
+        Me.TitleBar_Panel.Name = "TitleBar_Panel"
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(943, 40)
+        Me.TitleBar_Panel.TabIndex = 999
+        Me.TitleBar_Panel.Tag = "HEADER"
+        '
+        'MinFormButton
+        '
+        Me.MinFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.MinFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.MinFormButton.FlatAppearance.BorderSize = 0
+        Me.MinFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.MinFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.MinFormButton.ForeColor = System.Drawing.Color.White
+        Me.MinFormButton.Location = New System.Drawing.Point(93, 0)
+        Me.MinFormButton.Name = "MinFormButton"
+        Me.MinFormButton.Size = New System.Drawing.Size(43, 40)
+        Me.MinFormButton.TabIndex = 1
+        Me.MinFormButton.Tag = "APP_CONTROL"
+        Me.MinFormButton.Text = "ـ"
+        Me.MinFormButton.UseVisualStyleBackColor = False
+        '
+        'TopTitle_LB
+        '
+        Me.TopTitle_LB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TopTitle_LB.AutoSize = True
+        Me.TopTitle_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.TopTitle_LB.ForeColor = System.Drawing.Color.White
+        Me.TopTitle_LB.Location = New System.Drawing.Point(1004, 9)
+        Me.TopTitle_LB.Name = "TopTitle_LB"
+        Me.TopTitle_LB.Size = New System.Drawing.Size(87, 21)
+        Me.TopTitle_LB.TabIndex = 0
+        Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
+        Me.TopTitle_LB.Text = "إدارة العملاء"
+        '
+        'MaxFormButton
+        '
+        Me.MaxFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.MaxFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.MaxFormButton.FlatAppearance.BorderSize = 0
+        Me.MaxFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.MaxFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.MaxFormButton.ForeColor = System.Drawing.Color.White
+        Me.MaxFormButton.Location = New System.Drawing.Point(47, 0)
+        Me.MaxFormButton.Name = "MaxFormButton"
+        Me.MaxFormButton.Size = New System.Drawing.Size(46, 40)
+        Me.MaxFormButton.TabIndex = 2
+        Me.MaxFormButton.Tag = "APP_CONTROL"
+        Me.MaxFormButton.Text = "⬜"
+        Me.MaxFormButton.UseVisualStyleBackColor = False
+        '
+        'ExitFormButton
+        '
+        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ExitFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ExitFormButton.FlatAppearance.BorderSize = 0
+        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ExitFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.ForeColor = System.Drawing.Color.White
+        Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
+        Me.ExitFormButton.Name = "ExitFormButton"
+        Me.ExitFormButton.Size = New System.Drawing.Size(47, 40)
+        Me.ExitFormButton.TabIndex = 3
+        Me.ExitFormButton.Tag = "APP_CONTROL"
+        Me.ExitFormButton.Text = "X"
+        Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'Refreg_Balance_btn
         '
+        Me.Refreg_Balance_btn.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Refreg_Balance_btn.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Refreg_Balance_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Refreg_Balance_btn.Cursor = System.Windows.Forms.Cursors.Hand
@@ -108,22 +193,23 @@ Partial Class Agent
         Me.Refreg_Balance_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Refreg_Balance_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Refreg_Balance_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Refreg_Balance_btn.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Refreg_Balance_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Refreg_Balance_btn.ForeColor = System.Drawing.Color.Black
-        Me.Refreg_Balance_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_icon_refresh_2867936
         Me.Refreg_Balance_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Refreg_Balance_btn.Location = New System.Drawing.Point(819, 254)
+        Me.Refreg_Balance_btn.Location = New System.Drawing.Point(3, 280)
         Me.Refreg_Balance_btn.Name = "Refreg_Balance_btn"
         Me.Refreg_Balance_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Refreg_Balance_btn.Size = New System.Drawing.Size(120, 43)
+        Me.Refreg_Balance_btn.Size = New System.Drawing.Size(119, 46)
         Me.Refreg_Balance_btn.TabIndex = 673
         Me.Refreg_Balance_btn.Text = "تحديث الرصيد"
-        Me.Refreg_Balance_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Refreg_Balance_btn.UseVisualStyleBackColor = False
         Me.Refreg_Balance_btn.Visible = False
         '
         'Add_Prev_Balance_btn
         '
+        Me.Add_Prev_Balance_btn.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Add_Prev_Balance_btn.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Add_Prev_Balance_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Add_Prev_Balance_btn.Cursor = System.Windows.Forms.Cursors.Hand
@@ -132,21 +218,20 @@ Partial Class Agent
         Me.Add_Prev_Balance_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Add_Prev_Balance_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Add_Prev_Balance_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Add_Prev_Balance_btn.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Add_Prev_Balance_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Add_Prev_Balance_btn.ForeColor = System.Drawing.Color.Black
-        Me.Add_Prev_Balance_btn.Image = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.Add_Prev_Balance_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Add_Prev_Balance_btn.Location = New System.Drawing.Point(819, 207)
+        Me.Add_Prev_Balance_btn.Location = New System.Drawing.Point(4, 225)
         Me.Add_Prev_Balance_btn.Name = "Add_Prev_Balance_btn"
         Me.Add_Prev_Balance_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Add_Prev_Balance_btn.Size = New System.Drawing.Size(120, 43)
+        Me.Add_Prev_Balance_btn.Size = New System.Drawing.Size(119, 48)
         Me.Add_Prev_Balance_btn.TabIndex = 616
         Me.Add_Prev_Balance_btn.Text = "رصيد سابق"
-        Me.Add_Prev_Balance_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Add_Prev_Balance_btn.UseVisualStyleBackColor = False
         '
         'FieldsPanel
         '
+        Me.FieldsPanel.Controls.Add(Me.Panel1)
         Me.FieldsPanel.Controls.Add(Me.Show_ag_menuCB)
         Me.FieldsPanel.Controls.Add(Me.ACC_CODE_TXT)
         Me.FieldsPanel.Controls.Add(Me.Label12)
@@ -172,11 +257,12 @@ Partial Class Agent
         Me.FieldsPanel.Controls.Add(Me.Label1)
         Me.FieldsPanel.Controls.Add(Me.AG_Phone_TextBox)
         Me.FieldsPanel.Controls.Add(Me.Label4)
+        Me.FieldsPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.FieldsPanel.Enabled = False
-        Me.FieldsPanel.Location = New System.Drawing.Point(2, 2)
+        Me.FieldsPanel.Location = New System.Drawing.Point(0, 40)
         Me.FieldsPanel.Name = "FieldsPanel"
         Me.FieldsPanel.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.FieldsPanel.Size = New System.Drawing.Size(815, 344)
+        Me.FieldsPanel.Size = New System.Drawing.Size(943, 344)
         Me.FieldsPanel.TabIndex = 240
         '
         'Show_ag_menuCB
@@ -186,7 +272,7 @@ Partial Class Agent
         Me.Show_ag_menuCB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_ag_menuCB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Show_ag_menuCB.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Show_ag_menuCB.Location = New System.Drawing.Point(625, 229)
+        Me.Show_ag_menuCB.Location = New System.Drawing.Point(597, 237)
         Me.Show_ag_menuCB.Name = "Show_ag_menuCB"
         Me.Show_ag_menuCB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Show_ag_menuCB.Size = New System.Drawing.Size(180, 23)
@@ -197,26 +283,28 @@ Partial Class Agent
         '
         'ACC_CODE_TXT
         '
+        Me.ACC_CODE_TXT.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ACC_CODE_TXT.BackColor = System.Drawing.SystemColors.WindowText
         Me.ACC_CODE_TXT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ACC_CODE_TXT.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ACC_CODE_TXT.ForeColor = System.Drawing.Color.White
-        Me.ACC_CODE_TXT.Location = New System.Drawing.Point(403, 286)
+        Me.ACC_CODE_TXT.Location = New System.Drawing.Point(400, 280)
         Me.ACC_CODE_TXT.MaxLength = 500
         Me.ACC_CODE_TXT.Name = "ACC_CODE_TXT"
         Me.ACC_CODE_TXT.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ACC_CODE_TXT.Size = New System.Drawing.Size(258, 29)
+        Me.ACC_CODE_TXT.Size = New System.Drawing.Size(246, 29)
         Me.ACC_CODE_TXT.TabIndex = 617
         Me.ACC_CODE_TXT.Visible = False
         '
         'Label12
         '
+        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Arial", 12.25!)
-        Me.Label12.Location = New System.Drawing.Point(664, 292)
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label12.Location = New System.Drawing.Point(649, 286)
         Me.Label12.Name = "Label12"
         Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label12.Size = New System.Drawing.Size(86, 19)
+        Me.Label12.Size = New System.Drawing.Size(93, 20)
         Me.Label12.TabIndex = 614
         Me.Label12.Text = "كود الحساب :"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -224,30 +312,33 @@ Partial Class Agent
         '
         'Label10
         '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(313, 66)
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label10.Location = New System.Drawing.Point(302, 66)
         Me.Label10.Name = "Label10"
         Me.Label10.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label10.Size = New System.Drawing.Size(43, 18)
+        Me.Label10.Size = New System.Drawing.Size(56, 20)
         Me.Label10.TabIndex = 574
         Me.Label10.Text = "العملة :"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(313, 123)
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label5.Location = New System.Drawing.Point(302, 123)
         Me.Label5.Name = "Label5"
         Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label5.Size = New System.Drawing.Size(53, 18)
+        Me.Label5.Size = New System.Drawing.Size(58, 20)
         Me.Label5.TabIndex = 245
         Me.Label5.Text = "الرصيد :"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Cr_CM
         '
+        Me.Cr_CM.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Cr_CM.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.Cr_CM.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Cr_CM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -257,47 +348,142 @@ Partial Class Agent
         Me.Cr_CM.Location = New System.Drawing.Point(117, 61)
         Me.Cr_CM.Name = "Cr_CM"
         Me.Cr_CM.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Cr_CM.Size = New System.Drawing.Size(193, 27)
+        Me.Cr_CM.Size = New System.Drawing.Size(182, 27)
         Me.Cr_CM.TabIndex = 573
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(647, 94)
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label9.Location = New System.Drawing.Point(626, 94)
         Me.Label9.Name = "Label9"
         Me.Label9.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label9.Size = New System.Drawing.Size(85, 18)
+        Me.Label9.Size = New System.Drawing.Size(98, 20)
         Me.Label9.TabIndex = 571
         Me.Label9.Text = "بريد إلكتروني :"
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'New_butt
+        '
+        Me.New_butt.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.New_butt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.New_butt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.New_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.New_butt.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.New_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.New_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.New_butt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.New_butt.ForeColor = System.Drawing.Color.Black
+        Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.New_butt.Location = New System.Drawing.Point(4, 8)
+        Me.New_butt.Name = "New_butt"
+        Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.New_butt.Size = New System.Drawing.Size(119, 48)
+        Me.New_butt.TabIndex = 282
+        Me.New_butt.Text = " جديـد F1"
+        Me.New_butt.UseVisualStyleBackColor = False
+        '
+        'Delete_butt
+        '
+        Me.Delete_butt.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Delete_butt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Delete_butt.Enabled = False
+        Me.Delete_butt.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Delete_butt.Location = New System.Drawing.Point(4, 171)
+        Me.Delete_butt.Name = "Delete_butt"
+        Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Delete_butt.Size = New System.Drawing.Size(119, 48)
+        Me.Delete_butt.TabIndex = 284
+        Me.Delete_butt.Text = " حـذف F4"
+        Me.Delete_butt.UseVisualStyleBackColor = False
+        '
         'Email_txt
         '
+        Me.Email_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Email_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Email_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Email_txt.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Email_txt.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Email_txt.Location = New System.Drawing.Point(399, 89)
+        Me.Email_txt.Location = New System.Drawing.Point(400, 89)
         Me.Email_txt.MaxLength = 250
         Me.Email_txt.Name = "Email_txt"
         Me.Email_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Email_txt.Size = New System.Drawing.Size(244, 26)
+        Me.Email_txt.Size = New System.Drawing.Size(222, 26)
         Me.Email_txt.TabIndex = 572
+        '
+        'Save_butt
+        '
+        Me.Save_butt.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Save_butt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Save_butt.Enabled = False
+        Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Save_butt.Location = New System.Drawing.Point(4, 62)
+        Me.Save_butt.Name = "Save_butt"
+        Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Save_butt.Size = New System.Drawing.Size(119, 48)
+        Me.Save_butt.TabIndex = 281
+        Me.Save_butt.TabStop = False
+        Me.Save_butt.Text = "حفظ F12"
+        Me.Save_butt.UseVisualStyleBackColor = False
         '
         'IM_SH_txt
         '
+        Me.IM_SH_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.IM_SH_txt.BackColor = System.Drawing.SystemColors.Window
         Me.IM_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_SH_txt.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_SH_txt.Location = New System.Drawing.Point(399, 2)
+        Me.IM_SH_txt.Location = New System.Drawing.Point(400, 2)
         Me.IM_SH_txt.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.IM_SH_txt.Name = "IM_SH_txt"
-        Me.IM_SH_txt.Size = New System.Drawing.Size(338, 26)
+        Me.IM_SH_txt.Size = New System.Drawing.Size(316, 26)
         Me.IM_SH_txt.TabIndex = 613
+        '
+        'Edit_butt
+        '
+        Me.Edit_butt.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Edit_butt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Edit_butt.Enabled = False
+        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Edit_butt.Location = New System.Drawing.Point(4, 117)
+        Me.Edit_butt.Name = "Edit_butt"
+        Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Edit_butt.Size = New System.Drawing.Size(119, 48)
+        Me.Edit_butt.TabIndex = 283
+        Me.Edit_butt.TabStop = False
+        Me.Edit_butt.Text = "تعديـل F3"
+        Me.Edit_butt.UseVisualStyleBackColor = False
         '
         'BillPictureBox
         '
+        Me.BillPictureBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BillPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BillPictureBox.Location = New System.Drawing.Point(4, 3)
         Me.BillPictureBox.Name = "BillPictureBox"
@@ -308,6 +494,7 @@ Partial Class Agent
         '
         'AG_BalanceTextBox
         '
+        Me.AG_BalanceTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AG_BalanceTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.AG_BalanceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.AG_BalanceTextBox.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -317,12 +504,13 @@ Partial Class Agent
         Me.AG_BalanceTextBox.Name = "AG_BalanceTextBox"
         Me.AG_BalanceTextBox.ReadOnly = True
         Me.AG_BalanceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_BalanceTextBox.Size = New System.Drawing.Size(193, 26)
+        Me.AG_BalanceTextBox.Size = New System.Drawing.Size(182, 26)
         Me.AG_BalanceTextBox.TabIndex = 246
         Me.AG_BalanceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Max_Debit_txt
         '
+        Me.Max_Debit_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Max_Debit_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Max_Debit_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Max_Debit_txt.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -330,33 +518,35 @@ Partial Class Agent
         Me.Max_Debit_txt.Location = New System.Drawing.Point(117, 90)
         Me.Max_Debit_txt.MaxLength = 250
         Me.Max_Debit_txt.Name = "Max_Debit_txt"
-        Me.Max_Debit_txt.Size = New System.Drawing.Size(193, 26)
+        Me.Max_Debit_txt.Size = New System.Drawing.Size(182, 26)
         Me.Max_Debit_txt.TabIndex = 570
         Me.Max_Debit_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(313, 95)
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label8.Location = New System.Drawing.Point(301, 95)
         Me.Label8.Name = "Label8"
         Me.Label8.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label8.Size = New System.Drawing.Size(76, 18)
+        Me.Label8.Size = New System.Drawing.Size(96, 20)
         Me.Label8.TabIndex = 569
         Me.Label8.Text = "سقف الديون :"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Salary_GP
         '
+        Me.Salary_GP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Salary_GP.Controls.Add(Me.Label11)
         Me.Salary_GP.Controls.Add(Me.Label3)
         Me.Salary_GP.Controls.Add(Me.Date_Start)
         Me.Salary_GP.Controls.Add(Me.is_Emp_Pause_CB)
         Me.Salary_GP.Controls.Add(Me.SalaryTextBox)
         Me.Salary_GP.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Salary_GP.Location = New System.Drawing.Point(403, 117)
+        Me.Salary_GP.Location = New System.Drawing.Point(400, 117)
         Me.Salary_GP.Name = "Salary_GP"
-        Me.Salary_GP.Size = New System.Drawing.Size(405, 109)
+        Me.Salary_GP.Size = New System.Drawing.Size(389, 115)
         Me.Salary_GP.TabIndex = 568
         Me.Salary_GP.TabStop = False
         Me.Salary_GP.Text = "بيانات الموظــف"
@@ -365,11 +555,11 @@ Partial Class Agent
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(286, 56)
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label11.Location = New System.Drawing.Point(253, 56)
         Me.Label11.Name = "Label11"
         Me.Label11.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label11.Size = New System.Drawing.Size(114, 18)
+        Me.Label11.Size = New System.Drawing.Size(133, 20)
         Me.Label11.TabIndex = 577
         Me.Label11.Text = "تاريخ مباشرة العمل :"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -377,11 +567,11 @@ Partial Class Agent
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(286, 26)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label3.Location = New System.Drawing.Point(253, 26)
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label3.Size = New System.Drawing.Size(94, 18)
+        Me.Label3.Size = New System.Drawing.Size(108, 20)
         Me.Label3.TabIndex = 576
         Me.Label3.Text = "المرتب الشهري :"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -393,7 +583,7 @@ Partial Class Agent
         Me.Date_Start.CustomFormat = "dd/MM/yyyy"
         Me.Date_Start.Font = New System.Drawing.Font("Times New Roman", 13.25!, System.Drawing.FontStyle.Bold)
         Me.Date_Start.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.Date_Start.Location = New System.Drawing.Point(155, 51)
+        Me.Date_Start.Location = New System.Drawing.Point(106, 50)
         Me.Date_Start.Name = "Date_Start"
         Me.Date_Start.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Date_Start.RightToLeftLayout = True
@@ -407,7 +597,7 @@ Partial Class Agent
         Me.is_Emp_Pause_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.is_Emp_Pause_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.is_Emp_Pause_CB.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.is_Emp_Pause_CB.Location = New System.Drawing.Point(80, 84)
+        Me.is_Emp_Pause_CB.Location = New System.Drawing.Point(177, 86)
         Me.is_Emp_Pause_CB.Name = "is_Emp_Pause_CB"
         Me.is_Emp_Pause_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.is_Emp_Pause_CB.Size = New System.Drawing.Size(200, 23)
@@ -423,7 +613,7 @@ Partial Class Agent
         Me.SalaryTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SalaryTextBox.Font = New System.Drawing.Font("Stencil", 13.25!)
         Me.SalaryTextBox.ForeColor = System.Drawing.Color.DarkGreen
-        Me.SalaryTextBox.Location = New System.Drawing.Point(155, 21)
+        Me.SalaryTextBox.Location = New System.Drawing.Point(106, 21)
         Me.SalaryTextBox.Name = "SalaryTextBox"
         Me.SalaryTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.SalaryTextBox.Size = New System.Drawing.Size(128, 28)
@@ -433,6 +623,7 @@ Partial Class Agent
         '
         'None_Img_btn
         '
+        Me.None_Img_btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.None_Img_btn.BackColor = System.Drawing.Color.WhiteSmoke
         Me.None_Img_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.None_Img_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -454,6 +645,7 @@ Partial Class Agent
         '
         'Button1
         '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button1.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
@@ -476,18 +668,20 @@ Partial Class Agent
         '
         'Label7
         '
+        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(313, 38)
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label7.Location = New System.Drawing.Point(301, 38)
         Me.Label7.Name = "Label7"
         Me.Label7.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label7.Size = New System.Drawing.Size(70, 18)
+        Me.Label7.Size = New System.Drawing.Size(84, 20)
         Me.Label7.TabIndex = 564
         Me.Label7.Text = "نوع العميل :"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'AG_Type_cm
         '
+        Me.AG_Type_cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AG_Type_cm.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.AG_Type_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.AG_Type_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -497,88 +691,95 @@ Partial Class Agent
         Me.AG_Type_cm.Location = New System.Drawing.Point(117, 33)
         Me.AG_Type_cm.Name = "AG_Type_cm"
         Me.AG_Type_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Type_cm.Size = New System.Drawing.Size(193, 27)
+        Me.AG_Type_cm.Size = New System.Drawing.Size(182, 27)
         Me.AG_Type_cm.TabIndex = 563
         '
         'Label6
         '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(311, 8)
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label6.Location = New System.Drawing.Point(298, 8)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(67, 18)
+        Me.Label6.Size = New System.Drawing.Size(84, 20)
         Me.Label6.TabIndex = 562
         Me.Label6.Text = "رقم العميل :"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Barcode_txt
         '
+        Me.Barcode_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Barcode_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Barcode_txt.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Barcode_txt.Location = New System.Drawing.Point(115, 3)
         Me.Barcode_txt.MaxLength = 500
         Me.Barcode_txt.Name = "Barcode_txt"
-        Me.Barcode_txt.Size = New System.Drawing.Size(193, 26)
+        Me.Barcode_txt.Size = New System.Drawing.Size(182, 26)
         Me.Barcode_txt.TabIndex = 561
         Me.Barcode_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(740, 65)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label2.Location = New System.Drawing.Point(719, 65)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label2.Size = New System.Drawing.Size(61, 18)
+        Me.Label2.Size = New System.Drawing.Size(67, 20)
         Me.Label2.TabIndex = 242
         Me.Label2.Text = "عنـــــوان :"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'AG_AddressTextBox
         '
+        Me.AG_AddressTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AG_AddressTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.AG_AddressTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.AG_AddressTextBox.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AG_AddressTextBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.AG_AddressTextBox.Location = New System.Drawing.Point(399, 60)
+        Me.AG_AddressTextBox.Location = New System.Drawing.Point(400, 60)
         Me.AG_AddressTextBox.MaxLength = 250
         Me.AG_AddressTextBox.Name = "AG_AddressTextBox"
-        Me.AG_AddressTextBox.Size = New System.Drawing.Size(338, 26)
+        Me.AG_AddressTextBox.Size = New System.Drawing.Size(316, 26)
         Me.AG_AddressTextBox.TabIndex = 243
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(740, 35)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label1.Location = New System.Drawing.Point(719, 35)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label1.Size = New System.Drawing.Size(56, 18)
+        Me.Label1.Size = New System.Drawing.Size(62, 20)
         Me.Label1.TabIndex = 240
         Me.Label1.Text = "هــــاتف :"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'AG_Phone_TextBox
         '
+        Me.AG_Phone_TextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AG_Phone_TextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.AG_Phone_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.AG_Phone_TextBox.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AG_Phone_TextBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.AG_Phone_TextBox.Location = New System.Drawing.Point(399, 31)
+        Me.AG_Phone_TextBox.Location = New System.Drawing.Point(400, 31)
         Me.AG_Phone_TextBox.MaxLength = 200
         Me.AG_Phone_TextBox.Name = "AG_Phone_TextBox"
         Me.AG_Phone_TextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.AG_Phone_TextBox.Size = New System.Drawing.Size(338, 26)
+        Me.AG_Phone_TextBox.Size = New System.Drawing.Size(316, 26)
         Me.AG_Phone_TextBox.TabIndex = 241
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(740, 7)
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Label4.Location = New System.Drawing.Point(719, 7)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label4.Size = New System.Drawing.Size(75, 18)
+        Me.Label4.Size = New System.Drawing.Size(95, 20)
         Me.Label4.TabIndex = 238
         Me.Label4.Text = "إسم الحساب :"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -609,8 +810,9 @@ Partial Class Agent
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.IMDataGridViewX.DefaultCellStyle = DataGridViewCellStyle2
+        Me.IMDataGridViewX.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.IMDataGridViewX.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
-        Me.IMDataGridViewX.Location = New System.Drawing.Point(2, 379)
+        Me.IMDataGridViewX.Location = New System.Drawing.Point(0, 423)
         Me.IMDataGridViewX.MultiSelect = False
         Me.IMDataGridViewX.Name = "IMDataGridViewX"
         Me.IMDataGridViewX.ReadOnly = True
@@ -623,7 +825,7 @@ Partial Class Agent
         Me.IMDataGridViewX.RowTemplate.Height = 30
         Me.IMDataGridViewX.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.IMDataGridViewX.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.IMDataGridViewX.Size = New System.Drawing.Size(937, 358)
+        Me.IMDataGridViewX.Size = New System.Drawing.Size(943, 323)
         Me.IMDataGridViewX.TabIndex = 614
         '
         'IM_ID_CL
@@ -654,115 +856,6 @@ Partial Class Agent
         Me.Agent_name_CL.Name = "Agent_name_CL"
         Me.Agent_name_CL.ReadOnly = True
         '
-        'ExitFormButton
-        '
-        Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
-        Me.ExitFormButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ExitFormButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.ExitFormButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
-        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(819, 299)
-        Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ExitFormButton.Size = New System.Drawing.Size(120, 45)
-        Me.ExitFormButton.TabIndex = 672
-        Me.ExitFormButton.TabStop = False
-        Me.ExitFormButton.Text = "رجوع"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ExitFormButton.UseVisualStyleBackColor = False
-        '
-        'Delete_butt
-        '
-        Me.Delete_butt.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Delete_butt.Enabled = False
-        Me.Delete_butt.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Delete_butt.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Delete_butt.Image = Global.resturant.My.Resources.Resources.if_cancel_46786
-        Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Delete_butt.Location = New System.Drawing.Point(819, 160)
-        Me.Delete_butt.Name = "Delete_butt"
-        Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Delete_butt.Size = New System.Drawing.Size(120, 43)
-        Me.Delete_butt.TabIndex = 284
-        Me.Delete_butt.Text = " حـذف F4"
-        Me.Delete_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Delete_butt.UseVisualStyleBackColor = False
-        '
-        'Edit_butt
-        '
-        Me.Edit_butt.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Edit_butt.Enabled = False
-        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit_butt.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Edit_butt.Image = Global.resturant.My.Resources.Resources.if_icon_136_document_edit_314724
-        Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Edit_butt.Location = New System.Drawing.Point(819, 113)
-        Me.Edit_butt.Name = "Edit_butt"
-        Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(120, 43)
-        Me.Edit_butt.TabIndex = 283
-        Me.Edit_butt.TabStop = False
-        Me.Edit_butt.Text = "تعديـل F3"
-        Me.Edit_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Edit_butt.UseVisualStyleBackColor = False
-        '
-        'New_butt
-        '
-        Me.New_butt.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.New_butt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.New_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.New_butt.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.New_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.New_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.New_butt.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.New_butt.ForeColor = System.Drawing.Color.Black
-        Me.New_butt.Image = Global.resturant.My.Resources.Resources.if_Add_27831
-        Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.New_butt.Location = New System.Drawing.Point(819, 19)
-        Me.New_butt.Name = "New_butt"
-        Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.New_butt.Size = New System.Drawing.Size(120, 43)
-        Me.New_butt.TabIndex = 282
-        Me.New_butt.Text = " جديـد F1"
-        Me.New_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.New_butt.UseVisualStyleBackColor = False
-        '
-        'Save_butt
-        '
-        Me.Save_butt.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Save_butt.Enabled = False
-        Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Save_butt.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Save_butt.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
-        Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Save_butt.Location = New System.Drawing.Point(819, 66)
-        Me.Save_butt.Name = "Save_butt"
-        Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Save_butt.Size = New System.Drawing.Size(120, 43)
-        Me.Save_butt.TabIndex = 281
-        Me.Save_butt.TabStop = False
-        Me.Save_butt.Text = "حفظ F12"
-        Me.Save_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Save_butt.UseVisualStyleBackColor = False
-        '
         'AG_NAMEErrorProvider
         '
         Me.AG_NAMEErrorProvider.ContainerControl = Me
@@ -779,9 +872,10 @@ Partial Class Agent
         '
         'Search_By_Acc_Code_txt
         '
+        Me.Search_By_Acc_Code_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Search_By_Acc_Code_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Search_By_Acc_Code_txt.Font = New System.Drawing.Font("Arial", 14.25!)
-        Me.Search_By_Acc_Code_txt.Location = New System.Drawing.Point(2, 348)
+        Me.Search_By_Acc_Code_txt.Location = New System.Drawing.Point(2, 388)
         Me.Search_By_Acc_Code_txt.Name = "Search_By_Acc_Code_txt"
         Me.Search_By_Acc_Code_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Search_By_Acc_Code_txt.Size = New System.Drawing.Size(468, 29)
@@ -789,9 +883,10 @@ Partial Class Agent
         '
         'Search_By_Acc_Name_txt
         '
+        Me.Search_By_Acc_Name_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Search_By_Acc_Name_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Search_By_Acc_Name_txt.Font = New System.Drawing.Font("Arial", 14.25!)
-        Me.Search_By_Acc_Name_txt.Location = New System.Drawing.Point(471, 348)
+        Me.Search_By_Acc_Name_txt.Location = New System.Drawing.Point(471, 388)
         Me.Search_By_Acc_Name_txt.Name = "Search_By_Acc_Name_txt"
         Me.Search_By_Acc_Name_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Search_By_Acc_Name_txt.Size = New System.Drawing.Size(468, 29)
@@ -801,27 +896,27 @@ Partial Class Agent
         '
         Me.StatusStrip1.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.TxTTotalM, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3, Me.IM_Name_ToolStrip, Me.ToolStripStatusLabel10, Me.ID_ToolStripLabel, Me.ToolStripStatusLabel11, Me.ToolStripStatusLabel6, Me.TxTSelectM, Me.ToolStripStatusLabel5, Me.ToolStripStatusLabel4, Me.ToolStripStatusLabel7, Me.ToolStripStatusLabel8, Me.ToolStripStatusLabel9})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 742)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 746)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.StatusStrip1.Size = New System.Drawing.Size(939, 29)
+        Me.StatusStrip1.Size = New System.Drawing.Size(943, 25)
         Me.StatusStrip1.TabIndex = 676
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel1
         '
-        Me.ToolStripStatusLabel1.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ToolStripStatusLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(92, 24)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(80, 20)
         Me.ToolStripStatusLabel1.Text = "عدد الأصناف"
         Me.ToolStripStatusLabel1.Visible = False
         '
         'TxTTotalM
         '
-        Me.TxTTotalM.Font = New System.Drawing.Font("JF Flat", 10.0!)
+        Me.TxTTotalM.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
         Me.TxTTotalM.ForeColor = System.Drawing.Color.Blue
         Me.TxTTotalM.Name = "TxTTotalM"
-        Me.TxTTotalM.Size = New System.Drawing.Size(18, 24)
+        Me.TxTTotalM.Size = New System.Drawing.Size(16, 20)
         Me.TxTTotalM.Text = "0"
         Me.TxTTotalM.Visible = False
         '
@@ -829,16 +924,16 @@ Partial Class Agent
         '
         Me.ToolStripStatusLabel2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(14, 24)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(14, 20)
         Me.ToolStripStatusLabel2.Text = "|"
         Me.ToolStripStatusLabel2.Visible = False
         '
         'ToolStripStatusLabel3
         '
-        Me.ToolStripStatusLabel3.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ToolStripStatusLabel3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel3.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(55, 24)
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(40, 20)
         Me.ToolStripStatusLabel3.Text = "العميل"
         '
         'IM_Name_ToolStrip
@@ -846,14 +941,14 @@ Partial Class Agent
         Me.IM_Name_ToolStrip.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Name_ToolStrip.ForeColor = System.Drawing.Color.Blue
         Me.IM_Name_ToolStrip.Name = "IM_Name_ToolStrip"
-        Me.IM_Name_ToolStrip.Size = New System.Drawing.Size(69, 24)
+        Me.IM_Name_ToolStrip.Size = New System.Drawing.Size(69, 20)
         Me.IM_Name_ToolStrip.Text = "(عميل جديد)"
         '
         'ToolStripStatusLabel10
         '
         Me.ToolStripStatusLabel10.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel10.Name = "ToolStripStatusLabel10"
-        Me.ToolStripStatusLabel10.Size = New System.Drawing.Size(14, 24)
+        Me.ToolStripStatusLabel10.Size = New System.Drawing.Size(14, 20)
         Me.ToolStripStatusLabel10.Text = "|"
         '
         'ID_ToolStripLabel
@@ -861,7 +956,7 @@ Partial Class Agent
         Me.ID_ToolStripLabel.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ID_ToolStripLabel.ForeColor = System.Drawing.Color.Blue
         Me.ID_ToolStripLabel.Name = "ID_ToolStripLabel"
-        Me.ID_ToolStripLabel.Size = New System.Drawing.Size(23, 24)
+        Me.ID_ToolStripLabel.Size = New System.Drawing.Size(23, 20)
         Me.ID_ToolStripLabel.Text = "---"
         '
         'ToolStripStatusLabel11
@@ -869,37 +964,37 @@ Partial Class Agent
         Me.ToolStripStatusLabel11.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStripStatusLabel11.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ToolStripStatusLabel11.Name = "ToolStripStatusLabel11"
-        Me.ToolStripStatusLabel11.Size = New System.Drawing.Size(45, 24)
+        Me.ToolStripStatusLabel11.Size = New System.Drawing.Size(45, 20)
         Me.ToolStripStatusLabel11.Text = "AG_ID"
         '
         'ToolStripStatusLabel6
         '
         Me.ToolStripStatusLabel6.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel6.Name = "ToolStripStatusLabel6"
-        Me.ToolStripStatusLabel6.Size = New System.Drawing.Size(14, 24)
+        Me.ToolStripStatusLabel6.Size = New System.Drawing.Size(14, 20)
         Me.ToolStripStatusLabel6.Text = "|"
         '
         'TxTSelectM
         '
         Me.TxTSelectM.ForeColor = System.Drawing.Color.Red
         Me.TxTSelectM.Name = "TxTSelectM"
-        Me.TxTSelectM.Size = New System.Drawing.Size(0, 24)
+        Me.TxTSelectM.Size = New System.Drawing.Size(0, 20)
         '
         'ToolStripStatusLabel5
         '
-        Me.ToolStripStatusLabel5.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ToolStripStatusLabel5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ToolStripStatusLabel5.Name = "ToolStripStatusLabel5"
-        Me.ToolStripStatusLabel5.Size = New System.Drawing.Size(58, 24)
+        Me.ToolStripStatusLabel5.Size = New System.Drawing.Size(45, 20)
         Me.ToolStripStatusLabel5.Text = "المدخل"
         Me.ToolStripStatusLabel5.Visible = False
         '
         'ToolStripStatusLabel4
         '
-        Me.ToolStripStatusLabel4.Font = New System.Drawing.Font("JF Flat", 10.0!)
+        Me.ToolStripStatusLabel4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
         Me.ToolStripStatusLabel4.ForeColor = System.Drawing.Color.Blue
         Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
-        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(77, 24)
+        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(56, 20)
         Me.ToolStripStatusLabel4.Text = "المستخدم1"
         Me.ToolStripStatusLabel4.Visible = False
         '
@@ -907,26 +1002,40 @@ Partial Class Agent
         '
         Me.ToolStripStatusLabel7.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel7.Name = "ToolStripStatusLabel7"
-        Me.ToolStripStatusLabel7.Size = New System.Drawing.Size(14, 24)
+        Me.ToolStripStatusLabel7.Size = New System.Drawing.Size(14, 20)
         Me.ToolStripStatusLabel7.Text = "|"
         Me.ToolStripStatusLabel7.Visible = False
         '
         'ToolStripStatusLabel8
         '
-        Me.ToolStripStatusLabel8.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ToolStripStatusLabel8.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel8.Name = "ToolStripStatusLabel8"
-        Me.ToolStripStatusLabel8.Size = New System.Drawing.Size(89, 24)
+        Me.ToolStripStatusLabel8.Size = New System.Drawing.Size(82, 20)
         Me.ToolStripStatusLabel8.Text = "تاريخ الإدخال"
         Me.ToolStripStatusLabel8.Visible = False
         '
         'ToolStripStatusLabel9
         '
-        Me.ToolStripStatusLabel9.Font = New System.Drawing.Font("JF Flat", 10.0!)
+        Me.ToolStripStatusLabel9.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
         Me.ToolStripStatusLabel9.ForeColor = System.Drawing.Color.Blue
         Me.ToolStripStatusLabel9.Name = "ToolStripStatusLabel9"
-        Me.ToolStripStatusLabel9.Size = New System.Drawing.Size(36, 24)
+        Me.ToolStripStatusLabel9.Size = New System.Drawing.Size(32, 20)
         Me.ToolStripStatusLabel9.Text = "تاريخ"
         Me.ToolStripStatusLabel9.Visible = False
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.New_butt)
+        Me.Panel1.Controls.Add(Me.Save_butt)
+        Me.Panel1.Controls.Add(Me.Edit_butt)
+        Me.Panel1.Controls.Add(Me.Delete_butt)
+        Me.Panel1.Controls.Add(Me.Add_Prev_Balance_btn)
+        Me.Panel1.Controls.Add(Me.Refreg_Balance_btn)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel1.Location = New System.Drawing.Point(817, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(126, 344)
+        Me.Panel1.TabIndex = 674
         '
         'Agent
         '
@@ -935,21 +1044,15 @@ Partial Class Agent
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(939, 771)
+        Me.ClientSize = New System.Drawing.Size(943, 771)
+        Me.Controls.Add(Me.IMDataGridViewX)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Search_By_Acc_Code_txt)
         Me.Controls.Add(Me.Search_By_Acc_Name_txt)
-        Me.Controls.Add(Me.IMDataGridViewX)
         Me.Controls.Add(Me.FieldsPanel)
-        Me.Controls.Add(Me.Refreg_Balance_btn)
-        Me.Controls.Add(Me.Add_Prev_Balance_btn)
-        Me.Controls.Add(Me.ExitFormButton)
-        Me.Controls.Add(Me.New_butt)
-        Me.Controls.Add(Me.Delete_butt)
-        Me.Controls.Add(Me.Save_butt)
-        Me.Controls.Add(Me.Edit_butt)
+        Me.Controls.Add(Me.TitleBar_Panel)
         Me.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -957,6 +1060,8 @@ Partial Class Agent
         Me.Name = "Agent"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "العمـــــلاء"
+        Me.TitleBar_Panel.ResumeLayout(False)
+        Me.TitleBar_Panel.PerformLayout()
         Me.FieldsPanel.ResumeLayout(False)
         Me.FieldsPanel.PerformLayout()
         CType(Me.BillPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
@@ -967,6 +1072,7 @@ Partial Class Agent
         CType(Me.BarError, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -995,11 +1101,10 @@ Partial Class Agent
     Friend WithEvents None_Img_btn As System.Windows.Forms.Button
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents Salary_GP As System.Windows.Forms.GroupBox
-    Public WithEvents IMDataGridViewX As DevComponents.DotNetBar.Controls.DataGridViewX
+    Public WithEvents IMDataGridViewX As DataGridView
     Friend WithEvents IM_SH_txt As System.Windows.Forms.TextBox
     Friend WithEvents Max_Debit_txt As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Email_txt As System.Windows.Forms.TextBox
     Friend WithEvents is_Emp_Pause_CB As System.Windows.Forms.CheckBox
@@ -1034,4 +1139,10 @@ Partial Class Agent
     Friend WithEvents Label12 As Label
     Friend WithEvents ACC_CODE_TXT As TextBox
     Friend WithEvents Show_ag_menuCB As CheckBox
+    Friend WithEvents TitleBar_Panel As System.Windows.Forms.Panel
+    Friend WithEvents TopTitle_LB As System.Windows.Forms.Label
+    Friend WithEvents MaxFormButton As System.Windows.Forms.Button
+    Friend WithEvents MinFormButton As System.Windows.Forms.Button
+    Friend WithEvents ExitFormButton As Button
+    Friend WithEvents Panel1 As Panel
 End Class
