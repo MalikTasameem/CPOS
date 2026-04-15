@@ -25,6 +25,19 @@
     ' Public Barcode_IM As String = ""
 
     Public Bill_ID As Integer = 0
+    ' ========================================================
+    ' 🌟 1. المتغيرات وآلة الحالة (State Machine) 🌟
+    ' ========================================================
+    Public Enum BillState
+        Draft = 0       ' مسودة / لم تعتمد بعد
+        Saved = 1       ' محفوظة ومعتمدة
+        Editing = 2     ' قيد التعديل
+        Voided = 3      ' ملغاة
+    End Enum
+    Public CurrentState As BillState = BillState.Draft
+    'Public T_ID As Integer
+    Public isShowing_Trans As Boolean = False
+    Public T_ID_Trans As Integer = 0
 
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
@@ -38,44 +51,201 @@
         If e.KeyCode = Keys.F2 Then If Print_btn.Enabled = True Then Print_btn_Click(sender, e)
         If e.KeyCode = Keys.F3 Then If Edit_butt.Enabled = True Then If Edit_butt.Text = EditState Then Edit_butt_Click(sender, e)
         If e.KeyCode = Keys.F4 Then If Delete_butt.Enabled = True Then Delete_butt_Click(sender, e)
+
+
         'If e.KeyCode = Keys.F5 Then mySearchControl.txtSearch.Select()
 
     End Sub
 
+    'Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    '    'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+    '    ThemeManager.ApplyThemeToForm(Me)
+    '    rs.FindAllControls(Me)
+    '    ' If St_Count() = 1 Then All_St_Panel.Visible = False
+    '    Me.WindowState = FormWindowState.Maximized
+    '    FormType = 3
+    '    Check_View_Control()
+    '    EditState = Edit_butt.Text
+    '    DefaultFormState = Me.Text
+    '    '   Load_ST()
+    '    Disable_Fields()
+    '    Get_Last_T_ID()
+
+    '    If isShowing_Trans = True Then
+    '        Select_ExpBill(T_ID_Trans)
+    '        SelectStateBt()
+    '        New_butt.Enabled = False
+    '        SearchButton.Enabled = False
+    '    End If
+
+
+    '    'Load_ALL_IM()
+    '    '' تحميل البيانات
+    '    'mySearchControl.ItemsTable = IM_Dt
+    '    'mySearchControl.itemsTable_Barcode = IM_Dt_Barcodes
+    '    'mySearchControl.MaxGridHeight = 400
+    '    ''mySearchControl.DefaultSearchField = "اسم الصنف"
+    '    '' إضافة الكنترول للفورم
+    '    ''Me.Controls.Add(mySearchControl)
+    '    '' استقبال الاختيار
+    '    'AddHandler mySearchControl.ItemSelected, AddressOf HandleItemSelected
+
+    '    'mySearchControl.txtSearch.Select()
+
+    'End Sub
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+        Me.DoubleBuffered = True ' تفعيل الدبل بفر لمنع وميض الأدوات وتقطيعها
+
+        ThemeManager.ApplyThemeToForm(Me)
         rs.FindAllControls(Me)
-        ' If St_Count() = 1 Then All_St_Panel.Visible = False
         Me.WindowState = FormWindowState.Maximized
         FormType = 3
         Check_View_Control()
         EditState = Edit_butt.Text
         DefaultFormState = Me.Text
-        '   Load_ST()
+
+        ' ⚠️ تم نقل أوامر قاعدة البيانات من هنا إلى حدث Shown لتسريع الفتح ⚠️
+    End Sub
+
+    ' هذا الحدث يشتغل بعد ما ترتسم الشاشة بالكامل، يخلي الفورم يفتح فوراً بدون تعليق
+    Private Sub Expenses_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        Application.DoEvents() ' إعطاء فرصة للواجهة لتتنفس قبل استدعاء الداتا
+
+        ' Load_ST() ' إذا كانت مستخدمة
         Disable_Fields()
         Get_Last_T_ID()
 
         If isShowing_Trans = True Then
             Select_ExpBill(T_ID_Trans)
-            SelectStateBt()
+            Set_Bill_State(BillState.Saved)
             New_butt.Enabled = False
             SearchButton.Enabled = False
         End If
+    End Sub
+    'Public Sub Set_Bill_State(State As BillState)
+    '    CurrentState = State
 
+    '    Select Case State
+    '        Case BillState.Draft
+    '            DeletedBillLabel.Visible = False
+    '            Enable_Fields()
+    '            Save_butt.Enabled = True
+    '            Edit_butt.Enabled = False
+    '            Print_btn.Enabled = False
+    '            Delete_butt.Enabled = False
+    '            Me.Text = "فاتورة تالف جديـدة"
+    '            Edit_butt.Text = EditState
+    '            AGMetroGrid.Enabled = True
+    '            AGMetroGrid.BackgroundColor = ThemeManager.PanelBackColor ' رد لون الثيم الطبيعي
 
-        'Load_ALL_IM()
-        '' تحميل البيانات
-        'mySearchControl.ItemsTable = IM_Dt
-        'mySearchControl.itemsTable_Barcode = IM_Dt_Barcodes
-        'mySearchControl.MaxGridHeight = 400
-        ''mySearchControl.DefaultSearchField = "اسم الصنف"
-        '' إضافة الكنترول للفورم
-        ''Me.Controls.Add(mySearchControl)
-        '' استقبال الاختيار
-        'AddHandler mySearchControl.ItemSelected, AddressOf HandleItemSelected
+    '        Case BillState.Saved
+    '            DeletedBillLabel.Visible = False
+    '            Disable_Fields()
+    '            Save_butt.Enabled = False
+    '            Edit_butt.Enabled = True
+    '            Print_btn.Enabled = True
+    '            Delete_butt.Enabled = True
+    '            Me.Text = "عرض بيانات فاتورة"
+    '            Edit_butt.Text = EditState
+    '            AGMetroGrid.Enabled = True
+    '            AGMetroGrid.BackgroundColor = ThemeManager.PanelBackColor
 
-        'mySearchControl.txtSearch.Select()
+    '        Case BillState.Editing
+    '            DeletedBillLabel.Visible = False
+    '            Enable_Fields()
+    '            Save_butt.Enabled = False
+    '            Edit_butt.Enabled = True
+    '            Print_btn.Enabled = False
+    '            Delete_butt.Enabled = False
+    '            Me.Text = "فاتورة قيد التعديل"
+    '            Edit_butt.Text = "إيقاف التعديل"
+    '            Edit_butt.BackColor = Color.MediumSeaGreen
+    '            Edit_butt.ForeColor = Color.White
+    '            AGMetroGrid.Enabled = True
+    '            AGMetroGrid.BackgroundColor = Color.LightGoldenrodYellow ' إشارة بصرية خفيفة للتعديل
 
+    '        Case BillState.Voided
+    '            DeletedBillLabel.Visible = True
+    '            Disable_Fields()
+    '            Save_butt.Enabled = False
+    '            Edit_butt.Enabled = False
+    '            Print_btn.Enabled = False
+    '            Delete_butt.Enabled = False
+    '            Me.Text = "فاتورة ملغية"
+    '            Edit_butt.Text = EditState
+    '            AGMetroGrid.Enabled = False
+    '            AGMetroGrid.BackgroundColor = Color.MistyRose ' لون يدل على الإلغاء بدون التأثير على الكود
+    '    End Select
+    'End Sub
+    ' ========================================================
+    ' ========================================================
+    ' 🌟 3. التحكم المركزي الشامل في حالة الفاتورة 🌟
+    ' ========================================================
+    Public Sub Set_Bill_State(State As BillState)
+        CurrentState = State
+
+        Select Case State
+            Case BillState.Draft
+                Enable_Fields()
+                Save_butt.Enabled = True
+                Edit_butt.Enabled = False
+                Print_btn.Enabled = False
+                Delete_butt.Enabled = False
+                Me.Text = "فاتورة تالف جديـدة"
+                Edit_butt.Text = EditState
+                AGMetroGrid.Enabled = True
+
+                ' --- مؤشر الحالة ---
+                DeletedBillLabel.Text = "فاتورة جديـدة"
+                DeletedBillLabel.BackColor = Color.SteelBlue
+                DeletedBillLabel.Visible = True
+
+            Case BillState.Saved
+                Disable_Fields()
+                Save_butt.Enabled = False
+                Edit_butt.Enabled = True
+                Print_btn.Enabled = True
+                Delete_butt.Enabled = True
+                Me.Text = "عرض بيانات فاتورة"
+                Edit_butt.Text = EditState
+                AGMetroGrid.Enabled = True
+
+                ' --- مؤشر الحالة ---
+                ' (نخفي الليبل لأن الفاتورة في وضعها الطبيعي المحفوظ)
+                DeletedBillLabel.Visible = False
+
+            Case BillState.Editing
+                Enable_Fields()
+                Save_butt.Enabled = False
+                Edit_butt.Enabled = True
+                Print_btn.Enabled = False
+                Delete_butt.Enabled = False
+                Me.Text = "فاتورة قيد التعديل"
+                Edit_butt.Text = "إيقاف التعديل"
+                Edit_butt.BackColor = Color.MediumSeaGreen
+                Edit_butt.ForeColor = Color.White
+                AGMetroGrid.Enabled = True
+
+                ' --- مؤشر الحالة ---
+                DeletedBillLabel.Text = "قيـد التعديـــل"
+                DeletedBillLabel.BackColor = Color.DarkOrange
+                DeletedBillLabel.Visible = True
+
+            Case BillState.Voided
+                Disable_Fields()
+                Save_butt.Enabled = False
+                Edit_butt.Enabled = False
+                Print_btn.Enabled = False
+                Delete_butt.Enabled = False
+                Me.Text = "فاتورة ملغية"
+                Edit_butt.Text = EditState
+                AGMetroGrid.Enabled = False
+
+                ' --- مؤشر الحالة ---
+                DeletedBillLabel.Text = "فاتورة ملغيـــة"
+                DeletedBillLabel.BackColor = Color.IndianRed
+                DeletedBillLabel.Visible = True
+        End Select
     End Sub
 
 
@@ -187,20 +357,40 @@
     End Sub
 
 
+    'Public Sub Switch_Dependcy(F As Boolean)
+
+    '    If F = True Then
+    '        isDepended = 1
+    '        AGMetroGrid.BackgroundColor = Color.LightGreen
+    '        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
+    '        Save_butt.Enabled = False
+    '    Else
+    '        isDepended = 0
+    '        AGMetroGrid.BackgroundColor = Color.LightYellow
+    '        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+    '        Save_butt.Enabled = True
+    '    End If
+
+    'End Sub
     Public Sub Switch_Dependcy(F As Boolean)
-
         If F = True Then
-            isDepended = 1
-            AGMetroGrid.BackgroundColor = Color.LightGreen
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
+            isDepended = True
             Save_butt.Enabled = False
-        Else
-            isDepended = 0
-            AGMetroGrid.BackgroundColor = Color.LightYellow
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
-            Save_butt.Enabled = True
-        End If
 
+            ' --- مؤشر حالة الاعتماد ---
+            DeletedBillLabel.Text = "فاتورة معتمـدة ومرحلة"
+            DeletedBillLabel.BackColor = Color.MediumSeaGreen
+            DeletedBillLabel.Visible = True
+        Else
+            isDepended = False
+            Save_butt.Enabled = True
+
+            ' --- مؤشر حالة عدم الاعتماد ---
+            ' (إذا لم تكن معتمدة، نخفي الليبل أو نتركه لحالة التعديل/الإلغاء)
+            If CurrentState = BillState.Saved Then
+                DeletedBillLabel.Visible = False
+            End If
+        End If
     End Sub
 
     Private Sub NewStateBt()
@@ -227,83 +417,171 @@
         Me.Text = DefaultFormState
     End Sub
 
+    'Public Sub SelectStateBt()
+
+    '    If isVoid = True Then
+    '        DeletedBillLabel.Visible = True
+    '        Disable_Fields()
+    '        Save_butt.Enabled = False
+    '        Edit_butt.Enabled = False
+    '        Edit_butt.Text = EditState
+    '        Delete_butt.Enabled = False
+    '        AGMetroGrid.Enabled = True
+    '        AGMetroGrid.BackgroundColor = Color.IndianRed
+    '        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
+    '        Print_btn.Enabled = False
+
+    '    Else
+    '        If isDepended = False Then
+    '            Switch_Dependcy(0)
+    '            Save_butt.Enabled = True
+    '            Edit_butt.Enabled = False
+    '            Print_btn.Enabled = False
+    '            Delete_butt.Enabled = False
+    '            Enable_Fields()
+    '        Else
+    '            Edit_butt.Enabled = True
+    '            Print_btn.Enabled = True
+    '            Delete_butt.Enabled = True
+    '            Disable_Fields()
+    '            Switch_Dependcy(1)
+    '        End If
+
+    '        DeletedBillLabel.Visible = False
+    '        Edit_butt.Text = EditState
+
+    '    End If
+
+    '    Me.Text = "عرض بيانات فاتورة"
+
+    'End Sub
+    ' ========================================================
+    ' 🌟 توجيه حالة الفاتورة عند جلبها من قاعدة البيانات 🌟
+    ' ========================================================
     Public Sub SelectStateBt()
-
         If isVoid = True Then
+            ' الفاتورة ملغية
+            Set_Bill_State(BillState.Voided)
+            ' نعرض شريط الحالة كفاتورة ملغية (تأكيد)
+            DeletedBillLabel.Text = "فاتورة ملغيـــة"
+            DeletedBillLabel.BackColor = Color.IndianRed
             DeletedBillLabel.Visible = True
-            Disable_Fields()
-            Save_butt.Enabled = False
-            Edit_butt.Enabled = False
-            Edit_butt.Text = EditState
-            Delete_butt.Enabled = False
-            AGMetroGrid.Enabled = True
-            AGMetroGrid.BackgroundColor = Color.IndianRed
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
-            Print_btn.Enabled = False
-
         Else
             If isDepended = False Then
-                Switch_Dependcy(0)
-                Save_butt.Enabled = True
-                Edit_butt.Enabled = False
-                Print_btn.Enabled = False
-                Delete_butt.Enabled = False
-                Enable_Fields()
+                ' الفاتورة غير مرحلة (قابلة للحفظ)
+                Set_Bill_State(BillState.Draft)
+                Switch_Dependcy(False)
             Else
-                Edit_butt.Enabled = True
-                Print_btn.Enabled = True
-                Delete_butt.Enabled = True
-                Disable_Fields()
-                Switch_Dependcy(1)
+                ' الفاتورة مرحلة ومحفوظة
+                Set_Bill_State(BillState.Saved)
+                Switch_Dependcy(True)
             End If
 
-            DeletedBillLabel.Visible = False
+            ' استرجاع اسم زر التعديل الافتراضي
             Edit_butt.Text = EditState
-
         End If
 
         Me.Text = "عرض بيانات فاتورة"
-
     End Sub
 
+    'Private Sub ClearFields()
+    '    T_ID = 0
+    '    Notes_txt.Clear()
+    '    Total_TextBox.Clear()
+    '    Bill_DT.Clear()
+    '    Title_txt.Clear()
+    '    DateTimeEx.Text = Date.Now
+    '    Edit_butt.Text = EditState
+    '    DeletedBillLabel.Visible = False
+    '    isVoid = False
+    '    'ClearCatFields()
+    '    User_Name_lb.Text = "---"
+    '    Me.Text = FormState
+    '    Edit_butt.BackColor = Color.White
+    '    On_Update = False
+    'End Sub
     Private Sub ClearFields()
+        ' 1. إيقاف إعادة رسم الجريد لمنع اللقلقة
+        AGMetroGrid.SuspendLayout()
+
+        ' 2. تفريغ البيانات من الداتا تيبل فقط (يحافظ على تصميم الأعمدة)
+        If Bill_DT IsNot Nothing Then
+            Bill_DT.Rows.Clear()
+        End If
+
+        ' 3. تفريغ باقي الحقول
         T_ID = 0
         Notes_txt.Clear()
         Total_TextBox.Clear()
-        Bill_DT.Clear()
         Title_txt.Clear()
-        DateTimeEx.Text = Date.Now
-        Edit_butt.Text = EditState
+        DateTimeEx.Value = Date.Now
+
+        ' 4. تحديث الليبلات
         DeletedBillLabel.Visible = False
-        isVoid = False
-        'ClearCatFields()
         User_Name_lb.Text = "---"
-        Me.Text = FormState
-        Edit_butt.BackColor = Color.White
+        IM_Count_LB.Text = "المواد : 0"
+        IM_Qty_LB.Text = "الكميات : 0"
+
+        isVoid = False
         On_Update = False
+        Edit_butt.BackColor = Color.White
+
+        ' 5. إعادة تشغيل رسم الجريد
+        AGMetroGrid.ResumeLayout()
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
         Call_New_Bill()
     End Sub
 
-    Private Sub Call_New_Bill()
-        If T_ID > 0 Then
+    ' Private Sub Call_New_Bill()
+    '    If T_ID > 0 Then
 
-            If MessageBox.Show("تهيئـة الحقول وفتح فاتورة جديدة", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
-                               MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
+    '        If MessageBox.Show("تهيئـة الحقول وفتح فاتورة جديدة", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
+    '                           MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
+    '            ClearFields()
+    '            Insert_NewBill()
+    '            NewStateBt()
+    '        End If
+
+    '    Else
+    '        ClearFields()
+    '        Insert_NewBill()
+    '        NewStateBt()
+    '    End If
+    'End Sub
+    Private Sub Call_New_Bill()
+        ' إيقاف رسم الفورم بالكامل لتسريع العملية ومنع الومض
+        Me.SuspendLayout()
+
+        If T_ID > 0 Then
+            If MessageBox.Show("تهيئـة الحقول وفتح فاتورة جديدة", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
                 ClearFields()
                 Insert_NewBill()
-                NewStateBt()
+                Set_Bill_State(BillState.Draft)
             End If
-
         Else
             ClearFields()
             Insert_NewBill()
-            NewStateBt()
+            Set_Bill_State(BillState.Draft)
         End If
+
+        ' إعادة رسم الفورم مرة واحدة بعد الانتهاء
+        Me.ResumeLayout()
     End Sub
 
+    'Private Sub Save_butt_Click(sender As Object, e As EventArgs) Handles Save_butt.Click
+    '    If AGMetroGrid.Rows.Count > 0 Then
+    '        Beep()
+    '        Save_Title_Name(T_ID, Title_txt.Text)
+    '        Save_About(T_ID, Notes_txt.Text)
+    '        Save_Date(T_ID, DateTimeEx)
+    '        Update_Total()
+    '        DependingBill(T_ID)
+    '        Switch_Dependcy(1)
+    '        SelectStateBt()
+    '    End If
+    'End Sub
     Private Sub Save_butt_Click(sender As Object, e As EventArgs) Handles Save_butt.Click
         If AGMetroGrid.Rows.Count > 0 Then
             Beep()
@@ -312,37 +590,56 @@
             Save_Date(T_ID, DateTimeEx)
             Update_Total()
             DependingBill(T_ID)
-            Switch_Dependcy(1)
-            SelectStateBt()
+
+            Set_Bill_State(BillState.Saved) ' <--- الاعتماد على الحالة الجديدة
         End If
     End Sub
 
 
+    'Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
+    '    If Edit_butt.Text = EditState Then
+    '        MsgBox(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ", MsgBoxStyle.Information, "تعديل فاتورة")
+    '        On_Update = True
+    '        Edit_butt.Text = "إيقاف التعديل"
+    '        Enable_Fields()
+    '        AGMetroGrid.BackgroundColor = Color.LightYellow
+    '        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+    '        Edit_butt.BackColor = Color.GreenYellow
+    '        Network_Edit_Tracker_insert("تعديل فاتورة تالف / رقم آلي : " + Bill_ID_Txt.Text + " / المدخل :  " + User_Name_lb.Text, Total_TextBox.Text, 0, 0)
+    '        'mySearchControl.txtSearch.Select()
+    '    Else
+    '        On_Update = False
+    '        Edit_butt.BackColor = Color.White
+    '        Update_Total()
+    '        Save_About(T_ID, Notes_txt.Text)
+    '        Save_Date(T_ID, DateTimeEx)
+    '        Save_Title_Name(T_ID, Title_txt.Text)
+    '        Edit_butt.Text = EditState
+    '        Disable_Fields()
+    '        ' MsgBox("تم التعديل", MsgBoxStyle.Information)
+    '        SelectStateBt()
+    '    End If
+
+
+    'End Sub
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
-        If Edit_butt.Text = EditState Then
+        If CurrentState = BillState.Saved Then
+            ' --- بدء التعديل ---
             MsgBox(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ", MsgBoxStyle.Information, "تعديل فاتورة")
             On_Update = True
-            Edit_butt.Text = "إيقاف التعديل"
-            Enable_Fields()
-            AGMetroGrid.BackgroundColor = Color.LightYellow
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
-            Edit_butt.BackColor = Color.GreenYellow
+            Set_Bill_State(BillState.Editing)
             Network_Edit_Tracker_insert("تعديل فاتورة تالف / رقم آلي : " + Bill_ID_Txt.Text + " / المدخل :  " + User_Name_lb.Text, Total_TextBox.Text, 0, 0)
-            'mySearchControl.txtSearch.Select()
-        Else
+        ElseIf CurrentState = BillState.Editing Then
+            ' --- إيقاف وحفظ التعديل ---
             On_Update = False
-            Edit_butt.BackColor = Color.White
+            Edit_butt.BackColor = ThemeManager.BtnGeneralBackColor
             Update_Total()
             Save_About(T_ID, Notes_txt.Text)
             Save_Date(T_ID, DateTimeEx)
             Save_Title_Name(T_ID, Title_txt.Text)
-            Edit_butt.Text = EditState
-            Disable_Fields()
-            ' MsgBox("تم التعديل", MsgBoxStyle.Information)
-            SelectStateBt()
+
+            Set_Bill_State(BillState.Saved)
         End If
-
-
     End Sub
 
     Private Sub Delete_butt_Click(sender As Object, e As EventArgs) Handles Delete_butt.Click
@@ -354,8 +651,22 @@
         End If
     End Sub
 
-    Private Sub Cancel_Bill()
+    'Private Sub Cancel_Bill()
 
+    '    Dim sqlComm As New SqlClient.SqlCommand
+    '    sqlComm.CommandText = "AG_Balance_Void_Row"
+    '    sqlComm.CommandType = CommandType.StoredProcedure
+    '    sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
+
+    '    If SQL_SP_EXEC(sqlComm) = True Then
+    '        MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
+    '        Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 8, 3)
+    '        isVoid = True
+    '        SelectStateBt()
+    '    End If
+
+    'End Sub
+    Private Sub Cancel_Bill()
         Dim sqlComm As New SqlClient.SqlCommand
         sqlComm.CommandText = "AG_Balance_Void_Row"
         sqlComm.CommandType = CommandType.StoredProcedure
@@ -364,10 +675,9 @@
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
             Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 8, 3)
-            isVoid = True
-            SelectStateBt()
-        End If
 
+            Set_Bill_State(BillState.Voided) ' <--- الاعتماد على الحالة الجديدة
+        End If
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -821,4 +1131,6 @@
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
         If AG_Cm.TXT_ID.Text > 0 Then Save_AG_Name(T_ID, AG_ID, On_Update)
     End Sub
+
+
 End Class

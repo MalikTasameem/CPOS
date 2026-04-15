@@ -99,6 +99,7 @@ Partial Class frmInternationalShipping
         Me.btnMaximize = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.pnlRow1_ID = New System.Windows.Forms.Panel()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.lblID = New System.Windows.Forms.Label()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.txtID = New System.Windows.Forms.TextBox()
@@ -113,6 +114,8 @@ Partial Class frmInternationalShipping
         Me.txtSearchCustomer = New System.Windows.Forms.TextBox()
         Me.lblCustomerInfo = New System.Windows.Forms.Label()
         Me.pnlRow4_Safes = New System.Windows.Forms.Panel()
+        Me.lblFromTreasuryInfo = New System.Windows.Forms.Label()
+        Me.lblToTreasuryInfo = New System.Windows.Forms.Label()
         Me.lblFromSafe = New System.Windows.Forms.Label()
         Me.cmbFromSafe = New System.Windows.Forms.ComboBox()
         Me.txtSearchFromSafe = New System.Windows.Forms.TextBox()
@@ -143,14 +146,11 @@ Partial Class frmInternationalShipping
         Me.txtStatement = New System.Windows.Forms.TextBox()
         Me.lblStatement = New System.Windows.Forms.Label()
         Me.pnlRow9_Buttons = New System.Windows.Forms.Panel()
+        Me.btnDeliverytocustomer = New System.Windows.Forms.Button()
+        Me.btndepositintocustumerAccount = New System.Windows.Forms.Button()
         Me.btnNew = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnPrint = New System.Windows.Forms.Button()
-        Me.lblFromTreasuryInfo = New System.Windows.Forms.Label()
-        Me.lblToTreasuryInfo = New System.Windows.Forms.Label()
-        Me.btndepositintocustumerAccount = New System.Windows.Forms.Button()
-        Me.btnDeliverytocustomer = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
         Me.pnlTopBar.SuspendLayout()
         Me.pnlRow1_ID.SuspendLayout()
         Me.pnlRow2_Metal.SuspendLayout()
@@ -239,6 +239,19 @@ Partial Class frmInternationalShipping
         Me.pnlRow1_ID.Padding = New System.Windows.Forms.Padding(10)
         Me.pnlRow1_ID.Size = New System.Drawing.Size(856, 50)
         Me.pnlRow1_ID.TabIndex = 1
+        '
+        'btnCancel
+        '
+        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCancel.BackColor = System.Drawing.Color.Red
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCancel.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.btnCancel.Location = New System.Drawing.Point(314, 9)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(129, 30)
+        Me.btnCancel.TabIndex = 6
+        Me.btnCancel.Text = "الغاء"
+        Me.btnCancel.UseVisualStyleBackColor = False
         '
         'lblID
         '
@@ -380,6 +393,28 @@ Partial Class frmInternationalShipping
         Me.pnlRow4_Safes.Name = "pnlRow4_Safes"
         Me.pnlRow4_Safes.Size = New System.Drawing.Size(856, 100)
         Me.pnlRow4_Safes.TabIndex = 4
+        '
+        'lblFromTreasuryInfo
+        '
+        Me.lblFromTreasuryInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblFromTreasuryInfo.ForeColor = System.Drawing.Color.DimGray
+        Me.lblFromTreasuryInfo.Location = New System.Drawing.Point(468, 44)
+        Me.lblFromTreasuryInfo.Name = "lblFromTreasuryInfo"
+        Me.lblFromTreasuryInfo.Size = New System.Drawing.Size(300, 45)
+        Me.lblFromTreasuryInfo.TabIndex = 4
+        Me.lblFromTreasuryInfo.Text = "معلومات الخزينة  المختصرة ستظهر هنا..."
+        '
+        'lblToTreasuryInfo
+        '
+        Me.lblToTreasuryInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblToTreasuryInfo.ForeColor = System.Drawing.Color.DimGray
+        Me.lblToTreasuryInfo.Location = New System.Drawing.Point(26, 41)
+        Me.lblToTreasuryInfo.Name = "lblToTreasuryInfo"
+        Me.lblToTreasuryInfo.Size = New System.Drawing.Size(300, 45)
+        Me.lblToTreasuryInfo.TabIndex = 5
+        Me.lblToTreasuryInfo.Text = "معلومات الخزينة  المختصرة ستظهر هنا..."
         '
         'lblFromSafe
         '
@@ -678,6 +713,32 @@ Partial Class frmInternationalShipping
         Me.pnlRow9_Buttons.Size = New System.Drawing.Size(856, 70)
         Me.pnlRow9_Buttons.TabIndex = 9
         '
+        'btnDeliverytocustomer
+        '
+        Me.btnDeliverytocustomer.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.btnDeliverytocustomer.BackColor = System.Drawing.Color.Honeydew
+        Me.btnDeliverytocustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDeliverytocustomer.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.btnDeliverytocustomer.Location = New System.Drawing.Point(338, 10)
+        Me.btnDeliverytocustomer.Name = "btnDeliverytocustomer"
+        Me.btnDeliverytocustomer.Size = New System.Drawing.Size(159, 45)
+        Me.btnDeliverytocustomer.TabIndex = 5
+        Me.btnDeliverytocustomer.Text = "تسليم للزبون"
+        Me.btnDeliverytocustomer.UseVisualStyleBackColor = False
+        '
+        'btndepositintocustumerAccount
+        '
+        Me.btndepositintocustumerAccount.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.btndepositintocustumerAccount.BackColor = System.Drawing.Color.Honeydew
+        Me.btndepositintocustumerAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btndepositintocustumerAccount.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.btndepositintocustumerAccount.Location = New System.Drawing.Point(176, 10)
+        Me.btndepositintocustumerAccount.Name = "btndepositintocustumerAccount"
+        Me.btndepositintocustumerAccount.Size = New System.Drawing.Size(154, 45)
+        Me.btndepositintocustumerAccount.TabIndex = 4
+        Me.btndepositintocustumerAccount.Text = "ايداع لحساب الزبون"
+        Me.btndepositintocustumerAccount.UseVisualStyleBackColor = False
+        '
         'btnNew
         '
         Me.btnNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -716,67 +777,6 @@ Partial Class frmInternationalShipping
         Me.btnPrint.TabIndex = 2
         Me.btnPrint.Text = "طباعة"
         Me.btnPrint.UseVisualStyleBackColor = False
-        '
-        'lblFromTreasuryInfo
-        '
-        Me.lblFromTreasuryInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblFromTreasuryInfo.ForeColor = System.Drawing.Color.DimGray
-        Me.lblFromTreasuryInfo.Location = New System.Drawing.Point(468, 44)
-        Me.lblFromTreasuryInfo.Name = "lblFromTreasuryInfo"
-        Me.lblFromTreasuryInfo.Size = New System.Drawing.Size(300, 45)
-        Me.lblFromTreasuryInfo.TabIndex = 4
-        Me.lblFromTreasuryInfo.Text = "معلومات الخزينة  المختصرة ستظهر هنا..."
-        '
-        'lblToTreasuryInfo
-        '
-        Me.lblToTreasuryInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblToTreasuryInfo.ForeColor = System.Drawing.Color.DimGray
-        Me.lblToTreasuryInfo.Location = New System.Drawing.Point(26, 41)
-        Me.lblToTreasuryInfo.Name = "lblToTreasuryInfo"
-        Me.lblToTreasuryInfo.Size = New System.Drawing.Size(300, 45)
-        Me.lblToTreasuryInfo.TabIndex = 5
-        Me.lblToTreasuryInfo.Text = "معلومات الخزينة  المختصرة ستظهر هنا..."
-        '
-        'btndepositintocustumerAccount
-        '
-        Me.btndepositintocustumerAccount.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btndepositintocustumerAccount.BackColor = System.Drawing.Color.Honeydew
-        Me.btndepositintocustumerAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btndepositintocustumerAccount.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.btndepositintocustumerAccount.Location = New System.Drawing.Point(176, 10)
-        Me.btndepositintocustumerAccount.Name = "btndepositintocustumerAccount"
-        Me.btndepositintocustumerAccount.Size = New System.Drawing.Size(154, 45)
-        Me.btndepositintocustumerAccount.TabIndex = 4
-        Me.btndepositintocustumerAccount.Text = "ايداع لحساب الزبون"
-        Me.btndepositintocustumerAccount.UseVisualStyleBackColor = False
-        '
-        'btnDeliverytocustomer
-        '
-        Me.btnDeliverytocustomer.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnDeliverytocustomer.BackColor = System.Drawing.Color.Honeydew
-        Me.btnDeliverytocustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDeliverytocustomer.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.btnDeliverytocustomer.Location = New System.Drawing.Point(338, 10)
-        Me.btnDeliverytocustomer.Name = "btnDeliverytocustomer"
-        Me.btnDeliverytocustomer.Size = New System.Drawing.Size(159, 45)
-        Me.btnDeliverytocustomer.TabIndex = 5
-        Me.btnDeliverytocustomer.Text = "تسليم للزبون"
-        Me.btnDeliverytocustomer.UseVisualStyleBackColor = False
-        '
-        'btnCancel
-        '
-        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.BackColor = System.Drawing.Color.Red
-        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCancel.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.btnCancel.Location = New System.Drawing.Point(314, 9)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(129, 30)
-        Me.btnCancel.TabIndex = 6
-        Me.btnCancel.Text = "الغاء"
-        Me.btnCancel.UseVisualStyleBackColor = False
         '
         'frmInternationalShipping
         '

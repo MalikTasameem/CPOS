@@ -138,30 +138,6 @@
   <metadata name="Total_CL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="Cash_btn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        /9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkK
-        DA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQ
-        EBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAAgACADASIAAhEBAxEB/8QA
-        GAABAQEBAQAAAAAAAAAAAAAABwYIBQn/xAArEAACAgIBAwMDAwUAAAAAAAABAgMEBREGBxIhABMiIzFB
-        FCQzFRYyQlH/xAAWAQEBAQAAAAAAAAAAAAAAAAAFBAP/xAAnEQEAAgAEBQQDAQAAAAAAAAABAhEDBAUh
-        ABIxQWEGE1GhFXGB8P/aAAwDAQACEQMRAD8A9IuXctx/EMYL1xJJ5pnENWrENyTynwFUDZ/P4BP2ABYq
-        pmHx/U3k9UtleQ1+Lqz+7DDj4vesoBsFJmZuzWvPxOwT51rQlsz1K4nU6nZi7l57Fu1xyIUMfRrV3cpM
-        yF3kMn8UZbzH8jsbQnXjRVzfnfN+rAvxX8pLgeLUq7XLGHxMyGWzBG3a089j+WaJZFZdQxrDtH2z9uwb
-        m83HBkGLMw42FqFr2Lq3gzNavlsrzwheJiRLYQGUq80PKeWv7wk0+od3Ccti4hg+p0XIshINx1stXWCK
-        +3j6VSfuCyyKGBOm7TsaLEMAv8V5LW5ViVyMNeWtKrvDYryqQ8MqMVdTsA+GBHkA+CCFYFRhw1MRXhyD
-        4S3aptS7XnqJFGxEaFWWYHzJ8XCzK5fuKx6Ve0j1o3p91Gw3Ks1gueRx2KWQzgn49nqEMasIctWZB9Vt
-        /wCBUho2Hko0ZHhm9WM+WQRtj56/5+vl4K9OeovzfuQxIkZR3Avcf33NrTZsSroOOtfHL3EOoucu4tS8
-        /IGhzUbjYJiRViliHcH7iropPtL3anT8nu9czCcor8fg49k9ZLH5LCfssjH2OK2Ww5737HjCuvvx7ChX
-        ePsYsS5Vj6031K6b4jqXgRichZsUbdaQWKOQqsVmqyj/AIQR3Iw2roTplJHg6YCNLonmMDyCLM9SOFtz
-        tKbp/T6tCwY8bE6/ezLVbfuSk6IVlKJ/r3Ed/orW9Dy2t4Ht5hQG9uu4ibiIj38JucZZfTdS0vWZ5vIM
-        fbxb5mVtOz0EXfpTVKPzxD8R6f8AKOX4aaHhmNkBZErWLjP2U442JVooZJPpOyL4Lxq50AfPgeljp705
-        tcZ5Ni+ITXadifH2v7gvtQRlr1/28MEUB7z3yOViifvbXgnSjR9XUuX6oZsV4MJxGDBxyqx/V5C0srQx
-        a+OowvxfwfiVYAEb1+KTiHEaHEaEkEEslq5bkM925KSZLEp+5JJJ15OgST5JJZizG/BhiSRkUffF2k+n
-        MppE3GgssRu5O3WrANq22u67PH//2Q==
-</value>
-  </data>
   <metadata name="DataB.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

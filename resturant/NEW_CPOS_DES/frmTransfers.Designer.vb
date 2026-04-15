@@ -71,6 +71,7 @@ Partial Class frmTransfers
         Me.btnMaximize = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.pnlRow1_ID = New System.Windows.Forms.Panel()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.lblID = New System.Windows.Forms.Label()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.txtID = New System.Windows.Forms.TextBox()
@@ -80,6 +81,8 @@ Partial Class frmTransfers
         Me.lblMetal = New System.Windows.Forms.Label()
         Me.cmbMetal = New System.Windows.Forms.ComboBox()
         Me.pnlRow3_Customers = New System.Windows.Forms.Panel()
+        Me.lblfromCustomerInfo = New System.Windows.Forms.Label()
+        Me.lbltoCustomerInfo = New System.Windows.Forms.Label()
         Me.lblFromCustomer = New System.Windows.Forms.Label()
         Me.cmbFromCustomer = New System.Windows.Forms.ComboBox()
         Me.txtSearchFromCustomer = New System.Windows.Forms.TextBox()
@@ -96,9 +99,8 @@ Partial Class frmTransfers
         Me.btnNew = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnPrint = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
-        Me.lbltoCustomerInfo = New System.Windows.Forms.Label()
-        Me.lblfromCustomerInfo = New System.Windows.Forms.Label()
+        Me.RB_Treasury = New System.Windows.Forms.RadioButton()
+        Me.RB_Clients = New System.Windows.Forms.RadioButton()
         Me.pnlTopBar.SuspendLayout()
         Me.pnlRow1_ID.SuspendLayout()
         Me.pnlRow2_Metal.SuspendLayout()
@@ -184,6 +186,19 @@ Partial Class frmTransfers
         Me.pnlRow1_ID.Size = New System.Drawing.Size(856, 50)
         Me.pnlRow1_ID.TabIndex = 1
         '
+        'btnCancel
+        '
+        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCancel.BackColor = System.Drawing.Color.Red
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCancel.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.btnCancel.Location = New System.Drawing.Point(309, 9)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(129, 30)
+        Me.btnCancel.TabIndex = 7
+        Me.btnCancel.Text = "الغاء"
+        Me.btnCancel.UseVisualStyleBackColor = False
+        '
         'lblID
         '
         Me.lblID.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -232,6 +247,8 @@ Partial Class frmTransfers
         '
         'pnlRow2_Metal
         '
+        Me.pnlRow2_Metal.Controls.Add(Me.RB_Treasury)
+        Me.pnlRow2_Metal.Controls.Add(Me.RB_Clients)
         Me.pnlRow2_Metal.Controls.Add(Me.lblMetal)
         Me.pnlRow2_Metal.Controls.Add(Me.cmbMetal)
         Me.pnlRow2_Metal.Dock = System.Windows.Forms.DockStyle.Top
@@ -274,6 +291,28 @@ Partial Class frmTransfers
         Me.pnlRow3_Customers.Name = "pnlRow3_Customers"
         Me.pnlRow3_Customers.Size = New System.Drawing.Size(856, 133)
         Me.pnlRow3_Customers.TabIndex = 3
+        '
+        'lblfromCustomerInfo
+        '
+        Me.lblfromCustomerInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblfromCustomerInfo.ForeColor = System.Drawing.Color.DimGray
+        Me.lblfromCustomerInfo.Location = New System.Drawing.Point(456, 54)
+        Me.lblfromCustomerInfo.Name = "lblfromCustomerInfo"
+        Me.lblfromCustomerInfo.Size = New System.Drawing.Size(307, 60)
+        Me.lblfromCustomerInfo.TabIndex = 7
+        Me.lblfromCustomerInfo.Text = "معلومات الزبون المختصرة ستظهر هنا..."
+        '
+        'lbltoCustomerInfo
+        '
+        Me.lbltoCustomerInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbltoCustomerInfo.ForeColor = System.Drawing.Color.DimGray
+        Me.lbltoCustomerInfo.Location = New System.Drawing.Point(27, 54)
+        Me.lbltoCustomerInfo.Name = "lbltoCustomerInfo"
+        Me.lbltoCustomerInfo.Size = New System.Drawing.Size(307, 60)
+        Me.lbltoCustomerInfo.TabIndex = 6
+        Me.lbltoCustomerInfo.Text = "معلومات الزبون المختصرة ستظهر هنا..."
         '
         'lblFromCustomer
         '
@@ -439,40 +478,25 @@ Partial Class frmTransfers
         Me.btnPrint.Text = "طباعة"
         Me.btnPrint.UseVisualStyleBackColor = False
         '
-        'btnCancel
+        'RB_Treasury
         '
-        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.BackColor = System.Drawing.Color.Red
-        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCancel.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.btnCancel.Location = New System.Drawing.Point(309, 9)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(129, 30)
-        Me.btnCancel.TabIndex = 7
-        Me.btnCancel.Text = "الغاء"
-        Me.btnCancel.UseVisualStyleBackColor = False
+        Me.RB_Treasury.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RB_Treasury.AutoSize = True
+        Me.RB_Treasury.Location = New System.Drawing.Point(255, 14)
+        Me.RB_Treasury.Name = "RB_Treasury"
+        Me.RB_Treasury.Size = New System.Drawing.Size(58, 23)
+        Me.RB_Treasury.TabIndex = 4
+        Me.RB_Treasury.Text = "خزائن"
         '
-        'lbltoCustomerInfo
+        'RB_Clients
         '
-        Me.lbltoCustomerInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lbltoCustomerInfo.ForeColor = System.Drawing.Color.DimGray
-        Me.lbltoCustomerInfo.Location = New System.Drawing.Point(27, 54)
-        Me.lbltoCustomerInfo.Name = "lbltoCustomerInfo"
-        Me.lbltoCustomerInfo.Size = New System.Drawing.Size(307, 60)
-        Me.lbltoCustomerInfo.TabIndex = 6
-        Me.lbltoCustomerInfo.Text = "معلومات الزبون المختصرة ستظهر هنا..."
-        '
-        'lblfromCustomerInfo
-        '
-        Me.lblfromCustomerInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblfromCustomerInfo.ForeColor = System.Drawing.Color.DimGray
-        Me.lblfromCustomerInfo.Location = New System.Drawing.Point(456, 54)
-        Me.lblfromCustomerInfo.Name = "lblfromCustomerInfo"
-        Me.lblfromCustomerInfo.Size = New System.Drawing.Size(307, 60)
-        Me.lblfromCustomerInfo.TabIndex = 7
-        Me.lblfromCustomerInfo.Text = "معلومات الزبون المختصرة ستظهر هنا..."
+        Me.RB_Clients.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RB_Clients.AutoSize = True
+        Me.RB_Clients.Location = New System.Drawing.Point(153, 14)
+        Me.RB_Clients.Name = "RB_Clients"
+        Me.RB_Clients.Size = New System.Drawing.Size(56, 23)
+        Me.RB_Clients.TabIndex = 5
+        Me.RB_Clients.Text = "زبائن"
         '
         'frmTransfers
         '
@@ -511,4 +535,6 @@ Partial Class frmTransfers
     Friend WithEvents btnCancel As Button
     Friend WithEvents lblfromCustomerInfo As Label
     Friend WithEvents lbltoCustomerInfo As Label
+    Friend WithEvents RB_Treasury As RadioButton
+    Friend WithEvents RB_Clients As RadioButton
 End Class

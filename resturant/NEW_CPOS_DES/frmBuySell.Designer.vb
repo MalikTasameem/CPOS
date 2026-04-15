@@ -85,6 +85,7 @@ Partial Class frmBuySell
         Me.btnMaximize = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.pnlRow1_ID = New System.Windows.Forms.Panel()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.lblID = New System.Windows.Forms.Label()
@@ -123,7 +124,8 @@ Partial Class frmBuySell
         Me.btnNew = New System.Windows.Forms.Button()
         Me.txtStatement = New System.Windows.Forms.TextBox()
         Me.lblStatement = New System.Windows.Forms.Label()
-        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.lblMetal = New System.Windows.Forms.Label()
+        Me.cmbMetal = New System.Windows.Forms.ComboBox()
         Me.pnlTopBar.SuspendLayout()
         Me.pnlRow1_ID.SuspendLayout()
         Me.pnlRow2_POS.SuspendLayout()
@@ -213,6 +215,19 @@ Partial Class frmBuySell
         Me.pnlRow1_ID.Size = New System.Drawing.Size(856, 50)
         Me.pnlRow1_ID.TabIndex = 1
         '
+        'btnCancel
+        '
+        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCancel.BackColor = System.Drawing.Color.Red
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCancel.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.btnCancel.Location = New System.Drawing.Point(307, 9)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(129, 30)
+        Me.btnCancel.TabIndex = 7
+        Me.btnCancel.Text = "الغاء"
+        Me.btnCancel.UseVisualStyleBackColor = False
+        '
         'Label3
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -272,6 +287,8 @@ Partial Class frmBuySell
         'pnlRow2_POS
         '
         Me.pnlRow2_POS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlRow2_POS.Controls.Add(Me.lblMetal)
+        Me.pnlRow2_POS.Controls.Add(Me.cmbMetal)
         Me.pnlRow2_POS.Controls.Add(Me.lblPOS)
         Me.pnlRow2_POS.Controls.Add(Me.cmbPOS)
         Me.pnlRow2_POS.Dock = System.Windows.Forms.DockStyle.Top
@@ -284,7 +301,7 @@ Partial Class frmBuySell
         '
         Me.lblPOS.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblPOS.AutoSize = True
-        Me.lblPOS.Location = New System.Drawing.Point(748, 13)
+        Me.lblPOS.Location = New System.Drawing.Point(332, 14)
         Me.lblPOS.Name = "lblPOS"
         Me.lblPOS.Size = New System.Drawing.Size(74, 19)
         Me.lblPOS.TabIndex = 0
@@ -294,7 +311,7 @@ Partial Class frmBuySell
         '
         Me.cmbPOS.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmbPOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbPOS.Location = New System.Drawing.Point(488, 10)
+        Me.cmbPOS.Location = New System.Drawing.Point(72, 11)
         Me.cmbPOS.Name = "cmbPOS"
         Me.cmbPOS.Size = New System.Drawing.Size(250, 27)
         Me.cmbPOS.TabIndex = 1
@@ -614,18 +631,24 @@ Partial Class frmBuySell
         Me.lblStatement.TabIndex = 1
         Me.lblStatement.Text = "البيـــــــــــان:"
         '
-        'btnCancel
+        'lblMetal
         '
-        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.BackColor = System.Drawing.Color.Red
-        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCancel.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.btnCancel.Location = New System.Drawing.Point(307, 9)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(129, 30)
-        Me.btnCancel.TabIndex = 7
-        Me.btnCancel.Text = "الغاء"
-        Me.btnCancel.UseVisualStyleBackColor = False
+        Me.lblMetal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblMetal.AutoSize = True
+        Me.lblMetal.Location = New System.Drawing.Point(755, 14)
+        Me.lblMetal.Name = "lblMetal"
+        Me.lblMetal.Size = New System.Drawing.Size(53, 19)
+        Me.lblMetal.TabIndex = 2
+        Me.lblMetal.Text = "المعدن:"
+        '
+        'cmbMetal
+        '
+        Me.cmbMetal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmbMetal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbMetal.Location = New System.Drawing.Point(474, 11)
+        Me.cmbMetal.Name = "cmbMetal"
+        Me.cmbMetal.Size = New System.Drawing.Size(260, 27)
+        Me.cmbMetal.TabIndex = 3
         '
         'frmBuySell
         '
@@ -674,4 +697,6 @@ Partial Class frmBuySell
     Friend WithEvents btnSave As Button
     Friend WithEvents btnNew As Button
     Friend WithEvents btnCancel As Button
+    Friend WithEvents lblMetal As Label
+    Friend WithEvents cmbMetal As ComboBox
 End Class
