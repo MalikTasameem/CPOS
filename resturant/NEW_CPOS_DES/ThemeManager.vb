@@ -928,14 +928,42 @@ Public Class ThemeManager
             End If
 
             ' --- 4. حقول الإدخال والكومبو بوكس ---
-            If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Or TypeOf ctrl Is NumericUpDown Then
-                ctrl.Font = New Font("Segoe UI", ctrl.Font.Size, ctrl.Font.Style)
+            'If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Or TypeOf ctrl Is NumericUpDown Then
+            '    ctrl.Font = New Font("Segoe UI", ctrl.Font.Size, ctrl.Font.Style)
 
+            '    If ctrl.Tag IsNot Nothing AndAlso ctrl.Tag.ToString().ToUpper() = "TOTALS" Then
+            '        ctrl.BackColor = TotalsBack : ctrl.ForeColor = TotalsFore
+            '    Else
+            '        ctrl.BackColor = If(IsDarkMode, Color.FromArgb(45, 45, 45), Color.White)
+            '        ctrl.ForeColor = If(IsDarkMode, Color.White, Color.Black)
+            '    End If
+            'End If
+            ' --- 4. حقول الإدخال والكومبو بوكس وأداة البحث (FSearch_Filter) ---
+            If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Or TypeOf ctrl Is NumericUpDown OrElse ctrl.GetType().Name = "FSearch_Filter" Then
+                'If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Or TypeOf ctrl Is NumericUpDown Then
+
+                ' تحديد الألوان بناءً على حالة الثيم (ليلي/نهاري) [cite: 564]
+                Dim bg As Color = If(IsDarkMode, Color.FromArgb(45, 45, 45), Color.White)
+                Dim fg As Color = If(IsDarkMode, Color.White, Color.Black)
+
+                ' إجبار الأجزاء الداخلية لأداة البحث على أخذ نفس ألوان الكومبوبوكس
+                If ctrl.GetType().Name = "FSearch_Filter" Then
+                    ctrl.BackColor = Color.Transparent ' لمنع ظهور حواف ملونة غريبة
+                    For Each inner As Control In ctrl.Controls
+                        If TypeOf inner Is TextBox Then
+                            inner.BackColor = bg
+                            inner.ForeColor = fg
+                        End If
+                    Next
+                End If
+
+                ' تطبيق الثيم العام على الأداة أو الحقل المباشر [cite: 564]
+                ctrl.Font = New Font("Segoe UI", ctrl.Font.Size, ctrl.Font.Style)
                 If ctrl.Tag IsNot Nothing AndAlso ctrl.Tag.ToString().ToUpper() = "TOTALS" Then
                     ctrl.BackColor = TotalsBack : ctrl.ForeColor = TotalsFore
                 Else
-                    ctrl.BackColor = If(IsDarkMode, Color.FromArgb(45, 45, 45), Color.White)
-                    ctrl.ForeColor = If(IsDarkMode, Color.White, Color.Black)
+                    ctrl.BackColor = bg
+                    ctrl.ForeColor = fg
                 End If
             End If
 
