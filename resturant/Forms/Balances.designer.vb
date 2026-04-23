@@ -23,7 +23,6 @@ Partial Class Balances
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Balances))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -37,6 +36,9 @@ Partial Class Balances
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -59,12 +61,14 @@ Partial Class Balances
         Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Balances))
+        Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.HeaderMinBtn = New System.Windows.Forms.Button()
+        Me.HeaderMaxBtn = New System.Windows.Forms.Button()
+        Me.HeaderCloseBtn = New System.Windows.Forms.Button()
+        Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.MetroTabControl1 = New System.Windows.Forms.TabControl()
         Me.MetroTabPage1 = New MetroFramework.Controls.MetroTabPage()
-        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.NUM_CREDIT_TXT = New System.Windows.Forms.TextBox()
         Me.NUM_DEBIT_TXT = New System.Windows.Forms.TextBox()
         Me.Label37 = New System.Windows.Forms.Label()
@@ -72,18 +76,18 @@ Partial Class Balances
         Me.Label33 = New System.Windows.Forms.Label()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.Label35 = New System.Windows.Forms.Label()
-        Me.Currency_CB = New MetroFramework.Controls.MetroCheckBox()
+        Me.Currency_CB = New System.Windows.Forms.CheckBox()
         Me.Send_To_Email_btn = New System.Windows.Forms.Button()
         Me.Total_Balance = New System.Windows.Forms.TextBox()
         Me.Total_Credit = New System.Windows.Forms.TextBox()
         Me.Total_Debit = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.AllUsersCheckBox = New MetroFramework.Controls.MetroCheckBox()
-        Me.AllRecieptsCheckBox = New MetroFramework.Controls.MetroCheckBox()
+        Me.AllUsersCheckBox = New System.Windows.Forms.CheckBox()
+        Me.AllRecieptsCheckBox = New System.Windows.Forms.CheckBox()
         Me.UsersComboBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.AllTimeCheckBox = New MetroFramework.Controls.MetroCheckBox()
+        Me.AllTimeCheckBox = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.MonthComboBox = New System.Windows.Forms.ComboBox()
@@ -91,11 +95,11 @@ Partial Class Balances
         Me.DateTimePicker_From = New System.Windows.Forms.DateTimePicker()
         Me.DateTimePicker_To = New System.Windows.Forms.DateTimePicker()
         Me.MVPrintButton = New System.Windows.Forms.Button()
-        Me.AllAgentsCheckBox = New MetroFramework.Controls.MetroCheckBox()
+        Me.AllAgentsCheckBox = New System.Windows.Forms.CheckBox()
         Me.MVSearchButton = New System.Windows.Forms.Button()
         Me.ReceiptTypeComboBox = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.AGMVMetroGrid = New MetroFramework.Controls.MetroGrid()
+        Me.AGMVMetroGrid = New System.Windows.Forms.DataGridView()
         Me.AG_MV_Type_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AG_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -108,7 +112,7 @@ Partial Class Balances
         Me.Balance_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.UserEntry = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AGisVoid_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.isVoid_CB = New MetroFramework.Controls.MetroCheckBox()
+        Me.isVoid_CB = New System.Windows.Forms.CheckBox()
         Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
@@ -119,34 +123,47 @@ Partial Class Balances
         Me.Treasury_ComboBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.TrAllTimeCheckBox = New MetroFramework.Controls.MetroCheckBox()
+        Me.TrAllTimeCheckBox = New System.Windows.Forms.CheckBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TrMonthComboBox = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TrDateTimePicker_F = New System.Windows.Forms.DateTimePicker()
         Me.TrDateTimePicker_T = New System.Windows.Forms.DateTimePicker()
-        Me.TrAllUsersCheckBox = New MetroFramework.Controls.MetroCheckBox()
-        Me.TrAllTypeCheckBox = New MetroFramework.Controls.MetroCheckBox()
+        Me.TrAllUsersCheckBox = New System.Windows.Forms.CheckBox()
+        Me.TrAllTypeCheckBox = New System.Windows.Forms.CheckBox()
         Me.TrUsersComboBox = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.AllTrCheckBox = New MetroFramework.Controls.MetroCheckBox()
+        Me.AllTrCheckBox = New System.Windows.Forms.CheckBox()
         Me.TrTypeComboBox = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Tr_MV_MetroGrid = New MetroFramework.Controls.MetroGrid()
-        Me.TrisVoid_CB = New MetroFramework.Controls.MetroCheckBox()
+        Me.Tr_MV_MetroGrid = New System.Windows.Forms.DataGridView()
+        Me.Tr_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TRMV_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TRMV_Date_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TRMV_Type_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TR_MV_Title_move_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Ag_name_CL_2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TRMV_Bank_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TRMV_B_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Tr_Credit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Tr_Debit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Tr_Balance_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TRMV_UserName_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TrisVoid_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.TrisVoid_CB = New System.Windows.Forms.CheckBox()
         Me.Tr_PrintButton = New System.Windows.Forms.Button()
         Me.Tr_SearchButton = New System.Windows.Forms.Button()
         Me.MetroTabPage4 = New MetroFramework.Controls.MetroTabPage()
         Me.CMSearchTextBox = New System.Windows.Forms.TextBox()
         Me.Search_Panel = New System.Windows.Forms.Panel()
-        Me.AllCerditRadioButton = New MetroFramework.Controls.MetroRadioButton()
-        Me.AllBalancesRadioButton = New MetroFramework.Controls.MetroRadioButton()
-        Me.AlldebitsRadioButton = New MetroFramework.Controls.MetroRadioButton()
-        Me.Debit_WithDate_CB = New MetroFramework.Controls.MetroCheckBox()
+        Me.AllCerditRadioButton = New System.Windows.Forms.RadioButton()
+        Me.AllBalancesRadioButton = New System.Windows.Forms.RadioButton()
+        Me.AlldebitsRadioButton = New System.Windows.Forms.RadioButton()
+        Me.Debit_WithDate_CB = New System.Windows.Forms.CheckBox()
         Me.DATE_Before = New System.Windows.Forms.DateTimePicker()
         Me.Type_Cm = New System.Windows.Forms.ComboBox()
-        Me.DebtMetroGrid = New MetroFramework.Controls.MetroGrid()
+        Me.DebtMetroGrid = New System.Windows.Forms.DataGridView()
         Me.ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Agent_Report_name = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.B_T_Debit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -171,7 +188,7 @@ Partial Class Balances
         Me.Label16 = New System.Windows.Forms.Label()
         Me.TotalPureTextBox = New System.Windows.Forms.TextBox()
         Me.TotalDebtTextBox = New System.Windows.Forms.TextBox()
-        Me.SalariesMetroGrid = New MetroFramework.Controls.MetroGrid()
+        Me.SalariesMetroGrid = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Salary_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SumDebit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -234,19 +251,8 @@ Partial Class Balances
         Me.العهدToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.خروجToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Tr_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TRMV_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TRMV_Date_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TRMV_Type_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TR_MV_Title_move_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Ag_name_CL_2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TRMV_Bank_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TRMV_B_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Tr_Credit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Tr_Debit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Tr_Balance_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TRMV_UserName_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TrisVoid_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.AG_Cm = New resturant.FSearch_Filter()
+        Me.TitleBar_Panel.SuspendLayout()
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -270,6 +276,79 @@ Partial Class Balances
         CType(Me.DataB, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
+        'TitleBar_Panel
+        '
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.HeaderMinBtn)
+        Me.TitleBar_Panel.Controls.Add(Me.HeaderMaxBtn)
+        Me.TitleBar_Panel.Controls.Add(Me.HeaderCloseBtn)
+        Me.TitleBar_Panel.Controls.Add(Me.TopTitle_LB)
+        Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
+        Me.TitleBar_Panel.Name = "TitleBar_Panel"
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(1004, 37)
+        Me.TitleBar_Panel.TabIndex = 9999
+        Me.TitleBar_Panel.Tag = "HEADER"
+        '
+        'HeaderMinBtn
+        '
+        Me.HeaderMinBtn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.HeaderMinBtn.Dock = System.Windows.Forms.DockStyle.Left
+        Me.HeaderMinBtn.FlatAppearance.BorderSize = 0
+        Me.HeaderMinBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.HeaderMinBtn.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.HeaderMinBtn.ForeColor = System.Drawing.Color.White
+        Me.HeaderMinBtn.Location = New System.Drawing.Point(88, 0)
+        Me.HeaderMinBtn.Name = "HeaderMinBtn"
+        Me.HeaderMinBtn.Size = New System.Drawing.Size(46, 37)
+        Me.HeaderMinBtn.TabIndex = 2
+        Me.HeaderMinBtn.Text = "ـ"
+        Me.HeaderMinBtn.UseVisualStyleBackColor = False
+        '
+        'HeaderMaxBtn
+        '
+        Me.HeaderMaxBtn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.HeaderMaxBtn.Dock = System.Windows.Forms.DockStyle.Left
+        Me.HeaderMaxBtn.FlatAppearance.BorderSize = 0
+        Me.HeaderMaxBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.HeaderMaxBtn.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.HeaderMaxBtn.ForeColor = System.Drawing.Color.White
+        Me.HeaderMaxBtn.Location = New System.Drawing.Point(45, 0)
+        Me.HeaderMaxBtn.Name = "HeaderMaxBtn"
+        Me.HeaderMaxBtn.Size = New System.Drawing.Size(43, 37)
+        Me.HeaderMaxBtn.TabIndex = 1
+        Me.HeaderMaxBtn.Text = "⬜"
+        Me.HeaderMaxBtn.UseVisualStyleBackColor = False
+        '
+        'HeaderCloseBtn
+        '
+        Me.HeaderCloseBtn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.HeaderCloseBtn.Dock = System.Windows.Forms.DockStyle.Left
+        Me.HeaderCloseBtn.FlatAppearance.BorderSize = 0
+        Me.HeaderCloseBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
+        Me.HeaderCloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.HeaderCloseBtn.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.HeaderCloseBtn.ForeColor = System.Drawing.Color.White
+        Me.HeaderCloseBtn.Location = New System.Drawing.Point(0, 0)
+        Me.HeaderCloseBtn.Name = "HeaderCloseBtn"
+        Me.HeaderCloseBtn.Size = New System.Drawing.Size(45, 37)
+        Me.HeaderCloseBtn.TabIndex = 0
+        Me.HeaderCloseBtn.Text = "X"
+        Me.HeaderCloseBtn.UseVisualStyleBackColor = False
+        '
+        'TopTitle_LB
+        '
+        Me.TopTitle_LB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TopTitle_LB.AutoSize = True
+        Me.TopTitle_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.TopTitle_LB.ForeColor = System.Drawing.Color.White
+        Me.TopTitle_LB.Location = New System.Drawing.Point(900, 9)
+        Me.TopTitle_LB.Name = "TopTitle_LB"
+        Me.TopTitle_LB.Size = New System.Drawing.Size(69, 21)
+        Me.TopTitle_LB.TabIndex = 3
+        Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
+        Me.TopTitle_LB.Text = "الحسابات"
+        '
         'MetroTabControl1
         '
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage1)
@@ -278,12 +357,12 @@ Partial Class Balances
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage5)
         Me.MetroTabControl1.Controls.Add(Me.MetroTabPage6)
-        Me.MetroTabControl1.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MetroTabControl1.Location = New System.Drawing.Point(0, 32)
+        Me.MetroTabControl1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MetroTabControl1.Location = New System.Drawing.Point(0, 73)
         Me.MetroTabControl1.Name = "MetroTabControl1"
         Me.MetroTabControl1.RightToLeftLayout = True
         Me.MetroTabControl1.SelectedIndex = 0
-        Me.MetroTabControl1.Size = New System.Drawing.Size(1004, 665)
+        Me.MetroTabControl1.Size = New System.Drawing.Size(1004, 666)
         Me.MetroTabControl1.TabIndex = 403
         '
         'MetroTabPage1
@@ -315,38 +394,18 @@ Partial Class Balances
         Me.MetroTabPage1.Controls.Add(Me.Label3)
         Me.MetroTabPage1.Controls.Add(Me.AGMVMetroGrid)
         Me.MetroTabPage1.Controls.Add(Me.isVoid_CB)
-        Me.MetroTabPage1.Font = New System.Drawing.Font("Sakkal Majalla", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.MetroTabPage1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.MetroTabPage1.HorizontalScrollbarBarColor = True
         Me.MetroTabPage1.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroTabPage1.HorizontalScrollbarSize = 10
-        Me.MetroTabPage1.Location = New System.Drawing.Point(4, 34)
+        Me.MetroTabPage1.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage1.Name = "MetroTabPage1"
-        Me.MetroTabPage1.Size = New System.Drawing.Size(996, 627)
+        Me.MetroTabPage1.Size = New System.Drawing.Size(996, 632)
         Me.MetroTabPage1.TabIndex = 0
         Me.MetroTabPage1.Text = "حركة العملاء"
         Me.MetroTabPage1.VerticalScrollbarBarColor = True
         Me.MetroTabPage1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroTabPage1.VerticalScrollbarSize = 10
-        '
-        'AG_Cm
-        '
-        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.AG_Cm.Location = New System.Drawing.Point(570, 1)
-        Me.AG_Cm.Name = "AG_Cm"
-        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(350, 35)
-        Me.AG_Cm.SQL_Column = "AG_NAME"
-        Me.AG_Cm.SQL_ID = "AG_ID"
-        Me.AG_Cm.SQL_IsNumericSearchField = False
-        Me.AG_Cm.SQL_ListSize = 200
-        Me.AG_Cm.SQL_NumberOfRows = 200
-        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField = "AG_NAME"
-        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
-        Me.AG_Cm.TabIndex = 626
-        Me.AG_Cm.TextMaxLength = 250
-        Me.AG_Cm.Textt = ""
         '
         'NUM_CREDIT_TXT
         '
@@ -381,6 +440,7 @@ Partial Class Balances
         'Label37
         '
         Me.Label37.AutoSize = True
+        Me.Label37.BackColor = System.Drawing.Color.Transparent
         Me.Label37.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label37.Location = New System.Drawing.Point(874, 601)
         Me.Label37.Name = "Label37"
@@ -392,6 +452,7 @@ Partial Class Balances
         'Label38
         '
         Me.Label38.AutoSize = True
+        Me.Label38.BackColor = System.Drawing.Color.Transparent
         Me.Label38.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label38.Location = New System.Drawing.Point(691, 601)
         Me.Label38.Name = "Label38"
@@ -403,6 +464,7 @@ Partial Class Balances
         'Label33
         '
         Me.Label33.AutoSize = True
+        Me.Label33.BackColor = System.Drawing.Color.Transparent
         Me.Label33.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label33.Location = New System.Drawing.Point(116, 601)
         Me.Label33.Name = "Label33"
@@ -414,6 +476,7 @@ Partial Class Balances
         'Label34
         '
         Me.Label34.AutoSize = True
+        Me.Label34.BackColor = System.Drawing.Color.Transparent
         Me.Label34.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label34.Location = New System.Drawing.Point(486, 601)
         Me.Label34.Name = "Label34"
@@ -425,6 +488,7 @@ Partial Class Balances
         'Label35
         '
         Me.Label35.AutoSize = True
+        Me.Label35.BackColor = System.Drawing.Color.Transparent
         Me.Label35.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label35.Location = New System.Drawing.Point(279, 601)
         Me.Label35.Name = "Label35"
@@ -436,13 +500,12 @@ Partial Class Balances
         'Currency_CB
         '
         Me.Currency_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Currency_CB.Location = New System.Drawing.Point(428, 3)
+        Me.Currency_CB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Currency_CB.Location = New System.Drawing.Point(414, 3)
         Me.Currency_CB.Name = "Currency_CB"
-        Me.Currency_CB.Size = New System.Drawing.Size(82, 27)
+        Me.Currency_CB.Size = New System.Drawing.Size(89, 27)
         Me.Currency_CB.TabIndex = 618
         Me.Currency_CB.Text = "عملة أجنبية"
-        Me.Currency_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Currency_CB.UseSelectable = True
         Me.Currency_CB.Visible = False
         '
         'Send_To_Email_btn
@@ -454,7 +517,6 @@ Partial Class Balances
         Me.Send_To_Email_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Send_To_Email_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Send_To_Email_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Send_To_Email_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_038_029_share_link_friends_send_mail_android_material_3171647
         Me.Send_To_Email_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Send_To_Email_btn.Location = New System.Drawing.Point(2, 68)
         Me.Send_To_Email_btn.Name = "Send_To_Email_btn"
@@ -462,7 +524,6 @@ Partial Class Balances
         Me.Send_To_Email_btn.TabIndex = 617
         Me.Send_To_Email_btn.TabStop = False
         Me.Send_To_Email_btn.Text = "إرسال عبر البريد"
-        Me.Send_To_Email_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Send_To_Email_btn.UseVisualStyleBackColor = False
         '
         'Total_Balance
@@ -471,12 +532,12 @@ Partial Class Balances
         Me.Total_Balance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Total_Balance.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_Balance.ForeColor = System.Drawing.Color.Black
-        Me.Total_Balance.Location = New System.Drawing.Point(6, 597)
+        Me.Total_Balance.Location = New System.Drawing.Point(1, 597)
         Me.Total_Balance.MaxLength = 200
         Me.Total_Balance.Name = "Total_Balance"
         Me.Total_Balance.ReadOnly = True
         Me.Total_Balance.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Total_Balance.Size = New System.Drawing.Size(107, 26)
+        Me.Total_Balance.Size = New System.Drawing.Size(113, 26)
         Me.Total_Balance.TabIndex = 419
         Me.Total_Balance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -513,6 +574,7 @@ Partial Class Balances
         'Label7
         '
         Me.Label7.AutoSize = True
+        Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label7.Location = New System.Drawing.Point(923, 72)
         Me.Label7.Name = "Label7"
@@ -524,6 +586,7 @@ Partial Class Balances
         'Label8
         '
         Me.Label8.AutoSize = True
+        Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label8.Location = New System.Drawing.Point(922, 42)
         Me.Label8.Name = "Label8"
@@ -535,26 +598,22 @@ Partial Class Balances
         'AllUsersCheckBox
         '
         Me.AllUsersCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllUsersCheckBox.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
-        Me.AllUsersCheckBox.Location = New System.Drawing.Point(604, 68)
+        Me.AllUsersCheckBox.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllUsersCheckBox.Location = New System.Drawing.Point(597, 68)
         Me.AllUsersCheckBox.Name = "AllUsersCheckBox"
-        Me.AllUsersCheckBox.Size = New System.Drawing.Size(48, 29)
+        Me.AllUsersCheckBox.Size = New System.Drawing.Size(55, 29)
         Me.AllUsersCheckBox.TabIndex = 409
         Me.AllUsersCheckBox.Text = "الكل"
-        Me.AllUsersCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.AllUsersCheckBox.UseSelectable = True
         '
         'AllRecieptsCheckBox
         '
         Me.AllRecieptsCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllRecieptsCheckBox.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
-        Me.AllRecieptsCheckBox.Location = New System.Drawing.Point(520, 36)
+        Me.AllRecieptsCheckBox.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllRecieptsCheckBox.Location = New System.Drawing.Point(509, 36)
         Me.AllRecieptsCheckBox.Name = "AllRecieptsCheckBox"
-        Me.AllRecieptsCheckBox.Size = New System.Drawing.Size(48, 29)
+        Me.AllRecieptsCheckBox.Size = New System.Drawing.Size(55, 29)
         Me.AllRecieptsCheckBox.TabIndex = 408
         Me.AllRecieptsCheckBox.Text = "الكل"
-        Me.AllRecieptsCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.AllRecieptsCheckBox.UseSelectable = True
         '
         'UsersComboBox
         '
@@ -594,13 +653,11 @@ Partial Class Balances
         'AllTimeCheckBox
         '
         Me.AllTimeCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllTimeCheckBox.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
-        Me.AllTimeCheckBox.Location = New System.Drawing.Point(154, 28)
+        Me.AllTimeCheckBox.Location = New System.Drawing.Point(141, 28)
         Me.AllTimeCheckBox.Name = "AllTimeCheckBox"
-        Me.AllTimeCheckBox.Size = New System.Drawing.Size(92, 29)
+        Me.AllTimeCheckBox.Size = New System.Drawing.Size(125, 29)
         Me.AllTimeCheckBox.TabIndex = 405
         Me.AllTimeCheckBox.Text = "كل الفترات"
-        Me.AllTimeCheckBox.UseSelectable = True
         '
         'Label1
         '
@@ -682,7 +739,6 @@ Partial Class Balances
         Me.MVPrintButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MVPrintButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MVPrintButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.MVPrintButton.Image = Global.resturant.My.Resources.Resources.if_icon_124_printer_text_314703
         Me.MVPrintButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.MVPrintButton.Location = New System.Drawing.Point(2, 35)
         Me.MVPrintButton.Name = "MVPrintButton"
@@ -690,21 +746,19 @@ Partial Class Balances
         Me.MVPrintButton.Size = New System.Drawing.Size(127, 32)
         Me.MVPrintButton.TabIndex = 402
         Me.MVPrintButton.TabStop = False
+        Me.MVPrintButton.Tag = "PRINT"
         Me.MVPrintButton.Text = "طباعــة"
-        Me.MVPrintButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MVPrintButton.UseVisualStyleBackColor = False
         '
         'AllAgentsCheckBox
         '
         Me.AllAgentsCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllAgentsCheckBox.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
-        Me.AllAgentsCheckBox.Location = New System.Drawing.Point(519, 2)
+        Me.AllAgentsCheckBox.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllAgentsCheckBox.Location = New System.Drawing.Point(508, 2)
         Me.AllAgentsCheckBox.Name = "AllAgentsCheckBox"
-        Me.AllAgentsCheckBox.Size = New System.Drawing.Size(48, 29)
+        Me.AllAgentsCheckBox.Size = New System.Drawing.Size(55, 29)
         Me.AllAgentsCheckBox.TabIndex = 404
         Me.AllAgentsCheckBox.Text = "الكل"
-        Me.AllAgentsCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.AllAgentsCheckBox.UseSelectable = True
         '
         'MVSearchButton
         '
@@ -715,7 +769,6 @@ Partial Class Balances
         Me.MVSearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MVSearchButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MVSearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.MVSearchButton.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.MVSearchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.MVSearchButton.Location = New System.Drawing.Point(2, 2)
         Me.MVSearchButton.Name = "MVSearchButton"
@@ -724,7 +777,6 @@ Partial Class Balances
         Me.MVSearchButton.TabIndex = 403
         Me.MVSearchButton.TabStop = False
         Me.MVSearchButton.Text = "بحــــــث"
-        Me.MVSearchButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MVSearchButton.UseVisualStyleBackColor = False
         '
         'ReceiptTypeComboBox
@@ -745,8 +797,9 @@ Partial Class Balances
         'Label3
         '
         Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(923, 8)
+        Me.Label3.Location = New System.Drawing.Point(929, 8)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(55, 19)
         Me.Label3.TabIndex = 381
@@ -768,7 +821,7 @@ Partial Class Balances
         Me.AGMVMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -809,9 +862,8 @@ Partial Class Balances
         Me.AGMVMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle8
         Me.AGMVMetroGrid.RowTemplate.Height = 30
         Me.AGMVMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMVMetroGrid.Size = New System.Drawing.Size(992, 492)
+        Me.AGMVMetroGrid.Size = New System.Drawing.Size(992, 489)
         Me.AGMVMetroGrid.TabIndex = 291
-        Me.AGMVMetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
         'AG_MV_Type_ID_CL
         '
@@ -917,12 +969,13 @@ Partial Class Balances
         '
         Me.isVoid_CB.BackColor = System.Drawing.SystemColors.AppWorkspace
         Me.isVoid_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.isVoid_CB.Location = New System.Drawing.Point(428, 73)
+        Me.isVoid_CB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.isVoid_CB.Location = New System.Drawing.Point(415, 73)
         Me.isVoid_CB.Name = "isVoid_CB"
-        Me.isVoid_CB.Size = New System.Drawing.Size(149, 23)
+        Me.isVoid_CB.Size = New System.Drawing.Size(156, 23)
         Me.isVoid_CB.TabIndex = 406
         Me.isVoid_CB.Text = "إظهار المعاملات الملغية"
-        Me.isVoid_CB.UseSelectable = True
+        Me.isVoid_CB.UseVisualStyleBackColor = False
         '
         'MetroTabPage2
         '
@@ -950,9 +1003,9 @@ Partial Class Balances
         Me.MetroTabPage2.HorizontalScrollbarBarColor = True
         Me.MetroTabPage2.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroTabPage2.HorizontalScrollbarSize = 1
-        Me.MetroTabPage2.Location = New System.Drawing.Point(4, 34)
+        Me.MetroTabPage2.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage2.Name = "MetroTabPage2"
-        Me.MetroTabPage2.Size = New System.Drawing.Size(996, 627)
+        Me.MetroTabPage2.Size = New System.Drawing.Size(996, 632)
         Me.MetroTabPage2.TabIndex = 1
         Me.MetroTabPage2.Text = "حركــة الخزينــة"
         Me.MetroTabPage2.VerticalScrollbarBarColor = True
@@ -962,6 +1015,7 @@ Partial Class Balances
         'Label32
         '
         Me.Label32.AutoSize = True
+        Me.Label32.BackColor = System.Drawing.Color.Transparent
         Me.Label32.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label32.Location = New System.Drawing.Point(187, 593)
         Me.Label32.Name = "Label32"
@@ -973,6 +1027,7 @@ Partial Class Balances
         'Label31
         '
         Me.Label31.AutoSize = True
+        Me.Label31.BackColor = System.Drawing.Color.Transparent
         Me.Label31.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label31.Location = New System.Drawing.Point(347, 592)
         Me.Label31.Name = "Label31"
@@ -984,6 +1039,7 @@ Partial Class Balances
         'Label30
         '
         Me.Label30.AutoSize = True
+        Me.Label30.BackColor = System.Drawing.Color.Transparent
         Me.Label30.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label30.Location = New System.Drawing.Point(550, 593)
         Me.Label30.Name = "Label30"
@@ -1088,13 +1144,11 @@ Partial Class Balances
         'TrAllTimeCheckBox
         '
         Me.TrAllTimeCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.TrAllTimeCheckBox.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
         Me.TrAllTimeCheckBox.Location = New System.Drawing.Point(160, 28)
         Me.TrAllTimeCheckBox.Name = "TrAllTimeCheckBox"
         Me.TrAllTimeCheckBox.Size = New System.Drawing.Size(114, 29)
         Me.TrAllTimeCheckBox.TabIndex = 405
         Me.TrAllTimeCheckBox.Text = "كل الفترات"
-        Me.TrAllTimeCheckBox.UseSelectable = True
         '
         'Label11
         '
@@ -1159,24 +1213,22 @@ Partial Class Balances
         'TrAllUsersCheckBox
         '
         Me.TrAllUsersCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.TrAllUsersCheckBox.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
+        Me.TrAllUsersCheckBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TrAllUsersCheckBox.Location = New System.Drawing.Point(414, 68)
         Me.TrAllUsersCheckBox.Name = "TrAllUsersCheckBox"
         Me.TrAllUsersCheckBox.Size = New System.Drawing.Size(58, 29)
         Me.TrAllUsersCheckBox.TabIndex = 418
         Me.TrAllUsersCheckBox.Text = "الكل"
-        Me.TrAllUsersCheckBox.UseSelectable = True
         '
         'TrAllTypeCheckBox
         '
         Me.TrAllTypeCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.TrAllTypeCheckBox.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
+        Me.TrAllTypeCheckBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TrAllTypeCheckBox.Location = New System.Drawing.Point(415, 34)
         Me.TrAllTypeCheckBox.Name = "TrAllTypeCheckBox"
         Me.TrAllTypeCheckBox.Size = New System.Drawing.Size(58, 29)
         Me.TrAllTypeCheckBox.TabIndex = 417
         Me.TrAllTypeCheckBox.Text = "الكل"
-        Me.TrAllTypeCheckBox.UseSelectable = True
         '
         'TrUsersComboBox
         '
@@ -1196,6 +1248,7 @@ Partial Class Balances
         'Label2
         '
         Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Label2.Location = New System.Drawing.Point(915, 74)
         Me.Label2.Name = "Label2"
@@ -1207,13 +1260,12 @@ Partial Class Balances
         'AllTrCheckBox
         '
         Me.AllTrCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllTrCheckBox.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
+        Me.AllTrCheckBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AllTrCheckBox.Location = New System.Drawing.Point(416, 2)
         Me.AllTrCheckBox.Name = "AllTrCheckBox"
         Me.AllTrCheckBox.Size = New System.Drawing.Size(58, 29)
         Me.AllTrCheckBox.TabIndex = 414
         Me.AllTrCheckBox.Text = "الكل"
-        Me.AllTrCheckBox.UseSelectable = True
         '
         'TrTypeComboBox
         '
@@ -1233,6 +1285,7 @@ Partial Class Balances
         'Label4
         '
         Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label4.Location = New System.Drawing.Point(915, 40)
         Me.Label4.Name = "Label4"
@@ -1244,6 +1297,7 @@ Partial Class Balances
         'Label9
         '
         Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Label9.Location = New System.Drawing.Point(915, 8)
         Me.Label9.Name = "Label9"
@@ -1267,7 +1321,7 @@ Partial Class Balances
         Me.Tr_MV_MetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -1310,18 +1364,124 @@ Partial Class Balances
         Me.Tr_MV_MetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.Tr_MV_MetroGrid.Size = New System.Drawing.Size(993, 482)
         Me.Tr_MV_MetroGrid.TabIndex = 292
-        Me.Tr_MV_MetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
+        '
+        'Tr_T_ID_CL
+        '
+        Me.Tr_T_ID_CL.DataPropertyName = "T_ID"
+        Me.Tr_T_ID_CL.HeaderText = "ر.الآلي"
+        Me.Tr_T_ID_CL.Name = "Tr_T_ID_CL"
+        Me.Tr_T_ID_CL.ReadOnly = True
+        Me.Tr_T_ID_CL.Visible = False
+        '
+        'TRMV_Name_CL
+        '
+        Me.TRMV_Name_CL.DataPropertyName = "Tr_Name"
+        Me.TRMV_Name_CL.HeaderText = "الخزينـــة"
+        Me.TRMV_Name_CL.Name = "TRMV_Name_CL"
+        Me.TRMV_Name_CL.ReadOnly = True
+        '
+        'TRMV_Date_CL
+        '
+        Me.TRMV_Date_CL.DataPropertyName = "Date"
+        Me.TRMV_Date_CL.HeaderText = "التاريخ"
+        Me.TRMV_Date_CL.Name = "TRMV_Date_CL"
+        Me.TRMV_Date_CL.ReadOnly = True
+        '
+        'TRMV_Type_CL
+        '
+        Me.TRMV_Type_CL.DataPropertyName = "Type_Name"
+        Me.TRMV_Type_CL.HeaderText = "المعاملة"
+        Me.TRMV_Type_CL.Name = "TRMV_Type_CL"
+        Me.TRMV_Type_CL.ReadOnly = True
+        '
+        'TR_MV_Title_move_CL
+        '
+        Me.TR_MV_Title_move_CL.DataPropertyName = "notice_move"
+        Me.TR_MV_Title_move_CL.HeaderText = "العنوان"
+        Me.TR_MV_Title_move_CL.Name = "TR_MV_Title_move_CL"
+        Me.TR_MV_Title_move_CL.ReadOnly = True
+        '
+        'Ag_name_CL_2
+        '
+        Me.Ag_name_CL_2.DataPropertyName = "Ag_name"
+        Me.Ag_name_CL_2.HeaderText = "الحساب"
+        Me.Ag_name_CL_2.Name = "Ag_name_CL_2"
+        Me.Ag_name_CL_2.ReadOnly = True
+        '
+        'TRMV_Bank_CL
+        '
+        Me.TRMV_Bank_CL.DataPropertyName = "Bank_Name"
+        Me.TRMV_Bank_CL.HeaderText = "المصرف"
+        Me.TRMV_Bank_CL.Name = "TRMV_Bank_CL"
+        Me.TRMV_Bank_CL.ReadOnly = True
+        '
+        'TRMV_B_Name_CL
+        '
+        Me.TRMV_B_Name_CL.DataPropertyName = "CheckNum"
+        Me.TRMV_B_Name_CL.FillWeight = 112.3096!
+        Me.TRMV_B_Name_CL.HeaderText = "ر.الحساب"
+        Me.TRMV_B_Name_CL.Name = "TRMV_B_Name_CL"
+        Me.TRMV_B_Name_CL.ReadOnly = True
+        '
+        'Tr_Credit_CL
+        '
+        Me.Tr_Credit_CL.DataPropertyName = "Credit"
+        DataGridViewCellStyle11.Format = "N3"
+        DataGridViewCellStyle11.NullValue = Nothing
+        Me.Tr_Credit_CL.DefaultCellStyle = DataGridViewCellStyle11
+        Me.Tr_Credit_CL.FillWeight = 112.3096!
+        Me.Tr_Credit_CL.HeaderText = "مديـــــن"
+        Me.Tr_Credit_CL.Name = "Tr_Credit_CL"
+        Me.Tr_Credit_CL.ReadOnly = True
+        '
+        'Tr_Debit_CL
+        '
+        Me.Tr_Debit_CL.DataPropertyName = "Debit"
+        DataGridViewCellStyle12.Format = "N3"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.Tr_Debit_CL.DefaultCellStyle = DataGridViewCellStyle12
+        Me.Tr_Debit_CL.FillWeight = 112.3096!
+        Me.Tr_Debit_CL.HeaderText = "دائـــــن"
+        Me.Tr_Debit_CL.Name = "Tr_Debit_CL"
+        Me.Tr_Debit_CL.ReadOnly = True
+        '
+        'Tr_Balance_CL
+        '
+        Me.Tr_Balance_CL.DataPropertyName = "Balance"
+        DataGridViewCellStyle13.Format = "N3"
+        Me.Tr_Balance_CL.DefaultCellStyle = DataGridViewCellStyle13
+        Me.Tr_Balance_CL.FillWeight = 112.3096!
+        Me.Tr_Balance_CL.HeaderText = "الرصيـــد"
+        Me.Tr_Balance_CL.Name = "Tr_Balance_CL"
+        Me.Tr_Balance_CL.ReadOnly = True
+        '
+        'TRMV_UserName_CL
+        '
+        Me.TRMV_UserName_CL.DataPropertyName = "UserName"
+        Me.TRMV_UserName_CL.HeaderText = "المدخل"
+        Me.TRMV_UserName_CL.Name = "TRMV_UserName_CL"
+        Me.TRMV_UserName_CL.ReadOnly = True
+        '
+        'TrisVoid_CL
+        '
+        Me.TrisVoid_CL.DataPropertyName = "isVoid"
+        Me.TrisVoid_CL.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.TrisVoid_CL.HeaderText = "ملغية"
+        Me.TrisVoid_CL.Name = "TrisVoid_CL"
+        Me.TrisVoid_CL.ReadOnly = True
+        Me.TrisVoid_CL.Visible = False
         '
         'TrisVoid_CB
         '
         Me.TrisVoid_CB.BackColor = System.Drawing.SystemColors.AppWorkspace
         Me.TrisVoid_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.TrisVoid_CB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TrisVoid_CB.Location = New System.Drawing.Point(476, 71)
         Me.TrisVoid_CB.Name = "TrisVoid_CB"
         Me.TrisVoid_CB.Size = New System.Drawing.Size(146, 23)
         Me.TrisVoid_CB.TabIndex = 425
         Me.TrisVoid_CB.Text = "إظهار المعاملات الملغية"
-        Me.TrisVoid_CB.UseSelectable = True
+        Me.TrisVoid_CB.UseVisualStyleBackColor = False
         '
         'Tr_PrintButton
         '
@@ -1385,9 +1545,9 @@ Partial Class Balances
         Me.MetroTabPage4.HorizontalScrollbarBarColor = True
         Me.MetroTabPage4.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroTabPage4.HorizontalScrollbarSize = 1
-        Me.MetroTabPage4.Location = New System.Drawing.Point(4, 34)
+        Me.MetroTabPage4.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage4.Name = "MetroTabPage4"
-        Me.MetroTabPage4.Size = New System.Drawing.Size(996, 627)
+        Me.MetroTabPage4.Size = New System.Drawing.Size(996, 632)
         Me.MetroTabPage4.TabIndex = 3
         Me.MetroTabPage4.Text = "الأرصدة"
         Me.MetroTabPage4.VerticalScrollbarBarColor = True
@@ -1396,13 +1556,13 @@ Partial Class Balances
         '
         'CMSearchTextBox
         '
-        Me.CMSearchTextBox.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CMSearchTextBox.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMSearchTextBox.ForeColor = System.Drawing.SystemColors.InfoText
         Me.CMSearchTextBox.Location = New System.Drawing.Point(3, 50)
         Me.CMSearchTextBox.Margin = New System.Windows.Forms.Padding(2, 5, 2, 5)
         Me.CMSearchTextBox.Name = "CMSearchTextBox"
         Me.CMSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.CMSearchTextBox.Size = New System.Drawing.Size(837, 25)
+        Me.CMSearchTextBox.Size = New System.Drawing.Size(837, 27)
         Me.CMSearchTextBox.TabIndex = 679
         Me.CMSearchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1413,9 +1573,9 @@ Partial Class Balances
         Me.Search_Panel.Controls.Add(Me.AlldebitsRadioButton)
         Me.Search_Panel.Controls.Add(Me.Debit_WithDate_CB)
         Me.Search_Panel.Controls.Add(Me.DATE_Before)
-        Me.Search_Panel.Location = New System.Drawing.Point(272, 2)
+        Me.Search_Panel.Location = New System.Drawing.Point(254, 2)
         Me.Search_Panel.Name = "Search_Panel"
-        Me.Search_Panel.Size = New System.Drawing.Size(470, 30)
+        Me.Search_Panel.Size = New System.Drawing.Size(488, 30)
         Me.Search_Panel.TabIndex = 678
         '
         'AllCerditRadioButton
@@ -1423,14 +1583,12 @@ Partial Class Balances
         Me.AllCerditRadioButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AllCerditRadioButton.AutoSize = True
         Me.AllCerditRadioButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllCerditRadioButton.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.AllCerditRadioButton.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
-        Me.AllCerditRadioButton.Location = New System.Drawing.Point(272, 3)
+        Me.AllCerditRadioButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllCerditRadioButton.Location = New System.Drawing.Point(277, 3)
         Me.AllCerditRadioButton.Name = "AllCerditRadioButton"
-        Me.AllCerditRadioButton.Size = New System.Drawing.Size(63, 19)
+        Me.AllCerditRadioButton.Size = New System.Drawing.Size(70, 25)
         Me.AllCerditRadioButton.TabIndex = 295
         Me.AllCerditRadioButton.Text = "المدين"
-        Me.AllCerditRadioButton.UseSelectable = True
         '
         'AllBalancesRadioButton
         '
@@ -1438,41 +1596,35 @@ Partial Class Balances
         Me.AllBalancesRadioButton.AutoSize = True
         Me.AllBalancesRadioButton.Checked = True
         Me.AllBalancesRadioButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllBalancesRadioButton.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.AllBalancesRadioButton.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
-        Me.AllBalancesRadioButton.Location = New System.Drawing.Point(408, 3)
+        Me.AllBalancesRadioButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllBalancesRadioButton.Location = New System.Drawing.Point(416, 3)
         Me.AllBalancesRadioButton.Name = "AllBalancesRadioButton"
-        Me.AllBalancesRadioButton.Size = New System.Drawing.Size(58, 19)
+        Me.AllBalancesRadioButton.Size = New System.Drawing.Size(68, 25)
         Me.AllBalancesRadioButton.TabIndex = 293
         Me.AllBalancesRadioButton.TabStop = True
         Me.AllBalancesRadioButton.Text = "الكــــل"
-        Me.AllBalancesRadioButton.UseSelectable = True
         '
         'AlldebitsRadioButton
         '
         Me.AlldebitsRadioButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AlldebitsRadioButton.AutoSize = True
         Me.AlldebitsRadioButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AlldebitsRadioButton.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.AlldebitsRadioButton.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
-        Me.AlldebitsRadioButton.Location = New System.Drawing.Point(345, 3)
+        Me.AlldebitsRadioButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AlldebitsRadioButton.Location = New System.Drawing.Point(348, 3)
         Me.AlldebitsRadioButton.Name = "AlldebitsRadioButton"
-        Me.AlldebitsRadioButton.Size = New System.Drawing.Size(59, 19)
+        Me.AlldebitsRadioButton.Size = New System.Drawing.Size(65, 25)
         Me.AlldebitsRadioButton.TabIndex = 294
         Me.AlldebitsRadioButton.Text = "الدائن"
-        Me.AlldebitsRadioButton.UseSelectable = True
         '
         'Debit_WithDate_CB
         '
         Me.Debit_WithDate_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Debit_WithDate_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Debit_WithDate_CB.FontWeight = MetroFramework.MetroCheckBoxWeight.Bold
-        Me.Debit_WithDate_CB.Location = New System.Drawing.Point(118, 3)
+        Me.Debit_WithDate_CB.Location = New System.Drawing.Point(119, 3)
         Me.Debit_WithDate_CB.Name = "Debit_WithDate_CB"
-        Me.Debit_WithDate_CB.Size = New System.Drawing.Size(133, 25)
+        Me.Debit_WithDate_CB.Size = New System.Drawing.Size(142, 25)
         Me.Debit_WithDate_CB.TabIndex = 568
         Me.Debit_WithDate_CB.Text = "أرصدة إلى تاريخ محدد"
-        Me.Debit_WithDate_CB.UseSelectable = True
         '
         'DATE_Before
         '
@@ -1482,10 +1634,10 @@ Partial Class Balances
         Me.DATE_Before.Enabled = False
         Me.DATE_Before.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DATE_Before.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DATE_Before.Location = New System.Drawing.Point(5, 2)
+        Me.DATE_Before.Location = New System.Drawing.Point(3, 2)
         Me.DATE_Before.Name = "DATE_Before"
         Me.DATE_Before.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.DATE_Before.Size = New System.Drawing.Size(111, 26)
+        Me.DATE_Before.Size = New System.Drawing.Size(110, 26)
         Me.DATE_Before.TabIndex = 567
         '
         'Type_Cm
@@ -1500,7 +1652,7 @@ Partial Class Balances
         Me.Type_Cm.Font = New System.Drawing.Font("Segoe UI Semilight", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Type_Cm.FormattingEnabled = True
         Me.Type_Cm.Items.AddRange(New Object() {"حسابات العملاء ", "الخزائن + الحسابات المصرفية"})
-        Me.Type_Cm.Location = New System.Drawing.Point(748, 2)
+        Me.Type_Cm.Location = New System.Drawing.Point(748, 3)
         Me.Type_Cm.Name = "Type_Cm"
         Me.Type_Cm.Size = New System.Drawing.Size(243, 29)
         Me.Type_Cm.TabIndex = 677
@@ -1520,7 +1672,7 @@ Partial Class Balances
         Me.DebtMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -1563,7 +1715,6 @@ Partial Class Balances
         Me.DebtMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DebtMetroGrid.Size = New System.Drawing.Size(837, 519)
         Me.DebtMetroGrid.TabIndex = 292
-        Me.DebtMetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
         'ID_CL
         '
@@ -1638,7 +1789,6 @@ Partial Class Balances
         Me.AG_BALANCE_Sch_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.AG_BALANCE_Sch_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 13.25!, System.Drawing.FontStyle.Bold)
         Me.AG_BALANCE_Sch_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.AG_BALANCE_Sch_Btn.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.AG_BALANCE_Sch_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.AG_BALANCE_Sch_Btn.Location = New System.Drawing.Point(116, 2)
         Me.AG_BALANCE_Sch_Btn.Name = "AG_BALANCE_Sch_Btn"
@@ -1647,7 +1797,6 @@ Partial Class Balances
         Me.AG_BALANCE_Sch_Btn.TabIndex = 569
         Me.AG_BALANCE_Sch_Btn.TabStop = False
         Me.AG_BALANCE_Sch_Btn.Text = "بحــــــث"
-        Me.AG_BALANCE_Sch_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.AG_BALANCE_Sch_Btn.UseVisualStyleBackColor = False
         '
         'Label36
@@ -1668,7 +1817,7 @@ Partial Class Balances
         Me.Label19.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(157, 601)
+        Me.Label19.Location = New System.Drawing.Point(178, 601)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(51, 20)
         Me.Label19.TabIndex = 433
@@ -1679,9 +1828,9 @@ Partial Class Balances
         '
         Me.T_BalanceTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.T_BalanceTextBox.Font = New System.Drawing.Font("Stencil", 13.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_BalanceTextBox.Location = New System.Drawing.Point(30, 596)
+        Me.T_BalanceTextBox.Location = New System.Drawing.Point(9, 596)
         Me.T_BalanceTextBox.Name = "T_BalanceTextBox"
-        Me.T_BalanceTextBox.Size = New System.Drawing.Size(124, 28)
+        Me.T_BalanceTextBox.Size = New System.Drawing.Size(165, 28)
         Me.T_BalanceTextBox.TabIndex = 432
         Me.T_BalanceTextBox.Text = "0.00"
         Me.T_BalanceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1691,7 +1840,7 @@ Partial Class Balances
         Me.Label17.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(364, 601)
+        Me.Label17.Location = New System.Drawing.Point(400, 601)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(50, 20)
         Me.Label17.TabIndex = 431
@@ -1703,7 +1852,7 @@ Partial Class Balances
         Me.Label18.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(581, 602)
+        Me.Label18.Location = New System.Drawing.Point(673, 602)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(45, 20)
         Me.Label18.TabIndex = 430
@@ -1717,7 +1866,7 @@ Partial Class Balances
         Me.T_CreditTextBox.Font = New System.Drawing.Font("Stencil", 13.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.T_CreditTextBox.Location = New System.Drawing.Point(238, 596)
         Me.T_CreditTextBox.Name = "T_CreditTextBox"
-        Me.T_CreditTextBox.Size = New System.Drawing.Size(124, 28)
+        Me.T_CreditTextBox.Size = New System.Drawing.Size(159, 28)
         Me.T_CreditTextBox.TabIndex = 429
         Me.T_CreditTextBox.Text = "0.00"
         Me.T_CreditTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1727,9 +1876,9 @@ Partial Class Balances
         Me.T_DebitTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.T_DebitTextBox.BackColor = System.Drawing.Color.IndianRed
         Me.T_DebitTextBox.Font = New System.Drawing.Font("Stencil", 13.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_DebitTextBox.Location = New System.Drawing.Point(453, 597)
+        Me.T_DebitTextBox.Location = New System.Drawing.Point(517, 597)
         Me.T_DebitTextBox.Name = "T_DebitTextBox"
-        Me.T_DebitTextBox.Size = New System.Drawing.Size(124, 28)
+        Me.T_DebitTextBox.Size = New System.Drawing.Size(157, 28)
         Me.T_DebitTextBox.TabIndex = 428
         Me.T_DebitTextBox.Text = "0.00"
         Me.T_DebitTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1743,7 +1892,6 @@ Partial Class Balances
         Me.AGBalancesPrintBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.AGBalancesPrintBtn.Font = New System.Drawing.Font("Segoe UI Semibold", 13.25!, System.Drawing.FontStyle.Bold)
         Me.AGBalancesPrintBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.AGBalancesPrintBtn.Image = Global.resturant.My.Resources.Resources.if_icon_124_printer_text_314703
         Me.AGBalancesPrintBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.AGBalancesPrintBtn.Location = New System.Drawing.Point(3, 2)
         Me.AGBalancesPrintBtn.Name = "AGBalancesPrintBtn"
@@ -1752,7 +1900,6 @@ Partial Class Balances
         Me.AGBalancesPrintBtn.TabIndex = 422
         Me.AGBalancesPrintBtn.TabStop = False
         Me.AGBalancesPrintBtn.Text = "طباعــة"
-        Me.AGBalancesPrintBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.AGBalancesPrintBtn.UseVisualStyleBackColor = False
         '
         'MetroTabPage3
@@ -1775,9 +1922,9 @@ Partial Class Balances
         Me.MetroTabPage3.HorizontalScrollbarBarColor = True
         Me.MetroTabPage3.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroTabPage3.HorizontalScrollbarSize = 1
-        Me.MetroTabPage3.Location = New System.Drawing.Point(4, 34)
+        Me.MetroTabPage3.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage3.Name = "MetroTabPage3"
-        Me.MetroTabPage3.Size = New System.Drawing.Size(996, 627)
+        Me.MetroTabPage3.Size = New System.Drawing.Size(996, 632)
         Me.MetroTabPage3.TabIndex = 2
         Me.MetroTabPage3.Text = "مرتبات الموظفين"
         Me.MetroTabPage3.VerticalScrollbarBarColor = True
@@ -1788,6 +1935,7 @@ Partial Class Balances
         '
         Me.Label39.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label39.AutoSize = True
+        Me.Label39.BackColor = System.Drawing.Color.Transparent
         Me.Label39.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label39.Location = New System.Drawing.Point(238, 25)
         Me.Label39.Name = "Label39"
@@ -1819,7 +1967,6 @@ Partial Class Balances
         Me.Insert_Salary_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Insert_Salary_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Insert_Salary_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Insert_Salary_btn.Image = Global.resturant.My.Resources.Resources.if_ok_173061
         Me.Insert_Salary_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Insert_Salary_btn.Location = New System.Drawing.Point(353, 8)
         Me.Insert_Salary_btn.Name = "Insert_Salary_btn"
@@ -1828,15 +1975,15 @@ Partial Class Balances
         Me.Insert_Salary_btn.TabIndex = 428
         Me.Insert_Salary_btn.TabStop = False
         Me.Insert_Salary_btn.Text = "ترصيد المرتب"
-        Me.Insert_Salary_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Insert_Salary_btn.UseVisualStyleBackColor = False
         '
         'Label15
         '
         Me.Label15.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label15.AutoSize = True
+        Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(195, 591)
+        Me.Label15.Location = New System.Drawing.Point(198, 599)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(99, 19)
         Me.Label15.TabIndex = 427
@@ -1847,8 +1994,9 @@ Partial Class Balances
         '
         Me.Label16.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(491, 592)
+        Me.Label16.Location = New System.Drawing.Point(494, 600)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(151, 19)
         Me.Label16.TabIndex = 426
@@ -1858,7 +2006,7 @@ Partial Class Balances
         'TotalPureTextBox
         '
         Me.TotalPureTextBox.Font = New System.Drawing.Font("Stencil", 13.25!)
-        Me.TotalPureTextBox.Location = New System.Drawing.Point(3, 586)
+        Me.TotalPureTextBox.Location = New System.Drawing.Point(6, 594)
         Me.TotalPureTextBox.Name = "TotalPureTextBox"
         Me.TotalPureTextBox.Size = New System.Drawing.Size(188, 28)
         Me.TotalPureTextBox.TabIndex = 425
@@ -1868,7 +2016,7 @@ Partial Class Balances
         'TotalDebtTextBox
         '
         Me.TotalDebtTextBox.Font = New System.Drawing.Font("Stencil", 13.25!)
-        Me.TotalDebtTextBox.Location = New System.Drawing.Point(300, 587)
+        Me.TotalDebtTextBox.Location = New System.Drawing.Point(303, 595)
         Me.TotalDebtTextBox.Name = "TotalDebtTextBox"
         Me.TotalDebtTextBox.Size = New System.Drawing.Size(188, 28)
         Me.TotalDebtTextBox.TabIndex = 424
@@ -1890,7 +2038,7 @@ Partial Class Balances
         Me.SalariesMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle26.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -1933,7 +2081,6 @@ Partial Class Balances
         Me.SalariesMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.SalariesMetroGrid.Size = New System.Drawing.Size(993, 517)
         Me.SalariesMetroGrid.TabIndex = 423
-        Me.SalariesMetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
         'DataGridViewTextBoxColumn12
         '
@@ -1997,6 +2144,7 @@ Partial Class Balances
         '
         Me.Label13.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label13.AutoSize = True
+        Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.Location = New System.Drawing.Point(948, 25)
         Me.Label13.Name = "Label13"
@@ -2023,6 +2171,7 @@ Partial Class Balances
         '
         Me.Label14.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label14.AutoSize = True
+        Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.Location = New System.Drawing.Point(798, 25)
         Me.Label14.Name = "Label14"
@@ -2056,7 +2205,6 @@ Partial Class Balances
         Me.PrintButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.PrintButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PrintButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PrintButton.Image = Global.resturant.My.Resources.Resources.if_icon_124_printer_text_314703
         Me.PrintButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.PrintButton.Location = New System.Drawing.Point(498, 8)
         Me.PrintButton.Name = "PrintButton"
@@ -2065,7 +2213,6 @@ Partial Class Balances
         Me.PrintButton.TabIndex = 421
         Me.PrintButton.TabStop = False
         Me.PrintButton.Text = "طباعــة"
-        Me.PrintButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.PrintButton.UseVisualStyleBackColor = False
         '
         'SalarySearchButton
@@ -2077,7 +2224,6 @@ Partial Class Balances
         Me.SalarySearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.SalarySearchButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SalarySearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.SalarySearchButton.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.SalarySearchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.SalarySearchButton.Location = New System.Drawing.Point(607, 8)
         Me.SalarySearchButton.Name = "SalarySearchButton"
@@ -2086,7 +2232,6 @@ Partial Class Balances
         Me.SalarySearchButton.TabIndex = 422
         Me.SalarySearchButton.TabStop = False
         Me.SalarySearchButton.Text = "بحــــــث"
-        Me.SalarySearchButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.SalarySearchButton.UseVisualStyleBackColor = False
         '
         'MetroTabPage5
@@ -2104,9 +2249,9 @@ Partial Class Balances
         Me.MetroTabPage5.HorizontalScrollbarBarColor = True
         Me.MetroTabPage5.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroTabPage5.HorizontalScrollbarSize = 1
-        Me.MetroTabPage5.Location = New System.Drawing.Point(4, 34)
+        Me.MetroTabPage5.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage5.Name = "MetroTabPage5"
-        Me.MetroTabPage5.Size = New System.Drawing.Size(996, 627)
+        Me.MetroTabPage5.Size = New System.Drawing.Size(996, 632)
         Me.MetroTabPage5.TabIndex = 4
         Me.MetroTabPage5.Text = "إجمالي المقبوض والمصروف"
         Me.MetroTabPage5.VerticalScrollbarBarColor = True
@@ -2422,7 +2567,6 @@ Partial Class Balances
         Me.Total_Fetch_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Total_Fetch_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_Fetch_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Total_Fetch_Btn.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.Total_Fetch_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Total_Fetch_Btn.Location = New System.Drawing.Point(269, 156)
         Me.Total_Fetch_Btn.Name = "Total_Fetch_Btn"
@@ -2431,7 +2575,6 @@ Partial Class Balances
         Me.Total_Fetch_Btn.TabIndex = 437
         Me.Total_Fetch_Btn.TabStop = False
         Me.Total_Fetch_Btn.Text = "بحــــــث"
-        Me.Total_Fetch_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Total_Fetch_Btn.UseVisualStyleBackColor = False
         '
         'MetroTabPage6
@@ -2441,10 +2584,10 @@ Partial Class Balances
         Me.MetroTabPage6.Controls.Add(Me.Refrech_Btn)
         Me.MetroTabPage6.Controls.Add(Me.ALL_B_TOTAL_Grid)
         Me.MetroTabPage6.Controls.Add(Me.ALL_BALANCES_Grid)
-        Me.MetroTabPage6.Location = New System.Drawing.Point(4, 34)
+        Me.MetroTabPage6.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage6.Name = "MetroTabPage6"
         Me.MetroTabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.MetroTabPage6.Size = New System.Drawing.Size(996, 627)
+        Me.MetroTabPage6.Size = New System.Drawing.Size(996, 632)
         Me.MetroTabPage6.TabIndex = 5
         Me.MetroTabPage6.Text = "ميزان المراجعة"
         Me.MetroTabPage6.UseVisualStyleBackColor = True
@@ -2468,6 +2611,7 @@ Partial Class Balances
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(173, 43)
         Me.Button1.TabIndex = 704
+        Me.Button1.Tag = "PRINT"
         Me.Button1.Text = "طباعـــة"
         Me.Button1.UseVisualStyleBackColor = True
         '
@@ -2480,16 +2624,14 @@ Partial Class Balances
         Me.Refrech_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Refrech_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Refrech_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Refrech_Btn.Image = Global.resturant.My.Resources.Resources.iconfinder_icon_refresh_2867936
         Me.Refrech_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Refrech_Btn.Location = New System.Drawing.Point(848, 2)
+        Me.Refrech_Btn.Location = New System.Drawing.Point(848, 3)
         Me.Refrech_Btn.Name = "Refrech_Btn"
         Me.Refrech_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Refrech_Btn.Size = New System.Drawing.Size(145, 44)
+        Me.Refrech_Btn.Size = New System.Drawing.Size(145, 43)
         Me.Refrech_Btn.TabIndex = 703
         Me.Refrech_Btn.TabStop = False
         Me.Refrech_Btn.Text = "تحديث القائمة"
-        Me.Refrech_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Refrech_Btn.UseVisualStyleBackColor = False
         '
         'ALL_B_TOTAL_Grid
@@ -2588,7 +2730,7 @@ Partial Class Balances
         Me.ALL_BALANCES_Grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.ActiveCaption
-        DataGridViewCellStyle38.Font = New System.Drawing.Font("Sakkal Majalla", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle38.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle38.ForeColor = System.Drawing.SystemColors.InactiveCaptionText
         DataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -2613,208 +2755,126 @@ Partial Class Balances
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.إيصالToolStripMenuItem, Me.الخزينةToolStripMenuItem, Me.مكافئاتوخصوماتللموظفينToolStripMenuItem, Me.العهدToolStripMenuItem, Me.خروجToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 37)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.MenuStrip1.Size = New System.Drawing.Size(1004, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1004, 29)
         Me.MenuStrip1.TabIndex = 404
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'إيصالToolStripMenuItem
         '
         Me.إيصالToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.إيصالقبضToolStripMenuItem, Me.إيصالصرفToolStripMenuItem})
-        Me.إيصالToolStripMenuItem.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.إيصالToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.إيصالToolStripMenuItem.ForeColor = System.Drawing.Color.Blue
         Me.إيصالToolStripMenuItem.Name = "إيصالToolStripMenuItem"
-        Me.إيصالToolStripMenuItem.Size = New System.Drawing.Size(79, 26)
+        Me.إيصالToolStripMenuItem.Size = New System.Drawing.Size(81, 25)
         Me.إيصالToolStripMenuItem.Text = "إيصــالات"
         '
         'إيصالقبضToolStripMenuItem
         '
-        Me.إيصالقبضToolStripMenuItem.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.إيصالقبضToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
         Me.إيصالقبضToolStripMenuItem.Name = "إيصالقبضToolStripMenuItem"
-        Me.إيصالقبضToolStripMenuItem.Size = New System.Drawing.Size(171, 26)
+        Me.إيصالقبضToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
         Me.إيصالقبضToolStripMenuItem.Text = "إيصال قبــــض"
         '
         'إيصالصرفToolStripMenuItem
         '
-        Me.إيصالصرفToolStripMenuItem.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.إيصالصرفToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
         Me.إيصالصرفToolStripMenuItem.Name = "إيصالصرفToolStripMenuItem"
-        Me.إيصالصرفToolStripMenuItem.Size = New System.Drawing.Size(171, 26)
+        Me.إيصالصرفToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
         Me.إيصالصرفToolStripMenuItem.Text = "إيصال صـــرف"
         '
         'الخزينةToolStripMenuItem
         '
         Me.الخزينةToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.سحـــبToolStripMenuItem, Me.إيــداعToolStripMenuItem, Me.تحويـــلToolStripMenuItem})
-        Me.الخزينةToolStripMenuItem.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.الخزينةToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.الخزينةToolStripMenuItem.ForeColor = System.Drawing.Color.Blue
         Me.الخزينةToolStripMenuItem.Name = "الخزينةToolStripMenuItem"
-        Me.الخزينةToolStripMenuItem.Size = New System.Drawing.Size(82, 26)
+        Me.الخزينةToolStripMenuItem.Size = New System.Drawing.Size(78, 25)
         Me.الخزينةToolStripMenuItem.Text = "الخــــزينة"
         '
         'سحـــبToolStripMenuItem
         '
         Me.سحـــبToolStripMenuItem.Name = "سحـــبToolStripMenuItem"
-        Me.سحـــبToolStripMenuItem.Size = New System.Drawing.Size(130, 26)
+        Me.سحـــبToolStripMenuItem.Size = New System.Drawing.Size(152, 26)
         Me.سحـــبToolStripMenuItem.Text = "سحـــب"
         '
         'إيــداعToolStripMenuItem
         '
         Me.إيــداعToolStripMenuItem.Name = "إيــداعToolStripMenuItem"
-        Me.إيــداعToolStripMenuItem.Size = New System.Drawing.Size(130, 26)
+        Me.إيــداعToolStripMenuItem.Size = New System.Drawing.Size(152, 26)
         Me.إيــداعToolStripMenuItem.Text = "إيــداع"
         '
         'تحويـــلToolStripMenuItem
         '
         Me.تحويـــلToolStripMenuItem.Name = "تحويـــلToolStripMenuItem"
-        Me.تحويـــلToolStripMenuItem.Size = New System.Drawing.Size(130, 26)
+        Me.تحويـــلToolStripMenuItem.Size = New System.Drawing.Size(152, 26)
         Me.تحويـــلToolStripMenuItem.Text = "تحويـــل"
         '
         'مكافئاتوخصوماتللموظفينToolStripMenuItem
         '
-        Me.مكافئاتوخصوماتللموظفينToolStripMenuItem.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.مكافئاتوخصوماتللموظفينToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.مكافئاتوخصوماتللموظفينToolStripMenuItem.ForeColor = System.Drawing.Color.Blue
         Me.مكافئاتوخصوماتللموظفينToolStripMenuItem.Name = "مكافئاتوخصوماتللموظفينToolStripMenuItem"
-        Me.مكافئاتوخصوماتللموظفينToolStripMenuItem.Size = New System.Drawing.Size(206, 26)
+        Me.مكافئاتوخصوماتللموظفينToolStripMenuItem.Size = New System.Drawing.Size(220, 25)
         Me.مكافئاتوخصوماتللموظفينToolStripMenuItem.Text = "مكافئات و خصومات للموظفين"
         '
         'العهدToolStripMenuItem
         '
-        Me.العهدToolStripMenuItem.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.العهدToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.العهدToolStripMenuItem.ForeColor = System.Drawing.Color.Blue
         Me.العهدToolStripMenuItem.Name = "العهدToolStripMenuItem"
-        Me.العهدToolStripMenuItem.Size = New System.Drawing.Size(69, 26)
+        Me.العهدToolStripMenuItem.Size = New System.Drawing.Size(68, 25)
         Me.العهدToolStripMenuItem.Text = "العهــــد"
         '
         'خروجToolStripMenuItem
         '
-        Me.خروجToolStripMenuItem.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.خروجToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.خروجToolStripMenuItem.ForeColor = System.Drawing.Color.DarkRed
         Me.خروجToolStripMenuItem.Name = "خروجToolStripMenuItem"
-        Me.خروجToolStripMenuItem.Size = New System.Drawing.Size(60, 26)
+        Me.خروجToolStripMenuItem.Size = New System.Drawing.Size(55, 25)
         Me.خروجToolStripMenuItem.Text = "خروج"
         '
-        'Tr_T_ID_CL
+        'AG_Cm
         '
-        Me.Tr_T_ID_CL.DataPropertyName = "T_ID"
-        Me.Tr_T_ID_CL.HeaderText = "ر.الآلي"
-        Me.Tr_T_ID_CL.Name = "Tr_T_ID_CL"
-        Me.Tr_T_ID_CL.ReadOnly = True
-        Me.Tr_T_ID_CL.Visible = False
-        '
-        'TRMV_Name_CL
-        '
-        Me.TRMV_Name_CL.DataPropertyName = "Tr_Name"
-        Me.TRMV_Name_CL.HeaderText = "الخزينـــة"
-        Me.TRMV_Name_CL.Name = "TRMV_Name_CL"
-        Me.TRMV_Name_CL.ReadOnly = True
-        '
-        'TRMV_Date_CL
-        '
-        Me.TRMV_Date_CL.DataPropertyName = "Date"
-        Me.TRMV_Date_CL.HeaderText = "التاريخ"
-        Me.TRMV_Date_CL.Name = "TRMV_Date_CL"
-        Me.TRMV_Date_CL.ReadOnly = True
-        '
-        'TRMV_Type_CL
-        '
-        Me.TRMV_Type_CL.DataPropertyName = "Type_Name"
-        Me.TRMV_Type_CL.HeaderText = "المعاملة"
-        Me.TRMV_Type_CL.Name = "TRMV_Type_CL"
-        Me.TRMV_Type_CL.ReadOnly = True
-        '
-        'TR_MV_Title_move_CL
-        '
-        Me.TR_MV_Title_move_CL.DataPropertyName = "notice_move"
-        Me.TR_MV_Title_move_CL.HeaderText = "العنوان"
-        Me.TR_MV_Title_move_CL.Name = "TR_MV_Title_move_CL"
-        Me.TR_MV_Title_move_CL.ReadOnly = True
-        '
-        'Ag_name_CL_2
-        '
-        Me.Ag_name_CL_2.DataPropertyName = "Ag_name"
-        Me.Ag_name_CL_2.HeaderText = "الحساب"
-        Me.Ag_name_CL_2.Name = "Ag_name_CL_2"
-        Me.Ag_name_CL_2.ReadOnly = True
-        '
-        'TRMV_Bank_CL
-        '
-        Me.TRMV_Bank_CL.DataPropertyName = "Bank_Name"
-        Me.TRMV_Bank_CL.HeaderText = "المصرف"
-        Me.TRMV_Bank_CL.Name = "TRMV_Bank_CL"
-        Me.TRMV_Bank_CL.ReadOnly = True
-        '
-        'TRMV_B_Name_CL
-        '
-        Me.TRMV_B_Name_CL.DataPropertyName = "CheckNum"
-        Me.TRMV_B_Name_CL.FillWeight = 112.3096!
-        Me.TRMV_B_Name_CL.HeaderText = "ر.الحساب"
-        Me.TRMV_B_Name_CL.Name = "TRMV_B_Name_CL"
-        Me.TRMV_B_Name_CL.ReadOnly = True
-        '
-        'Tr_Credit_CL
-        '
-        Me.Tr_Credit_CL.DataPropertyName = "Credit"
-        DataGridViewCellStyle11.Format = "N3"
-        DataGridViewCellStyle11.NullValue = Nothing
-        Me.Tr_Credit_CL.DefaultCellStyle = DataGridViewCellStyle11
-        Me.Tr_Credit_CL.FillWeight = 112.3096!
-        Me.Tr_Credit_CL.HeaderText = "مديـــــن"
-        Me.Tr_Credit_CL.Name = "Tr_Credit_CL"
-        Me.Tr_Credit_CL.ReadOnly = True
-        '
-        'Tr_Debit_CL
-        '
-        Me.Tr_Debit_CL.DataPropertyName = "Debit"
-        DataGridViewCellStyle12.Format = "N3"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.Tr_Debit_CL.DefaultCellStyle = DataGridViewCellStyle12
-        Me.Tr_Debit_CL.FillWeight = 112.3096!
-        Me.Tr_Debit_CL.HeaderText = "دائـــــن"
-        Me.Tr_Debit_CL.Name = "Tr_Debit_CL"
-        Me.Tr_Debit_CL.ReadOnly = True
-        '
-        'Tr_Balance_CL
-        '
-        Me.Tr_Balance_CL.DataPropertyName = "Balance"
-        DataGridViewCellStyle13.Format = "N3"
-        Me.Tr_Balance_CL.DefaultCellStyle = DataGridViewCellStyle13
-        Me.Tr_Balance_CL.FillWeight = 112.3096!
-        Me.Tr_Balance_CL.HeaderText = "الرصيـــد"
-        Me.Tr_Balance_CL.Name = "Tr_Balance_CL"
-        Me.Tr_Balance_CL.ReadOnly = True
-        '
-        'TRMV_UserName_CL
-        '
-        Me.TRMV_UserName_CL.DataPropertyName = "UserName"
-        Me.TRMV_UserName_CL.HeaderText = "المدخل"
-        Me.TRMV_UserName_CL.Name = "TRMV_UserName_CL"
-        Me.TRMV_UserName_CL.ReadOnly = True
-        '
-        'TrisVoid_CL
-        '
-        Me.TrisVoid_CL.DataPropertyName = "isVoid"
-        Me.TrisVoid_CL.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.TrisVoid_CL.HeaderText = "ملغية"
-        Me.TrisVoid_CL.Name = "TrisVoid_CL"
-        Me.TrisVoid_CL.ReadOnly = True
-        Me.TrisVoid_CL.Visible = False
+        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.AG_Cm.Location = New System.Drawing.Point(570, 1)
+        Me.AG_Cm.Name = "AG_Cm"
+        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.AG_Cm.Size = New System.Drawing.Size(350, 35)
+        Me.AG_Cm.SQL_Column = "AG_NAME"
+        Me.AG_Cm.SQL_ID = "AG_ID"
+        Me.AG_Cm.SQL_IsNumericSearchField = False
+        Me.AG_Cm.SQL_ListSize = 200
+        Me.AG_Cm.SQL_NumberOfRows = 200
+        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField_WHERE = ""
+        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
+        Me.AG_Cm.TabIndex = 626
+        Me.AG_Cm.TextMaxLength = 250
+        Me.AG_Cm.Textt = ""
         '
         'Balances
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1004, 695)
+        Me.ClientSize = New System.Drawing.Size(1004, 739)
         Me.Controls.Add(Me.MetroTabControl1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.Controls.Add(Me.TitleBar_Panel)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Balances"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "الحسابات"
+        Me.TitleBar_Panel.ResumeLayout(False)
+        Me.TitleBar_Panel.PerformLayout()
         Me.MetroTabControl1.ResumeLayout(False)
         Me.MetroTabPage1.ResumeLayout(False)
         Me.MetroTabPage1.PerformLayout()
@@ -2858,11 +2918,11 @@ Partial Class Balances
     Friend WithEvents Total_Debit As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents AllUsersCheckBox As MetroFramework.Controls.MetroCheckBox
-    Friend WithEvents AllRecieptsCheckBox As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents AllUsersCheckBox As System.Windows.Forms.CheckBox
+    Friend WithEvents AllRecieptsCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents UsersComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents AllTimeCheckBox As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents AllTimeCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents MonthComboBox As System.Windows.Forms.ComboBox
@@ -2870,17 +2930,17 @@ Partial Class Balances
     Friend WithEvents DateTimePicker_From As System.Windows.Forms.DateTimePicker
     Friend WithEvents DateTimePicker_To As System.Windows.Forms.DateTimePicker
     Friend WithEvents MVPrintButton As System.Windows.Forms.Button
-    Friend WithEvents AllAgentsCheckBox As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents AllAgentsCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents MVSearchButton As System.Windows.Forms.Button
     Friend WithEvents ReceiptTypeComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents AGMVMetroGrid As MetroFramework.Controls.MetroGrid
+    Friend WithEvents AGMVMetroGrid As System.Windows.Forms.DataGridView
     Friend WithEvents MetroTabPage2 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents Tr_Total_C As System.Windows.Forms.TextBox
     Friend WithEvents Tr_Total_D As System.Windows.Forms.TextBox
     Friend WithEvents Treasury_ComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents TrAllTimeCheckBox As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents TrAllTimeCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents TrMonthComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
@@ -2888,15 +2948,15 @@ Partial Class Balances
     Friend WithEvents TrDateTimePicker_T As System.Windows.Forms.DateTimePicker
     Friend WithEvents Tr_PrintButton As System.Windows.Forms.Button
     Friend WithEvents Tr_SearchButton As System.Windows.Forms.Button
-    Friend WithEvents TrAllUsersCheckBox As MetroFramework.Controls.MetroCheckBox
-    Friend WithEvents TrAllTypeCheckBox As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents TrAllUsersCheckBox As System.Windows.Forms.CheckBox
+    Friend WithEvents TrAllTypeCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents TrUsersComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents AllTrCheckBox As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents AllTrCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents TrTypeComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents Tr_MV_MetroGrid As MetroFramework.Controls.MetroGrid
+    Friend WithEvents Tr_MV_MetroGrid As System.Windows.Forms.DataGridView
     Friend WithEvents MetroTabPage4 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents T_BalanceTextBox As System.Windows.Forms.TextBox
@@ -2905,16 +2965,16 @@ Partial Class Balances
     Friend WithEvents T_CreditTextBox As System.Windows.Forms.TextBox
     Friend WithEvents T_DebitTextBox As System.Windows.Forms.TextBox
     Friend WithEvents AGBalancesPrintBtn As System.Windows.Forms.Button
-    Friend WithEvents AllCerditRadioButton As MetroFramework.Controls.MetroRadioButton
-    Friend WithEvents AlldebitsRadioButton As MetroFramework.Controls.MetroRadioButton
-    Friend WithEvents AllBalancesRadioButton As MetroFramework.Controls.MetroRadioButton
-    Friend WithEvents DebtMetroGrid As MetroFramework.Controls.MetroGrid
+    Friend WithEvents AllCerditRadioButton As System.Windows.Forms.RadioButton
+    Friend WithEvents AlldebitsRadioButton As System.Windows.Forms.RadioButton
+    Friend WithEvents AllBalancesRadioButton As System.Windows.Forms.RadioButton
+    Friend WithEvents DebtMetroGrid As System.Windows.Forms.DataGridView
     Friend WithEvents MetroTabPage3 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents TotalPureTextBox As System.Windows.Forms.TextBox
     Friend WithEvents TotalDebtTextBox As System.Windows.Forms.TextBox
-    Friend WithEvents SalariesMetroGrid As MetroFramework.Controls.MetroGrid
+    Friend WithEvents SalariesMetroGrid As System.Windows.Forms.DataGridView
     Friend WithEvents PrintButton As System.Windows.Forms.Button
     Friend WithEvents SalarySearchButton As System.Windows.Forms.Button
     Friend WithEvents Label13 As System.Windows.Forms.Label
@@ -2946,8 +3006,8 @@ Partial Class Balances
     Friend WithEvents Total_Fetch_Btn As System.Windows.Forms.Button
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents Total_Balance_txt As System.Windows.Forms.TextBox
-    Friend WithEvents isVoid_CB As MetroFramework.Controls.MetroCheckBox
-    Friend WithEvents TrisVoid_CB As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents isVoid_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents TrisVoid_CB As System.Windows.Forms.CheckBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents إيصالToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -2959,7 +3019,7 @@ Partial Class Balances
     Friend WithEvents تحويـــلToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents خروجToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Send_To_Email_btn As System.Windows.Forms.Button
-    Friend WithEvents Currency_CB As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents Currency_CB As System.Windows.Forms.CheckBox
     Friend WithEvents Tr_Total_B As System.Windows.Forms.TextBox
     Friend WithEvents Insert_Salary_btn As System.Windows.Forms.Button
     Friend WithEvents مكافئاتوخصوماتللموظفينToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -2974,7 +3034,7 @@ Partial Class Balances
     Friend WithEvents NUM_DEBIT_TXT As System.Windows.Forms.TextBox
     Friend WithEvents Label37 As System.Windows.Forms.Label
     Friend WithEvents Label38 As System.Windows.Forms.Label
-    Friend WithEvents Debit_WithDate_CB As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents Debit_WithDate_CB As System.Windows.Forms.CheckBox
     Friend WithEvents DATE_Before As System.Windows.Forms.DateTimePicker
     Friend WithEvents AG_BALANCE_Sch_Btn As System.Windows.Forms.Button
     Friend WithEvents AG_Type_CB As System.Windows.Forms.CheckedListBox
@@ -3037,4 +3097,11 @@ Partial Class Balances
     Friend WithEvents Tr_Balance_CL As DataGridViewTextBoxColumn
     Friend WithEvents TRMV_UserName_CL As DataGridViewTextBoxColumn
     Friend WithEvents TrisVoid_CL As DataGridViewCheckBoxColumn
+
+
+    Friend WithEvents TitleBar_Panel As System.Windows.Forms.Panel
+    Friend WithEvents TopTitle_LB As System.Windows.Forms.Label
+    Friend WithEvents HeaderCloseBtn As System.Windows.Forms.Button
+    Friend WithEvents HeaderMaxBtn As System.Windows.Forms.Button
+    Friend WithEvents HeaderMinBtn As System.Windows.Forms.Button
 End Class

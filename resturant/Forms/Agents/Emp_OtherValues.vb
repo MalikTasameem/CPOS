@@ -13,6 +13,7 @@ Public Class Emp_OtherValues
 
     Private Sub Sign_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+        ThemeManager.ApplyThemeToForm(Me)
         For i = 0 To DataGridView1.Columns.Count - 1
             DataGridView1.Columns.Item(i).SortMode = DataGridViewColumnSortMode.NotSortable
         Next i
@@ -20,8 +21,6 @@ Public Class Emp_OtherValues
         EditState = UPDATE_btn.Text
         StateComboBox.SelectedIndex = 0
     End Sub
-
-
     Public Sub fetch_EMP_Sign()
         Try
             Emp_Cse_Dt.Clear()
@@ -171,7 +170,9 @@ Public Class Emp_OtherValues
     End Sub
 
     Public Sub Select_Emp()
-
+        If DataGridView1.SelectedRows.Count < 1 Then
+            Exit Sub
+        End If
         Dim c As New C
         Dim s As String = "select * from Emp_OtherVal_V where T_ID = '" & DataGridView1.CurrentRow.Cells("T_ID_CL").Value & "'"
 
@@ -227,7 +228,7 @@ Public Class Emp_OtherValues
     End Sub
 
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 
@@ -236,7 +237,7 @@ Public Class Emp_OtherValues
             If MessageBox.Show("إلغــاء الحالة بشكل نهائــي ", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) _
                 = Windows.Forms.DialogResult.Yes Then Others_Values_Void()
         End If
-        End Sub
+    End Sub
 
     Private Sub Val_txt_TextChanged(sender As Object, e As EventArgs) Handles Val_txt.TextChanged
         Check_Point_in_FloatNum(sender, e)
@@ -248,5 +249,46 @@ Public Class Emp_OtherValues
 
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
         fetch_EMP_Sign()
+    End Sub
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
+
+    ' ==========================================
+    ' 🌟 أكواد تحريك الفورم باستخدام الماوس 🌟
+    ' ==========================================
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    ' 1. عند الضغط على زر الماوس فوق الشريط العلوي أو العنوان
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        If e.Button = MouseButtons.Left Then
+            drag = True
+            mouseX = Cursor.Position.X - Me.Left
+            mouseY = Cursor.Position.Y - Me.Top
+        End If
+    End Sub
+
+    ' 2. أثناء سحب الماوس
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    ' 3. عند إفلات زر الماوس
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
+    End Sub
+
+    Private Sub HeaderCloseBtn_Click(sender As Object, e As EventArgs) Handles HeaderCloseBtn.Click
+        Me.Close()
     End Sub
 End Class

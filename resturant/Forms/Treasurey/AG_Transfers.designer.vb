@@ -25,21 +25,26 @@ Partial Class AG_Transfers
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AG_Transfers))
         Me.FormPanel = New System.Windows.Forms.Panel()
+        Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.Void_Lb = New System.Windows.Forms.Label()
+        Me.HeaderCloseBtn = New System.Windows.Forms.Button()
+        Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.Cancel_Btn = New System.Windows.Forms.Button()
         Me.ReceiptNum_Txt = New System.Windows.Forms.TextBox()
         Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
         Me.Up_Bill_btn = New System.Windows.Forms.Button()
         Me.Fields_Panel = New System.Windows.Forms.Panel()
-        Me.T_Treasury_Balance = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.T_Treasury_ComboBox = New resturant.FSearch_Filter()
         Me.F_Treasury_ComboBox = New resturant.FSearch_Filter()
         Me.F_Treasury_Balance = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.T_Treasury_Balance = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.DateTimeReceipt = New System.Windows.Forms.DateTimePicker()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.money_num_txtb = New System.Windows.Forms.TextBox()
         Me.ReDescription_txtb = New System.Windows.Forms.TextBox()
@@ -49,20 +54,17 @@ Partial Class AG_Transfers
         Me.new_butt = New System.Windows.Forms.Button()
         Me.print_butt = New System.Windows.Forms.Button()
         Me.save_butt = New System.Windows.Forms.Button()
-        Me.T_Treasury_ComboBox = New resturant.FSearch_Filter()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.FormPanel.SuspendLayout()
+        Me.TitleBar_Panel.SuspendLayout()
         Me.Fields_Panel.SuspendLayout()
         Me.SuspendLayout()
         '
         'FormPanel
         '
         Me.FormPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FormPanel.Controls.Add(Me.Void_Lb)
+        Me.FormPanel.Controls.Add(Me.TitleBar_Panel)
         Me.FormPanel.Controls.Add(Me.Cancel_Btn)
         Me.FormPanel.Controls.Add(Me.ReceiptNum_Txt)
-        Me.FormPanel.Controls.Add(Me.ExitFormButton)
         Me.FormPanel.Controls.Add(Me.Down_Bill_btn)
         Me.FormPanel.Controls.Add(Me.Up_Bill_btn)
         Me.FormPanel.Controls.Add(Me.Fields_Panel)
@@ -72,21 +74,64 @@ Partial Class AG_Transfers
         Me.FormPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FormPanel.Location = New System.Drawing.Point(0, 0)
         Me.FormPanel.Name = "FormPanel"
-        Me.FormPanel.Size = New System.Drawing.Size(747, 443)
+        Me.FormPanel.Size = New System.Drawing.Size(759, 483)
         Me.FormPanel.TabIndex = 380
+        '
+        'TitleBar_Panel
+        '
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.Void_Lb)
+        Me.TitleBar_Panel.Controls.Add(Me.HeaderCloseBtn)
+        Me.TitleBar_Panel.Controls.Add(Me.TopTitle_LB)
+        Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
+        Me.TitleBar_Panel.Name = "TitleBar_Panel"
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(757, 40)
+        Me.TitleBar_Panel.TabIndex = 1001
+        Me.TitleBar_Panel.Tag = "HEADER"
         '
         'Void_Lb
         '
-        Me.Void_Lb.BackColor = System.Drawing.Color.IndianRed
+        Me.Void_Lb.BackColor = System.Drawing.Color.Red
+        Me.Void_Lb.Dock = System.Windows.Forms.DockStyle.Left
         Me.Void_Lb.Font = New System.Drawing.Font("Segoe UI Semibold", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Void_Lb.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.Void_Lb.Location = New System.Drawing.Point(3, 394)
+        Me.Void_Lb.Location = New System.Drawing.Point(53, 0)
         Me.Void_Lb.Name = "Void_Lb"
-        Me.Void_Lb.Size = New System.Drawing.Size(157, 45)
+        Me.Void_Lb.Size = New System.Drawing.Size(340, 40)
         Me.Void_Lb.TabIndex = 660
         Me.Void_Lb.Text = "ملغــية"
         Me.Void_Lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.Void_Lb.Visible = False
+        '
+        'HeaderCloseBtn
+        '
+        Me.HeaderCloseBtn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.HeaderCloseBtn.Dock = System.Windows.Forms.DockStyle.Left
+        Me.HeaderCloseBtn.FlatAppearance.BorderSize = 0
+        Me.HeaderCloseBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
+        Me.HeaderCloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.HeaderCloseBtn.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.HeaderCloseBtn.ForeColor = System.Drawing.Color.White
+        Me.HeaderCloseBtn.Location = New System.Drawing.Point(0, 0)
+        Me.HeaderCloseBtn.Name = "HeaderCloseBtn"
+        Me.HeaderCloseBtn.Size = New System.Drawing.Size(53, 40)
+        Me.HeaderCloseBtn.TabIndex = 3
+        Me.HeaderCloseBtn.Text = "X"
+        Me.HeaderCloseBtn.UseVisualStyleBackColor = False
+        '
+        'TopTitle_LB
+        '
+        Me.TopTitle_LB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TopTitle_LB.AutoSize = True
+        Me.TopTitle_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.TopTitle_LB.ForeColor = System.Drawing.Color.White
+        Me.TopTitle_LB.Location = New System.Drawing.Point(642, 8)
+        Me.TopTitle_LB.Name = "TopTitle_LB"
+        Me.TopTitle_LB.Size = New System.Drawing.Size(103, 21)
+        Me.TopTitle_LB.TabIndex = 0
+        Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
+        Me.TopTitle_LB.Text = "تحويل حسابات"
         '
         'Cancel_Btn
         '
@@ -97,16 +142,15 @@ Partial Class AG_Transfers
         Me.Cancel_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Cancel_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.Cancel_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Cancel_Btn.Image = Global.resturant.My.Resources.Resources.if_cancel_46786
         Me.Cancel_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Cancel_Btn.Location = New System.Drawing.Point(163, 394)
+        Me.Cancel_Btn.Location = New System.Drawing.Point(82, 444)
         Me.Cancel_Btn.Name = "Cancel_Btn"
         Me.Cancel_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Cancel_Btn.Size = New System.Drawing.Size(112, 45)
+        Me.Cancel_Btn.Size = New System.Drawing.Size(112, 35)
         Me.Cancel_Btn.TabIndex = 659
         Me.Cancel_Btn.TabStop = False
+        Me.Cancel_Btn.Tag = "DELETE"
         Me.Cancel_Btn.Text = "إلغاء"
-        Me.Cancel_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Cancel_Btn.UseVisualStyleBackColor = False
         '
         'ReceiptNum_Txt
@@ -116,11 +160,11 @@ Partial Class AG_Transfers
         Me.ReceiptNum_Txt.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.ReceiptNum_Txt.Font = New System.Drawing.Font("Times New Roman", 16.75!, System.Drawing.FontStyle.Bold)
         Me.ReceiptNum_Txt.ForeColor = System.Drawing.Color.Black
-        Me.ReceiptNum_Txt.Location = New System.Drawing.Point(541, 2)
+        Me.ReceiptNum_Txt.Location = New System.Drawing.Point(538, 44)
         Me.ReceiptNum_Txt.MaxLength = 250
         Me.ReceiptNum_Txt.Name = "ReceiptNum_Txt"
         Me.ReceiptNum_Txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ReceiptNum_Txt.Size = New System.Drawing.Size(164, 33)
+        Me.ReceiptNum_Txt.Size = New System.Drawing.Size(165, 33)
         Me.ReceiptNum_Txt.TabIndex = 628
         Me.ReceiptNum_Txt.Text = "0"
         Me.ReceiptNum_Txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -130,23 +174,6 @@ Partial Class AG_Transfers
         Me.NULLContextMenuStrip.Name = "NULLContextMenuStrip"
         Me.NULLContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.NULLContextMenuStrip.Size = New System.Drawing.Size(61, 4)
-        '
-        'ExitFormButton
-        '
-        Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
-        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
-        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(619, 394)
-        Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(124, 45)
-        Me.ExitFormButton.TabIndex = 658
-        Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'Down_Bill_btn
         '
@@ -160,7 +187,7 @@ Partial Class AG_Transfers
         Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Down_Bill_btn.Location = New System.Drawing.Point(504, 2)
+        Me.Down_Bill_btn.Location = New System.Drawing.Point(500, 44)
         Me.Down_Bill_btn.Name = "Down_Bill_btn"
         Me.Down_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Down_Bill_btn.Size = New System.Drawing.Size(36, 33)
@@ -180,7 +207,7 @@ Partial Class AG_Transfers
         Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Bill_btn.Location = New System.Drawing.Point(706, 2)
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(705, 44)
         Me.Up_Bill_btn.Name = "Up_Bill_btn"
         Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Up_Bill_btn.Size = New System.Drawing.Size(36, 33)
@@ -209,10 +236,91 @@ Partial Class AG_Transfers
         Me.Fields_Panel.Controls.Add(Me.money_char_txtb)
         Me.Fields_Panel.Enabled = False
         Me.Fields_Panel.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Fields_Panel.Location = New System.Drawing.Point(3, 36)
+        Me.Fields_Panel.Location = New System.Drawing.Point(3, 80)
         Me.Fields_Panel.Name = "Fields_Panel"
-        Me.Fields_Panel.Size = New System.Drawing.Size(740, 355)
+        Me.Fields_Panel.Size = New System.Drawing.Size(740, 357)
         Me.Fields_Panel.TabIndex = 282
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
+        Me.Label5.ForeColor = System.Drawing.Color.Green
+        Me.Label5.Location = New System.Drawing.Point(624, 115)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(106, 25)
+        Me.Label5.TabIndex = 662
+        Me.Label5.Text = "إلى حســـــاب"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
+        Me.Label1.ForeColor = System.Drawing.Color.DarkRed
+        Me.Label1.Location = New System.Drawing.Point(627, 39)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(103, 25)
+        Me.Label1.TabIndex = 661
+        Me.Label1.Text = "من حســـــاب"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'T_Treasury_ComboBox
+        '
+        Me.T_Treasury_ComboBox.CancelSearchImage = CType(resources.GetObject("T_Treasury_ComboBox.CancelSearchImage"), System.Drawing.Image)
+        Me.T_Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.T_Treasury_ComboBox.Location = New System.Drawing.Point(254, 143)
+        Me.T_Treasury_ComboBox.Name = "T_Treasury_ComboBox"
+        Me.T_Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.T_Treasury_ComboBox.Size = New System.Drawing.Size(479, 35)
+        Me.T_Treasury_ComboBox.SQL_Column = "AG_NAME"
+        Me.T_Treasury_ComboBox.SQL_ID = "AG_ID"
+        Me.T_Treasury_ComboBox.SQL_IsNumericSearchField = False
+        Me.T_Treasury_ComboBox.SQL_ListSize = 200
+        Me.T_Treasury_ComboBox.SQL_NumberOfRows = 200
+        Me.T_Treasury_ComboBox.SQL_OrderByField = "AG_NAME"
+        Me.T_Treasury_ComboBox.SQL_SearchField = "AG_NAME"
+        Me.T_Treasury_ComboBox.SQL_SearchField_WHERE = ""
+        Me.T_Treasury_ComboBox.SQL_Table = "AGENTS_MENU_V"
+        Me.T_Treasury_ComboBox.TabIndex = 376
+        Me.T_Treasury_ComboBox.TextMaxLength = 250
+        Me.T_Treasury_ComboBox.Textt = ""
+        '
+        'F_Treasury_ComboBox
+        '
+        Me.F_Treasury_ComboBox.CancelSearchImage = CType(resources.GetObject("F_Treasury_ComboBox.CancelSearchImage"), System.Drawing.Image)
+        Me.F_Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.F_Treasury_ComboBox.Location = New System.Drawing.Point(254, 67)
+        Me.F_Treasury_ComboBox.Name = "F_Treasury_ComboBox"
+        Me.F_Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.F_Treasury_ComboBox.Size = New System.Drawing.Size(479, 35)
+        Me.F_Treasury_ComboBox.SQL_Column = "AG_NAME"
+        Me.F_Treasury_ComboBox.SQL_ID = "AG_ID"
+        Me.F_Treasury_ComboBox.SQL_IsNumericSearchField = False
+        Me.F_Treasury_ComboBox.SQL_ListSize = 200
+        Me.F_Treasury_ComboBox.SQL_NumberOfRows = 200
+        Me.F_Treasury_ComboBox.SQL_OrderByField = "AG_NAME"
+        Me.F_Treasury_ComboBox.SQL_SearchField = "AG_NAME"
+        Me.F_Treasury_ComboBox.SQL_SearchField_WHERE = ""
+        Me.F_Treasury_ComboBox.SQL_Table = "AGENTS_MENU_V"
+        Me.F_Treasury_ComboBox.TabIndex = 375
+        Me.F_Treasury_ComboBox.TextMaxLength = 250
+        Me.F_Treasury_ComboBox.Textt = ""
+        '
+        'F_Treasury_Balance
+        '
+        Me.F_Treasury_Balance.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.F_Treasury_Balance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.F_Treasury_Balance.ContextMenuStrip = Me.NULLContextMenuStrip
+        Me.F_Treasury_Balance.Font = New System.Drawing.Font("Stencil", 15.0!)
+        Me.F_Treasury_Balance.ForeColor = System.Drawing.Color.Black
+        Me.F_Treasury_Balance.Location = New System.Drawing.Point(10, 67)
+        Me.F_Treasury_Balance.Name = "F_Treasury_Balance"
+        Me.F_Treasury_Balance.ReadOnly = True
+        Me.F_Treasury_Balance.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.F_Treasury_Balance.Size = New System.Drawing.Size(181, 31)
+        Me.F_Treasury_Balance.TabIndex = 375
+        Me.F_Treasury_Balance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'T_Treasury_Balance
         '
@@ -240,53 +348,6 @@ Partial Class AG_Transfers
         Me.Label2.Text = "الرصيد"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'F_Treasury_ComboBox
-        '
-        Me.F_Treasury_ComboBox.CancelSearchImage = CType(resources.GetObject("F_Treasury_ComboBox.CancelSearchImage"), System.Drawing.Image)
-        Me.F_Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.F_Treasury_ComboBox.Location = New System.Drawing.Point(254, 67)
-        Me.F_Treasury_ComboBox.Name = "F_Treasury_ComboBox"
-        Me.F_Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.F_Treasury_ComboBox.Size = New System.Drawing.Size(479, 34)
-        Me.F_Treasury_ComboBox.SQL_Column = "AG_NAME"
-        Me.F_Treasury_ComboBox.SQL_ID = "AG_ID"
-        Me.F_Treasury_ComboBox.SQL_IsNumericSearchField = False
-        Me.F_Treasury_ComboBox.SQL_ListSize = 200
-        Me.F_Treasury_ComboBox.SQL_NumberOfRows = 200
-        Me.F_Treasury_ComboBox.SQL_OrderByField = "AG_NAME"
-        Me.F_Treasury_ComboBox.SQL_SearchField = "AG_NAME"
-        Me.F_Treasury_ComboBox.SQL_Table = "AGENTS_MENU_V"
-        Me.F_Treasury_ComboBox.TabIndex = 375
-        Me.F_Treasury_ComboBox.TextMaxLength = 250
-        Me.F_Treasury_ComboBox.Textt = ""
-        '
-        'F_Treasury_Balance
-        '
-        Me.F_Treasury_Balance.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.F_Treasury_Balance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.F_Treasury_Balance.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.F_Treasury_Balance.Font = New System.Drawing.Font("Stencil", 15.0!)
-        Me.F_Treasury_Balance.ForeColor = System.Drawing.Color.Black
-        Me.F_Treasury_Balance.Location = New System.Drawing.Point(10, 67)
-        Me.F_Treasury_Balance.Name = "F_Treasury_Balance"
-        Me.F_Treasury_Balance.ReadOnly = True
-        Me.F_Treasury_Balance.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.F_Treasury_Balance.Size = New System.Drawing.Size(181, 31)
-        Me.F_Treasury_Balance.TabIndex = 375
-        Me.F_Treasury_Balance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label19
-        '
-        Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label19.Location = New System.Drawing.Point(195, 73)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(54, 21)
-        Me.Label19.TabIndex = 372
-        Me.Label19.Text = "الرصيد"
-        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -311,11 +372,23 @@ Partial Class AG_Transfers
         Me.DateTimeReceipt.Size = New System.Drawing.Size(245, 30)
         Me.DateTimeReceipt.TabIndex = 242
         '
+        'Label19
+        '
+        Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label19.Location = New System.Drawing.Point(195, 73)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(54, 21)
+        Me.Label19.TabIndex = 372
+        Me.Label19.Text = "الرصيد"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
-        Me.Label4.Location = New System.Drawing.Point(613, 228)
+        Me.Label4.Location = New System.Drawing.Point(613, 223)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(115, 25)
         Me.Label4.TabIndex = 236
@@ -329,7 +402,7 @@ Partial Class AG_Transfers
         Me.money_num_txtb.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.money_num_txtb.Font = New System.Drawing.Font("Stencil", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.money_num_txtb.ForeColor = System.Drawing.Color.DarkGreen
-        Me.money_num_txtb.Location = New System.Drawing.Point(425, 221)
+        Me.money_num_txtb.Location = New System.Drawing.Point(425, 216)
         Me.money_num_txtb.Name = "money_num_txtb"
         Me.money_num_txtb.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.money_num_txtb.Size = New System.Drawing.Size(185, 36)
@@ -340,7 +413,7 @@ Partial Class AG_Transfers
         '
         Me.ReDescription_txtb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ReDescription_txtb.Font = New System.Drawing.Font("Segoe UI", 12.25!)
-        Me.ReDescription_txtb.Location = New System.Drawing.Point(6, 260)
+        Me.ReDescription_txtb.Location = New System.Drawing.Point(6, 255)
         Me.ReDescription_txtb.Multiline = True
         Me.ReDescription_txtb.Name = "ReDescription_txtb"
         Me.ReDescription_txtb.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -351,7 +424,7 @@ Partial Class AG_Transfers
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
-        Me.Label6.Location = New System.Drawing.Point(613, 322)
+        Me.Label6.Location = New System.Drawing.Point(613, 317)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(123, 25)
         Me.Label6.TabIndex = 240
@@ -362,7 +435,7 @@ Partial Class AG_Transfers
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
-        Me.Label9.Location = New System.Drawing.Point(613, 265)
+        Me.Label9.Location = New System.Drawing.Point(613, 260)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(61, 25)
         Me.Label9.TabIndex = 243
@@ -374,7 +447,7 @@ Partial Class AG_Transfers
         Me.money_char_txtb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.money_char_txtb.Font = New System.Drawing.Font("Segoe UI", 13.0!)
         Me.money_char_txtb.ForeColor = System.Drawing.Color.SeaGreen
-        Me.money_char_txtb.Location = New System.Drawing.Point(5, 320)
+        Me.money_char_txtb.Location = New System.Drawing.Point(5, 315)
         Me.money_char_txtb.Name = "money_char_txtb"
         Me.money_char_txtb.ReadOnly = True
         Me.money_char_txtb.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -392,15 +465,13 @@ Partial Class AG_Transfers
         Me.new_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.new_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.new_butt.ForeColor = System.Drawing.Color.Black
-        Me.new_butt.Image = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.new_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.new_butt.Location = New System.Drawing.Point(504, 394)
+        Me.new_butt.Location = New System.Drawing.Point(538, 444)
         Me.new_butt.Name = "new_butt"
         Me.new_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.new_butt.Size = New System.Drawing.Size(112, 45)
+        Me.new_butt.Size = New System.Drawing.Size(112, 35)
         Me.new_butt.TabIndex = 280
         Me.new_butt.Text = " جديـد F1"
-        Me.new_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.new_butt.UseVisualStyleBackColor = False
         '
         'print_butt
@@ -412,16 +483,15 @@ Partial Class AG_Transfers
         Me.print_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.print_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.print_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.print_butt.Image = Global.resturant.My.Resources.Resources.if_icon_124_printer_text_314703
         Me.print_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.print_butt.Location = New System.Drawing.Point(276, 394)
+        Me.print_butt.Location = New System.Drawing.Point(196, 444)
         Me.print_butt.Name = "print_butt"
         Me.print_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.print_butt.Size = New System.Drawing.Size(112, 45)
+        Me.print_butt.Size = New System.Drawing.Size(112, 35)
         Me.print_butt.TabIndex = 281
         Me.print_butt.TabStop = False
+        Me.print_butt.Tag = "PRINT"
         Me.print_butt.Text = "طباعة"
-        Me.print_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.print_butt.UseVisualStyleBackColor = False
         '
         'save_butt
@@ -434,70 +504,25 @@ Partial Class AG_Transfers
         Me.save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.save_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.save_butt.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
         Me.save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.save_butt.Location = New System.Drawing.Point(390, 394)
+        Me.save_butt.Location = New System.Drawing.Point(312, 444)
         Me.save_butt.Name = "save_butt"
         Me.save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.save_butt.Size = New System.Drawing.Size(112, 45)
+        Me.save_butt.Size = New System.Drawing.Size(223, 35)
         Me.save_butt.TabIndex = 279
         Me.save_butt.TabStop = False
+        Me.save_butt.Tag = "SAVE"
         Me.save_butt.Text = "حفظ F2"
-        Me.save_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.save_butt.UseVisualStyleBackColor = False
-        '
-        'T_Treasury_ComboBox
-        '
-        Me.T_Treasury_ComboBox.CancelSearchImage = CType(resources.GetObject("T_Treasury_ComboBox.CancelSearchImage"), System.Drawing.Image)
-        Me.T_Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.T_Treasury_ComboBox.Location = New System.Drawing.Point(254, 143)
-        Me.T_Treasury_ComboBox.Name = "T_Treasury_ComboBox"
-        Me.T_Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.T_Treasury_ComboBox.Size = New System.Drawing.Size(479, 34)
-        Me.T_Treasury_ComboBox.SQL_Column = "AG_NAME"
-        Me.T_Treasury_ComboBox.SQL_ID = "AG_ID"
-        Me.T_Treasury_ComboBox.SQL_IsNumericSearchField = False
-        Me.T_Treasury_ComboBox.SQL_ListSize = 200
-        Me.T_Treasury_ComboBox.SQL_NumberOfRows = 200
-        Me.T_Treasury_ComboBox.SQL_OrderByField = "AG_NAME"
-        Me.T_Treasury_ComboBox.SQL_SearchField = "AG_NAME"
-        Me.T_Treasury_ComboBox.SQL_Table = "AGENTS_MENU_V"
-        Me.T_Treasury_ComboBox.TabIndex = 376
-        Me.T_Treasury_ComboBox.TextMaxLength = 250
-        Me.T_Treasury_ComboBox.Textt = ""
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.ForeColor = System.Drawing.Color.DarkRed
-        Me.Label1.Location = New System.Drawing.Point(627, 39)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(103, 25)
-        Me.Label1.TabIndex = 661
-        Me.Label1.Text = "من حســـــاب"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.ForeColor = System.Drawing.Color.Green
-        Me.Label5.Location = New System.Drawing.Point(624, 115)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(106, 25)
-        Me.Label5.TabIndex = 662
-        Me.Label5.Text = "إلى حســـــاب"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'AG_Transfers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
-        Me.ClientSize = New System.Drawing.Size(747, 443)
+        Me.ClientSize = New System.Drawing.Size(759, 483)
         Me.Controls.Add(Me.FormPanel)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.MaximizeBox = False
@@ -508,6 +533,8 @@ Partial Class AG_Transfers
         Me.Text = "تحويل بين الحسابات "
         Me.FormPanel.ResumeLayout(False)
         Me.FormPanel.PerformLayout()
+        Me.TitleBar_Panel.ResumeLayout(False)
+        Me.TitleBar_Panel.PerformLayout()
         Me.Fields_Panel.ResumeLayout(False)
         Me.Fields_Panel.PerformLayout()
         Me.ResumeLayout(False)
@@ -529,7 +556,6 @@ Partial Class AG_Transfers
     Friend WithEvents save_butt As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents NULLContextMenuStrip As System.Windows.Forms.ContextMenuStrip
-    Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents ReceiptNum_Txt As System.Windows.Forms.TextBox
     Friend WithEvents Down_Bill_btn As System.Windows.Forms.Button
     Friend WithEvents Up_Bill_btn As System.Windows.Forms.Button
@@ -541,4 +567,7 @@ Partial Class AG_Transfers
     Friend WithEvents T_Treasury_ComboBox As FSearch_Filter
     Friend WithEvents Label5 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents TitleBar_Panel As Panel
+    Friend WithEvents HeaderCloseBtn As Button
+    Friend WithEvents TopTitle_LB As Label
 End Class

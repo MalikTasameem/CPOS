@@ -40,7 +40,7 @@ Public Class Balances
     Private Sub Reports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
-
+        ThemeManager.ApplyThemeToForm(Me)
         If U_Balance = False Then
             MsgBox("خارج صلاحياتك", MsgBoxStyle.Critical, "صلاحية المستخدم")
             Me.Close()
@@ -70,7 +70,49 @@ Public Class Balances
         DataB.Sort = ALL_BALANCES_Grid.SortString
 
     End Sub
+    ' ==========================================
+    ' 🌟 أكواد الشريط العلوي والتحكم بالنافذة 🌟
+    ' ==========================================
 
+    Private Sub HeaderCloseBtn_Click(sender As Object, e As EventArgs) Handles HeaderCloseBtn.Click
+        Me.Close()
+    End Sub
+
+    Private Sub HeaderMaxBtn_Click(sender As Object, e As EventArgs) Handles HeaderMaxBtn.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+            Me.WindowState = FormWindowState.Maximized
+            HeaderMaxBtn.Text = "❐"
+        Else
+            Me.WindowState = FormWindowState.Normal
+            HeaderMaxBtn.Text = "⬜"
+        End If
+    End Sub
+
+    Private Sub HeaderMinBtn_Click(sender As Object, e As EventArgs) Handles HeaderMinBtn.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
+    End Sub
     Private Sub SELECT_ALL_BALANCES_V()
 
 
@@ -1662,4 +1704,6 @@ Public Class Balances
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         EXCEL_EXPORT(ALL_BALANCES_Grid)
     End Sub
+
+
 End Class

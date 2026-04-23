@@ -1582,7 +1582,7 @@ Partial Class Pch
         Me.ADDCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.ADDCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 18.0!, System.Drawing.FontStyle.Bold)
         Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.ADDCatButton.Location = New System.Drawing.Point(1056, 220)
         Me.ADDCatButton.Name = "ADDCatButton"

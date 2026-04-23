@@ -603,19 +603,19 @@ Partial Class MainForm
         'سحــبToolStripMenuItem
         '
         Me.سحــبToolStripMenuItem.Name = "سحــبToolStripMenuItem"
-        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
+        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
         Me.سحــبToolStripMenuItem.Text = "سحب"
         '
         'إيداعToolStripMenuItem
         '
         Me.إيداعToolStripMenuItem.Name = "إيداعToolStripMenuItem"
-        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
+        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
         Me.إيداعToolStripMenuItem.Text = "إيداع"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(113, 24)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(152, 24)
         Me.ToolStripMenuItem3.Text = "تحويل"
         '
         'تحويلبينالحساباتToolStripMenuItem
@@ -854,7 +854,7 @@ Partial Class MainForm
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 70)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1200, 103)
+        Me.Panel3.Size = New System.Drawing.Size(1200, 100)
         Me.Panel3.TabIndex = 1
         '
         'ClockLabel
@@ -887,7 +887,7 @@ Partial Class MainForm
         Me.Serv_Label.ForeColor = System.Drawing.Color.White
         Me.Serv_Label.Location = New System.Drawing.Point(865, 0)
         Me.Serv_Label.Name = "Serv_Label"
-        Me.Serv_Label.Size = New System.Drawing.Size(335, 103)
+        Me.Serv_Label.Size = New System.Drawing.Size(335, 100)
         Me.Serv_Label.TabIndex = 2
         Me.Serv_Label.Tag = ""
         Me.Serv_Label.Text = "إسم الشركة"
@@ -1004,10 +1004,10 @@ Partial Class MainForm
         Me.Main_Workspace_Panel.Controls.Add(Me.Panel_Right)
         Me.Main_Workspace_Panel.Controls.Add(Me.Panel_Left)
         Me.Main_Workspace_Panel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Main_Workspace_Panel.Location = New System.Drawing.Point(0, 173)
+        Me.Main_Workspace_Panel.Location = New System.Drawing.Point(0, 170)
         Me.Main_Workspace_Panel.Name = "Main_Workspace_Panel"
         Me.Main_Workspace_Panel.Padding = New System.Windows.Forms.Padding(15)
-        Me.Main_Workspace_Panel.Size = New System.Drawing.Size(1200, 492)
+        Me.Main_Workspace_Panel.Size = New System.Drawing.Size(1200, 495)
         Me.Main_Workspace_Panel.TabIndex = 0
         '
         'Panel_Center
@@ -1019,7 +1019,7 @@ Partial Class MainForm
         Me.Panel_Center.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel_Center.Location = New System.Drawing.Point(365, 15)
         Me.Panel_Center.Name = "Panel_Center"
-        Me.Panel_Center.Size = New System.Drawing.Size(460, 462)
+        Me.Panel_Center.Size = New System.Drawing.Size(460, 465)
         Me.Panel_Center.TabIndex = 0
         '
         'Panel_QuickButtons
@@ -1032,7 +1032,7 @@ Partial Class MainForm
         Me.Panel_QuickButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel_QuickButtons.Location = New System.Drawing.Point(0, 140)
         Me.Panel_QuickButtons.Name = "Panel_QuickButtons"
-        Me.Panel_QuickButtons.Size = New System.Drawing.Size(460, 242)
+        Me.Panel_QuickButtons.Size = New System.Drawing.Size(460, 245)
         Me.Panel_QuickButtons.TabIndex = 0
         '
         'Btn_QuickSales
@@ -1170,7 +1170,7 @@ Partial Class MainForm
         Me.Panel_Shortcuts_Bottom.Controls.Add(Me.ActiveLinkLa)
         Me.Panel_Shortcuts_Bottom.Controls.Add(Me.ExitFormButton)
         Me.Panel_Shortcuts_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel_Shortcuts_Bottom.Location = New System.Drawing.Point(0, 382)
+        Me.Panel_Shortcuts_Bottom.Location = New System.Drawing.Point(0, 385)
         Me.Panel_Shortcuts_Bottom.Name = "Panel_Shortcuts_Bottom"
         Me.Panel_Shortcuts_Bottom.Size = New System.Drawing.Size(460, 80)
         Me.Panel_Shortcuts_Bottom.TabIndex = 2
@@ -1229,7 +1229,7 @@ Partial Class MainForm
         Me.Panel_Right.Location = New System.Drawing.Point(825, 15)
         Me.Panel_Right.Name = "Panel_Right"
         Me.Panel_Right.Padding = New System.Windows.Forms.Padding(0, 0, 10, 0)
-        Me.Panel_Right.Size = New System.Drawing.Size(360, 462)
+        Me.Panel_Right.Size = New System.Drawing.Size(360, 465)
         Me.Panel_Right.TabIndex = 1
         '
         'GroupBox2
@@ -1242,7 +1242,7 @@ Partial Class MainForm
         Me.GroupBox2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(18, Byte), Integer))
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(350, 462)
+        Me.GroupBox2.Size = New System.Drawing.Size(350, 465)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "التحذيرات والتذكير"
@@ -1274,7 +1274,7 @@ Partial Class MainForm
         Me.ALERT_DGV.RowHeadersVisible = False
         Me.ALERT_DGV.RowTemplate.Height = 40
         Me.ALERT_DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ALERT_DGV.Size = New System.Drawing.Size(344, 389)
+        Me.ALERT_DGV.Size = New System.Drawing.Size(344, 392)
         Me.ALERT_DGV.TabIndex = 0
         '
         'Panel_NotifControls
@@ -1321,7 +1321,7 @@ Partial Class MainForm
         Me.Panel_Left.Location = New System.Drawing.Point(15, 15)
         Me.Panel_Left.Name = "Panel_Left"
         Me.Panel_Left.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
-        Me.Panel_Left.Size = New System.Drawing.Size(350, 462)
+        Me.Panel_Left.Size = New System.Drawing.Size(350, 465)
         Me.Panel_Left.TabIndex = 2
         '
         'Setting_GroupBox
@@ -1343,7 +1343,7 @@ Partial Class MainForm
         Me.Setting_GroupBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
         Me.Setting_GroupBox.Location = New System.Drawing.Point(10, 0)
         Me.Setting_GroupBox.Name = "Setting_GroupBox"
-        Me.Setting_GroupBox.Size = New System.Drawing.Size(340, 462)
+        Me.Setting_GroupBox.Size = New System.Drawing.Size(340, 465)
         Me.Setting_GroupBox.TabIndex = 0
         Me.Setting_GroupBox.TabStop = False
         Me.Setting_GroupBox.Text = "إعدادات الطابعات"
@@ -1359,7 +1359,7 @@ Partial Class MainForm
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(305, 45)
         Me.Button1.TabIndex = 10
-        Me.Button1.Text = "حفظ الإعدادات"
+        Me.Button1.Text = "الإختصارات السريعة"
         Me.Button1.UseVisualStyleBackColor = False
         '
         'Label5

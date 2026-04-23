@@ -231,7 +231,14 @@
         C.Con.Close()
     End Sub
 
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
     Private Sub DateTimeReceipt_KeyDown(sender As Object, e As KeyEventArgs) Handles DateTimeReceipt.KeyDown
         If e.KeyCode = Keys.Return Then
             F_Treasury_ComboBox.DroppedDown = True
@@ -245,7 +252,7 @@
     End Sub
 
     Private Sub Tr_Deposit_Withdraw_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        ThemeManager.ApplyThemeToForm(Me)
         If U_Tr_Convert = False Then
             MsgBox("خارج صلاحياتك", MsgBoxStyle.Critical, "صلاحية المستخدم")
             Me.Close()
@@ -259,7 +266,7 @@
         T_Treasury_Balance.Text = Show_TR_T_Balance(T_Treasury_ComboBox.SelectedValue)
     End Sub
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 
@@ -272,10 +279,6 @@
         ReDescription_txtb.Text = " تحويل من  " + F_Treasury_ComboBox.Text + " إلى " + T_Treasury_ComboBox.Text
         check_hide_tr(T_Treasury_ComboBox, T_Treasury_Balance)
     End Sub
-
-
-
-
     Private Sub Select_Tr_Balance_Transfer()
 
         Dim C As New C
@@ -357,4 +360,10 @@
 
         End If
     End Sub
+
+    Private Sub HeaderCloseBtn_Click(sender As Object, e As EventArgs) Handles HeaderCloseBtn.Click
+        Me.Close()
+    End Sub
+
+
 End Class

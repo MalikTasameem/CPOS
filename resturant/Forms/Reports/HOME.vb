@@ -50,8 +50,29 @@ Public Class HOME
     Public Sub Remove_Form(Tab_Name As StreamReader)
         TabControl1.TabPages.Remove(TabControl1.SelectedTab)
     End Sub
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
+    End Sub
 
     Private Sub HOME_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
@@ -77,7 +98,7 @@ Public Class HOME
     End Sub
 
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) 
         Me.Close()
     End Sub
 
@@ -259,5 +280,9 @@ Public Class HOME
     Private Sub ToolStripDropDownButton2_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButton2.Click
         Dim F As New TR_TRANS_Report
         Set_Form(F, "TR_TRANS_Report", sender.Text)
+    End Sub
+
+    Private Sub HeaderCloseBtn_Click(sender As Object, e As EventArgs) Handles HeaderCloseBtn.Click
+        Me.Close()
     End Sub
 End Class
