@@ -515,6 +515,12 @@
     <Compile Include="Forms\Stores\Stores_Trans_IM_card.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Sys_Options\ItemsMenu.designer.vb">
+      <DependentUpon>ItemsMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Sys_Options\ItemsMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Treasurey\AG_Transfers.designer.vb">
       <DependentUpon>AG_Transfers.vb</DependentUpon>
     </Compile>
@@ -953,12 +959,6 @@
       <DependentUpon>IM_Struct.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Sys_Options\IM_Struct.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Sys_Options\ItemsMenu.designer.vb">
-      <DependentUpon>ItemsMenu.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Sys_Options\ItemsMenu.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Sys_Options\OFFERS.designer.vb">
@@ -1706,6 +1706,9 @@
     <EmbeddedResource Include="Forms\Stores\Stores_Trans_IM_card.resx">
       <DependentUpon>Stores_Trans_IM_card.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Sys_Options\ItemsMenu.resx">
+      <DependentUpon>ItemsMenu.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Treasurey\AG_Transfers.resx">
       <DependentUpon>AG_Transfers.vb</DependentUpon>
     </EmbeddedResource>
@@ -1939,9 +1942,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sys_Options\IM_Struct.resx">
       <DependentUpon>IM_Struct.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Sys_Options\ItemsMenu.resx">
-      <DependentUpon>ItemsMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sys_Options\OFFERS.resx">
       <DependentUpon>OFFERS.vb</DependentUpon>

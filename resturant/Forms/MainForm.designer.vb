@@ -603,19 +603,19 @@ Partial Class MainForm
         'سحــبToolStripMenuItem
         '
         Me.سحــبToolStripMenuItem.Name = "سحــبToolStripMenuItem"
-        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
+        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
         Me.سحــبToolStripMenuItem.Text = "سحب"
         '
         'إيداعToolStripMenuItem
         '
         Me.إيداعToolStripMenuItem.Name = "إيداعToolStripMenuItem"
-        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
+        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
         Me.إيداعToolStripMenuItem.Text = "إيداع"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(152, 24)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(113, 24)
         Me.ToolStripMenuItem3.Text = "تحويل"
         '
         'تحويلبينالحساباتToolStripMenuItem

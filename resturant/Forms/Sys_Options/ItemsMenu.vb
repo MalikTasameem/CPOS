@@ -18,16 +18,12 @@ Public Class ItemsMenu
     Dim Unit_Dt As New DataTable
     Dim ALERT_Q_Dt As New DataTable
     Dim IM_Def_Unit_Cargo As Double = 1
-
     Dim isValid As Boolean = False
 
     Dim Get_COUNTER As Boolean = False
     Public IM_PH_PATH As String = ""
     Dim Valid_St As String = "لا"
     Dim isShort_St As String = "لا"
-
-
-
     Dim is_New_IM As Boolean
 
     Private Sub NonePhotoButton_Click(sender As Object, e As EventArgs) Handles NonePhotoButton.Click
@@ -73,65 +69,6 @@ Public Class ItemsMenu
 
     Private Sub ItemsMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
-
-        Try
-            ' =========================================================
-            ' 🌟 1. تعيين التاجات للأدوات الأصلية لتفعيل الثيم (بدون Loop)
-            ' =========================================================
-            TabControl1.DrawMode = TabDrawMode.OwnerDrawFixed
-            TabControl1.SizeMode = TabSizeMode.Fixed ' اختياري لضبط الأحجام
-            TabControl1.Appearance = TabAppearance.FlatButtons ' هذا السطر يدمر الخلفية البيضاء الإفتراضية للويندوز
-            TabControl1.ItemSize = New Size(140, 35) ' تكبير حجم التابات لتصبح مثل الأزرار الأنيقة
-            ' الشريط العلوي (TitleBar) والعنوان
-            If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
-            If Title_Label IsNot Nothing Then Title_Label.Tag = "TITLE_TRANSPARENT"
-
-            ' أزرار التحكم في الفورم (إغلاق، تكبير، تصغير)
-            If ExitFormButton IsNot Nothing Then ExitFormButton.Tag = "DELETE"
-            If MaximizeFormButton IsNot Nothing Then MaximizeFormButton.Tag = "GENERAL"
-            If MinimizeFormButton IsNot Nothing Then MinimizeFormButton.Tag = "GENERAL"
-            ' داخل دالة ItemsMenu_Load تحت استدعاء تطبيق الثيم
-
-            ' حاويات التبويب والتنظيم
-            If TabControl1 IsNot Nothing Then TabControl1.Tag = "TRANSPARENT"
-            If TabPage1 IsNot Nothing Then TabPage1.Tag = "TRANSPARENT"
-            If TouchTabPage IsNot Nothing Then TouchTabPage.Tag = "TRANSPARENT"
-            If TabPage4 IsNot Nothing Then TabPage4.Tag = "TRANSPARENT"
-            If Frm_TabPage IsNot Nothing Then Frm_TabPage.Tag = "TRANSPARENT"
-            If Panel1 IsNot Nothing Then Panel1.Tag = "TRANSPARENT"
-            For Each tp As TabPage In TabControl1.TabPages
-                tp.BackColor = Me.BackColor ' ستأخذ لون خلفية الفورم التي تلونت بالثيم
-            Next
-
-            ' أزرار الإجراءات الأساسية
-            If NewEmpButton IsNot Nothing Then NewEmpButton.Tag = "GENERAL"
-            If SaveButton IsNot Nothing Then SaveButton.Tag = "SAVE"
-            If DeleteButton IsNot Nothing Then DeleteButton.Tag = "DELETE"
-            If IM_MV_btn IsNot Nothing Then IM_MV_btn.Tag = "GENERAL"
-            If MakeBarcode_btn IsNot Nothing Then MakeBarcode_btn.Tag = "GENERAL"
-            If Recount_Cost_btn IsNot Nothing Then Recount_Cost_btn.Tag = "GENERAL"
-
-            ' أزرار العمليات الفرعية
-            If ADD_NewGM_Btn IsNot Nothing Then ADD_NewGM_Btn.Tag = "GENERAL"
-            If Show_IM_btn IsNot Nothing Then Show_IM_btn.Tag = "GENERAL"
-            If IMPH_Btn IsNot Nothing Then IMPH_Btn.Tag = "GENERAL"
-            If IMPH_None_btn IsNot Nothing Then IMPH_None_btn.Tag = "GENERAL"
-            If Open_Camera_btn IsNot Nothing Then Open_Camera_btn.Tag = "GENERAL"
-            If InsertU_btn IsNot Nothing Then InsertU_btn.Tag = "GENERAL"
-            If DeleteU_btn IsNot Nothing Then DeleteU_btn.Tag = "DELETE"
-            If ADD_ST_ALERT_QTY_btn IsNot Nothing Then ADD_ST_ALERT_QTY_btn.Tag = "GENERAL"
-            If REMOVE_ST_ALERT_QTY_btn IsNot Nothing Then REMOVE_ST_ALERT_QTY_btn.Tag = "DELETE"
-
-            ' =========================================================
-            ' 🌟 2. تطبيق الثيم برمجياً
-            ' =========================================================
-            ThemeManager.ApplyThemeToForm(Me)
-
-        Catch ex As Exception
-            ' تفادي أي خطأ إذا كانت إحدى الأدوات غير محملة
-        End Try
-
-        Rs.FindAllControls(Me)
         Load_GM()
         Load_Units(IM_Unit_cm)
         Coutnt_IM()
@@ -144,65 +81,22 @@ Public Class ItemsMenu
             IM_SH_txt.Text = Str_
             Begin_Fetch()
         End If
-    End Sub
-    Protected Overrides ReadOnly Property CreateParams() As CreateParams
-        Get
-            Dim cp As CreateParams = MyBase.CreateParams
-            cp.ClassStyle = cp.ClassStyle Or &H20000
-            Return cp
-        End Get
-    End Property
-    Private Sub TabControl1_DrawItem(sender As Object, e As DrawItemEventArgs) Handles TabControl1.DrawItem
-        Dim g As Graphics = e.Graphics
-        Dim tp As TabPage = TabControl1.TabPages(e.Index)
 
-        Dim isSelected As Boolean = (e.State And DrawItemState.Selected) = DrawItemState.Selected
+        FunModule.Load_ALL_IM()
+        ' تحميل البيانات
+        IM_FRM_mySearchControl.ItemsTable = IM_Dt
+        IM_FRM_mySearchControl.itemsTable_Barcode = IM_Dt_Barcodes
+        IM_FRM_mySearchControl.MaxGridHeight = 400
 
-        ' 1. مسح الأرضية بالكامل بلون الفورم
-        g.FillRectangle(New SolidBrush(ThemeManager.FormBackColor), e.Bounds)
+        'mySearchControl.DefaultSearchField = "اسم الصنف"
+        ' إضافة الكنترول للفورم
+        'Me.Controls.Add(mySearchControl)
+        ' استقبال الاختيار
+        AddHandler IM_FRM_mySearchControl.ItemSelected, AddressOf HandleItemSelected
 
-        ' 2. إعداد الألوان
-        Dim bgBrush As Brush
-        Dim textBrush As Brush
-
-        If isSelected Then
-            bgBrush = New SolidBrush(ThemeManager.AccentColor) ' لون بارز للتاب المفتوح
-            textBrush = New SolidBrush(Color.White)
-        Else
-            bgBrush = New SolidBrush(ThemeManager.CardBackColor)
-            textBrush = New SolidBrush(ThemeManager.TextPrimaryColor)
-        End If
-
-        ' 3. رسم مربع التاب 
-        Dim rect As Rectangle = e.Bounds
-        rect.Inflate(-1, -1)
-        g.FillRectangle(bgBrush, rect)
-
-        ' 4. رسم النص في المنتصف مع دعم اتجاه اليمين لليسار (RTL)
-        Dim sf As New StringFormat() With {
-            .Alignment = StringAlignment.Center,
-            .LineAlignment = StringAlignment.Center,
-            .FormatFlags = StringFormatFlags.DirectionRightToLeft
-        }
-        g.DrawString(tp.Text, TabControl1.Font, textBrush, rect, sf)
-    End Sub
-    Private Sub MaximizeFormButton_Click(sender As Object, e As EventArgs) Handles MaximizeFormButton.Click
-        If Me.WindowState = FormWindowState.Normal Then
-            ' تكبير الفورم ليملا الشاشة باستثناء شريط المهام
-            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
-            Me.WindowState = FormWindowState.Maximized
-            MaximizeFormButton.Text = "❐" ' تغيير الرمز لـ استعادة
-        Else
-            ' إرجاع الفورم لحجمه الطبيعي
-            Me.WindowState = FormWindowState.Normal
-            MaximizeFormButton.Text = "⬜" ' تغيير الرمز لـ تكبير
-        End If
     End Sub
 
-    ' إضافة سريعة لزر التصغير (لتنزيل الفورم لشريط المهام)
-    Private Sub MinimizeFormButton_Click(sender As Object, e As EventArgs) Handles MinimizeFormButton.Click
-        Me.WindowState = FormWindowState.Minimized
-    End Sub
+
 
     Private Sub Make_Hints()
         SendMessage(Barcode_Search_txt.Handle, &H1501, 0, "أدخل باركود صنف للبحث")
@@ -283,8 +177,9 @@ Public Class ItemsMenu
         IM_Num_txt.Clear()
         IM_All_Qty_txt.Text = 0
         Qty_Unit_Lb.Text = ""
-        IM_FRM_txt.Clear()
-        Barcode_SH_txt.Clear()
+        'IM_FRM_txt.Clear()
+        'Barcode_SH_txt.Clear()
+        IM_FRM_mySearchControl.Clear_txt()
 
         Me.IM_Photo.Image = Nothing
         Me.IM_Photo.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -1018,7 +913,6 @@ Public Class ItemsMenu
         Return GM_New_ID
     End Function
 
-
     Private Sub Min_SP_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Min_SP_txt.KeyDown
         Select Case e.KeyCode
             Case Keys.Return
@@ -1066,8 +960,7 @@ Public Class ItemsMenu
     End Sub
 
 
-
-    Private Sub BarCode_txt_TextChanged(sender As Object, e As EventArgs) Handles BarCode_txt.TextChanged, Barcode_SH_txt.KeyPress
+    Private Sub BarCode_txt_TextChanged(sender As Object, e As EventArgs) Handles BarCode_txt.TextChanged
         BarError.Clear()
     End Sub
 
@@ -1166,7 +1059,6 @@ Public Class ItemsMenu
 
             Case Keys.Delete : Barcode_Search_txt.Clear()
 
-
             Case Keys.Down
                 If IMNUM_Grid.Visible = True Then IMNUM_Grid.Select()
 
@@ -1224,7 +1116,6 @@ Public Class ItemsMenu
         End Try
     End Sub
 
-
     Private Sub Unit_DataGridView_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Unit_DataGridView.MouseDoubleClick
         If Unit_DataGridView.Rows.Count > 0 Then Update_IM_Unit.ShowDialog()
     End Sub
@@ -1252,10 +1143,9 @@ Public Class ItemsMenu
         End If
     End Sub
 
-    Private Sub ItemsMenu_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        Rs.ResizeAllControls(Me)
-    End Sub
-
+    'Private Sub ItemsMenu_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+    '    Rs.ResizeAllControls(Me)
+    'End Sub
 
     Private Sub IM_Num_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Num_txt.KeyDown
         If e.KeyCode = Keys.Return Then Notes_txt.Select()
@@ -1291,89 +1181,96 @@ Public Class ItemsMenu
     Dim U_Dt As New DataTable
     Dim FRM_Dt As New DataTable
 
-    Private Sub IM_FRM_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_FRM_txt.TextChanged
-        If IM_FRM_txt.Text.Count > 0 Then
-            IM_FRM_txt_Load_IM()
-        Else
-            FRM_GDX.Visible = False
-            FRM_IM_ID = 0
-            QtyTextBox.Clear()
-        End If
-        If FRM_IM_ID = 0 Then
-            IM_FRM_txt.BackColor = Color.LightGray
-        Else
-            IM_FRM_txt.BackColor = Color.LightGoldenrodYellow
-        End If
+    'Private Sub IM_FRM_txt_TextChanged(sender As Object, e As EventArgs)
+    '    If IM_FRM_txt.Text.Count > 0 Then
+    '        IM_FRM_txt_Load_IM()
+    '    Else
+    '        FRM_GDX.Visible = False
+    '        FRM_IM_ID = 0
+    '        QtyTextBox.Clear()
+    '    End If
+    '    If FRM_IM_ID = 0 Then
+    '        IM_FRM_txt.BackColor = Color.LightGray
+    '    Else
+    '        IM_FRM_txt.BackColor = Color.LightGoldenrodYellow
+    '    End If
+    'End Sub
+
+    'Public Sub IM_FRM_txt_Load_IM()
+    '    Dim c As New C
+
+    '    Try
+    '        IM_Dt.Clear()
+    '        Dim s As String
+    '        s = "select IM_ID,item_name,isValid from IM_All_V WHERE item_name Like '%" & IM_FRM_txt.Text & "%' AND isValid = 0 AND ISSTORE IN(0,1) Order by item_name ASC"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(IM_Dt)
+    '        FRM_GDX.DataSource = IM_Dt
+    '        If IM_Dt.Rows.Count > 0 Then
+    '            FRM_GDX.Visible = True
+    '            FRM_GDX.Size = New Point(FRM_GDX.Size.Width, 530)
+    '        Else
+    '            FRM_GDX.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
+
+    'Private Sub IM_FRM_txt_KeyDown(sender As Object, e As KeyEventArgs)
+
+    '    Select Case e.KeyCode
+    '        Case Keys.Return
+    '            Search_From_Grid()
+    '        Case Keys.Down
+    '            If FRM_GDX.Visible = True Then
+    '                FRM_GDX.Select()
+    '            Else
+    '                QtyTextBox.Select()
+    '            End If
+    '        Case Keys.Left : Barcode_SH_txt.Select()
+    '        Case Keys.Delete : IM_FRM_txt.Clear()
+    '    End Select
+
+
+    'End Sub
+
+    'Private Sub Search_From_Grid()
+    '    If FRM_GDX.Visible = True Then
+    '        Fetch_ItemToList()
+    '    Else
+    '        QtyTextBox.Select()
+    '    End If
+    'End Sub
+
+    'Private Sub FRM_GDX_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+    '    Fetch_ItemToList()
+    'End Sub
+
+    'Private Sub FRM_GDX_KeyDown(sender As Object, e As KeyEventArgs)
+    '    If e.KeyCode = Keys.Return Then Fetch_ItemToList()
+    '    If e.KeyCode = Keys.Up Then If FRM_GDX.CurrentRow.Index = 0 Then IM_FRM_txt.Select()
+    'End Sub
+
+
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
+        FRM_IM_ID = itemId
+        Get_Unit = False
+        Fetch_IM_Units()
     End Sub
 
-    Public Sub IM_FRM_txt_Load_IM()
-        Dim c As New C
+    'Private Sub Fetch_ItemToList()
 
-        Try
-            IM_Dt.Clear()
-            Dim s As String
-            s = "select IM_ID,item_name,isValid from IM_All_V WHERE item_name Like '%" & IM_FRM_txt.Text & "%' AND isValid = 0 AND ISSTORE IN(0,1) Order by item_name ASC"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(IM_Dt)
-            FRM_GDX.DataSource = IM_Dt
-            If IM_Dt.Rows.Count > 0 Then
-                FRM_GDX.Visible = True
-                FRM_GDX.Size = New Point(FRM_GDX.Size.Width, 530)
-            Else
-                FRM_GDX.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub IM_FRM_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_FRM_txt.KeyDown
-
-        Select Case e.KeyCode
-            Case Keys.Return
-                Search_From_Grid()
-            Case Keys.Down
-                If FRM_GDX.Visible = True Then
-                    FRM_GDX.Select()
-                Else
-                    QtyTextBox.Select()
-                End If
-            Case Keys.Left : Barcode_SH_txt.Select()
-            Case Keys.Delete : IM_FRM_txt.Clear()
-        End Select
-
-
-    End Sub
-
-    Private Sub Search_From_Grid()
-        If FRM_GDX.Visible = True Then
-            Fetch_ItemToList()
-        Else
-            QtyTextBox.Select()
-        End If
-    End Sub
-
-    Private Sub FRM_GDX_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles FRM_GDX.CellClick
-        Fetch_ItemToList()
-    End Sub
-
-    Private Sub FRM_GDX_KeyDown(sender As Object, e As KeyEventArgs) Handles FRM_GDX.KeyDown
-        If e.KeyCode = Keys.Return Then Fetch_ItemToList()
-        If e.KeyCode = Keys.Up Then If FRM_GDX.CurrentRow.Index = 0 Then IM_FRM_txt.Select()
-    End Sub
-
-    Private Sub Fetch_ItemToList()
-
-        If FRM_GDX.Rows.Count > 0 Then
-            FRM_IM_ID = FRM_GDX.CurrentRow.Cells("IM_ID_CL2").Value
-            IM_FRM_txt.Text = FRM_GDX.CurrentRow.Cells("item_name_CL2").Value
-            IM_FRM_txt.BackColor = Color.LightGoldenrodYellow
-            Get_Unit = False
-            Fetch_IM_Units()
-            FRM_GDX.Visible = False
-            IM_FRM_txt.Select()
-        End If
-    End Sub
+    '    If FRM_GDX.Rows.Count > 0 Then
+    '        FRM_IM_ID = FRM_GDX.CurrentRow.Cells("IM_ID_CL2").Value
+    '        IM_FRM_txt.Text = FRM_GDX.CurrentRow.Cells("item_name_CL2").Value
+    '        IM_FRM_txt.BackColor = Color.LightGoldenrodYellow
+    '        Get_Unit = False
+    '        Fetch_IM_Units()
+    '        FRM_GDX.Visible = False
+    '        IM_FRM_txt.Select()
+    '    End If
+    'End Sub
 
     Private Sub Fetch_IM_Units()
         Get_Unit = False
@@ -1409,7 +1306,7 @@ Public Class ItemsMenu
 
         If SQL_SP_EXEC(c.Com) = True Then
             IM_Formating_Menu_Select()
-            IM_FRM_txt.Clear()
+            IM_FRM_mySearchControl.Clear_txt()
         End If
 
 
@@ -1467,82 +1364,82 @@ Public Class ItemsMenu
     End Sub
 
 
-    Public Sub Load_IM_Barcode_frm()
-        Dim c As New C
-        IM_Dt.Clear()
-        Try
-            Dim s As String
-            If Sh_ByNum_CB.Checked = True Then
-                s = "select IM_ID,item_name,isValid from IM_All_V WHERE IM_NUM = '" & Barcode_SH_txt.Text & "'"
-            Else
-                s = "select IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
-            End If
+    'Public Sub Load_IM_Barcode_frm()
+    '    Dim c As New C
+    '    IM_Dt.Clear()
+    '    Try
+    '        Dim s As String
+    '        If Sh_ByNum_CB.Checked = True Then
+    '            s = "select IM_ID,item_name,isValid from IM_All_V WHERE IM_NUM = '" & Barcode_SH_txt.Text & "'"
+    '        Else
+    '            s = "select IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
+    '        End If
 
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
 
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                FRM_IM_ID = c.Dr("IM_ID")
-                IM_FRM_txt.Text = c.Dr("item_name")
-                Get_Unit = False
-                FRM_GDX.Visible = False
-                QtyTextBox.Select()
-                Fetch_IM_Units()
-                ' If Sh_ByNum_CB.Checked = False Then IM_Unit_cm.SelectedValue = c.Dr("U_IM_ID")
-                Barcode_SH_txt.Clear()
-            Else
-                If Barcode_SH_txt.Text.Count = 13 Then
-                    Check_If_Mizan()
-                Else
-                    MsgBox("لم يتم التعرف على الإدخال ", MsgBoxStyle.Exclamation)
-                End If
-            End If
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            FRM_IM_ID = c.Dr("IM_ID")
+    '            IM_FRM_txt.Text = c.Dr("item_name")
+    '            Get_Unit = False
+    '            FRM_GDX.Visible = False
+    '            QtyTextBox.Select()
+    '            Fetch_IM_Units()
+    '            ' If Sh_ByNum_CB.Checked = False Then IM_Unit_cm.SelectedValue = c.Dr("U_IM_ID")
+    '            Barcode_SH_txt.Clear()
+    '        Else
+    '            If Barcode_SH_txt.Text.Count = 13 Then
+    '                Check_If_Mizan()
+    '            Else
+    '                MsgBox("لم يتم التعرف على الإدخال ", MsgBoxStyle.Exclamation)
+    '            End If
+    '        End If
 
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
-    Private Sub Check_If_Mizan()
-        Dim c As New C
-        Try
-            Dim S As String = "Select IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text.Substring(0, 7) & "'"
-            c.Com = New SqlClient.SqlCommand(S, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                Barcode_SH_txt.Text = Barcode_SH_txt.Text(7) + Barcode_SH_txt.Text(8) + Barcode_SH_txt.Text(9) + Barcode_SH_txt.Text(10) + Barcode_SH_txt.Text(11)
-                QtyTextBox.Text = Convert.ToDouble(Barcode_SH_txt.Text) / 1000
-                FRM_IM_ID = c.Dr("IM_ID")
-                IM_FRM_txt.Text = c.Dr("item_name")
-                Get_Unit = False
-                FRM_GDX.Visible = False
-                QtyTextBox.Select()
-                Fetch_IM_Units()
-                ' IM_Unit_cm.SelectedValue = c.Dr("U_IM_ID")
-                Barcode_SH_txt.Clear()
-            Else
-                MsgBox("لم يتم التعرف على الإدخال ", MsgBoxStyle.Exclamation)
-            End If
+    'Private Sub Check_If_Mizan()
+    '    Dim c As New C
+    '    Try
+    '        Dim S As String = "Select IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text.Substring(0, 7) & "'"
+    '        c.Com = New SqlClient.SqlCommand(S, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            Barcode_SH_txt.Text = Barcode_SH_txt.Text(7) + Barcode_SH_txt.Text(8) + Barcode_SH_txt.Text(9) + Barcode_SH_txt.Text(10) + Barcode_SH_txt.Text(11)
+    '            QtyTextBox.Text = Convert.ToDouble(Barcode_SH_txt.Text) / 1000
+    '            FRM_IM_ID = c.Dr("IM_ID")
+    '            IM_FRM_txt.Text = c.Dr("item_name")
+    '            Get_Unit = False
+    '            FRM_GDX.Visible = False
+    '            QtyTextBox.Select()
+    '            Fetch_IM_Units()
+    '            ' IM_Unit_cm.SelectedValue = c.Dr("U_IM_ID")
+    '            Barcode_SH_txt.Clear()
+    '        Else
+    '            MsgBox("لم يتم التعرف على الإدخال ", MsgBoxStyle.Exclamation)
+    '        End If
 
-        Catch ex As Exception
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '    End Try
+    'End Sub
 
-    Private Sub Barcode_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Barcode_SH_txt.KeyDown
-        Select Case e.KeyCode
-            Case Keys.Return : If String.IsNullOrWhiteSpace(Barcode_SH_txt.Text) = False Then Load_IM_Barcode_frm()
-            Case Keys.Down : QtyTextBox.Select()
-            Case Keys.Delete : Barcode_SH_txt.Clear()
-        End Select
-    End Sub
+    'Private Sub Barcode_SH_txt_KeyDown(sender As Object, e As KeyEventArgs)
+    '    Select Case e.KeyCode
+    '        Case Keys.Return : If String.IsNullOrWhiteSpace(Barcode_SH_txt.Text) = False Then Load_IM_Barcode_frm()
+    '        Case Keys.Down : QtyTextBox.Select()
+    '        Case Keys.Delete : Barcode_SH_txt.Clear()
+    '    End Select
+    'End Sub
 
-    Private Sub Sh_ByNum_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Sh_ByNum_CB.CheckedChanged
-        CB_CHecked(sender)
-    End Sub
+    'Private Sub Sh_ByNum_CB_CheckedChanged(sender As Object, e As EventArgs)
+    '    CB_CHecked(sender)
+    'End Sub
 
     Private Sub IM_MV_btn_Click(sender As Object, e As EventArgs) Handles IM_MV_btn.Click
         If IM_ID > 0 Then IM_MV.ShowDialog()
@@ -1648,14 +1545,13 @@ Public Class ItemsMenu
         Me.Close()
     End Sub
 
-
     Private Sub Sh_ByNum_Searh_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Sh_ByNum_Searh_CB.CheckedChanged
         CB_CHecked(sender)
         Barcode_Search_txt.Select()
     End Sub
 
     Private Sub IMPH_Btn_Click(sender As Object, e As EventArgs) Handles IMPH_Btn.Click
-        Dim OpenFL As New OpenFileDialog With {.Filter = "(Image Files)|*.jpg;*.png;*.bmp;*.gif;*.ico|Jpg, | *.jpg|Png, | *.png|Bmp, | *.bmp|Gif, | *.gif|Ico | *.ico", _
+        Dim OpenFL As New OpenFileDialog With {.Filter = "(Image Files)|*.jpg;*.png;*.bmp;*.gif;*.ico|Jpg, | *.jpg|Png, | *.png|Bmp, | *.bmp|Gif, | *.gif|Ico | *.ico",
                                               .Multiselect = False, .Title = "إختر صورة"}
         If OpenFL.ShowDialog = Windows.Forms.DialogResult.OK Then
             IM_Photo.Image = Image.FromFile(System.IO.Path.GetFullPath(OpenFL.FileName))
@@ -1677,27 +1573,27 @@ Public Class ItemsMenu
         Recount_IM_Cost.ShowDialog()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If FRM_GDX.Visible = True Then
-            FRM_GDX.Visible = False
-        Else
-            FRM_GDX.Visible = True
-            Fill_All_Frm_Compnents()
-            FRM_GDX.Size = New Point(FRM_GDX.Size.Width, 430)
-        End If
-    End Sub
-    Private Sub Fill_All_Frm_Compnents()
-        Try
-            Dim C As New C
-            C.Dt.Clear()
-            Dim s As String = "select IM_ID,item_name from IM_Active_V Order by item_name ASC"
-            C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
-            C.Da.Fill(C.Dt)
-            FRM_GDX.DataSource = C.Dt
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Private Sub Button1_Click(sender As Object, e As EventArgs)
+    '    If FRM_GDX.Visible = True Then
+    '        FRM_GDX.Visible = False
+    '    Else
+    '        FRM_GDX.Visible = True
+    '        Fill_All_Frm_Compnents()
+    '        FRM_GDX.Size = New Point(FRM_GDX.Size.Width, 430)
+    '    End If
+    'End Sub
+    'Private Sub Fill_All_Frm_Compnents()
+    '    Try
+    '        Dim C As New C
+    '        C.Dt.Clear()
+    '        Dim s As String = "select IM_ID,item_name from IM_Active_V Order by item_name ASC"
+    '        C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
+    '        C.Da.Fill(C.Dt)
+    '        FRM_GDX.DataSource = C.Dt
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
     Private Sub Markter_Val_txt_TextChanged(sender As Object, e As EventArgs) Handles Markter_Val_txt.TextChanged
         Check_Point_in_FloatNum(sender, e)
@@ -1740,8 +1636,8 @@ Public Class ItemsMenu
         If e.KeyCode = Keys.Return Then
             If Markter_Val_txt.Enabled = True Then
                 Markter_Val_txt.Select()
-            Else
-                Barcode_SH_txt.Select()
+                'Else
+                '    Barcode_SH_txt.Select()
             End If
 
         End If
