@@ -370,6 +370,24 @@
     <Compile Include="Forms\POS\PAY_BY_NFC.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\POS\SaleDraft\CachedSaleItem.vb" />
+    <Compile Include="Forms\POS\SaleDraft\DraftCalculator.vb" />
+    <Compile Include="Forms\POS\SaleDraft\DraftItemService.vb" />
+    <Compile Include="Forms\POS\SaleDraft\DraftSalesManager.vb" />
+    <Compile Include="Forms\POS\SaleDraft\SaleDraftHeader.vb" />
+    <Compile Include="Forms\POS\SaleDraft\SaleDraftItem.vb" />
+    <Compile Include="Forms\POS\SaleDraft\Sales_Drafts_Menu.Designer.vb">
+      <DependentUpon>Sales_Drafts_Menu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\POS\SaleDraft\Sales_Drafts_Menu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\POS\SaleDraft\Sales_Fast_Draft.designer.vb">
+      <DependentUpon>Sales_Fast_Draft.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\POS\SaleDraft\Sales_Fast_Draft.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\POS\ViewBill_IM_card.designer.vb">
       <DependentUpon>ViewBill_IM_card.vb</DependentUpon>
     </Compile>
@@ -1594,6 +1612,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\POS\PAY_BY_NFC.resx">
       <DependentUpon>PAY_BY_NFC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\POS\SaleDraft\Sales_Drafts_Menu.resx">
+      <DependentUpon>Sales_Drafts_Menu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\POS\SaleDraft\Sales_Fast_Draft.resx">
+      <DependentUpon>Sales_Fast_Draft.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\POS\ViewBill_IM_card.resx">
       <DependentUpon>ViewBill_IM_card.vb</DependentUpon>

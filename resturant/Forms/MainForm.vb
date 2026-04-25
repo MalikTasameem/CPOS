@@ -1284,7 +1284,7 @@ Public Class MainForm
                 Case 2
                     If isPr_Open = True Then
                         SB_is_Fast = True
-                        Sales_Fast.Show()
+                        Sales_Fast_Draft.Show()
                     Else
                         MsgBox("يجب عليك فتــح وردية عمل أولا", MsgBoxStyle.Exclamation)
                     End If
@@ -1310,7 +1310,7 @@ Public Class MainForm
 
                 Case 2
                     SB_is_Fast = True
-                    Sales_Fast.Show()
+                    Sales_Fast_Draft.Show()
 
             End Select
 
