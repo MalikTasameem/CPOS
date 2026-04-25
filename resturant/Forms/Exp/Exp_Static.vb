@@ -38,8 +38,65 @@
         IM_GV.DataSource = Dt
     End Sub
 
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
 
-    Private Sub Back_ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+    ' ==========================================
+    ' أزرار التحكم بالنافذة (إغلاق، تكبير/استعادة، تصغير)
+    ' ==========================================
+
+    ' 1. زر الإغلاق (Close)
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        Me.Close()
+    End Sub
+
+    ' 2. زر التكبير/الاستعادة (Maximize/Restore)
+    Private Sub btnMaximize_Click(sender As Object, e As EventArgs) Handles btnMaximize.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            ' تكبير النافذة لتغطي مساحة العمل (بدون تغطية شريط المهام)
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+            Me.WindowState = FormWindowState.Maximized
+            btnMaximize.Text = "❐" ' تغيير الرمز ليدل على "استعادة"
+        Else
+            ' استعادة الحجم الطبيعي للنافذة
+            Me.WindowState = FormWindowState.Normal
+            btnMaximize.Text = "⬜" ' تغيير الرمز ليدل على "تكبير"
+        End If
+    End Sub
+
+    ' 3. زر التصغير (Minimize)
+    Private Sub btnMinimize_Click(sender As Object, e As EventArgs) Handles btnMinimize.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    ' ==========================================
+    ' أكواد تحريك النموذج (Form Dragging)
+    ' ==========================================
+
+    ' هذا الحدث يتم تشغيله عند الضغط على زر الماوس (غالباً في Panel يمثل شريط العنوان)
+    Private Sub TitleBar_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBarPanel.MouseDown
+        ' ملاحظة: استبدل TitleBarPanel باسم الـ Panel أو الـ Label الذي تستخدمه كشريط علوي
+        If e.Button = MouseButtons.Left Then
+            drag = True
+            mouseX = e.X
+            mouseY = e.Y
+        End If
+    End Sub
+
+    ' هذا الحدث يتم تشغيله أثناء تحريك الماوس (السحب)
+    Private Sub TitleBar_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBarPanel.MouseMove
+        If drag Then
+            Me.Top = Me.Top + (e.Y - mouseY)
+            Me.Left = Me.Left + (e.X - mouseX)
+        End If
+    End Sub
+
+    ' هذا الحدث يتم تشغيله عند إفلات زر الماوس
+    Private Sub TitleBar_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBarPanel.MouseUp
+        drag = False
+    End Sub
+    Private Sub Back_ADD_New_IM_btn_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 

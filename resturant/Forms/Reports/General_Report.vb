@@ -9,11 +9,40 @@ Public Class General_Report
         Me.Dispose()
     End Sub
     Private Sub STORES_Explorer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         rs.FindAllControls(Me)
         GENERAL_REPORT_SELECT()
         'GENERAL_REPORT_SELECT_2()
         'GENERAL_REPORT_SELECT_3()
+    End Sub
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
     End Sub
 
     Private Sub STORES_Explorer_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -242,12 +271,14 @@ Public Class General_Report
     End Sub
 
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-        Me.Close()
-    End Sub
+
 
 
     Private Sub Total_Balance_txt_TextChanged(sender As Object, e As EventArgs) Handles Total_Balance_txt.TextChanged
         money_char_txtb.Text = HANY(Val(Total_Balance_txt.Text), "EGYPT")
+    End Sub
+
+    Private Sub HeaderCloseBtn_Click(sender As Object, e As EventArgs) Handles HeaderCloseBtn.Click
+        Me.Close()
     End Sub
 End Class

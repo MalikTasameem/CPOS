@@ -16,7 +16,13 @@ Public Class Agent
     Private Sub AgentCard_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
     End Sub
-
+    Protected Overrides ReadOnly Property CreateParams() As CreateParams
+        Get
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or &H20000
+            Return cp
+        End Get
+    End Property
     Private Sub AgentCard_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.F1 Then If New_butt.Enabled = True Then new_butt_Click(sender, e)
         If e.KeyCode = Keys.F12 Then If Save_butt.Enabled = True Then Save_butt_Click(sender, e)
@@ -24,7 +30,7 @@ Public Class Agent
         If e.KeyCode = Keys.F4 Then If Delete_butt.Enabled = True Then Delete_butt_Click(sender, e)
     End Sub
     Public Sub Agent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         EditState = Edit_butt.Text
         DefaultFormState = Me.Text
@@ -40,7 +46,49 @@ Public Class Agent
         AG_Type_cm.SelectedIndex = 0
 
     End Sub
+    ' ==========================================
+    ' 🌟 أكواد الشريط العلوي والتحكم بالنافذة 🌟
+    ' ==========================================
 
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
+
+    Private Sub MaxFormButton_Click(sender As Object, e As EventArgs) Handles MaxFormButton.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+            Me.WindowState = FormWindowState.Maximized
+            MaxFormButton.Text = "❐"
+        Else
+            Me.WindowState = FormWindowState.Normal
+            MaxFormButton.Text = "⬜"
+        End If
+    End Sub
+
+    Private Sub MinFormButton_Click(sender As Object, e As EventArgs) Handles MinFormButton.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
+    End Sub
 
 
     Private Sub Make_Hints()
@@ -614,7 +662,7 @@ Public Class Agent
         Check_Point_in_FloatNum(sender, e)
     End Sub
 
-    Private Sub Back_ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+    Private Sub Back_ADD_New_IM_btn_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 

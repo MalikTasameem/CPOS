@@ -307,7 +307,7 @@ Partial Class Sales
         Me.Show_Cash_btn.BackColor = System.Drawing.SystemColors.Menu
         Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Show_Cash_btn.Font = New System.Drawing.Font("Arial", 14.0!)
+        Me.Show_Cash_btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Show_Cash_btn.Location = New System.Drawing.Point(5, 74)
         Me.Show_Cash_btn.Name = "Show_Cash_btn"
         Me.Show_Cash_btn.Size = New System.Drawing.Size(43, 52)
@@ -321,7 +321,7 @@ Partial Class Sales
         Me.OpenCahDR_Btn.BackColor = System.Drawing.SystemColors.Menu
         Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Arial", 14.0!)
+        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.OpenCahDR_Btn.Location = New System.Drawing.Point(53, 74)
         Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
         Me.OpenCahDR_Btn.Size = New System.Drawing.Size(45, 52)

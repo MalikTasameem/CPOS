@@ -602,7 +602,7 @@ Public Class FSearch_Filter
     Private Sub Set_IM(NAME_ As String, ID_ As String)
         Text.Text = NAME_
         TXT_ID.Text = ID_
-        Text.BackColor = Color.LightGoldenrodYellow
+        '  Text.BackColor = Color.LightGoldenrodYellow
     End Sub
 
     Public Sub Set_IM_By_ID(ID_ As String)

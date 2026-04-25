@@ -59,6 +59,7 @@ Partial Class Frm_ThemeSettings
         Me.btnAccent = New System.Windows.Forms.Button()
         Me.txtAccent = New System.Windows.Forms.TextBox()
         Me.GB_Buttons = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.LabelBS = New System.Windows.Forms.Label()
         Me.btnBtnSaveBack = New System.Windows.Forms.Button()
         Me.txtBtnSaveBack = New System.Windows.Forms.TextBox()
@@ -113,6 +114,7 @@ Partial Class Frm_ThemeSettings
         Me.btnCardBack = New System.Windows.Forms.Button()
         Me.LabelCB = New System.Windows.Forms.Label()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.TitleBar_Panel.SuspendLayout()
         Me.Main_Panel.SuspendLayout()
         Me.Panel_Right.SuspendLayout()
@@ -537,6 +539,8 @@ Partial Class Frm_ThemeSettings
         '
         'GB_Buttons
         '
+        Me.GB_Buttons.Controls.Add(Me.Button2)
+        Me.GB_Buttons.Controls.Add(Me.Button1)
         Me.GB_Buttons.Controls.Add(Me.LabelBS)
         Me.GB_Buttons.Controls.Add(Me.btnBtnSaveBack)
         Me.GB_Buttons.Controls.Add(Me.txtBtnSaveBack)
@@ -565,6 +569,15 @@ Partial Class Frm_ThemeSettings
         Me.GB_Buttons.TabIndex = 2
         Me.GB_Buttons.TabStop = False
         Me.GB_Buttons.Text = "ألوان الأزرار العامة"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(112, 66)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(35, 29)
+        Me.Button1.TabIndex = 20
+        Me.Button1.Tag = "IGNORE"
+        Me.Button1.Text = "F"
         '
         'LabelBS
         '
@@ -1065,6 +1078,15 @@ Partial Class Frm_ThemeSettings
         Me.LabelCB.Size = New System.Drawing.Size(100, 23)
         Me.LabelCB.TabIndex = 0
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(112, 101)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(35, 29)
+        Me.Button2.TabIndex = 21
+        Me.Button2.Tag = "IGNORE"
+        Me.Button2.Text = "F"
+        '
         'Frm_ThemeSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1127,4 +1149,6 @@ Partial Class Frm_ThemeSettings
 
     Friend WithEvents btnApplyToSystem As System.Windows.Forms.Button, btnApplyTheme As System.Windows.Forms.Button, btnDelete As System.Windows.Forms.Button, btnSave As System.Windows.Forms.Button, btnNew As System.Windows.Forms.Button
     Friend WithEvents DGV_Themes As System.Windows.Forms.DataGridView, ColorDialog1 As System.Windows.Forms.ColorDialog
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
 End Class

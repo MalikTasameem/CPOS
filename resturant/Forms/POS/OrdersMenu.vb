@@ -24,6 +24,7 @@
 
     Private Sub OrdersMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RS.FindAllControls(Me)
+        ThemeManager.ApplyThemeToForm(Me)
         If U_SalesVoid = False Then VoidBill_Btn.Visible = False
         Edit_Date_btn.Visible = U_SB_Update
         Deliver_Date.Enabled = U_SB_Update

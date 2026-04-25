@@ -24,6 +24,56 @@
         print_butt.Enabled = True
         Delete_butt.Enabled = True
     End Sub
+    ' ==========================================
+    ' 🌟 أكواد الشريط العلوي والتحكم بالنافذة 🌟
+    ' ==========================================
+
+    ' --- أزرار الإغلاق، التكبير، والتصغير ---
+    Private Sub HeaderCloseBtn_Click(sender As Object, e As EventArgs) Handles HeaderCloseBtn.Click
+        Me.Close()
+    End Sub
+
+    'Private Sub HeaderMaxBtn_Click(sender As Object, e As EventArgs)
+    '    If Me.WindowState = FormWindowState.Normal Then
+    '        Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+    '        Me.WindowState = FormWindowState.Maximized
+    '        HeaderMaxBtn.Text = "❐"
+    '    Else
+    '        Me.WindowState = FormWindowState.Normal
+    '        HeaderMaxBtn.Text = "⬜"
+    '    End If
+    'End Sub
+
+    Private Sub HeaderMinBtn_Click(sender As Object, e As EventArgs)
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+
+    ' ==========================================
+    ' 🌟 أكواد تحريك (سحب) الفورم بالماوس 🌟
+    ' ==========================================
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        If e.Button = MouseButtons.Left Then
+            drag = True
+            mouseX = Cursor.Position.X - Me.Left
+            mouseY = Cursor.Position.Y - Me.Top
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
+    End Sub
 
 
     Private Sub ClearFields()
@@ -250,7 +300,14 @@
         End If
     End Sub
 
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
 
     Private Sub Tr_Deposit_Withdraw_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.F1 Then If new_butt.Enabled = True Then new_butt_Click(sender, e)
@@ -263,7 +320,7 @@
     Private Sub Tr_Deposit_Withdraw_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         '  rs.FindAllControls(Me)
-
+        ThemeManager.ApplyThemeToForm(Me)
 
         If TR_Type = 1 Then
             If U_Tr_Widraw = False Then
@@ -282,9 +339,9 @@
 
         Load_Data()
     End Sub
- 
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 

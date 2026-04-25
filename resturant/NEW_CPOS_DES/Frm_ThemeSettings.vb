@@ -312,6 +312,16 @@ Public Class Frm_ThemeSettings
         End If
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim frm As New frmWithdrawalDeposit
+        frm.ShowDialog()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim ff As New frmBuySell
+        ff.ShowDialog()
+    End Sub
+
     ' =========================================================
     ' 4. زر تطبيق الثيم كافتراضي للنظام بالكامل
     ' =========================================================

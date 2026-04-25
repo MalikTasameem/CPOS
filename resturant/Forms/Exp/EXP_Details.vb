@@ -20,6 +20,38 @@
     Dim AG_Dt As New DataTable
     Public AG_ID As Integer
     Public Bill_ID As Integer = 0
+    Public Enum BillState
+        Draft = 0
+        Saved = 1
+        Editing = 2
+        Voided = 3
+    End Enum
+    Public CurrentState As BillState = BillState.Draft
+
+    Public Sub Set_Bill_State(State As BillState)
+        CurrentState = State
+
+        Select Case State
+            Case BillState.Draft
+                DeletedBillLabel.Text = "فاتورة جديـدة"
+                DeletedBillLabel.BackColor = Color.SteelBlue
+                DeletedBillLabel.Visible = True
+
+            Case BillState.Saved
+                DeletedBillLabel.Visible = False
+
+            Case BillState.Editing
+                DeletedBillLabel.Text = "قيـد التعديـــل"
+                DeletedBillLabel.BackColor = Color.DarkOrange
+                DeletedBillLabel.Visible = True
+
+            Case BillState.Voided
+                DeletedBillLabel.Text = "فاتورة ملغيـــة"
+                DeletedBillLabel.BackColor = Color.IndianRed
+                DeletedBillLabel.Visible = True
+        End Select
+    End Sub
+
 
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         If On_Update = True Then Edit_butt_Click(sender, e)
@@ -35,9 +67,14 @@
         If e.KeyCode = Keys.F3 Then If Edit_butt.Enabled = True Then If Edit_butt.Text = EditState Then Edit_butt_Click(sender, e)
         If e.KeyCode = Keys.F4 Then If Delete_butt.Enabled = True Then Delete_butt_Click(sender, e)
         If e.KeyCode = Keys.F5 Then EX_Cm.Select()
+
     End Sub
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
+        'ApplyForcedThemeToFSearch(AG_Cm)
+        'ApplyForcedThemeToFSearch(EX_Cm)
+        Me.DoubleBuffered = True
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
         FormType = 8
@@ -134,21 +171,19 @@
 
 
     Public Sub Switch_Dependcy(F As Boolean)
-
         If F = True Then
-            isDepended = 1
-            AGMetroGrid.BackgroundColor = Color.LightGreen
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
+            isDepended = True
             Save_butt.Enabled = False
-            Print_btn.Enabled = True
+            DeletedBillLabel.Text = "فاتورة معتمـدة ومرحلة"
+            DeletedBillLabel.BackColor = Color.MediumSeaGreen
+            DeletedBillLabel.Visible = True
         Else
-            isDepended = 0
-            AGMetroGrid.BackgroundColor = Color.LightYellow
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+            isDepended = False
             Save_butt.Enabled = True
-            Print_btn.Enabled = False
+            If CurrentState = BillState.Saved Then
+                DeletedBillLabel.Visible = False
+            End If
         End If
-
     End Sub
 
     Private Sub NewStateBt()
@@ -175,46 +210,78 @@
         Me.Text = DefaultFormState
     End Sub
 
+    'Public Sub SelectStateBt()
+    '    Edit_butt.BackColor = Color.White
+    '    If isVoid = True Then
+    '        DeletedBillLabel.Visible = True
+    '        Disable_Fields()
+    '        Save_butt.Enabled = False
+    '        Edit_butt.Enabled = False
+    '        Edit_butt.Text = EditState
+    '        Delete_butt.Enabled = False
+    '        AGMetroGrid.Enabled = True
+    '        AGMetroGrid.BackgroundColor = Color.IndianRed
+    '        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
+    '        Print_btn.Enabled = False
+    '    Else
+    '        If isDepended = False Then
+    '            Save_butt.Enabled = True
+    '            Edit_butt.Enabled = False
+    '            Print_btn.Enabled = False
+    '            ' AGMetroGrid.BackgroundColor = Color.Gray
+    '            ' AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.Gray
+    '            Enable_Fields()
+    '            Delete_butt.Enabled = False
+    '        Else
+    '            Edit_butt.Enabled = True
+    '            Print_btn.Enabled = True
+    '            Disable_Fields()
+    '            Delete_butt.Enabled = True
+    '        End If
+
+    '        DeletedBillLabel.Visible = False
+    '        Edit_butt.Text = EditState
+
+    '    End If
+
+    '    Me.Text = "عرض بيانات فاتورة"
+
+    'End Sub
     Public Sub SelectStateBt()
-        Edit_butt.BackColor = Color.White
         If isVoid = True Then
-            DeletedBillLabel.Visible = True
+            Set_Bill_State(BillState.Voided)
             Disable_Fields()
             Save_butt.Enabled = False
             Edit_butt.Enabled = False
-            Edit_butt.Text = EditState
             Delete_butt.Enabled = False
-            AGMetroGrid.Enabled = True
-            AGMetroGrid.BackgroundColor = Color.IndianRed
-            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
             Print_btn.Enabled = False
+            AGMetroGrid.Enabled = False
         Else
             If isDepended = False Then
+                Set_Bill_State(BillState.Draft)
+                Switch_Dependcy(False)
+                Enable_Fields()
                 Save_butt.Enabled = True
                 Edit_butt.Enabled = False
                 Print_btn.Enabled = False
-                ' AGMetroGrid.BackgroundColor = Color.Gray
-                ' AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.Gray
-                Enable_Fields()
                 Delete_butt.Enabled = False
             Else
+                Set_Bill_State(BillState.Saved)
+                Switch_Dependcy(True)
+                Disable_Fields()
                 Edit_butt.Enabled = True
                 Print_btn.Enabled = True
-                Disable_Fields()
                 Delete_butt.Enabled = True
             End If
-
-            DeletedBillLabel.Visible = False
-            Edit_butt.Text = EditState
-
         End If
 
+        Edit_butt.Text = EditState
         Me.Text = "عرض بيانات فاتورة"
-
     End Sub
 
     Private Sub ClearFields()
         T_ID = 0
+        AGMetroGrid.SuspendLayout()
         Notes_txt.Clear()
         Total_TextBox.Clear()
         Bill_DT.Clear()
@@ -231,6 +298,8 @@
         Receipts_DT.Clear()
         AG_ID = Default_AG_ID
         AG_Cm.Textt = ""
+        AGMetroGrid.ResumeLayout()
+        Set_Bill_State(BillState.Draft) ' لتفعيل شريط الحالة الأزرق
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
@@ -760,9 +829,7 @@
 
     End Sub
 
-    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-        Me.Close()
-    End Sub
+
 
     Private Sub Bill_ID_Txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Bill_ID_Txt.KeyDown
         If e.KeyCode = Keys.Return Then
@@ -839,8 +906,6 @@
             isShowingDetails = False
         End If
     End Sub
-
-
     Private Sub ReceiptsMetroGrid_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles ReceiptsMetroGrid.RowsAdded
         Calc_Credit()
     End Sub
@@ -863,6 +928,18 @@
             Save_AG_Name(T_ID, AG_ID, On_Update)
         End If
     End Sub
+    'Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
+    '    If AG_Cm.TXT_ID.Text <> "" Then
+    '        If Val(AG_Cm.TXT_ID.Text) > 0 Then
+    '            AG_ID = Val(AG_Cm.TXT_ID.Text)
+    '            Save_AG_Name(T_ID, AG_ID, On_Update)
+
+    '            ' 🌟 إجبار الأداة على اللون الداكن والتباين العالي
+    '            ApplyForcedThemeToFSearch(AG_Cm)
+    '        End If
+    '    End If
+    'End Sub
+
 
     Private Sub EX_Cm_ID_Changed(sender As Object, e As EventArgs) Handles EX_Cm.ID_Changed
         If EX_Cm.TXT_ID.Text > 0 Then
@@ -870,4 +947,84 @@
             IM_Cost_txt.Select()
         End If
     End Sub
+    'Private Sub EX_Cm_ID_Changed(sender As Object, e As EventArgs) Handles EX_Cm.ID_Changed
+    '    If EX_Cm.TXT_ID.Text <> "" Then
+    '        If Val(EX_Cm.TXT_ID.Text) > 0 Then
+    '            IM_ID = Val(EX_Cm.TXT_ID.Text)
+    '            IM_Cost_txt.Select()
+
+    '            ' 🌟 إجبار الأداة على اللون الداكن والتباين العالي
+    '            ApplyForcedThemeToFSearch(EX_Cm)
+    '        End If
+    '    End If
+    'End Sub
+    'Private Sub ApplyForcedThemeToFSearch(fSearch As Control)
+    '    ' تحديد الألوان بناءً على حالة الثيم
+    '    Dim backClr As Color = If(ThemeManager.IsDarkMode, Color.FromArgb(45, 45, 45), Color.White)
+    '    Dim foreClr As Color = If(ThemeManager.IsDarkMode, Color.White, Color.Black)
+
+    '    fSearch.BackColor = backClr
+
+    '    ' الغوص داخل الأداة لتلوين مربع النص الداخلي (المسمى Text في الأداة)
+    '    For Each child As Control In fSearch.Controls
+    '        If TypeOf child Is TextBox Then
+    '            child.BackColor = backClr
+    '            child.ForeColor = foreClr
+    '            ' إرجاع الخط ليكون واضحاً
+    '            child.Font = New Font("Segoe UI", child.Font.Size, FontStyle.Bold)
+    '        End If
+    '    Next
+    'End Sub
+    ' ==========================================
+    ' 🌟 أكواد الشريط العلوي والتحكم بالنافذة 🌟
+    ' ==========================================
+
+    ' --- 1. زر الإغلاق ---
+    Private Sub HeaderCloseBtn_Click(sender As Object, e As EventArgs) Handles HeaderCloseBtn.Click
+        Me.Close()
+    End Sub
+
+    ' --- 2. زر التكبير والاستعادة ---
+    Private Sub HeaderMaxBtn_Click(sender As Object, e As EventArgs) Handles HeaderMaxBtn.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+            Me.WindowState = FormWindowState.Maximized
+            HeaderMaxBtn.Text = "❐"
+        Else
+            Me.WindowState = FormWindowState.Normal
+            HeaderMaxBtn.Text = "⬜"
+        End If
+    End Sub
+
+    ' --- 3. زر التصغير لشريط المهام ---
+    Private Sub HeaderMinBtn_Click(sender As Object, e As EventArgs) Handles HeaderMinBtn.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+    ' ==========================================
+    ' 🌟 أكواد تحريك الفورم باستخدام الماوس 🌟
+    ' ==========================================
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    ' عند الضغط على زر الماوس (فوق البانل أو عنوان الفورم)
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    ' أثناء سحب الماوس
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    ' عند إفلات زر الماوس
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
+    End Sub
+
 End Class
