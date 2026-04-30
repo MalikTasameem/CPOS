@@ -461,7 +461,14 @@
     End Sub
 
     Private Sub IM_SH_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles txtSearch.MouseDoubleClick
-        Items_Search.ShowDialog()
+        'Items_Search.ShowDialog()
+
+        Dim f As Items_Search = Items_Search.GetInstance()
+
+        f.ShowDialog()
+        f.BringToFront()
+        f.WindowState = FormWindowState.Normal
+
         If GLOBAL_IM_ID > 0 Then
             SelectItemById(GLOBAL_IM_ID)
         End If

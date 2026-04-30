@@ -2979,9 +2979,6 @@ Public Class MainForm
         End Select
     End Sub
 
-    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
-
-    End Sub
 
     Private Sub شاشةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles شاشةالحساباتToolStripMenuItem.Click
         Me.Cursor = Cursors.AppStarting

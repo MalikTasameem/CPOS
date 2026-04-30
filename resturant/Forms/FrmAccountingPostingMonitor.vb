@@ -121,7 +121,7 @@ SELECT
     BsType_ID,
     Type_Name,
     AG_NAME,
-    Tr_ID,
+    Tr_NAME,
     Total,
     Discount,
     Pure,
@@ -213,7 +213,7 @@ ORDER BY [Date] DESC, T_ID DESC;
         SetHeader("BsType_ID", "كود النوع", 80)
         SetHeader("Type_Name", "نوع الحركة", 170)
         SetHeader("AG_NAME", "الطرف", 80)
-        SetHeader("Tr_ID", "الخزينة", 80)
+        SetHeader("Tr_NAME", "الخزينة", 80)
         SetHeader("Total", "الإجمالي", 110)
         SetHeader("Discount", "الخصم", 95)
         SetHeader("Pure", "الصافي", 110)

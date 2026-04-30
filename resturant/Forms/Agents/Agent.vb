@@ -164,7 +164,6 @@ Public Class Agent
         Add_Prev_Balance_btn.Enabled = True
         Me.Text = "بيانات العميل : " + AG_Name
         Edit_butt.Text = EditState
-        'IMDataGridViewX.Visible = False
     End Sub
 
     Private Sub ClearFields()
@@ -200,7 +199,6 @@ Public Class Agent
 
     Public Sub Fetch_ItemToList(Search_AG_ID As Integer)
         If IMDataGridViewX.Rows.Count > 0 Then
-            'IMDataGridViewX.Visible = False
 
             ClearFields()
 
@@ -423,20 +421,6 @@ Public Class Agent
         End If
     End Sub
 
-    'Private Sub Load_AG()
-    '    Try
-    '        Dim C As New C
-    '        AG_DT.Clear()
-    '        Dim sql As String = " select AG_ID,Ag_name from Agents Where AG_ID > 1 Order By AG_ID ASC"
-    '        C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-    '        C.Da.Fill(AG_DT)
-    '        AGMetroGrid.DataSource = AG_DT
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-
-    'End Sub
-
     Private Sub AG_Name_txtb_Enter(sender As Object, e As EventArgs) Handles IM_SH_txt.Enter
         Arabic_Lang()
     End Sub
@@ -565,31 +549,8 @@ Public Class Agent
 
     End Sub
 
-    'Public Sub Load_IM()
-    '    Dim c As New C
-
-    '    Try
-    '        IM_Dt.Clear()
-    '        Dim s As String
-    '        s = "select AG_ID,Ag_name,isnull(T_Balance,0) AS T_Balance from Agents WHERE Ag_name Like '%" & IM_SH_txt.Text & "%'"
-    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-    '        c.Da.Fill(IM_Dt)
-    '        IMDataGridViewX.DataSource = IM_Dt
-    '        If IM_Dt.Rows.Count > 0 Then
-    '            IMDataGridViewX.Visible = True
-    '            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-    '        Else
-    '            IMDataGridViewX.Visible = False
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
 
     Private Sub IM_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_SH_txt.KeyDown
-
-        'If e.KeyCode = Keys.Down Then If IMDataGridViewX.Visible = True Then IMDataGridViewX.Select()
-        'If e.KeyCode = Keys.Return Then If IMDataGridViewX.Visible = True Then Fetch_ItemToList(IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value)
 
         If e.KeyCode = Keys.Return Then Barcode_txt.Select()
     End Sub
@@ -599,15 +560,7 @@ Public Class Agent
     End Sub
 
     Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
-        'If IM_SH_txt.Text.Count > 0 Then
-        '    Load_IM()
-        'Else
-        '    IMDataGridViewX.Visible = False
-        '    AG_ID = 0
-        '    AG_Type_cm.SelectedIndex = 0
-        'End If
         AG_NAMEErrorProvider.Clear()
-       
     End Sub
 
     Private Sub IMDataGridViewX_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles IMDataGridViewX.CellClick
@@ -624,15 +577,6 @@ Public Class Agent
     End Sub
 
 
-    Private Sub Show_IM_btn_Click(sender As Object, e As EventArgs)
-        'If IMDataGridViewX.Visible = True Then
-        '    IMDataGridViewX.Visible = False
-        'Else
-        '    IMDataGridViewX.Visible = True
-        '    Load_ALL_AG()
-        'End If
-    End Sub
-
     Public Sub Load_ALL_AG()
         Dim c As New C
 
@@ -643,12 +587,6 @@ Public Class Agent
             c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
             c.Da.Fill(IM_Dt)
             IMDataGridViewX.DataSource = IM_Dt
-            'If IM_Dt.Rows.Count > 0 Then
-            '    IMDataGridViewX.Visible = True
-            '    IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            'Else
-            '    IMDataGridViewX.Visible = False
-            'End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -662,22 +600,15 @@ Public Class Agent
         Check_Point_in_FloatNum(sender, e)
     End Sub
 
-    Private Sub Back_ADD_New_IM_btn_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
     Private Sub is_Emp_Pause_CB_CheckedChanged(sender As Object, e As EventArgs) Handles is_Emp_Pause_CB.CheckedChanged
         CB_CHecked(sender)
     End Sub
 
     Private Sub Add_Prev_Balance_btn_Click(sender As Object, e As EventArgs) Handles Add_Prev_Balance_btn.Click
 
-        ' If AG_ID > 1 Then
         Add_Prev_Balance.AG_NAME = AG_Name
             Add_Prev_Balance.Text = Add_Prev_Balance.Text + " : " + AG_Name
-            Add_Prev_Balance.ShowDialog()
-        '  End If
-
+        Add_Prev_Balance.ShowDialog()
     End Sub
 
     Private Sub Refreg_Balance_btn_Click(sender As Object, e As EventArgs) Handles Refreg_Balance_btn.Click
