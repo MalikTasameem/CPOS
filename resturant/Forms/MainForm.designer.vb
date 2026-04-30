@@ -88,7 +88,6 @@ Partial Class MainForm
         Me.بطاقةالعملاءToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
         Me.Balances_btn = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.شاشةالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.الخزينــةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.سحــبToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.إيداعToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -180,6 +179,8 @@ Partial Class MainForm
         Me.check_print_Btn3 = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
+        Me.شاشةالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ترحيلمحاسبيToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -582,16 +583,10 @@ Partial Class MainForm
         'Balances_btn
         '
         Me.Balances_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Balances_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.شاشةالحساباتToolStripMenuItem, Me.الخزينــةToolStripMenuItem, Me.تحويلبينالحساباتToolStripMenuItem})
+        Me.Balances_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.شاشةالحساباتToolStripMenuItem, Me.الخزينــةToolStripMenuItem, Me.تحويلبينالحساباتToolStripMenuItem, Me.ترحيلمحاسبيToolStripMenuItem})
         Me.Balances_btn.Name = "Balances_btn"
         Me.Balances_btn.Size = New System.Drawing.Size(77, 23)
         Me.Balances_btn.Text = "الحسابات"
-        '
-        'شاشةالحساباتToolStripMenuItem
-        '
-        Me.شاشةالحساباتToolStripMenuItem.Name = "شاشةالحساباتToolStripMenuItem"
-        Me.شاشةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
-        Me.شاشةالحساباتToolStripMenuItem.Text = "شاشة الحسابات"
         '
         'الخزينــةToolStripMenuItem
         '
@@ -603,19 +598,19 @@ Partial Class MainForm
         'سحــبToolStripMenuItem
         '
         Me.سحــبToolStripMenuItem.Name = "سحــبToolStripMenuItem"
-        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
+        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
         Me.سحــبToolStripMenuItem.Text = "سحب"
         '
         'إيداعToolStripMenuItem
         '
         Me.إيداعToolStripMenuItem.Name = "إيداعToolStripMenuItem"
-        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
+        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
         Me.إيداعToolStripMenuItem.Text = "إيداع"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(113, 24)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(152, 24)
         Me.ToolStripMenuItem3.Text = "تحويل"
         '
         'تحويلبينالحساباتToolStripMenuItem
@@ -1457,6 +1452,18 @@ Partial Class MainForm
         Me.Save_butt.Text = "حفظ الإعدادات"
         Me.Save_butt.UseVisualStyleBackColor = False
         '
+        'شاشةالحساباتToolStripMenuItem
+        '
+        Me.شاشةالحساباتToolStripMenuItem.Name = "شاشةالحساباتToolStripMenuItem"
+        Me.شاشةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
+        Me.شاشةالحساباتToolStripMenuItem.Text = "شاشة الحسابات"
+        '
+        'ترحيلمحاسبيToolStripMenuItem
+        '
+        Me.ترحيلمحاسبيToolStripMenuItem.Name = "ترحيلمحاسبيToolStripMenuItem"
+        Me.ترحيلمحاسبيToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
+        Me.ترحيلمحاسبيToolStripMenuItem.Text = "ترحيل محاسبي"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1607,7 +1614,6 @@ Partial Class MainForm
     Friend WithEvents Exp_LB As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Exp_Static_LB As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents بطاقةالعملاءToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents شاشةالحساباتToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents الخزينــةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents سحــبToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents إيداعToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1684,4 +1690,6 @@ Partial Class MainForm
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Button1 As Button
     Friend WithEvents KashierPrinterComboBox As System.Windows.Forms.ComboBox
+    Friend WithEvents شاشةالحساباتToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ترحيلمحاسبيToolStripMenuItem As ToolStripMenuItem
 End Class

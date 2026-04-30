@@ -5,17 +5,24 @@ Public Class Items_Search
     Dim IM_DT As New DataTable
     Private CurrentSearchColumn As String = "item_name"
 
-    'Private KB As OnKeyBoard
 
-    Private Sub InitKeyboard()
+    Private Shared _instance As Items_Search = Nothing
 
-        'KB = New OnKeyBoard()
-        'kbPanel.Controls.Clear()
-        'KB.Dock = DockStyle.Fill
-        'kbPanel.Controls.Add(KB)
-        'KB.BringToFront()
+    Public Shared Function GetInstance() As Items_Search
+        If _instance Is Nothing OrElse _instance.IsDisposed Then
+            _instance = New Items_Search()
+        End If
 
-        'AddHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
+        Return _instance
+    End Function
+
+    Public Sub New()
+        InitializeComponent()
+
+        ' هذا السطر سيعمل مرة واحدة فقط لكل نسخة من الفورم
+        ' إذا كان KB موجوداً ومضافاً من المصمم:
+        ' RemoveHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
+        ' AddHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
     End Sub
 
     Private Sub HandleKeyboardInput(sender As Object, e As EventArgs)
@@ -47,9 +54,6 @@ Public Class Items_Search
                 Case "BCAPS"
                     ' لاحقًا إذا أردت نضيف منطق الحروف الكبيرة
 
-
-
-
                 Case Else
                     txtSearch.SelectedText = bt.Text
             End Select
@@ -65,7 +69,7 @@ Public Class Items_Search
     Private Sub STORES_Explorer_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         IM_Search_GM_ID = GM_Serach.SelectedValue
         Save_AppSetting()
-        Me.Dispose()
+        'Me.Dispose()
     End Sub
 
 
@@ -179,7 +183,8 @@ Public Class Items_Search
     Private Sub Fetch_ItemToList()
         If IMDataGridViewX.Rows.Count > 0 Then
             GLOBAL_IM_ID = IMDataGridViewX.CurrentRow.Cells("IM_ID_CL").Value
-            Me.Close()
+            'Me.Close()
+            Me.Hide()
         End If
     End Sub
 
@@ -227,7 +232,7 @@ Public Class Items_Search
     End Sub
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-        Me.Close()
+        Me.Hide()
     End Sub
 
     Private Sub ADD_NewGM_Btn_Click(sender As Object, e As EventArgs) Handles ADD_NewGM_Btn.Click
@@ -297,7 +302,6 @@ Public Class Items_Search
 
     Private Sub KeyboardBtn_Click(sender As Object, e As EventArgs) Handles KeyboardBtn.Click
         If IMDataGridViewX.Height = 320 Then
-
             IMDataGridViewX.Size = New Size(999, 590)
         Else
             'kbPanel.Controls.Clear()
@@ -305,6 +309,12 @@ Public Class Items_Search
         End If
     End Sub
 
+    Private Sub Items_Search_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If e.CloseReason = CloseReason.UserClosing Then
+            e.Cancel = True
+            Me.Hide()
+        End If
+    End Sub
 End Class
 
 

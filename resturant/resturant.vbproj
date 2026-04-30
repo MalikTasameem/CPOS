@@ -298,6 +298,12 @@
     <Compile Include="Forms\Change_IM_Details.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FrmAccountingPostingMonitor.Designer.vb">
+      <DependentUpon>FrmAccountingPostingMonitor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmAccountingPostingMonitor.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Frm\Frm_manuel_IM_card.designer.vb">
       <DependentUpon>Frm_manuel_IM_card.vb</DependentUpon>
     </Compile>
@@ -513,6 +519,12 @@
       <DependentUpon>Stores_Trans_IM_card.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Stores\Stores_Trans_IM_card.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Sys_Options\FrmAccountingPostingSettings.Designer.vb">
+      <DependentUpon>FrmAccountingPostingSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Sys_Options\FrmAccountingPostingSettings.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Sys_Options\ItemsMenu.designer.vb">
@@ -1601,6 +1613,9 @@
     <EmbeddedResource Include="Forms\Change_IM_Details.resx">
       <DependentUpon>Change_IM_Details.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmAccountingPostingMonitor.resx">
+      <DependentUpon>FrmAccountingPostingMonitor.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm\Frm_manuel_IM_card.resx">
       <DependentUpon>Frm_manuel_IM_card.vb</DependentUpon>
     </EmbeddedResource>
@@ -1705,6 +1720,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Stores\Stores_Trans_IM_card.resx">
       <DependentUpon>Stores_Trans_IM_card.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Sys_Options\FrmAccountingPostingSettings.resx">
+      <DependentUpon>FrmAccountingPostingSettings.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sys_Options\ItemsMenu.resx">
       <DependentUpon>ItemsMenu.vb</DependentUpon>

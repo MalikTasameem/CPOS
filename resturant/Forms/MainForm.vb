@@ -2739,12 +2739,6 @@ Public Class MainForm
         F.ShowDialog()
     End Sub
 
-    Private Sub شاشةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles شاشةالحساباتToolStripMenuItem.Click
-        Me.Cursor = Cursors.AppStarting
-        F_Balances = New Balances
-        F_Balances.Show()
-        Me.Cursor = Cursors.Default
-    End Sub
 
     Private Sub سحــبToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles سحــبToolStripMenuItem.Click
         F_Tr_Deposit_Withdraw = New Tr_Deposit_Withdraw
@@ -2983,5 +2977,21 @@ Public Class MainForm
             Case Else
                 MsgBox("هذا الإجراء غير مبرمج بعد: " & ActionKey, MsgBoxStyle.Information)
         End Select
+    End Sub
+
+    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
+
+    End Sub
+
+    Private Sub شاشةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles شاشةالحساباتToolStripMenuItem.Click
+        Me.Cursor = Cursors.AppStarting
+        F_Balances = New Balances
+        F_Balances.Show()
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ترحيلمحاسبيToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ترحيلمحاسبيToolStripMenuItem.Click
+        Dim frm As New FrmAccountingPostingMonitor(MY_Settings.SqlConStr, USER_ID)
+        frm.ShowDialog()
     End Sub
 End Class

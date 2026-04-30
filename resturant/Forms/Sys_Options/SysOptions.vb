@@ -213,6 +213,11 @@ Public Class SysOptions
         F_STORES.ShowDialog()
     End Sub
 
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim frm As New FrmAccountingPostingSettings(MY_Settings.SqlConStr, USER_ID)
+        frm.ShowDialog()
+    End Sub
+
     Private Sub Tree_AG_Button_Click(sender As Object, e As EventArgs) Handles Tree_AG_Button.Click
         Dim f As New Agent_Balance_For_Tree
         f.ShowDialog()

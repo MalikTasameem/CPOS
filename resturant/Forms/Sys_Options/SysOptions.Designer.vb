@@ -41,6 +41,7 @@ Partial Class SysOptions
         Me.Shurtcut_Btn = New System.Windows.Forms.Button()
         Me.TableButton = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.TitleBar_Panel.SuspendLayout()
         Me.F_Panel.SuspendLayout()
         Me.SuspendLayout()
@@ -102,6 +103,7 @@ Partial Class SysOptions
         '
         'F_Panel
         '
+        Me.F_Panel.Controls.Add(Me.Button2)
         Me.F_Panel.Controls.Add(Me.Button12)
         Me.F_Panel.Controls.Add(Me.Button13)
         Me.F_Panel.Controls.Add(Me.Button14)
@@ -210,7 +212,7 @@ Partial Class SysOptions
         Me.Tree_AG_Button.Name = "Tree_AG_Button"
         Me.Tree_AG_Button.Size = New System.Drawing.Size(183, 79)
         Me.Tree_AG_Button.TabIndex = 6
-        Me.Tree_AG_Button.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "أرصدة العملاء"
+        Me.Tree_AG_Button.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ربط حسابات المدخلة"
         '
         'ST_Button
         '
@@ -356,6 +358,18 @@ Partial Class SysOptions
         Me.Button1.TabIndex = 18
         Me.Button1.Text = "💳" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "حسابات الدفع الافتراضية"
         '
+        'Button2
+        '
+        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button2.FlatAppearance.BorderSize = 0
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Button2.Location = New System.Drawing.Point(40, 424)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(183, 79)
+        Me.Button2.TabIndex = 19
+        Me.Button2.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & "ربط الحسابات العامة"
+        '
         'SysOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -400,4 +414,5 @@ Partial Class SysOptions
     Friend WithEvents TableButton As System.Windows.Forms.Button
     Friend WithEvents Pch_Exp_Btn As System.Windows.Forms.Button
     Friend WithEvents Network_Wacher_btn As System.Windows.Forms.Button
+    Friend WithEvents Button2 As Button
 End Class

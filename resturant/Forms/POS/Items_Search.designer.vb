@@ -46,8 +46,8 @@ Partial Class Items_Search
         Me.Price_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ADD_NewGM_Btn = New System.Windows.Forms.Button()
         Me.kbPanel = New System.Windows.Forms.Panel()
-        Me.KeyboardBtn = New System.Windows.Forms.Button()
         Me.KB = New resturant.OnKeyBoard()
+        Me.KeyboardBtn = New System.Windows.Forms.Button()
         CType(Me.IMDataGridViewX, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.kbPanel.SuspendLayout()
         Me.SuspendLayout()
@@ -326,6 +326,16 @@ Partial Class Items_Search
         Me.kbPanel.Size = New System.Drawing.Size(999, 267)
         Me.kbPanel.TabIndex = 21
         '
+        'KB
+        '
+        Me.KB.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.KB.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.KB.Location = New System.Drawing.Point(0, 0)
+        Me.KB.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.KB.Name = "KB"
+        Me.KB.Size = New System.Drawing.Size(999, 267)
+        Me.KB.TabIndex = 0
+        '
         'KeyboardBtn
         '
         Me.KeyboardBtn.BackColor = System.Drawing.Color.White
@@ -341,16 +351,6 @@ Partial Class Items_Search
         Me.KeyboardBtn.TabIndex = 22
         Me.KeyboardBtn.Text = "⌨ لوحة المفاتيح"
         Me.KeyboardBtn.UseVisualStyleBackColor = False
-        '
-        'KB
-        '
-        Me.KB.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.KB.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.KB.Location = New System.Drawing.Point(0, 0)
-        Me.KB.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.KB.Name = "KB"
-        Me.KB.Size = New System.Drawing.Size(999, 267)
-        Me.KB.TabIndex = 0
         '
         'Items_Search
         '

@@ -3,7 +3,8 @@
 Public Class AgentsMenu
     Dim rs As New Resizer
     Public AG_ID As Integer = 0
-    Dim IM_Dt As New DataTable
+    Public AG_NAME As Integer = 0
+    'Dim IM_Dt As New DataTable
 
     Private Sub AgentsMenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
@@ -120,6 +121,7 @@ Public Class AgentsMenu
 
     Private Sub Select_AG_btn_Click(sender As Object, e As EventArgs) Handles Select_AG_btn.Click
         AG_ID = AG_Cm.TXT_ID.Text
+        AG_NAME = AG_Cm.Textt
 
         If U_AG_Skip_Max = False Then
             If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
