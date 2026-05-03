@@ -437,7 +437,7 @@ Partial Class Invoice_IM_card
         Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(62, 7)
+        Me.Label15.Location = New System.Drawing.Point(63, 8)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(55, 20)
         Me.Label15.TabIndex = 604
@@ -449,13 +449,13 @@ Partial Class Invoice_IM_card
         Me.QtyTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 14.75!)
+        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 13.75!)
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(2, 2)
+        Me.QtyTextBox.Location = New System.Drawing.Point(2, 3)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.QtyTextBox.Size = New System.Drawing.Size(58, 30)
+        Me.QtyTextBox.Size = New System.Drawing.Size(58, 29)
         Me.QtyTextBox.TabIndex = 1001
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -822,7 +822,7 @@ Partial Class Invoice_IM_card
         Me.Confirm_ADD_bercent.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Confirm_ADD_bercent.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Confirm_ADD_bercent.Image = Global.resturant.My.Resources.Resources.if_ok_173061
-        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(3, 203)
+        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(3, 201)
         Me.Confirm_ADD_bercent.Name = "Confirm_ADD_bercent"
         Me.Confirm_ADD_bercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Confirm_ADD_bercent.Size = New System.Drawing.Size(41, 26)
@@ -917,7 +917,7 @@ Partial Class Invoice_IM_card
         Me.ADD_New_IM_btn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
         Me.ADD_New_IM_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.ADD_New_IM_btn.Image = Global.resturant.My.Resources.Resources.if_Add_27831
-        Me.ADD_New_IM_btn.Location = New System.Drawing.Point(907, 43)
+        Me.ADD_New_IM_btn.Location = New System.Drawing.Point(1003, 44)
         Me.ADD_New_IM_btn.Name = "ADD_New_IM_btn"
         Me.ADD_New_IM_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ADD_New_IM_btn.Size = New System.Drawing.Size(37, 32)
@@ -952,7 +952,7 @@ Partial Class Invoice_IM_card
         Me.bercent_ADD_txt.Size = New System.Drawing.Size(75, 26)
         Me.bercent_ADD_txt.TabIndex = 1039
         '
-        'Pch_IM_card
+        'Invoice_IM_card
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -989,7 +989,7 @@ Partial Class Invoice_IM_card
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Pch_IM_card"
+        Me.Name = "Invoice_IM_card"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "الصنف"

@@ -386,6 +386,12 @@
     <Compile Include="Forms\POS\SaleDraft\DraftCalculator.vb" />
     <Compile Include="Forms\POS\SaleDraft\DraftItemService.vb" />
     <Compile Include="Forms\POS\SaleDraft\DraftSalesManager.vb" />
+    <Compile Include="Forms\POS\SaleDraft\Frm_Select_Unit.Designer.vb">
+      <DependentUpon>Frm_Select_Unit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\POS\SaleDraft\Frm_Select_Unit.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\POS\SaleDraft\SaleDraftHeader.vb" />
     <Compile Include="Forms\POS\SaleDraft\SaleDraftItem.vb" />
     <Compile Include="Forms\POS\SaleDraft\Sales_Drafts_Menu.Designer.vb">
@@ -1654,6 +1660,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\POS\PAY_BY_NFC.resx">
       <DependentUpon>PAY_BY_NFC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\POS\SaleDraft\Frm_Select_Unit.resx">
+      <DependentUpon>Frm_Select_Unit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\POS\SaleDraft\Sales_Drafts_Menu.resx">
       <DependentUpon>Sales_Drafts_Menu.vb</DependentUpon>

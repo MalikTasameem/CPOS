@@ -835,7 +835,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public Sub ResetNewBill()
         Dim Insert_New As Integer = 0
         If dgvSales.Rows.Count > 0 And isDepended = False Then Insert_New = 1
-        Load_PauseBills()
+        'Load_PauseBills()
         ClearFields()
         'Call_New_Bill(Insert_New)
         NewStateBt()
@@ -2301,40 +2301,40 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub Load_PauseBills()
-        Dim C As New C
-        With (C.Com)
-            .Connection = C.Con
-            .CommandText = "SB_PauseBill_SelectList_2"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@Pr_ID", Pr_ID)
-        End With
-        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-        C.Da.Fill(C.Dt)
-        Me.PauseCmb.DataSource = C.Dt
-        Me.PauseCmb.ValueMember = "T_ID"
-        Me.PauseCmb.DisplayMember = "Bill_Num"
-        PauseCmb.SelectedIndex = -1
+    'Private Sub Load_PauseBills()
+    '    Dim C As New C
+    '    With (C.Com)
+    '        .Connection = C.Con
+    '        .CommandText = "SB_PauseBill_SelectList_2"
+    '        .CommandType = CommandType.StoredProcedure
+    '        .Parameters.AddWithValue("@Pr_ID", Pr_ID)
+    '    End With
+    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
+    '    C.Da.Fill(C.Dt)
+    '    Me.PauseCmb.DataSource = C.Dt
+    '    Me.PauseCmb.ValueMember = "T_ID"
+    '    Me.PauseCmb.DisplayMember = "Bill_Num"
+    '    PauseCmb.SelectedIndex = -1
 
-        If C.Dt.Rows.Count > 0 Then
-            MoveToBill_Btn.Enabled = True
-        Else
-            MoveToBill_Btn.Enabled = False
-        End If
+    '    If C.Dt.Rows.Count > 0 Then
+    '        MoveToBill_Btn.Enabled = True
+    '    Else
+    '        MoveToBill_Btn.Enabled = False
+    '    End If
 
-    End Sub
+    'End Sub
 
-    Private Sub MoveToBill_Btn_Click(sender As Object, e As EventArgs) Handles MoveToBill_Btn.Click
-        If PauseCmb.SelectedIndex > -1 Then
-            Me.Enabled = False
-            ClearFields()
-            T_ID = PauseCmb.SelectedValue
-            SB_Contents_SELECT_Bill()
-            'Fill_Bill_Info()
-            SelectStateBt()
-            Me.Enabled = True
-        End If
-    End Sub
+    'Private Sub MoveToBill_Btn_Click(sender As Object, e As EventArgs)
+    '    If PauseCmb.SelectedIndex > -1 Then
+    '        Me.Enabled = False
+    '        ClearFields()
+    '        T_ID = PauseCmb.SelectedValue
+    '        SB_Contents_SELECT_Bill()
+    '        'Fill_Bill_Info()
+    '        SelectStateBt()
+    '        Me.Enabled = True
+    '    End If
+    'End Sub
 
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
         If T_ID > 0 Then
@@ -2647,4 +2647,75 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Dim Def As Double = -1
         ChangeQtyByInput(Def, False)
     End Sub
+
+    Private Sub Units_btn_Click(sender As Object, e As EventArgs) Handles Units_btn.Click
+
+        Dim currentIM_ID As Integer = CInt(dgvSales.CurrentRow.Cells("Bill_IMID_CL").Value)
+        Dim currentU_ID As Integer = CInt(dgvSales.CurrentRow.Cells("U_ID").Value)
+
+        Using frm As New Frm_Select_Unit(IM_Units_Dt, currentIM_ID, currentU_ID)
+
+            If frm.ShowDialog() = DialogResult.OK Then
+
+                Dim r As DataRow = frm.SelectedRow
+
+                ChangeSelectedItemUnit(
+    newUnitId:=r("U_ID"),
+    newUnitName:=r("U_Name"),
+    newBarcode:=r("Barcode"),
+    newUCargo:=r("U_Cargo"),
+    newPrice:=r("Price")
+)
+
+                'dgvSales.CurrentRow.Cells("U_ID").Value = r("U_ID")
+                'dgvSales.CurrentRow.Cells("U_Name").Value = r("U_Name")
+                'dgvSales.CurrentRow.Cells("U_Cargo").Value = r("U_Cargo")
+                'dgvSales.CurrentRow.Cells("Price").Value = r("Price")
+                'dgvSales.CurrentRow.Cells("Barcode").Value = r("Barcode")
+
+            End If
+
+        End Using
+    End Sub
+
+    Private Sub ChangeSelectedItemUnit(newUnitId As Long,
+                                   newUnitName As String,
+                                   newBarcode As String,
+                                   newUCargo As Double,
+                                   newPrice As Decimal)
+
+        If CurrentDraft Is Nothing Then Exit Sub
+        If dgvSales.CurrentRow Is Nothing Then Exit Sub
+
+        Dim draftLineId As String = dgvSales.CurrentRow.Cells("DraftLineId").Value.ToString()
+
+        Dim item As SaleDraftItem =
+            CurrentDraft.Items.FirstOrDefault(Function(x) x.DraftLineId = draftLineId)
+
+        If item Is Nothing Then Exit Sub
+
+        ' تعديل بيانات الوحدة
+        item.U_ID = newUnitId
+        item.UnitName = newUnitName
+        item.Barcode = newBarcode
+        item.U_Cargo = newUCargo
+        item.Price = newPrice
+
+        ' إعادة حساب السطر
+        item.T_Price = item.QTY * item.Price
+        item.ST_QTY = CDec(item.QTY * CDec(item.U_Cargo))
+
+        ' إعادة حساب الفاتورة كاملة
+        DraftCalculator.RecalculateDraft(CurrentDraft)
+
+        ' حفظ المسودة
+        DraftManager.SaveDraft(CurrentDraft)
+
+        ' تحديث الشاشة
+        LoadDraftToGrid()
+        UpdateDraftTotalsOnScreen()
+
+    End Sub
+
+
 End Class
