@@ -2,7 +2,7 @@
 Imports System.Windows.Forms
 
 Public Class Pch : Inherits System.Windows.Forms.Form
-    Dim rs As New Resizer
+    'Dim rs As New Resizer
     Dim FormState As String = ""
     Dim DefaultFormState As String = ""
     Dim EditState As String = ""
@@ -149,7 +149,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
 
 
             If IM_btn IsNot Nothing Then IM_btn.Tag = "GENERAL"
-            If Show_IM_btn2 IsNot Nothing Then Show_IM_btn2.Tag = "GENERAL"
+            ' If Show_IM_btn2 IsNot Nothing Then Show_IM_btn2.Tag = "GENERAL"
             If DGV_Control_btn IsNot Nothing Then DGV_Control_btn.Tag = "GENERAL"
             If Up_Bill_btn IsNot Nothing Then Up_Bill_btn.Tag = "GENERAL"
             If Down_Bill_btn IsNot Nothing Then Down_Bill_btn.Tag = "GENERAL"
@@ -174,6 +174,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Disable_Fields()
             Fetch_Currency()
             Get_Last_T_ID()
+            AG_Cm.SQL_SearchField_WHERE = " AND Type_ID IN ('" & Suply_Type_ID & "','" & General_AG_Type_ID & "')"
 
             If U_Cancel_Pch = False Then Delete_butt.Visible = False
             If isShowing_Trans = True Then
@@ -240,12 +241,12 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         If BillNumPanel IsNot Nothing Then BillNumPanel.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         If Panel3 IsNot Nothing Then Panel3.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' التاريخ والرقم اليومي
         If Panel2 IsNot Nothing Then Panel2.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        If AG_Panel IsNot Nothing Then AG_Panel.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        '  If AG_Panel IsNot Nothing Then AG_Panel.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         If Panel1 IsNot Nothing Then Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         If BillNumPanel IsNot Nothing Then BillNumPanel.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' الفواتير المعلقة
 
         ' بيانات المورد ورصيد الحساب (هذي اللي صايرة فيها السلاطة في الصورة)
-        If AG_SH_txt IsNot Nothing Then AG_SH_txt.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' كومبو المورد الفعلي
+        '  If AG_SH_txt IsNot Nothing Then AG_SH_txt.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' كومبو المورد الفعلي
         If Label25 IsNot Nothing Then Label25.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' رصيد الحساب
         If Label24 IsNot Nothing Then Label24.Anchor = AnchorStyles.Top Or AnchorStyles.Right ' كلمة "المورد :"
 
@@ -257,7 +258,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         ' بيانات إضافية (أعلى اليسار)
         '  If Panel1 IsNot Nothing Then Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left
         ' If Panel4 IsNot Nothing Then Panel4.Anchor = AnchorStyles.Top Or AnchorStyles.Left
-        If Label1 IsNot Nothing Then Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        'If Label1 IsNot Nothing Then Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         If DeletedBillLabel IsNot Nothing Then DeletedBillLabel.Anchor = AnchorStyles.Top Or AnchorStyles.Left
     End Sub
     'Public Sub UpdatePchStatusUI()
@@ -373,8 +374,9 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Enable_Fields()
-        AG_SH_txt.Enabled = True
-        Show_IM_btn2.Enabled = True
+        ' AG_SH_txt.Enabled = True
+        '  Show_IM_btn2.Enabled = True
+        AG_Cm.Enabled = True
         EX_ReferNumTextBox.Enabled = True
         DateTimeEx.Enabled = True
         Notes_txt.Enabled = True
@@ -389,8 +391,9 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Disable_Fields()
-        AG_SH_txt.Enabled = False
-        Show_IM_btn2.Enabled = False
+        'AG_SH_txt.Enabled = False
+        'Show_IM_btn2.Enabled = False
+        AG_Cm.Enabled = False
         EX_ReferNumTextBox.Enabled = False
         DateTimeEx.Enabled = False
         Notes_txt.Enabled = False
@@ -418,16 +421,15 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Public Sub Switch_Dependcy(F As Boolean)
         If F = True Then
             isDepended = 1
-            'AGMetroGrid.BackgroundColor = Color.LightGreen
-            'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
-            AG_SH_txt.Enabled = False
+
+            AG_Cm.Enabled = False
+            'AG_SH_txt.Enabled = False
             DeliveryingButton.Enabled = True
             Save_butt.Enabled = False
         Else
             isDepended = 0
-            'AGMetroGrid.BackgroundColor = Color.LightYellow
-            'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
-            AG_SH_txt.Enabled = True
+            AG_Cm.Enabled = True
+            'AG_SH_txt.Enabled = True
             DeliveryingButton.Enabled = False
             Save_butt.Enabled = True
         End If
@@ -439,8 +441,9 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Edit_butt.Enabled = False
         Delete_butt.Enabled = False
         Me.Text = "فاتورة مشتريات جديدة"
-        AG_Grid.Visible = False
-        AG_SH_txt.Enabled = True
+        'AG_Grid.Visible = False
+        'AG_SH_txt.Enabled = True
+        AG_Cm.Enabled = True
     End Sub
 
     Private Sub DeleteOrUpdateStateBt()
@@ -519,7 +522,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Me.Text = FormState
         On_Update = False
         '  Edit_butt.BackColor = Color.WhiteSmoke
-        AG_SH_txt.Clear()
+        'AG_SH_txt.Clear()
+        AG_Cm.Textt = ""
         AG_Balance = 0
         Discount_txt.Clear()
         Total_txt.Clear()
@@ -549,13 +553,14 @@ Public Class Pch : Inherits System.Windows.Forms.Form
 
     Private Sub Save_butt_Click(sender As Object, e As EventArgs) Handles Save_butt.Click
         If AGMetroGrid.Rows.Count > 0 Then
-            If String.IsNullOrWhiteSpace(AG_SH_txt.Text) = False And AG_ID = 0 Then
+            If AG_ID = 0 Then 'String.IsNullOrWhiteSpace(AG_SH_txt.Text) = False And
                 MsgBox("حدد إسم العميل", MsgBoxStyle.Critical, "خطأ في الإعتماد")
-                AG_SH_txt.Select()
+                'AG_SH_txt.Select()
+                AG_Cm.Select()
             Else
-                If String.IsNullOrWhiteSpace(AG_SH_txt.Text) Then
-                    Fetch_ItemToList2()
-                End If
+                'If String.IsNullOrWhiteSpace(AG_SH_txt.Text) Then
+                '    Fetch_ItemToList2()
+                'End If
                 Beep()
                 If MessageBox.Show(" حفظ الفاتــورة ؟", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign) = Windows.Forms.DialogResult.OK Then
                     Save_AG_Name(T_ID, AG_ID, On_Update)
@@ -590,8 +595,9 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                         DateTimeEx.Enabled = True
                         EX_ReferNumTextBox.Enabled = True
                         DiscountPanel.Enabled = True
-                        AG_SH_txt.Enabled = True
-                        Show_IM_btn2.Enabled = True
+                        ' AG_SH_txt.Enabled = True
+                        'Show_IM_btn2.Enabled = True
+                        AG_Cm.Enabled = True
                         Aggregate_Btn.Enabled = True
                         If Cr_CM.SelectedValue > 1 And Cr_Equal_TXT.Visible = True Then Cr_Equal_TXT.Enabled = True
                     End If
@@ -603,12 +609,12 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                     Prepare_Discount()
                     On_Update = False
                     Edit_butt.Text = EditState
-                    '   Edit_butt.BackColor = Color.WhiteSmoke
                     SelectStateBt()
                     Notes_txt.Enabled = False
                     DiscountPanel.Enabled = False
-                    AG_SH_txt.Enabled = False
-                    Show_IM_btn2.Enabled = False
+                    'AG_SH_txt.Enabled = False
+                    'Show_IM_btn2.Enabled = False
+                    AG_Cm.Enabled = False
                     Select_Pch_Receipt(T_ID)
                 End If
             Else
@@ -618,8 +624,6 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             If Edit_butt.Text = EditState Then
                 Edit_butt.Text = "ح التعديل"
                 Enable_Fields()
-                'AGMetroGrid.BackgroundColor = Color.LightYellow
-                'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
             Else
                 Save_About(T_ID, Notes_txt.Text)
                 Save_Date(T_ID, DateTimeEx)
@@ -680,9 +684,9 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-    Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-        rs.ResizeAllControls(Me)
-    End Sub
+    'Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+    '    rs.ResizeAllControls(Me)
+    'End Sub
 
     Private Sub Tr_Name_txtb_Enter(sender As Object, e As EventArgs)
         Arabic_Lang()
@@ -900,113 +904,112 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         sqlComm.CommandText = "Agents_insert"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@AG_ID", 0)
-        sqlComm.Parameters.AddWithValue("@Ag_name", AG_SH_txt.Text)
+        sqlComm.Parameters.AddWithValue("@Ag_name", AG_Cm.Textt)
         sqlComm.Parameters.AddWithValue("@Barcode", "")
         sqlComm.Parameters.AddWithValue("@Type_ID", Suply_Type_ID)
         sqlComm.Parameters("@AG_ID").Direction = ParameterDirection.Output
         sqlComm.Parameters.AddWithValue("@E_mail", "")
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تمت إضافة العميــل", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" (من شاشة المشتريات) الزبون:" & AG_SH_txt.Text, 0, 27, 1)
+            Network_Edit_Tracker_insert(" (من شاشة المشتريات) الزبون:" & AG_Cm.Textt, 0, 27, 1)
             New_AG_ID = sqlComm.Parameters("@AG_ID").Value.ToString()
-            Load_AG()
+            'Load_AG()
         End If
         Return New_AG_ID
     End Function
 
-    Public Sub Load_AG()
-        Dim c As New C
-        Try
-            AG_Dt.Clear()
-            Dim s As String
-            s = "select AG_ID,Ag_name,isnull(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Ag_name Like '%" & AG_SH_txt.Text & "%' AND Type_ID IN ('" & Suply_Type_ID & "','" & General_AG_Type_ID & "')"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(AG_Dt)
-            AG_Grid.DataSource = AG_Dt
-            If AG_Dt.Rows.Count > 0 Then
-                AG_Grid.Visible = True
-                AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
-            Else
-                AG_Grid.Visible = False
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Public Sub Load_AG()
+    '    Dim c As New C
+    '    Try
+    '        AG_Dt.Clear()
+    '        Dim s As String
+    '        s = "select AG_ID,Ag_name,isnull(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Ag_name Like '%" & AG_SH_txt.Text & "%' AND Type_ID IN ('" & Suply_Type_ID & "','" & General_AG_Type_ID & "')"
+    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+    '        c.Da.Fill(AG_Dt)
+    '        AG_Grid.DataSource = AG_Dt
+    '        If AG_Dt.Rows.Count > 0 Then
+    '            AG_Grid.Visible = True
+    '            AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
+    '        Else
+    '            AG_Grid.Visible = False
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
-    Public Sub GET_AG()
-        Dim c As New C
-        Try
-            AG_Dt.Clear()
-            Dim s As String
-            s = "select Ag_name from Agents WHERE Ag_ID = '" & AG_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                AG_SH_txt.Text = c.Dr("Ag_name")
-                '    AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-                AG_Grid.Visible = False
-                Fetch_AG_Currency()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Public Sub GET_AG()
+    '    Dim c As New C
+    '    Try
+    '        AG_Dt.Clear()
+    '        Dim s As String
+    '        s = "select Ag_name from Agents WHERE Ag_ID = '" & AG_ID & "'"
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            AG_SH_txt.Text = c.Dr("Ag_name")
+    '            AG_Grid.Visible = False
+    '            Fetch_AG_Currency()
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
-    Private Sub AG_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles AG_SH_txt.KeyDown
-        If e.KeyCode = Keys.Down Then AG_Grid.Select()
-        If e.KeyCode = Keys.Delete Then AG_SH_txt.Clear()
-        If e.KeyCode = Keys.Return Then If AG_Grid.Visible = True Then Fetch_ItemToList2()
-    End Sub
+    'Private Sub AG_SH_txt_KeyDown(sender As Object, e As KeyEventArgs)
+    '    If e.KeyCode = Keys.Down Then AG_Grid.Select()
+    '    If e.KeyCode = Keys.Delete Then AG_SH_txt.Clear()
+    '    If e.KeyCode = Keys.Return Then If AG_Grid.Visible = True Then Fetch_ItemToList2()
+    'End Sub
 
-    Private Sub AG_SH_txt_Enter(sender As Object, e As EventArgs) Handles AG_SH_txt.Enter
-        Set_Ar_Language()
-    End Sub
+    'Private Sub AG_SH_txt_Enter(sender As Object, e As EventArgs)
+    '    Set_Ar_Language()
+    'End Sub
 
-    Private Sub AG_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles AG_SH_txt.TextChanged
-        If AG_SH_txt.Text.Count > 0 Then
-            Load_AG()
-        Else
-            AG_Grid.Visible = False
-            AG_ID = Default_AG_ID
-            Save_AG_Name(T_ID, AG_ID, On_Update)
-            Fetch_AG_Currency()
-        End If
-        Check_AG_Pied()
-    End Sub
+    'Private Sub AG_SH_txt_TextChanged(sender As Object, e As EventArgs)
+    '    If AG_SH_txt.Text.Count > 0 Then
+    '        Load_AG()
+    '    Else
+    '        AG_Grid.Visible = False
+    '        AG_ID = Default_AG_ID
+    '        Save_AG_Name(T_ID, AG_ID, On_Update)
+    '        Fetch_AG_Currency()
+    '    End If
+    '    Check_AG_Pied()
+    'End Sub
 
-    Private Sub Check_AG_Pied()
-        If AG_ID = Default_AG_ID Then
-            '  AG_SH_txt.BackColor = Color.LightGray
-        Else
-            '  AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-        End If
-    End Sub
+    'Private Sub Check_AG_Pied()
+    '    If AG_ID = Default_AG_ID Then
+    '        '  AG_SH_txt.BackColor = Color.LightGray
+    '    Else
+    '        '  AG_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '    End If
+    'End Sub
 
-    Private Sub AG_Grid_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles AG_Grid.CellClick
-        Fetch_ItemToList2()
-    End Sub
+    'Private Sub AG_Grid_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+    '    Fetch_ItemToList2()
+    'End Sub
 
-    Private Sub AG_Grid_KeyDown(sender As Object, e As KeyEventArgs) Handles AG_Grid.KeyDown
-        If e.KeyCode = Keys.Return Then Fetch_ItemToList2()
-        If e.KeyCode = Keys.Up Then If AG_Grid.CurrentRow.Index = 0 Then AG_SH_txt.Select()
-    End Sub
+    'Private Sub AG_Grid_KeyDown(sender As Object, e As KeyEventArgs)
+    '    If e.KeyCode = Keys.Return Then Fetch_ItemToList2()
+    '    If e.KeyCode = Keys.Up Then If AG_Grid.CurrentRow.Index = 0 Then AG_SH_txt.Select()
+    'End Sub
 
-    Public Sub Fetch_ItemToList2()
-        If AG_Grid.Rows.Count > 0 Then
-            AG_ID = AG_Grid.CurrentRow.Cells(0).Value
-            AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
-            AG_Balance = AG_Grid.CurrentRow.Cells(2).Value
-            ' AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-            AG_Grid.Visible = False
-            Save_AG_Name(T_ID, AG_ID, On_Update)
-            Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_SH_txt.Text, Bill_ID_Txt.Text, 7, 3)
-            Fetch_AG_Currency()
-            AG_Balance_Update_Equal_Value()
-        End If
-    End Sub
+    'Public Sub Fetch_ItemToList2()
+    '    If AG_Grid.Rows.Count > 0 Then
+    '        AG_ID = AG_Grid.CurrentRow.Cells(0).Value
+    '        AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
+    '        AG_Balance = AG_Grid.CurrentRow.Cells(2).Value
+    '        ' AG_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '        AG_Grid.Visible = False
+    '        Save_AG_Name(T_ID, AG_ID, On_Update)
+    '        Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_SH_txt.Text, Bill_ID_Txt.Text, 7, 3)
+    '        Fetch_AG_Currency()
+    '        AG_Balance_Update_Equal_Value()
+    '    End If
+    'End Sub
 
     Public Sub Fetch_AG_Currency()
         Dim C As New C
@@ -1035,28 +1038,28 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         C.Con.Close()
     End Sub
 
-    Private Sub Show_IM_btn2_Click(sender As Object, e As EventArgs) Handles Show_IM_btn2.Click
-        If AG_Grid.Visible = True Then
-            AG_Grid.Visible = False
-        Else
-            Fill_All_AG()
-            AG_Grid.Visible = True
-            AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
-        End If
-    End Sub
+    'Private Sub Show_IM_btn2_Click(sender As Object, e As EventArgs)
+    '    If AG_Grid.Visible = True Then
+    '        AG_Grid.Visible = False
+    '    Else
+    '        Fill_All_AG()
+    '        AG_Grid.Visible = True
+    '        AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
+    '    End If
+    'End Sub
 
-    Private Sub Fill_All_AG()
-        Try
-            Dim C As New C
-            AG_Dt.Clear()
-            Dim s As String = "SELECT top 100 AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Type_ID IN ('" & Suply_Type_ID & "','" & General_AG_Type_ID & "') Order by Ag_name ASC"
-            C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
-            C.Da.Fill(AG_Dt)
-            AG_Grid.DataSource = AG_Dt
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    'Private Sub Fill_All_AG()
+    '    Try
+    '        Dim C As New C
+    '        AG_Dt.Clear()
+    '        Dim s As String = "SELECT top 100 AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Type_ID IN ('" & Suply_Type_ID & "','" & General_AG_Type_ID & "') Order by Ag_name ASC"
+    '        C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
+    '        C.Da.Fill(AG_Dt)
+    '        AG_Grid.DataSource = AG_Dt
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
     Private Sub MakeBarcode_btn_Click(sender As Object, e As EventArgs) Handles MakeBarcode_btn.Click
         printbarcode.Auto_Print = True
@@ -1151,7 +1154,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub عرضرصيدالعميلToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles عرضرصيدالعميلToolStripMenuItem.Click
-        MsgBox(Show_AG_T_Balance(AG_ID).ToString(), MsgBoxStyle.Information, "رصيد العميل : " & AG_SH_txt.Text)
+        MsgBox(Show_AG_T_Balance(AG_ID).ToString(), MsgBoxStyle.Information, "رصيد العميل : " & AG_Cm.Textt)
     End Sub
 
     Private Sub كشفحسابالعميلToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles كشفحسابالعميلToolStripMenuItem.Click
@@ -1185,14 +1188,15 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub ADD_Fast_AG()
-        If AG_ID <> Default_AG_ID Or GET_AG_NO_SPACES(AG_SH_txt.Text) = True Then
+        If GET_AG_NO_SPACES(AG_Cm.Textt) = True Then 'AG_Cm.TXT_ID.Text <> 0 Or
             MsgBox("هذا العميل موجود بالفعل", MsgBoxStyle.Critical, "إضافة عميل")
-        ElseIf String.IsNullOrWhiteSpace(AG_SH_txt.Text) Then
+        ElseIf String.IsNullOrWhiteSpace(AG_Cm.Textt) Then
             MsgBox("أدخل اسم العميل الجديد", MsgBoxStyle.Exclamation)
-            AG_SH_txt.Select()
+            AG_Cm.Focus()
         Else
             Beep()
-            If MessageBox.Show(" إضافة " + AG_SH_txt.Text + " إلى قائمة العملاء ", " إضافة العميل ", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+            If MessageBox.Show(" إضافة " + AG_Cm.Textt + " إلى قائمة العملاء ", " إضافة العميل ", MessageBoxButtons.YesNo,
+                               MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
                 Insert_Fast_AG()
             End If
         End If
@@ -1293,16 +1297,16 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         If SQL_SP_EXEC(sqlComm) = True Then Pch_Contents_SELECT_Bill()
     End Sub
 
-    Private Sub AG_Grid_VisibleChanged(sender As Object, e As EventArgs) Handles AG_Grid.VisibleChanged
-        If AG_Grid.Visible = True Then
-            Me.Controls.Add(AG_Grid)
-            AG_Grid.BringToFront()
-            AG_Grid.Location = New Point(AG_Panel.Location.X, AG_Panel.Location.Y + AG_Panel.Size.Height + 1)
-        Else
-            AG_Panel.Controls.Add(AG_Grid)
-            AG_Grid.Location = New Point(AG_SH_txt.Location.X, AG_SH_txt.Location.Y + AG_SH_txt.Size.Height + 1)
-        End If
-    End Sub
+    'Private Sub AG_Grid_VisibleChanged(sender As Object, e As EventArgs)
+    '    If AG_Grid.Visible = True Then
+    '        Me.Controls.Add(AG_Grid)
+    '        AG_Grid.BringToFront()
+    '        AG_Grid.Location = New Point(AG_Panel.Location.X, AG_Panel.Location.Y + AG_Panel.Size.Height + 1)
+    '    Else
+    '        AG_Panel.Controls.Add(AG_Grid)
+    '        AG_Grid.Location = New Point(AG_SH_txt.Location.X, AG_SH_txt.Location.Y + AG_SH_txt.Size.Height + 1)
+    '    End If
+    'End Sub
 
     Public Sub IMTranPrintData()
         Try
@@ -1324,7 +1328,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 .rp.SetParameterValue(6, "فاتـــورة مشتريــات")
                 .rp.SetParameterValue(7, " العنوان : " + EX_ReferNumTextBox.Text)
                 .rp.SetParameterValue(8, " الرقم الألي : " + Bill_ID_Txt.Text)
-                .rp.SetParameterValue(9, " المـورد : " + AG_SH_txt.Text + vbNewLine)
+                .rp.SetParameterValue(9, " المـورد : " + AG_Cm.Textt + vbNewLine)
             End With
             Dim p As New print
             p.CrystalReportViewer1.ReportSource = pp.rp
@@ -1396,7 +1400,19 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
+    Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
+        If AG_Cm.TXT_ID.Text > 0 Then
+            'AG_ID = AG_Cm.TXT_ID.Text
+            'AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
+            'AG_Balance = AG_Grid.CurrentRow.Cells(2).Value
+            'AG_Grid.Visible = False
 
+            Save_AG_Name(T_ID, AG_ID, On_Update)
+            Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, Bill_ID_Txt.Text, 7, 3)
+            Fetch_AG_Currency()
+            AG_Balance_Update_Equal_Value()
+        End If
+    End Sub
 
     Private Sub تخفيضبنسبةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles تخفيضبنسبةToolStripMenuItem.Click
         Dim F_Percent_Disc As New Percent_Disc

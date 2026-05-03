@@ -1526,6 +1526,7 @@ Partial Class Sales
         Me.Panel4.Controls.Add(Me.OpenCahDR_Btn)
         Me.Panel4.Controls.Add(Me.DeliveryingButton)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
         Me.Panel4.Location = New System.Drawing.Point(842, 0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(325, 171)

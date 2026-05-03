@@ -75,9 +75,9 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.cmbPostingStatus = New System.Windows.Forms.ComboBox()
         Me.lblSearch = New System.Windows.Forms.Label()
-        Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.pnlActions = New System.Windows.Forms.Panel()
         Me.flowActions = New System.Windows.Forms.FlowLayoutPanel()
@@ -253,13 +253,6 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblSearch.Text = "بحث"
         Me.lblSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'txtSearch
-        '
-        Me.txtSearch.Location = New System.Drawing.Point(203, 47)
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(190, 22)
-        Me.txtSearch.TabIndex = 11
-        '
         'btnSearch
         '
         Me.btnSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
@@ -291,6 +284,13 @@ Partial Class FrmAccountingPostingMonitor
         Me.btnRefresh.TabIndex = 13
         Me.btnRefresh.Text = "تحديث"
         Me.btnRefresh.UseVisualStyleBackColor = False
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(203, 47)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(190, 22)
+        Me.txtSearch.TabIndex = 11
         '
         'lblTitle
         '

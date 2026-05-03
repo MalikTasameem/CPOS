@@ -32,10 +32,12 @@ Partial Class ADD_Pch_Exp
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Notes_cm = New System.Windows.Forms.ComboBox()
         Me.isWithBill_CB = New System.Windows.Forms.CheckBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'CD_Money_txt
         '
+        Me.CD_Money_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CD_Money_txt.ContextMenuStrip = Me.NoneContextMenuStrip1
         Me.CD_Money_txt.Font = New System.Drawing.Font("Stencil", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CD_Money_txt.Location = New System.Drawing.Point(89, 3)
@@ -81,14 +83,14 @@ Partial Class ADD_Pch_Exp
         Me.OrderDeliver_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.OrderDeliver_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.OrderDeliver_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.OrderDeliver_btn.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.OrderDeliver_btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.OrderDeliver_btn.ForeColor = System.Drawing.Color.Black
         Me.OrderDeliver_btn.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
         Me.OrderDeliver_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.OrderDeliver_btn.Location = New System.Drawing.Point(89, 116)
+        Me.OrderDeliver_btn.Location = New System.Drawing.Point(2, 212)
         Me.OrderDeliver_btn.Name = "OrderDeliver_btn"
         Me.OrderDeliver_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.OrderDeliver_btn.Size = New System.Drawing.Size(261, 45)
+        Me.OrderDeliver_btn.Size = New System.Drawing.Size(348, 45)
         Me.OrderDeliver_btn.TabIndex = 577
         Me.OrderDeliver_btn.Text = "حفـــظ"
         Me.OrderDeliver_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -96,6 +98,7 @@ Partial Class ADD_Pch_Exp
         '
         'TextBox1
         '
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox1.ContextMenuStrip = Me.NoneContextMenuStrip1
         Me.TextBox1.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.Location = New System.Drawing.Point(240, 3)
@@ -121,7 +124,7 @@ Partial Class ADD_Pch_Exp
         Me.Notes_cm.Location = New System.Drawing.Point(89, 37)
         Me.Notes_cm.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Notes_cm.Name = "Notes_cm"
-        Me.Notes_cm.Size = New System.Drawing.Size(149, 34)
+        Me.Notes_cm.Size = New System.Drawing.Size(252, 34)
         Me.Notes_cm.TabIndex = 579
         '
         'isWithBill_CB
@@ -142,11 +145,34 @@ Partial Class ADD_Pch_Exp
         Me.isWithBill_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.isWithBill_CB.UseVisualStyleBackColor = False
         '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.Black
+        Me.Button1.Image = Global.resturant.My.Resources.Resources.if_Add_27831
+        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Button1.Location = New System.Drawing.Point(2, 107)
+        Me.Button1.Name = "Button1"
+        Me.Button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Button1.Size = New System.Drawing.Size(348, 45)
+        Me.Button1.TabIndex = 581
+        Me.Button1.Text = "إضافة"
+        Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.UseVisualStyleBackColor = False
+        '
         'ADD_Pch_Exp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(353, 162)
+        Me.ClientSize = New System.Drawing.Size(353, 258)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.isWithBill_CB)
         Me.Controls.Add(Me.Notes_cm)
         Me.Controls.Add(Me.TextBox1)
@@ -177,4 +203,5 @@ Partial Class ADD_Pch_Exp
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents Notes_cm As System.Windows.Forms.ComboBox
     Friend WithEvents isWithBill_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents Button1 As Button
 End Class

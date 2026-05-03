@@ -750,7 +750,8 @@ Module FunModule
                         .Bill_ID_Txt.Text = S_Sub_Code & (C.Dr("Bill_ID")) ' - START_ID).ToString
 
                         .AG_ID = C.Dr("AG_ID")
-                        .GET_AG()
+                        .AG_Cm.Set_IM_By_ID(.AG_ID)
+                        '.GET_AG()
 
                         .DateTimeEx.Text = C.Dr("Date")
                         .Notes_txt.Text = C.Dr("About")
@@ -1683,7 +1684,7 @@ Module FunModule
             If c.Dr.HasRows Then
                 c.Dr.Read()
                 N = c.Dr("T_Balance")
-                Return N.ToString("N")
+                Return N.ToString("N3")
             End If
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -1703,7 +1704,7 @@ Module FunModule
             If c.Dr.HasRows Then
                 c.Dr.Read()
                 N = c.Dr("T_Balance")
-                Return N.ToString("N")
+                Return N.ToString("N3")
             End If
         Catch ex As Exception
             MsgBox(ex.Message)

@@ -22,10 +22,10 @@ Partial Class Sales_Fast_Draft
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales_Fast_Draft))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.MoveToBill_Btn = New System.Windows.Forms.Button()
         Me.DGV_Control_btn = New System.Windows.Forms.Button()
@@ -56,6 +56,25 @@ Partial Class Sales_Fast_Draft
         Me.PauseCmb = New System.Windows.Forms.ComboBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.dgvSales = New System.Windows.Forms.DataGridView()
+        Me.Bill_IMID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.is_Check_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Barcode_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Serial_Code_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.U_ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Date_ = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ST_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IMNUM_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Item_Name = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.D_Valid_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IMUnit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.QTY_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Price_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IM_Discount_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Total_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Notes_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IM_NOTE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.txtNotes = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -76,26 +95,10 @@ Partial Class Sales_Fast_Draft
         Me.Barcode_SH_txt = New System.Windows.Forms.TextBox()
         Me.Refresh_IM_Btn = New System.Windows.Forms.Button()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Bill_IMID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.is_Check_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Barcode_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Serial_Code_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.U_ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Date_ = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ST_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IMNUM_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Item_Name = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.D_Valid_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IMUnit_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.QTY_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Price_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IM_Discount_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Total_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Notes_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IM_NOTE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Draft_Btn = New System.Windows.Forms.Button()
+        Me.IMIncreaseButton = New System.Windows.Forms.Button()
+        Me.IMDicreaseButton = New System.Windows.Forms.Button()
+        Me.Units_btn = New System.Windows.Forms.Button()
         Me.DiscountPanel.SuspendLayout()
         Me.AG_Panel.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -253,15 +256,13 @@ Partial Class Sales_Fast_Draft
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.RemoveCatButton.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.RemoveCatButton.Image = Global.resturant.My.Resources.Resources.if_f_cross_256_282471
-        Me.RemoveCatButton.Location = New System.Drawing.Point(948, 149)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(943, 355)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RemoveCatButton.Size = New System.Drawing.Size(55, 254)
+        Me.RemoveCatButton.Size = New System.Drawing.Size(55, 94)
         Me.RemoveCatButton.TabIndex = 395
         Me.RemoveCatButton.TabStop = False
-        Me.RemoveCatButton.Text = "F8"
-        Me.RemoveCatButton.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.RemoveCatButton.Text = "❌" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "F8"
         Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف الحدد")
         Me.RemoveCatButton.UseVisualStyleBackColor = False
         '
@@ -390,7 +391,7 @@ Partial Class Sales_Fast_Draft
         Me.IM_Unit_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Unit_cm.FormattingEnabled = True
-        Me.IM_Unit_cm.Location = New System.Drawing.Point(155, 122)
+        Me.IM_Unit_cm.Location = New System.Drawing.Point(253, 122)
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
         Me.IM_Unit_cm.Size = New System.Drawing.Size(92, 23)
         Me.IM_Unit_cm.TabIndex = 615
@@ -417,9 +418,9 @@ Partial Class Sales_Fast_Draft
         Me.VoidLb.BackColor = System.Drawing.Color.IndianRed
         Me.VoidLb.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.VoidLb.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.VoidLb.Location = New System.Drawing.Point(3, 439)
+        Me.VoidLb.Location = New System.Drawing.Point(2, 67)
         Me.VoidLb.Name = "VoidLb"
-        Me.VoidLb.Size = New System.Drawing.Size(165, 36)
+        Me.VoidLb.Size = New System.Drawing.Size(225, 36)
         Me.VoidLb.TabIndex = 402
         Me.VoidLb.Text = "فاتورة ملغية"
         Me.VoidLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -458,23 +459,23 @@ Partial Class Sales_Fast_Draft
         Me.IMPanel.AutoScroll = True
         Me.IMPanel.BackColor = System.Drawing.Color.Transparent
         Me.IMPanel.Enabled = False
-        Me.IMPanel.Location = New System.Drawing.Point(170, 443)
+        Me.IMPanel.Location = New System.Drawing.Point(170, 477)
         Me.IMPanel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IMPanel.Name = "IMPanel"
-        Me.IMPanel.Size = New System.Drawing.Size(833, 221)
+        Me.IMPanel.Size = New System.Drawing.Size(833, 187)
         Me.IMPanel.TabIndex = 657
         '
         'AG_SH_txt
         '
         Me.AG_SH_txt.BackColor = System.Drawing.SystemColors.Info
         Me.AG_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.AG_SH_txt.Font = New System.Drawing.Font("JF Flat", 10.0!)
+        Me.AG_SH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AG_SH_txt.Location = New System.Drawing.Point(2, 1)
         Me.AG_SH_txt.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.AG_SH_txt.Name = "AG_SH_txt"
         Me.AG_SH_txt.ReadOnly = True
         Me.AG_SH_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.AG_SH_txt.Size = New System.Drawing.Size(218, 31)
+        Me.AG_SH_txt.Size = New System.Drawing.Size(218, 29)
         Me.AG_SH_txt.TabIndex = 660
         Me.AG_SH_txt.Text = "نقدي"
         Me.AG_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -548,14 +549,176 @@ Partial Class Sales_Fast_Draft
         Me.dgvSales.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
         Me.dgvSales.RowTemplate.Height = 35
         Me.dgvSales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSales.Size = New System.Drawing.Size(946, 254)
+        Me.dgvSales.Size = New System.Drawing.Size(941, 300)
         Me.dgvSales.TabIndex = 701
+        '
+        'Bill_IMID_CL
+        '
+        Me.Bill_IMID_CL.DataPropertyName = "IM_ID"
+        Me.Bill_IMID_CL.HeaderText = "IM_ID"
+        Me.Bill_IMID_CL.Name = "Bill_IMID_CL"
+        Me.Bill_IMID_CL.ReadOnly = True
+        Me.Bill_IMID_CL.Visible = False
+        '
+        'is_Check_CL
+        '
+        Me.is_Check_CL.DataPropertyName = "is_Check"
+        Me.is_Check_CL.HeaderText = "is_Check"
+        Me.is_Check_CL.Name = "is_Check_CL"
+        Me.is_Check_CL.ReadOnly = True
+        Me.is_Check_CL.Visible = False
+        '
+        'Barcode_CL
+        '
+        Me.Barcode_CL.DataPropertyName = "Barcode"
+        Me.Barcode_CL.FillWeight = 91.83587!
+        Me.Barcode_CL.HeaderText = "باركود"
+        Me.Barcode_CL.Name = "Barcode_CL"
+        Me.Barcode_CL.ReadOnly = True
+        Me.Barcode_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'Serial_Code_CL
+        '
+        Me.Serial_Code_CL.DataPropertyName = "Serial_Code"
+        Me.Serial_Code_CL.FillWeight = 91.83587!
+        Me.Serial_Code_CL.HeaderText = "التسلسل"
+        Me.Serial_Code_CL.Name = "Serial_Code_CL"
+        Me.Serial_Code_CL.ReadOnly = True
+        Me.Serial_Code_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'U_ID
+        '
+        Me.U_ID.DataPropertyName = "U_ID"
+        Me.U_ID.HeaderText = "U_ID"
+        Me.U_ID.Name = "U_ID"
+        Me.U_ID.ReadOnly = True
+        Me.U_ID.Visible = False
+        '
+        'Date_
+        '
+        Me.Date_.DataPropertyName = "Date"
+        Me.Date_.FillWeight = 91.83587!
+        Me.Date_.HeaderText = "تاريخ"
+        Me.Date_.Name = "Date_"
+        Me.Date_.ReadOnly = True
+        '
+        'ST_Name_CL
+        '
+        Me.ST_Name_CL.DataPropertyName = "St_Name"
+        Me.ST_Name_CL.FillWeight = 91.83587!
+        Me.ST_Name_CL.HeaderText = "مخزن"
+        Me.ST_Name_CL.Name = "ST_Name_CL"
+        Me.ST_Name_CL.ReadOnly = True
+        '
+        'IMNUM_CL
+        '
+        Me.IMNUM_CL.DataPropertyName = "IM_Num"
+        Me.IMNUM_CL.FillWeight = 91.83587!
+        Me.IMNUM_CL.HeaderText = "رقم"
+        Me.IMNUM_CL.Name = "IMNUM_CL"
+        Me.IMNUM_CL.ReadOnly = True
+        '
+        'Item_Name
+        '
+        Me.Item_Name.DataPropertyName = "ItemName"
+        Me.Item_Name.FillWeight = 91.83587!
+        Me.Item_Name.HeaderText = "الصنف"
+        Me.Item_Name.Name = "Item_Name"
+        Me.Item_Name.ReadOnly = True
+        '
+        'D_Valid_CL
+        '
+        Me.D_Valid_CL.DataPropertyName = "D_Vaild"
+        Me.D_Valid_CL.FillWeight = 91.83587!
+        Me.D_Valid_CL.HeaderText = "صلاحية"
+        Me.D_Valid_CL.Name = "D_Valid_CL"
+        Me.D_Valid_CL.ReadOnly = True
+        '
+        'IMUnit_CL
+        '
+        Me.IMUnit_CL.DataPropertyName = "UnitName"
+        Me.IMUnit_CL.FillWeight = 91.83587!
+        Me.IMUnit_CL.HeaderText = "الوحدة"
+        Me.IMUnit_CL.Name = "IMUnit_CL"
+        Me.IMUnit_CL.ReadOnly = True
+        '
+        'QTY_CL
+        '
+        Me.QTY_CL.DataPropertyName = "QTY"
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle7.Format = "N3"
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Transparent
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black
+        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle7
+        Me.QTY_CL.FillWeight = 91.83587!
+        Me.QTY_CL.HeaderText = "كمية"
+        Me.QTY_CL.Name = "QTY_CL"
+        Me.QTY_CL.ReadOnly = True
+        '
+        'Price_CL
+        '
+        Me.Price_CL.DataPropertyName = "Price"
+        DataGridViewCellStyle8.Format = "N3"
+        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle8
+        Me.Price_CL.FillWeight = 91.83587!
+        Me.Price_CL.HeaderText = "السعر"
+        Me.Price_CL.Name = "Price_CL"
+        Me.Price_CL.ReadOnly = True
+        '
+        'IM_Discount_CL
+        '
+        Me.IM_Discount_CL.DataPropertyName = "IM_Discount"
+        Me.IM_Discount_CL.HeaderText = "خصم"
+        Me.IM_Discount_CL.Name = "IM_Discount_CL"
+        Me.IM_Discount_CL.ReadOnly = True
+        '
+        'Total_CL
+        '
+        Me.Total_CL.DataPropertyName = "T_Price"
+        DataGridViewCellStyle9.Format = "N3"
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle9
+        Me.Total_CL.FillWeight = 91.83587!
+        Me.Total_CL.HeaderText = "إجمالي"
+        Me.Total_CL.Name = "Total_CL"
+        Me.Total_CL.ReadOnly = True
+        '
+        'Notes_CL
+        '
+        Me.Notes_CL.DataPropertyName = "Notes"
+        Me.Notes_CL.FillWeight = 91.83587!
+        Me.Notes_CL.HeaderText = "ملاحظة"
+        Me.Notes_CL.Name = "Notes_CL"
+        Me.Notes_CL.ReadOnly = True
+        '
+        'T_ID_CL
+        '
+        Me.T_ID_CL.DataPropertyName = "T_ID"
+        Me.T_ID_CL.HeaderText = "T_ID"
+        Me.T_ID_CL.Name = "T_ID_CL"
+        Me.T_ID_CL.ReadOnly = True
+        Me.T_ID_CL.Visible = False
+        '
+        'ST_ID_CL
+        '
+        Me.ST_ID_CL.DataPropertyName = "ST_ID"
+        Me.ST_ID_CL.HeaderText = "ST_ID"
+        Me.ST_ID_CL.Name = "ST_ID_CL"
+        Me.ST_ID_CL.ReadOnly = True
+        Me.ST_ID_CL.Visible = False
+        '
+        'IM_NOTE_CL
+        '
+        Me.IM_NOTE_CL.DataPropertyName = "IM_NOTE"
+        Me.IM_NOTE_CL.HeaderText = "IM_NOTE"
+        Me.IM_NOTE_CL.Name = "IM_NOTE_CL"
+        Me.IM_NOTE_CL.ReadOnly = True
+        Me.IM_NOTE_CL.Visible = False
         '
         'Label27
         '
         Me.Label27.BackColor = System.Drawing.Color.Transparent
         Me.Label27.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(943, 411)
+        Me.Label27.Location = New System.Drawing.Point(943, 452)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(62, 21)
@@ -568,13 +731,13 @@ Partial Class Sales_Fast_Draft
         Me.txtNotes.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtNotes.Enabled = False
-        Me.txtNotes.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtNotes.Font = New System.Drawing.Font("Arial", 11.25!)
         Me.txtNotes.ForeColor = System.Drawing.Color.Black
-        Me.txtNotes.Location = New System.Drawing.Point(2, 406)
+        Me.txtNotes.Location = New System.Drawing.Point(2, 450)
         Me.txtNotes.MaxLength = 250
         Me.txtNotes.Name = "txtNotes"
         Me.txtNotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtNotes.Size = New System.Drawing.Size(939, 29)
+        Me.txtNotes.Size = New System.Drawing.Size(939, 25)
         Me.txtNotes.TabIndex = 704
         '
         'Panel2
@@ -604,7 +767,7 @@ Partial Class Sales_Fast_Draft
         Me.Valid_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Valid_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Valid_cm.FormattingEnabled = True
-        Me.Valid_cm.Location = New System.Drawing.Point(250, 122)
+        Me.Valid_cm.Location = New System.Drawing.Point(348, 122)
         Me.Valid_cm.Name = "Valid_cm"
         Me.Valid_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Valid_cm.Size = New System.Drawing.Size(92, 23)
@@ -615,9 +778,9 @@ Partial Class Sales_Fast_Draft
         '
         Me.Sells_Bill_GB.Controls.Add(Me.Sales_Bill_Page_cm)
         Me.Sells_Bill_GB.Font = New System.Drawing.Font("Arial", 10.25!)
-        Me.Sells_Bill_GB.Location = New System.Drawing.Point(2, 100)
+        Me.Sells_Bill_GB.Location = New System.Drawing.Point(2, 104)
         Me.Sells_Bill_GB.Name = "Sells_Bill_GB"
-        Me.Sells_Bill_GB.Size = New System.Drawing.Size(149, 44)
+        Me.Sells_Bill_GB.Size = New System.Drawing.Size(225, 44)
         Me.Sells_Bill_GB.TabIndex = 712
         Me.Sells_Bill_GB.TabStop = False
         Me.Sells_Bill_GB.Text = "نوع فاتورة المبيعات"
@@ -632,7 +795,7 @@ Partial Class Sales_Fast_Draft
         Me.Sales_Bill_Page_cm.FormattingEnabled = True
         Me.Sales_Bill_Page_cm.Location = New System.Drawing.Point(3, 19)
         Me.Sales_Bill_Page_cm.Name = "Sales_Bill_Page_cm"
-        Me.Sales_Bill_Page_cm.Size = New System.Drawing.Size(143, 24)
+        Me.Sales_Bill_Page_cm.Size = New System.Drawing.Size(219, 24)
         Me.Sales_Bill_Page_cm.TabIndex = 259
         '
         'IM_Search_btn
@@ -872,194 +1035,80 @@ Partial Class Sales_Fast_Draft
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.dgvSales)
-        Me.Panel4.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Panel4.Location = New System.Drawing.Point(1, 150)
+        Me.Panel4.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel4.Location = New System.Drawing.Point(1, 149)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(946, 254)
+        Me.Panel4.Size = New System.Drawing.Size(941, 300)
         Me.Panel4.TabIndex = 714
         '
-        'Button1
+        'Draft_Btn
         '
-        Me.Button1.BackColor = System.Drawing.Color.White
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Button1.Image = Global.resturant.My.Resources.Resources._10219171_income_salary_dollar_money_bag_profit_icon
-        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Button1.Location = New System.Drawing.Point(233, 43)
-        Me.Button1.Name = "Button1"
-        Me.Button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Button1.Size = New System.Drawing.Size(54, 55)
-        Me.Button1.TabIndex = 715
-        Me.Button1.TabStop = False
-        Me.Button1.Text = "الربح"
-        Me.Button1.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.Draft_Btn.BackColor = System.Drawing.Color.White
+        Me.Draft_Btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Draft_Btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Draft_Btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.Draft_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Draft_Btn.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Draft_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Draft_Btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.Draft_Btn.Location = New System.Drawing.Point(233, 43)
+        Me.Draft_Btn.Name = "Draft_Btn"
+        Me.Draft_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Draft_Btn.Size = New System.Drawing.Size(54, 55)
+        Me.Draft_Btn.TabIndex = 715
+        Me.Draft_Btn.TabStop = False
+        Me.Draft_Btn.Text = "المسودة"
+        Me.Draft_Btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Draft_Btn.UseVisualStyleBackColor = False
         '
-        'Bill_IMID_CL
+        'IMIncreaseButton
         '
-        Me.Bill_IMID_CL.DataPropertyName = "IM_ID"
-        Me.Bill_IMID_CL.HeaderText = "IM_ID"
-        Me.Bill_IMID_CL.Name = "Bill_IMID_CL"
-        Me.Bill_IMID_CL.ReadOnly = True
-        Me.Bill_IMID_CL.Visible = False
+        Me.IMIncreaseButton.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.IMIncreaseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.IMIncreaseButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.IMIncreaseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IMIncreaseButton.Font = New System.Drawing.Font("Tahoma", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IMIncreaseButton.ForeColor = System.Drawing.Color.Black
+        Me.IMIncreaseButton.Location = New System.Drawing.Point(943, 149)
+        Me.IMIncreaseButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.IMIncreaseButton.Name = "IMIncreaseButton"
+        Me.IMIncreaseButton.Size = New System.Drawing.Size(55, 76)
+        Me.IMIncreaseButton.TabIndex = 716
+        Me.IMIncreaseButton.Text = "➕"
+        Me.IMIncreaseButton.UseVisualStyleBackColor = False
         '
-        'is_Check_CL
+        'IMDicreaseButton
         '
-        Me.is_Check_CL.DataPropertyName = "is_Check"
-        Me.is_Check_CL.HeaderText = "is_Check"
-        Me.is_Check_CL.Name = "is_Check_CL"
-        Me.is_Check_CL.ReadOnly = True
-        Me.is_Check_CL.Visible = False
+        Me.IMDicreaseButton.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.IMDicreaseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.IMDicreaseButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.IMDicreaseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IMDicreaseButton.Font = New System.Drawing.Font("Tahoma", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IMDicreaseButton.ForeColor = System.Drawing.Color.Black
+        Me.IMDicreaseButton.Location = New System.Drawing.Point(943, 226)
+        Me.IMDicreaseButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.IMDicreaseButton.Name = "IMDicreaseButton"
+        Me.IMDicreaseButton.Size = New System.Drawing.Size(55, 76)
+        Me.IMDicreaseButton.TabIndex = 717
+        Me.IMDicreaseButton.Text = "➖"
+        Me.IMDicreaseButton.UseVisualStyleBackColor = False
         '
-        'Barcode_CL
+        'Units_btn
         '
-        Me.Barcode_CL.DataPropertyName = "Barcode"
-        Me.Barcode_CL.FillWeight = 91.83587!
-        Me.Barcode_CL.HeaderText = "باركود"
-        Me.Barcode_CL.Name = "Barcode_CL"
-        Me.Barcode_CL.ReadOnly = True
-        Me.Barcode_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'Serial_Code_CL
-        '
-        Me.Serial_Code_CL.DataPropertyName = "Serial_Code"
-        Me.Serial_Code_CL.FillWeight = 91.83587!
-        Me.Serial_Code_CL.HeaderText = "التسلسل"
-        Me.Serial_Code_CL.Name = "Serial_Code_CL"
-        Me.Serial_Code_CL.ReadOnly = True
-        Me.Serial_Code_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'U_ID
-        '
-        Me.U_ID.DataPropertyName = "U_ID"
-        Me.U_ID.HeaderText = "U_ID"
-        Me.U_ID.Name = "U_ID"
-        Me.U_ID.ReadOnly = True
-        Me.U_ID.Visible = False
-        '
-        'Date_
-        '
-        Me.Date_.DataPropertyName = "Date"
-        Me.Date_.FillWeight = 91.83587!
-        Me.Date_.HeaderText = "تاريخ"
-        Me.Date_.Name = "Date_"
-        Me.Date_.ReadOnly = True
-        '
-        'ST_Name_CL
-        '
-        Me.ST_Name_CL.DataPropertyName = "St_Name"
-        Me.ST_Name_CL.FillWeight = 91.83587!
-        Me.ST_Name_CL.HeaderText = "مخزن"
-        Me.ST_Name_CL.Name = "ST_Name_CL"
-        Me.ST_Name_CL.ReadOnly = True
-        '
-        'IMNUM_CL
-        '
-        Me.IMNUM_CL.DataPropertyName = "IM_Num"
-        Me.IMNUM_CL.FillWeight = 91.83587!
-        Me.IMNUM_CL.HeaderText = "رقم"
-        Me.IMNUM_CL.Name = "IMNUM_CL"
-        Me.IMNUM_CL.ReadOnly = True
-        '
-        'Item_Name
-        '
-        Me.Item_Name.DataPropertyName = "ItemName"
-        Me.Item_Name.FillWeight = 91.83587!
-        Me.Item_Name.HeaderText = "الصنف"
-        Me.Item_Name.Name = "Item_Name"
-        Me.Item_Name.ReadOnly = True
-        '
-        'D_Valid_CL
-        '
-        Me.D_Valid_CL.DataPropertyName = "D_Vaild"
-        Me.D_Valid_CL.FillWeight = 91.83587!
-        Me.D_Valid_CL.HeaderText = "صلاحية"
-        Me.D_Valid_CL.Name = "D_Valid_CL"
-        Me.D_Valid_CL.ReadOnly = True
-        '
-        'IMUnit_CL
-        '
-        Me.IMUnit_CL.DataPropertyName = "UnitName"
-        Me.IMUnit_CL.FillWeight = 91.83587!
-        Me.IMUnit_CL.HeaderText = "الوحدة"
-        Me.IMUnit_CL.Name = "IMUnit_CL"
-        Me.IMUnit_CL.ReadOnly = True
-        '
-        'QTY_CL
-        '
-        Me.QTY_CL.DataPropertyName = "QTY"
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Format = "N3"
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
-        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle4
-        Me.QTY_CL.FillWeight = 91.83587!
-        Me.QTY_CL.HeaderText = "كمية"
-        Me.QTY_CL.Name = "QTY_CL"
-        Me.QTY_CL.ReadOnly = True
-        '
-        'Price_CL
-        '
-        Me.Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle5.Format = "N3"
-        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle5
-        Me.Price_CL.FillWeight = 91.83587!
-        Me.Price_CL.HeaderText = "السعر"
-        Me.Price_CL.Name = "Price_CL"
-        Me.Price_CL.ReadOnly = True
-        '
-        'IM_Discount_CL
-        '
-        Me.IM_Discount_CL.DataPropertyName = "IM_Discount"
-        Me.IM_Discount_CL.HeaderText = "خصم"
-        Me.IM_Discount_CL.Name = "IM_Discount_CL"
-        Me.IM_Discount_CL.ReadOnly = True
-        '
-        'Total_CL
-        '
-        Me.Total_CL.DataPropertyName = "T_Price"
-        DataGridViewCellStyle6.Format = "N3"
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle6
-        Me.Total_CL.FillWeight = 91.83587!
-        Me.Total_CL.HeaderText = "إجمالي"
-        Me.Total_CL.Name = "Total_CL"
-        Me.Total_CL.ReadOnly = True
-        '
-        'Notes_CL
-        '
-        Me.Notes_CL.DataPropertyName = "Notes"
-        Me.Notes_CL.FillWeight = 91.83587!
-        Me.Notes_CL.HeaderText = "ملاحظة"
-        Me.Notes_CL.Name = "Notes_CL"
-        Me.Notes_CL.ReadOnly = True
-        '
-        'T_ID_CL
-        '
-        Me.T_ID_CL.DataPropertyName = "T_ID"
-        Me.T_ID_CL.HeaderText = "T_ID"
-        Me.T_ID_CL.Name = "T_ID_CL"
-        Me.T_ID_CL.ReadOnly = True
-        Me.T_ID_CL.Visible = False
-        '
-        'ST_ID_CL
-        '
-        Me.ST_ID_CL.DataPropertyName = "ST_ID"
-        Me.ST_ID_CL.HeaderText = "ST_ID"
-        Me.ST_ID_CL.Name = "ST_ID_CL"
-        Me.ST_ID_CL.ReadOnly = True
-        Me.ST_ID_CL.Visible = False
-        '
-        'IM_NOTE_CL
-        '
-        Me.IM_NOTE_CL.DataPropertyName = "IM_NOTE"
-        Me.IM_NOTE_CL.HeaderText = "IM_NOTE"
-        Me.IM_NOTE_CL.Name = "IM_NOTE_CL"
-        Me.IM_NOTE_CL.ReadOnly = True
-        Me.IM_NOTE_CL.Visible = False
+        Me.Units_btn.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Units_btn.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Units_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Units_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Units_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Units_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Units_btn.ForeColor = System.Drawing.Color.Black
+        Me.Units_btn.Location = New System.Drawing.Point(943, 304)
+        Me.Units_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Units_btn.Name = "Units_btn"
+        Me.Units_btn.Size = New System.Drawing.Size(55, 49)
+        Me.Units_btn.TabIndex = 718
+        Me.Units_btn.Text = "📦"
+        Me.Units_btn.UseVisualStyleBackColor = False
         '
         'Sales_Fast_Draft
         '
@@ -1067,7 +1116,10 @@ Partial Class Sales_Fast_Draft
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1004, 695)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Units_btn)
+        Me.Controls.Add(Me.IMIncreaseButton)
+        Me.Controls.Add(Me.IMDicreaseButton)
+        Me.Controls.Add(Me.Draft_Btn)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Refresh_IM_Btn)
         Me.Controls.Add(Me.Sells_Bill_GB)
@@ -1176,7 +1228,7 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents Barcode_SH_txt As TextBox
     Friend WithEvents Refresh_IM_Btn As Button
     Friend WithEvents Panel4 As Panel
-    Friend WithEvents Button1 As Button
+    Friend WithEvents Draft_Btn As Button
     Friend WithEvents Bill_IMID_CL As DataGridViewTextBoxColumn
     Friend WithEvents is_Check_CL As DataGridViewTextBoxColumn
     Friend WithEvents Barcode_CL As DataGridViewTextBoxColumn
@@ -1196,4 +1248,7 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents T_ID_CL As DataGridViewTextBoxColumn
     Friend WithEvents ST_ID_CL As DataGridViewTextBoxColumn
     Friend WithEvents IM_NOTE_CL As DataGridViewTextBoxColumn
+    Friend WithEvents IMIncreaseButton As Button
+    Friend WithEvents IMDicreaseButton As Button
+    Friend WithEvents Units_btn As Button
 End Class

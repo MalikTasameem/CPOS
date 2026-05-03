@@ -8,6 +8,7 @@
 
     ' بيانات الفاتورة (Agents_Balance_MV)
     Public Property AG_ID As Integer
+    Public Property AG_NAME As String
     Public Property S_Bill_Pr_ID As Integer?
     Public Property Table_ID As Integer?
     Public Property [Date] As DateTime

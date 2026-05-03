@@ -294,7 +294,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub ChangeQtyByInput(def_type)
+    Private Sub ChangeQtyByInput(def_type As Integer, Optional choice As Boolean = True)
 
         If CurrentDraft Is Nothing Then Exit Sub
         If dgvSales.CurrentRow Is Nothing Then Exit Sub
@@ -309,7 +309,13 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         Dim def As Decimal = 0D
 
-        Dim inp As String = InputBox("ادخل رقم", str)
+
+        Dim inp As String = ""
+
+        If choice = True Then
+            inp = InputBox("ادخل رقم", str)
+        End If
+
 
         If inp.Trim() = "" Then
             If def_type = 1 Then
@@ -904,14 +910,16 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             If ok Then
                 DraftManager.ArchiveDraft(CurrentDraft)
 
-                MessageBox.Show(
-                    "تم حفظ الفاتورة بنجاح." & Environment.NewLine &
-                    "T_ID = " & If(CurrentDraft.Final_T_ID.HasValue, CurrentDraft.Final_T_ID.Value.ToString(), "") & Environment.NewLine &
-                    "SB_ID = " & If(CurrentDraft.Final_SB_ID.HasValue, CurrentDraft.Final_SB_ID.Value.ToString(), ""),
-                    "نجاح",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information)
+                'MessageBox.Show(
+                '    "تم حفظ الفاتورة بنجاح." & Environment.NewLine &
+                '    "T_ID = " & If(CurrentDraft.Final_T_ID.HasValue, CurrentDraft.Final_T_ID.Value.ToString(), "") & Environment.NewLine &
+                '    "SB_ID = " & If(CurrentDraft.Final_SB_ID.HasValue, CurrentDraft.Final_SB_ID.Value.ToString(), ""),
+                '    "نجاح",
+                '    MessageBoxButtons.OK,
+                '    MessageBoxIcon.Information)
 
+
+                Disable_Fields()
                 ClearCatFields()
             End If
 
@@ -1302,6 +1310,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 If U_Sell_Under_Min_SP = True Then
                     If IM_Price < Min_SP And Min_SP > 0 Then
                         '  My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
+                        System.Media.SystemSounds.Hand.Play()
                         MsgBox(" ( " + Min_SP.ToString + " ) لا يمكنك البيع بأقل من أدنى سعر بيع", MsgBoxStyle.Exclamation)
                         ClearCatFields()
                         Exit Sub
@@ -1310,6 +1319,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
             Else
                 If IM_Price < Min_SP And Min_SP > 0 Then
+                    System.Media.SystemSounds.Hand.Play()
                     '   My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
                     If MessageBox.Show(" ( " + Min_SP.ToString + " ) سوف يتم البيع بأقل من أدنى سعر بيع", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation,
                                        MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then
@@ -1324,13 +1334,16 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         'If U_SB_Sell_Under_Cost = False Then
         '    If Show_IM_Cost(False, IM_ID, U_ID) > IM_Price.Text Then
+        'System.Media.SystemSounds.Hand.Play()
         '        My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
         '        MsgBox("لا يمكنك البيع بأقل من سعر التكلفة", MsgBoxStyle.Critical)
         '        ClearCatFields()
         '        Exit Sub
         '    End If
         'Else
+
         '    If Show_IM_Cost(False, IM_ID, U_ID) > IM_Price.Text Then
+        'System.Media.SystemSounds.Hand.Play()
         '        My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
         '        If MessageBox.Show(" سوف يتم البيع بأقل من سعر التكلفة", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, _
         '                                      MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then
@@ -1346,6 +1359,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             If IM_Check_Neg_QTY_() = 1 Then
                 ' If QTY_ALERT_SOUND = True Then My.Computer.Audio.Play(Application.StartupPath & "\QTY ALERT.wav")
                 If IM_min_QTY = False Then
+                    System.Media.SystemSounds.Hand.Play()
                     '    My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
                     MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
                     ClearCatFields()
@@ -1358,6 +1372,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         If SB_IM_Alert_When_Repetition = True Then
             For i = 0 To dgvSales.Rows.Count - 1
                 If dgvSales.Rows(i).Cells("Bill_IMID_CL").Value = IM_ID Then
+                    System.Media.SystemSounds.Hand.Play()
                     '  My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
                     If MessageBox.Show(" هذا الصنف تم إدراجه بالفاتورة ... هل تريد الإستمرار ؟ ", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
                         ClearCatFields()
@@ -1373,6 +1388,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Beep()
         If Notif_If_SB_Has_No_SB_Price = True Then
             If IM_Price = 0 Then
+                System.Media.SystemSounds.Hand.Play()
                 '  My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
                 If MessageBox.Show(" لم يتم تحديد سعر بيع للصنف أوسعره = 0 ... هل تريد الإستمرار فالبيع ", "",
                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
@@ -1659,6 +1675,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             If Barcode_SH_txt.Text.Count >= 8 Then
                 Check_If_Mizan()
             Else
+                System.Media.SystemSounds.Hand.Play()
+
                 '   My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
                 MessageBox.Show("لم يتم التعرف على الإدخال")
                 Clear_Barcode()
@@ -1694,6 +1712,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 Check_If_Mizan()
             Else
                 '   My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
+                System.Media.SystemSounds.Hand.Play()
                 MessageBox.Show("لم يتم التعرف على الإدخال")
                 Clear_Barcode()
             End If
@@ -1849,6 +1868,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 ADD_IM()
             Else
                 ' My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
+                System.Media.SystemSounds.Hand.Play()
                 MsgBox("لم يتم التعرف على الإدخال")
             End If
 
@@ -2133,6 +2153,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         LoadDraftToGrid()
         UpdateDraftTotalsOnScreen()
         Bill_ID_Txt.Clear()
+        Enable_Fields()
     End Sub
 
     Private Sub LoadDraftToGrid()
@@ -2392,7 +2413,11 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Sub AG_SH_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AG_SH_txt.MouseDoubleClick
         'If dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
-        AgentsMenu.ShowDialog()
+
+        Dim f As New AgentsMenu
+        f.is_By_Draft = True
+        f.ShowDialog()
+        If f.is_OK = True Then ChangeDraftCustomer(f.AG_ID, f.AG_NAME)
         'End If
     End Sub
 
@@ -2466,7 +2491,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         Dim f As Items_Search = Items_Search.GetInstance()
 
-        f.Show()
+        f.ShowDialog()
         f.BringToFront()
         f.WindowState = FormWindowState.Normal
 
@@ -2593,7 +2618,33 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Draft_Btn.Click
         Sales_Drafts_Menu.ShowDialog()
+    End Sub
+
+    Private Sub ChangeDraftCustomer(agId As Integer, agName As String)
+
+        EnsureDraftExists()
+
+        CurrentDraft.AG_ID = agId
+        CurrentDraft.AG_NAME = agName
+        CurrentDraft.UpdatedAt = DateTime.Now
+
+        ' العرض على الشاشة
+        AG_ID = agId.ToString()
+        AG_SH_txt.Text = agName
+
+        DraftManager.SaveDraft(CurrentDraft)
+
+    End Sub
+
+    Private Sub IMIncreaseButton_Click(sender As Object, e As EventArgs) Handles IMIncreaseButton.Click
+        Dim Def As Double = 1
+        ChangeQtyByInput(Def, False)
+    End Sub
+
+    Private Sub IMDicreaseButton_Click(sender As Object, e As EventArgs) Handles IMDicreaseButton.Click
+        Dim Def As Double = -1
+        ChangeQtyByInput(Def, False)
     End Sub
 End Class

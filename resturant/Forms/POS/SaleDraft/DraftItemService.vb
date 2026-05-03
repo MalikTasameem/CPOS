@@ -18,6 +18,7 @@
             draft.Items.Add(item)
         End If
 
+        System.Media.SystemSounds.Exclamation.Play()
         DraftCalculator.RecalculateDraft(draft)
 
 

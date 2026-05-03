@@ -97,7 +97,7 @@ Partial Class SB_IM_card
         Me.ExitFormButton.ForeColor = System.Drawing.Color.White
         Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(45, 40)
+        Me.ExitFormButton.Size = New System.Drawing.Size(45, 42)
         Me.ExitFormButton.TabIndex = 3
         Me.ExitFormButton.Tag = "DELETE"
         Me.ExitFormButton.Text = "X"
@@ -372,7 +372,6 @@ Partial Class SB_IM_card
         '
         Me.PriceTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.PriceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PriceTextBox.Enabled = False
         Me.PriceTextBox.Font = New System.Drawing.Font("Stencil", 14.0!)
         Me.PriceTextBox.ForeColor = System.Drawing.Color.DarkGreen
         Me.PriceTextBox.Location = New System.Drawing.Point(2, 4)
@@ -448,11 +447,11 @@ Partial Class SB_IM_card
         Me.Valid_QTY_txt.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Valid_QTY_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_QTY_txt.Enabled = False
-        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 13.25!)
+        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 11.25!)
         Me.Valid_QTY_txt.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Valid_QTY_txt.Location = New System.Drawing.Point(4, 4)
+        Me.Valid_QTY_txt.Location = New System.Drawing.Point(5, 5)
         Me.Valid_QTY_txt.Name = "Valid_QTY_txt"
-        Me.Valid_QTY_txt.Size = New System.Drawing.Size(96, 28)
+        Me.Valid_QTY_txt.Size = New System.Drawing.Size(96, 25)
         Me.Valid_QTY_txt.TabIndex = 640
         Me.Valid_QTY_txt.Text = "00"
         Me.Valid_QTY_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center

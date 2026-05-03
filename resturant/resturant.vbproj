@@ -346,6 +346,12 @@
     <Compile Include="Forms\Pay_Main_Form.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Pch\ADD_Pch_Exp.designer.vb">
+      <DependentUpon>ADD_Pch_Exp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Pch\ADD_Pch_Exp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Pch\Pch.designer.vb">
       <DependentUpon>Pch.vb</DependentUpon>
     </Compile>
@@ -1120,12 +1126,6 @@
     <Compile Include="Forms\Reports\General_Report.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Pch\ADD_Pch_Exp.designer.vb">
-      <DependentUpon>ADD_Pch_Exp.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Pch\ADD_Pch_Exp.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\POS\IM_Keyboard.designer.vb">
       <DependentUpon>IM_Keyboard.vb</DependentUpon>
     </Compile>
@@ -1637,6 +1637,9 @@
     <EmbeddedResource Include="Forms\Pay_Main_Form.resx">
       <DependentUpon>Pay_Main_Form.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Pch\ADD_Pch_Exp.resx">
+      <DependentUpon>ADD_Pch_Exp.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pch\Pch.resx">
       <DependentUpon>Pch.vb</DependentUpon>
     </EmbeddedResource>
@@ -1999,9 +2002,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reports\General_Report.resx">
       <DependentUpon>General_Report.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Pch\ADD_Pch_Exp.resx">
-      <DependentUpon>ADD_Pch_Exp.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\POS\IM_Keyboard.resx">
       <DependentUpon>IM_Keyboard.vb</DependentUpon>

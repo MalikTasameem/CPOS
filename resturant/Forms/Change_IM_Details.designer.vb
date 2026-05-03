@@ -149,7 +149,7 @@ Partial Class Change_IM_Details
         Me.PriceTextBox.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.PriceTextBox.Font = New System.Drawing.Font("Stencil", 15.7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PriceTextBox.ForeColor = System.Drawing.Color.DarkGreen
-        Me.PriceTextBox.Location = New System.Drawing.Point(129, 111)
+        Me.PriceTextBox.Location = New System.Drawing.Point(129, 112)
         Me.PriceTextBox.MaxLength = 250
         Me.PriceTextBox.Name = "PriceTextBox"
         Me.PriceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -167,13 +167,13 @@ Partial Class Change_IM_Details
         Me.QtyTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI", 16.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI", 11.5!)
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(9, 108)
+        Me.QtyTextBox.Location = New System.Drawing.Point(9, 110)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.QtyTextBox.Size = New System.Drawing.Size(113, 37)
+        Me.QtyTextBox.Size = New System.Drawing.Size(113, 28)
         Me.QtyTextBox.TabIndex = 618
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -222,12 +222,12 @@ Partial Class Change_IM_Details
         Me.Current_QTY.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Current_QTY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Current_QTY.Enabled = False
-        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI", 11.5!)
         Me.Current_QTY.ForeColor = System.Drawing.Color.Firebrick
-        Me.Current_QTY.Location = New System.Drawing.Point(372, 110)
+        Me.Current_QTY.Location = New System.Drawing.Point(372, 112)
         Me.Current_QTY.Name = "Current_QTY"
         Me.Current_QTY.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Current_QTY.Size = New System.Drawing.Size(128, 36)
+        Me.Current_QTY.Size = New System.Drawing.Size(128, 28)
         Me.Current_QTY.TabIndex = 621
         '
         'Label15
@@ -344,10 +344,10 @@ Partial Class Change_IM_Details
         '
         Me.is_PercentCB.AutoSize = True
         Me.is_PercentCB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.is_PercentCB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.is_PercentCB.Location = New System.Drawing.Point(122, 6)
+        Me.is_PercentCB.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.is_PercentCB.Location = New System.Drawing.Point(141, 6)
         Me.is_PercentCB.Name = "is_PercentCB"
-        Me.is_PercentCB.Size = New System.Drawing.Size(135, 25)
+        Me.is_PercentCB.Size = New System.Drawing.Size(126, 23)
         Me.is_PercentCB.TabIndex = 637
         Me.is_PercentCB.Text = "تخفيض بنسبة %"
         Me.is_PercentCB.UseVisualStyleBackColor = True
@@ -357,11 +357,11 @@ Partial Class Change_IM_Details
         Me.IM_Disc_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.IM_Disc_txt.BackColor = System.Drawing.Color.Lavender
         Me.IM_Disc_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Disc_txt.Font = New System.Drawing.Font("Stencil", 15.7!)
-        Me.IM_Disc_txt.Location = New System.Drawing.Point(272, 2)
+        Me.IM_Disc_txt.Font = New System.Drawing.Font("Segoe UI", 11.5!)
+        Me.IM_Disc_txt.Location = New System.Drawing.Point(272, 4)
         Me.IM_Disc_txt.MaxLength = 0
         Me.IM_Disc_txt.Name = "IM_Disc_txt"
-        Me.IM_Disc_txt.Size = New System.Drawing.Size(101, 32)
+        Me.IM_Disc_txt.Size = New System.Drawing.Size(101, 28)
         Me.IM_Disc_txt.TabIndex = 635
         '
         'Label4
@@ -369,7 +369,7 @@ Partial Class Change_IM_Details
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(379, 6)
+        Me.Label4.Location = New System.Drawing.Point(377, 8)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(52, 21)
         Me.Label4.TabIndex = 636
@@ -402,13 +402,13 @@ Partial Class Change_IM_Details
         Me.NewSalePrice_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSalePrice_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NewSalePrice_txt.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.NewSalePrice_txt.Font = New System.Drawing.Font("Stencil", 15.7!)
+        Me.NewSalePrice_txt.Font = New System.Drawing.Font("Segoe UI", 11.5!)
         Me.NewSalePrice_txt.ForeColor = System.Drawing.Color.DarkGreen
         Me.NewSalePrice_txt.Location = New System.Drawing.Point(42, 34)
         Me.NewSalePrice_txt.MaxLength = 250
         Me.NewSalePrice_txt.Name = "NewSalePrice_txt"
         Me.NewSalePrice_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSalePrice_txt.Size = New System.Drawing.Size(105, 32)
+        Me.NewSalePrice_txt.Size = New System.Drawing.Size(105, 28)
         Me.NewSalePrice_txt.TabIndex = 637
         Me.NewSalePrice_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -450,7 +450,7 @@ Partial Class Change_IM_Details
         Me.IM_CalcAvgCost_btn.Location = New System.Drawing.Point(4, 34)
         Me.IM_CalcAvgCost_btn.Name = "IM_CalcAvgCost_btn"
         Me.IM_CalcAvgCost_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_CalcAvgCost_btn.Size = New System.Drawing.Size(36, 32)
+        Me.IM_CalcAvgCost_btn.Size = New System.Drawing.Size(36, 28)
         Me.IM_CalcAvgCost_btn.TabIndex = 643
         Me.IM_CalcAvgCost_btn.TabStop = False
         Me.IM_CalcAvgCost_btn.Text = "a/b"
@@ -485,13 +485,13 @@ Partial Class Change_IM_Details
         Me.NewSaleByOne.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSaleByOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NewSaleByOne.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.NewSaleByOne.Font = New System.Drawing.Font("Stencil", 15.7!)
+        Me.NewSaleByOne.Font = New System.Drawing.Font("Segoe UI", 11.5!)
         Me.NewSaleByOne.ForeColor = System.Drawing.Color.DarkGreen
         Me.NewSaleByOne.Location = New System.Drawing.Point(18, 33)
         Me.NewSaleByOne.MaxLength = 250
         Me.NewSaleByOne.Name = "NewSaleByOne"
         Me.NewSaleByOne.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSaleByOne.Size = New System.Drawing.Size(107, 32)
+        Me.NewSaleByOne.Size = New System.Drawing.Size(107, 28)
         Me.NewSaleByOne.TabIndex = 638
         Me.NewSaleByOne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '

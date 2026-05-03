@@ -1,7 +1,7 @@
 ﻿Public Class ADD_Pch_Exp
 
     Private Sub OrderDeliver_btn_Click(sender As Object, e As EventArgs) Handles OrderDeliver_btn.Click
-        Pch_Exp_Values_INSERT()
+        Pch_Details_Calc_Tax()
     End Sub
     Public Sub Pch_Exp_Values_INSERT()
 
@@ -18,8 +18,23 @@
         sqlComm.Parameters.AddWithValue("@isWithBill", isWithBill_CB.Checked)
 
         If SQL_SP_EXEC(sqlComm) = True Then
-            F_Pch.Pch_Contents_SELECT_Bill()
+            '    F_Pch.Pch_Contents_SELECT_Bill()
             F_Pch.Pch_Contents_SELECT_EXP()
+            '    Me.Close()
+        End If
+
+    End Sub
+
+    Public Sub Pch_Details_Calc_Tax()
+
+        Dim sqlComm As New SqlClient.SqlCommand()
+        sqlComm.CommandText = "[Pch_Details_Calc_Tax]"
+        sqlComm.CommandType = CommandType.StoredProcedure
+        sqlComm.Parameters.AddWithValue("@Pch_T_ID", F_Pch.T_ID)
+        sqlComm.Parameters.AddWithValue("@Value", 0)
+
+        If SQL_SP_EXEC(sqlComm) = True Then
+            F_Pch.Pch_Contents_SELECT_Bill()
             Me.Close()
         End If
 
@@ -68,5 +83,9 @@
         Else
             TextBox1.Text = "دينار ليبي"
         End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Pch_Exp_Values_INSERT()
     End Sub
 End Class

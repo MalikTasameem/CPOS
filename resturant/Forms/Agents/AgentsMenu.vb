@@ -3,7 +3,9 @@
 Public Class AgentsMenu
     Dim rs As New Resizer
     Public AG_ID As Integer = 0
-    Public AG_NAME As Integer = 0
+    Public AG_NAME As String = ""
+    Public is_OK As Boolean = False
+    Public is_By_Draft As Boolean = False
     'Dim IM_Dt As New DataTable
 
     Private Sub AgentsMenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -123,16 +125,27 @@ Public Class AgentsMenu
         AG_ID = AG_Cm.TXT_ID.Text
         AG_NAME = AG_Cm.Textt
 
-        If U_AG_Skip_Max = False Then
-            If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
-                MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك فتح فاتورة جديدة له", MsgBoxStyle.Critical, "خطأ فالإدراج")
+        If is_By_Draft = False Then
+
+            If U_AG_Skip_Max = False Then
+                If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
+                    MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك فتح فاتورة جديدة له", MsgBoxStyle.Critical, "خطأ فالإدراج")
+                Else
+                    Choase_Ag()
+                End If
             Else
+                If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then MsgBox("هذا الزبون قد تخطى سقف الدين الخاص به", MsgBoxStyle.Exclamation, "تنويه ")
                 Choase_Ag()
             End If
+
         Else
-            If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then MsgBox("هذا الزبون قد تخطى سقف الدين الخاص به", MsgBoxStyle.Exclamation, "تنويه ")
-            Choase_Ag()
+
+            is_OK = True
+            Me.Close()
+
         End If
+
+
 
 
 

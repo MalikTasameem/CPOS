@@ -806,20 +806,13 @@ CHECK:
         If SB_3_Btn.Tag > 0 Then PriceTextBox.Text = SB_3_Btn.Tag
     End Sub
 
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
-
-    End Sub
 
     Private Sub Label14_Click(sender As Object, e As EventArgs) Handles Label14.Click
 
+    End Sub
+
+    Private Sub Back_Btn_Click(sender As Object, e As EventArgs) Handles Back_Btn.Click
+        Me.Close()
     End Sub
 
     Private Sub NewSalePrice_txt_TextChanged(sender As Object, e As EventArgs) Handles NewSalePrice_txt.TextChanged, NewSaleByOne.TextChanged

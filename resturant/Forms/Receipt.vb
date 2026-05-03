@@ -250,6 +250,7 @@
                     .DateTimeReceipt.Text = C.Dr("Date")
                     .Receipt_Title_combobox.Text = C.Dr("Receipt_Title")
                     .Notes_txtb.Text = C.Dr("About")
+                    .Discount_txt.Text = C.Dr("Discount")
                     '.Treasury_ComboBox.SelectedValue = C.Dr("Tr_ID")
                     '.payment_Type_combo.SelectedValue = C.Dr("Pay_ID")
 
@@ -409,6 +410,8 @@
         sqlComm.Parameters.AddWithValue("@Receipt_Title", Me.Receipt_Title_combobox.Text)
 
         sqlComm.Parameters.AddWithValue("@Pure", Convert.ToDouble(Me.money_num_txtb.Text))
+
+        sqlComm.Parameters.AddWithValue("@Discount", Convert.ToDouble(Me.Discount_txt.Text))
 
         sqlComm.Parameters.AddWithValue("@About", Notes_txtb.Text)
         sqlComm.Parameters.AddWithValue("@BsType_ID", Me.ReceiptTypeComboBox.SelectedValue)

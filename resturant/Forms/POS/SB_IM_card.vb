@@ -75,10 +75,12 @@
 
         If U_SB_IM_Update = True Then
             PriceTextBox.ReadOnly = False
+            Bercent_TXT.ReadOnly = False
         Else
             PriceTextBox.ReadOnly = True
-
+            Bercent_TXT.ReadOnly = True
         End If
+
 
         FunModule.Load_ALL_IM()
         ' تحميل البيانات
