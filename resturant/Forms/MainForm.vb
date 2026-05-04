@@ -2991,4 +2991,11 @@ Public Class MainForm
         Dim frm As New FrmAccountingPostingMonitor(MY_Settings.SqlConStr, USER_ID)
         frm.ShowDialog()
     End Sub
+
+    Private Sub تسويةمخزنToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles تسويةمخزنToolStripMenuItem.Click
+        Me.Cursor = Cursors.AppStarting
+        F_ST_settlement = New ST_settlement
+        F_ST_settlement.Show()
+        Me.Cursor = Cursors.Default
+    End Sub
 End Class

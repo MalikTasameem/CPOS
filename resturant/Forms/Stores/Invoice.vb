@@ -158,38 +158,38 @@
 
 
     Public Sub Get_Last_T_ID()
-            Dim C As New C
+        Dim C As New C
         Dim S As String = "Select Top 1 T_ID From Agents_Balance_MV Where User_ID = '" & USER_ID & "' AND BsType_ID = 9 AND isDepended = 0 AND isVoid = 0  AND T_ID BETWEEN " & START_ID & " AND " & END_ID & " ORDER BY T_ID DESC"
-            C.Com = New SqlClient.SqlCommand(S, C.Con)
-            C.Con.Open()
-            Try
-                C.Dr = C.Com.ExecuteReader
-                If C.Dr.HasRows Then
-                    C.Dr.Read()
-                    ClearFields()
-                    T_ID = C.Dr("T_ID")
-                    Select_ExpBill(T_ID)
-                Else
-                    Call_New_Bill()
-                    'SELECT_MAX()
-                End If
+        C.Com = New SqlClient.SqlCommand(S, C.Con)
+        C.Con.Open()
+        Try
+            C.Dr = C.Com.ExecuteReader
+            If C.Dr.HasRows Then
+                C.Dr.Read()
+                ClearFields()
+                T_ID = C.Dr("T_ID")
+                Select_ExpBill(T_ID)
+            Else
+                Call_New_Bill()
+                'SELECT_MAX()
+            End If
 
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-            C.Con.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        C.Con.Close()
 
     End Sub
 
     Public Sub Check_View_Control()
         AGMetroGrid.Columns("ST_Name_CL").Visible = MY_Settings.S_ST_Name_CL
-        AGMetroGrid.Columns("D_Valid_CL").Visible = My_Settings.S_D_Valid_CL
-        AGMetroGrid.Columns("IMUnit_CL").Visible = My_Settings.S_IMUnit_CL
-        AGMetroGrid.Columns("Price_CL").Visible = My_Settings.S_Price_CL
-        AGMetroGrid.Columns("Total_CL").Visible = My_Settings.S_Total_CL
-        AGMetroGrid.Columns("Notes_CL").Visible = My_Settings.SP_Notes_CL
-        AGMetroGrid.Columns("IMNUM_CL").Visible = My_Settings.S_IMNUM_CL
-        AGMetroGrid.Columns("Barcode_CL").Visible = My_Settings.S_Barcode_CL
+        AGMetroGrid.Columns("D_Valid_CL").Visible = MY_Settings.S_D_Valid_CL
+        AGMetroGrid.Columns("IMUnit_CL").Visible = MY_Settings.S_IMUnit_CL
+        AGMetroGrid.Columns("Price_CL").Visible = MY_Settings.S_Price_CL
+        AGMetroGrid.Columns("Total_CL").Visible = MY_Settings.S_Total_CL
+        AGMetroGrid.Columns("Notes_CL").Visible = MY_Settings.SP_Notes_CL
+        AGMetroGrid.Columns("IMNUM_CL").Visible = MY_Settings.S_IMNUM_CL
+        AGMetroGrid.Columns("Barcode_CL").Visible = MY_Settings.S_Barcode_CL
 
         'Min_SP_Panel.Visible = S_Allow_MinSP
         'Min_SP_Panel_2.Visible = S_Allow_MinSP
@@ -351,7 +351,7 @@
     Private Sub ClearFields()
         isCashReceipt_Success = False
         T_ID = 0
-        Title_txt.Clear 
+        Title_txt.Clear()
         Notes_txt.Clear()
         ' PriceTextBox.Clear()
         Total_TextBox.Clear()
@@ -392,7 +392,7 @@
     Private Sub Save_butt_Click(sender As Object, e As EventArgs) Handles Save_butt.Click
         If AGMetroGrid.Rows.Count > 0 Then
             Beep()
-            If MessageBox.Show("حفظ فاتورة الجرد ؟", "تنويه", MessageBoxButtons.OKCancel, _
+            If MessageBox.Show("حفظ فاتورة الجرد ؟", "تنويه", MessageBoxButtons.OKCancel,
                                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign) = Windows.Forms.DialogResult.OK Then
                 AG_Balance_Update_Invoice_Type()
                 Update_Total()
@@ -403,7 +403,7 @@
                 Switch_Dependcy(1)
                 SelectStateBt()
             End If
-        End If    
+        End If
     End Sub
 
     Private Sub AG_Balance_Update_Invoice_Type()
@@ -449,7 +449,7 @@
         End If
 
         Beep()
-        If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel, _
+        If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel,
                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
             Cancel_Bill()
         End If

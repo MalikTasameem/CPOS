@@ -229,7 +229,7 @@ Public Class Pay_Method
         Dim Tmp_Tr_ID As Integer = TR_ID
 
         Try
-            Dim s As String = "select TOP 1 AccountID 
+            Dim s As String = "select TOP 1 AccountID ,is_Lock
                                FROM PaymentMethodDefaultAccounts 
                                WHERE PaymentMethodID = @PaymentMethodID"
 
@@ -244,6 +244,13 @@ Public Class Pay_Method
 
                 Treasury_ComboBox.SelectedValue = c.Dr("AccountID")
                 TR_ID = CInt(Treasury_ComboBox.SelectedValue)
+
+                If c.Dr("AccountID") = False Then
+                    Treasury_ComboBox.Enabled = False
+                Else
+                    Treasury_ComboBox.Enabled = True
+                End If
+
             Else
                 Treasury_ComboBox.SelectedValue = Tmp_Tr_ID
                 TR_ID = Tmp_Tr_ID
@@ -258,198 +265,14 @@ Public Class Pay_Method
 
     End Sub
 
+    Private Sub Treasury_ComboBox_SelectedValueChanged(sender As Object, e As EventArgs) Handles Treasury_ComboBox.SelectedValueChanged
 
+        Dim val As Integer
+
+        If Integer.TryParse(Treasury_ComboBox.SelectedValue.ToString(), val) Then
+            TR_ID = val
+        End If
+
+    End Sub
 End Class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'Public Class Pay_Method
-
-'    Public TR_ID, Pay_ID As Integer
-'    Private Sub Pay_Method_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-'        TR_ID = 1
-'        Pay_ID = 1
-'        pnlPayTypeDrop.Visible = True
-'    End Sub
-
-'    Public Event PaymentTypeChanged As EventHandler
-
-
-'    '-------------------------------------------------------------------
-'    ' إعادة تعريف خاصية Font لتطبيقها على كل الأدوات الداخلية
-'    '-------------------------------------------------------------------
-'    Public Overrides Property Font As Font
-'        Get
-'            Return MyBase.Font
-'        End Get
-'        Set(value As Font)
-'            MyBase.Font = value
-'            ApplyFontToAllControls(Me, value)
-
-'        End Set
-'    End Property
-
-'    '-------------------------------------------------------------------
-'    ' دالة مساعدة تطبق الخط على كل العناصر الداخلية
-'    '-------------------------------------------------------------------
-'    Private Sub ApplyFontToAllControls(parent As Control, font As Font)
-'        For Each ctrl As Control In parent.Controls
-'            ctrl.Font = font
-'            ' في حال وجود أدوات داخل أدوات أخرى
-'            If ctrl.HasChildren Then
-'                ApplyFontToAllControls(ctrl, font)
-'            End If
-'        Next
-'    End Sub
-
-'    Public Sub Set_Tr_Form()
-'        Select Case FormType
-'            Case 1 : TR_ID = SB_TR_ID
-'            Case 2 : TR_ID = PCH_TR_ID
-'            Case 8 : TR_ID = EXP_TR_ID
-'                PaymentMethodDefaultAccounts_SELECT()
-'        End Select
-'    End Sub
-
-
-'    Public Sub Load_Tr()
-
-'        Dim C = New C
-'        Try
-'            Dim sql As String = "Select Distinct Tr_ID,Tr_Name from TreasuryCard "
-'            C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-'            C.Da.Fill(C.Dt)
-'            Treasury_ComboBox.DataSource = C.Dt
-'            Treasury_ComboBox.DisplayMember = "Tr_Name"
-'            Treasury_ComboBox.ValueMember = "Tr_ID"
-'            Treasury_ComboBox.SelectedValue = TR_ID
-'        Catch ex As Exception
-'            MsgBox(ex.Message)
-'        End Try
-
-
-'        C = New C
-'        Try
-'            Dim sql As String = " select PaymentMethodID as P_ID , PAYMENT_NAME from PaymentMethodDefaultAccounts
-'                                join PAYMENT_METHOD ON P_ID = PaymentMethodID "
-'            C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-'            C.Da.Fill(C.Dt)
-'            If C.Dt.Rows.Count > 0 Then
-'                lbPayTypes.DataSource = C.Dt
-'                lbPayTypes.DisplayMember = "PAYMENT_NAME"
-'                lbPayTypes.ValueMember = "P_ID"
-'                lbPayTypes.SelectedValue = Pay_ID
-'            Else
-'                sql = "Select '1' AS P_ID,'نقدا' AS PAYMENT_NAME "
-'                C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-'                C.Da.Fill(C.Dt)
-'                lbPayTypes.DataSource = C.Dt
-'                lbPayTypes.DisplayMember = "PAYMENT_NAME"
-'                lbPayTypes.ValueMember = "P_ID"
-'                lbPayTypes.SelectedValue = Pay_ID
-'            End If
-
-'        Catch ex As Exception
-'            MsgBox(ex.Message)
-'        End Try
-
-
-'    End Sub
-
-'    Private Sub payment_Type_combo_SelectedValueChanged(sender As Object, e As EventArgs) Handles lbPayTypes.SelectedValueChanged
-'        If TypeName(lbPayTypes.SelectedValue) = "Integer" Then
-'            PaymentMethodDefaultAccounts_SELECT()
-'        End If
-'    End Sub
-
-
-'    Public Sub PaymentMethodDefaultAccounts_SELECT() 'Pay_ID As Integer, ByRef TR_ID As Integer
-'        Dim c As New C
-'        Dim Tmp_Tr_ID As Integer = lbPayTypes.SelectedValue
-'        Pay_ID = lbPayTypes.SelectedValue
-
-'        Try
-'            Dim s As String
-'            s = "select TOP 1 AccountID FROM PaymentMethodDefaultAccounts WHERE PaymentMethodID = '" & lbPayTypes.SelectedValue & "'"
-'            c.Com = New SqlClient.SqlCommand(s, c.Con)
-'            c.Con.Open()
-'            c.Dr = c.Com.ExecuteReader
-'            If c.Dr.HasRows Then
-'                c.Dr.Read()
-'                Treasury_ComboBox.SelectedValue = c.Dr("AccountID")
-'                TR_ID = Treasury_ComboBox.SelectedValue
-
-'            Else
-'                lbPayTypes.SelectedValue = Tmp_Tr_ID
-'                Treasury_ComboBox.SelectedValue = TR_ID
-'            End If
-'        Catch ex As Exception
-'            MsgBox(ex.Message)
-'        End Try
-
-'    End Sub
-
-
-'    ' كلاس بسيط ليحمل Text + Id
-'    Private Class PayItem
-'        Public Property Text As String
-'        Public Property Id As Integer
-'        Public Sub New(t As String, i As Integer)
-'            Text = t : Id = i
-'        End Sub
-'        Public Overrides Function ToString() As String
-'            Return Text
-'        End Function
-'    End Class
-
-'    Public ReadOnly Property SelectedPaymentTypeId As Integer
-'        Get
-'            Dim it = TryCast(lbPayTypes.SelectedItem, PayItem)
-'            If it Is Nothing Then Return 0
-'            Return it.Id
-'        End Get
-'    End Property
-
-'    Public ReadOnly Property SelectedPaymentTypeText As String
-'        Get
-'            Dim it = TryCast(lbPayTypes.SelectedItem, PayItem)
-'            If it Is Nothing Then Return ""
-'            Return it.Text
-'        End Get
-'    End Property
-
-
-'    Private Sub lbPayTypes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbPayTypes.SelectedIndexChanged
-'        If lbPayTypes.SelectedItem Is Nothing Then Exit Sub
-
-'        lblPayTypeText.Text = SelectedPaymentTypeText
-'        RaiseEvent PaymentTypeChanged(Me, EventArgs.Empty)
-'    End Sub
-
-
-'    ' تعبئة من DataTable (اختياري)
-'    Public Sub BindPaymentTypes(dt As DataTable, displayMember As String, valueMember As String)
-'        lbPayTypes.Items.Clear()
-'        For Each r As DataRow In dt.Rows
-'            lbPayTypes.Items.Add(New PayItem(r(displayMember).ToString(), Convert.ToInt32(r(valueMember))))
-'        Next
-'    End Sub
-
-'End Class
 

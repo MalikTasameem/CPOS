@@ -1,24 +1,29 @@
 ﻿Public Class IM_Update_Qty
 
+
+    Public ST_NAME As String = ""
+    Public ST_ID As Integer = 0
+    Public IM_NAME As String = ""
+    Public IM_ID As Integer = 0
+    Public Unit_NAME As String = ""
+    Public CURRENT_QTY As Double = 0
+    Public New_Qty As Double = 0
+    Public Cost As Double = 0
+    Public D_Valid As String = ""
+    Public Barcode As String = ""
+
     Private Sub POS_D_Valid_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
     End Sub
 
     Private Sub POS_D_Valid_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
-        'ST_Name_txt.Text = F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("ST_Name_CL").Value
-        'IM_Name_txt.Text = F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("item_name_CL").Value
-        'Unit_txt.Text = F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("Unit_CL").Value
-        'Cost_txt.Text = F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("Cost_CL").Value
-        'QTY_txt.Text = F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("QTY_CL").Value
-        'New_Qty_txt.Text = F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("QTY_CL").Value
 
-        ST_Name_txt.Text = F_STORES_Explorer.gridv.CurrentRow.Cells(3).Value
-        IM_Name_txt.Text = F_STORES_Explorer.gridv.CurrentRow.Cells(7).Value
-        Unit_txt.Text = F_STORES_Explorer.gridv.CurrentRow.Cells(8).Value
-        Cost_txt.Text = F_STORES_Explorer.gridv.CurrentRow.Cells(11).Value
-        QTY_txt.Text = F_STORES_Explorer.gridv.CurrentRow.Cells(10).Value
-        New_Qty_txt.Text = F_STORES_Explorer.gridv.CurrentRow.Cells(10).Value
+        ST_Name_txt.Text = ST_NAME  'F_STORES_Explorer.gridv.CurrentRow.Cells(3).Value
+        IM_Name_txt.Text = IM_NAME ' F_STORES_Explorer.gridv.CurrentRow.Cells(7).Value
+        Unit_txt.Text = Unit_NAME ' F_STORES_Explorer.gridv.CurrentRow.Cells(8).Value
+        Cost_txt.Text = Cost  'F_STORES_Explorer.gridv.CurrentRow.Cells(11).Value
+        QTY_txt.Text = CURRENT_QTY 'F_STORES_Explorer.gridv.CurrentRow.Cells(10).Value
+        New_Qty_txt.Text = "0" 'F_STORES_Explorer.gridv.CurrentRow.Cells(10).Value
 
         Check_IF_IM_Valid()
 
@@ -26,40 +31,19 @@
     End Sub
 
     Public Sub Check_IF_IM_Valid()
-        'Dim c As New C
-        'Try
-        '    Dim s As String
-        '    s = "select isValid from IM_Menu WHERE IM_ID = '" & F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("item_id_CL").Value & "'"
-        '    c.Com = New SqlClient.SqlCommand(s, c.Con)
-        '    c.Con.Open()
-        '    c.Dr = c.Com.ExecuteReader
-        '    If c.Dr.HasRows Then
-        '        c.Dr.Read()
-        '        If c.Dr("isValid") = 1 Then
-        '            If F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("D_Valid_CL").Value <> "" Then
-        '                Valid_Date.Text = F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("D_Valid_CL").Value
-        '            End If
-        '        Else
-        '            Valid_Panel.Visible = False
-        '        End If
 
-        '    End If
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
-        '-----------------------------------------------------------------------------------
         Dim c As New C
         Try
             Dim s As String
-            s = "select isValid from IM_Menu WHERE IM_ID = '" & F_STORES_Explorer.gridv.CurrentRow.Cells(1).Value & "'"
+            s = "select isValid from IM_Menu WHERE IM_ID = '" & IM_ID & "'" 'F_STORES_Explorer.gridv.CurrentRow.Cells(1).Value
             c.Com = New SqlClient.SqlCommand(s, c.Con)
             c.Con.Open()
             c.Dr = c.Com.ExecuteReader
             If c.Dr.HasRows Then
                 c.Dr.Read()
                 If c.Dr("isValid") = 1 Then
-                    If F_STORES_Explorer.gridv.CurrentRow.Cells(9).Value <> "" Then
-                        Valid_Date.Text = F_STORES_Explorer.gridv.CurrentRow.Cells(9).Value
+                    If D_Valid <> "" Then 'F_STORES_Explorer.gridv.CurrentRow.Cells(9).Value
+                        Valid_Date.Text = D_Valid
                     End If
                 Else
                     Valid_Panel.Visible = False
@@ -82,64 +66,41 @@
             End If
         End If
 
-        'Network_Edit_Tracker_insert(" تعديل بيانات الصنف : " + IM_Name_txt.Text + " / المخزن : " + ST_Name_txt.Text + " / الوحدة : " + Unit_txt.Text + " / تكلفة الوحدة : " + Cost_txt.Text + " / الكمية : " + New_Qty_txt.Text, 0, _
-        '                            F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("item_id_CL").Value, F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("ST_ID_CL").Value)
-
         ST_Balance_Update()
     End Sub
 
     Private Sub ST_Balance_Update()
-        'Dim c As New C
 
-        'With c.Com
-        '    .Connection = c.Con
-        '    .CommandText = "ST_Balance_Update"
-        '    .CommandType = CommandType.StoredProcedure
-        '    .Parameters.AddWithValue("@T_ID", F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("T_ID_CL").Value)
-        '    .Parameters.AddWithValue("@IM_ID", F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("item_id_CL").Value)
-        '    .Parameters.AddWithValue("@ST_ID", F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("ST_ID_CL").Value)
-
-        '    If Valid_Panel.Visible = True Then .Parameters.AddWithValue("@D_Valid", Valid_Date.Value.Date)
-        '    .Parameters.AddWithValue("@ST_QTY", New_Qty_txt.Text)
-        '    .Parameters.AddWithValue("@Cost", Cost_txt.Text)
-        '    .Parameters.AddWithValue("@Qty_Deference", Qty_Deference_Txt.Text)
-        '    .Parameters.AddWithValue("@Tag", Tag_txt.Text)
-        'End With
-
-        'If SQL_SP_EXEC(c.Com) Then
-        '    MsgBox("تم حفظ التعديلات", MsgBoxStyle.Information)
-        '    Network_Edit_Tracker_insert(" الصنف:" + IM_Name_txt.Text + " المخزن:" + ST_Name_txt.Text + " الوحدة:" + Unit_txt.Text + " التكلفة:" + Cost_txt.Text + " الكمية:" + New_Qty_txt.Text, 0, 23, 3)
-        '    F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("Cost_CL").Value = Cost_txt.Text
-        '    F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("QTY_CL").Value = New_Qty_txt.Text
-        '    F_STORES_Explorer.DataGridViewX.CurrentRow.Cells("T_Cost_CL").Value = Convert.ToDouble(Cost_txt.Text) * Convert.ToDouble(New_Qty_txt.Text)
-        '    F_STORES_Explorer.Get_Total_QYT()
-        '    Me.Close()
-        'End If
-        '---------------------------------------------------------------------------------------------------------------------
         Dim c As New C
 
         With c.Com
             .Connection = c.Con
             .CommandText = "ST_Balance_Update"
             .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@Bill_T_ID", F_ST_settlement.T_ID)
             .Parameters.AddWithValue("@T_ID", 0)
-            .Parameters.AddWithValue("@IM_ID", F_STORES_Explorer.gridv.CurrentRow.Cells(1).Value)
-            .Parameters.AddWithValue("@ST_ID", F_STORES_Explorer.gridv.CurrentRow.Cells(2).Value)
+            .Parameters.AddWithValue("@IM_ID", IM_ID) 'F_STORES_Explorer.gridv.CurrentRow.Cells(1).Value
+            .Parameters.AddWithValue("@ST_ID", ST_ID) 'F_STORES_Explorer.gridv.CurrentRow.Cells(2).Value
 
             If Valid_Panel.Visible = True Then .Parameters.AddWithValue("@D_Valid", Valid_Date.Value.Date)
             .Parameters.AddWithValue("@ST_QTY", New_Qty_txt.Text)
-            .Parameters.AddWithValue("@Cost", Cost_txt.Text)
+            '.Parameters.AddWithValue("@Cost", Cost_txt.Text)
             .Parameters.AddWithValue("@Qty_Deference", Qty_Deference_Txt.Text)
             .Parameters.AddWithValue("@Tag", Tag_txt.Text)
+            .Parameters.AddWithValue("@Barcode", Barcode)
+
         End With
 
         If SQL_SP_EXEC(c.Com) Then
             MsgBox("تم حفظ التعديلات", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الصنف:" + IM_Name_txt.Text + " المخزن:" + ST_Name_txt.Text + " الوحدة:" + Unit_txt.Text + " التكلفة:" + Cost_txt.Text + " الكمية:" + New_Qty_txt.Text, 0, 23, 3)
-            F_STORES_Explorer.gridv.CurrentRow.Cells(11).Value = Cost_txt.Text
-            F_STORES_Explorer.gridv.CurrentRow.Cells(10).Value = New_Qty_txt.Text
-            F_STORES_Explorer.gridv.CurrentRow.Cells(13).Value = Convert.ToDouble(Cost_txt.Text) * Convert.ToDouble(New_Qty_txt.Text)
-            F_STORES_Explorer.Get_Total_QYT()
+            Network_Edit_Tracker_insert(" الصنف:" + IM_Name_txt.Text + " المخزن:" + ST_Name_txt.Text + " الوحدة:" + Unit_txt.Text + " التكلفة:" + Cost_txt.Text + " كمية التسوية:" + New_Qty_txt.Text, 0, 39, 3)
+            'F_STORES_Explorer.gridv.CurrentRow.Cells(11).Value = Cost_txt.Text
+            'F_STORES_Explorer.gridv.CurrentRow.Cells(10).Value = New_Qty_txt.Text
+            'F_STORES_Explorer.gridv.CurrentRow.Cells(13).Value = Convert.ToDouble(Cost_txt.Text) * Convert.ToDouble(New_Qty_txt.Text)
+            'F_STORES_Explorer.Get_Total_QYT()
+
+            F_ST_settlement.Pch_Contents_SELECT_Bill()
+
             Me.Close()
         End If
 

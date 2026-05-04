@@ -120,6 +120,7 @@
     Public F_STORES_Explorer As STORES_Explorer
     Public F_IM_Execute As IM_Execute
     Public F_Invoice As Invoice
+    Public F_ST_settlement As ST_settlement
     Public F_Sales As Sales
     Public F_IM_Valid As IM_Valid
     Public F_Custody As Custody
@@ -134,6 +135,8 @@
     Public F_Inside_Sales_IM_card As Inside_Sales_IM_card
     Public F_Outside_Sales_IM_card As Outside_Sales_IM_card
     Public F_ViewBill_IM_card As ViewBill_IM_card
+
+    Public F_ST_settlement_IM_card As ST_settlement_IM_card
     '--------------------
     ' Public SqlConnection As String = ""
 
@@ -143,7 +146,7 @@
     Public Random_Serial As String = ""
     '----------------------------------
     Public AG_Type As Integer
-    Public FormType As Integer = 0 ' 1: Sales , 2:Pch , 3:IMEX , 4:Invoice , 5:Sales_Retuns , 6:Pch_Returns , 7:IM STORE CONVERT , 8:EXP_Details , 9:FORMAT ITEM , 10:View Bill , 11:Inside Sale , 12:Custody , 13:Outside Sale 
+    Public FormType As Integer = 0 ' 1: Sales , 2:Pch , 3:IMEX , 4:Invoice , 5:Sales_Retuns , 6:Pch_Returns , 7:IM STORE CONVERT , 8:EXP_Details , 9:FORMAT ITEM , 10:View Bill , 11:Inside Sale , 12:Custody , 13:Outside Sale ,  14:ST_QTY_Deferences
     Public TR_Type As Integer ' 1: Widraw , 2:Deposit , 3:Convert 
     Public isOrder As Boolean = False
     Public isViewOrder As Boolean = False

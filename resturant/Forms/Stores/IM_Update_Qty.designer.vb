@@ -58,6 +58,7 @@ Partial Class IM_Update_Qty
         Me.Cost_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Cost_txt.Size = New System.Drawing.Size(166, 39)
         Me.Cost_txt.TabIndex = 459
+        Me.Cost_txt.Visible = False
         '
         'NULLContextMenuStrip
         '
@@ -104,6 +105,7 @@ Partial Class IM_Update_Qty
         Me.Label4.TabIndex = 458
         Me.Label4.Text = "تكلفة الوحدة"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label4.Visible = False
         '
         'IM_Name_txt
         '

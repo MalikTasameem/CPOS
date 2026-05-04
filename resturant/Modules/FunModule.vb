@@ -727,13 +727,14 @@ Module FunModule
                 F_Sales.SB_Contents_SELECT_Bill()
                 F_Sales.SelectStateBt()
                 Exit Sub
-            Case 2 : S = "Select * From Pch_Balance_MV_V Where T_ID = '" & T_ID & "'"
-            Case 3 : S = "Select * From IMEX_Balance_MV_V Where T_ID = '" & T_ID & "'"
-            Case 4 : S = "Select * From Invoice_Balance_MV_V Where T_ID = '" & T_ID & "'"
-            Case 7 : S = "Select * From ST_Trans_Balance_MV_V Where T_ID = '" & T_ID & "'"
-            Case 8 : S = "Select * From EXP_Balance_MV_V Where T_ID = '" & T_ID & "'"
+            Case 2 : S = "Select  * From Pch_Balance_MV_V Where T_ID = '" & T_ID & "'"
+            Case 3 : S = "Select  * From IMEX_Balance_MV_V Where T_ID = '" & T_ID & "'"
+            Case 4 : S = "Select  * From Invoice_Balance_MV_V Where T_ID = '" & T_ID & "'"
+            Case 7 : S = "Select  * From ST_Trans_Balance_MV_V Where T_ID = '" & T_ID & "'"
+            Case 8 : S = "Select  * From EXP_Balance_MV_V Where T_ID = '" & T_ID & "'"
             Case 11 : S = "Select * From InSale_Balance_MV_V Where T_ID = '" & T_ID & "'"
             Case 13 : S = "Select * From Outsale_Balance_MV_V Where T_ID = '" & T_ID & "'"
+            Case 14 : S = "Select * From St_Settlement_Balance_MV_V Where T_ID = '" & T_ID & "'"
         End Select
 
 
@@ -893,6 +894,26 @@ Module FunModule
                         .Emp_FS.Set_IM_By_ID(C.Dr("AG_ID"))
                         .SelectStateBt()
                         .SELECT_EXP_Cats(T_ID)
+                        If .AGMetroGrid.Rows.Count = 0 Then .DateTimeEx.Value = Date.Now
+                    End With
+
+                ElseIf FormType = 14 Then
+
+                    With F_ST_settlement
+                        .T_ID = C.Dr("T_ID")
+                        .Bill_ID_Txt.Text = S_Sub_Code & (C.Dr("Bill_ID")) ' - START_ID).ToString
+                        .Pch_ID = C.Dr("Bill_ID")
+                        .Title_txt.Text = C.Dr("Receipt_Title")
+                        .DateTimeEx.Text = C.Dr("Date")
+                        .Notes_txt.Text = C.Dr("About")
+                        TOTAL = C.Dr("Cost")
+                        .lblQtyPlus.Text = TOTAL.ToString("N")
+                        .Switch_Dependcy(C.Dr("isDepended"))
+                        .isVoid = C.Dr("isVoid")
+                        .User_Name_lb.Text = C.Dr("UserName") + " - " + C.Dr("Date").ToString
+                        '.Invoice_Type_cm.SelectedIndex = C.Dr("Invoice_Type")
+                        .Pch_Contents_SELECT_Bill()
+                        .SelectStateBt()
                         If .AGMetroGrid.Rows.Count = 0 Then .DateTimeEx.Value = Date.Now
                     End With
 

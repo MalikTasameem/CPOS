@@ -88,11 +88,13 @@ Partial Class MainForm
         Me.بطاقةالعملاءToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
         Me.Balances_btn = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.شاشةالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.الخزينــةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.سحــبToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.إيداعToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.تحويلبينالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ترحيلمحاسبيToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
         Me.Reports_btn = New System.Windows.Forms.ToolStripDropDownButton()
         Me.General_Report_LB = New System.Windows.Forms.ToolStripMenuItem()
@@ -179,8 +181,7 @@ Partial Class MainForm
         Me.check_print_Btn3 = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
-        Me.شاشةالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ترحيلمحاسبيToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.تسويةمخزنToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -452,7 +453,7 @@ Partial Class MainForm
         'ST_Btn
         '
         Me.ST_Btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ST_Btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ST_Explore_LB, Me.Invoice_LB, Me.IMEX_LB, Me.STTRANC_LB, Me.Prepare_Invoice_LB, Me.أوامرمحزنToolStripMenuItem})
+        Me.ST_Btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ST_Explore_LB, Me.Invoice_LB, Me.IMEX_LB, Me.STTRANC_LB, Me.Prepare_Invoice_LB, Me.أوامرمحزنToolStripMenuItem, Me.تسويةمخزنToolStripMenuItem})
         Me.ST_Btn.Name = "ST_Btn"
         Me.ST_Btn.Size = New System.Drawing.Size(66, 23)
         Me.ST_Btn.Text = "المخازن"
@@ -588,6 +589,12 @@ Partial Class MainForm
         Me.Balances_btn.Size = New System.Drawing.Size(77, 23)
         Me.Balances_btn.Text = "الحسابات"
         '
+        'شاشةالحساباتToolStripMenuItem
+        '
+        Me.شاشةالحساباتToolStripMenuItem.Name = "شاشةالحساباتToolStripMenuItem"
+        Me.شاشةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
+        Me.شاشةالحساباتToolStripMenuItem.Text = "شاشة الحسابات"
+        '
         'الخزينــةToolStripMenuItem
         '
         Me.الخزينــةToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.سحــبToolStripMenuItem, Me.إيداعToolStripMenuItem, Me.ToolStripMenuItem3})
@@ -598,19 +605,19 @@ Partial Class MainForm
         'سحــبToolStripMenuItem
         '
         Me.سحــبToolStripMenuItem.Name = "سحــبToolStripMenuItem"
-        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
+        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
         Me.سحــبToolStripMenuItem.Text = "سحب"
         '
         'إيداعToolStripMenuItem
         '
         Me.إيداعToolStripMenuItem.Name = "إيداعToolStripMenuItem"
-        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
+        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
         Me.إيداعToolStripMenuItem.Text = "إيداع"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(152, 24)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(113, 24)
         Me.ToolStripMenuItem3.Text = "تحويل"
         '
         'تحويلبينالحساباتToolStripMenuItem
@@ -618,6 +625,12 @@ Partial Class MainForm
         Me.تحويلبينالحساباتToolStripMenuItem.Name = "تحويلبينالحساباتToolStripMenuItem"
         Me.تحويلبينالحساباتToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
         Me.تحويلبينالحساباتToolStripMenuItem.Text = "تحويل حسابات"
+        '
+        'ترحيلمحاسبيToolStripMenuItem
+        '
+        Me.ترحيلمحاسبيToolStripMenuItem.Name = "ترحيلمحاسبيToolStripMenuItem"
+        Me.ترحيلمحاسبيToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
+        Me.ترحيلمحاسبيToolStripMenuItem.Text = "ترحيل محاسبي"
         '
         'ToolStripSeparator8
         '
@@ -1452,17 +1465,11 @@ Partial Class MainForm
         Me.Save_butt.Text = "حفظ الإعدادات"
         Me.Save_butt.UseVisualStyleBackColor = False
         '
-        'شاشةالحساباتToolStripMenuItem
+        'تسويةمخزنToolStripMenuItem
         '
-        Me.شاشةالحساباتToolStripMenuItem.Name = "شاشةالحساباتToolStripMenuItem"
-        Me.شاشةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
-        Me.شاشةالحساباتToolStripMenuItem.Text = "شاشة الحسابات"
-        '
-        'ترحيلمحاسبيToolStripMenuItem
-        '
-        Me.ترحيلمحاسبيToolStripMenuItem.Name = "ترحيلمحاسبيToolStripMenuItem"
-        Me.ترحيلمحاسبيToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
-        Me.ترحيلمحاسبيToolStripMenuItem.Text = "ترحيل محاسبي"
+        Me.تسويةمخزنToolStripMenuItem.Name = "تسويةمخزنToolStripMenuItem"
+        Me.تسويةمخزنToolStripMenuItem.Size = New System.Drawing.Size(184, 24)
+        Me.تسويةمخزنToolStripMenuItem.Text = "تسوية مخزن"
         '
         'MainForm
         '
@@ -1692,4 +1699,5 @@ Partial Class MainForm
     Friend WithEvents KashierPrinterComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents شاشةالحساباتToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ترحيلمحاسبيToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents تسويةمخزنToolStripMenuItem As ToolStripMenuItem
 End Class
