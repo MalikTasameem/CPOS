@@ -23,16 +23,6 @@ Partial Class ST_settlement_IM_card
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ST_settlement_IM_card))
-        Me.SP_2_CB = New System.Windows.Forms.CheckBox()
-        Me.SP_1_CB = New System.Windows.Forms.CheckBox()
-        Me.SP_CB = New System.Windows.Forms.CheckBox()
-        Me.Show_IM_Note_Valid_CB = New System.Windows.Forms.CheckBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.IM_Valid_Note_Panel = New System.Windows.Forms.Panel()
-        Me.Valid_For_List_Date = New System.Windows.Forms.DateTimePicker()
-        Me.Valid_ListBox = New System.Windows.Forms.ListBox()
-        Me.Add_Valid_Btn = New System.Windows.Forms.Button()
-        Me.Remove_Valid_Btn = New System.Windows.Forms.Button()
         Me.Panel15 = New System.Windows.Forms.Panel()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Prev_Sale_Unit_txt = New System.Windows.Forms.TextBox()
@@ -64,13 +54,6 @@ Partial Class ST_settlement_IM_card
         Me.Valid_Panel = New System.Windows.Forms.Panel()
         Me.D_Valid = New System.Windows.Forms.DateTimePicker()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.Min_SP_Panel_2 = New System.Windows.Forms.Panel()
-        Me.MIN_BY_ONE_RD_2 = New System.Windows.Forms.RadioButton()
-        Me.MIN_RD_2 = New System.Windows.Forms.RadioButton()
-        Me.Min_SP_2_By_One_Lb = New System.Windows.Forms.Label()
-        Me.Min_SP_2_By_One_txt = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Min_SP_2_txt = New System.Windows.Forms.TextBox()
         Me.Min_SP_Panel = New System.Windows.Forms.Panel()
         Me.MIN_BY_ONE_RD = New System.Windows.Forms.RadioButton()
         Me.MIN_RD = New System.Windows.Forms.RadioButton()
@@ -79,7 +62,6 @@ Partial Class ST_settlement_IM_card
         Me.Min_SP_By_One_txt = New System.Windows.Forms.TextBox()
         Me.Min_SP_txt = New System.Windows.Forms.TextBox()
         Me.IM_CalcAvgCost_btn = New System.Windows.Forms.Button()
-        Me.Confirm_ADD_bercent = New System.Windows.Forms.Button()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.ST_cm = New System.Windows.Forms.ComboBox()
@@ -87,8 +69,25 @@ Partial Class ST_settlement_IM_card
         Me.Exit_Btn = New System.Windows.Forms.Button()
         Me.ADD_New_IM_btn = New System.Windows.Forms.Button()
         Me.mySearchControl = New resturant.SearchItemControl()
+        Me.Min_SP_2_txt = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Min_SP_2_By_One_txt = New System.Windows.Forms.TextBox()
+        Me.Min_SP_2_By_One_Lb = New System.Windows.Forms.Label()
+        Me.MIN_RD_2 = New System.Windows.Forms.RadioButton()
+        Me.MIN_BY_ONE_RD_2 = New System.Windows.Forms.RadioButton()
+        Me.Min_SP_Panel_2 = New System.Windows.Forms.Panel()
+        Me.Remove_Valid_Btn = New System.Windows.Forms.Button()
+        Me.Add_Valid_Btn = New System.Windows.Forms.Button()
+        Me.Valid_ListBox = New System.Windows.Forms.ListBox()
+        Me.Valid_For_List_Date = New System.Windows.Forms.DateTimePicker()
+        Me.IM_Valid_Note_Panel = New System.Windows.Forms.Panel()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.bercent_ADD_txt = New resturant.F3NumericTextBox()
-        Me.IM_Valid_Note_Panel.SuspendLayout()
+        Me.Confirm_ADD_bercent = New System.Windows.Forms.Button()
+        Me.Show_IM_Note_Valid_CB = New System.Windows.Forms.CheckBox()
+        Me.SP_CB = New System.Windows.Forms.CheckBox()
+        Me.SP_1_CB = New System.Windows.Forms.CheckBox()
+        Me.SP_2_CB = New System.Windows.Forms.CheckBox()
         Me.Panel15.SuspendLayout()
         Me.Two_Panel.SuspendLayout()
         Me.One_Panel.SuspendLayout()
@@ -99,145 +98,11 @@ Partial Class ST_settlement_IM_card
         Me.All_St_Panel.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.Valid_Panel.SuspendLayout()
-        Me.Min_SP_Panel_2.SuspendLayout()
         Me.Min_SP_Panel.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        Me.Min_SP_Panel_2.SuspendLayout()
+        Me.IM_Valid_Note_Panel.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'SP_2_CB
-        '
-        Me.SP_2_CB.AutoSize = True
-        Me.SP_2_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.SP_2_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_2_CB.Location = New System.Drawing.Point(6, 168)
-        Me.SP_2_CB.Name = "SP_2_CB"
-        Me.SP_2_CB.Size = New System.Drawing.Size(103, 24)
-        Me.SP_2_CB.TabIndex = 1043
-        Me.SP_2_CB.Text = "جملة الجملة"
-        Me.SP_2_CB.UseVisualStyleBackColor = True
-        '
-        'SP_1_CB
-        '
-        Me.SP_1_CB.AutoSize = True
-        Me.SP_1_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.SP_1_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_1_CB.Location = New System.Drawing.Point(217, 169)
-        Me.SP_1_CB.Name = "SP_1_CB"
-        Me.SP_1_CB.Size = New System.Drawing.Size(59, 24)
-        Me.SP_1_CB.TabIndex = 1042
-        Me.SP_1_CB.Text = "جملة"
-        Me.SP_1_CB.UseVisualStyleBackColor = True
-        '
-        'SP_CB
-        '
-        Me.SP_CB.AutoSize = True
-        Me.SP_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.SP_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_CB.Location = New System.Drawing.Point(121, 169)
-        Me.SP_CB.Name = "SP_CB"
-        Me.SP_CB.Size = New System.Drawing.Size(75, 24)
-        Me.SP_CB.TabIndex = 1041
-        Me.SP_CB.Text = "قطاعي"
-        Me.SP_CB.UseVisualStyleBackColor = True
-        '
-        'Show_IM_Note_Valid_CB
-        '
-        Me.Show_IM_Note_Valid_CB.AutoSize = True
-        Me.Show_IM_Note_Valid_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Show_IM_Note_Valid_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_IM_Note_Valid_CB.Location = New System.Drawing.Point(287, 208)
-        Me.Show_IM_Note_Valid_CB.Name = "Show_IM_Note_Valid_CB"
-        Me.Show_IM_Note_Valid_CB.Size = New System.Drawing.Size(83, 24)
-        Me.Show_IM_Note_Valid_CB.TabIndex = 1036
-        Me.Show_IM_Note_Valid_CB.Text = "الصلاحية"
-        Me.Show_IM_Note_Valid_CB.UseVisualStyleBackColor = True
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label14.Location = New System.Drawing.Point(123, 204)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(40, 20)
-        Me.Label14.TabIndex = 1038
-        Me.Label14.Text = "بيع%"
-        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'IM_Valid_Note_Panel
-        '
-        Me.IM_Valid_Note_Panel.Controls.Add(Me.Valid_For_List_Date)
-        Me.IM_Valid_Note_Panel.Controls.Add(Me.Valid_ListBox)
-        Me.IM_Valid_Note_Panel.Controls.Add(Me.Add_Valid_Btn)
-        Me.IM_Valid_Note_Panel.Controls.Add(Me.Remove_Valid_Btn)
-        Me.IM_Valid_Note_Panel.Location = New System.Drawing.Point(114, 235)
-        Me.IM_Valid_Note_Panel.Name = "IM_Valid_Note_Panel"
-        Me.IM_Valid_Note_Panel.Size = New System.Drawing.Size(256, 142)
-        Me.IM_Valid_Note_Panel.TabIndex = 1037
-        Me.IM_Valid_Note_Panel.Visible = False
-        '
-        'Valid_For_List_Date
-        '
-        Me.Valid_For_List_Date.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Valid_For_List_Date.CalendarFont = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Valid_For_List_Date.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Valid_For_List_Date.CustomFormat = "dd-MM-yyyy"
-        Me.Valid_For_List_Date.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Valid_For_List_Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.Valid_For_List_Date.Location = New System.Drawing.Point(121, 3)
-        Me.Valid_For_List_Date.Name = "Valid_For_List_Date"
-        Me.Valid_For_List_Date.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Valid_For_List_Date.RightToLeftLayout = True
-        Me.Valid_For_List_Date.Size = New System.Drawing.Size(132, 27)
-        Me.Valid_For_List_Date.TabIndex = 708
-        '
-        'Valid_ListBox
-        '
-        Me.Valid_ListBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Valid_ListBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Valid_ListBox.FormattingEnabled = True
-        Me.Valid_ListBox.ItemHeight = 20
-        Me.Valid_ListBox.Location = New System.Drawing.Point(3, 32)
-        Me.Valid_ListBox.Name = "Valid_ListBox"
-        Me.Valid_ListBox.Size = New System.Drawing.Size(250, 104)
-        Me.Valid_ListBox.TabIndex = 707
-        '
-        'Add_Valid_Btn
-        '
-        Me.Add_Valid_Btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Add_Valid_Btn.BackColor = System.Drawing.Color.White
-        Me.Add_Valid_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
-        Me.Add_Valid_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Add_Valid_Btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Add_Valid_Btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Add_Valid_Btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Add_Valid_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Add_Valid_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Add_Valid_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Add_Valid_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Add_Valid_Btn.Location = New System.Drawing.Point(95, 3)
-        Me.Add_Valid_Btn.Name = "Add_Valid_Btn"
-        Me.Add_Valid_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Add_Valid_Btn.Size = New System.Drawing.Size(25, 25)
-        Me.Add_Valid_Btn.TabIndex = 709
-        Me.Add_Valid_Btn.TabStop = False
-        Me.Add_Valid_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Add_Valid_Btn.UseVisualStyleBackColor = False
-        '
-        'Remove_Valid_Btn
-        '
-        Me.Remove_Valid_Btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Remove_Valid_Btn.BackColor = System.Drawing.Color.White
-        Me.Remove_Valid_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_minus_173055
-        Me.Remove_Valid_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Remove_Valid_Btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Remove_Valid_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Remove_Valid_Btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Remove_Valid_Btn.Location = New System.Drawing.Point(69, 3)
-        Me.Remove_Valid_Btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Remove_Valid_Btn.Name = "Remove_Valid_Btn"
-        Me.Remove_Valid_Btn.Size = New System.Drawing.Size(25, 25)
-        Me.Remove_Valid_Btn.TabIndex = 710
-        Me.Remove_Valid_Btn.UseVisualStyleBackColor = False
         '
         'Panel15
         '
@@ -626,88 +491,6 @@ Partial Class ST_settlement_IM_card
         Me.Label19.Text = "الصلاحية :"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         '
-        'Min_SP_Panel_2
-        '
-        Me.Min_SP_Panel_2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_Panel_2.Controls.Add(Me.MIN_BY_ONE_RD_2)
-        Me.Min_SP_Panel_2.Controls.Add(Me.MIN_RD_2)
-        Me.Min_SP_Panel_2.Controls.Add(Me.Min_SP_2_By_One_Lb)
-        Me.Min_SP_Panel_2.Controls.Add(Me.Min_SP_2_By_One_txt)
-        Me.Min_SP_Panel_2.Controls.Add(Me.Label10)
-        Me.Min_SP_Panel_2.Controls.Add(Me.Min_SP_2_txt)
-        Me.Min_SP_Panel_2.Location = New System.Drawing.Point(378, 160)
-        Me.Min_SP_Panel_2.Name = "Min_SP_Panel_2"
-        Me.Min_SP_Panel_2.Size = New System.Drawing.Size(445, 36)
-        Me.Min_SP_Panel_2.TabIndex = 1023
-        '
-        'MIN_BY_ONE_RD_2
-        '
-        Me.MIN_BY_ONE_RD_2.AutoSize = True
-        Me.MIN_BY_ONE_RD_2.Location = New System.Drawing.Point(4, 6)
-        Me.MIN_BY_ONE_RD_2.Name = "MIN_BY_ONE_RD_2"
-        Me.MIN_BY_ONE_RD_2.Size = New System.Drawing.Size(14, 13)
-        Me.MIN_BY_ONE_RD_2.TabIndex = 1023
-        Me.MIN_BY_ONE_RD_2.UseVisualStyleBackColor = True
-        '
-        'MIN_RD_2
-        '
-        Me.MIN_RD_2.AutoSize = True
-        Me.MIN_RD_2.Checked = True
-        Me.MIN_RD_2.Location = New System.Drawing.Point(260, 6)
-        Me.MIN_RD_2.Name = "MIN_RD_2"
-        Me.MIN_RD_2.Size = New System.Drawing.Size(14, 13)
-        Me.MIN_RD_2.TabIndex = 1022
-        Me.MIN_RD_2.TabStop = True
-        Me.MIN_RD_2.UseVisualStyleBackColor = True
-        '
-        'Min_SP_2_By_One_Lb
-        '
-        Me.Min_SP_2_By_One_Lb.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Min_SP_2_By_One_Lb.AutoSize = True
-        Me.Min_SP_2_By_One_Lb.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Min_SP_2_By_One_Lb.Location = New System.Drawing.Point(108, 8)
-        Me.Min_SP_2_By_One_Lb.Name = "Min_SP_2_By_One_Lb"
-        Me.Min_SP_2_By_One_Lb.Size = New System.Drawing.Size(143, 20)
-        Me.Min_SP_2_By_One_Lb.TabIndex = 704
-        Me.Min_SP_2_By_One_Lb.Text = "جملة الجملة للقطعة :"
-        Me.Min_SP_2_By_One_Lb.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Min_SP_2_By_One_txt
-        '
-        Me.Min_SP_2_By_One_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Min_SP_2_By_One_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Min_SP_2_By_One_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_2_By_One_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
-        Me.Min_SP_2_By_One_txt.Location = New System.Drawing.Point(21, 3)
-        Me.Min_SP_2_By_One_txt.Name = "Min_SP_2_By_One_txt"
-        Me.Min_SP_2_By_One_txt.Size = New System.Drawing.Size(84, 28)
-        Me.Min_SP_2_By_One_txt.TabIndex = 1011
-        Me.Min_SP_2_By_One_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label10
-        '
-        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(352, 7)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(87, 20)
-        Me.Label10.TabIndex = 702
-        Me.Label10.Text = "جملة الجملة:"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Min_SP_2_txt
-        '
-        Me.Min_SP_2_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Min_SP_2_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Min_SP_2_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_2_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
-        Me.Min_SP_2_txt.Location = New System.Drawing.Point(277, 3)
-        Me.Min_SP_2_txt.Name = "Min_SP_2_txt"
-        Me.Min_SP_2_txt.Size = New System.Drawing.Size(72, 28)
-        Me.Min_SP_2_txt.TabIndex = 1010
-        Me.Min_SP_2_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'Min_SP_Panel
         '
         Me.Min_SP_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -810,26 +593,6 @@ Partial Class ST_settlement_IM_card
         Me.IM_CalcAvgCost_btn.TabStop = False
         Me.IM_CalcAvgCost_btn.Text = "a/b"
         Me.IM_CalcAvgCost_btn.UseVisualStyleBackColor = False
-        '
-        'Confirm_ADD_bercent
-        '
-        Me.Confirm_ADD_bercent.BackColor = System.Drawing.Color.White
-        Me.Confirm_ADD_bercent.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Confirm_ADD_bercent.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Confirm_ADD_bercent.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Confirm_ADD_bercent.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.Confirm_ADD_bercent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Confirm_ADD_bercent.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Confirm_ADD_bercent.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Confirm_ADD_bercent.Image = Global.resturant.My.Resources.Resources.if_ok_173061
-        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(3, 201)
-        Me.Confirm_ADD_bercent.Name = "Confirm_ADD_bercent"
-        Me.Confirm_ADD_bercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Confirm_ADD_bercent.Size = New System.Drawing.Size(41, 26)
-        Me.Confirm_ADD_bercent.TabIndex = 1040
-        Me.Confirm_ADD_bercent.TabStop = False
-        Me.Confirm_ADD_bercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Confirm_ADD_bercent.UseVisualStyleBackColor = False
         '
         'Panel4
         '
@@ -941,6 +704,175 @@ Partial Class ST_settlement_IM_card
         Me.mySearchControl.Size = New System.Drawing.Size(738, 35)
         Me.mySearchControl.TabIndex = 1047
         '
+        'Min_SP_2_txt
+        '
+        Me.Min_SP_2_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Min_SP_2_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Min_SP_2_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Min_SP_2_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Min_SP_2_txt.Location = New System.Drawing.Point(277, 3)
+        Me.Min_SP_2_txt.Name = "Min_SP_2_txt"
+        Me.Min_SP_2_txt.Size = New System.Drawing.Size(72, 28)
+        Me.Min_SP_2_txt.TabIndex = 1010
+        Me.Min_SP_2_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label10
+        '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(352, 7)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(87, 20)
+        Me.Label10.TabIndex = 702
+        Me.Label10.Text = "جملة الجملة:"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Min_SP_2_By_One_txt
+        '
+        Me.Min_SP_2_By_One_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Min_SP_2_By_One_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Min_SP_2_By_One_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Min_SP_2_By_One_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Min_SP_2_By_One_txt.Location = New System.Drawing.Point(21, 3)
+        Me.Min_SP_2_By_One_txt.Name = "Min_SP_2_By_One_txt"
+        Me.Min_SP_2_By_One_txt.Size = New System.Drawing.Size(84, 28)
+        Me.Min_SP_2_By_One_txt.TabIndex = 1011
+        Me.Min_SP_2_By_One_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Min_SP_2_By_One_Lb
+        '
+        Me.Min_SP_2_By_One_Lb.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Min_SP_2_By_One_Lb.AutoSize = True
+        Me.Min_SP_2_By_One_Lb.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Min_SP_2_By_One_Lb.Location = New System.Drawing.Point(108, 8)
+        Me.Min_SP_2_By_One_Lb.Name = "Min_SP_2_By_One_Lb"
+        Me.Min_SP_2_By_One_Lb.Size = New System.Drawing.Size(143, 20)
+        Me.Min_SP_2_By_One_Lb.TabIndex = 704
+        Me.Min_SP_2_By_One_Lb.Text = "جملة الجملة للقطعة :"
+        Me.Min_SP_2_By_One_Lb.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'MIN_RD_2
+        '
+        Me.MIN_RD_2.AutoSize = True
+        Me.MIN_RD_2.Checked = True
+        Me.MIN_RD_2.Location = New System.Drawing.Point(260, 6)
+        Me.MIN_RD_2.Name = "MIN_RD_2"
+        Me.MIN_RD_2.Size = New System.Drawing.Size(14, 13)
+        Me.MIN_RD_2.TabIndex = 1022
+        Me.MIN_RD_2.TabStop = True
+        Me.MIN_RD_2.UseVisualStyleBackColor = True
+        '
+        'MIN_BY_ONE_RD_2
+        '
+        Me.MIN_BY_ONE_RD_2.AutoSize = True
+        Me.MIN_BY_ONE_RD_2.Location = New System.Drawing.Point(4, 6)
+        Me.MIN_BY_ONE_RD_2.Name = "MIN_BY_ONE_RD_2"
+        Me.MIN_BY_ONE_RD_2.Size = New System.Drawing.Size(14, 13)
+        Me.MIN_BY_ONE_RD_2.TabIndex = 1023
+        Me.MIN_BY_ONE_RD_2.UseVisualStyleBackColor = True
+        '
+        'Min_SP_Panel_2
+        '
+        Me.Min_SP_Panel_2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Min_SP_Panel_2.Controls.Add(Me.MIN_BY_ONE_RD_2)
+        Me.Min_SP_Panel_2.Controls.Add(Me.MIN_RD_2)
+        Me.Min_SP_Panel_2.Controls.Add(Me.Min_SP_2_By_One_Lb)
+        Me.Min_SP_Panel_2.Controls.Add(Me.Min_SP_2_By_One_txt)
+        Me.Min_SP_Panel_2.Controls.Add(Me.Label10)
+        Me.Min_SP_Panel_2.Controls.Add(Me.Min_SP_2_txt)
+        Me.Min_SP_Panel_2.Location = New System.Drawing.Point(378, 160)
+        Me.Min_SP_Panel_2.Name = "Min_SP_Panel_2"
+        Me.Min_SP_Panel_2.Size = New System.Drawing.Size(445, 36)
+        Me.Min_SP_Panel_2.TabIndex = 1023
+        '
+        'Remove_Valid_Btn
+        '
+        Me.Remove_Valid_Btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Remove_Valid_Btn.BackColor = System.Drawing.Color.White
+        Me.Remove_Valid_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_minus_173055
+        Me.Remove_Valid_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Remove_Valid_Btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Remove_Valid_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Remove_Valid_Btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Remove_Valid_Btn.Location = New System.Drawing.Point(69, 3)
+        Me.Remove_Valid_Btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Remove_Valid_Btn.Name = "Remove_Valid_Btn"
+        Me.Remove_Valid_Btn.Size = New System.Drawing.Size(25, 25)
+        Me.Remove_Valid_Btn.TabIndex = 710
+        Me.Remove_Valid_Btn.UseVisualStyleBackColor = False
+        '
+        'Add_Valid_Btn
+        '
+        Me.Add_Valid_Btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Add_Valid_Btn.BackColor = System.Drawing.Color.White
+        Me.Add_Valid_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
+        Me.Add_Valid_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Add_Valid_Btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Add_Valid_Btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Add_Valid_Btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.Add_Valid_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Add_Valid_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Add_Valid_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Add_Valid_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Add_Valid_Btn.Location = New System.Drawing.Point(95, 3)
+        Me.Add_Valid_Btn.Name = "Add_Valid_Btn"
+        Me.Add_Valid_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Add_Valid_Btn.Size = New System.Drawing.Size(25, 25)
+        Me.Add_Valid_Btn.TabIndex = 709
+        Me.Add_Valid_Btn.TabStop = False
+        Me.Add_Valid_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Add_Valid_Btn.UseVisualStyleBackColor = False
+        '
+        'Valid_ListBox
+        '
+        Me.Valid_ListBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Valid_ListBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Valid_ListBox.FormattingEnabled = True
+        Me.Valid_ListBox.ItemHeight = 20
+        Me.Valid_ListBox.Location = New System.Drawing.Point(3, 32)
+        Me.Valid_ListBox.Name = "Valid_ListBox"
+        Me.Valid_ListBox.Size = New System.Drawing.Size(250, 104)
+        Me.Valid_ListBox.TabIndex = 707
+        '
+        'Valid_For_List_Date
+        '
+        Me.Valid_For_List_Date.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Valid_For_List_Date.CalendarFont = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Valid_For_List_Date.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Valid_For_List_Date.CustomFormat = "dd-MM-yyyy"
+        Me.Valid_For_List_Date.Font = New System.Drawing.Font("Segoe UI", 11.25!)
+        Me.Valid_For_List_Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.Valid_For_List_Date.Location = New System.Drawing.Point(121, 3)
+        Me.Valid_For_List_Date.Name = "Valid_For_List_Date"
+        Me.Valid_For_List_Date.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Valid_For_List_Date.RightToLeftLayout = True
+        Me.Valid_For_List_Date.Size = New System.Drawing.Size(132, 27)
+        Me.Valid_For_List_Date.TabIndex = 708
+        '
+        'IM_Valid_Note_Panel
+        '
+        Me.IM_Valid_Note_Panel.Controls.Add(Me.Valid_For_List_Date)
+        Me.IM_Valid_Note_Panel.Controls.Add(Me.Valid_ListBox)
+        Me.IM_Valid_Note_Panel.Controls.Add(Me.Add_Valid_Btn)
+        Me.IM_Valid_Note_Panel.Controls.Add(Me.Remove_Valid_Btn)
+        Me.IM_Valid_Note_Panel.Location = New System.Drawing.Point(114, 235)
+        Me.IM_Valid_Note_Panel.Name = "IM_Valid_Note_Panel"
+        Me.IM_Valid_Note_Panel.Size = New System.Drawing.Size(256, 142)
+        Me.IM_Valid_Note_Panel.TabIndex = 1037
+        Me.IM_Valid_Note_Panel.Visible = False
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 11.25!)
+        Me.Label14.Location = New System.Drawing.Point(123, 204)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(40, 20)
+        Me.Label14.TabIndex = 1038
+        Me.Label14.Text = "بيع%"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'bercent_ADD_txt
         '
         Me.bercent_ADD_txt.BackColor = System.Drawing.Color.Lavender
@@ -952,7 +884,75 @@ Partial Class ST_settlement_IM_card
         Me.bercent_ADD_txt.Size = New System.Drawing.Size(75, 26)
         Me.bercent_ADD_txt.TabIndex = 1039
         '
-        'Invoice_IM_card
+        'Confirm_ADD_bercent
+        '
+        Me.Confirm_ADD_bercent.BackColor = System.Drawing.Color.White
+        Me.Confirm_ADD_bercent.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Confirm_ADD_bercent.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Confirm_ADD_bercent.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Confirm_ADD_bercent.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Confirm_ADD_bercent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Confirm_ADD_bercent.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Confirm_ADD_bercent.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Confirm_ADD_bercent.Image = Global.resturant.My.Resources.Resources.if_ok_173061
+        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(3, 201)
+        Me.Confirm_ADD_bercent.Name = "Confirm_ADD_bercent"
+        Me.Confirm_ADD_bercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Confirm_ADD_bercent.Size = New System.Drawing.Size(41, 26)
+        Me.Confirm_ADD_bercent.TabIndex = 1040
+        Me.Confirm_ADD_bercent.TabStop = False
+        Me.Confirm_ADD_bercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Confirm_ADD_bercent.UseVisualStyleBackColor = False
+        '
+        'Show_IM_Note_Valid_CB
+        '
+        Me.Show_IM_Note_Valid_CB.AutoSize = True
+        Me.Show_IM_Note_Valid_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_IM_Note_Valid_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_IM_Note_Valid_CB.Location = New System.Drawing.Point(287, 208)
+        Me.Show_IM_Note_Valid_CB.Name = "Show_IM_Note_Valid_CB"
+        Me.Show_IM_Note_Valid_CB.Size = New System.Drawing.Size(83, 24)
+        Me.Show_IM_Note_Valid_CB.TabIndex = 1036
+        Me.Show_IM_Note_Valid_CB.Text = "الصلاحية"
+        Me.Show_IM_Note_Valid_CB.UseVisualStyleBackColor = True
+        '
+        'SP_CB
+        '
+        Me.SP_CB.AutoSize = True
+        Me.SP_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SP_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SP_CB.Location = New System.Drawing.Point(121, 169)
+        Me.SP_CB.Name = "SP_CB"
+        Me.SP_CB.Size = New System.Drawing.Size(75, 24)
+        Me.SP_CB.TabIndex = 1041
+        Me.SP_CB.Text = "قطاعي"
+        Me.SP_CB.UseVisualStyleBackColor = True
+        '
+        'SP_1_CB
+        '
+        Me.SP_1_CB.AutoSize = True
+        Me.SP_1_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SP_1_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SP_1_CB.Location = New System.Drawing.Point(217, 169)
+        Me.SP_1_CB.Name = "SP_1_CB"
+        Me.SP_1_CB.Size = New System.Drawing.Size(59, 24)
+        Me.SP_1_CB.TabIndex = 1042
+        Me.SP_1_CB.Text = "جملة"
+        Me.SP_1_CB.UseVisualStyleBackColor = True
+        '
+        'SP_2_CB
+        '
+        Me.SP_2_CB.AutoSize = True
+        Me.SP_2_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SP_2_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SP_2_CB.Location = New System.Drawing.Point(6, 168)
+        Me.SP_2_CB.Name = "SP_2_CB"
+        Me.SP_2_CB.Size = New System.Drawing.Size(103, 24)
+        Me.SP_2_CB.TabIndex = 1043
+        Me.SP_2_CB.Text = "جملة الجملة"
+        Me.SP_2_CB.UseVisualStyleBackColor = True
+        '
+        'ST_settlement_IM_card
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -989,11 +989,10 @@ Partial Class ST_settlement_IM_card
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Invoice_IM_card"
+        Me.Name = "ST_settlement_IM_card"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "الصنف"
-        Me.IM_Valid_Note_Panel.ResumeLayout(False)
         Me.Panel15.ResumeLayout(False)
         Me.Panel15.PerformLayout()
         Me.Two_Panel.ResumeLayout(False)
@@ -1014,29 +1013,17 @@ Partial Class ST_settlement_IM_card
         Me.Panel8.PerformLayout()
         Me.Valid_Panel.ResumeLayout(False)
         Me.Valid_Panel.PerformLayout()
-        Me.Min_SP_Panel_2.ResumeLayout(False)
-        Me.Min_SP_Panel_2.PerformLayout()
         Me.Min_SP_Panel.ResumeLayout(False)
         Me.Min_SP_Panel.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
+        Me.Min_SP_Panel_2.ResumeLayout(False)
+        Me.Min_SP_Panel_2.PerformLayout()
+        Me.IM_Valid_Note_Panel.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents SP_2_CB As CheckBox
-    Friend WithEvents SP_1_CB As CheckBox
-    Friend WithEvents SP_CB As CheckBox
-    Friend WithEvents Show_IM_Note_Valid_CB As CheckBox
-    Friend WithEvents Confirm_ADD_bercent As Button
-    Friend WithEvents bercent_ADD_txt As F3NumericTextBox
-    Friend WithEvents Label14 As Label
-    Friend WithEvents IM_Valid_Note_Panel As Panel
-    Friend WithEvents Valid_For_List_Date As DateTimePicker
-    Friend WithEvents Valid_ListBox As ListBox
-    Friend WithEvents Add_Valid_Btn As Button
-    Friend WithEvents Remove_Valid_Btn As Button
     Friend WithEvents Panel15 As Panel
     Friend WithEvents Label17 As Label
     Friend WithEvents Prev_Sale_Unit_txt As TextBox
@@ -1068,13 +1055,6 @@ Partial Class ST_settlement_IM_card
     Friend WithEvents Valid_Panel As Panel
     Friend WithEvents D_Valid As DateTimePicker
     Friend WithEvents Label19 As Label
-    Friend WithEvents Min_SP_Panel_2 As Panel
-    Friend WithEvents MIN_BY_ONE_RD_2 As RadioButton
-    Friend WithEvents MIN_RD_2 As RadioButton
-    Friend WithEvents Min_SP_2_By_One_Lb As Label
-    Friend WithEvents Min_SP_2_By_One_txt As TextBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Min_SP_2_txt As TextBox
     Friend WithEvents Min_SP_Panel As Panel
     Friend WithEvents MIN_BY_ONE_RD As RadioButton
     Friend WithEvents MIN_RD As RadioButton
@@ -1090,4 +1070,23 @@ Partial Class ST_settlement_IM_card
     Friend WithEvents Exit_Btn As Button
     Friend WithEvents mySearchControl As SearchItemControl
     Friend WithEvents ADD_New_IM_btn As Button
+    Friend WithEvents Min_SP_2_txt As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Min_SP_2_By_One_txt As TextBox
+    Friend WithEvents Min_SP_2_By_One_Lb As Label
+    Friend WithEvents MIN_RD_2 As RadioButton
+    Friend WithEvents MIN_BY_ONE_RD_2 As RadioButton
+    Friend WithEvents Min_SP_Panel_2 As Panel
+    Friend WithEvents Remove_Valid_Btn As Button
+    Friend WithEvents Add_Valid_Btn As Button
+    Friend WithEvents Valid_ListBox As ListBox
+    Friend WithEvents Valid_For_List_Date As DateTimePicker
+    Friend WithEvents IM_Valid_Note_Panel As Panel
+    Friend WithEvents Label14 As Label
+    Friend WithEvents bercent_ADD_txt As F3NumericTextBox
+    Friend WithEvents Confirm_ADD_bercent As Button
+    Friend WithEvents Show_IM_Note_Valid_CB As CheckBox
+    Friend WithEvents SP_CB As CheckBox
+    Friend WithEvents SP_1_CB As CheckBox
+    Friend WithEvents SP_2_CB As CheckBox
 End Class
