@@ -625,6 +625,7 @@
         sqlComm.Parameters.AddWithValue("@InSale_ID", 0)
         sqlComm.Parameters.AddWithValue("@Outsale_ID", 0)
         sqlComm.Parameters.AddWithValue("@Frm_ID_M", 0)
+        sqlComm.Parameters.AddWithValue("@ST_Sett_ID", 0)
         sqlComm.Parameters.AddWithValue("@AG_ID", 1)
         sqlComm.Parameters.AddWithValue("@Date", Me.DateTimeEx.Value)
         sqlComm.Parameters.AddWithValue("@BsType_ID", 9)

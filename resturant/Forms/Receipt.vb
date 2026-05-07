@@ -372,7 +372,9 @@
             MsgBox("الرجاء التأكد من إدخال قيمة المعاملة", MsgBoxStyle.Critical, "خطأ فالحفظ")
             money_num_txtb.Focus()
             Return 0
-            End If
+        End If
+
+        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
 
 
         'If ReceiptTypeComboBox.SelectedValue = 4 Then

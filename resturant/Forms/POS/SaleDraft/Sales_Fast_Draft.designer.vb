@@ -28,6 +28,12 @@ Partial Class Sales_Fast_Draft
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales_Fast_Draft))
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.RemoveCatButton = New System.Windows.Forms.Button()
+        Me.DGV_Control_btn = New System.Windows.Forms.Button()
+        Me.CALC_Btn = New System.Windows.Forms.Button()
+        Me.OpenCahDR_Btn = New System.Windows.Forms.Button()
+        Me.Show_Cash_btn = New System.Windows.Forms.Button()
+        Me.Down_Bill_btn = New System.Windows.Forms.Button()
+        Me.Up_Bill_btn = New System.Windows.Forms.Button()
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
@@ -81,15 +87,9 @@ Partial Class Sales_Fast_Draft
         Me.IMDicreaseButton = New System.Windows.Forms.Button()
         Me.Units_btn = New System.Windows.Forms.Button()
         Me.Refresh_IM_Btn = New System.Windows.Forms.Button()
-        Me.DGV_Control_btn = New System.Windows.Forms.Button()
-        Me.CALC_Btn = New System.Windows.Forms.Button()
-        Me.OpenCahDR_Btn = New System.Windows.Forms.Button()
-        Me.Show_Cash_btn = New System.Windows.Forms.Button()
         Me.IM_Search_btn = New System.Windows.Forms.Button()
         Me.IM_Profet_btn = New System.Windows.Forms.Button()
         Me.DeliveryingButton = New System.Windows.Forms.Button()
-        Me.Down_Bill_btn = New System.Windows.Forms.Button()
-        Me.Up_Bill_btn = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Edit_butt = New System.Windows.Forms.Button()
         Me.Print_btn = New System.Windows.Forms.Button()
@@ -97,6 +97,8 @@ Partial Class Sales_Fast_Draft
         Me.New_butt = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.Delete_butt = New System.Windows.Forms.Button()
+        Me.Calc_Dicount_Btn = New System.Windows.Forms.Button()
+        Me.Panel5 = New System.Windows.Forms.Panel()
         Me.DiscountPanel.SuspendLayout()
         Me.AG_Panel.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -105,6 +107,7 @@ Partial Class Sales_Fast_Draft
         Me.Panel3.SuspendLayout()
         Me.Sells_Bill_GB.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'MetroToolTip1
@@ -132,6 +135,120 @@ Partial Class Sales_Fast_Draft
         Me.RemoveCatButton.Text = "❌" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "F8"
         Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف الحدد")
         Me.RemoveCatButton.UseVisualStyleBackColor = False
+        '
+        'DGV_Control_btn
+        '
+        Me.DGV_Control_btn.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.DGV_Control_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.DGV_Control_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.DGV_Control_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.DGV_Control_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_menu_1814109
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(3, 1)
+        Me.DGV_Control_btn.Name = "DGV_Control_btn"
+        Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.DGV_Control_btn.Size = New System.Drawing.Size(36, 33)
+        Me.DGV_Control_btn.TabIndex = 648
+        Me.DGV_Control_btn.TabStop = False
+        Me.DGV_Control_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroToolTip1.SetToolTip(Me.DGV_Control_btn, "عرض بيانات الجدول")
+        Me.DGV_Control_btn.UseVisualStyleBackColor = False
+        '
+        'CALC_Btn
+        '
+        Me.CALC_Btn.BackColor = System.Drawing.SystemColors.Menu
+        Me.CALC_Btn.BackgroundImage = Global.resturant.My.Resources.Resources._171352_calculator_icon
+        Me.CALC_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.CALC_Btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.CALC_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CALC_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CALC_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.CALC_Btn.Location = New System.Drawing.Point(114, 1)
+        Me.CALC_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.CALC_Btn.Name = "CALC_Btn"
+        Me.CALC_Btn.Size = New System.Drawing.Size(36, 33)
+        Me.CALC_Btn.TabIndex = 708
+        Me.MetroToolTip1.SetToolTip(Me.CALC_Btn, "فتح صندوق النقود")
+        Me.CALC_Btn.UseVisualStyleBackColor = False
+        '
+        'OpenCahDR_Btn
+        '
+        Me.OpenCahDR_Btn.BackColor = System.Drawing.SystemColors.Menu
+        Me.OpenCahDR_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.Drawer_64
+        Me.OpenCahDR_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.OpenCahDR_Btn.Location = New System.Drawing.Point(77, 1)
+        Me.OpenCahDR_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
+        Me.OpenCahDR_Btn.Size = New System.Drawing.Size(36, 33)
+        Me.OpenCahDR_Btn.TabIndex = 654
+        Me.MetroToolTip1.SetToolTip(Me.OpenCahDR_Btn, "فتح صندوق النقود")
+        Me.OpenCahDR_Btn.UseVisualStyleBackColor = False
+        '
+        'Show_Cash_btn
+        '
+        Me.Show_Cash_btn.BackColor = System.Drawing.SystemColors.Menu
+        Me.Show_Cash_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_money_299107
+        Me.Show_Cash_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Show_Cash_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_Cash_btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Show_Cash_btn.Location = New System.Drawing.Point(40, 1)
+        Me.Show_Cash_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Show_Cash_btn.Name = "Show_Cash_btn"
+        Me.Show_Cash_btn.Size = New System.Drawing.Size(36, 33)
+        Me.Show_Cash_btn.TabIndex = 655
+        Me.MetroToolTip1.SetToolTip(Me.Show_Cash_btn, "عرض المقبوض")
+        Me.Show_Cash_btn.UseVisualStyleBackColor = False
+        '
+        'Down_Bill_btn
+        '
+        Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Down_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_Down
+        Me.Down_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Down_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 4)
+        Me.Down_Bill_btn.Name = "Down_Bill_btn"
+        Me.Down_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Down_Bill_btn.Size = New System.Drawing.Size(33, 30)
+        Me.Down_Bill_btn.TabIndex = 624
+        Me.Down_Bill_btn.TabStop = False
+        Me.MetroToolTip1.SetToolTip(Me.Down_Bill_btn, "الفاتورة السابقة")
+        Me.Down_Bill_btn.UseVisualStyleBackColor = False
+        '
+        'Up_Bill_btn
+        '
+        Me.Up_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Up_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_up_3017922
+        Me.Up_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Up_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(155, 4)
+        Me.Up_Bill_btn.Name = "Up_Bill_btn"
+        Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Up_Bill_btn.Size = New System.Drawing.Size(33, 30)
+        Me.Up_Bill_btn.TabIndex = 623
+        Me.Up_Bill_btn.TabStop = False
+        Me.MetroToolTip1.SetToolTip(Me.Up_Bill_btn, "الفاتورة التالية")
+        Me.Up_Bill_btn.UseVisualStyleBackColor = False
         '
         'IM_Count_LB
         '
@@ -162,13 +279,13 @@ Partial Class Sales_Fast_Draft
         '
         'DiscountPanel
         '
-        Me.DiscountPanel.Controls.Add(Me.Discount_txt)
+        Me.DiscountPanel.Controls.Add(Me.Panel5)
         Me.DiscountPanel.Controls.Add(Me.Label13)
         Me.DiscountPanel.Controls.Add(Me.Total_TextBox)
         Me.DiscountPanel.Controls.Add(Me.Label6)
-        Me.DiscountPanel.Location = New System.Drawing.Point(3, 477)
+        Me.DiscountPanel.Location = New System.Drawing.Point(4, 479)
         Me.DiscountPanel.Name = "DiscountPanel"
-        Me.DiscountPanel.Size = New System.Drawing.Size(165, 106)
+        Me.DiscountPanel.Size = New System.Drawing.Size(250, 64)
         Me.DiscountPanel.TabIndex = 634
         '
         'Discount_txt
@@ -176,51 +293,50 @@ Partial Class Sales_Fast_Draft
         Me.Discount_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Discount_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Discount_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Discount_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
+        Me.Discount_txt.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Discount_txt.ForeColor = System.Drawing.Color.Black
-        Me.Discount_txt.Location = New System.Drawing.Point(5, 78)
+        Me.Discount_txt.Location = New System.Drawing.Point(38, 2)
         Me.Discount_txt.MaxLength = 200
         Me.Discount_txt.Name = "Discount_txt"
         Me.Discount_txt.ReadOnly = True
         Me.Discount_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Discount_txt.Size = New System.Drawing.Size(159, 26)
+        Me.Discount_txt.Size = New System.Drawing.Size(105, 27)
         Me.Discount_txt.TabIndex = 617
         '
         'Label13
         '
-        Me.Label13.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label13.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Label13.Location = New System.Drawing.Point(52, 55)
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(150, 37)
         Me.Label13.Name = "Label13"
         Me.Label13.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label13.Size = New System.Drawing.Size(109, 21)
+        Me.Label13.Size = New System.Drawing.Size(83, 17)
         Me.Label13.TabIndex = 618
         Me.Label13.Text = "F11 التخفيــض"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Total_TextBox
         '
-        Me.Total_TextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Total_TextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Total_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Total_TextBox.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Total_TextBox.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Total_TextBox.ForeColor = System.Drawing.Color.Black
-        Me.Total_TextBox.Location = New System.Drawing.Point(4, 27)
+        Me.Total_TextBox.Location = New System.Drawing.Point(1, 4)
         Me.Total_TextBox.MaxLength = 200
         Me.Total_TextBox.Name = "Total_TextBox"
         Me.Total_TextBox.ReadOnly = True
         Me.Total_TextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Total_TextBox.Size = New System.Drawing.Size(159, 26)
+        Me.Total_TextBox.Size = New System.Drawing.Size(146, 27)
         Me.Total_TextBox.TabIndex = 289
         '
         'Label6
         '
-        Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label6.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Label6.Location = New System.Drawing.Point(98, 3)
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(151, 9)
         Me.Label6.Name = "Label6"
         Me.Label6.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label6.Size = New System.Drawing.Size(62, 21)
+        Me.Label6.Size = New System.Drawing.Size(58, 17)
         Me.Label6.TabIndex = 387
         Me.Label6.Text = "الإجمالـــي"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -229,25 +345,25 @@ Partial Class Sales_Fast_Draft
         '
         Me.Pure_txt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Pure_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Pure_txt.Font = New System.Drawing.Font("Stencil", 22.0!)
+        Me.Pure_txt.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
         Me.Pure_txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Pure_txt.Location = New System.Drawing.Point(2, 32)
+        Me.Pure_txt.Location = New System.Drawing.Point(2, 5)
         Me.Pure_txt.MaxLength = 200
         Me.Pure_txt.Name = "Pure_txt"
         Me.Pure_txt.ReadOnly = True
         Me.Pure_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Pure_txt.Size = New System.Drawing.Size(163, 42)
+        Me.Pure_txt.Size = New System.Drawing.Size(146, 39)
         Me.Pure_txt.TabIndex = 619
         Me.Pure_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label17
         '
-        Me.Label17.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label17.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Label17.Location = New System.Drawing.Point(94, 4)
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(151, 12)
         Me.Label17.Name = "Label17"
         Me.Label17.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label17.Size = New System.Drawing.Size(68, 26)
+        Me.Label17.Size = New System.Drawing.Size(88, 25)
         Me.Label17.TabIndex = 620
         Me.Label17.Text = "الصــافـــي"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -325,11 +441,11 @@ Partial Class Sales_Fast_Draft
         '
         Me.IMPanel.AutoScroll = True
         Me.IMPanel.BackColor = System.Drawing.Color.Transparent
-        Me.IMPanel.Enabled = False
-        Me.IMPanel.Location = New System.Drawing.Point(170, 477)
+        Me.IMPanel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IMPanel.Location = New System.Drawing.Point(255, 477)
         Me.IMPanel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IMPanel.Name = "IMPanel"
-        Me.IMPanel.Size = New System.Drawing.Size(833, 187)
+        Me.IMPanel.Size = New System.Drawing.Size(748, 187)
         Me.IMPanel.TabIndex = 657
         '
         'AG_SH_txt
@@ -607,9 +723,9 @@ Partial Class Sales_Fast_Draft
         '
         Me.Panel3.Controls.Add(Me.Pure_txt)
         Me.Panel3.Controls.Add(Me.Label17)
-        Me.Panel3.Location = New System.Drawing.Point(3, 584)
+        Me.Panel3.Location = New System.Drawing.Point(3, 610)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(165, 75)
+        Me.Panel3.Size = New System.Drawing.Size(251, 48)
         Me.Panel3.TabIndex = 710
         '
         'Valid_cm
@@ -762,78 +878,6 @@ Partial Class Sales_Fast_Draft
         Me.Refresh_IM_Btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Refresh_IM_Btn.UseVisualStyleBackColor = False
         '
-        'DGV_Control_btn
-        '
-        Me.DGV_Control_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.DGV_Control_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.DGV_Control_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.DGV_Control_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DGV_Control_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_menu_1814109
-        Me.DGV_Control_btn.Location = New System.Drawing.Point(3, 1)
-        Me.DGV_Control_btn.Name = "DGV_Control_btn"
-        Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.DGV_Control_btn.Size = New System.Drawing.Size(36, 33)
-        Me.DGV_Control_btn.TabIndex = 648
-        Me.DGV_Control_btn.TabStop = False
-        Me.DGV_Control_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroToolTip1.SetToolTip(Me.DGV_Control_btn, "عرض بيانات الجدول")
-        Me.DGV_Control_btn.UseVisualStyleBackColor = False
-        '
-        'CALC_Btn
-        '
-        Me.CALC_Btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.CALC_Btn.BackgroundImage = Global.resturant.My.Resources.Resources._171352_calculator_icon
-        Me.CALC_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.CALC_Btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.CALC_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CALC_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CALC_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.CALC_Btn.Location = New System.Drawing.Point(114, 1)
-        Me.CALC_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.CALC_Btn.Name = "CALC_Btn"
-        Me.CALC_Btn.Size = New System.Drawing.Size(36, 33)
-        Me.CALC_Btn.TabIndex = 708
-        Me.MetroToolTip1.SetToolTip(Me.CALC_Btn, "فتح صندوق النقود")
-        Me.CALC_Btn.UseVisualStyleBackColor = False
-        '
-        'OpenCahDR_Btn
-        '
-        Me.OpenCahDR_Btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.OpenCahDR_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.Drawer_64
-        Me.OpenCahDR_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.OpenCahDR_Btn.Location = New System.Drawing.Point(77, 1)
-        Me.OpenCahDR_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
-        Me.OpenCahDR_Btn.Size = New System.Drawing.Size(36, 33)
-        Me.OpenCahDR_Btn.TabIndex = 654
-        Me.MetroToolTip1.SetToolTip(Me.OpenCahDR_Btn, "فتح صندوق النقود")
-        Me.OpenCahDR_Btn.UseVisualStyleBackColor = False
-        '
-        'Show_Cash_btn
-        '
-        Me.Show_Cash_btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.Show_Cash_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_money_299107
-        Me.Show_Cash_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Show_Cash_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_Cash_btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Show_Cash_btn.Location = New System.Drawing.Point(40, 1)
-        Me.Show_Cash_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.Show_Cash_btn.Name = "Show_Cash_btn"
-        Me.Show_Cash_btn.Size = New System.Drawing.Size(36, 33)
-        Me.Show_Cash_btn.TabIndex = 655
-        Me.MetroToolTip1.SetToolTip(Me.Show_Cash_btn, "عرض المقبوض")
-        Me.Show_Cash_btn.UseVisualStyleBackColor = False
-        '
         'IM_Search_btn
         '
         Me.IM_Search_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
@@ -870,6 +914,7 @@ Partial Class Sales_Fast_Draft
         Me.IM_Profet_btn.Text = "الربح"
         Me.IM_Profet_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.IM_Profet_btn.UseVisualStyleBackColor = False
+        Me.IM_Profet_btn.Visible = False
         '
         'DeliveryingButton
         '
@@ -891,48 +936,7 @@ Partial Class Sales_Fast_Draft
         Me.DeliveryingButton.Text = "دفع"
         Me.DeliveryingButton.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.DeliveryingButton.UseVisualStyleBackColor = False
-        '
-        'Down_Bill_btn
-        '
-        Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Down_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_Down
-        Me.Down_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Down_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 4)
-        Me.Down_Bill_btn.Name = "Down_Bill_btn"
-        Me.Down_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Down_Bill_btn.Size = New System.Drawing.Size(33, 30)
-        Me.Down_Bill_btn.TabIndex = 624
-        Me.Down_Bill_btn.TabStop = False
-        Me.MetroToolTip1.SetToolTip(Me.Down_Bill_btn, "الفاتورة السابقة")
-        Me.Down_Bill_btn.UseVisualStyleBackColor = False
-        '
-        'Up_Bill_btn
-        '
-        Me.Up_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Up_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_up_3017922
-        Me.Up_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Up_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Bill_btn.Location = New System.Drawing.Point(155, 4)
-        Me.Up_Bill_btn.Name = "Up_Bill_btn"
-        Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Up_Bill_btn.Size = New System.Drawing.Size(33, 30)
-        Me.Up_Bill_btn.TabIndex = 623
-        Me.Up_Bill_btn.TabStop = False
-        Me.MetroToolTip1.SetToolTip(Me.Up_Bill_btn, "الفاتورة التالية")
-        Me.Up_Bill_btn.UseVisualStyleBackColor = False
+        Me.DeliveryingButton.Visible = False
         '
         'ExitFormButton
         '
@@ -971,6 +975,7 @@ Partial Class Sales_Fast_Draft
         Me.Edit_butt.Text = "تعديـل F3"
         Me.Edit_butt.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Edit_butt.UseVisualStyleBackColor = False
+        Me.Edit_butt.Visible = False
         '
         'Print_btn
         '
@@ -1011,6 +1016,7 @@ Partial Class Sales_Fast_Draft
         Me.SBPauseBtn.Text = "تعليق F7"
         Me.SBPauseBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.SBPauseBtn.UseVisualStyleBackColor = False
+        Me.SBPauseBtn.Visible = False
         '
         'New_butt
         '
@@ -1075,6 +1081,26 @@ Partial Class Sales_Fast_Draft
         Me.Delete_butt.Text = " إلغاء F4"
         Me.Delete_butt.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Delete_butt.UseVisualStyleBackColor = False
+        Me.Delete_butt.Visible = False
+        '
+        'Calc_Dicount_Btn
+        '
+        Me.Calc_Dicount_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Calc_Dicount_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(3, 2)
+        Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
+        Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(34, 26)
+        Me.Calc_Dicount_Btn.TabIndex = 1
+        Me.Calc_Dicount_Btn.Text = "..."
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.Discount_txt)
+        Me.Panel5.Controls.Add(Me.Calc_Dicount_Btn)
+        Me.Panel5.Location = New System.Drawing.Point(1, 31)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(146, 30)
+        Me.Panel5.TabIndex = 719
         '
         'Sales_Fast_Draft
         '
@@ -1138,6 +1164,8 @@ Partial Class Sales_Fast_Draft
         Me.Panel3.PerformLayout()
         Me.Sells_Bill_GB.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1213,4 +1241,6 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents IMIncreaseButton As Button
     Friend WithEvents IMDicreaseButton As Button
     Friend WithEvents Units_btn As Button
+    Public WithEvents Calc_Dicount_Btn As Button
+    Friend WithEvents Panel5 As Panel
 End Class

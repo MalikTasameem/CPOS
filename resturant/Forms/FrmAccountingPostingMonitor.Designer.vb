@@ -40,8 +40,6 @@ Partial Class FrmAccountingPostingMonitor
     Friend WithEvents lblPostedCount As System.Windows.Forms.Label
     Friend WithEvents lblUnpostedCount As System.Windows.Forms.Label
     Friend WithEvents lblStatusMessage As System.Windows.Forms.Label
-
-    Friend WithEvents flowFilters As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents flowActions As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents flowStatus As System.Windows.Forms.FlowLayoutPanel
 
@@ -58,12 +56,11 @@ Partial Class FrmAccountingPostingMonitor
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlTop = New System.Windows.Forms.Panel()
-        Me.flowFilters = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblFrom = New System.Windows.Forms.Label()
         Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
         Me.lblTo = New System.Windows.Forms.Label()
@@ -96,8 +93,8 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblPostedCount = New System.Windows.Forms.Label()
         Me.lblUnpostedCount = New System.Windows.Forms.Label()
         Me.lblStatusMessage = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.pnlTop.SuspendLayout()
-        Me.flowFilters.SuspendLayout()
         Me.pnlActions.SuspendLayout()
         Me.flowActions.SuspendLayout()
         Me.pnlGrid.SuspendLayout()
@@ -106,12 +103,13 @@ Partial Class FrmAccountingPostingMonitor
         CType(Me.dgvJournal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlStatus.SuspendLayout()
         Me.flowStatus.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlTop
         '
         Me.pnlTop.BackColor = System.Drawing.Color.White
-        Me.pnlTop.Controls.Add(Me.flowFilters)
+        Me.pnlTop.Controls.Add(Me.Panel1)
         Me.pnlTop.Controls.Add(Me.lblTitle)
         Me.pnlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlTop.Location = New System.Drawing.Point(0, 0)
@@ -120,38 +118,13 @@ Partial Class FrmAccountingPostingMonitor
         Me.pnlTop.Size = New System.Drawing.Size(1280, 157)
         Me.pnlTop.TabIndex = 3
         '
-        'flowFilters
-        '
-        Me.flowFilters.BackColor = System.Drawing.Color.White
-        Me.flowFilters.Controls.Add(Me.lblFrom)
-        Me.flowFilters.Controls.Add(Me.dtpFrom)
-        Me.flowFilters.Controls.Add(Me.lblTo)
-        Me.flowFilters.Controls.Add(Me.dtpTo)
-        Me.flowFilters.Controls.Add(Me.lblSource)
-        Me.flowFilters.Controls.Add(Me.cmbSource)
-        Me.flowFilters.Controls.Add(Me.lblType)
-        Me.flowFilters.Controls.Add(Me.cmbType)
-        Me.flowFilters.Controls.Add(Me.lblStatus)
-        Me.flowFilters.Controls.Add(Me.cmbPostingStatus)
-        Me.flowFilters.Controls.Add(Me.lblSearch)
-        Me.flowFilters.Controls.Add(Me.btnSearch)
-        Me.flowFilters.Controls.Add(Me.btnRefresh)
-        Me.flowFilters.Controls.Add(Me.txtSearch)
-        Me.flowFilters.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flowFilters.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flowFilters.Location = New System.Drawing.Point(10, 48)
-        Me.flowFilters.Name = "flowFilters"
-        Me.flowFilters.Padding = New System.Windows.Forms.Padding(0, 10, 0, 0)
-        Me.flowFilters.Size = New System.Drawing.Size(1260, 99)
-        Me.flowFilters.TabIndex = 0
-        '
         'lblFrom
         '
         Me.lblFrom.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblFrom.Location = New System.Drawing.Point(3, 13)
+        Me.lblFrom.Location = New System.Drawing.Point(550, 58)
         Me.lblFrom.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
         Me.lblFrom.Name = "lblFrom"
-        Me.lblFrom.Size = New System.Drawing.Size(75, 28)
+        Me.lblFrom.Size = New System.Drawing.Size(59, 28)
         Me.lblFrom.TabIndex = 0
         Me.lblFrom.Text = "من تاريخ"
         Me.lblFrom.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -160,7 +133,7 @@ Partial Class FrmAccountingPostingMonitor
         '
         Me.dtpFrom.CustomFormat = "yyyy/MM/dd"
         Me.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFrom.Location = New System.Drawing.Point(89, 13)
+        Me.dtpFrom.Location = New System.Drawing.Point(428, 61)
         Me.dtpFrom.Name = "dtpFrom"
         Me.dtpFrom.Size = New System.Drawing.Size(120, 22)
         Me.dtpFrom.TabIndex = 1
@@ -168,10 +141,10 @@ Partial Class FrmAccountingPostingMonitor
         'lblTo
         '
         Me.lblTo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblTo.Location = New System.Drawing.Point(215, 13)
+        Me.lblTo.Location = New System.Drawing.Point(347, 58)
         Me.lblTo.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
         Me.lblTo.Name = "lblTo"
-        Me.lblTo.Size = New System.Drawing.Size(75, 28)
+        Me.lblTo.Size = New System.Drawing.Size(56, 28)
         Me.lblTo.TabIndex = 2
         Me.lblTo.Text = "إلى تاريخ"
         Me.lblTo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -180,7 +153,7 @@ Partial Class FrmAccountingPostingMonitor
         '
         Me.dtpTo.CustomFormat = "yyyy/MM/dd"
         Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpTo.Location = New System.Drawing.Point(301, 13)
+        Me.dtpTo.Location = New System.Drawing.Point(222, 62)
         Me.dtpTo.Name = "dtpTo"
         Me.dtpTo.Size = New System.Drawing.Size(120, 22)
         Me.dtpTo.TabIndex = 3
@@ -188,26 +161,29 @@ Partial Class FrmAccountingPostingMonitor
         'lblSource
         '
         Me.lblSource.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblSource.Location = New System.Drawing.Point(427, 13)
+        Me.lblSource.Location = New System.Drawing.Point(866, 3)
         Me.lblSource.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
         Me.lblSource.Name = "lblSource"
-        Me.lblSource.Size = New System.Drawing.Size(75, 28)
+        Me.lblSource.Size = New System.Drawing.Size(55, 28)
         Me.lblSource.TabIndex = 4
         Me.lblSource.Text = "المصدر"
         Me.lblSource.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbSource
         '
+        Me.cmbSource.BackColor = System.Drawing.SystemColors.Info
         Me.cmbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbSource.Location = New System.Drawing.Point(513, 13)
+        Me.cmbSource.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmbSource.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSource.Location = New System.Drawing.Point(715, 7)
         Me.cmbSource.Name = "cmbSource"
-        Me.cmbSource.Size = New System.Drawing.Size(140, 22)
+        Me.cmbSource.Size = New System.Drawing.Size(140, 24)
         Me.cmbSource.TabIndex = 5
         '
         'lblType
         '
         Me.lblType.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblType.Location = New System.Drawing.Point(659, 13)
+        Me.lblType.Location = New System.Drawing.Point(350, 4)
         Me.lblType.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
         Me.lblType.Name = "lblType"
         Me.lblType.Size = New System.Drawing.Size(75, 28)
@@ -217,16 +193,19 @@ Partial Class FrmAccountingPostingMonitor
         '
         'cmbType
         '
+        Me.cmbType.BackColor = System.Drawing.SystemColors.Info
         Me.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbType.Location = New System.Drawing.Point(745, 13)
+        Me.cmbType.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmbType.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbType.Location = New System.Drawing.Point(428, 8)
         Me.cmbType.Name = "cmbType"
-        Me.cmbType.Size = New System.Drawing.Size(190, 22)
+        Me.cmbType.Size = New System.Drawing.Size(190, 24)
         Me.cmbType.TabIndex = 7
         '
         'lblStatus
         '
         Me.lblStatus.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblStatus.Location = New System.Drawing.Point(941, 13)
+        Me.lblStatus.Location = New System.Drawing.Point(620, 3)
         Me.lblStatus.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(85, 28)
@@ -236,19 +215,22 @@ Partial Class FrmAccountingPostingMonitor
         '
         'cmbPostingStatus
         '
+        Me.cmbPostingStatus.BackColor = System.Drawing.SystemColors.Info
         Me.cmbPostingStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbPostingStatus.Location = New System.Drawing.Point(1037, 13)
+        Me.cmbPostingStatus.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmbPostingStatus.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbPostingStatus.Location = New System.Drawing.Point(212, 8)
         Me.cmbPostingStatus.Name = "cmbPostingStatus"
-        Me.cmbPostingStatus.Size = New System.Drawing.Size(130, 22)
+        Me.cmbPostingStatus.Size = New System.Drawing.Size(130, 24)
         Me.cmbPostingStatus.TabIndex = 9
         '
         'lblSearch
         '
         Me.lblSearch.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblSearch.Location = New System.Drawing.Point(1173, 13)
+        Me.lblSearch.Location = New System.Drawing.Point(1207, 3)
         Me.lblSearch.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
         Me.lblSearch.Name = "lblSearch"
-        Me.lblSearch.Size = New System.Drawing.Size(50, 28)
+        Me.lblSearch.Size = New System.Drawing.Size(50, 31)
         Me.lblSearch.TabIndex = 10
         Me.lblSearch.Text = "بحث"
         Me.lblSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -261,7 +243,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSearch.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnSearch.ForeColor = System.Drawing.Color.White
-        Me.btnSearch.Location = New System.Drawing.Point(5, 49)
+        Me.btnSearch.Location = New System.Drawing.Point(2, 51)
         Me.btnSearch.Margin = New System.Windows.Forms.Padding(5)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(90, 34)
@@ -277,7 +259,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRefresh.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.btnRefresh.ForeColor = System.Drawing.Color.White
-        Me.btnRefresh.Location = New System.Drawing.Point(105, 49)
+        Me.btnRefresh.Location = New System.Drawing.Point(102, 51)
         Me.btnRefresh.Margin = New System.Windows.Forms.Padding(5)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(90, 34)
@@ -287,9 +269,11 @@ Partial Class FrmAccountingPostingMonitor
         '
         'txtSearch
         '
-        Me.txtSearch.Location = New System.Drawing.Point(203, 47)
+        Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSearch.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Location = New System.Drawing.Point(947, 8)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(190, 22)
+        Me.txtSearch.Size = New System.Drawing.Size(249, 23)
         Me.txtSearch.TabIndex = 11
         '
         'lblTitle
@@ -410,23 +394,23 @@ Partial Class FrmAccountingPostingMonitor
         Me.dgvPosting.AllowUserToDeleteRows = False
         Me.dgvPosting.BackgroundColor = System.Drawing.Color.White
         Me.dgvPosting.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPosting.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPosting.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvPosting.ColumnHeadersHeight = 35
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPosting.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPosting.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvPosting.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPosting.EnableHeadersVisualStyles = False
         Me.dgvPosting.Location = New System.Drawing.Point(10, 10)
@@ -458,23 +442,23 @@ Partial Class FrmAccountingPostingMonitor
         Me.dgvJournal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvJournal.BackgroundColor = System.Drawing.Color.White
         Me.dgvJournal.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvJournal.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvJournal.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvJournal.ColumnHeadersHeight = 35
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvJournal.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvJournal.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvJournal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvJournal.EnableHeadersVisualStyles = False
         Me.dgvJournal.Location = New System.Drawing.Point(10, 32)
@@ -567,6 +551,28 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblStatusMessage.Text = "جاهز"
         Me.lblStatusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.Controls.Add(Me.btnSearch)
+        Me.Panel1.Controls.Add(Me.dtpTo)
+        Me.Panel1.Controls.Add(Me.btnRefresh)
+        Me.Panel1.Controls.Add(Me.lblSearch)
+        Me.Panel1.Controls.Add(Me.lblTo)
+        Me.Panel1.Controls.Add(Me.txtSearch)
+        Me.Panel1.Controls.Add(Me.lblFrom)
+        Me.Panel1.Controls.Add(Me.dtpFrom)
+        Me.Panel1.Controls.Add(Me.lblSource)
+        Me.Panel1.Controls.Add(Me.cmbPostingStatus)
+        Me.Panel1.Controls.Add(Me.cmbSource)
+        Me.Panel1.Controls.Add(Me.cmbType)
+        Me.Panel1.Controls.Add(Me.lblType)
+        Me.Panel1.Controls.Add(Me.lblStatus)
+        Me.Panel1.Location = New System.Drawing.Point(10, 62)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1260, 90)
+        Me.Panel1.TabIndex = 1
+        '
         'FrmAccountingPostingMonitor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
@@ -586,8 +592,6 @@ Partial Class FrmAccountingPostingMonitor
         Me.Text = "شاشة الترحيل المحاسبي"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.pnlTop.ResumeLayout(False)
-        Me.flowFilters.ResumeLayout(False)
-        Me.flowFilters.PerformLayout()
         Me.pnlActions.ResumeLayout(False)
         Me.flowActions.ResumeLayout(False)
         Me.pnlGrid.ResumeLayout(False)
@@ -596,8 +600,11 @@ Partial Class FrmAccountingPostingMonitor
         CType(Me.dgvJournal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlStatus.ResumeLayout(False)
         Me.flowStatus.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
 
+    Friend WithEvents Panel1 As Panel
 End Class

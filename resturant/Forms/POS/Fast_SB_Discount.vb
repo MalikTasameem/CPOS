@@ -4,6 +4,8 @@ Public Class Fast_SB_Discount
 
     'Public TOTAL, PURE As Double
 
+    Public is_By_Draft As Boolean = False
+    Public is_OK As Boolean = False
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
         Me.Close()
@@ -48,24 +50,6 @@ Public Class Fast_SB_Discount
 
     Private Sub UpdateGBButton_Click(sender As Object, e As EventArgs) Handles UpdateGBButton.Click
 
-
-        'If CheckBox1.Checked = True Then Discount_txt.Text = Sales_Fast.TOTAL - Convert.ToDouble(TextBox1.Text)
-        'If CheckBox2.Checked = True Then Discount_txt.Text = Sales_Fast.TOTAL - Convert.ToDouble(TextBox2.Text)
-        'If CheckBox3.Checked = True Then Discount_txt.Text = Sales_Fast.TOTAL - Convert.ToDouble(TextBox3.Text)
-
-
-        'If Not String.IsNullOrWhiteSpace(Discount_txt.Text) Then
-        '    Sales_Fast.Disc = Convert.ToDouble(Discount_txt.Text)
-        '    Sales_Fast.Pure_txt.Text = (Sales_Fast.TOTAL).ToString("00.00") - (Sales_Fast.Disc).ToString("00.00")
-        '    Sales_Fast.Pure = Sales_Fast.Pure_txt.Text
-        'End If
-
-
-        'Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & Discount_txt.Text, Sales_Fast.SB_ID, 1, 3)
-        'Save_Total(Sales_Fast.T_ID, Sales_Fast.TOTAL, Sales_Fast.Disc)
-        'Sales_Fast.Discount_txt.Text = Discount_txt.Text
-        'Me.Close()
-        '------------------------------------------------------------------------------------------------------------------------
         If CheckBox1.Checked = True Then Discount_txt.Text = Identifiers.TOTAL - Convert.ToDouble(TextBox1.Text)
         If CheckBox2.Checked = True Then Discount_txt.Text = Identifiers.TOTAL - Convert.ToDouble(TextBox2.Text)
         If CheckBox3.Checked = True Then Discount_txt.Text = Identifiers.TOTAL - Convert.ToDouble(TextBox3.Text)
@@ -79,44 +63,19 @@ Public Class Fast_SB_Discount
 
         If String.IsNullOrWhiteSpace(Percent_txt.Text) Then Percent_txt.Text = 0
 
-        Update_Discount(Identifiers.T_ID, Identifiers.Disc, Percent_txt.Text)
-        Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & Discount_txt.Text, Identifiers.SB_ID, 1, 3)
+        If is_By_Draft = False Then
+            Update_Discount(Identifiers.T_ID, Identifiers.Disc, Percent_txt.Text)
+            Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & Discount_txt.Text, Identifiers.SB_ID, 1, 3)
+        Else
+            is_OK = True
+        End If
 
-        'Save_Total(Identifiers.T_ID, Identifiers.TOTAL, Identifiers.Disc)
-        ' Discount_txt.Text = Discount_txt.Text
         Me.Close()
     End Sub
 
 
     Private Sub Fast_SB_Discount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Discount_txt.Text = Sales_Fast.Disc
-        'Discount_txt.Focus()
-        'Discount_txt.Select()
 
-
-        'Select Case (Convert.ToDouble(Sales_Fast.Total_TextBox.Text) - Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text))).ToString("N")
-        '    Case 0.01 To 0.24
-        '        TextBox1.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text))
-        '        TextBox2.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text)) & ".25"
-
-        '    Case 0.26 To 0.49
-        '        TextBox2.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text)) & ".25"
-        '        TextBox1.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text)) & ".50"
-
-        '    Case 0.51 To 0.74
-        '        TextBox1.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text)) & ".50"
-        '        TextBox2.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text)) & ".75"
-
-        '    Case 0.76 To 0.99
-        '        TextBox1.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text)) & ".75"
-        '        TextBox2.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text)) + 1
-
-        'End Select
-
-        'TextBox3.Text = Math.Floor(Convert.ToDouble(Sales_Fast.Total_TextBox.Text))
-
-        'CHECK_FIELDS()
-        '-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
         Discount_txt.Text = Identifiers.Disc
         Discount_txt.Focus()

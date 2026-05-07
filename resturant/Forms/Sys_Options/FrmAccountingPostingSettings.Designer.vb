@@ -33,7 +33,7 @@ Partial Class FrmAccountingPostingSettings
     Friend WithEvents txtId As System.Windows.Forms.TextBox
     Friend WithEvents txtSalesAccountCode As System.Windows.Forms.TextBox
     Friend WithEvents txtSalesReturnAccountCode As System.Windows.Forms.TextBox
-    Friend WithEvents txtInventoryAccountCode As System.Windows.Forms.TextBox
+    Friend WithEvents txtCapitalAccountCode As System.Windows.Forms.TextBox
     Friend WithEvents txtCostOfGoodsSoldAccountCode As System.Windows.Forms.TextBox
     Friend WithEvents txtPurchaseAccountCode As System.Windows.Forms.TextBox
     Friend WithEvents txtPurchaseReturnAccountCode As System.Windows.Forms.TextBox
@@ -73,8 +73,8 @@ Partial Class FrmAccountingPostingSettings
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlTop = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.pnlForm = New System.Windows.Forms.Panel()
@@ -84,7 +84,7 @@ Partial Class FrmAccountingPostingSettings
         Me.lblSalesReturnAccountCode = New System.Windows.Forms.Label()
         Me.txtSalesReturnAccountCode = New System.Windows.Forms.TextBox()
         Me.lblInventoryAccountCode = New System.Windows.Forms.Label()
-        Me.txtInventoryAccountCode = New System.Windows.Forms.TextBox()
+        Me.txtCapitalAccountCode = New System.Windows.Forms.TextBox()
         Me.lblCostOfGoodsSoldAccountCode = New System.Windows.Forms.Label()
         Me.txtCostOfGoodsSoldAccountCode = New System.Windows.Forms.TextBox()
         Me.lblPurchaseAccountCode = New System.Windows.Forms.Label()
@@ -184,7 +184,7 @@ Partial Class FrmAccountingPostingSettings
         Me.tblForm.Controls.Add(Me.lblSalesReturnAccountCode, 2, 0)
         Me.tblForm.Controls.Add(Me.txtSalesReturnAccountCode, 3, 0)
         Me.tblForm.Controls.Add(Me.lblInventoryAccountCode, 4, 0)
-        Me.tblForm.Controls.Add(Me.txtInventoryAccountCode, 5, 0)
+        Me.tblForm.Controls.Add(Me.txtCapitalAccountCode, 5, 0)
         Me.tblForm.Controls.Add(Me.lblCostOfGoodsSoldAccountCode, 0, 1)
         Me.tblForm.Controls.Add(Me.txtCostOfGoodsSoldAccountCode, 1, 1)
         Me.tblForm.Controls.Add(Me.lblPurchaseAccountCode, 2, 1)
@@ -275,17 +275,17 @@ Partial Class FrmAccountingPostingSettings
         Me.lblInventoryAccountCode.Name = "lblInventoryAccountCode"
         Me.lblInventoryAccountCode.Size = New System.Drawing.Size(156, 35)
         Me.lblInventoryAccountCode.TabIndex = 4
-        Me.lblInventoryAccountCode.Text = "حساب المخزون"
+        Me.lblInventoryAccountCode.Text = "رأس المال / حقوق الملكية"
         Me.lblInventoryAccountCode.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'txtInventoryAccountCode
+        'txtCapitalAccountCode
         '
-        Me.txtInventoryAccountCode.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtInventoryAccountCode.Location = New System.Drawing.Point(8, 11)
-        Me.txtInventoryAccountCode.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
-        Me.txtInventoryAccountCode.Name = "txtInventoryAccountCode"
-        Me.txtInventoryAccountCode.Size = New System.Drawing.Size(258, 22)
-        Me.txtInventoryAccountCode.TabIndex = 5
+        Me.txtCapitalAccountCode.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtCapitalAccountCode.Location = New System.Drawing.Point(8, 11)
+        Me.txtCapitalAccountCode.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
+        Me.txtCapitalAccountCode.Name = "txtCapitalAccountCode"
+        Me.txtCapitalAccountCode.Size = New System.Drawing.Size(258, 22)
+        Me.txtCapitalAccountCode.TabIndex = 5
         '
         'lblCostOfGoodsSoldAccountCode
         '
@@ -715,23 +715,23 @@ Partial Class FrmAccountingPostingSettings
         Me.dgvSettings.AllowUserToDeleteRows = False
         Me.dgvSettings.BackgroundColor = System.Drawing.Color.White
         Me.dgvSettings.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSettings.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSettings.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvSettings.ColumnHeadersHeight = 35
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSettings.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSettings.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvSettings.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSettings.EnableHeadersVisualStyles = False
         Me.dgvSettings.Location = New System.Drawing.Point(10, 10)

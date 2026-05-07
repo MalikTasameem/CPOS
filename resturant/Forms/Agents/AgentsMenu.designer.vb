@@ -21,9 +21,9 @@ Partial Class AgentsMenu
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AgentsMenu))
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
-        Me.ExitFormButton = New System.Windows.Forms.Button()
-        Me.MaxFormButton = New System.Windows.Forms.Button()
         Me.MinFormButton = New System.Windows.Forms.Button()
+        Me.MaxFormButton = New System.Windows.Forms.Button()
+        Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.New_AG_Btn = New System.Windows.Forms.Button()
@@ -60,22 +60,21 @@ Partial Class AgentsMenu
         Me.TitleBar_Panel.TabIndex = 999
         Me.TitleBar_Panel.Tag = "HEADER"
         '
-        'ExitFormButton
+        'MinFormButton
         '
-        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ExitFormButton.Dock = System.Windows.Forms.DockStyle.Left
-        Me.ExitFormButton.FlatAppearance.BorderSize = 0
-        Me.ExitFormButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
-        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ExitFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
-        Me.ExitFormButton.ForeColor = System.Drawing.Color.White
-        Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
-        Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(45, 40)
-        Me.ExitFormButton.TabIndex = 3
-        Me.ExitFormButton.Tag = "APP_CONTROL"
-        Me.ExitFormButton.Text = "X"
-        Me.ExitFormButton.UseVisualStyleBackColor = False
+        Me.MinFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.MinFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.MinFormButton.FlatAppearance.BorderSize = 0
+        Me.MinFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.MinFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.MinFormButton.ForeColor = System.Drawing.Color.White
+        Me.MinFormButton.Location = New System.Drawing.Point(90, 0)
+        Me.MinFormButton.Name = "MinFormButton"
+        Me.MinFormButton.Size = New System.Drawing.Size(45, 40)
+        Me.MinFormButton.TabIndex = 1
+        Me.MinFormButton.Tag = "APP_CONTROL"
+        Me.MinFormButton.Text = "ـ"
+        Me.MinFormButton.UseVisualStyleBackColor = False
         '
         'MaxFormButton
         '
@@ -93,21 +92,22 @@ Partial Class AgentsMenu
         Me.MaxFormButton.Text = "⬜"
         Me.MaxFormButton.UseVisualStyleBackColor = False
         '
-        'MinFormButton
+        'ExitFormButton
         '
-        Me.MinFormButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.MinFormButton.Dock = System.Windows.Forms.DockStyle.Left
-        Me.MinFormButton.FlatAppearance.BorderSize = 0
-        Me.MinFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.MinFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
-        Me.MinFormButton.ForeColor = System.Drawing.Color.White
-        Me.MinFormButton.Location = New System.Drawing.Point(90, 0)
-        Me.MinFormButton.Name = "MinFormButton"
-        Me.MinFormButton.Size = New System.Drawing.Size(45, 40)
-        Me.MinFormButton.TabIndex = 1
-        Me.MinFormButton.Tag = "APP_CONTROL"
-        Me.MinFormButton.Text = "ـ"
-        Me.MinFormButton.UseVisualStyleBackColor = False
+        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ExitFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ExitFormButton.FlatAppearance.BorderSize = 0
+        Me.ExitFormButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
+        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ExitFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.ForeColor = System.Drawing.Color.White
+        Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
+        Me.ExitFormButton.Name = "ExitFormButton"
+        Me.ExitFormButton.Size = New System.Drawing.Size(45, 40)
+        Me.ExitFormButton.TabIndex = 3
+        Me.ExitFormButton.Tag = "APP_CONTROL"
+        Me.ExitFormButton.Text = "X"
+        Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'TopTitle_LB
         '
@@ -126,7 +126,7 @@ Partial Class AgentsMenu
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(461, 87)
+        Me.Label1.Location = New System.Drawing.Point(461, 93)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label1.Size = New System.Drawing.Size(77, 17)
@@ -211,7 +211,7 @@ Partial Class AgentsMenu
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Label12.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Label12.Location = New System.Drawing.Point(308, 157)
+        Me.Label12.Location = New System.Drawing.Point(308, 167)
         Me.Label12.Name = "Label12"
         Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label12.Size = New System.Drawing.Size(51, 20)
@@ -226,7 +226,7 @@ Partial Class AgentsMenu
         Me.Current_QTY.Enabled = False
         Me.Current_QTY.Font = New System.Drawing.Font("Stencil", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Current_QTY.ForeColor = System.Drawing.Color.Black
-        Me.Current_QTY.Location = New System.Drawing.Point(167, 151)
+        Me.Current_QTY.Location = New System.Drawing.Point(167, 161)
         Me.Current_QTY.Name = "Current_QTY"
         Me.Current_QTY.Size = New System.Drawing.Size(137, 32)
         Me.Current_QTY.TabIndex = 614
@@ -263,7 +263,7 @@ Partial Class AgentsMenu
         'BillPictureBox
         '
         Me.BillPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.BillPictureBox.Location = New System.Drawing.Point(4, 134)
+        Me.BillPictureBox.Location = New System.Drawing.Point(4, 142)
         Me.BillPictureBox.Name = "BillPictureBox"
         Me.BillPictureBox.Size = New System.Drawing.Size(148, 143)
         Me.BillPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -274,7 +274,7 @@ Partial Class AgentsMenu
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(374, 122)
+        Me.Label7.Location = New System.Drawing.Point(374, 132)
         Me.Label7.Name = "Label7"
         Me.Label7.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label7.Size = New System.Drawing.Size(85, 20)
@@ -291,7 +291,7 @@ Partial Class AgentsMenu
         Me.AG_Type_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.AG_Type_cm.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AG_Type_cm.FormattingEnabled = True
-        Me.AG_Type_cm.Location = New System.Drawing.Point(167, 118)
+        Me.AG_Type_cm.Location = New System.Drawing.Point(167, 128)
         Me.AG_Type_cm.Name = "AG_Type_cm"
         Me.AG_Type_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.AG_Type_cm.Size = New System.Drawing.Size(201, 30)
@@ -353,7 +353,7 @@ Partial Class AgentsMenu
         '
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AG_Cm.Location = New System.Drawing.Point(4, 81)
+        Me.AG_Cm.Location = New System.Drawing.Point(4, 87)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.AG_Cm.Size = New System.Drawing.Size(454, 35)

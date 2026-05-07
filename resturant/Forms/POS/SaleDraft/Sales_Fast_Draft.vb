@@ -17,7 +17,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public TOTAL As Double = 0
     Public Disc As Double = 0
     Public Pure As Double = 0
-    Public AG_ID As Integer = 0
+    Public AG_ID As Integer = 1
     Dim U_Dt As New DataTable
     Dim Get_Unit As Boolean = False
     Public U_Cargo As Double = 0
@@ -829,10 +829,22 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Edit_butt.Text = EditState
         On_Update = False
         SB_ID = 0
+        AG_ID = 1
     End Sub
 
 
     Public Sub ResetNewBill()
+
+
+        CurrentDraft = DraftManager.CreateNewDraft(USER_ID)
+
+        BindDraftHeaderToForm()
+        LoadDraftToGrid()
+        UpdateDraftTotalsOnScreen()
+        Bill_ID_Txt.Clear()
+        Enable_Fields()
+
+
         Dim Insert_New As Integer = 0
         If dgvSales.Rows.Count > 0 And isDepended = False Then Insert_New = 1
         'Load_PauseBills()
@@ -893,13 +905,14 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             Exit Sub
         End If
 
-        Dim result = MessageBox.Show(
-            "هل تريد اعتماد الفاتورة وحفظها نهائيًا؟",
-            "تأكيد",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question)
+        'Dim result = MessageBox.Show(
+        '    "هل تريد اعتماد الفاتورة وحفظها نهائيًا؟",
+        '    "تأكيد",
+        '    MessageBoxButtons.YesNo,
+        '    MessageBoxIcon.Question)
 
-        If result <> DialogResult.Yes Then Exit Sub
+        'If result <> DialogResult.Yes Then Exit Sub
+
 
         Me.Cursor = Cursors.WaitCursor
         'BtnPushFinal.Enabled = False
@@ -909,7 +922,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
             If ok Then
                 DraftManager.ArchiveDraft(CurrentDraft)
-
+                CashPrint()
                 'MessageBox.Show(
                 '    "تم حفظ الفاتورة بنجاح." & Environment.NewLine &
                 '    "T_ID = " & If(CurrentDraft.Final_T_ID.HasValue, CurrentDraft.Final_T_ID.Value.ToString(), "") & Environment.NewLine &
@@ -919,8 +932,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 '    MessageBoxIcon.Information)
 
 
-                Disable_Fields()
-                ClearCatFields()
+                ResetNewBill()
+
+                'Disable_Fields()
+                'ClearCatFields()
             End If
 
         Finally
@@ -983,111 +998,130 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Function PushCurrentDraftToDatabase() As Boolean
 
-        If Not ValidateDraftBeforePush() Then Return False
+        Dim F As New Pay_Main_Form
+        F.Temp_Tr_ID = SB_TR_ID
+        F.AG_ID = AG_ID
+        F.MONEY_VALUE = Pure
+        F.ShowDialog()
+
+        If F.is_OK = True Then
+            Dim Tr_ID, Pay_ID As Integer
+            Tr_ID = F.Tr_ID
+            Pay_ID = F.Pay_ID
+
+
+            If Not ValidateDraftBeforePush() Then Return False
 
         DraftCalculator.RecalculateDraft(CurrentDraft)
 
         Dim detailsTable As DataTable = BuildDetailsTable(CurrentDraft.Items)
 
-        Try
-            Using con As New SqlConnection(MY_Settings.SqlConStr) ' عدّل اسم الاتصال عندك
-                Using cmd As New SqlCommand("dbo.PushSalesDraft", con)
+            Try
+                Using con As New SqlConnection(MY_Settings.SqlConStr) ' عدّل اسم الاتصال عندك
+                    Using cmd As New SqlCommand("dbo.PushSalesDraft", con)
 
-                    cmd.CommandType = CommandType.StoredProcedure
-                    cmd.CommandTimeout = 120
+                        cmd.CommandType = CommandType.StoredProcedure
+                        cmd.CommandTimeout = 120
 
-                    cmd.Parameters.Add("@AG_ID", SqlDbType.Int).Value = CurrentDraft.AG_ID
+                        cmd.Parameters.Add("@AG_ID", SqlDbType.Int).Value = CurrentDraft.AG_ID
 
-                    If CurrentDraft.S_Bill_Pr_ID.HasValue Then
-                        cmd.Parameters.Add("@S_Bill_Pr_ID", SqlDbType.Int).Value = CurrentDraft.S_Bill_Pr_ID.Value
-                    Else
-                        cmd.Parameters.Add("@S_Bill_Pr_ID", SqlDbType.Int).Value = DBNull.Value
-                    End If
+                        If CurrentDraft.S_Bill_Pr_ID.HasValue Then
+                            cmd.Parameters.Add("@S_Bill_Pr_ID", SqlDbType.Int).Value = CurrentDraft.S_Bill_Pr_ID.Value
+                        Else
+                            cmd.Parameters.Add("@S_Bill_Pr_ID", SqlDbType.Int).Value = DBNull.Value
+                        End If
 
-                    If CurrentDraft.Table_ID.HasValue Then
-                        cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = CurrentDraft.Table_ID.Value
-                    Else
-                        cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = DBNull.Value
-                    End If
+                        If CurrentDraft.Table_ID.HasValue Then
+                            cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = CurrentDraft.Table_ID.Value
+                        Else
+                            cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = DBNull.Value
+                        End If
 
-                    cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = CurrentDraft.Date
-                    cmd.Parameters.Add("@Discount", SqlDbType.Decimal).Value = CurrentDraft.Discount
-                    cmd.Parameters("@Discount").Precision = 18
-                    cmd.Parameters("@Discount").Scale = 3
+                        cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = CurrentDraft.Date
+                        cmd.Parameters.Add("@Discount", SqlDbType.Decimal).Value = CurrentDraft.Discount
+                        cmd.Parameters("@Discount").Precision = 18
+                        cmd.Parameters("@Discount").Scale = 3
 
-                    cmd.Parameters.Add("@About", SqlDbType.NVarChar).Value =
-                    If(String.IsNullOrWhiteSpace(CurrentDraft.About), CType(DBNull.Value, Object), CurrentDraft.About)
+                        cmd.Parameters.Add("@About", SqlDbType.NVarChar).Value =
+                        If(String.IsNullOrWhiteSpace(CurrentDraft.About), CType(DBNull.Value, Object), CurrentDraft.About)
 
-                    cmd.Parameters.Add("@BsType_ID", SqlDbType.Int).Value = CurrentDraft.BsType_ID
-                    cmd.Parameters.Add("@isVoid", SqlDbType.Int).Value = CurrentDraft.isVoid
+                        cmd.Parameters.Add("@BsType_ID", SqlDbType.Int).Value = CurrentDraft.BsType_ID
+                        cmd.Parameters.Add("@isVoid", SqlDbType.Int).Value = CurrentDraft.isVoid
 
-                    If CurrentDraft.isPied.HasValue Then
-                        cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = CurrentDraft.isPied.Value
-                    Else
-                        cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = DBNull.Value
-                    End If
+                        If CurrentDraft.isPied.HasValue Then
+                            cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = CurrentDraft.isPied.Value
+                        Else
+                            cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = DBNull.Value
+                        End If
 
-                    cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = CurrentDraft.User_ID
+                        cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = CurrentDraft.User_ID
 
-                    If CurrentDraft.Markter_ID.HasValue Then
-                        cmd.Parameters.Add("@Markter_ID", SqlDbType.Int).Value = CurrentDraft.Markter_ID.Value
-                    Else
-                        cmd.Parameters.Add("@Markter_ID", SqlDbType.Int).Value = DBNull.Value
-                    End If
+                        cmd.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = Tr_ID
+                        cmd.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = Pay_ID
+                        cmd.Parameters.Add("@Pr_ID", SqlDbType.Int).Value = Pr_ID
 
-                    Dim pDetails As New SqlParameter("@Details", SqlDbType.Structured)
-                    pDetails.TypeName = "dbo.SB_Contents_DraftType"
-                    pDetails.Value = detailsTable
-                    cmd.Parameters.Add(pDetails)
+                        If CurrentDraft.Markter_ID.HasValue Then
+                            cmd.Parameters.Add("@Markter_ID", SqlDbType.Int).Value = CurrentDraft.Markter_ID.Value
+                        Else
+                            cmd.Parameters.Add("@Markter_ID", SqlDbType.Int).Value = DBNull.Value
+                        End If
 
-                    con.Open()
+                        Dim pDetails As New SqlParameter("@Details", SqlDbType.Structured)
+                        pDetails.TypeName = "dbo.SB_Contents_DraftType"
+                        pDetails.Value = detailsTable
+                        cmd.Parameters.Add(pDetails)
 
-                    Using dr As SqlDataReader = cmd.ExecuteReader()
-                        If dr.Read() Then
+                        con.Open()
 
-                            Dim isSuccess As Boolean = False
+                        Using dr As SqlDataReader = cmd.ExecuteReader()
+                            If dr.Read() Then
 
-                            If Not IsDBNull(dr("IsSuccess")) Then
-                                isSuccess = Convert.ToBoolean(dr("IsSuccess"))
-                            End If
+                                Dim isSuccess As Boolean = False
 
-                            If isSuccess Then
-                                If Not IsDBNull(dr("Header_T_ID")) Then
-                                    CurrentDraft.Final_T_ID = Convert.ToInt32(dr("Header_T_ID"))
-                                    T_ID = CurrentDraft.Final_T_ID
+                                If Not IsDBNull(dr("IsSuccess")) Then
+                                    isSuccess = Convert.ToBoolean(dr("IsSuccess"))
                                 End If
 
-                                If Not IsDBNull(dr("SB_ID")) Then
-                                    CurrentDraft.Final_SB_ID = Convert.ToInt32(dr("SB_ID"))
-                                    Bill_ID_Txt.Text = CurrentDraft.Final_SB_ID
+                                If isSuccess Then
+                                    If Not IsDBNull(dr("Header_T_ID")) Then
+                                        CurrentDraft.Final_T_ID = Convert.ToInt32(dr("Header_T_ID"))
+                                        T_ID = CurrentDraft.Final_T_ID
+                                    End If
+
+                                    If Not IsDBNull(dr("SB_ID")) Then
+                                        CurrentDraft.Final_SB_ID = Convert.ToInt32(dr("SB_ID"))
+                                        Bill_ID_Txt.Text = CurrentDraft.Final_SB_ID
+                                    End If
+
+
+
+                                    CurrentDraft.PushedAt = DateTime.Now
+                                    Return True
+                                Else
+                                    Dim errMsg As String = "فشل ترحيل الفاتورة."
+                                    If HasColumn(dr, "ErrorMessage") AndAlso Not IsDBNull(dr("ErrorMessage")) Then
+                                        errMsg = dr("ErrorMessage").ToString()
+                                    End If
+
+                                    MessageBox.Show(errMsg, "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                    Return False
                                 End If
-
-
-
-                                CurrentDraft.PushedAt = DateTime.Now
-                                Return True
                             Else
-                                Dim errMsg As String = "فشل ترحيل الفاتورة."
-                                If HasColumn(dr, "ErrorMessage") AndAlso Not IsDBNull(dr("ErrorMessage")) Then
-                                    errMsg = dr("ErrorMessage").ToString()
-                                End If
-
-                                MessageBox.Show(errMsg, "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                MessageBox.Show("لم يتم استلام نتيجة من الإجراء.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
                                 Return False
                             End If
-                        Else
-                            MessageBox.Show("لم يتم استلام نتيجة من الإجراء.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                            Return False
-                        End If
+                        End Using
                     End Using
                 End Using
-            End Using
 
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "خطأ أثناء الحفظ النهائي", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return False
-        End Try
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "خطأ أثناء الحفظ النهائي", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            End Try
 
+        End If
+
+        Return False
     End Function
 
     Private Function HasColumn(reader As SqlDataReader, columnName As String) As Boolean
@@ -2022,78 +2056,78 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Sub Print_btn_Click(sender As Object, e As EventArgs) Handles Print_btn.Click
         If dgvSales.Rows.Count > 0 Then
             Me.Cursor = Cursors.AppStarting
-            CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
+            CashPrint()
             Me.Cursor = Cursors.Default
         End If
     End Sub
 
-    Public Sub CashPrint(Sales_BillPage_Bill_Track As String, Sales_Page_ID As Integer)
+    Public Sub CashPrint()
 
-        Dim pp As New ReportConnection
-        pp.rp.Load(Application.StartupPath & Sales_BillPage_Bill_Track_FAST)
-        pp.LoadTables()
-        With pp
+        'Dim pp As New ReportConnection
+        'pp.rp.Load(Application.StartupPath & Sales_BillPage_Bill_Track_FAST)
+        'pp.LoadTables()
+        'With pp
 
-            Select Case Sales_Page_ID_FAST
-                Case 9
+        '    Select Case Sales_Page_ID_FAST
+        '        Case 9
 
-                    .rp.SetParameterValue(0, "")
-                    .rp.SetParameterValue(1, USER_NAME)
-                    .rp.SetParameterValue(2, Pure_txt.Text)
-                    .rp.SetParameterValue(3, "")
-                    .rp.SetParameterValue(4, Me.T_ID)
-                    .rp.SetParameterValue(5, SBill_Title_1)
-                    .rp.SetParameterValue(6, SBill_Title_2)
-                    .rp.SetParameterValue(7, SBill_Footer)
-                    .rp.SetParameterValue(8, "*" + Barcode + "*")
+        '            .rp.SetParameterValue(0, "")
+        '            .rp.SetParameterValue(1, USER_NAME)
+        '            .rp.SetParameterValue(2, Pure_txt.Text)
+        '            .rp.SetParameterValue(3, "")
+        '            .rp.SetParameterValue(4, Me.T_ID)
+        '            .rp.SetParameterValue(5, SBill_Title_1)
+        '            .rp.SetParameterValue(6, SBill_Title_2)
+        '            .rp.SetParameterValue(7, SBill_Footer)
+        '            .rp.SetParameterValue(8, "*" + Barcode + "*")
 
-                Case Else
+        '        Case Else
 
-                    .rp.SetParameterValue(0, Me.T_ID)
-                    .rp.SetParameterValue(1, SBill_Title_1)
-                    .rp.SetParameterValue(2, SBill_Title_2)
-                    .rp.SetParameterValue(3, SBill_Footer)
-                    .rp.SetParameterValue(4, IM_Qty_LB.Text)
-                    .rp.SetParameterValue(5, IM_Count_LB.Text)
-                    If Sales_Page_ID_FAST = 2 Or Sales_Page_ID_FAST = 8 Then
+        '            .rp.SetParameterValue(0, Me.T_ID)
+        '            .rp.SetParameterValue(1, SBill_Title_1)
+        '            .rp.SetParameterValue(2, SBill_Title_2)
+        '            .rp.SetParameterValue(3, SBill_Footer)
+        '            .rp.SetParameterValue(4, IM_Qty_LB.Text)
+        '            .rp.SetParameterValue(5, IM_Count_LB.Text)
+        '            If Sales_Page_ID_FAST = 2 Or Sales_Page_ID_FAST = 8 Then
 
-                        .rp.SetParameterValue(6, "*" + Barcode + "*")
-                        .rp.SetParameterValue(7, SB_ID)
-                        .rp.SetParameterValue(8, Pure)
-                        .rp.SetParameterValue(9, "")
+        '                .rp.SetParameterValue(6, "*" + Barcode + "*")
+        '                .rp.SetParameterValue(7, SB_ID)
+        '                .rp.SetParameterValue(8, Pure)
+        '                .rp.SetParameterValue(9, "")
 
-                    Else
+        '            Else
 
-                        .rp.SetParameterValue(6, HANY(Val(Pure), "EGYPT"))
-                        .rp.SetParameterValue(7, "*" + Barcode + "*")
-                        .rp.SetParameterValue(8, txtNotes.Text)
-                        .rp.SetParameterValue(9, "")
-                        .rp.SetParameterValue(10, "")
-                        .rp.SetParameterValue(11, "0")
-                        .rp.SetParameterValue(12, Pure)
-                        .rp.SetParameterValue(13, "")
+        '                .rp.SetParameterValue(6, HANY(Val(Pure), "EGYPT"))
+        '                .rp.SetParameterValue(7, "*" + Barcode + "*")
+        '                .rp.SetParameterValue(8, txtNotes.Text)
+        '                .rp.SetParameterValue(9, "")
+        '                .rp.SetParameterValue(10, "")
+        '                .rp.SetParameterValue(11, "0")
+        '                .rp.SetParameterValue(12, Pure)
+        '                .rp.SetParameterValue(13, "")
 
-                    End If
+        '            End If
 
-            End Select
+        '    End Select
 
 
-        End With
+        'End With
 
-        If Sales_Page_ID_FAST <> 2 And Sales_Page_ID_FAST <> 8 And Sales_Page_ID_FAST <> 6 Then
-            If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_A4))
-            pp.rp.PrintOptions.PrinterName = Default_Printer_A4
-        Else
-            If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_80))
-            pp.rp.PrintOptions.PrinterName = Default_Printer_80
-        End If
-        pp.rp.PrintToPrinter(1, False, 0, 0)
-        pp.rp.Dispose()
+        'If Sales_Page_ID_FAST <> 2 And Sales_Page_ID_FAST <> 8 And Sales_Page_ID_FAST <> 6 Then
+        '    If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_A4))
+        '    pp.rp.PrintOptions.PrinterName = Default_Printer_A4
+        'Else
+        '    If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_80))
+        '    pp.rp.PrintOptions.PrinterName = Default_Printer_80
+        'End If
+        'pp.rp.PrintToPrinter(1, False, 0, 0)
+        'pp.rp.Dispose()
 
-        'Dim p As New print
-        'p.CrystalReportViewer1.ReportSource = pp.rp
-        'p.Show()
-        '------------------------------------------------------------------------
+        ''Dim p As New print
+        ''p.CrystalReportViewer1.ReportSource = pp.rp
+        ''p.Show()
+        ''------------------------------------------------------------------------
     End Sub
 
     Private Sub SBPauseBtn_Click(sender As Object, e As EventArgs) Handles SBPauseBtn.Click
@@ -2145,16 +2179,9 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
-        'ResetNewBill()
-
-        CurrentDraft = DraftManager.CreateNewDraft(USER_ID)
-
-        BindDraftHeaderToForm()
-        LoadDraftToGrid()
-        UpdateDraftTotalsOnScreen()
-        Bill_ID_Txt.Clear()
-        Enable_Fields()
+        ResetNewBill()
     End Sub
+
 
     Private Sub LoadDraftToGrid()
 
@@ -2400,6 +2427,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         If dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow And dgvSales.Rows.Count > 0 Then
             Dim F As New Fast_SB_Discount
+            F.is_By_Draft = True
             Identifiers.T_ID = T_ID
             Identifiers.TOTAL = Total_TextBox.Text
             Identifiers.Disc = Disc
@@ -2407,6 +2435,9 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             Identifiers.SB_ID = SB_ID
 
             Fast_SB_Discount.ShowDialog()
+
+            If F.is_OK = True Then SetDraftDiscount(Identifiers.Disc)
+
         End If
 
     End Sub
@@ -2638,6 +2669,30 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
+    Private Sub SetDraftDiscount(discountValue As Decimal)
+
+        If CurrentDraft Is Nothing Then Exit Sub
+
+        If discountValue < 0 Then
+            MessageBox.Show("قيمة التخفيض لا يمكن أن تكون سالبة.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        If discountValue > CurrentDraft.Total Then
+            MessageBox.Show("قيمة التخفيض لا يمكن أن تكون أكبر من إجمالي الفاتورة.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        CurrentDraft.Discount = discountValue
+        Discount_txt.Text = discountValue
+
+        DraftCalculator.RecalculateDraft(CurrentDraft)
+        DraftManager.SaveDraft(CurrentDraft)
+
+        UpdateDraftTotalsOnScreen()
+
+    End Sub
+
     Private Sub IMIncreaseButton_Click(sender As Object, e As EventArgs) Handles IMIncreaseButton.Click
         Dim Def As Double = 1
         ChangeQtyByInput(Def, False)
@@ -2717,5 +2772,27 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
+    Private Sub Calc_Dicount_Btn_Click(sender As Object, e As EventArgs) Handles Calc_Dicount_Btn.Click
+        'Make_Discount()
+        ChangeDiscountByInput()
+    End Sub
 
+    Private Sub ChangeDiscountByInput()
+
+        If CurrentDraft Is Nothing Then Exit Sub
+
+        Dim inp As String = InputBox("أدخل قيمة التخفيض", "تخفيض الفاتورة", CurrentDraft.Discount.ToString("0.000"))
+
+        If inp.Trim() = "" Then Exit Sub
+
+        Dim discountValue As Decimal
+
+        If Not Decimal.TryParse(inp, discountValue) Then
+            MessageBox.Show("قيمة التخفيض غير صحيحة.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        SetDraftDiscount(discountValue)
+
+    End Sub
 End Class

@@ -168,7 +168,7 @@
         Try
             Sales_Fast_Draft.DraftManager.DeleteDraft(draftId)
 
-            MessageBox.Show("تم حذف المسودة بنجاح", "تم", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            'MessageBox.Show("تم حذف المسودة بنجاح", "تم", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             LoadDraftsList()
 

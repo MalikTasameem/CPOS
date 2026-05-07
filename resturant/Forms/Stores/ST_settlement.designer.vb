@@ -76,12 +76,6 @@ Partial Class ST_settlement
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.IM_Show_CxtMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AGMetroGrid = New System.Windows.Forms.DataGridView()
-        Me.IM_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.تعديلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.عرضالتكلفةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.تعديلصلاحياتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.علاضبطاقةالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EX_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -95,6 +89,12 @@ Partial Class ST_settlement
         Me.QTY_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Price_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Total_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IM_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.تعديلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضالتكلفةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.تعديلصلاحياتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.علاضبطاقةالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TitleBar_Panel.SuspendLayout()
         Me.ActionBar_Panel.SuspendLayout()
         Me.Header_Panel.SuspendLayout()
@@ -741,42 +741,6 @@ Partial Class ST_settlement
         Me.AGMetroGrid.Size = New System.Drawing.Size(1140, 454)
         Me.AGMetroGrid.TabIndex = 3
         '
-        'IM_ContextMenuStrip
-        '
-        Me.IM_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.تعديلToolStripMenuItem, Me.عرضالتكلفةToolStripMenuItem, Me.عرضربحالفاتورةToolStripMenuItem, Me.تعديلصلاحياتالصنفToolStripMenuItem, Me.علاضبطاقةالصنفToolStripMenuItem})
-        Me.IM_ContextMenuStrip.Name = "IM_ContextMenuStrip"
-        Me.IM_ContextMenuStrip.Size = New System.Drawing.Size(189, 114)
-        '
-        'تعديلToolStripMenuItem
-        '
-        Me.تعديلToolStripMenuItem.Name = "تعديلToolStripMenuItem"
-        Me.تعديلToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.تعديلToolStripMenuItem.Text = "تعديل"
-        '
-        'عرضالتكلفةToolStripMenuItem
-        '
-        Me.عرضالتكلفةToolStripMenuItem.Name = "عرضالتكلفةToolStripMenuItem"
-        Me.عرضالتكلفةToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.عرضالتكلفةToolStripMenuItem.Text = "عرض التكلفة"
-        '
-        'عرضربحالفاتورةToolStripMenuItem
-        '
-        Me.عرضربحالفاتورةToolStripMenuItem.Name = "عرضربحالفاتورةToolStripMenuItem"
-        Me.عرضربحالفاتورةToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.عرضربحالفاتورةToolStripMenuItem.Text = "عرض ربح الفاتورة"
-        '
-        'تعديلصلاحياتالصنفToolStripMenuItem
-        '
-        Me.تعديلصلاحياتالصنفToolStripMenuItem.Name = "تعديلصلاحياتالصنفToolStripMenuItem"
-        Me.تعديلصلاحياتالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.تعديلصلاحياتالصنفToolStripMenuItem.Text = "تعديل صلاحيات الصنف"
-        '
-        'علاضبطاقةالصنفToolStripMenuItem
-        '
-        Me.علاضبطاقةالصنفToolStripMenuItem.Name = "علاضبطاقةالصنفToolStripMenuItem"
-        Me.علاضبطاقةالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.علاضبطاقةالصنفToolStripMenuItem.Text = "عرض بطاقة الصنف"
-        '
         'T_ID_CL
         '
         Me.T_ID_CL.DataPropertyName = "T_ID"
@@ -871,6 +835,42 @@ Partial Class ST_settlement
         Me.Total_CL.HeaderText = "إجمالي"
         Me.Total_CL.Name = "Total_CL"
         Me.Total_CL.ReadOnly = True
+        '
+        'IM_ContextMenuStrip
+        '
+        Me.IM_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.تعديلToolStripMenuItem, Me.عرضالتكلفةToolStripMenuItem, Me.عرضربحالفاتورةToolStripMenuItem, Me.تعديلصلاحياتالصنفToolStripMenuItem, Me.علاضبطاقةالصنفToolStripMenuItem})
+        Me.IM_ContextMenuStrip.Name = "IM_ContextMenuStrip"
+        Me.IM_ContextMenuStrip.Size = New System.Drawing.Size(189, 114)
+        '
+        'تعديلToolStripMenuItem
+        '
+        Me.تعديلToolStripMenuItem.Name = "تعديلToolStripMenuItem"
+        Me.تعديلToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.تعديلToolStripMenuItem.Text = "تعديل"
+        '
+        'عرضالتكلفةToolStripMenuItem
+        '
+        Me.عرضالتكلفةToolStripMenuItem.Name = "عرضالتكلفةToolStripMenuItem"
+        Me.عرضالتكلفةToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.عرضالتكلفةToolStripMenuItem.Text = "عرض التكلفة"
+        '
+        'عرضربحالفاتورةToolStripMenuItem
+        '
+        Me.عرضربحالفاتورةToolStripMenuItem.Name = "عرضربحالفاتورةToolStripMenuItem"
+        Me.عرضربحالفاتورةToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.عرضربحالفاتورةToolStripMenuItem.Text = "عرض ربح الفاتورة"
+        '
+        'تعديلصلاحياتالصنفToolStripMenuItem
+        '
+        Me.تعديلصلاحياتالصنفToolStripMenuItem.Name = "تعديلصلاحياتالصنفToolStripMenuItem"
+        Me.تعديلصلاحياتالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.تعديلصلاحياتالصنفToolStripMenuItem.Text = "تعديل صلاحيات الصنف"
+        '
+        'علاضبطاقةالصنفToolStripMenuItem
+        '
+        Me.علاضبطاقةالصنفToolStripMenuItem.Name = "علاضبطاقةالصنفToolStripMenuItem"
+        Me.علاضبطاقةالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.علاضبطاقةالصنفToolStripMenuItem.Text = "عرض بطاقة الصنف"
         '
         'ST_settlement
         '

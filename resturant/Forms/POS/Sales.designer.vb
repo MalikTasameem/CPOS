@@ -322,7 +322,7 @@ Partial Class Sales
         Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OpenCahDR_Btn.Location = New System.Drawing.Point(53, 74)
+        Me.OpenCahDR_Btn.Location = New System.Drawing.Point(48, 74)
         Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
         Me.OpenCahDR_Btn.Size = New System.Drawing.Size(45, 52)
         Me.OpenCahDR_Btn.TabIndex = 654
@@ -440,9 +440,9 @@ Partial Class Sales
         '
         Me.User_Name_lb.BackColor = System.Drawing.SystemColors.ControlDark
         Me.User_Name_lb.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.User_Name_lb.Location = New System.Drawing.Point(152, 130)
+        Me.User_Name_lb.Location = New System.Drawing.Point(3, 135)
         Me.User_Name_lb.Name = "User_Name_lb"
-        Me.User_Name_lb.Size = New System.Drawing.Size(183, 23)
+        Me.User_Name_lb.Size = New System.Drawing.Size(319, 23)
         Me.User_Name_lb.TabIndex = 717
         '
         'DiscountPanel
@@ -858,7 +858,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.RowHeadersVisible = False
         Me.ReceiptsMetroGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
         Me.ReceiptsMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle5
         Me.ReceiptsMetroGrid.RowTemplate.Height = 30
@@ -1015,7 +1015,7 @@ Partial Class Sales
         Me.Panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel13.Controls.Add(Me.Piedmoney_txt)
         Me.Panel13.Controls.Add(Me.Label4)
-        Me.Panel13.Location = New System.Drawing.Point(103, 74)
+        Me.Panel13.Location = New System.Drawing.Point(95, 74)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(231, 52)
         Me.Panel13.TabIndex = 691

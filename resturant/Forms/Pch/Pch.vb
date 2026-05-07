@@ -741,6 +741,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         sqlComm.Parameters.AddWithValue("@InSale_ID", 0)
         sqlComm.Parameters.AddWithValue("@Outsale_ID", 0)
         sqlComm.Parameters.AddWithValue("@Frm_ID_M", 0)
+        sqlComm.Parameters.AddWithValue("@ST_Sett_ID", 0)
         sqlComm.Parameters.AddWithValue("@AG_ID", 1)
         sqlComm.Parameters.AddWithValue("@Date", Me.DateTimeEx.Value)
         sqlComm.Parameters.AddWithValue("@BsType_ID", 7)
@@ -1402,7 +1403,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
 
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
         If AG_Cm.TXT_ID.Text > 0 Then
-            'AG_ID = AG_Cm.TXT_ID.Text
+            AG_ID = AG_Cm.TXT_ID.Text
             'AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
             'AG_Balance = AG_Grid.CurrentRow.Cells(2).Value
             'AG_Grid.Visible = False

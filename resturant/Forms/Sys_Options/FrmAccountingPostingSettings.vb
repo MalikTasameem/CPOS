@@ -47,7 +47,7 @@ SELECT
     Id,
     SalesAccountCode,
     SalesReturnAccountCode,
-    InventoryAccountCode,
+    CapitalAccountCode,
     CostOfGoodsSoldAccountCode,
     PurchaseAccountCode,
     PurchaseReturnAccountCode,
@@ -91,7 +91,7 @@ ORDER BY IsActive DESC, Id DESC;
         SetHeader("Id", "ID", 60)
         SetHeader("SalesAccountCode", "المبيعات", 100)
         SetHeader("SalesReturnAccountCode", "مردودات المبيعات", 130)
-        SetHeader("InventoryAccountCode", "المخزون", 100)
+        SetHeader("CapitalAccountCode", "رأس المال / حقوق الملكية", 100)
         SetHeader("CostOfGoodsSoldAccountCode", "تكلفة المبيعات", 130)
         SetHeader("PurchaseAccountCode", "المشتريات", 100)
         SetHeader("PurchaseReturnAccountCode", "مردودات المشتريات", 140)
@@ -165,7 +165,7 @@ INSERT INTO dbo.AccountingPostingSettings
 (
     SalesAccountCode,
     SalesReturnAccountCode,
-    InventoryAccountCode,
+    CapitalAccountCode,
     CostOfGoodsSoldAccountCode,
     PurchaseAccountCode,
     PurchaseReturnAccountCode,
@@ -184,7 +184,7 @@ VALUES
 (
     @SalesAccountCode,
     @SalesReturnAccountCode,
-    @InventoryAccountCode,
+    @CapitalAccountCode,
     @CostOfGoodsSoldAccountCode,
     @PurchaseAccountCode,
     @PurchaseReturnAccountCode,
@@ -262,7 +262,7 @@ UPDATE dbo.AccountingPostingSettings
 SET
     SalesAccountCode = @SalesAccountCode,
     SalesReturnAccountCode = @SalesReturnAccountCode,
-    InventoryAccountCode = @InventoryAccountCode,
+    CapitalAccountCode = @CapitalAccountCode,
     CostOfGoodsSoldAccountCode = @CostOfGoodsSoldAccountCode,
     PurchaseAccountCode = @PurchaseAccountCode,
     PurchaseReturnAccountCode = @PurchaseReturnAccountCode,
@@ -390,7 +390,7 @@ WHERE Id = @Id;
     Private Sub FillCommandParameters(cmd As SqlCommand)
         cmd.Parameters.Add("@SalesAccountCode", SqlDbType.VarChar, 50).Value = txtSalesAccountCode.Text.Trim()
         cmd.Parameters.Add("@SalesReturnAccountCode", SqlDbType.VarChar, 50).Value = txtSalesReturnAccountCode.Text.Trim()
-        cmd.Parameters.Add("@InventoryAccountCode", SqlDbType.VarChar, 50).Value = txtInventoryAccountCode.Text.Trim()
+        cmd.Parameters.Add("@CapitalAccountCode", SqlDbType.VarChar, 50).Value = txtCapitalAccountCode.Text.Trim()
         cmd.Parameters.Add("@CostOfGoodsSoldAccountCode", SqlDbType.VarChar, 50).Value = txtCostOfGoodsSoldAccountCode.Text.Trim()
 
         cmd.Parameters.Add("@PurchaseAccountCode", SqlDbType.VarChar, 50).Value = GetNullableText(txtPurchaseAccountCode)
@@ -432,9 +432,9 @@ WHERE Id = @Id;
             Return False
         End If
 
-        If txtInventoryAccountCode.Text.Trim() = "" Then
+        If txtCapitalAccountCode.Text.Trim() = "" Then
             MessageBox.Show("يرجى إدخال حساب المخزون", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtInventoryAccountCode.Focus()
+            txtCapitalAccountCode.Focus()
             Return False
         End If
 
@@ -478,7 +478,7 @@ WHERE Id = @Id;
 
         txtSalesAccountCode.Clear()
         txtSalesReturnAccountCode.Clear()
-        txtInventoryAccountCode.Clear()
+        txtCapitalAccountCode.Clear()
         txtCostOfGoodsSoldAccountCode.Clear()
         txtPurchaseAccountCode.Clear()
         txtPurchaseReturnAccountCode.Clear()
@@ -505,7 +505,7 @@ WHERE Id = @Id;
         txtId.Text = GetCellText(row, "Id")
         txtSalesAccountCode.Text = GetCellText(row, "SalesAccountCode")
         txtSalesReturnAccountCode.Text = GetCellText(row, "SalesReturnAccountCode")
-        txtInventoryAccountCode.Text = GetCellText(row, "InventoryAccountCode")
+        txtCapitalAccountCode.Text = GetCellText(row, "CapitalAccountCode")
         txtCostOfGoodsSoldAccountCode.Text = GetCellText(row, "CostOfGoodsSoldAccountCode")
         txtPurchaseAccountCode.Text = GetCellText(row, "PurchaseAccountCode")
         txtPurchaseReturnAccountCode.Text = GetCellText(row, "PurchaseReturnAccountCode")
@@ -558,6 +558,10 @@ WHERE Id = @Id;
                 row.DefaultCellStyle.ForeColor = Color.FromArgb(40, 55, 71)
             End If
         End If
+    End Sub
+
+    Private Sub FrmAccountingPostingSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 
 #End Region

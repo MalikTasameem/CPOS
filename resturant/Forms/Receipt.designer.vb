@@ -40,9 +40,10 @@ Partial Class Receipt
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
         Me.DeleteButton = New System.Windows.Forms.Button()
         Me.Fields_Panel = New System.Windows.Forms.Panel()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.CR_Phone_Txt = New System.Windows.Forms.TextBox()
         Me.Treasury_Balance = New System.Windows.Forms.TextBox()
-        Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AG_Cm = New resturant.FSearch_Filter()
         Me.Receipt_Title_combobox = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -76,8 +77,7 @@ Partial Class Receipt
         Me.print_butt = New System.Windows.Forms.Button()
         Me.save_butt = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Discount_txt = New System.Windows.Forms.TextBox()
+        Me.Discount_txt = New resturant.F2FloatField()
         Me.TitleBar_Panel.SuspendLayout()
         Me.Rct_Move_Panel.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -309,8 +309,8 @@ Partial Class Receipt
         'Fields_Panel
         '
         Me.Fields_Panel.BackColor = System.Drawing.Color.Transparent
-        Me.Fields_Panel.Controls.Add(Me.Label10)
         Me.Fields_Panel.Controls.Add(Me.Discount_txt)
+        Me.Fields_Panel.Controls.Add(Me.Label10)
         Me.Fields_Panel.Controls.Add(Me.CR_Phone_Txt)
         Me.Fields_Panel.Controls.Add(Me.Treasury_Balance)
         Me.Fields_Panel.Controls.Add(Me.AG_Cm)
@@ -344,6 +344,23 @@ Partial Class Receipt
         Me.Fields_Panel.Size = New System.Drawing.Size(697, 367)
         Me.Fields_Panel.TabIndex = 282
         '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 10.25!)
+        Me.Label10.Location = New System.Drawing.Point(173, 196)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(39, 19)
+        Me.Label10.TabIndex = 663
+        Me.Label10.Text = "خصم"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'NULLContextMenuStrip
+        '
+        Me.NULLContextMenuStrip.Name = "NULLContextMenuStrip"
+        Me.NULLContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.NULLContextMenuStrip.Size = New System.Drawing.Size(61, 4)
+        '
         'CR_Phone_Txt
         '
         Me.CR_Phone_Txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -365,19 +382,13 @@ Partial Class Receipt
         Me.Treasury_Balance.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.Treasury_Balance.Font = New System.Drawing.Font("Stencil", 10.25!)
         Me.Treasury_Balance.ForeColor = System.Drawing.Color.Black
-        Me.Treasury_Balance.Location = New System.Drawing.Point(6, 226)
+        Me.Treasury_Balance.Location = New System.Drawing.Point(6, 237)
         Me.Treasury_Balance.Name = "Treasury_Balance"
         Me.Treasury_Balance.ReadOnly = True
         Me.Treasury_Balance.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Treasury_Balance.Size = New System.Drawing.Size(166, 24)
         Me.Treasury_Balance.TabIndex = 660
         Me.Treasury_Balance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'NULLContextMenuStrip
-        '
-        Me.NULLContextMenuStrip.Name = "NULLContextMenuStrip"
-        Me.NULLContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.NULLContextMenuStrip.Size = New System.Drawing.Size(61, 4)
         '
         'AG_Cm
         '
@@ -542,7 +553,7 @@ Partial Class Receipt
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        Me.Label13.Location = New System.Drawing.Point(291, 9)
+        Me.Label13.Location = New System.Drawing.Point(291, 10)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(84, 19)
         Me.Label13.TabIndex = 270
@@ -569,7 +580,7 @@ Partial Class Receipt
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        Me.Label19.Location = New System.Drawing.Point(176, 230)
+        Me.Label19.Location = New System.Drawing.Point(176, 241)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(85, 19)
         Me.Label19.TabIndex = 372
@@ -832,30 +843,16 @@ Partial Class Receipt
         Me.save_butt.Text = "حفظ F12"
         Me.save_butt.UseVisualStyleBackColor = False
         '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        Me.Label10.Location = New System.Drawing.Point(175, 196)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(39, 19)
-        Me.Label10.TabIndex = 663
-        Me.Label10.Text = "خصم"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'Discount_txt
         '
-        Me.Discount_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Discount_txt.BackColor = System.Drawing.Color.Lavender
         Me.Discount_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Discount_txt.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.Discount_txt.Font = New System.Drawing.Font("Stencil", 14.75!)
-        Me.Discount_txt.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Discount_txt.Location = New System.Drawing.Point(5, 191)
+        Me.Discount_txt.Location = New System.Drawing.Point(3, 191)
+        Me.Discount_txt.MaxLength = 0
         Me.Discount_txt.Name = "Discount_txt"
-        Me.Discount_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Discount_txt.Size = New System.Drawing.Size(167, 31)
-        Me.Discount_txt.TabIndex = 662
-        Me.Discount_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.Discount_txt.Size = New System.Drawing.Size(166, 31)
+        Me.Discount_txt.TabIndex = 664
         '
         'Receipt
         '
@@ -950,5 +947,5 @@ Partial Class Receipt
     Friend WithEvents CR_Phone_Txt As TextBox
     Friend WithEvents TitleBar_Panel As System.Windows.Forms.Panel
     Friend WithEvents Label10 As Label
-    Friend WithEvents Discount_txt As TextBox
+    Friend WithEvents Discount_txt As F2FloatField
 End Class
