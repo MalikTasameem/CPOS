@@ -178,6 +178,7 @@ Partial Class ItemsMenu
         Me.REMOVE_ST_ALERT_QTY_btn = New System.Windows.Forms.Button()
         Me.ADD_ST_ALERT_QTY_btn = New System.Windows.Forms.Button()
         Me.Frm_TabPage = New System.Windows.Forms.TabPage()
+        Me.IM_FRM_mySearchControl = New resturant.SearchItemControl()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.QtyTextBox = New System.Windows.Forms.TextBox()
         Me.IM_Unit_cm_2 = New System.Windows.Forms.ComboBox()
@@ -204,7 +205,6 @@ Partial Class ItemsMenu
         Me.IMNUM_Grid = New DevComponents.DotNetBar.Controls.DataGridViewX()
         Me.IM_ID_CL_2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IM_FRM_mySearchControl = New resturant.SearchItemControl()
         CType(Me.Unit_DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -741,11 +741,11 @@ Partial Class ItemsMenu
         'IM_BoxCost_txt
         '
         Me.IM_BoxCost_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.IM_BoxCost_txt.Enabled = False
         Me.IM_BoxCost_txt.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_BoxCost_txt.Location = New System.Drawing.Point(2, 30)
         Me.IM_BoxCost_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_BoxCost_txt.Name = "IM_BoxCost_txt"
+        Me.IM_BoxCost_txt.ReadOnly = True
         Me.IM_BoxCost_txt.Size = New System.Drawing.Size(162, 26)
         Me.IM_BoxCost_txt.TabIndex = 455
         Me.IM_BoxCost_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -821,6 +821,7 @@ Partial Class ItemsMenu
         Me.IM_Cost_txt.Location = New System.Drawing.Point(2, 3)
         Me.IM_Cost_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_Cost_txt.Name = "IM_Cost_txt"
+        Me.IM_Cost_txt.ReadOnly = True
         Me.IM_Cost_txt.Size = New System.Drawing.Size(162, 26)
         Me.IM_Cost_txt.TabIndex = 444
         Me.IM_Cost_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1932,6 +1933,21 @@ Partial Class ItemsMenu
         Me.Frm_TabPage.TabIndex = 4
         Me.Frm_TabPage.Text = "مكونات التصنيع الآلية"
         '
+        'IM_FRM_mySearchControl
+        '
+        Me.IM_FRM_mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.IM_FRM_mySearchControl.DefaultSearchField = "إسم الصنف"
+        Me.IM_FRM_mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
+        Me.IM_FRM_mySearchControl.ItemsTable = Nothing
+        Me.IM_FRM_mySearchControl.itemsTable_Barcode = Nothing
+        Me.IM_FRM_mySearchControl.Location = New System.Drawing.Point(5, 27)
+        Me.IM_FRM_mySearchControl.Margin = New System.Windows.Forms.Padding(0)
+        Me.IM_FRM_mySearchControl.MarginBetweenSearchAndGrid = 15
+        Me.IM_FRM_mySearchControl.MaxGridHeight = 400
+        Me.IM_FRM_mySearchControl.Name = "IM_FRM_mySearchControl"
+        Me.IM_FRM_mySearchControl.Size = New System.Drawing.Size(856, 31)
+        Me.IM_FRM_mySearchControl.TabIndex = 1048
+        '
         'Label22
         '
         Me.Label22.AutoSize = True
@@ -2372,21 +2388,6 @@ Partial Class ItemsMenu
         Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
         Me.DataGridViewTextBoxColumn11.ReadOnly = True
         Me.DataGridViewTextBoxColumn11.Visible = False
-        '
-        'IM_FRM_mySearchControl
-        '
-        Me.IM_FRM_mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.IM_FRM_mySearchControl.DefaultSearchField = "إسم الصنف"
-        Me.IM_FRM_mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
-        Me.IM_FRM_mySearchControl.ItemsTable = Nothing
-        Me.IM_FRM_mySearchControl.itemsTable_Barcode = Nothing
-        Me.IM_FRM_mySearchControl.Location = New System.Drawing.Point(5, 27)
-        Me.IM_FRM_mySearchControl.Margin = New System.Windows.Forms.Padding(0)
-        Me.IM_FRM_mySearchControl.MarginBetweenSearchAndGrid = 15
-        Me.IM_FRM_mySearchControl.MaxGridHeight = 400
-        Me.IM_FRM_mySearchControl.Name = "IM_FRM_mySearchControl"
-        Me.IM_FRM_mySearchControl.Size = New System.Drawing.Size(856, 31)
-        Me.IM_FRM_mySearchControl.TabIndex = 1048
         '
         'ItemsMenu
         '

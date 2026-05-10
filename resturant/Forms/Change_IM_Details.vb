@@ -10,6 +10,8 @@
     Dim ST_ID As Integer
     Dim AG_ID As Integer = 1
     Dim On_Update As Boolean = False
+    Dim IM_DATE As DateTime
+    Dim Bill_T_ID As Integer
 
     Dim Min_SP_2 As Double
 
@@ -85,11 +87,14 @@
                 QtyTextBox.Text = F_Pch.AGMetroGrid.CurrentRow.Cells("QTY_CL").Value
                 IM_LB.Text = F_Pch.AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value
                 PriceTextBox.Text = F_Pch.AGMetroGrid.CurrentRow.Cells("Price_CL").Value
+                PrevPrice = F_Pch.AGMetroGrid.CurrentRow.Cells("Price_CL").Value
                 Notes_txt.Text = F_Pch.AGMetroGrid.CurrentRow.Cells("Notes_CL").Value
                 ST_ID = F_Pch.AGMetroGrid.CurrentRow.Cells("ST_ID_CL").Value
                 D_Valid = F_Pch.AGMetroGrid.CurrentRow.Cells("D_Valid_CL").Value
                 If Not IsDBNull(F_Pch.AGMetroGrid.CurrentRow.Cells("NewSale_CL").Value) Then NewSalePrice_txt.Text = F_Pch.AGMetroGrid.CurrentRow.Cells("NewSale_CL").Value
                 If Not IsDBNull(F_Pch.AGMetroGrid.CurrentRow.Cells("NewSaleByOne_CL").Value) Then NewSaleByOne.Text = F_Pch.AGMetroGrid.CurrentRow.Cells("NewSaleByOne_CL").Value
+                IM_DATE = F_Pch.AGMetroGrid.CurrentRow.Cells("DATE_CL").Value
+                Bill_T_ID = F_Pch.T_ID
                 PriceTextBox.Enabled = True
                 PriceTextBox.ReadOnly = False
                 Note_Panel.Visible = True
@@ -113,9 +118,10 @@
                 Notes_txt.Text = F_Invoice.AGMetroGrid.CurrentRow.Cells("Notes_CL").Value
                 ST_ID = F_Invoice.AGMetroGrid.CurrentRow.Cells("ST_ID_CL").Value
                 D_Valid = F_Invoice.AGMetroGrid.CurrentRow.Cells("D_Valid_CL").Value
+                IM_DATE = F_Invoice.AGMetroGrid.CurrentRow.Cells("DATE_CL").Value
                 If Not IsDBNull(F_Invoice.AGMetroGrid.CurrentRow.Cells("NewSale_CL").Value) Then NewSalePrice_txt.Text = F_Invoice.AGMetroGrid.CurrentRow.Cells("NewSale_CL").Value
                 If Not IsDBNull(F_Invoice.AGMetroGrid.CurrentRow.Cells("NewSaleByOne_CL").Value) Then NewSaleByOne.Text = F_Invoice.AGMetroGrid.CurrentRow.Cells("NewSaleByOne_CL").Value
-
+                Bill_T_ID = F_Invoice.T_ID
                 PriceTextBox.Enabled = True
                 PriceTextBox.ReadOnly = False
                 Note_Panel.Visible = True
@@ -371,6 +377,18 @@
                         Exit Sub
                     End If
                 End If
+
+                'Dim frm As New Frm_PurchaseCostEdit()
+                'frm.IM_ID = IM_ID
+                'frm.PurchaseDate = IM_DATE
+                'frm.Txt_ItemName.Text = IM_LB.Text
+                'frm.Txt_PurchaseId.Text = Bill_T_ID
+                'frm.Txt_PurchaseDetailId.Text = T_ID
+                'frm.Txt_OldPrice.Text = PrevPrice
+                'frm.Txt_NewPrice.Text = PriceTextBox.Text
+                'frm.ShowDialog()
+
+
                 Pch_Contents_Confirm_Unit()
             Case 4
                 If IM_min_QTY = False Then
@@ -669,6 +687,7 @@ CHECK:
 
         Catch ex As Exception
             MsgBox(ex.Message)
+            F_Pch.Pch_Contents_SELECT_Bill()
         End Try
 
     End Sub

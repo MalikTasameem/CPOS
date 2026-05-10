@@ -316,6 +316,24 @@
     <Compile Include="Forms\Frm\Frm_auto_IM_card.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\IM_COST\Frm_InventoryCostRecountList.Designer.vb">
+      <DependentUpon>Frm_InventoryCostRecountList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IM_COST\Frm_InventoryCostRecountList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IM_COST\Frm_InventoryCostRecountPreview.Designer.vb">
+      <DependentUpon>Frm_InventoryCostRecountPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IM_COST\Frm_InventoryCostRecountPreview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IM_COST\Frm_PurchaseCostEdit.Designer.vb">
+      <DependentUpon>Frm_PurchaseCostEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IM_COST\Frm_PurchaseCostEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Normal_Form.designer.vb">
       <DependentUpon>Normal_Form.vb</DependentUpon>
     </Compile>
@@ -1640,6 +1658,15 @@
     <EmbeddedResource Include="Forms\Frm\Frm_auto_IM_card.resx">
       <DependentUpon>Frm_auto_IM_card.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IM_COST\Frm_InventoryCostRecountList.resx">
+      <DependentUpon>Frm_InventoryCostRecountList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IM_COST\Frm_InventoryCostRecountPreview.resx">
+      <DependentUpon>Frm_InventoryCostRecountPreview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IM_COST\Frm_PurchaseCostEdit.resx">
+      <DependentUpon>Frm_PurchaseCostEdit.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Normal_Form.resx">
       <DependentUpon>Normal_Form.vb</DependentUpon>
     </EmbeddedResource>
@@ -2270,6 +2297,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="AGENTS.md" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

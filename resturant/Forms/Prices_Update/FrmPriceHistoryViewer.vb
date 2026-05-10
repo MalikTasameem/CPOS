@@ -5,6 +5,45 @@ Imports System.Runtime.InteropServices
 Public Class FrmPriceHistoryViewer
 
     Private CON_STR As String = MY_Settings.SqlConStr
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
+
+    Private Sub MaxFormButton_Click(sender As Object, e As EventArgs) Handles MaxFormButton.Click
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.MaximumSize = Screen.FromHandle(Me.Handle).WorkingArea.Size
+            Me.WindowState = FormWindowState.Maximized
+            MaxFormButton.Text = "❐"
+        Else
+            Me.WindowState = FormWindowState.Normal
+            MaxFormButton.Text = "⬜"
+        End If
+    End Sub
+
+    Private Sub MinFormButton_Click(sender As Object, e As EventArgs) Handles MinFormButton.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown, TopTitle_LB.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove, TopTitle_LB.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
+        drag = False
+    End Sub
 
     'Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
 

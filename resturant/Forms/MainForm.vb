@@ -2998,4 +2998,13 @@ Public Class MainForm
         F_ST_settlement.Show()
         Me.Cursor = Cursors.Default
     End Sub
+
+
+
+
+
+    Private Sub التكلفةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles التكلفةToolStripMenuItem.Click
+        Dim f As New Frm_InventoryCostRecountList
+        f.Show()
+    End Sub
 End Class

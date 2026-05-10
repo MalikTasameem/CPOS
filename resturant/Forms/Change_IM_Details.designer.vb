@@ -145,15 +145,15 @@ Partial Class Change_IM_Details
         '
         Me.PriceTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.PriceTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.PriceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.PriceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PriceTextBox.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.PriceTextBox.Font = New System.Drawing.Font("Stencil", 15.7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PriceTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.PriceTextBox.ForeColor = System.Drawing.Color.DarkGreen
         Me.PriceTextBox.Location = New System.Drawing.Point(129, 112)
         Me.PriceTextBox.MaxLength = 250
         Me.PriceTextBox.Name = "PriceTextBox"
         Me.PriceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.PriceTextBox.Size = New System.Drawing.Size(107, 25)
+        Me.PriceTextBox.Size = New System.Drawing.Size(107, 27)
         Me.PriceTextBox.TabIndex = 617
         '
         'NULLContextMenuStrip
@@ -167,13 +167,13 @@ Partial Class Change_IM_Details
         Me.QtyTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI", 11.5!)
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(9, 110)
+        Me.QtyTextBox.Location = New System.Drawing.Point(12, 112)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.QtyTextBox.Size = New System.Drawing.Size(113, 28)
+        Me.QtyTextBox.Size = New System.Drawing.Size(113, 27)
         Me.QtyTextBox.TabIndex = 618
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -181,7 +181,7 @@ Partial Class Change_IM_Details
         '
         Me.Label7.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.Location = New System.Drawing.Point(160, 86)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(52, 21)
@@ -193,8 +193,8 @@ Partial Class Change_IM_Details
         '
         Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(49, 85)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(49, 87)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(49, 21)
         Me.Label2.TabIndex = 619
@@ -206,7 +206,7 @@ Partial Class Change_IM_Details
         Me.Label12.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Label12.ForeColor = System.Drawing.Color.DarkGreen
         Me.Label12.Location = New System.Drawing.Point(389, 84)
         Me.Label12.Name = "Label12"
@@ -222,19 +222,19 @@ Partial Class Change_IM_Details
         Me.Current_QTY.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Current_QTY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Current_QTY.Enabled = False
-        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI", 11.5!)
+        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Current_QTY.ForeColor = System.Drawing.Color.Firebrick
         Me.Current_QTY.Location = New System.Drawing.Point(372, 112)
         Me.Current_QTY.Name = "Current_QTY"
         Me.Current_QTY.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Current_QTY.Size = New System.Drawing.Size(128, 28)
+        Me.Current_QTY.Size = New System.Drawing.Size(128, 27)
         Me.Current_QTY.TabIndex = 621
         '
         'Label15
         '
         Me.Label15.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.Location = New System.Drawing.Point(291, 85)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(52, 21)
@@ -248,11 +248,11 @@ Partial Class Change_IM_Details
         Me.IM_Unit_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Unit_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.IM_Unit_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Unit_cm.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Unit_cm.FormattingEnabled = True
         Me.IM_Unit_cm.Location = New System.Drawing.Point(245, 112)
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
-        Me.IM_Unit_cm.Size = New System.Drawing.Size(120, 26)
+        Me.IM_Unit_cm.Size = New System.Drawing.Size(120, 28)
         Me.IM_Unit_cm.TabIndex = 623
         '
         'ConfermButton
@@ -279,14 +279,14 @@ Partial Class Change_IM_Details
         Me.IM_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.IM_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_LB.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.IM_LB.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_LB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.IM_LB.ForeColor = System.Drawing.Color.Black
         Me.IM_LB.Location = New System.Drawing.Point(2, 42)
         Me.IM_LB.MaxLength = 250
         Me.IM_LB.Name = "IM_LB"
         Me.IM_LB.ReadOnly = True
         Me.IM_LB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_LB.Size = New System.Drawing.Size(498, 29)
+        Me.IM_LB.Size = New System.Drawing.Size(498, 27)
         Me.IM_LB.TabIndex = 632
         Me.IM_LB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -294,7 +294,7 @@ Partial Class Change_IM_Details
         '
         Me.Notes_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Notes_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Notes_txt.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.25!)
+        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Notes_txt.ForeColor = System.Drawing.Color.Black
         Me.Notes_txt.Location = New System.Drawing.Point(2, 47)
         Me.Notes_txt.MaxLength = 250
@@ -308,10 +308,10 @@ Partial Class Change_IM_Details
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Label14.Location = New System.Drawing.Point(385, 51)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(66, 21)
+        Me.Label14.Size = New System.Drawing.Size(65, 21)
         Me.Label14.TabIndex = 634
         Me.Label14.Text = "ملاحظة :"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -357,21 +357,21 @@ Partial Class Change_IM_Details
         Me.IM_Disc_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.IM_Disc_txt.BackColor = System.Drawing.Color.Lavender
         Me.IM_Disc_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Disc_txt.Font = New System.Drawing.Font("Segoe UI", 11.5!)
+        Me.IM_Disc_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.IM_Disc_txt.Location = New System.Drawing.Point(272, 4)
         Me.IM_Disc_txt.MaxLength = 0
         Me.IM_Disc_txt.Name = "IM_Disc_txt"
-        Me.IM_Disc_txt.Size = New System.Drawing.Size(101, 28)
+        Me.IM_Disc_txt.Size = New System.Drawing.Size(101, 27)
         Me.IM_Disc_txt.TabIndex = 635
         '
         'Label4
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Label4.Location = New System.Drawing.Point(377, 8)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(52, 21)
+        Me.Label4.Size = New System.Drawing.Size(51, 21)
         Me.Label4.TabIndex = 636
         Me.Label4.Text = "خصم :"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -402,21 +402,21 @@ Partial Class Change_IM_Details
         Me.NewSalePrice_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSalePrice_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NewSalePrice_txt.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.NewSalePrice_txt.Font = New System.Drawing.Font("Segoe UI", 11.5!)
+        Me.NewSalePrice_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.NewSalePrice_txt.ForeColor = System.Drawing.Color.DarkGreen
         Me.NewSalePrice_txt.Location = New System.Drawing.Point(42, 34)
         Me.NewSalePrice_txt.MaxLength = 250
         Me.NewSalePrice_txt.Name = "NewSalePrice_txt"
         Me.NewSalePrice_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSalePrice_txt.Size = New System.Drawing.Size(105, 28)
+        Me.NewSalePrice_txt.Size = New System.Drawing.Size(105, 27)
         Me.NewSalePrice_txt.TabIndex = 637
         Me.NewSalePrice_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(60, 4)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.Label1.Location = New System.Drawing.Point(60, 10)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(71, 21)
         Me.Label1.TabIndex = 639
@@ -432,7 +432,7 @@ Partial Class Change_IM_Details
         Me.Pch_Panel.Controls.Add(Me.NewSalePrice_txt)
         Me.Pch_Panel.Location = New System.Drawing.Point(9, 151)
         Me.Pch_Panel.Name = "Pch_Panel"
-        Me.Pch_Panel.Size = New System.Drawing.Size(301, 77)
+        Me.Pch_Panel.Size = New System.Drawing.Size(284, 65)
         Me.Pch_Panel.TabIndex = 641
         Me.Pch_Panel.Visible = False
         '
@@ -462,17 +462,16 @@ Partial Class Change_IM_Details
         '
         Me.Newsale_ByOne_Panel.Controls.Add(Me.Label3)
         Me.Newsale_ByOne_Panel.Controls.Add(Me.NewSaleByOne)
-        Me.Newsale_ByOne_Panel.Location = New System.Drawing.Point(150, 3)
+        Me.Newsale_ByOne_Panel.Location = New System.Drawing.Point(148, 3)
         Me.Newsale_ByOne_Panel.Name = "Newsale_ByOne_Panel"
-        Me.Newsale_ByOne_Panel.Size = New System.Drawing.Size(148, 71)
+        Me.Newsale_ByOne_Panel.Size = New System.Drawing.Size(129, 59)
         Me.Newsale_ByOne_Panel.TabIndex = 642
         '
         'Label3
         '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(6, 4)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.Label3.Location = New System.Drawing.Point(7, 7)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(113, 21)
         Me.Label3.TabIndex = 640
@@ -481,17 +480,16 @@ Partial Class Change_IM_Details
         '
         'NewSaleByOne
         '
-        Me.NewSaleByOne.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.NewSaleByOne.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSaleByOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NewSaleByOne.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.NewSaleByOne.Font = New System.Drawing.Font("Segoe UI", 11.5!)
+        Me.NewSaleByOne.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.NewSaleByOne.ForeColor = System.Drawing.Color.DarkGreen
-        Me.NewSaleByOne.Location = New System.Drawing.Point(18, 33)
+        Me.NewSaleByOne.Location = New System.Drawing.Point(4, 31)
         Me.NewSaleByOne.MaxLength = 250
         Me.NewSaleByOne.Name = "NewSaleByOne"
         Me.NewSaleByOne.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSaleByOne.Size = New System.Drawing.Size(107, 28)
+        Me.NewSaleByOne.Size = New System.Drawing.Size(107, 27)
         Me.NewSaleByOne.TabIndex = 638
         Me.NewSaleByOne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
