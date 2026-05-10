@@ -22,9 +22,9 @@ Partial Class Sales_Fast_Draft
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales_Fast_Draft))
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.RemoveCatButton = New System.Windows.Forms.Button()
@@ -37,7 +37,9 @@ Partial Class Sales_Fast_Draft
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Discount_txt = New System.Windows.Forms.TextBox()
+        Me.Calc_Dicount_Btn = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Total_TextBox = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -97,9 +99,8 @@ Partial Class Sales_Fast_Draft
         Me.New_butt = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.Delete_butt = New System.Windows.Forms.Button()
-        Me.Calc_Dicount_Btn = New System.Windows.Forms.Button()
-        Me.Panel5 = New System.Windows.Forms.Panel()
         Me.DiscountPanel.SuspendLayout()
+        Me.Panel5.SuspendLayout()
         Me.AG_Panel.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.dgvSales, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,7 +108,6 @@ Partial Class Sales_Fast_Draft
         Me.Panel3.SuspendLayout()
         Me.Sells_Bill_GB.SuspendLayout()
         Me.Panel4.SuspendLayout()
-        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'MetroToolTip1
@@ -254,7 +254,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.IM_Count_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.IM_Count_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Count_LB.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_Count_LB.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Count_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.IM_Count_LB.Location = New System.Drawing.Point(171, 665)
         Me.IM_Count_LB.Name = "IM_Count_LB"
@@ -268,7 +268,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.User_Name_lb.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.User_Name_lb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.User_Name_lb.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.User_Name_lb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.User_Name_lb.ForeColor = System.Drawing.Color.Blue
         Me.User_Name_lb.Location = New System.Drawing.Point(371, 665)
         Me.User_Name_lb.Name = "User_Name_lb"
@@ -288,6 +288,15 @@ Partial Class Sales_Fast_Draft
         Me.DiscountPanel.Size = New System.Drawing.Size(250, 64)
         Me.DiscountPanel.TabIndex = 634
         '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.Discount_txt)
+        Me.Panel5.Controls.Add(Me.Calc_Dicount_Btn)
+        Me.Panel5.Location = New System.Drawing.Point(1, 31)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(146, 30)
+        Me.Panel5.TabIndex = 719
+        '
         'Discount_txt
         '
         Me.Discount_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -302,6 +311,16 @@ Partial Class Sales_Fast_Draft
         Me.Discount_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Discount_txt.Size = New System.Drawing.Size(105, 27)
         Me.Discount_txt.TabIndex = 617
+        '
+        'Calc_Dicount_Btn
+        '
+        Me.Calc_Dicount_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Calc_Dicount_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(3, 2)
+        Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
+        Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(34, 26)
+        Me.Calc_Dicount_Btn.TabIndex = 1
+        Me.Calc_Dicount_Btn.Text = "..."
         '
         'Label13
         '
@@ -399,7 +418,7 @@ Partial Class Sales_Fast_Draft
         'VoidLb
         '
         Me.VoidLb.BackColor = System.Drawing.Color.IndianRed
-        Me.VoidLb.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.VoidLb.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.VoidLb.ForeColor = System.Drawing.SystemColors.ButtonFace
         Me.VoidLb.Location = New System.Drawing.Point(2, 67)
         Me.VoidLb.Name = "VoidLb"
@@ -427,7 +446,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.IM_Qty_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.IM_Qty_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Qty_LB.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.IM_Qty_LB.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Qty_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.IM_Qty_LB.Location = New System.Drawing.Point(271, 665)
         Me.IM_Qty_LB.Name = "IM_Qty_LB"
@@ -467,7 +486,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.Label16.BackColor = System.Drawing.SystemColors.Control
         Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label16.Font = New System.Drawing.Font("JF Flat", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label16.Location = New System.Drawing.Point(229, 1)
         Me.Label16.Name = "Label16"
@@ -613,11 +632,11 @@ Partial Class Sales_Fast_Draft
         'QTY_CL
         '
         Me.QTY_CL.DataPropertyName = "QTY"
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle1.Format = "N3"
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle7.Format = "N3"
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Transparent
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black
+        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle7
         Me.QTY_CL.FillWeight = 91.83587!
         Me.QTY_CL.HeaderText = "كمية"
         Me.QTY_CL.Name = "QTY_CL"
@@ -626,8 +645,8 @@ Partial Class Sales_Fast_Draft
         'Price_CL
         '
         Me.Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle2.Format = "N3"
-        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Format = "N3"
+        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle8
         Me.Price_CL.FillWeight = 91.83587!
         Me.Price_CL.HeaderText = "السعر"
         Me.Price_CL.Name = "Price_CL"
@@ -643,8 +662,8 @@ Partial Class Sales_Fast_Draft
         'Total_CL
         '
         Me.Total_CL.DataPropertyName = "T_Price"
-        DataGridViewCellStyle3.Format = "N3"
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Format = "N3"
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle9
         Me.Total_CL.FillWeight = 91.83587!
         Me.Total_CL.HeaderText = "إجمالي"
         Me.Total_CL.Name = "Total_CL"
@@ -686,10 +705,10 @@ Partial Class Sales_Fast_Draft
         '
         Me.Label27.BackColor = System.Drawing.Color.Transparent
         Me.Label27.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label27.Location = New System.Drawing.Point(943, 452)
+        Me.Label27.Location = New System.Drawing.Point(942, 452)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(62, 21)
+        Me.Label27.Size = New System.Drawing.Size(60, 21)
         Me.Label27.TabIndex = 705
         Me.Label27.Text = "ملاحظة :"
         Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -798,10 +817,10 @@ Partial Class Sales_Fast_Draft
         Me.Draft_Btn.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Draft_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Draft_Btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Draft_Btn.Location = New System.Drawing.Point(233, 43)
+        Me.Draft_Btn.Location = New System.Drawing.Point(229, 43)
         Me.Draft_Btn.Name = "Draft_Btn"
         Me.Draft_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Draft_Btn.Size = New System.Drawing.Size(54, 55)
+        Me.Draft_Btn.Size = New System.Drawing.Size(65, 55)
         Me.Draft_Btn.TabIndex = 715
         Me.Draft_Btn.TabStop = False
         Me.Draft_Btn.Text = "المسودة"
@@ -819,7 +838,7 @@ Partial Class Sales_Fast_Draft
         Me.IMIncreaseButton.Location = New System.Drawing.Point(943, 149)
         Me.IMIncreaseButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.IMIncreaseButton.Name = "IMIncreaseButton"
-        Me.IMIncreaseButton.Size = New System.Drawing.Size(55, 76)
+        Me.IMIncreaseButton.Size = New System.Drawing.Size(55, 95)
         Me.IMIncreaseButton.TabIndex = 716
         Me.IMIncreaseButton.Text = "➕"
         Me.IMIncreaseButton.UseVisualStyleBackColor = False
@@ -832,10 +851,10 @@ Partial Class Sales_Fast_Draft
         Me.IMDicreaseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.IMDicreaseButton.Font = New System.Drawing.Font("Tahoma", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IMDicreaseButton.ForeColor = System.Drawing.Color.Black
-        Me.IMDicreaseButton.Location = New System.Drawing.Point(943, 226)
+        Me.IMDicreaseButton.Location = New System.Drawing.Point(943, 246)
         Me.IMDicreaseButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.IMDicreaseButton.Name = "IMDicreaseButton"
-        Me.IMDicreaseButton.Size = New System.Drawing.Size(55, 76)
+        Me.IMDicreaseButton.Size = New System.Drawing.Size(55, 56)
         Me.IMDicreaseButton.TabIndex = 717
         Me.IMDicreaseButton.Text = "➖"
         Me.IMDicreaseButton.UseVisualStyleBackColor = False
@@ -868,10 +887,10 @@ Partial Class Sales_Fast_Draft
         Me.Refresh_IM_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Refresh_IM_Btn.Image = Global.resturant.My.Resources.Resources.iconfinder_icon_refresh_2867936
         Me.Refresh_IM_Btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Refresh_IM_Btn.Location = New System.Drawing.Point(289, 43)
+        Me.Refresh_IM_Btn.Location = New System.Drawing.Point(296, 43)
         Me.Refresh_IM_Btn.Name = "Refresh_IM_Btn"
         Me.Refresh_IM_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Refresh_IM_Btn.Size = New System.Drawing.Size(106, 55)
+        Me.Refresh_IM_Btn.Size = New System.Drawing.Size(99, 55)
         Me.Refresh_IM_Btn.TabIndex = 713
         Me.Refresh_IM_Btn.TabStop = False
         Me.Refresh_IM_Btn.Text = "تحديث الأصناف"
@@ -943,7 +962,7 @@ Partial Class Sales_Fast_Draft
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
         Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1083,28 +1102,9 @@ Partial Class Sales_Fast_Draft
         Me.Delete_butt.UseVisualStyleBackColor = False
         Me.Delete_butt.Visible = False
         '
-        'Calc_Dicount_Btn
-        '
-        Me.Calc_Dicount_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Calc_Dicount_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(3, 2)
-        Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
-        Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(34, 26)
-        Me.Calc_Dicount_Btn.TabIndex = 1
-        Me.Calc_Dicount_Btn.Text = "..."
-        '
-        'Panel5
-        '
-        Me.Panel5.Controls.Add(Me.Discount_txt)
-        Me.Panel5.Controls.Add(Me.Calc_Dicount_Btn)
-        Me.Panel5.Location = New System.Drawing.Point(1, 31)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(146, 30)
-        Me.Panel5.TabIndex = 719
-        '
         'Sales_Fast_Draft
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 21.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1004, 695)
@@ -1142,7 +1142,7 @@ Partial Class Sales_Fast_Draft
         Me.Controls.Add(Me.IM_Unit_cm)
         Me.Controls.Add(Me.Label27)
         Me.Controls.Add(Me.txtNotes)
-        Me.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
@@ -1154,6 +1154,8 @@ Partial Class Sales_Fast_Draft
         Me.Text = "شاشة المبيعات"
         Me.DiscountPanel.ResumeLayout(False)
         Me.DiscountPanel.PerformLayout()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.AG_Panel.ResumeLayout(False)
         Me.AG_Panel.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -1164,8 +1166,6 @@ Partial Class Sales_Fast_Draft
         Me.Panel3.PerformLayout()
         Me.Sells_Bill_GB.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -1,8 +1,17 @@
 ﻿Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 Imports System.Data.SqlClient
+Imports System.Drawing.Printing
+
 
 Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
+    Dim Print_CompName As String = ""
+    Dim Print_EngName As String = ""
+    Dim Print_BillNotes As String = ""
+    Dim Print_Y As Integer = 0
+
+
+
 
     Dim rs As New Resizer
     Dim FormState As String = ""
@@ -43,6 +52,221 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public QtyTextBox As Double = 0
     Public IM_Price As Double
     Public IM_Cost As Double
+    '--------------------------------------------------------------------------------------------------------------
+    Public Sub PrintCurrentBill()
+        ' 1. جلب بيانات الشركة واللوجو
+        Try
+            Dim db As New C()
+            db.Str = "SELECT TOP 1 CompName, BillNotes, LOGO FROM SysSetting"
+            db.Com = New SqlCommand(db.Str, db.Con)
+            db.Con.Open()
+            db.Dr = db.Com.ExecuteReader()
+            If db.Dr.Read() Then
+                Print_CompName = db.Dr("CompName").ToString()
+                Print_BillNotes = db.Dr("BillNotes").ToString()
+                ' جلب اللوجو إذا كان موجوداً
+                If Not IsDBNull(db.Dr("LOGO")) Then
+                    Dim Data As Byte() = DirectCast(db.Dr("LOGO"), Byte())
+                    Dim MS As New IO.MemoryStream(Data)
+                    ' تخزين اللوجو في متغير مؤقت للطباعة
+                    Me.Tag = Image.FromStream(MS)
+                Else
+                    Me.Tag = Nothing
+                End If
+            End If
+            db.Dr.Close()
+            db.Con.Close()
+        Catch ex As Exception
+        End Try
+
+        ' 2. حساب طول الفاتورة (ديناميكي)
+        ' الهيدر أطول قليلاً بسبب اللوجو (500) + الأصناف
+        Dim EstimatedHeight As Integer = 500 + (dgvSales.Rows.Count * 30)
+
+        ' 3. إعداد أداة الطباعة (تمت التوسعة لـ 330 بكسل)
+        Dim pd As New PrintDocument()
+        pd.DefaultPageSettings.PaperSize = New System.Drawing.Printing.PaperSize("Thermal80mm", 330, EstimatedHeight)
+        pd.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(0, 0, 0, 0)
+
+        AddHandler pd.PrintPage, AddressOf PrintReceiptPage
+
+        ' 4. فتح المعاينة
+        Dim ppd As New PrintPreviewDialog()
+        ppd.Document = pd
+        ppd.WindowState = FormWindowState.Maximized
+        ppd.ShowDialog()
+    End Sub
+
+    ' ========================================================
+    ' 🌟 رسم الفاتورة 🌟
+    ' ========================================================
+    Private Sub PrintReceiptPage(sender As Object, e As PrintPageEventArgs)
+        Dim g As Graphics = e.Graphics
+        Print_Y = 15
+        Dim StartX As Integer = 5 ' إزاحة بسيطة لليسار
+        Dim PaperWidth As Integer = 315 ' عرض أوسع قليلاً
+
+        ' إعداد الخطوط
+        Dim fontTitle As New Font("Segoe UI", 12, FontStyle.Bold)
+        Dim fontSmallBold As New Font("Segoe UI", 8, FontStyle.Bold)
+        Dim fontBody As New Font("Segoe UI", 9, FontStyle.Regular)
+        Dim fontBodyBold As New Font("Segoe UI", 9, FontStyle.Bold)
+
+        Dim formatCenter As New StringFormat() With {.Alignment = StringAlignment.Center}
+        Dim formatRight As New StringFormat() With {.Alignment = StringAlignment.Far, .FormatFlags = StringFormatFlags.DirectionRightToLeft}
+
+        ' 1. رسم اللوجو بجانب اسم الشركة
+        Dim logoImg As Image = TryCast(Me.Tag, Image)
+        If logoImg IsNot Nothing Then
+            ' رسم اللوجو في جهة اليسار (أو اليمين حسب الرغبة)
+            g.DrawImage(logoImg, StartX + 10, Print_Y, 60, 60)
+            ' رسم اسم الشركة بجانب اللوجو
+            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(StartX + 80, Print_Y + 15, PaperWidth - 90, 35), formatRight)
+            Print_Y += 75
+        Else
+            ' في حال عدم وجود لوجو، يطبع الاسم في المنتصف
+            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(StartX, Print_Y, PaperWidth, 25), formatCenter)
+            Print_Y += 35
+        End If
+
+        ' 2. عنوان الفاتورة
+        DrawThreeParts(g, "Sales Invoice", "", "فاتورة مبيعات", Print_Y, fontBodyBold, StartX)
+        Print_Y += 25
+
+        ' 3. رقم الفاتورة والتاريخ (التاريخ من DateTimeEx)
+        DrawThreeParts(g, "Invoice No", Bill_ID_Txt.Text, "رقم الفاتورة", Print_Y, fontBodyBold, StartX)
+        Print_Y += 20
+        ' 🌟 سحب التاريخ من أداة DateTimeEx كما طلبت 🌟
+        DrawThreeParts(g, "Inv. Date", DateTimeEx.Text, "تاريخ الفاتورة", Print_Y, fontBodyBold, StartX)
+        Print_Y += 30
+
+        DrawDashedLine(g, Print_Y, PaperWidth)
+        Print_Y += 10
+
+        ' 4. عناوين الجدول (Total | Price | Qty | Item)
+        g.DrawString("Total" & vbCrLf & "الإجمالي", fontSmallBold, Brushes.Black, New Rectangle(StartX, Print_Y, 70, 30), formatCenter)
+        g.DrawString("Price" & vbCrLf & "السعر", fontSmallBold, Brushes.Black, New Rectangle(StartX + 70, Print_Y, 60, 30), formatCenter)
+        g.DrawString("Qty" & vbCrLf & "كمية", fontSmallBold, Brushes.Black, New Rectangle(StartX + 130, Print_Y, 40, 30), formatCenter)
+        g.DrawString("Item" & vbCrLf & "الصنف", fontSmallBold, Brushes.Black, New Rectangle(StartX + 170, Print_Y, 135, 30), formatRight)
+        Print_Y += 35
+
+        DrawDashedLine(g, Print_Y, PaperWidth)
+        Print_Y += 10
+
+        ' 5. محتويات الفاتورة
+        For Each row As DataGridViewRow In dgvSales.Rows
+            If row.IsNewRow Then Continue For
+            Dim itemName As String = row.Cells("Item_Name").Value.ToString()
+            Dim qty As String = row.Cells("QTY_CL").Value.ToString()
+            Dim price As String = Convert.ToDouble(row.Cells("Price_CL").Value).ToString("N2")
+            Dim total As String = Convert.ToDouble(row.Cells("Total_CL").Value).ToString("N2")
+
+            Dim itemSizeF As SizeF = g.MeasureString(itemName, fontBody, 135, formatRight)
+            Dim rowHeight As Integer = Math.Max(20, CInt(itemSizeF.Height) + 5)
+
+            g.DrawString(total, fontBodyBold, Brushes.Black, New Rectangle(StartX, Print_Y, 70, rowHeight), formatCenter)
+            g.DrawString(price, fontBody, Brushes.Black, New Rectangle(StartX + 70, Print_Y, 60, rowHeight), formatCenter)
+            g.DrawString(qty, fontBody, Brushes.Black, New Rectangle(StartX + 130, Print_Y, 40, rowHeight), formatCenter)
+            g.DrawString(itemName, fontBody, Brushes.Black, New Rectangle(StartX + 170, Print_Y, 135, rowHeight), formatRight)
+            Print_Y += rowHeight
+        Next
+
+        Print_Y += 10
+        DrawDashedLine(g, Print_Y, PaperWidth)
+        Print_Y += 15
+
+        ' 6. الإجماليات
+        DrawThreeParts(g, "Gross Total", Total_TextBox.Text, "الإجمالي", Print_Y, fontBodyBold, StartX)
+        Print_Y += 25
+        If Val(Discount_txt.Text) > 0 Then
+            DrawThreeParts(g, "Discount", Discount_txt.Text, "الخصم", Print_Y, fontBody, StartX)
+            Print_Y += 20
+        End If
+        DrawThreeParts(g, "Net Total", Pure_txt.Text, "الصافي", Print_Y, fontTitle, StartX)
+        Print_Y += 45
+
+        DrawDashedLine(g, Print_Y, PaperWidth)
+        Print_Y += 15
+
+        ' 7. الكاشير وشكراً لكم
+        DrawThreeParts(g, "Cashier", USER_NAME, "الكاشير", Print_Y, fontBody, StartX)
+        Print_Y += 30
+
+        ' 🌟 8. طباعة تاريخ ووقت الطباعة في الأسفل 🌟
+        g.DrawString("Printed on: " & Now.ToString("yyyy-MM-dd HH:mm:ss"), fontSmallBold, Brushes.Black, New Rectangle(StartX, Print_Y, PaperWidth, 20), formatCenter)
+        Print_Y += 25
+
+        g.DrawString(Print_BillNotes, fontBodyBold, Brushes.Black, New Rectangle(StartX, Print_Y, PaperWidth, 40), formatCenter)
+
+        e.HasMorePages = False
+    End Sub
+
+    ' --- الدالة المساعدة المحدثة مع خيار الـ StartX ---
+    Private Sub DrawThreeParts(g As Graphics, engText As String, value As String, araText As String, y As Integer, font As Font, xOffset As Integer)
+        Dim formatLeft As New StringFormat() With {.Alignment = StringAlignment.Near}
+        Dim formatCenter As New StringFormat() With {.Alignment = StringAlignment.Center}
+        Dim formatRight As New StringFormat() With {.Alignment = StringAlignment.Far, .FormatFlags = StringFormatFlags.DirectionRightToLeft}
+
+        g.DrawString(engText, font, Brushes.Black, New Rectangle(xOffset, y, 110, 25), formatLeft)
+        g.DrawString(value, font, Brushes.Black, New Rectangle(xOffset + 110, y, 90, 25), formatCenter)
+        g.DrawString(araText, font, Brushes.Black, New Rectangle(xOffset + 200, y, 110, 25), formatRight)
+    End Sub
+
+    ' ========================================================
+    ' 🌟 دوال مساعدة للطباعة 🌟
+    ' ========================================================
+
+    ' دالة رسم الخط المتقطع
+    Private Sub DrawDashedLine(g As Graphics, y As Integer, width As Integer)
+        Dim p As New Pen(Color.Black, 1)
+        p.DashStyle = Drawing2D.DashStyle.Dash
+        g.DrawLine(p, 10, y, width - 10, y)
+    End Sub
+
+    ' دالة توزيع النص (إنجليزي يسار - قيمة بالمنتصف - عربي يمين)
+    Private Sub DrawThreeParts(g As Graphics, engText As String, value As String, araText As String, y As Integer, font As Font)
+        Dim formatLeft As New StringFormat() With {.Alignment = StringAlignment.Near}
+        Dim formatCenter As New StringFormat() With {.Alignment = StringAlignment.Center}
+        Dim formatRight As New StringFormat() With {.Alignment = StringAlignment.Far, .FormatFlags = StringFormatFlags.DirectionRightToLeft}
+
+        ' تقسيم عرض الورقة (300) إلى 3 أجزاء متناسقة
+        ' اليسار (100) | المنتصف (100) | اليمين (90)
+        g.DrawString(engText, font, Brushes.Black, New Rectangle(5, y, 100, 25), formatLeft)
+        g.DrawString(value, font, Brushes.Black, New Rectangle(105, y, 90, 25), formatCenter)
+        g.DrawString(araText, font, Brushes.Black, New Rectangle(195, y, 100, 25), formatRight)
+    End Sub
+    ' دالة توليد الباركود (ضع كود المكتبة الخاصة بك هنا)
+    Private Function GenerateBarcode(text As String) As Image
+        ' مثال: إذا كنت تستخدم ZXing
+        ' Dim writer As New ZXing.BarcodeWriter()
+        ' writer.Format = ZXing.BarcodeFormat.CODE_128
+        ' Return writer.Write(text)
+
+        Return Nothing ' اتركه Nothing إذا لم تكن تمتلك مكتبة حالياً
+    End Function
+
+    ' دالة توليد الـ QR Code (ضع كود المكتبة الخاصة بك هنا)
+    Private Function GenerateQRCode(text As String) As Image
+        ' مثال: إذا كنت تستخدم QRCoder
+        ' Dim qrGenerator As New QRCoder.QRCodeGenerator()
+        ' Dim qrData As QRCoder.QRCodeData = qrGenerator.CreateQrCode(text, QRCoder.QRCodeGenerator.ECCLevel.Q)
+        ' Dim qrCode As New QRCoder.QRCode(qrData)
+        ' Return qrCode.GetGraphic(5)
+
+        Return Nothing ' اتركه Nothing إذا لم تكن تمتلك مكتبة حالياً
+    End Function
+
+
+
+
+
+    '--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         FormType = 0
@@ -898,7 +1122,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         '    'ConfermBill()
         '    PushCurrentDraftToDatabase()
         'End If
-
+        PrintCurrentBill()
 
         If CurrentDraft Is Nothing Then
             MessageBox.Show("لا توجد فاتورة حالية.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -930,10 +1154,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 '    "نجاح",
                 '    MessageBoxButtons.OK,
                 '    MessageBoxIcon.Information)
-
-
                 ResetNewBill()
-
                 'Disable_Fields()
                 'ClearCatFields()
             End If

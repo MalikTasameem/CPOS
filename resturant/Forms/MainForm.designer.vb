@@ -75,6 +75,7 @@ Partial Class MainForm
         Me.أوامرمحزنToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.إذنصرفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.إذنإستلامToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.تسويةمخزنToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.IM_Frm_Btn = New System.Windows.Forms.ToolStripDropDownButton()
         Me.FRM_Auto_LB = New System.Windows.Forms.ToolStripMenuItem()
@@ -181,7 +182,6 @@ Partial Class MainForm
         Me.check_print_Btn3 = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
-        Me.تسويةمخزنToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -506,6 +506,12 @@ Partial Class MainForm
         Me.إذنإستلامToolStripMenuItem.Name = "إذنإستلامToolStripMenuItem"
         Me.إذنإستلامToolStripMenuItem.Size = New System.Drawing.Size(140, 24)
         Me.إذنإستلامToolStripMenuItem.Text = "إذن إستلام"
+        '
+        'تسويةمخزنToolStripMenuItem
+        '
+        Me.تسويةمخزنToolStripMenuItem.Name = "تسويةمخزنToolStripMenuItem"
+        Me.تسويةمخزنToolStripMenuItem.Size = New System.Drawing.Size(184, 24)
+        Me.تسويةمخزنToolStripMenuItem.Text = "تسوية مخزن"
         '
         'ToolStripSeparator4
         '
@@ -1464,12 +1470,6 @@ Partial Class MainForm
         Me.Save_butt.TabIndex = 9
         Me.Save_butt.Text = "حفظ الإعدادات"
         Me.Save_butt.UseVisualStyleBackColor = False
-        '
-        'تسويةمخزنToolStripMenuItem
-        '
-        Me.تسويةمخزنToolStripMenuItem.Name = "تسويةمخزنToolStripMenuItem"
-        Me.تسويةمخزنToolStripMenuItem.Size = New System.Drawing.Size(184, 24)
-        Me.تسويةمخزنToolStripMenuItem.Text = "تسوية مخزن"
         '
         'MainForm
         '
