@@ -65,6 +65,7 @@ Partial Class MainForm
         Me.إدارةالأصنافToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.عروضToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.قائمةصلاخيةالأصنافToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.التكلفةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ST_Btn = New System.Windows.Forms.ToolStripDropDownButton()
         Me.ST_Explore_LB = New System.Windows.Forms.ToolStripMenuItem()
@@ -367,7 +368,7 @@ Partial Class MainForm
         'ITEMS_btn
         '
         Me.ITEMS_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ITEMS_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GM_LB, Me.IM_LB, Me.UNITS_LB, Me.NOTES_LB, Me.CHPRICE_LB, Me.إدارةالأصنافToolStripMenuItem, Me.عروضToolStripMenuItem, Me.قائمةصلاخيةالأصنافToolStripMenuItem})
+        Me.ITEMS_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GM_LB, Me.IM_LB, Me.UNITS_LB, Me.NOTES_LB, Me.CHPRICE_LB, Me.إدارةالأصنافToolStripMenuItem, Me.عروضToolStripMenuItem, Me.قائمةصلاخيةالأصنافToolStripMenuItem, Me.التكلفةToolStripMenuItem})
         Me.ITEMS_btn.Name = "ITEMS_btn"
         Me.ITEMS_btn.Size = New System.Drawing.Size(74, 23)
         Me.ITEMS_btn.Text = "المنتجات"
@@ -375,32 +376,32 @@ Partial Class MainForm
         'GM_LB
         '
         Me.GM_LB.Name = "GM_LB"
-        Me.GM_LB.Size = New System.Drawing.Size(165, 24)
+        Me.GM_LB.Size = New System.Drawing.Size(266, 24)
         Me.GM_LB.Text = "التصنيفات"
         '
         'IM_LB
         '
         Me.IM_LB.Name = "IM_LB"
-        Me.IM_LB.Size = New System.Drawing.Size(165, 24)
+        Me.IM_LB.Size = New System.Drawing.Size(266, 24)
         Me.IM_LB.Text = "الآصناف"
         '
         'UNITS_LB
         '
         Me.UNITS_LB.Name = "UNITS_LB"
-        Me.UNITS_LB.Size = New System.Drawing.Size(165, 24)
+        Me.UNITS_LB.Size = New System.Drawing.Size(266, 24)
         Me.UNITS_LB.Text = "الوحدات"
         '
         'NOTES_LB
         '
         Me.NOTES_LB.Name = "NOTES_LB"
-        Me.NOTES_LB.Size = New System.Drawing.Size(165, 24)
+        Me.NOTES_LB.Size = New System.Drawing.Size(266, 24)
         Me.NOTES_LB.Text = "الملاحظات"
         '
         'CHPRICE_LB
         '
         Me.CHPRICE_LB.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.تغيربقيمةمعينةToolStripMenuItem, Me.تغييربنسبةمئويةToolStripMenuItem, Me.شاشةتعديلالأسعارToolStripMenuItem, Me.تقريرتعديلالأسعارToolStripMenuItem})
         Me.CHPRICE_LB.Name = "CHPRICE_LB"
-        Me.CHPRICE_LB.Size = New System.Drawing.Size(165, 24)
+        Me.CHPRICE_LB.Size = New System.Drawing.Size(266, 24)
         Me.CHPRICE_LB.Text = "تغيير الأسعار"
         '
         'تغيربقيمةمعينةToolStripMenuItem
@@ -430,20 +431,26 @@ Partial Class MainForm
         'إدارةالأصنافToolStripMenuItem
         '
         Me.إدارةالأصنافToolStripMenuItem.Name = "إدارةالأصنافToolStripMenuItem"
-        Me.إدارةالأصنافToolStripMenuItem.Size = New System.Drawing.Size(165, 24)
+        Me.إدارةالأصنافToolStripMenuItem.Size = New System.Drawing.Size(266, 24)
         Me.إدارةالأصنافToolStripMenuItem.Text = "إدارة الأصناف"
         '
         'عروضToolStripMenuItem
         '
         Me.عروضToolStripMenuItem.Name = "عروضToolStripMenuItem"
-        Me.عروضToolStripMenuItem.Size = New System.Drawing.Size(165, 24)
+        Me.عروضToolStripMenuItem.Size = New System.Drawing.Size(266, 24)
         Me.عروضToolStripMenuItem.Text = "عروض"
         '
         'قائمةصلاخيةالأصنافToolStripMenuItem
         '
         Me.قائمةصلاخيةالأصنافToolStripMenuItem.Name = "قائمةصلاخيةالأصنافToolStripMenuItem"
-        Me.قائمةصلاخيةالأصنافToolStripMenuItem.Size = New System.Drawing.Size(165, 24)
+        Me.قائمةصلاخيةالأصنافToolStripMenuItem.Size = New System.Drawing.Size(266, 24)
         Me.قائمةصلاخيةالأصنافToolStripMenuItem.Text = "قائمة الصلاحية"
+        '
+        'التكلفةToolStripMenuItem
+        '
+        Me.التكلفةToolStripMenuItem.Name = "التكلفةToolStripMenuItem"
+        Me.التكلفةToolStripMenuItem.Size = New System.Drawing.Size(266, 24)
+        Me.التكلفةToolStripMenuItem.Text = "مستنذات إعادة إحتساب المخزون"
         '
         'ToolStripSeparator3
         '
@@ -910,7 +917,7 @@ Partial Class MainForm
         'CompPictureBox
         '
         Me.CompPictureBox.Image = Global.resturant.My.Resources.Resources.Gemini_Generated_Image_96itaz96itaz96it_removebg_preview
-        Me.CompPictureBox.Location = New System.Drawing.Point(726, 2)
+        Me.CompPictureBox.Location = New System.Drawing.Point(580, 0)
         Me.CompPictureBox.Name = "CompPictureBox"
         Me.CompPictureBox.Size = New System.Drawing.Size(288, 99)
         Me.CompPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -1700,4 +1707,5 @@ Partial Class MainForm
     Friend WithEvents شاشةالحساباتToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ترحيلمحاسبيToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents تسويةمخزنToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents التكلفةToolStripMenuItem As ToolStripMenuItem
 End Class

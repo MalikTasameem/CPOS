@@ -180,8 +180,12 @@ Partial Class SB_Edit
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
+        Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.TopTitle_LB = New System.Windows.Forms.Label()
+        Me.Help_LB = New System.Windows.Forms.Label()
         Me.GroupBox21 = New System.Windows.Forms.GroupBox()
         Me.IM_Search_Default_Cm = New System.Windows.Forms.ComboBox()
+        Me.TitleBar_Panel.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.CustPageTypeGroupBox.SuspendLayout()
         Me.DiscountGroupBox.SuspendLayout()
@@ -694,7 +698,8 @@ Partial Class SB_Edit
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Controls.Add(Me.TabPage8)
-        Me.TabControl1.Location = New System.Drawing.Point(3, 2)
+        Me.TabControl1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.TabControl1.Location = New System.Drawing.Point(3, 74)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.RightToLeftLayout = True
         Me.TabControl1.SelectedIndex = 0
@@ -703,7 +708,7 @@ Partial Class SB_Edit
         '
         'TabPage1
         '
-        Me.TabPage1.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage1.Controls.Add(Me.GroupBox11)
         Me.TabPage1.Controls.Add(Me.SB_IM_NEW_ROW_CB)
         Me.TabPage1.Controls.Add(Me.Open_NewBill_When_OpenSale_CB)
@@ -906,7 +911,7 @@ Partial Class SB_Edit
         '
         'TabPage7
         '
-        Me.TabPage7.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage7.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage7.Controls.Add(Me.GroupBox21)
         Me.TabPage7.Controls.Add(Me.SERVER_IMG_PATH_txt)
         Me.TabPage7.Controls.Add(Me.Label26)
@@ -1081,7 +1086,7 @@ Partial Class SB_Edit
         '
         'TabPage4
         '
-        Me.TabPage4.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage4.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage4.Controls.Add(Me.CMPNameTextBox)
         Me.TabPage4.Controls.Add(Me.CmpEnglishNameTextBox)
         Me.TabPage4.Controls.Add(Me.Label3)
@@ -1229,7 +1234,7 @@ Partial Class SB_Edit
         '
         'TabPage6
         '
-        Me.TabPage6.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage6.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage6.Controls.Add(Me.GroupBox9)
         Me.TabPage6.Controls.Add(Me.GroupBox10)
         Me.TabPage6.Location = New System.Drawing.Point(4, 30)
@@ -1317,7 +1322,7 @@ Partial Class SB_Edit
         '
         'TabPage3
         '
-        Me.TabPage3.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage3.Controls.Add(Me.GroupBox19)
         Me.TabPage3.Controls.Add(Me.GroupBox12)
         Me.TabPage3.Controls.Add(Me.GroupBox16)
@@ -1436,7 +1441,7 @@ Partial Class SB_Edit
         '
         'TabPage2
         '
-        Me.TabPage2.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage2.Controls.Add(Me.is_Home_Mange_Printers_CB)
         Me.TabPage2.Controls.Add(Me.OutSale_rpt_CM)
         Me.TabPage2.Controls.Add(Me.Label25)
@@ -1782,7 +1787,7 @@ Partial Class SB_Edit
         '
         'TabPage5
         '
-        Me.TabPage5.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage5.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage5.Controls.Add(Me.Label12)
         Me.TabPage5.Controls.Add(Me.Label10)
         Me.TabPage5.Controls.Add(Me.LinkLabel1)
@@ -1933,7 +1938,7 @@ Partial Class SB_Edit
         '
         'TabPage8
         '
-        Me.TabPage8.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage8.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage8.Controls.Add(Me.GroupBox20)
         Me.TabPage8.Controls.Add(Me.SelectColorButton_CREDIT)
         Me.TabPage8.Controls.Add(Me.CREDIT_COLOR_Panel)
@@ -2290,12 +2295,14 @@ Partial Class SB_Edit
         '
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ExitFormButton.FlatAppearance.BorderSize = 0
+        Me.ExitFormButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(185, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer))
+        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
         Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(505, 590)
+        Me.ExitFormButton.Location = New System.Drawing.Point(505, 670)
         Me.ExitFormButton.Name = "ExitFormButton"
         Me.ExitFormButton.Size = New System.Drawing.Size(193, 54)
         Me.ExitFormButton.TabIndex = 307
@@ -2305,16 +2312,17 @@ Partial Class SB_Edit
         '
         'Save_butt
         '
-        Me.Save_butt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Save_butt.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(163, Byte), Integer), CType(CType(74, Byte), Integer))
         Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Save_butt.FlatAppearance.BorderSize = 0
         Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(61, Byte), Integer))
         Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
+        Me.Save_butt.ForeColor = System.Drawing.Color.White
         Me.Save_butt.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Save_butt.Location = New System.Drawing.Point(7, 590)
+        Me.Save_butt.Location = New System.Drawing.Point(7, 670)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Save_butt.Size = New System.Drawing.Size(193, 54)
@@ -2323,6 +2331,40 @@ Partial Class SB_Edit
         Me.Save_butt.Text = "حفظ التعديلات"
         Me.Save_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Save_butt.UseVisualStyleBackColor = False
+        '
+        'TitleBar_Panel
+        '
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.TopTitle_LB)
+        Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
+        Me.TitleBar_Panel.Name = "TitleBar_Panel"
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(700, 48)
+        Me.TitleBar_Panel.TabIndex = 654
+        '
+        'TopTitle_LB
+        '
+        Me.TopTitle_LB.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TopTitle_LB.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
+        Me.TopTitle_LB.ForeColor = System.Drawing.Color.White
+        Me.TopTitle_LB.Location = New System.Drawing.Point(0, 0)
+        Me.TopTitle_LB.Name = "TopTitle_LB"
+        Me.TopTitle_LB.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
+        Me.TopTitle_LB.Size = New System.Drawing.Size(700, 48)
+        Me.TopTitle_LB.TabIndex = 0
+        Me.TopTitle_LB.Text = "الإعدادات العامة"
+        Me.TopTitle_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Help_LB
+        '
+        Me.Help_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Help_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.Help_LB.Location = New System.Drawing.Point(7, 50)
+        Me.Help_LB.Name = "Help_LB"
+        Me.Help_LB.Size = New System.Drawing.Size(691, 21)
+        Me.Help_LB.TabIndex = 655
+        Me.Help_LB.Text = "اختر التبويب المطلوب وعدّل الإعدادات، ثم اضغط حفظ التعديلات."
+        Me.Help_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'GroupBox21
         '
@@ -2353,18 +2395,22 @@ Partial Class SB_Edit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(700, 645)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(700, 731)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Help_LB)
+        Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.ExitFormButton)
         Me.Controls.Add(Me.Save_butt)
         Me.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "SB_Edit"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "إعدادات عامة"
+        Me.TitleBar_Panel.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.CustPageTypeGroupBox.ResumeLayout(False)
         Me.DiscountGroupBox.ResumeLayout(False)
@@ -2587,4 +2633,7 @@ Partial Class SB_Edit
     Friend WithEvents N_Point_Fter_CM As ComboBox
     Friend WithEvents GroupBox21 As GroupBox
     Public WithEvents IM_Search_Default_Cm As ComboBox
+    Friend WithEvents TitleBar_Panel As Panel
+    Friend WithEvents TopTitle_LB As Label
+    Friend WithEvents Help_LB As Label
 End Class
