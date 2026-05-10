@@ -1364,85 +1364,18 @@ Public Class ItemsMenu
     End Sub
 
 
-    'Public Sub Load_IM_Barcode_frm()
-    '    Dim c As New C
-    '    IM_Dt.Clear()
-    '    Try
-    '        Dim s As String
-    '        If Sh_ByNum_CB.Checked = True Then
-    '            s = "select IM_ID,item_name,isValid from IM_All_V WHERE IM_NUM = '" & Barcode_SH_txt.Text & "'"
-    '        Else
-    '            s = "select IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
-    '        End If
-
-    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
-    '        c.Con.Open()
-
-    '        c.Dr = c.Com.ExecuteReader
-    '        If c.Dr.HasRows Then
-    '            c.Dr.Read()
-    '            FRM_IM_ID = c.Dr("IM_ID")
-    '            IM_FRM_txt.Text = c.Dr("item_name")
-    '            Get_Unit = False
-    '            FRM_GDX.Visible = False
-    '            QtyTextBox.Select()
-    '            Fetch_IM_Units()
-    '            ' If Sh_ByNum_CB.Checked = False Then IM_Unit_cm.SelectedValue = c.Dr("U_IM_ID")
-    '            Barcode_SH_txt.Clear()
-    '        Else
-    '            If Barcode_SH_txt.Text.Count = 13 Then
-    '                Check_If_Mizan()
-    '            Else
-    '                MsgBox("لم يتم التعرف على الإدخال ", MsgBoxStyle.Exclamation)
-    '            End If
-    '        End If
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
-    'Private Sub Check_If_Mizan()
-    '    Dim c As New C
-    '    Try
-    '        Dim S As String = "Select IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text.Substring(0, 7) & "'"
-    '        c.Com = New SqlClient.SqlCommand(S, c.Con)
-    '        c.Con.Open()
-    '        c.Dr = c.Com.ExecuteReader
-    '        If c.Dr.HasRows Then
-    '            c.Dr.Read()
-    '            Barcode_SH_txt.Text = Barcode_SH_txt.Text(7) + Barcode_SH_txt.Text(8) + Barcode_SH_txt.Text(9) + Barcode_SH_txt.Text(10) + Barcode_SH_txt.Text(11)
-    '            QtyTextBox.Text = Convert.ToDouble(Barcode_SH_txt.Text) / 1000
-    '            FRM_IM_ID = c.Dr("IM_ID")
-    '            IM_FRM_txt.Text = c.Dr("item_name")
-    '            Get_Unit = False
-    '            FRM_GDX.Visible = False
-    '            QtyTextBox.Select()
-    '            Fetch_IM_Units()
-    '            ' IM_Unit_cm.SelectedValue = c.Dr("U_IM_ID")
-    '            Barcode_SH_txt.Clear()
-    '        Else
-    '            MsgBox("لم يتم التعرف على الإدخال ", MsgBoxStyle.Exclamation)
-    '        End If
-
-    '    Catch ex As Exception
-    '    End Try
-    'End Sub
-
-    'Private Sub Barcode_SH_txt_KeyDown(sender As Object, e As KeyEventArgs)
-    '    Select Case e.KeyCode
-    '        Case Keys.Return : If String.IsNullOrWhiteSpace(Barcode_SH_txt.Text) = False Then Load_IM_Barcode_frm()
-    '        Case Keys.Down : QtyTextBox.Select()
-    '        Case Keys.Delete : Barcode_SH_txt.Clear()
-    '    End Select
-    'End Sub
-
-    'Private Sub Sh_ByNum_CB_CheckedChanged(sender As Object, e As EventArgs)
-    '    CB_CHecked(sender)
-    'End Sub
 
     Private Sub IM_MV_btn_Click(sender As Object, e As EventArgs) Handles IM_MV_btn.Click
-        If IM_ID > 0 Then IM_MV.ShowDialog()
+        'If IM_ID > 0 Then IM_MV.ShowDialog()
+
+
+        Dim frm As New Frm_ItemLedger(
+    IM_ID,
+    IM_Name_ToolStrip.Text,
+    1
+)
+
+        frm.ShowDialog()
     End Sub
 
     Private Sub ADD_ST_ALERT_QTY_btn_Click(sender As Object, e As EventArgs) Handles ADD_ST_ALERT_QTY_btn.Click

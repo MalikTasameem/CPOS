@@ -569,6 +569,12 @@
     <Compile Include="Forms\Sys_Options\FrmAccountingPostingSettings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Sys_Options\Frm_ItemLedger.Designer.vb">
+      <DependentUpon>Frm_ItemLedger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Sys_Options\Frm_ItemLedger.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Sys_Options\ItemsMenu.designer.vb">
       <DependentUpon>ItemsMenu.vb</DependentUpon>
     </Compile>
@@ -1780,6 +1786,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sys_Options\FrmAccountingPostingSettings.resx">
       <DependentUpon>FrmAccountingPostingSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Sys_Options\Frm_ItemLedger.resx">
+      <DependentUpon>Frm_ItemLedger.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sys_Options\ItemsMenu.resx">
       <DependentUpon>ItemsMenu.vb</DependentUpon>
