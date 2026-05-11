@@ -304,6 +304,9 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Async Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
+
+
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         FormType = 1
         Check_View_Control()

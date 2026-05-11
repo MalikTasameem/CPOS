@@ -1404,9 +1404,9 @@ Partial Class MainForm
         '
         Me.check_print_Btn1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.check_print_Btn1.ForeColor = System.Drawing.Color.Black
-        Me.check_print_Btn1.Location = New System.Drawing.Point(290, 75)
+        Me.check_print_Btn1.Location = New System.Drawing.Point(285, 75)
         Me.check_print_Btn1.Name = "check_print_Btn1"
-        Me.check_print_Btn1.Size = New System.Drawing.Size(35, 28)
+        Me.check_print_Btn1.Size = New System.Drawing.Size(41, 28)
         Me.check_print_Btn1.TabIndex = 2
         Me.check_print_Btn1.Text = "✓"
         '
@@ -1431,9 +1431,9 @@ Partial Class MainForm
         '
         Me.check_print_Btn2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.check_print_Btn2.ForeColor = System.Drawing.Color.Black
-        Me.check_print_Btn2.Location = New System.Drawing.Point(290, 145)
+        Me.check_print_Btn2.Location = New System.Drawing.Point(285, 145)
         Me.check_print_Btn2.Name = "check_print_Btn2"
-        Me.check_print_Btn2.Size = New System.Drawing.Size(35, 28)
+        Me.check_print_Btn2.Size = New System.Drawing.Size(41, 28)
         Me.check_print_Btn2.TabIndex = 5
         Me.check_print_Btn2.Text = "✓"
         '
@@ -1458,9 +1458,9 @@ Partial Class MainForm
         '
         Me.check_print_Btn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.check_print_Btn3.ForeColor = System.Drawing.Color.Black
-        Me.check_print_Btn3.Location = New System.Drawing.Point(290, 215)
+        Me.check_print_Btn3.Location = New System.Drawing.Point(285, 215)
         Me.check_print_Btn3.Name = "check_print_Btn3"
-        Me.check_print_Btn3.Size = New System.Drawing.Size(35, 28)
+        Me.check_print_Btn3.Size = New System.Drawing.Size(41, 28)
         Me.check_print_Btn3.TabIndex = 8
         Me.check_print_Btn3.Text = "✓"
         '

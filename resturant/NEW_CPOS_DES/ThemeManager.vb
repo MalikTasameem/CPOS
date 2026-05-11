@@ -347,6 +347,29 @@ Public Class ThemeManager
                 Else
                     btn.BackColor = BtnGeneralBackColor : btn.ForeColor = BtnGeneralForeColor
                 End If
+
+                ' 🌟🌟 حل مشكلة اختفاء الزر عند مرور الماوس (Hover) 🌟🌟
+                ' نتجاهل الـ APP_CONTROL لأن عنده تأثير شفاف مخصص فوق
+                If Not (btn.Tag IsNot Nothing AndAlso btn.Tag.ToString().ToUpper() = "APP_CONTROL") Then
+                    If btn.BackColor = Color.Transparent Then
+                        ' لو الزر شفاف، نديرو تأثير ظل خفيف
+                        btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(20, TextPrimaryColor)
+                    Else
+                        If Not IsDarkMode Then
+                            ' اللايت مود: نغمق لون الزر شوية باش يتميز عن خلفية الفورم الفاتحة
+                            Dim r As Integer = Math.Max(0, CInt(btn.BackColor.R) - 25)
+                            Dim g As Integer = Math.Max(0, CInt(btn.BackColor.G) - 25)
+                            Dim b As Integer = Math.Max(0, CInt(btn.BackColor.B) - 25)
+                            btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(r, g, b)
+                        Else
+                            ' الدارك مود: نفتحه شوية (تأثير ناعم ومضمون وما يخربش الألوان)
+                            Dim r As Integer = Math.Min(255, CInt(btn.BackColor.R) + 20)
+                            Dim g As Integer = Math.Min(255, CInt(btn.BackColor.G) + 20)
+                            Dim b As Integer = Math.Min(255, CInt(btn.BackColor.B) + 20)
+                            btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(r, g, b)
+                        End If
+                    End If
+                End If
             End If
 
             If ctrl.HasChildren Then ApplyThemeToControls(ctrl.Controls)
