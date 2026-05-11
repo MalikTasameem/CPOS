@@ -126,7 +126,7 @@ Partial Class Sales_Fast_Draft
         Me.RemoveCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.RemoveCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.RemoveCatButton.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.RemoveCatButton.Location = New System.Drawing.Point(943, 355)
         Me.RemoveCatButton.Name = "RemoveCatButton"
@@ -435,7 +435,7 @@ Partial Class Sales_Fast_Draft
         Me.DateTimeEx.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimeEx.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DateTimeEx.CustomFormat = "dd/MM/yyyy"
-        Me.DateTimeEx.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimeEx.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimeEx.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DateTimeEx.Location = New System.Drawing.Point(2, 33)
         Me.DateTimeEx.Name = "DateTimeEx"
