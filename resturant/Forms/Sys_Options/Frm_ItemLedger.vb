@@ -224,7 +224,7 @@ ORDER BY ST_Name
         ShowColumn("UnitQty", "كمية", 85)
         ShowColumn("QtyIn", "دخول", 85)
         ShowColumn("QtyOut", "خروج", 85)
-        ShowColumn("NetQty", "صافي", 85)
+        'ShowColumn("NetQty", "صافي", 85)
         ShowColumn("BalanceQty", "الرصيد", 95)
         ShowColumn("UnitCost", "التكلفة", 95)
         ShowColumn("TotalCost", "الإجمالي", 105)
@@ -255,7 +255,7 @@ ORDER BY ST_Name
         FormatNumericColumn("UnitQty")
         FormatNumericColumn("QtyIn")
         FormatNumericColumn("QtyOut")
-        FormatNumericColumn("NetQty")
+        ' FormatNumericColumn("NetQty")
         FormatNumericColumn("BalanceQty")
         FormatNumericColumn("UnitCost")
         FormatNumericColumn("TotalCost")
@@ -276,8 +276,8 @@ ORDER BY ST_Name
 
         'إخفاء الصفر من أعمدة الحركة
         If columnName = "QtyIn" OrElse
-       columnName = "QtyOut" OrElse
-       columnName = "NetQty" Then
+       columnName = "QtyOut" Then 'OrElse
+            '  columnName = "NetQty" Then
 
             If e.Value IsNot Nothing AndAlso e.Value IsNot DBNull.Value Then
 

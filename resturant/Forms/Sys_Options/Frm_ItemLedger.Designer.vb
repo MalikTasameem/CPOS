@@ -112,17 +112,22 @@ Partial Class Frm_ItemLedger
         '
         'Help_LB
         '
+        Me.Help_LB.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Help_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Help_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.Help_LB.Location = New System.Drawing.Point(16, 52)
         Me.Help_LB.Name = "Help_LB"
         Me.Help_LB.Size = New System.Drawing.Size(996, 23)
         Me.Help_LB.TabIndex = 5
-        Me.Help_LB.Text = "راجع حركة الصنف حسب المخزن والتاريخ، مع تمييز كميات الدخول والخروج وطباعتها عند الحاجة."
+        Me.Help_LB.Text = "راجع حركة الصنف حسب المخزن والتاريخ، مع تمييز كميات الدخول والخروج وطباعتها عند ا" &
+    "لحاجة."
         Me.Help_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ResultsTitle_LB
         '
+        Me.ResultsTitle_LB.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ResultsTitle_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.ResultsTitle_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.ResultsTitle_LB.Location = New System.Drawing.Point(16, 176)
@@ -134,6 +139,8 @@ Partial Class Frm_ItemLedger
         '
         'PanelFilters
         '
+        Me.PanelFilters.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PanelFilters.BackColor = System.Drawing.Color.Transparent
         Me.PanelFilters.Controls.Add(Me.Label2)
         Me.PanelFilters.Controls.Add(Me.Label3)
@@ -157,6 +164,7 @@ Partial Class Frm_ItemLedger
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.Label2.Location = New System.Drawing.Point(890, 34)
@@ -168,6 +176,7 @@ Partial Class Frm_ItemLedger
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.Label3.Location = New System.Drawing.Point(890, 65)
@@ -179,6 +188,7 @@ Partial Class Frm_ItemLedger
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.Label4.Location = New System.Drawing.Point(466, 34)
@@ -190,6 +200,7 @@ Partial Class Frm_ItemLedger
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.Label5.Location = New System.Drawing.Point(466, 65)
@@ -201,6 +212,7 @@ Partial Class Frm_ItemLedger
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.Label9.Location = New System.Drawing.Point(890, 4)
@@ -212,6 +224,7 @@ Partial Class Frm_ItemLedger
         '
         'Txt_ShopName
         '
+        Me.Txt_ShopName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Txt_ShopName.BackColor = System.Drawing.Color.White
         Me.Txt_ShopName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_ShopName.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
@@ -223,6 +236,7 @@ Partial Class Frm_ItemLedger
         '
         'Txt_ItemName
         '
+        Me.Txt_ItemName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Txt_ItemName.BackColor = System.Drawing.Color.White
         Me.Txt_ItemName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_ItemName.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
@@ -235,6 +249,7 @@ Partial Class Frm_ItemLedger
         '
         'Cmb_Store
         '
+        Me.Cmb_Store.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Cmb_Store.BackColor = System.Drawing.Color.White
         Me.Cmb_Store.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cmb_Store.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -247,6 +262,7 @@ Partial Class Frm_ItemLedger
         '
         'Dtp_From
         '
+        Me.Dtp_From.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dtp_From.CustomFormat = "yyyy/MM/dd"
         Me.Dtp_From.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Dtp_From.Format = System.Windows.Forms.DateTimePickerFormat.Custom
@@ -258,6 +274,7 @@ Partial Class Frm_ItemLedger
         '
         'Dtp_To
         '
+        Me.Dtp_To.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dtp_To.CustomFormat = "yyyy/MM/dd"
         Me.Dtp_To.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Dtp_To.Format = System.Windows.Forms.DateTimePickerFormat.Custom
@@ -359,6 +376,7 @@ Partial Class Frm_ItemLedger
         '
         'Label6
         '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.Label6.Location = New System.Drawing.Point(874, 18)
@@ -370,6 +388,7 @@ Partial Class Frm_ItemLedger
         '
         'Label7
         '
+        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.Label7.Location = New System.Drawing.Point(558, 18)
@@ -381,6 +400,7 @@ Partial Class Frm_ItemLedger
         '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.Label8.Location = New System.Drawing.Point(242, 18)
@@ -392,6 +412,7 @@ Partial Class Frm_ItemLedger
         '
         'Txt_TotalIn
         '
+        Me.Txt_TotalIn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Txt_TotalIn.BackColor = System.Drawing.Color.White
         Me.Txt_TotalIn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_TotalIn.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
@@ -404,6 +425,7 @@ Partial Class Frm_ItemLedger
         '
         'Txt_TotalOut
         '
+        Me.Txt_TotalOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Txt_TotalOut.BackColor = System.Drawing.Color.White
         Me.Txt_TotalOut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_TotalOut.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
@@ -416,6 +438,7 @@ Partial Class Frm_ItemLedger
         '
         'Txt_FinalBalance
         '
+        Me.Txt_FinalBalance.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Txt_FinalBalance.BackColor = System.Drawing.Color.White
         Me.Txt_FinalBalance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_FinalBalance.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
@@ -430,11 +453,13 @@ Partial Class Frm_ItemLedger
         '
         Me.GridLedger.AllowUserToAddRows = False
         Me.GridLedger.AllowUserToDeleteRows = False
-        Me.GridLedger.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.None
+        Me.GridLedger.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GridLedger.BackgroundColor = System.Drawing.Color.White
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -460,6 +485,9 @@ Partial Class Frm_ItemLedger
         Me.GridLedger.Size = New System.Drawing.Size(996, 451)
         Me.GridLedger.TabIndex = 0
         '
+        'LedgerPrintDocument
+        '
+        '
         'Frm_ItemLedger
         '
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
@@ -470,9 +498,10 @@ Partial Class Frm_ItemLedger
         Me.Controls.Add(Me.PanelTotals)
         Me.Controls.Add(Me.PanelFilters)
         Me.Controls.Add(Me.TitleBar_Panel)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable
+        Me.MinimumSize = New System.Drawing.Size(1044, 755)
         Me.Name = "Frm_ItemLedger"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RightToLeftLayout = True
