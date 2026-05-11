@@ -23,7 +23,6 @@ Partial Class Sales_Fast_Draft
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -91,6 +90,7 @@ Partial Class Sales_Fast_Draft
         Me.IMDicreaseButton = New System.Windows.Forms.Button()
         Me.Units_btn = New System.Windows.Forms.Button()
         Me.Refresh_IM_Btn = New System.Windows.Forms.Button()
+        Me.RefreshStatus_LB = New System.Windows.Forms.Label()
         Me.IM_Search_btn = New System.Windows.Forms.Button()
         Me.IM_Profet_btn = New System.Windows.Forms.Button()
         Me.DeliveryingButton = New System.Windows.Forms.Button()
@@ -213,13 +213,12 @@ Partial Class Sales_Fast_Draft
         'Down_Bill_btn
         '
         Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Down_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_Down
         Me.Down_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Down_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Down_Bill_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 4)
@@ -228,19 +227,19 @@ Partial Class Sales_Fast_Draft
         Me.Down_Bill_btn.Size = New System.Drawing.Size(33, 30)
         Me.Down_Bill_btn.TabIndex = 624
         Me.Down_Bill_btn.TabStop = False
+        Me.Down_Bill_btn.Text = "🔽"
         Me.MetroToolTip1.SetToolTip(Me.Down_Bill_btn, "الفاتورة السابقة")
         Me.Down_Bill_btn.UseVisualStyleBackColor = False
         '
         'Up_Bill_btn
         '
         Me.Up_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Up_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_up_3017922
         Me.Up_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Up_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Up_Bill_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold)
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Up_Bill_btn.Location = New System.Drawing.Point(155, 4)
@@ -249,6 +248,7 @@ Partial Class Sales_Fast_Draft
         Me.Up_Bill_btn.Size = New System.Drawing.Size(33, 30)
         Me.Up_Bill_btn.TabIndex = 623
         Me.Up_Bill_btn.TabStop = False
+        Me.Up_Bill_btn.Text = "🔼"
         Me.MetroToolTip1.SetToolTip(Me.Up_Bill_btn, "الفاتورة التالية")
         Me.Up_Bill_btn.UseVisualStyleBackColor = False
         '
@@ -528,7 +528,7 @@ Partial Class Sales_Fast_Draft
         Me.dgvSales.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -537,14 +537,6 @@ Partial Class Sales_Fast_Draft
         Me.dgvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSales.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Bill_IMID_CL, Me.is_Check_CL, Me.Barcode_CL, Me.Serial_Code_CL, Me.U_ID, Me.Date_, Me.ST_Name_CL, Me.IMNUM_CL, Me.Item_Name, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.IM_Discount_CL, Me.Total_CL, Me.Notes_CL, Me.T_ID_CL, Me.ST_ID_CL, Me.IM_NOTE_CL})
         Me.dgvSales.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSales.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvSales.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSales.Location = New System.Drawing.Point(0, 0)
         Me.dgvSales.MultiSelect = False
@@ -782,7 +774,7 @@ Partial Class Sales_Fast_Draft
         'Sells_Bill_GB
         '
         Me.Sells_Bill_GB.Controls.Add(Me.Sales_Bill_Page_cm)
-        Me.Sells_Bill_GB.Font = New System.Drawing.Font("Arial", 10.25!)
+        Me.Sells_Bill_GB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Sells_Bill_GB.Location = New System.Drawing.Point(2, 104)
         Me.Sells_Bill_GB.Name = "Sells_Bill_GB"
         Me.Sells_Bill_GB.Size = New System.Drawing.Size(225, 44)
@@ -798,7 +790,7 @@ Partial Class Sales_Fast_Draft
         Me.Sales_Bill_Page_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Sales_Bill_Page_cm.Font = New System.Drawing.Font("Arial", 10.25!)
         Me.Sales_Bill_Page_cm.FormattingEnabled = True
-        Me.Sales_Bill_Page_cm.Location = New System.Drawing.Point(3, 19)
+        Me.Sales_Bill_Page_cm.Location = New System.Drawing.Point(3, 21)
         Me.Sales_Bill_Page_cm.Name = "Sales_Bill_Page_cm"
         Me.Sales_Bill_Page_cm.Size = New System.Drawing.Size(219, 24)
         Me.Sales_Bill_Page_cm.TabIndex = 259
@@ -911,6 +903,19 @@ Partial Class Sales_Fast_Draft
         Me.Refresh_IM_Btn.TabStop = False
         Me.Refresh_IM_Btn.Text = "تحديث الأصناف"
         Me.Refresh_IM_Btn.UseVisualStyleBackColor = False
+        '
+        'RefreshStatus_LB
+        '
+        Me.RefreshStatus_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.RefreshStatus_LB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RefreshStatus_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.RefreshStatus_LB.Location = New System.Drawing.Point(2, 66)
+        Me.RefreshStatus_LB.Name = "RefreshStatus_LB"
+        Me.RefreshStatus_LB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.RefreshStatus_LB.Size = New System.Drawing.Size(226, 38)
+        Me.RefreshStatus_LB.TabIndex = 719
+        Me.RefreshStatus_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.RefreshStatus_LB.Visible = False
         '
         'IM_Search_btn
         '
@@ -1113,6 +1118,7 @@ Partial Class Sales_Fast_Draft
         Me.Controls.Add(Me.IMDicreaseButton)
         Me.Controls.Add(Me.Draft_Btn)
         Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.RefreshStatus_LB)
         Me.Controls.Add(Me.Refresh_IM_Btn)
         Me.Controls.Add(Me.Sells_Bill_GB)
         Me.Controls.Add(Me.Valid_cm)
@@ -1217,6 +1223,7 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents Sales_Bill_Page_cm As System.Windows.Forms.ComboBox
     Friend WithEvents Barcode_SH_txt As TextBox
     Friend WithEvents Refresh_IM_Btn As Button
+    Friend WithEvents RefreshStatus_LB As Label
     Friend WithEvents Panel4 As Panel
     Friend WithEvents Draft_Btn As Button
     Friend WithEvents Bill_IMID_CL As DataGridViewTextBoxColumn

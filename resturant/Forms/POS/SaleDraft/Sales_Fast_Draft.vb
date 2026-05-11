@@ -52,6 +52,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public QtyTextBox As Double = 0
     Public IM_Price As Double
     Public IM_Cost As Double
+    Private ReadOnly RefreshButtonDefaultBackColor As Color = Color.White
+    Private Const RefreshButtonDefaultText As String = "تحديث الأصناف"
     '--------------------------------------------------------------------------------------------------------------
     Public Sub PrintCurrentBill()
         Try
@@ -757,7 +759,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
 
-    Public Async Function Load_ALL_IM() As Task
+    Public Async Function Load_ALL_IM() As Task(Of Boolean)
         Dim c As New C
         Dim s As String
         Try
@@ -771,9 +773,11 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 End Using
                 c.Con.Close()
             End Using
+            Return True
         Catch ex As Exception
             MsgBox("IM_Units_Dt: " & ex.Message)
             If c.Con.State = ConnectionState.Open Then c.Con.Close()
+            Return False
         End Try
     End Function
 
@@ -2793,7 +2797,38 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Async Sub Refresh_IM_Btn_Click(sender As Object, e As EventArgs) Handles Refresh_IM_Btn.Click
-        Await Load_ALL_IM()
+        Refresh_IM_Btn.Enabled = False
+        Refresh_IM_Btn.Text = "جاري التحديث..."
+        Refresh_IM_Btn.BackColor = Color.FromArgb(255, 243, 205)
+        Me.Cursor = Cursors.WaitCursor
+        SetRefreshStatus("يتم تحديث قائمة الأصناف والوحدات الآن...", Color.FromArgb(120, 53, 15))
+
+        Try
+            Dim isLoaded As Boolean = Await Load_ALL_IM()
+
+            If isLoaded Then
+                SetRefreshStatus(
+                    "تم التحديث: " & IM_Units_Dt.Rows.Count.ToString("N0") & " وحدة متاحة",
+                    Color.FromArgb(21, 128, 61)
+                )
+            Else
+                SetRefreshStatus("تعذر تحديث الأصناف. راجع رسالة الخطأ.", Color.FromArgb(185, 28, 28))
+            End If
+        Finally
+            Me.Cursor = Cursors.Default
+            Refresh_IM_Btn.Enabled = True
+            Refresh_IM_Btn.Text = RefreshButtonDefaultText
+            Refresh_IM_Btn.BackColor = RefreshButtonDefaultBackColor
+            Barcode_SH_txt.Focus()
+        End Try
+    End Sub
+
+    Private Sub SetRefreshStatus(message As String, foreColor As Color)
+
+        RefreshStatus_LB.Text = message
+        RefreshStatus_LB.ForeColor = foreColor
+        RefreshStatus_LB.Visible = True
+
     End Sub
 
     Private Sub Notes_txt_TextChanged(sender As Object, e As EventArgs) Handles txtNotes.TextChanged

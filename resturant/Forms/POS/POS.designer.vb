@@ -780,7 +780,7 @@ Partial Class POS
         Me.SBPauseBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.SBPauseBtn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SBPauseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SBPauseBtn.Font = New System.Drawing.Font("Segoe UI Semibold", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.SBPauseBtn.Font = New System.Drawing.Font("Segoe UI Semibold", 14.0!, System.Drawing.FontStyle.Bold)
         Me.SBPauseBtn.ForeColor = System.Drawing.Color.Black
         Me.SBPauseBtn.Location = New System.Drawing.Point(191, 1)
         Me.SBPauseBtn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
