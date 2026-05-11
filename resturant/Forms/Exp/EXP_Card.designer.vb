@@ -82,7 +82,7 @@ Partial Class EXP_Card
         Me.DeleteSButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.DeleteSButton.Image = Global.resturant.My.Resources.Resources.if_cancel_46786
         Me.DeleteSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.DeleteSButton.Location = New System.Drawing.Point(295, 177)
+        Me.DeleteSButton.Location = New System.Drawing.Point(295, 176)
         Me.DeleteSButton.Name = "DeleteSButton"
         Me.DeleteSButton.Size = New System.Drawing.Size(100, 40)
         Me.DeleteSButton.TabIndex = 435
