@@ -70,6 +70,7 @@ Public Class Format_Items_Auto : Inherits System.Windows.Forms.Form
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+        ThemeManager.ApplyThemeToForm(Me)
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
         FormType = 9

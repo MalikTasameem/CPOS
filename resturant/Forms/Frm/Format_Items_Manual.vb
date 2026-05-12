@@ -111,6 +111,7 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '   If St_Count() = 1 Then All_St_Panel.Visible = False
+        ThemeManager.ApplyThemeToForm(Me)
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
 
