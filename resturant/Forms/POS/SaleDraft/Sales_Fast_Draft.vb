@@ -1110,7 +1110,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         '    'ConfermBill()
         '    PushCurrentDraftToDatabase()
         'End If
-        PrintCurrentBill()
 
         If CurrentDraft Is Nothing Then
             MessageBox.Show("لا توجد فاتورة حالية.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -1134,7 +1133,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
             If ok Then
                 DraftManager.ArchiveDraft(CurrentDraft)
-                CashPrint()
+                PrintCurrentBill()
+                '  CashPrint()
                 'MessageBox.Show(
                 '    "تم حفظ الفاتورة بنجاح." & Environment.NewLine &
                 '    "T_ID = " & If(CurrentDraft.Final_T_ID.HasValue, CurrentDraft.Final_T_ID.Value.ToString(), "") & Environment.NewLine &
@@ -1209,7 +1209,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         Dim F As New Pay_Main_Form
         F.Temp_Tr_ID = SB_TR_ID
-        F.AG_ID = AG_ID
+        F.AG_ID = CurrentDraft.AG_ID
         F.MONEY_VALUE = Pure
         F.ShowDialog()
 
@@ -1221,9 +1221,9 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
             If Not ValidateDraftBeforePush() Then Return False
 
-        DraftCalculator.RecalculateDraft(CurrentDraft)
+            DraftCalculator.RecalculateDraft(CurrentDraft)
 
-        Dim detailsTable As DataTable = BuildDetailsTable(CurrentDraft.Items)
+            Dim detailsTable As DataTable = BuildDetailsTable(CurrentDraft.Items)
 
             Try
                 Using con As New SqlConnection(MY_Settings.SqlConStr) ' عدّل اسم الاتصال عندك

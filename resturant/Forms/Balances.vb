@@ -3,6 +3,8 @@
 Public Class Balances
 
     Dim rs As New Resizer
+    Private AG_MV_DT As New DataTable
+    Private _agMvPrintRowIndex As Integer = 0
     Dim Balance_Type As Integer = 0
 
     Public AGMV_Name As String
@@ -459,7 +461,22 @@ Public Class Balances
 
 
     Public Sub AG_MV_Prepare_To_Search()
-        Me.Cursor = Cursors.AppStarting
+        SetAgMvSearchBusy(True)
+
+        Try
+            PrepareAgMvReportTitles()
+
+            If Search_AG_MV() Then
+                Apply_AG_MV_View()
+            End If
+
+        Finally
+            SetAgMvSearchBusy(False)
+        End Try
+    End Sub
+
+    Private Sub PrepareAgMvReportTitles()
+
         If AllAgentsCheckBox.Checked = True Then
             AGMV_Name = "الكـــل"
         Else
@@ -484,12 +501,20 @@ Public Class Balances
             AGMV_User = UsersComboBox.Text
         End If
 
-        Search_AG_MV()
-        AG_MV_Search_Filter()
-        Me.Cursor = Cursors.Default
     End Sub
 
-    Public Sub Search_AG_MV()
+    Private Sub SetAgMvSearchBusy(isBusy As Boolean)
+
+        Me.Cursor = If(isBusy, Cursors.AppStarting, Cursors.Default)
+        MVSearchButton.Enabled = Not isBusy
+        MVPrintButton.Enabled = Not isBusy
+        MVSearchButton.Text = If(isBusy, "جاري البحث...", "بحــــــث")
+        MVSearchButton.BackColor = If(isBusy, Color.FromArgb(255, 243, 205), Color.WhiteSmoke)
+        AGMVMetroGrid.Cursor = If(isBusy, Cursors.AppStarting, Cursors.Hand)
+
+    End Sub
+
+    Public Function Search_AG_MV() As Boolean
         Dim C = New C
         'If AllAgentsCheckBox.Checked = False Then
         '    If AG_ID = 0 And String.IsNullOrWhiteSpace(IM_SH_txt.Text) Then
@@ -505,7 +530,7 @@ Public Class Balances
             AG_ID = AG_Cm.TXT_ID.Text
             If AG_Cm.TXT_ID.Text = "0" Then
                 MsgBox("حدد العميل", MsgBoxStyle.Exclamation, "")
-                Exit Sub
+                Return False
             End If
         End If
 
@@ -530,12 +555,14 @@ Public Class Balances
                 .CommandType = CommandType.StoredProcedure
             End With
             C.Da = New SqlClient.SqlDataAdapter(C.Com)
-            C.Da.Fill(C.Dt)
-            AGMVMetroGrid.DataSource = C.Dt
+            AG_MV_DT = New DataTable()
+            C.Da.Fill(AG_MV_DT)
+            Return True
         Catch ex As Exception
             MsgBox(ex.Message)
+            Return False
         End Try
-    End Sub
+    End Function
 
     Private Sub AllTrCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllTrCheckBox.CheckedChanged
         If AllTrCheckBox.Checked = True Then
@@ -1007,11 +1034,8 @@ Public Class Balances
     End Sub
 
     Private Sub MVPrintButton_Click(sender As Object, e As EventArgs) Handles MVPrintButton.Click
-        AG_MV_print_Reset()
+        PrepareAgMvReportTitles()
         AG_MV_print()
-        AG_MV_print_Reset()
-        'Dim b As New Print_PDF
-        'b.PRINT_PDF(AGMVMetroGrid)
     End Sub
 
     Public Sub AG_MV_print_Reset()
@@ -1023,72 +1047,195 @@ Public Class Balances
 
     Private Sub AG_MV_print()
 
-        For i = 0 To AGMVMetroGrid.Rows.Count - 1
+        If AGMVMetroGrid.Rows.Count = 0 Then
+            MsgBox("لا توجد بيانات للطباعة.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
 
-            Dim sqlComm As New SqlClient.SqlCommand
-            sqlComm.CommandText = "AG_MV_Reports_INSERT"
-            sqlComm.CommandType = CommandType.StoredProcedure
+        Using printDocument As New System.Drawing.Printing.PrintDocument()
 
-            sqlComm.Parameters.AddWithValue("@T_ID", AGMVMetroGrid.Rows(i).Cells("T_ID_CL").Value)
-            sqlComm.Parameters.AddWithValue("@AG_Name", AGMVMetroGrid.Rows(i).Cells("AG_Name_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Date", AGMVMetroGrid.Rows(i).Cells("Date_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Type_Name", AGMVMetroGrid.Rows(i).Cells("Type_Name_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Title", AGMVMetroGrid.Rows(i).Cells("Receipt_Title_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Debit", AGMVMetroGrid.Rows(i).Cells("Debit_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Credit", AGMVMetroGrid.Rows(i).Cells("Credit_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Balance", AGMVMetroGrid.Rows(i).Cells("Balance_CL").Value)
-            sqlComm.Parameters.AddWithValue("@User_Name", AGMVMetroGrid.Rows(i).Cells("UserEntry").Value)
+            printDocument.DocumentName = "كشف حساب"
+            printDocument.DefaultPageSettings.Landscape = True
+            printDocument.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(35, 35, 45, 45)
 
-            SQL_SP_EXEC(sqlComm)
+            AddHandler printDocument.BeginPrint, AddressOf AG_MV_PrintDocument_BeginPrint
+            AddHandler printDocument.PrintPage, AddressOf AG_MV_PrintDocument_PrintPage
 
-        Next
+            Using previewDialog As New PrintPreviewDialog()
+                previewDialog.Document = printDocument
+                previewDialog.WindowState = FormWindowState.Maximized
+                previewDialog.Text = "معاينة كشف الحساب"
+                previewDialog.ShowDialog(Me)
+            End Using
 
-        Try
-            Dim p As New print
-            Dim pp As New ReportConnection
-
-            pp.rp.Load(Application.StartupPath & "\reports\AG_MV.rpt")
-
-
-            pp.CrTables = pp.rp.Database.Tables
-            For Each CrTable In pp.CrTables
-                pp.crtableLogoninfo = CrTable.LogOnInfo
-                pp.crtableLogoninfo.ConnectionInfo = pp.crConnectionInfo
-                CrTable.ApplyLogOnInfo(pp.crtableLogoninfo)
-            Next
-
-
-            With pp
-                .rp.SetParameterValue(0, USER_NAME)
-                .rp.SetParameterValue(1, F_MainForm.Serv_Label.Text)
-                .rp.SetParameterValue(2, AGMV_Name)
-                .rp.SetParameterValue(3, AGMV_Type)
-                .rp.SetParameterValue(4, AGMV_Date)
-                .rp.SetParameterValue(5, AGMV_User)
-
-                .rp.SetParameterValue(6, Total_Debit.Text)
-                .rp.SetParameterValue(7, Total_Credit.Text)
-                .rp.SetParameterValue(8, Total_Balance.Text)
-
-                .rp.SetParameterValue(9, NUM_DEBIT_TXT.Text)
-                .rp.SetParameterValue(10, NUM_CREDIT_TXT.Text)
-
-                '.rp.PrintOptions.PrinterName = Default_Printer_A4
-                '.rp.PrintToPrinter(1, False, 0, 0)
-                '.rp.Dispose()
-
-
-                p.CrystalReportViewer1.ReportSource = pp.rp
-                p.ShowDialog()
-
-
-            End With
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        End Using
 
     End Sub
+
+    Private Sub AG_MV_PrintDocument_BeginPrint(sender As Object, e As System.Drawing.Printing.PrintEventArgs)
+
+        _agMvPrintRowIndex = 0
+
+    End Sub
+
+    Private Sub AG_MV_PrintDocument_PrintPage(sender As Object, e As System.Drawing.Printing.PrintPageEventArgs)
+
+        Dim bounds As Rectangle = e.MarginBounds
+        Dim y As Integer = bounds.Top
+
+        Using titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
+              infoFont As New Font("Segoe UI", 9.0!, FontStyle.Bold),
+              headerFont As New Font("Segoe UI", 8.0!, FontStyle.Bold),
+              rowFont As New Font("Segoe UI", 8.0!, FontStyle.Regular),
+              totalsFont As New Font("Segoe UI", 9.0!, FontStyle.Bold)
+
+            Dim rtlFormat As New StringFormat()
+            rtlFormat.Alignment = StringAlignment.Far
+            rtlFormat.LineAlignment = StringAlignment.Center
+            rtlFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+            Dim centerFormat As New StringFormat()
+            centerFormat.Alignment = StringAlignment.Center
+            centerFormat.LineAlignment = StringAlignment.Center
+            centerFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            e.Graphics.DrawString(
+                "كشف حساب",
+                titleFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 28),
+                rtlFormat
+            )
+            y += 30
+
+            e.Graphics.DrawString(
+                "الحساب: " & AGMV_Name & "    النوع: " & AGMV_Type & "    الفترة: " & AGMV_Date & "    المستخدم: " & AGMV_User,
+                infoFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 24),
+                rtlFormat
+            )
+            y += 30
+
+            Dim columnNames As String() = {
+                "Date_CL",
+                "Type_Name_CL",
+                "ReferNum_CL",
+                "Receipt_Title_CL",
+                "Debit_CL",
+                "Credit_CL",
+                "Balance_CL",
+                "UserEntry"
+            }
+
+            Dim headers As String() = {
+                "التاريخ",
+                "المعاملة",
+                "ر.إشاري",
+                "العنوان",
+                "دائن",
+                "مدين",
+                "الرصيد",
+                "المدخل"
+            }
+
+            Dim weights As Integer() = {90, 100, 75, 245, 90, 90, 95, 90}
+            Dim totalWeight As Integer = 0
+            For Each weight As Integer In weights
+                totalWeight += weight
+            Next
+            Dim widths(weights.Length - 1) As Integer
+
+            For i As Integer = 0 To weights.Length - 1
+                widths(i) = CInt(bounds.Width * (weights(i) / CDbl(totalWeight)))
+            Next
+
+            Dim rowHeight As Integer = 28
+            Dim x As Integer = bounds.Right
+
+            For i As Integer = 0 To headers.Length - 1
+                x -= widths(i)
+                Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+                Using backBrush As New SolidBrush(Color.FromArgb(45, 62, 80))
+                    e.Graphics.FillRectangle(backBrush, rect)
+                End Using
+                e.Graphics.DrawRectangle(Pens.DarkGray, rect)
+                e.Graphics.DrawString(headers(i), headerFont, Brushes.White, rect, centerFormat)
+            Next
+
+            y += rowHeight
+
+            While _agMvPrintRowIndex < AGMVMetroGrid.Rows.Count
+
+                If y + rowHeight > bounds.Bottom - 42 Then
+                    e.HasMorePages = True
+                    Return
+                End If
+
+                Dim row As DataGridViewRow = AGMVMetroGrid.Rows(_agMvPrintRowIndex)
+                x = bounds.Right
+
+                For i As Integer = 0 To columnNames.Length - 1
+                    x -= widths(i)
+                    Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+                    If _agMvPrintRowIndex Mod 2 = 0 Then
+                        e.Graphics.FillRectangle(Brushes.White, rect)
+                    Else
+                        Using altBrush As New SolidBrush(Color.FromArgb(248, 250, 252))
+                            e.Graphics.FillRectangle(altBrush, rect)
+                        End Using
+                    End If
+
+                    e.Graphics.DrawRectangle(Pens.LightGray, rect)
+                    e.Graphics.DrawString(GetAgMvPrintCellText(row, columnNames(i)), rowFont, Brushes.Black, rect, centerFormat)
+                Next
+
+                y += rowHeight
+                _agMvPrintRowIndex += 1
+
+            End While
+
+            y += 10
+            e.Graphics.DrawString(
+                "إجمالي الدائن: " & Total_Debit.Text &
+                "    إجمالي المدين: " & Total_Credit.Text &
+                "    الرصيد: " & Total_Balance.Text &
+                "    عدد الدائن: " & NUM_DEBIT_TXT.Text &
+                "    عدد المدين: " & NUM_CREDIT_TXT.Text,
+                totalsFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 28),
+                rtlFormat
+            )
+
+        End Using
+
+        e.HasMorePages = False
+
+    End Sub
+
+    Private Function GetAgMvPrintCellText(row As DataGridViewRow, columnName As String) As String
+
+        If Not AGMVMetroGrid.Columns.Contains(columnName) Then Return ""
+
+        Dim value As Object = row.Cells(columnName).Value
+
+        If value Is Nothing OrElse value Is DBNull.Value Then Return ""
+
+        If columnName = "Date_CL" Then
+            Dim dateValue As Date
+            If Date.TryParse(value.ToString(), dateValue) Then Return dateValue.ToString("yyyy/MM/dd")
+        End If
+
+        If columnName = "Debit_CL" OrElse columnName = "Credit_CL" OrElse columnName = "Balance_CL" Then
+            Dim numberValue As Decimal
+            If Decimal.TryParse(value.ToString(), numberValue) Then Return numberValue.ToString("N3")
+        End If
+
+        Return value.ToString()
+
+    End Function
 
     Private Sub Tr_PrintButton_Click(sender As Object, e As EventArgs) Handles Tr_PrintButton.Click
         AG_MV_print_Reset()
@@ -1323,7 +1470,7 @@ Public Class Balances
         End Try
     End Sub
 
- 
+
 
     Public Sub Fetch_AG_Currency()
         Dim C As New C
@@ -1351,26 +1498,27 @@ Public Class Balances
     End Sub
 
     Private Sub isVoid_CB_CheckedChanged(sender As Object, e As EventArgs) Handles isVoid_CB.CheckedChanged
-        AG_MV_Search_Filter()
+        Apply_AG_MV_View()
     End Sub
 
-    Private Sub AG_MV_Search_Filter()
-        If isVoid_CB.Checked = True Then
-            AGMVMetroGrid.Columns("AGisVoid_CL").Visible = True
-            Search_AG_MV()
-        Else
-            For i As Integer = AGMVMetroGrid.Rows.Count() - 1 To 0 Step -1
-                Dim delete As Boolean
-                delete = AGMVMetroGrid.Rows(i).Cells("AGisVoid_CL").Value
-                ' if the checkbox cell is checked
-                If delete = True Then
-                    Dim row As DataGridViewRow
-                    row = AGMVMetroGrid.Rows(i)
-                    AGMVMetroGrid.Rows.Remove(row)
-                End If
-            Next
-            AGMVMetroGrid.Columns("AGisVoid_CL").Visible = False
+    Private Sub Apply_AG_MV_View()
+
+        If AG_MV_DT Is Nothing Then Return
+
+        Dim view As New DataView(AG_MV_DT)
+
+        If isVoid_CB.Checked = False AndAlso AG_MV_DT.Columns.Contains("isVoid") Then
+            view.RowFilter = "isVoid = false OR isVoid IS NULL"
         End If
+
+        AGMVMetroGrid.DataSource = view
+
+        If AGMVMetroGrid.Columns.Contains("AGisVoid_CL") Then
+            AGMVMetroGrid.Columns("AGisVoid_CL").Visible = isVoid_CB.Checked
+        End If
+
+        Calc_Balance()
+
     End Sub
 
     Private Sub TrisVoid_CB_CheckedChanged(sender As Object, e As EventArgs) Handles TrisVoid_CB.CheckedChanged
@@ -1481,7 +1629,7 @@ Public Class Balances
 
         If SalariesMetroGrid.Rows.Count > 0 Then
             Beep()
-            If MessageBox.Show("هل تريد ترصيد مرتبات عدد " + SalariesMetroGrid.Rows.Count.ToString + " موظف بإجمالي قيمة مرتبات  " + TotalPureTextBox.Text, _
+            If MessageBox.Show("هل تريد ترصيد مرتبات عدد " + SalariesMetroGrid.Rows.Count.ToString + " موظف بإجمالي قيمة مرتبات  " + TotalPureTextBox.Text,
                                "تأكيد العملية", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
                 Me.Cursor = Cursors.AppStarting
                 Insert_salary()
