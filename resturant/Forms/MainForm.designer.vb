@@ -1386,81 +1386,90 @@ Partial Class MainForm
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(200, 50)
+        Me.Label5.Location = New System.Drawing.Point(183, 53)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(119, 21)
+        Me.Label5.Size = New System.Drawing.Size(97, 17)
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "طابعة الإيصالات:"
         '
         'KashierPrinterComboBox
         '
+        Me.KashierPrinterComboBox.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.KashierPrinterComboBox.Location = New System.Drawing.Point(7, 75)
         Me.KashierPrinterComboBox.Name = "KashierPrinterComboBox"
-        Me.KashierPrinterComboBox.Size = New System.Drawing.Size(270, 29)
+        Me.KashierPrinterComboBox.Size = New System.Drawing.Size(270, 25)
         Me.KashierPrinterComboBox.TabIndex = 1
         '
         'check_print_Btn1
         '
         Me.check_print_Btn1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.check_print_Btn1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.check_print_Btn1.ForeColor = System.Drawing.Color.Black
-        Me.check_print_Btn1.Location = New System.Drawing.Point(285, 75)
+        Me.check_print_Btn1.Location = New System.Drawing.Point(278, 76)
         Me.check_print_Btn1.Name = "check_print_Btn1"
-        Me.check_print_Btn1.Size = New System.Drawing.Size(41, 28)
+        Me.check_print_Btn1.Size = New System.Drawing.Size(23, 23)
         Me.check_print_Btn1.TabIndex = 2
         Me.check_print_Btn1.Text = "✓"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(200, 120)
+        Me.Label11.Location = New System.Drawing.Point(183, 103)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(104, 21)
+        Me.Label11.Size = New System.Drawing.Size(83, 17)
         Me.Label11.TabIndex = 3
         Me.Label11.Text = "طابعة A4/A5:"
         '
         'A4Printer_Cmb
         '
-        Me.A4Printer_Cmb.Location = New System.Drawing.Point(7, 145)
+        Me.A4Printer_Cmb.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.A4Printer_Cmb.Location = New System.Drawing.Point(7, 125)
         Me.A4Printer_Cmb.Name = "A4Printer_Cmb"
-        Me.A4Printer_Cmb.Size = New System.Drawing.Size(270, 29)
+        Me.A4Printer_Cmb.Size = New System.Drawing.Size(270, 25)
         Me.A4Printer_Cmb.TabIndex = 4
         '
         'check_print_Btn2
         '
         Me.check_print_Btn2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.check_print_Btn2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.check_print_Btn2.ForeColor = System.Drawing.Color.Black
-        Me.check_print_Btn2.Location = New System.Drawing.Point(285, 145)
+        Me.check_print_Btn2.Location = New System.Drawing.Point(279, 126)
         Me.check_print_Btn2.Name = "check_print_Btn2"
-        Me.check_print_Btn2.Size = New System.Drawing.Size(41, 28)
+        Me.check_print_Btn2.Size = New System.Drawing.Size(23, 23)
         Me.check_print_Btn2.TabIndex = 5
         Me.check_print_Btn2.Text = "✓"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.Black
-        Me.Label14.Location = New System.Drawing.Point(200, 190)
+        Me.Label14.Location = New System.Drawing.Point(183, 154)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(105, 21)
+        Me.Label14.Size = New System.Drawing.Size(87, 17)
         Me.Label14.TabIndex = 6
         Me.Label14.Text = "طابعة الباركود:"
         '
         'Barcode_DefPrinter_Cm
         '
-        Me.Barcode_DefPrinter_Cm.Location = New System.Drawing.Point(7, 215)
+        Me.Barcode_DefPrinter_Cm.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Barcode_DefPrinter_Cm.Location = New System.Drawing.Point(7, 176)
         Me.Barcode_DefPrinter_Cm.Name = "Barcode_DefPrinter_Cm"
-        Me.Barcode_DefPrinter_Cm.Size = New System.Drawing.Size(270, 29)
+        Me.Barcode_DefPrinter_Cm.Size = New System.Drawing.Size(270, 25)
         Me.Barcode_DefPrinter_Cm.TabIndex = 7
         '
         'check_print_Btn3
         '
         Me.check_print_Btn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.check_print_Btn3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.check_print_Btn3.ForeColor = System.Drawing.Color.Black
-        Me.check_print_Btn3.Location = New System.Drawing.Point(285, 215)
+        Me.check_print_Btn3.Location = New System.Drawing.Point(278, 176)
         Me.check_print_Btn3.Name = "check_print_Btn3"
-        Me.check_print_Btn3.Size = New System.Drawing.Size(41, 28)
+        Me.check_print_Btn3.Size = New System.Drawing.Size(23, 23)
         Me.check_print_Btn3.TabIndex = 8
         Me.check_print_Btn3.Text = "✓"
         '

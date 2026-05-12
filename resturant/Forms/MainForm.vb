@@ -28,6 +28,9 @@ Public Class MainForm
     Dim RCT_NOT_WITH_SB_DT As New DataTable
     Dim is_Con As Boolean = False
     Dim Valid_N = 0
+    Private _validTimerPausedByHover As Boolean = False
+    Private Const MinValidTimerSeconds As Integer = 30
+    Private Const LoadingAlertKey As String = "__ALERT_LOADING__"
     'Dim Open_Bills As String = ""
     Dim drag As Boolean
     Dim mouseX As Integer
@@ -391,12 +394,6 @@ Public Class MainForm
 
         Load_Form()
 
-        If MY_Settings.Thread_Time = 0 Then
-            ValidTimer.Stop()
-        Else
-            ValidTimer.Start()
-        End If
-
         IM_Valid = "أصناف صلاحية"
         IM_Min = "أصناف ستنتهي قريبا"
         IM_Max = "أصناف وصلت أعلى كمية"
@@ -420,8 +417,12 @@ Public Class MainForm
         Next
         Check_For_OpenPierod()
 
+        ShowAlertLoadingState()
+        ALERT_DGV.Refresh()
+        Application.DoEvents()
         Fill_ALL_ALERT()
         Set_Data_Alert()
+        ConfigureValidTimer()
         ModernLoader.CloseLoader()
         'If System_Start_Normal = False Then
         '    system_ALert.Text = " خطأ في تشغيل النظام ... الرجاء الخروج من النظام بالكامل وإعادة الدخول "
@@ -2000,7 +2001,14 @@ Public Class MainForm
 
 
     Private Sub ALERT_DGV_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ALERT_DGV.MouseDoubleClick
-        Select Case ALERT_DGV.CurrentRow.Cells(0).Value
+
+        If ALERT_DGV.CurrentRow Is Nothing OrElse ALERT_DGV.CurrentRow.Cells.Count = 0 Then Return
+
+        Dim alertKey As String = Convert.ToString(ALERT_DGV.CurrentRow.Cells(0).Value)
+
+        If alertKey = LoadingAlertKey OrElse alertKey.Trim() = "" Then Return
+
+        Select Case alertKey
             Case "Check_For_OpenPierod"
                 F_Periods = New Periods
                 F_Periods.ShowDialog()
@@ -2146,40 +2154,82 @@ Public Class MainForm
 
 
     Private Sub ValidWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles ValidWorker.DoWork
-        Fill_ALL_ALERT()
+        Dim nextAlerts As DataTable = CreateAlertTable()
+        Fill_ALL_ALERT(nextAlerts)
+        e.Result = nextAlerts
     End Sub
 
-    Dim Second_3 = 0
     Private Sub TS_Tick(sender As Object, e As EventArgs) Handles ValidTimer.Tick
 
-        Second_3 += 1
+        ValidTimer.Stop()
 
-        If Second_3 = Thread_Time Then
-            Try
-                ValidTimer.Stop()
+        If GetValidTimerSeconds() <= 0 Then Return
 
+        Try
+            If ValidWorker.IsBusy Then
+                RestartValidTimerIfAllowed()
+            Else
+                ShowAlertLoadingState()
+                ValidWorker.RunWorkerAsync()
+            End If
+        Catch ex As Exception
+            RestartValidTimerIfAllowed()
+        End Try
 
-
-                If Not ValidWorker.IsBusy Then ValidWorker.RunWorkerAsync()
-                Second_3 = 0
-            Catch ex As Exception
-                Second_3 = 0
-            End Try
-        End If
     End Sub
 
     Private Sub ValidWorker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles ValidWorker.RunWorkerCompleted
 
+        If e.Error Is Nothing AndAlso e.Result IsNot Nothing Then
+            ALERT_DT = DirectCast(e.Result, DataTable)
+        End If
+
         Set_Data_Alert()
+        RestartValidTimerIfAllowed()
+    End Sub
+
+    Private Sub ConfigureValidTimer()
+
+        ValidTimer.Stop()
+
+        Dim seconds As Integer = GetValidTimerSeconds()
+
+        If seconds <= 0 Then Return
+
+        ValidTimer.Interval = seconds * 1000
+        RestartValidTimerIfAllowed()
+
+    End Sub
+
+    Private Function GetValidTimerSeconds() As Integer
+
+        If MY_Settings.Thread_Time <= 0 Then Return 0
+
+        Return Math.Max(MY_Settings.Thread_Time, MinValidTimerSeconds)
+
+    End Function
+
+    Private Sub RestartValidTimerIfAllowed()
+
+        Dim seconds As Integer = GetValidTimerSeconds()
+
+        If seconds <= 0 Then Return
+        If _validTimerPausedByHover Then Return
+
+        ValidTimer.Interval = seconds * 1000
         ValidTimer.Start()
+
     End Sub
 
     Public Sub Set_Data_Alert()
+
+        If DataB IsNot Nothing Then DataB.Dispose()
+        DataB = New BindingSource
         DataB.DataSource = ALERT_DT
         ALERT_DGV.DataSource = DataB
         'DataB_2.DataSource = Open_Dt
         'Open_MV_DV.DataSource = DataB_2
-        ALERT_DGV.Columns(0).Visible = False
+        ApplyAlertGridLayout()
 
         'Open_MV_DV.Columns(0).Visible = False
         'Open_MV_DV.Columns(3).Visible = False
@@ -2187,14 +2237,57 @@ Public Class MainForm
         'Open_MV_DV.Columns(6).Visible = False
     End Sub
 
+    Private Sub ShowAlertLoadingState()
+
+        Dim loadingTable As DataTable = CreateAlertTable()
+        loadingTable.Rows.Add(LoadingAlertKey, "جاري تحديث الإشعارات ...")
+
+        If DataB IsNot Nothing Then DataB.Dispose()
+        DataB = New BindingSource
+        DataB.DataSource = loadingTable
+        ALERT_DGV.DataSource = DataB
+        ApplyAlertGridLayout()
+
+        If ALERT_DGV.Rows.Count > 0 Then
+            ALERT_DGV.Rows(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            ALERT_DGV.Rows(0).DefaultCellStyle.ForeColor = Color.FromArgb(41, 128, 185)
+            ALERT_DGV.Rows(0).DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 244, 253)
+            ALERT_DGV.Rows(0).DefaultCellStyle.SelectionForeColor = Color.FromArgb(41, 128, 185)
+        End If
+
+    End Sub
+
+    Private Sub ApplyAlertGridLayout()
+
+        If ALERT_DGV.Columns.Count = 0 Then Return
+
+        ALERT_DGV.Columns(0).Visible = False
+
+    End Sub
+
 
     Dim Open_Dt As New DataTable
     Dim ALERT_DT As New DataTable
-    Public Sub Fill_ALL_ALERT()
-        DataB.Dispose()
-        DataB = New BindingSource
-        ALERT_DT.Clear()
-        Open_Dt.Clear()
+    Private Function CreateAlertTable() As DataTable
+
+        Dim dt As New DataTable()
+        dt.Columns.Add("FirstName", GetType(String))
+        dt.Columns.Add("LastName", GetType(String))
+        Return dt
+
+    End Function
+
+    Public Sub Fill_ALL_ALERT(Optional targetAlertTable As DataTable = Nothing)
+
+        Dim alertTable As DataTable = If(targetAlertTable, ALERT_DT)
+
+        If alertTable.Columns.Count = 0 Then
+            alertTable.Columns.Add("FirstName", GetType(String))
+            alertTable.Columns.Add("LastName", GetType(String))
+        End If
+
+        alertTable.Clear()
+        If targetAlertTable Is Nothing Then Open_Dt.Clear()
 
         Dim N As Integer = 0
         Dim db As New C()
@@ -2214,7 +2307,7 @@ Public Class MainForm
                 cmd.CommandText = "SELECT COUNT(*) FROM Open_Periods_V WHERE USER_ID = " & USER_ID
             End If
             N = Convert.ToInt32(cmd.ExecuteScalar())
-            If N > 0 Then ALERT_DT.Rows.Add("Check_For_OpenPierod", " وردية مفتوحة  (" & N & ")")
+            If N > 0 Then alertTable.Rows.Add("Check_For_OpenPierod", " وردية مفتوحة  (" & N & ")")
 
             ' ==========================================================
             ' دالة مساعدة لعد الصفوف بسرعة فائقة (بدون Using نهائياً 🚫)
@@ -2235,26 +2328,26 @@ Public Class MainForm
             cmd.CommandText = "AG_Max_Debit_SELECT"
             cmd.Parameters.Clear()
             N = CountRowsFast(cmd)
-            If N > 0 Then ALERT_DT.Rows.Add("AG_Max_Debit_SELECT", AG_B & " (" & N & ")")
+            If N > 0 Then alertTable.Rows.Add("AG_Max_Debit_SELECT", AG_B & " (" & N & ")")
 
             ' 3. صلاحية الأصناف
             cmd.CommandText = "IM_Valid_V_SELECT"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@END_Date_Valid", Date.Now.Date.AddDays(IM_Day_Valid))
             N = CountRowsFast(cmd)
-            If N > 0 Then ALERT_DT.Rows.Add("IM_Valid_V_SELECT", IM_Valid & " (" & N & ")")
+            If N > 0 Then alertTable.Rows.Add("IM_Valid_V_SELECT", IM_Valid & " (" & N & ")")
 
             ' 4. أصناف ستنتهي قريباً
             cmd.CommandText = "IM_MinAlert_V_SELECT"
             cmd.Parameters.Clear()
             N = CountRowsFast(cmd)
-            If N > 0 Then ALERT_DT.Rows.Add("IM_MinAlert_V_SELECT", IM_Min & " (" & N & ")")
+            If N > 0 Then alertTable.Rows.Add("IM_MinAlert_V_SELECT", IM_Min & " (" & N & ")")
 
             ' 5. أصناف وصلت أعلى كمية
             cmd.CommandText = "IM_MaxAlert_V_SELECT"
             cmd.Parameters.Clear()
             N = CountRowsFast(cmd)
-            If N > 0 Then ALERT_DT.Rows.Add("IM_MaxAlert_V_SELECT", IM_Max & " (" & N & ")")
+            If N > 0 Then alertTable.Rows.Add("IM_MaxAlert_V_SELECT", IM_Max & " (" & N & ")")
 
             ' 6. فواتير مفتوحة
             cmd.CommandText = "Open_AGMV_SELECT"
@@ -2262,14 +2355,14 @@ Public Class MainForm
             cmd.Parameters.AddWithValue("@USER_ID", USER_ID)
             cmd.Parameters.AddWithValue("@IS_ADMIN", If(U_Save_otherBill, True, User_isAdmin))
             N = CountRowsFast(cmd)
-            If N > 0 Then ALERT_DT.Rows.Add("Open_Bills", Open_AGMV & " (" & N & ")")
+            If N > 0 Then alertTable.Rows.Add("Open_Bills", Open_AGMV & " (" & N & ")")
 
             ' 7. مبيعات أقل من التكلفة
             If Notif_IM_Sell_Less_Than_Cost = True And U_SB_Show_Cash = True Then
                 cmd.CommandText = "[Items_Prices_V_SELECT_ALL_Less_Then_Cost]"
                 cmd.Parameters.Clear()
                 N = CountRowsFast(cmd)
-                If N > 0 Then ALERT_DT.Rows.Add("Items_Prices_V_SELECT_ALL_Less_Then_Cost", IM_SELL_LESS_THAN_COST & " (" & N & ")")
+                If N > 0 Then alertTable.Rows.Add("Items_Prices_V_SELECT_ALL_Less_Then_Cost", IM_SELL_LESS_THAN_COST & " (" & N & ")")
             End If
 
             ' 8. أصناف بكميات سالبة
@@ -2277,7 +2370,7 @@ Public Class MainForm
                 cmd.CommandText = "[Items_Prices_V_SELECT_ALL_Negitave_QTY]"
                 cmd.Parameters.Clear()
                 N = CountRowsFast(cmd)
-                If N > 0 Then ALERT_DT.Rows.Add("Items_Prices_V_SELECT_ALL_Negitave_QTY", IM_Neg_QTY & " (" & N & ")")
+                If N > 0 Then alertTable.Rows.Add("Items_Prices_V_SELECT_ALL_Negitave_QTY", IM_Neg_QTY & " (" & N & ")")
             End If
 
             ' 9. قائمة ملاحظات صلاحية الأصناف
@@ -2285,14 +2378,14 @@ Public Class MainForm
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@END_Date_Valid", IM_Day_Valid)
             N = CountRowsFast(cmd)
-            If N > 0 Then ALERT_DT.Rows.Add("IM_Notes_Valid_V_SELECT", IM_Notes_Valid & " (" & N & ")")
+            If N > 0 Then alertTable.Rows.Add("IM_Notes_Valid_V_SELECT", IM_Notes_Valid & " (" & N & ")")
 
             ' 10. أصناف مستأجرة
             Try
                 cmd.CommandText = "RSV_IM_V_SELECT"
                 cmd.Parameters.Clear()
                 N = CountRowsFast(cmd)
-                If N > 0 Then ALERT_DT.Rows.Add("RSV_IM_V_SELECT", RSV_IM & " (" & N & ")")
+                If N > 0 Then alertTable.Rows.Add("RSV_IM_V_SELECT", RSV_IM & " (" & N & ")")
             Catch : End Try
 
             ' 11. بضاعة قادمة
@@ -2300,7 +2393,7 @@ Public Class MainForm
                 cmd.CommandText = "ORDER_IM_V_SELECT"
                 cmd.Parameters.Clear()
                 N = CountRowsFast(cmd)
-                If N > 0 Then ALERT_DT.Rows.Add("ORDER_IM_V_SELECT", ORDER_IM & " (" & N & ")")
+                If N > 0 Then alertTable.Rows.Add("ORDER_IM_V_SELECT", ORDER_IM & " (" & N & ")")
             Catch : End Try
 
             ' 12. أخر تزامن (قراءة يدوية بدون Using نهائياً 🚫)
@@ -2312,7 +2405,7 @@ Public Class MainForm
                 Dim drSync As SqlClient.SqlDataReader = cmd.ExecuteReader()
                 If drSync.HasRows Then
                     drSync.Read()
-                    ALERT_DT.Rows.Add("", " أخر تزامن:  (" & drSync("SyncEnd").ToString() & ")  الحالة : " & drSync("SyncState").ToString())
+                    alertTable.Rows.Add("", " أخر تزامن:  (" & drSync("SyncEnd").ToString() & ")  الحالة : " & drSync("SyncState").ToString())
                 End If
                 drSync.Close() ' إغلاق القارئ يدوياً
             Catch : End Try
@@ -2324,7 +2417,7 @@ Public Class MainForm
                 cmd.Parameters.Clear()
                 cmd.Parameters.AddWithValue("@ST_ID", SB_ST_ID)
                 N = CountRowsFast(cmd)
-                If N > 0 Then ALERT_DT.Rows.Add("IM_OTHER_STORE_V_SELECT", ST_OTHER & " (" & N & ")")
+                If N > 0 Then alertTable.Rows.Add("IM_OTHER_STORE_V_SELECT", ST_OTHER & " (" & N & ")")
             Catch : End Try
 
             db.Con.Close()
@@ -2616,11 +2709,13 @@ Public Class MainForm
 
 
     Private Sub ALERT_DGV_MouseHover(sender As Object, e As EventArgs) Handles ALERT_DGV.MouseHover
+        _validTimerPausedByHover = True
         ValidTimer.Stop()
     End Sub
 
     Private Sub ALERT_DGV_MouseLeave(sender As Object, e As EventArgs) Handles ALERT_DGV.MouseLeave
-        ValidTimer.Start()
+        _validTimerPausedByHover = False
+        RestartValidTimerIfAllowed()
     End Sub
 
 
