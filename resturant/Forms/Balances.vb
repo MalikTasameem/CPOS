@@ -4,7 +4,9 @@ Public Class Balances
 
     Dim rs As New Resizer
     Private AG_MV_DT As New DataTable
+    Private TR_MV_DT As New DataTable
     Private _agMvPrintRowIndex As Integer = 0
+    Private _trMvPrintRowIndex As Integer = 0
     Dim Balance_Type As Integer = 0
 
     Public AGMV_Name As String
@@ -604,8 +606,25 @@ Public Class Balances
     End Sub
 
     Private Sub Tr_SearchButton_Click(sender As Object, e As EventArgs) Handles Tr_SearchButton.Click
-        Me.Cursor = Cursors.AppStarting
+        Tr_MV_Prepare_To_Search()
+    End Sub
 
+    Private Sub Tr_MV_Prepare_To_Search()
+        SetTrMvSearchBusy(True)
+
+        Try
+            PrepareTrMvReportTitles()
+
+            If Search_Tr_MV() Then
+                Apply_TR_MV_View()
+            End If
+
+        Finally
+            SetTrMvSearchBusy(False)
+        End Try
+    End Sub
+
+    Private Sub PrepareTrMvReportTitles()
         If AllTrCheckBox.Checked = True Then
             TRMV_Name = "الكـــل"
         Else
@@ -630,22 +649,31 @@ Public Class Balances
             TRMV_User = TrUsersComboBox.Text
         End If
 
-        Search_Tr_MV()
-        TrisVoid_CB_CheckedChanged(sender, e)
-        Me.Cursor = Cursors.Default
     End Sub
-    Public Sub Search_Tr_MV()
+
+    Private Sub SetTrMvSearchBusy(isBusy As Boolean)
+
+        Me.Cursor = If(isBusy, Cursors.AppStarting, Cursors.Default)
+        Tr_SearchButton.Enabled = Not isBusy
+        Tr_PrintButton.Enabled = Not isBusy
+        Tr_SearchButton.Text = If(isBusy, "جاري البحث...", "بحــــــث")
+        Tr_SearchButton.BackColor = If(isBusy, Color.FromArgb(255, 243, 205), Color.WhiteSmoke)
+        Tr_MV_MetroGrid.Cursor = If(isBusy, Cursors.AppStarting, Cursors.Hand)
+
+    End Sub
+
+    Public Function Search_Tr_MV() As Boolean
         Dim C = New C
         If AllTrCheckBox.Checked = False Then
             If Treasury_ComboBox.SelectedIndex = -1 Then
                 MsgBox("حدد الخزنة", MsgBoxStyle.Exclamation, "")
-                Exit Sub
+                Return False
             End If
         End If
         Try
             With C.Com
                 .Connection = C.Con
-                .CommandText = "Search_Tr_MV"
+                .CommandText = "[Search_Tr_MV]"
 
                 .Parameters.AddWithValue("@AllAgentsCheckBox", AllTrCheckBox.Checked)
                 .Parameters.AddWithValue("@AllUsersCheckBox", TrAllUsersCheckBox.Checked)
@@ -662,12 +690,14 @@ Public Class Balances
                 .CommandType = CommandType.StoredProcedure
             End With
             C.Da = New SqlClient.SqlDataAdapter(C.Com)
-            C.Da.Fill(C.Dt)
-            Tr_MV_MetroGrid.DataSource = C.Dt
+            TR_MV_DT = New DataTable()
+            C.Da.Fill(TR_MV_DT)
+            Return True
         Catch ex As Exception
             MsgBox(ex.Message)
+            Return False
         End Try
-    End Sub
+    End Function
 
 
     Private Sub SalarySearchButton_Click(sender As Object, e As EventArgs) Handles SalarySearchButton.Click
@@ -1238,76 +1268,199 @@ Public Class Balances
     End Function
 
     Private Sub Tr_PrintButton_Click(sender As Object, e As EventArgs) Handles Tr_PrintButton.Click
-        AG_MV_print_Reset()
+        PrepareTrMvReportTitles()
         TR_MV_print()
-        AG_MV_print_Reset()
     End Sub
 
     Private Sub TR_MV_print()
 
-        For i = 0 To Tr_MV_MetroGrid.Rows.Count - 1
+        If Tr_MV_MetroGrid.Rows.Count = 0 Then
+            MsgBox("لا توجد بيانات للطباعة.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
 
-            Dim sqlComm As New SqlClient.SqlCommand
-            sqlComm.CommandText = "AG_MV_Reports_INSERT"
-            sqlComm.CommandType = CommandType.StoredProcedure
+        Using printDocument As New System.Drawing.Printing.PrintDocument()
 
-            sqlComm.Parameters.AddWithValue("@T_ID", Tr_MV_MetroGrid.Rows(i).Cells(0).Value)
-            sqlComm.Parameters.AddWithValue("@AG_Name", Tr_MV_MetroGrid.Rows(i).Cells("TRMV_Name_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Date", Tr_MV_MetroGrid.Rows(i).Cells("TRMV_Date_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Type_Name", Tr_MV_MetroGrid.Rows(i).Cells("TRMV_Type_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Title", Tr_MV_MetroGrid.Rows(i).Cells("TR_MV_Title_move_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Debit", Tr_MV_MetroGrid.Rows(i).Cells("Tr_Debit_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Credit", Tr_MV_MetroGrid.Rows(i).Cells("Tr_Credit_CL").Value)
-            sqlComm.Parameters.AddWithValue("@Balance", Tr_MV_MetroGrid.Rows(i).Cells("Tr_Balance_CL").Value)
-            sqlComm.Parameters.AddWithValue("@User_Name", Tr_MV_MetroGrid.Rows(i).Cells("Ag_name_CL_2").Value)
+            printDocument.DocumentName = "كشف حساب خزينة"
+            printDocument.DefaultPageSettings.Landscape = True
+            printDocument.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(35, 35, 45, 45)
 
-            SQL_SP_EXEC(sqlComm)
+            AddHandler printDocument.BeginPrint, AddressOf TR_MV_PrintDocument_BeginPrint
+            AddHandler printDocument.PrintPage, AddressOf TR_MV_PrintDocument_PrintPage
 
-        Next
+            Using previewDialog As New PrintPreviewDialog()
+                previewDialog.Document = printDocument
+                previewDialog.WindowState = FormWindowState.Maximized
+                previewDialog.Text = "معاينة كشف حساب الخزينة"
+                previewDialog.ShowDialog(Me)
+            End Using
 
-
-        Try
-            Dim p As New print
-            Dim pp As New ReportConnection
-
-            pp.rp.Load(Application.StartupPath & "\reports\Tr_MV.rpt")
-
-
-            pp.CrTables = pp.rp.Database.Tables
-            For Each CrTable In pp.CrTables
-                pp.crtableLogoninfo = CrTable.LogOnInfo
-                pp.crtableLogoninfo.ConnectionInfo = pp.crConnectionInfo
-                CrTable.ApplyLogOnInfo(pp.crtableLogoninfo)
-            Next
-
-
-            With pp
-                .rp.SetParameterValue(0, USER_NAME)
-                .rp.SetParameterValue(1, F_MainForm.Serv_Label.Text)
-                .rp.SetParameterValue(2, TRMV_Name)
-                .rp.SetParameterValue(3, TRMV_Type)
-                .rp.SetParameterValue(4, TRMV_Date)
-                .rp.SetParameterValue(5, TRMV_User)
-
-                .rp.SetParameterValue(6, Tr_Total_D.Text)
-                .rp.SetParameterValue(7, Tr_Total_C.Text)
-                .rp.SetParameterValue(8, Tr_Total_B.Text)
-
-                '.rp.PrintOptions.PrinterName = My_Settings.Default_Printer
-                '.rp.PrintToPrinter(1, False, 0, 0)
-                '.rp.Dispose()
-
-
-                p.CrystalReportViewer1.ReportSource = pp.rp
-                p.ShowDialog()
-
-            End With
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        End Using
 
     End Sub
+
+    Private Sub TR_MV_PrintDocument_BeginPrint(sender As Object, e As System.Drawing.Printing.PrintEventArgs)
+
+        _trMvPrintRowIndex = 0
+
+    End Sub
+
+    Private Sub TR_MV_PrintDocument_PrintPage(sender As Object, e As System.Drawing.Printing.PrintPageEventArgs)
+
+        Dim bounds As Rectangle = e.MarginBounds
+        Dim y As Integer = bounds.Top
+
+        Using titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
+              infoFont As New Font("Segoe UI", 9.0!, FontStyle.Bold),
+              headerFont As New Font("Segoe UI", 8.0!, FontStyle.Bold),
+              rowFont As New Font("Segoe UI", 8.0!, FontStyle.Regular),
+              totalsFont As New Font("Segoe UI", 9.0!, FontStyle.Bold)
+
+            Dim rtlFormat As New StringFormat()
+            rtlFormat.Alignment = StringAlignment.Far
+            rtlFormat.LineAlignment = StringAlignment.Center
+            rtlFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+            Dim centerFormat As New StringFormat()
+            centerFormat.Alignment = StringAlignment.Center
+            centerFormat.LineAlignment = StringAlignment.Center
+            centerFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            e.Graphics.DrawString(
+                "كشف حساب خزينة",
+                titleFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 28),
+                rtlFormat
+            )
+            y += 30
+
+            e.Graphics.DrawString(
+                "الخزينة: " & TRMV_Name & "    النوع: " & TRMV_Type & "    الفترة: " & TRMV_Date & "    المستخدم: " & TRMV_User,
+                infoFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 24),
+                rtlFormat
+            )
+            y += 30
+
+            Dim columnNames As String() = {
+                "TRMV_Date_CL",
+                "TRMV_Type_CL",
+                "TR_MV_Title_move_CL",
+                "Ag_name_CL_2",
+                "Tr_Credit_CL",
+                "Tr_Debit_CL",
+                "Tr_Balance_CL",
+                "TRMV_UserName_CL"
+            }
+
+            Dim headers As String() = {
+                "التاريخ",
+                "المعاملة",
+                "العنوان",
+                "الحساب",
+                "مدين",
+                "دائن",
+                "الرصيد",
+                "المدخل"
+            }
+
+            Dim weights As Integer() = {90, 100, 260, 130, 90, 90, 95, 90}
+            Dim totalWeight As Integer = 0
+            For Each weight As Integer In weights
+                totalWeight += weight
+            Next
+            Dim widths(weights.Length - 1) As Integer
+
+            For i As Integer = 0 To weights.Length - 1
+                widths(i) = CInt(bounds.Width * (weights(i) / CDbl(totalWeight)))
+            Next
+
+            Dim rowHeight As Integer = 28
+            Dim x As Integer = bounds.Right
+
+            For i As Integer = 0 To headers.Length - 1
+                x -= widths(i)
+                Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+                Using backBrush As New SolidBrush(Color.FromArgb(45, 62, 80))
+                    e.Graphics.FillRectangle(backBrush, rect)
+                End Using
+                e.Graphics.DrawRectangle(Pens.DarkGray, rect)
+                e.Graphics.DrawString(headers(i), headerFont, Brushes.White, rect, centerFormat)
+            Next
+
+            y += rowHeight
+
+            While _trMvPrintRowIndex < Tr_MV_MetroGrid.Rows.Count
+
+                If y + rowHeight > bounds.Bottom - 42 Then
+                    e.HasMorePages = True
+                    Return
+                End If
+
+                Dim row As DataGridViewRow = Tr_MV_MetroGrid.Rows(_trMvPrintRowIndex)
+                x = bounds.Right
+
+                For i As Integer = 0 To columnNames.Length - 1
+                    x -= widths(i)
+                    Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+                    If _trMvPrintRowIndex Mod 2 = 0 Then
+                        e.Graphics.FillRectangle(Brushes.White, rect)
+                    Else
+                        Using altBrush As New SolidBrush(Color.FromArgb(248, 250, 252))
+                            e.Graphics.FillRectangle(altBrush, rect)
+                        End Using
+                    End If
+
+                    e.Graphics.DrawRectangle(Pens.LightGray, rect)
+                    e.Graphics.DrawString(GetTrMvPrintCellText(row, columnNames(i)), rowFont, Brushes.Black, rect, centerFormat)
+                Next
+
+                y += rowHeight
+                _trMvPrintRowIndex += 1
+
+            End While
+
+            y += 10
+            e.Graphics.DrawString(
+                "إجمالي الدائن: " & Tr_Total_D.Text &
+                "    إجمالي المدين: " & Tr_Total_C.Text &
+                "    الرصيد: " & Tr_Total_B.Text,
+                totalsFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 28),
+                rtlFormat
+            )
+
+        End Using
+
+        e.HasMorePages = False
+
+    End Sub
+
+    Private Function GetTrMvPrintCellText(row As DataGridViewRow, columnName As String) As String
+
+        If Not Tr_MV_MetroGrid.Columns.Contains(columnName) Then Return ""
+
+        Dim value As Object = row.Cells(columnName).Value
+
+        If value Is Nothing OrElse value Is DBNull.Value Then Return ""
+
+        If columnName = "TRMV_Date_CL" Then
+            Dim dateValue As Date
+            If Date.TryParse(value.ToString(), dateValue) Then Return dateValue.ToString("yyyy/MM/dd")
+        End If
+
+        If columnName = "Tr_Debit_CL" OrElse columnName = "Tr_Credit_CL" OrElse columnName = "Tr_Balance_CL" Then
+            Dim numberValue As Decimal
+            If Decimal.TryParse(value.ToString(), numberValue) Then Return numberValue.ToString("N3")
+        End If
+
+        Return value.ToString()
+
+    End Function
 
 
     Private Sub Tr_MV_MetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Tr_MV_MetroGrid.MouseDoubleClick
@@ -1522,22 +1675,27 @@ Public Class Balances
     End Sub
 
     Private Sub TrisVoid_CB_CheckedChanged(sender As Object, e As EventArgs) Handles TrisVoid_CB.CheckedChanged
-        If TrisVoid_CB.Checked = True Then
-            Tr_MV_MetroGrid.Columns("TrisVoid_CL").Visible = True
-            Search_Tr_MV()
-        Else
-            For i As Integer = Tr_MV_MetroGrid.Rows.Count() - 1 To 0 Step -1
-                Dim delete As Boolean
-                delete = Tr_MV_MetroGrid.Rows(i).Cells("TrisVoid_CL").Value
-                ' if the checkbox cell is checked
-                If delete = True Then
-                    Dim row As DataGridViewRow
-                    row = Tr_MV_MetroGrid.Rows(i)
-                    Tr_MV_MetroGrid.Rows.Remove(row)
-                End If
-            Next
-            Tr_MV_MetroGrid.Columns("TrisVoid_CL").Visible = False
+        Apply_TR_MV_View()
+    End Sub
+
+    Private Sub Apply_TR_MV_View()
+
+        If TR_MV_DT Is Nothing Then Return
+
+        Dim view As New DataView(TR_MV_DT)
+
+        If TrisVoid_CB.Checked = False AndAlso TR_MV_DT.Columns.Contains("isVoid") Then
+            view.RowFilter = "isVoid = false OR isVoid IS NULL"
         End If
+
+        Tr_MV_MetroGrid.DataSource = view
+
+        If Tr_MV_MetroGrid.Columns.Contains("TrisVoid_CL") Then
+            Tr_MV_MetroGrid.Columns("TrisVoid_CL").Visible = TrisVoid_CB.Checked
+        End If
+
+        Tr_Calc_Balance()
+
     End Sub
 
     Private Sub IM_SH_txt_Enter(sender As Object, e As EventArgs)
