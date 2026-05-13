@@ -1338,11 +1338,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                 End If
 
             Else
-                Save_Total(T_ID, TOTAL, Disc)
-                Save_About(T_ID, Notes_txt.Text)
-                Save_Date(T_ID, DateTimeEx)
-                Save_Pro()
-                Begin_Discount()
+                Save_EditChanges()
                 AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
 
                 On_Update = False
@@ -1350,6 +1346,103 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                 Select_Sales_Receipt(T_ID)
             End If
         End If
+    End Sub
+
+    Private Sub Save_EditChanges()
+
+        If String.IsNullOrWhiteSpace(Discount_txt1.Text) Then Discount_txt1.Text = "0"
+        Discount_calc()
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
+
+                    Try
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Total",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Total", TOTAL)
+                                cmd.Parameters.AddWithValue("@Disc", Disc)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                If String.IsNullOrWhiteSpace(Notes_txt.Text) = False Then cmd.Parameters.AddWithValue("@About", Notes_txt.Text)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Date",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Date", DateTimeEx.Value)
+                                cmd.Parameters.AddWithValue("@Month", DateTimeEx.Value.Month)
+                                cmd.Parameters.AddWithValue("@YEAR", DateTimeEx.Value.Year)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_AG_Project",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Proj_ID", Project_cm.SelectedValue)
+                            End Sub)
+
+                        Using discountCmd As New SqlClient.SqlCommand(
+                            "Update Agents_Balance_MV SET Discount = @Discount WHERE T_ID = @T_ID",
+                            cn,
+                            tr
+                        )
+
+                            discountCmd.Parameters.AddWithValue("@Discount", Convert.ToDouble(Discount_txt1.Text))
+                            discountCmd.Parameters.AddWithValue("@T_ID", T_ID)
+                            discountCmd.ExecuteNonQuery()
+
+                        End Using
+
+                        ExecuteEditStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@User_ID", USER_ID)
+                                cmd.Parameters.AddWithValue("@Notes", " تخفيض للفاتورة بقيمة:" & Disc.ToString)
+                                cmd.Parameters.AddWithValue("@Bill_ID", Bill_ID_Txt.Text)
+                                cmd.Parameters.AddWithValue("@Screen_Type", 1)
+                                cmd.Parameters.AddWithValue("@Operation_ID", 3)
+                                cmd.Parameters.AddWithValue("@CP_Name", My.Computer.Name)
+                            End Sub)
+
+                        tr.Commit()
+
+                    Catch
+
+                        tr.Rollback()
+                        Throw
+
+                    End Try
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ExecuteEditStoredProcedure(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, procedureName As String, addParameters As Action(Of SqlClient.SqlCommand))
+
+        Using cmd As New SqlClient.SqlCommand(procedureName, cn, tr)
+
+            cmd.CommandType = CommandType.StoredProcedure
+            addParameters(cmd)
+            cmd.ExecuteNonQuery()
+
+        End Using
+
     End Sub
 
     Sub Close_Sale()
@@ -1645,7 +1738,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             Dim F As New Rsv_IM
             F.ShowDialog()
         End If
-       
+
     End Sub
 
     Private Sub طباعةإذنصـــرفA4ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles طباعةإذنصـــرفA4ToolStripMenuItem.Click

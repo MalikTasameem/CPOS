@@ -1693,12 +1693,7 @@
                     End If
 
                 Else
-                    AG_Balance_Update_Invoice_Type()
-                    Save_Title_Name(T_ID, Title_txt.Text)
-                    Save_About(T_ID, Notes_txt.Text)
-
-                    Save_Date(T_ID, DateTimeEx)
-                    Save_Total(T_ID, TOTAL, 0)
+                    Save_EditChanges()
 
                     On_Update = False
                     Edit_butt.Text = EditState
@@ -1733,6 +1728,84 @@
             End If
 
         End If
+
+    End Sub
+
+    Private Sub Save_EditChanges()
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
+
+                    Try
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Invoice_Type",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Type", Invoice_Type_cm.SelectedIndex)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Title_Name",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Title", Title_txt.Text)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                If String.IsNullOrWhiteSpace(Notes_txt.Text) = False Then cmd.Parameters.AddWithValue("@About", Notes_txt.Text)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Date",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Date", DateTimeEx.Value)
+                                cmd.Parameters.AddWithValue("@Month", DateTimeEx.Value.Month)
+                                cmd.Parameters.AddWithValue("@YEAR", DateTimeEx.Value.Year)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Total",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Total", TOTAL)
+                                cmd.Parameters.AddWithValue("@Disc", 0)
+                            End Sub)
+
+                        tr.Commit()
+
+                    Catch
+
+                        tr.Rollback()
+                        Throw
+
+                    End Try
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ExecuteEditStoredProcedure(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, procedureName As String, addParameters As Action(Of SqlClient.SqlCommand))
+
+        Using cmd As New SqlClient.SqlCommand(procedureName, cn, tr)
+
+            cmd.CommandType = CommandType.StoredProcedure
+            addParameters(cmd)
+            cmd.ExecuteNonQuery()
+
+        End Using
 
     End Sub
 

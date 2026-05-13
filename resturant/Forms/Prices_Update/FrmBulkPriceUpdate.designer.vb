@@ -125,12 +125,12 @@ Partial Class FrmBulkPriceUpdate
         Me.TopTitle_LB.AutoSize = True
         Me.TopTitle_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.TopTitle_LB.ForeColor = System.Drawing.Color.White
-        Me.TopTitle_LB.Location = New System.Drawing.Point(817, 9)
+        Me.TopTitle_LB.Location = New System.Drawing.Point(899, 8)
         Me.TopTitle_LB.Name = "TopTitle_LB"
-        Me.TopTitle_LB.Size = New System.Drawing.Size(230, 21)
+        Me.TopTitle_LB.Size = New System.Drawing.Size(155, 21)
         Me.TopTitle_LB.TabIndex = 0
         Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
-        Me.TopTitle_LB.Text = "تعديل الأسعار الجماعي مع المعاينة"
+        Me.TopTitle_LB.Text = "تعديل الأسعار الجماعي"
         '
         'dgvPrices
         '

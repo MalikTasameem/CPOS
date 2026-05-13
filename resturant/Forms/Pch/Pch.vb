@@ -602,11 +602,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                         If Cr_CM.SelectedValue > 1 And Cr_Equal_TXT.Visible = True Then Cr_Equal_TXT.Enabled = True
                     End If
                 Else
-                    Save_Total(T_ID, TOTAL, Disc)
-                    Save_About(T_ID, Notes_txt.Text)
-                    Save_ReferNum(T_ID, EX_ReferNumTextBox.Text)
-                    Save_Date(T_ID, DateTimeEx)
-                    Prepare_Discount()
+                    Save_EditChanges()
                     On_Update = False
                     Edit_butt.Text = EditState
                     SelectStateBt()
@@ -632,6 +628,109 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 SelectStateBt()
             End If
         End If
+    End Sub
+
+    Private Sub Save_EditChanges()
+
+        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
+
+                    Try
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Total",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Total", TOTAL)
+                                cmd.Parameters.AddWithValue("@Disc", Disc)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                If String.IsNullOrWhiteSpace(Notes_txt.Text) = False Then cmd.Parameters.AddWithValue("@About", Notes_txt.Text)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_ReferNum",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@ReferNum", EX_ReferNumTextBox.Text)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Date",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Date", DateTimeEx.Value)
+                                cmd.Parameters.AddWithValue("@Month", DateTimeEx.Value.Month)
+                                cmd.Parameters.AddWithValue("@YEAR", DateTimeEx.Value.Year)
+                            End Sub)
+
+                        Disc = Convert.ToDouble(Discount_txt.Text) * Convert.ToDouble(Cr_Equal_TXT.Text)
+                        Discount_txt.Text = Disc
+
+                        Using discountCmd As New SqlClient.SqlCommand(
+                            "Update Agents_Balance_MV SET Discount = @Discount WHERE T_ID = @T_ID",
+                            cn,
+                            tr
+                        )
+
+                            discountCmd.Parameters.AddWithValue("@Discount", Convert.ToDouble(Discount_txt.Text))
+                            discountCmd.Parameters.AddWithValue("@T_ID", T_ID)
+                            discountCmd.ExecuteNonQuery()
+
+                        End Using
+
+                        ExecuteEditStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@User_ID", USER_ID)
+                                cmd.Parameters.AddWithValue("@Notes", " تخفيض للفاتورة بقيمة:" & Disc.ToString)
+                                cmd.Parameters.AddWithValue("@Bill_ID", Bill_ID_Txt.Text)
+                                cmd.Parameters.AddWithValue("@Screen_Type", 7)
+                                cmd.Parameters.AddWithValue("@Operation_ID", 3)
+                                cmd.Parameters.AddWithValue("@CP_Name", My.Computer.Name)
+                            End Sub)
+
+                        tr.Commit()
+
+                    Catch
+
+                        tr.Rollback()
+                        Throw
+
+                    End Try
+
+                End Using
+
+            End Using
+
+            If Cr_CM.SelectedValue > 1 Then T_Other_Cr_TXT.Text = (Pure / Convert.ToDouble(Cr_Equal_TXT.Text)).ToString("n")
+            Pure_txt.Text = (TOTAL - Disc).ToString("n")
+            Pure = TOTAL - Disc
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ExecuteEditStoredProcedure(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, procedureName As String, addParameters As Action(Of SqlClient.SqlCommand))
+
+        Using cmd As New SqlClient.SqlCommand(procedureName, cn, tr)
+
+            cmd.CommandType = CommandType.StoredProcedure
+            addParameters(cmd)
+            cmd.ExecuteNonQuery()
+
+        End Using
+
     End Sub
 
     Private Sub Delete_butt_Click(sender As Object, e As EventArgs) Handles Delete_butt.Click
