@@ -144,7 +144,7 @@ Partial Class FrmBulkPriceUpdate
         Me.dgvPrices.Location = New System.Drawing.Point(3, 177)
         Me.dgvPrices.Name = "dgvPrices"
         Me.dgvPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPrices.Size = New System.Drawing.Size(1058, 451)
+        Me.dgvPrices.Size = New System.Drawing.Size(1054, 451)
         Me.dgvPrices.TabIndex = 0
         '
         'GroupBox1

@@ -252,11 +252,11 @@ Partial Class Inside_Sales_IM_card
         Me.Valid_QTY_txt.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Valid_QTY_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_QTY_txt.Enabled = False
-        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 13.25!)
+        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Valid_QTY_txt.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.Valid_QTY_txt.Location = New System.Drawing.Point(2, 4)
         Me.Valid_QTY_txt.Name = "Valid_QTY_txt"
-        Me.Valid_QTY_txt.Size = New System.Drawing.Size(96, 28)
+        Me.Valid_QTY_txt.Size = New System.Drawing.Size(96, 27)
         Me.Valid_QTY_txt.TabIndex = 640
         Me.Valid_QTY_txt.Text = "00"
         Me.Valid_QTY_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -287,14 +287,14 @@ Partial Class Inside_Sales_IM_card
         '
         Me.IM_Cost_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.IM_Cost_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Cost_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.IM_Cost_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.IM_Cost_txt.ForeColor = System.Drawing.Color.DarkGreen
-        Me.IM_Cost_txt.Location = New System.Drawing.Point(2, 3)
+        Me.IM_Cost_txt.Location = New System.Drawing.Point(2, 4)
         Me.IM_Cost_txt.MaxLength = 250
         Me.IM_Cost_txt.Name = "IM_Cost_txt"
         Me.IM_Cost_txt.ReadOnly = True
         Me.IM_Cost_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.IM_Cost_txt.Size = New System.Drawing.Size(84, 28)
+        Me.IM_Cost_txt.Size = New System.Drawing.Size(84, 27)
         Me.IM_Cost_txt.TabIndex = 1002
         Me.IM_Cost_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -325,13 +325,13 @@ Partial Class Inside_Sales_IM_card
         Me.QtyTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 14.75!)
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(2, 2)
+        Me.QtyTextBox.Location = New System.Drawing.Point(2, 3)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.QtyTextBox.Size = New System.Drawing.Size(58, 30)
+        Me.QtyTextBox.Size = New System.Drawing.Size(58, 27)
         Me.QtyTextBox.TabIndex = 1001
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '

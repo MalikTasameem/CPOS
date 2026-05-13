@@ -279,17 +279,17 @@ Partial Class Pch_IM_card_11
         Me.Panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel15.Controls.Add(Me.Label17)
         Me.Panel15.Controls.Add(Me.Prev_Sale_Unit_txt)
-        Me.Panel15.Location = New System.Drawing.Point(17, 99)
+        Me.Panel15.Location = New System.Drawing.Point(44, 99)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(245, 39)
+        Me.Panel15.Size = New System.Drawing.Size(226, 39)
         Me.Panel15.TabIndex = 1035
         '
         'Label17
         '
-        Me.Label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label17.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(121, 7)
+        Me.Label17.Location = New System.Drawing.Point(97, 8)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(122, 20)
         Me.Label17.TabIndex = 604
@@ -298,6 +298,7 @@ Partial Class Pch_IM_card_11
         '
         'Prev_Sale_Unit_txt
         '
+        Me.Prev_Sale_Unit_txt.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Prev_Sale_Unit_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Prev_Sale_Unit_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Prev_Sale_Unit_txt.Enabled = False
@@ -317,9 +318,9 @@ Partial Class Pch_IM_card_11
         Me.Two_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Two_Panel.Controls.Add(Me.Label28)
         Me.Two_Panel.Controls.Add(Me.NewSaleByOne)
-        Me.Two_Panel.Location = New System.Drawing.Point(23, 230)
+        Me.Two_Panel.Location = New System.Drawing.Point(67, 230)
         Me.Two_Panel.Name = "Two_Panel"
-        Me.Two_Panel.Size = New System.Drawing.Size(237, 36)
+        Me.Two_Panel.Size = New System.Drawing.Size(198, 36)
         Me.Two_Panel.TabIndex = 1034
         '
         'Label28
@@ -327,7 +328,7 @@ Partial Class Pch_IM_card_11
         Me.Label28.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(139, 7)
+        Me.Label28.Location = New System.Drawing.Point(110, 7)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(86, 20)
         Me.Label28.TabIndex = 604
@@ -338,13 +339,13 @@ Partial Class Pch_IM_card_11
         '
         Me.NewSaleByOne.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSaleByOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.NewSaleByOne.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.NewSaleByOne.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.NewSaleByOne.ForeColor = System.Drawing.Color.DarkGreen
-        Me.NewSaleByOne.Location = New System.Drawing.Point(1, 3)
+        Me.NewSaleByOne.Location = New System.Drawing.Point(1, 4)
         Me.NewSaleByOne.MaxLength = 250
         Me.NewSaleByOne.Name = "NewSaleByOne"
         Me.NewSaleByOne.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSaleByOne.Size = New System.Drawing.Size(132, 28)
+        Me.NewSaleByOne.Size = New System.Drawing.Size(106, 27)
         Me.NewSaleByOne.TabIndex = 1008
         Me.NewSaleByOne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -374,14 +375,14 @@ Partial Class Pch_IM_card_11
         '
         Me.CostByOne.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.CostByOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CostByOne.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.CostByOne.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.CostByOne.ForeColor = System.Drawing.Color.DarkGreen
-        Me.CostByOne.Location = New System.Drawing.Point(2, 3)
+        Me.CostByOne.Location = New System.Drawing.Point(2, 4)
         Me.CostByOne.MaxLength = 250
         Me.CostByOne.Name = "CostByOne"
         Me.CostByOne.ReadOnly = True
         Me.CostByOne.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.CostByOne.Size = New System.Drawing.Size(90, 28)
+        Me.CostByOne.Size = New System.Drawing.Size(90, 27)
         Me.CostByOne.TabIndex = 1007
         Me.CostByOne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -411,13 +412,13 @@ Partial Class Pch_IM_card_11
         '
         Me.NewSalePrice_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSalePrice_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.NewSalePrice_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.NewSalePrice_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.NewSalePrice_txt.ForeColor = System.Drawing.Color.DarkGreen
         Me.NewSalePrice_txt.Location = New System.Drawing.Point(1, 2)
         Me.NewSalePrice_txt.MaxLength = 250
         Me.NewSalePrice_txt.Name = "NewSalePrice_txt"
         Me.NewSalePrice_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSalePrice_txt.Size = New System.Drawing.Size(59, 28)
+        Me.NewSalePrice_txt.Size = New System.Drawing.Size(59, 27)
         Me.NewSalePrice_txt.TabIndex = 1003
         Me.NewSalePrice_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -447,13 +448,13 @@ Partial Class Pch_IM_card_11
         '
         Me.PriceTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.PriceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PriceTextBox.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.PriceTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PriceTextBox.ForeColor = System.Drawing.Color.DarkGreen
         Me.PriceTextBox.Location = New System.Drawing.Point(2, 3)
         Me.PriceTextBox.MaxLength = 250
         Me.PriceTextBox.Name = "PriceTextBox"
         Me.PriceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.PriceTextBox.Size = New System.Drawing.Size(60, 28)
+        Me.PriceTextBox.Size = New System.Drawing.Size(60, 27)
         Me.PriceTextBox.TabIndex = 1002
         Me.PriceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -484,7 +485,7 @@ Partial Class Pch_IM_card_11
         Me.QtyTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 12.75!)
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
         Me.QtyTextBox.Location = New System.Drawing.Point(2, 3)
         Me.QtyTextBox.MaxLength = 250
@@ -562,7 +563,7 @@ Partial Class Pch_IM_card_11
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label5.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Label5.Location = New System.Drawing.Point(109, 10)
+        Me.Label5.Location = New System.Drawing.Point(106, 8)
         Me.Label5.Name = "Label5"
         Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label5.Size = New System.Drawing.Size(119, 20)
@@ -574,9 +575,9 @@ Partial Class Pch_IM_card_11
         '
         Me.ALL_QTY_txt.BackColor = System.Drawing.SystemColors.HighlightText
         Me.ALL_QTY_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ALL_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 12.75!)
+        Me.ALL_QTY_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.ALL_QTY_txt.ForeColor = System.Drawing.Color.Firebrick
-        Me.ALL_QTY_txt.Location = New System.Drawing.Point(3, 5)
+        Me.ALL_QTY_txt.Location = New System.Drawing.Point(3, 4)
         Me.ALL_QTY_txt.Name = "ALL_QTY_txt"
         Me.ALL_QTY_txt.ReadOnly = True
         Me.ALL_QTY_txt.Size = New System.Drawing.Size(99, 27)
@@ -600,7 +601,7 @@ Partial Class Pch_IM_card_11
         Me.Label26.BackColor = System.Drawing.Color.Transparent
         Me.Label26.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label26.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Label26.Location = New System.Drawing.Point(105, 4)
+        Me.Label26.Location = New System.Drawing.Point(105, 10)
         Me.Label26.Name = "Label26"
         Me.Label26.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label26.Size = New System.Drawing.Size(137, 20)
@@ -612,9 +613,9 @@ Partial Class Pch_IM_card_11
         '
         Me.Current_QTY.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Current_QTY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Current_QTY.Font = New System.Drawing.Font("Times New Roman", 12.75!)
+        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Current_QTY.ForeColor = System.Drawing.Color.Firebrick
-        Me.Current_QTY.Location = New System.Drawing.Point(3, 3)
+        Me.Current_QTY.Location = New System.Drawing.Point(3, 5)
         Me.Current_QTY.Name = "Current_QTY"
         Me.Current_QTY.ReadOnly = True
         Me.Current_QTY.Size = New System.Drawing.Size(99, 27)
@@ -709,10 +710,10 @@ Partial Class Pch_IM_card_11
         Me.Min_SP_2_By_One_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Min_SP_2_By_One_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Min_SP_2_By_One_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_2_By_One_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Min_SP_2_By_One_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Min_SP_2_By_One_txt.Location = New System.Drawing.Point(21, 3)
         Me.Min_SP_2_By_One_txt.Name = "Min_SP_2_By_One_txt"
-        Me.Min_SP_2_By_One_txt.Size = New System.Drawing.Size(84, 28)
+        Me.Min_SP_2_By_One_txt.Size = New System.Drawing.Size(84, 27)
         Me.Min_SP_2_By_One_txt.TabIndex = 1011
         Me.Min_SP_2_By_One_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -733,10 +734,10 @@ Partial Class Pch_IM_card_11
         Me.Min_SP_2_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Min_SP_2_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Min_SP_2_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_2_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Min_SP_2_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Min_SP_2_txt.Location = New System.Drawing.Point(277, 3)
         Me.Min_SP_2_txt.Name = "Min_SP_2_txt"
-        Me.Min_SP_2_txt.Size = New System.Drawing.Size(72, 28)
+        Me.Min_SP_2_txt.Size = New System.Drawing.Size(72, 27)
         Me.Min_SP_2_txt.TabIndex = 1010
         Me.Min_SP_2_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -803,11 +804,11 @@ Partial Class Pch_IM_card_11
         'Min_SP_By_One_txt
         '
         Me.Min_SP_By_One_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_By_One_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
-        Me.Min_SP_By_One_txt.Location = New System.Drawing.Point(22, 2)
+        Me.Min_SP_By_One_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.Min_SP_By_One_txt.Location = New System.Drawing.Point(22, 3)
         Me.Min_SP_By_One_txt.Name = "Min_SP_By_One_txt"
         Me.Min_SP_By_One_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Min_SP_By_One_txt.Size = New System.Drawing.Size(72, 28)
+        Me.Min_SP_By_One_txt.Size = New System.Drawing.Size(72, 27)
         Me.Min_SP_By_One_txt.TabIndex = 1006
         Me.Min_SP_By_One_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -815,11 +816,11 @@ Partial Class Pch_IM_card_11
         '
         Me.Min_SP_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Min_SP_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
-        Me.Min_SP_txt.Location = New System.Drawing.Point(221, 2)
+        Me.Min_SP_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.Min_SP_txt.Location = New System.Drawing.Point(221, 3)
         Me.Min_SP_txt.Name = "Min_SP_txt"
         Me.Min_SP_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Min_SP_txt.Size = New System.Drawing.Size(68, 28)
+        Me.Min_SP_txt.Size = New System.Drawing.Size(68, 27)
         Me.Min_SP_txt.TabIndex = 1005
         Me.Min_SP_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -934,7 +935,7 @@ Partial Class Pch_IM_card_11
         Me.ADD_New_IM_btn.BackColor = System.Drawing.Color.White
         Me.ADD_New_IM_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ADD_New_IM_btn.FlatAppearance.BorderSize = 0
-        Me.ADD_New_IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ADD_New_IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ADD_New_IM_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.ADD_New_IM_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.ADD_New_IM_btn.Location = New System.Drawing.Point(609, 282)

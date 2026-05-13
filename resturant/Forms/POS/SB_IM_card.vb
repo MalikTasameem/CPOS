@@ -102,9 +102,7 @@
         PriceTextBox.Clear()
         IM_ID = itemId
         Get_Unit = False
-        Load_IM_ALL_QTY(IM_ID, ALL_QTY, ALL_QTY_txt, U_Cargo)
-        Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-        Fetch_IM_Units()
+        Load_SelectedItemData()
         Load_IM_Change_Price()
         QtyTextBox.Select()
 
@@ -125,22 +123,22 @@
         Serial_Code_Panel.Visible = S_SerialCode
     End Sub
 
-        Public Sub Load_ST()
-            Dim c As New C
-            Try
-                Dim s As String
-                s = "select ST_ID,ST_name from STORES ORDER By ST_ID ASC"
-                c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-                c.Da.Fill(c.Dt)
-                ST_cm.DataSource = c.Dt
-                ST_cm.DisplayMember = "ST_name"
-                ST_cm.ValueMember = "ST_ID"
-                ST_cm.SelectedValue = SB_ST_ID
-                If SB_ST_Can_change = False Then ST_cm.Enabled = False
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-        End Sub
+    Public Sub Load_ST()
+        Dim c As New C
+        Try
+            Dim s As String
+            s = "select ST_ID,ST_name from STORES ORDER By ST_ID ASC"
+            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+            c.Da.Fill(c.Dt)
+            ST_cm.DataSource = c.Dt
+            ST_cm.DisplayMember = "ST_name"
+            ST_cm.ValueMember = "ST_ID"
+            ST_cm.SelectedValue = SB_ST_ID
+            If SB_ST_Can_change = False Then ST_cm.Enabled = False
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 
 
     Private Sub Enable_Fields()
@@ -179,75 +177,75 @@
     Public Sub ADD_IM()
 
 
-            If On_Update = True Then
-                If AG_ID <> Default_AG_ID Then
-                    If U_AG_Skip_Max = False Then
-                        If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
-                            MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك إضافة المزيد من الأصناف عليه", MsgBoxStyle.Critical, "خطأ فالإدراج")
+        If On_Update = True Then
+            If AG_ID <> Default_AG_ID Then
+                If U_AG_Skip_Max = False Then
+                    If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
+                        MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك إضافة المزيد من الأصناف عليه", MsgBoxStyle.Critical, "خطأ فالإدراج")
                         Exit Sub
                     End If
-                    Else
-                        If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then MsgBox("هذا الزبون قد تخطى سقف الدين الخاص به", MsgBoxStyle.Exclamation, "تنويه ")
+                Else
+                    If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then MsgBox("هذا الزبون قد تخطى سقف الدين الخاص به", MsgBoxStyle.Exclamation, "تنويه ")
+                End If
+            End If
+        End If
+
+
+        If IM_ID = 0 Then
+            MsgBox("حددالصنف", MsgBoxStyle.Exclamation)
+        ElseIf String.IsNullOrWhiteSpace(PriceTextBox.Text) Then
+            MsgBox("حدد سعر القطعة", MsgBoxStyle.Exclamation)
+            PriceTextBox.Select()
+        Else
+            If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
+
+
+            If S_Allow_MinSP = True Then
+                If User_isAdmin = False Then
+
+                    If U_Sell_Under_Min_SP = True And Min_SP_CB.Checked = True Then
+                        If Convert.ToDouble(PriceTextBox.Text) < Min_SP And Min_SP > 0 Then
+                            MsgBox(" ( " + Min_SP.ToString + " ) لا يمكنك البيع بأقل من  سعر الجملة", MsgBoxStyle.Exclamation)
+                            Exit Sub
+                        End If
+
+                    End If
+
+                    If U_Sell_Under_Min_SP_2 = True And Min_SP_2_CB.Checked = True Then
+                        If Convert.ToDouble(PriceTextBox.Text) < Min_SP_2 And Min_SP_2 > 0 Then
+                            MsgBox(" ( " + Min_SP_2.ToString + " ) لا يمكنك البيع بأقل من  سعر جملة الجملة", MsgBoxStyle.Exclamation)
+                            Exit Sub
+                        End If
+
+                    End If
+
+                Else
+
+                    If Convert.ToDouble(PriceTextBox.Text) < Min_SP And Min_SP > 0 Then
+                        If MessageBox.Show(" ( " + Min_SP.ToString + " ) سوف يتم البيع بأقل من  سعر الجملة", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation,
+                                           MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then Exit Sub
+
+                        If Convert.ToDouble(PriceTextBox.Text) < Min_SP_2 And Min_SP_2 > 0 Then
+                            If MessageBox.Show(" ( " + Min_SP_2.ToString + " ) سوف يتم البيع بأقل من  سعر جملة الجملة", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation,
+                                               MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then Exit Sub
+                        End If
+
                     End If
                 End If
             End If
 
 
-            If IM_ID = 0 Then
-            MsgBox("حددالصنف", MsgBoxStyle.Exclamation)
-        ElseIf String.IsNullOrWhiteSpace(PriceTextBox.Text) Then
-                MsgBox("حدد سعر القطعة", MsgBoxStyle.Exclamation)
-                PriceTextBox.Select()
+            If U_SB_Sell_Under_Cost = False Then
+                If Show_IM_Cost(False, IM_ID, U_ID) > PriceTextBox.Text Then
+                    MsgBox("لا يمكنك البيع بأقل من سعر التكلفة", MsgBoxStyle.Critical)
+                    Exit Sub
+                End If
             Else
-                If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
-
-
-                If S_Allow_MinSP = True Then
-                    If User_isAdmin = False Then
-
-                        If U_Sell_Under_Min_SP = True And Min_SP_CB.Checked = True Then
-                            If Convert.ToDouble(PriceTextBox.Text) < Min_SP And Min_SP > 0 Then
-                                MsgBox(" ( " + Min_SP.ToString + " ) لا يمكنك البيع بأقل من  سعر الجملة", MsgBoxStyle.Exclamation)
-                                Exit Sub
-                            End If
-
-                        End If
-
-                        If U_Sell_Under_Min_SP_2 = True And Min_SP_2_CB.Checked = True Then
-                            If Convert.ToDouble(PriceTextBox.Text) < Min_SP_2 And Min_SP_2 > 0 Then
-                                MsgBox(" ( " + Min_SP_2.ToString + " ) لا يمكنك البيع بأقل من  سعر جملة الجملة", MsgBoxStyle.Exclamation)
-                                Exit Sub
-                            End If
-
-                        End If
-
-                    Else
-
-                        If Convert.ToDouble(PriceTextBox.Text) < Min_SP And Min_SP > 0 Then
-                            If MessageBox.Show(" ( " + Min_SP.ToString + " ) سوف يتم البيع بأقل من  سعر الجملة", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation,
-                                           MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then Exit Sub
-
-                            If Convert.ToDouble(PriceTextBox.Text) < Min_SP_2 And Min_SP_2 > 0 Then
-                                If MessageBox.Show(" ( " + Min_SP_2.ToString + " ) سوف يتم البيع بأقل من  سعر جملة الجملة", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation,
-                                               MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then Exit Sub
-                            End If
-
-                        End If
-                    End If
-                End If
-
-
-                If U_SB_Sell_Under_Cost = False Then
-                    If Show_IM_Cost(False, IM_ID, U_ID) > PriceTextBox.Text Then
-                        MsgBox("لا يمكنك البيع بأقل من سعر التكلفة", MsgBoxStyle.Critical)
-                        Exit Sub
-                    End If
-                Else
-                    If Show_IM_Cost(False, IM_ID, U_ID) > PriceTextBox.Text Then
-                        If MessageBox.Show(" سوف يتم البيع بأقل من سعر التكلفة", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation,
+                If Show_IM_Cost(False, IM_ID, U_ID) > PriceTextBox.Text Then
+                    If MessageBox.Show(" سوف يتم البيع بأقل من سعر التكلفة", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation,
                                                   MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then Exit Sub
-                    End If
                 End If
+            End If
 
             If IM_min_QTY = False Then
 
@@ -263,17 +261,17 @@
 
 
             If Valid_Panel.Visible = True And Valid_cm.Items.Count > 0 Then
-                    If Ban_Expierd_IM_MV = True Then
+                If Ban_Expierd_IM_MV = True Then
 
-                        If Convert.ToDateTime(Valid_cm.Text) <= Date.Now.Date Then
-                            MsgBox("صنف منتهية صلاحيته لا يمكن بيعه", MsgBoxStyle.Critical, "خطأ")
-                            Exit Sub
-                        End If
+                    If Convert.ToDateTime(Valid_cm.Text) <= Date.Now.Date Then
+                        MsgBox("صنف منتهية صلاحيته لا يمكن بيعه", MsgBoxStyle.Critical, "خطأ")
+                        Exit Sub
                     End If
                 End If
+            End If
 
 
-                If SB_IM_Alert_When_Repetition = True Then
+            If SB_IM_Alert_When_Repetition = True Then
                 For i = 0 To F_Sales.AGMetroGrid.Rows.Count - 1
                     If F_Sales.AGMetroGrid.Rows(i).Cells("Bill_IMID_CL").Value = IM_ID Then
                         Beep()
@@ -288,38 +286,38 @@
             End If
 
 
-                If Valid_Panel.Visible = True And Valid_cm.Items.Count > 1 Then
-                    Beep()
-                    If MessageBox.Show(" يوجد من هذا الصنف أكثر من صلاحية وانت اخترت صلاحية  " + vbNewLine + Valid_cm.Text + vbNewLine + " هل تريد الإستمرار ؟ ", "",
+            If Valid_Panel.Visible = True And Valid_cm.Items.Count > 1 Then
+                Beep()
+                If MessageBox.Show(" يوجد من هذا الصنف أكثر من صلاحية وانت اخترت صلاحية  " + vbNewLine + Valid_cm.Text + vbNewLine + " هل تريد الإستمرار ؟ ", "",
                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign) = Windows.Forms.DialogResult.Cancel Then
-                        Exit Sub
-                    End If
+                    Exit Sub
                 End If
-
-                Add_ItemToBill(IM_ID)
             End If
-        End Sub
+
+            Add_ItemToBill(IM_ID)
+        End If
+    End Sub
 
     Private Function IM_Check_Neg_QTY_()
-            Dim C As New C
-            Dim F As Integer = 0
-            With C.Com
-                .Connection = C.Con
-                .CommandText = "IM_Check_Neg_QTY_"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@F", 0)
-                .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
-                .Parameters.AddWithValue("@IM_ID", IM_ID)
-                .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
-                .Parameters.AddWithValue("@Enterd_Qty", QtyTextBox.Text)
-                .Parameters.AddWithValue("@Cargo", U_Cargo)
+        Dim C As New C
+        Dim F As Integer = 0
+        With C.Com
+            .Connection = C.Con
+            .CommandText = "IM_Check_Neg_QTY_"
+            .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@F", 0)
+            .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+            .Parameters.AddWithValue("@IM_ID", IM_ID)
+            .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
+            .Parameters.AddWithValue("@Enterd_Qty", QtyTextBox.Text)
+            .Parameters.AddWithValue("@Cargo", U_Cargo)
 
-                .Parameters("@F").Direction = ParameterDirection.Output
-                If SQL_SP_EXEC(C.Com) Then F = .Parameters("@F").Value
-            End With
+            .Parameters("@F").Direction = ParameterDirection.Output
+            If SQL_SP_EXEC(C.Com) Then F = .Parameters("@F").Value
+        End With
 
-            Return F
-        End Function
+        Return F
+    End Function
 
 
     Private Sub ClearCatFields()
@@ -340,41 +338,41 @@
 
 
     Public Sub Add_ItemToBill(IM_ID As String)
-            Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
+        Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
         If Not String.IsNullOrWhiteSpace(Bercent_TXT.Text) Then PriceTextBox.Text =
     (Convert.ToDouble(PriceTextBox.Text) + Convert.ToDouble(PriceTextBox.Text) * (Convert.ToDouble(Bercent_TXT.Text) / 100)).ToString("00.00")
 
         Dim C As New C
-            With C.Com
-                .Connection = C.Con
-                .CommandText = "SB_Contents_INSERT_2"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@SB_T_ID", Me.T_ID)
-                .Parameters.AddWithValue("@IM_ID", IM_ID)
-                .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
-                If Valid_Panel.Visible = True Then
-                    .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
-                    .Parameters.AddWithValue("@Current_QTY", Convert.ToDouble(Current_QTY.Text))
-                End If
+        With C.Com
+            .Connection = C.Con
+            .CommandText = "SB_Contents_INSERT_2"
+            .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@SB_T_ID", Me.T_ID)
+            .Parameters.AddWithValue("@IM_ID", IM_ID)
+            .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+            If Valid_Panel.Visible = True Then
+                .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
+                .Parameters.AddWithValue("@Current_QTY", Convert.ToDouble(Current_QTY.Text))
+            End If
 
-                If String.IsNullOrWhiteSpace(QtyTextBox.Text) = False Then .Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox.Text))
-                .Parameters.AddWithValue("@U_ID", U_ID)
-                .Parameters.AddWithValue("@Price", PriceTextBox.Text)
-                .Parameters.AddWithValue("@On_Update", On_Update)
-                If Not String.IsNullOrWhiteSpace(Bercent_TXT.Text) Then .Parameters.AddWithValue("@Notes", Bercent_TXT.Text & " % ")
+            If String.IsNullOrWhiteSpace(QtyTextBox.Text) = False Then .Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox.Text))
+            .Parameters.AddWithValue("@U_ID", U_ID)
+            .Parameters.AddWithValue("@Price", PriceTextBox.Text)
+            .Parameters.AddWithValue("@On_Update", On_Update)
+            If Not String.IsNullOrWhiteSpace(Bercent_TXT.Text) Then .Parameters.AddWithValue("@Notes", Bercent_TXT.Text & " % ")
 
-                .Parameters.AddWithValue("@Barcode", Barcode_IM)
-                .Parameters.AddWithValue("@Serial_Code", Serial_Code_txt.Text)
+            .Parameters.AddWithValue("@Barcode", Barcode_IM)
+            .Parameters.AddWithValue("@Serial_Code", Serial_Code_txt.Text)
 
 
-                .Parameters.AddWithValue("@is_By_Min_SP", Min_SP_CB.Checked)
-                .Parameters.AddWithValue("@is_By_Min_SP_2", Min_SP_2_CB.Checked)
-                .Parameters.AddWithValue("@SB_IM_NEW_ROW", SB_IM_NEW_ROW)
-            End With
+            .Parameters.AddWithValue("@is_By_Min_SP", Min_SP_CB.Checked)
+            .Parameters.AddWithValue("@is_By_Min_SP_2", Min_SP_2_CB.Checked)
+            .Parameters.AddWithValue("@SB_IM_NEW_ROW", SB_IM_NEW_ROW)
+        End With
 
-            If SQL_SP_EXEC(C.Com) = True Then
-                If On_Update = True Then
-                    DependingUpdatedBill(T_ID)
+        If SQL_SP_EXEC(C.Com) = True Then
+            If On_Update = True Then
+                DependingUpdatedBill(T_ID)
 
             End If
 
@@ -388,44 +386,44 @@
 
         End If
 
-        End Sub
+    End Sub
 
     Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown
-            Select Case e.KeyCode
+        Select Case e.KeyCode
             Case Keys.Up : mySearchControl.txtSearch.Select()
               '  Case Keys.Down : If AGMetroGrid.Rows.Count > 0 = True Then AGMetroGrid.Select()
             Case Keys.Right
-                    IM_Unit_cm.Select()
-                    IM_Unit_cm.DroppedDown = True
-                Case Keys.Return : QtyTextBox.Select()
-            End Select
-        End Sub
+                IM_Unit_cm.Select()
+                IM_Unit_cm.DroppedDown = True
+            Case Keys.Return : QtyTextBox.Select()
+        End Select
+    End Sub
 
-        Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
-            Check_Only_Float(sender, e)
-        End Sub
+    Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
+        Check_Only_Float(sender, e)
+    End Sub
 
-        Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
-            Check_Point_in_FloatNum(sender, e)
-        End Sub
+    Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
+        Check_Point_in_FloatNum(sender, e)
+    End Sub
 
-        Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
+    Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
 
-            Select Case e.KeyCode
+        Select Case e.KeyCode
             Case Keys.Return : ADD_IM()
             Case Keys.Right : PriceTextBox.Select()
-                Case Keys.Left
-                    If Valid_Panel.Visible = True Then
-                        Valid_cm.DroppedDown = True
-                        Valid_cm.Select()
-                    End If
-            End Select
+            Case Keys.Left
+                If Valid_Panel.Visible = True Then
+                    Valid_cm.DroppedDown = True
+                    Valid_cm.Select()
+                End If
+        End Select
 
-        End Sub
+    End Sub
 
-        Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
-            Check_Only_Float(sender, e)
-        End Sub
+    Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
+        Check_Only_Float(sender, e)
+    End Sub
 
     Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
         Check_Point_in_FloatNum(sender, e)
@@ -468,6 +466,141 @@
         End Try
         Get_Unit = True
         IM_Fetch_QTY()
+    End Sub
+
+    Private Sub Load_SelectedItemData()
+
+        Get_Unit = False
+        U_Dt.Clear()
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using allQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID",
+                    cn
+                )
+
+                    allQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    ALL_QTY = Convert.ToDouble(allQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Using storeQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID AND ST_ID = @ST_ID",
+                    cn
+                )
+
+                    storeQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    storeQtyCmd.Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+                    IM_QTY = Convert.ToDouble(storeQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Using unitsCmd As New SqlClient.SqlCommand(
+                    "select U_IM_ID,U_Name from IM_Menu_Units_V WHERE IM_ID = @IM_ID Order By U_Cargo Asc",
+                    cn
+                )
+
+                    unitsCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+
+                    Using da As New SqlClient.SqlDataAdapter(unitsCmd)
+                        da.Fill(U_Dt)
+                    End Using
+
+                End Using
+
+                IM_Unit_cm.DataSource = U_Dt
+                IM_Unit_cm.DisplayMember = "U_Name"
+                IM_Unit_cm.ValueMember = "U_IM_ID"
+
+                Get_Unit = True
+                ApplySelectedUnitData(cn)
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ApplySelectedUnitData(cn As SqlClient.SqlConnection)
+
+        If IM_Unit_cm.SelectedValue Is Nothing Then
+            Return
+        End If
+
+        Using unitCmd As New SqlClient.SqlCommand(
+            "select U_ID,U_Cargo,Price,Min_SP,Min_SP_2 from IM_Menu_Units_V WHERE U_IM_ID = @U_IM_ID",
+            cn
+        )
+
+            unitCmd.Parameters.AddWithValue("@U_IM_ID", IM_Unit_cm.SelectedValue)
+
+            Using rdr As SqlClient.SqlDataReader = unitCmd.ExecuteReader()
+
+                If rdr.Read() Then
+
+                    U_Cargo = Convert.ToDouble(rdr("U_Cargo"))
+
+                    If U_Cargo <> 0 Then
+                        Current_QTY.Text = (Convert.ToDouble(IM_QTY) / U_Cargo).ToString("N")
+                        ALL_QTY_txt.Text = ALL_QTY / U_Cargo
+                    Else
+                        Current_QTY.Text = "0"
+                        ALL_QTY_txt.Text = "0"
+                    End If
+
+                    PriceTextBox.Text = rdr("Price").ToString()
+                    U_ID = Convert.ToInt32(rdr("U_ID"))
+
+                    If Min_SP_CB.Checked = True Then
+                        PriceTextBox.Text = rdr("Min_SP").ToString()
+                        If Convert.ToDouble(rdr("Min_SP")) = 0 Then PriceTextBox.Clear()
+                    ElseIf Min_SP_2_CB.Checked = True Then
+                        PriceTextBox.Text = rdr("Min_SP_2").ToString()
+                        If Convert.ToDouble(rdr("Min_SP_2")) = 0 Then PriceTextBox.Clear()
+                    End If
+
+                    Min_SP = Convert.ToDouble(rdr("Min_SP"))
+                    Min_SP_2 = Convert.ToDouble(rdr("Min_SP_2"))
+
+                End If
+
+            End Using
+
+        End Using
+
+        ApplyLastSellPrice(cn)
+
+    End Sub
+
+    Private Sub ApplyLastSellPrice(cn As SqlClient.SqlConnection)
+
+        Using lastSellCmd As New SqlClient.SqlCommand(
+            "SELECT TOP 1 CONVERT(NUMERIC(18,2),Price) AS Price FROM Agent_SB_IM_MV_V WHERE AG_ID = @AG_ID AND IM_ID = @IM_ID ORDER BY T_ID DESC",
+            cn
+        )
+
+            lastSellCmd.Parameters.AddWithValue("@AG_ID", AG_ID)
+            lastSellCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+
+            Dim lastPrice As Object = lastSellCmd.ExecuteScalar()
+
+            If lastPrice IsNot Nothing AndAlso lastPrice IsNot DBNull.Value Then
+                LAST_SELL_Lb.Text = "أخر بيع للزبون: " & lastPrice.ToString()
+            Else
+                LAST_SELL_Lb.Text = "أخر بيع للزبون: " & " لا يوجد "
+            End If
+
+        End Using
+
     End Sub
 
     Private Sub Barcode_SH_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Barcode_SH_txt.KeyDown

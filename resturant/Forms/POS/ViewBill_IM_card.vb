@@ -66,9 +66,7 @@
             PriceTextBox.Clear()
             IM_ID = itemId
             Get_Unit = False
-            Load_IM_ALL_QTY(IM_ID, ALL_QTY, ALL_QTY_txt, U_Cargo)
-            Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-            Fetch_IM_Units()
+            Load_SelectedItemData()
             Load_IM_Change_Price()
             QtyTextBox.Select()
 
@@ -424,6 +422,144 @@
             Get_Unit = True
             IM_Fetch_QTY()
         End Sub
+
+    Private Sub Load_SelectedItemData()
+
+        Get_Unit = False
+        U_Dt.Clear()
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using allQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID",
+                    cn
+                )
+
+                    allQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    ALL_QTY = Convert.ToDouble(allQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Dim stId As Object = ST_cm.SelectedValue
+                If stId Is Nothing OrElse stId Is DBNull.Value Then stId = 0
+
+                Using storeQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID AND ST_ID = @ST_ID",
+                    cn
+                )
+
+                    storeQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    storeQtyCmd.Parameters.AddWithValue("@ST_ID", stId)
+                    IM_QTY = Convert.ToDouble(storeQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Using unitsCmd As New SqlClient.SqlCommand(
+                    "select U_IM_ID,U_Name from IM_Menu_Units_V WHERE IM_ID = @IM_ID Order By U_Cargo Asc",
+                    cn
+                )
+
+                    unitsCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+
+                    Using da As New SqlClient.SqlDataAdapter(unitsCmd)
+                        da.Fill(U_Dt)
+                    End Using
+
+                End Using
+
+                IM_Unit_cm.DataSource = U_Dt
+                IM_Unit_cm.DisplayMember = "U_Name"
+                IM_Unit_cm.ValueMember = "U_IM_ID"
+
+                Get_Unit = True
+                ApplySelectedUnitData(cn)
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ApplySelectedUnitData(cn As SqlClient.SqlConnection)
+
+        If IM_Unit_cm.SelectedValue Is Nothing Then
+            Return
+        End If
+
+        Using unitCmd As New SqlClient.SqlCommand(
+            "select U_ID,U_Cargo,Price,Min_SP,Min_SP_2 from IM_Menu_Units_V WHERE U_IM_ID = @U_IM_ID",
+            cn
+        )
+
+            unitCmd.Parameters.AddWithValue("@U_IM_ID", IM_Unit_cm.SelectedValue)
+
+            Using rdr As SqlClient.SqlDataReader = unitCmd.ExecuteReader()
+
+                If rdr.Read() Then
+
+                    U_Cargo = Convert.ToDouble(rdr("U_Cargo"))
+
+                    If U_Cargo <> 0 Then
+                        Current_QTY.Text = (Convert.ToDouble(IM_QTY) / U_Cargo).ToString("N")
+                        ALL_QTY_txt.Text = ALL_QTY / U_Cargo
+                    Else
+                        Current_QTY.Text = "0"
+                        ALL_QTY_txt.Text = "0"
+                    End If
+
+                    PriceTextBox.Text = rdr("Price").ToString()
+                    U_ID = Convert.ToInt32(rdr("U_ID"))
+
+                    If Min_SP_CB.Checked = True Then
+                        PriceTextBox.Text = rdr("Min_SP").ToString()
+                        If Convert.ToDouble(rdr("Min_SP")) = 0 Then PriceTextBox.Clear()
+                    ElseIf Min_SP_2_CB.Checked = True Then
+                        PriceTextBox.Text = rdr("Min_SP_2").ToString()
+                        If Convert.ToDouble(rdr("Min_SP_2")) = 0 Then PriceTextBox.Clear()
+                    End If
+
+                    Min_SP = Convert.ToDouble(rdr("Min_SP"))
+                    Min_SP_2 = Convert.ToDouble(rdr("Min_SP_2"))
+
+                End If
+
+            End Using
+
+        End Using
+
+        ApplyLastSellPrice(cn)
+
+    End Sub
+
+    Private Sub ApplyLastSellPrice(cn As SqlClient.SqlConnection)
+
+        Using lastSellCmd As New SqlClient.SqlCommand(
+            "SELECT TOP 1 CONVERT(NUMERIC(18,2),Price) AS Price FROM Agent_SB_IM_MV_V WHERE AG_ID = @AG_ID AND IM_ID = @IM_ID ORDER BY T_ID DESC",
+            cn
+        )
+
+            lastSellCmd.Parameters.AddWithValue("@AG_ID", AG_ID)
+            lastSellCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+
+            Dim lastPrice As Object = lastSellCmd.ExecuteScalar()
+
+            If lastPrice IsNot Nothing AndAlso lastPrice IsNot DBNull.Value Then
+                LAST_SELL_Lb.Text = "أخر بيع للزبون: " & lastPrice.ToString()
+            Else
+                LAST_SELL_Lb.Text = "أخر بيع للزبون: " & " لا يوجد "
+            End If
+
+        End Using
+
+    End Sub
 
 
 

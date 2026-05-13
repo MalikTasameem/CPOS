@@ -59,9 +59,7 @@
 
         IM_ID = itemId
         Get_Unit = False
-        Load_IM_ALL_QTY(IM_ID, ALL_QTY, ALL_QTY_txt, U_Cargo)
-        Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-        Fetch_IM_Units()
+        Load_SelectedItemData()
         QtyTextBox.Select()
 
         If isValid = 1 Then
@@ -231,6 +229,122 @@
         End Try
         Get_Unit = True
         IM_Fetch_QTY()
+    End Sub
+
+    Private Sub Load_SelectedItemData()
+
+        Get_Unit = False
+        U_Dt.Clear()
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using allQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID",
+                    cn
+                )
+
+                    allQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    ALL_QTY = Convert.ToDouble(allQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Dim stId As Object = ST_cm.SelectedValue
+                If stId Is Nothing OrElse stId Is DBNull.Value Then stId = 0
+
+                Using storeQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID AND ST_ID = @ST_ID",
+                    cn
+                )
+
+                    storeQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    storeQtyCmd.Parameters.AddWithValue("@ST_ID", stId)
+                    IM_QTY = Convert.ToDouble(storeQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Using unitsCmd As New SqlClient.SqlCommand(
+                    "select U_IM_ID,U_Name from IM_Menu_Units_V WHERE IM_ID = @IM_ID Order By U_Cargo Desc",
+                    cn
+                )
+
+                    unitsCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+
+                    Using da As New SqlClient.SqlDataAdapter(unitsCmd)
+                        da.Fill(U_Dt)
+                    End Using
+
+                End Using
+
+                IM_Unit_cm.DataSource = U_Dt
+                IM_Unit_cm.DisplayMember = "U_Name"
+                IM_Unit_cm.ValueMember = "U_IM_ID"
+
+                Get_Unit = True
+                ApplySelectedUnitData(cn)
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ApplySelectedUnitData(cn As SqlClient.SqlConnection)
+
+        If IM_Unit_cm.SelectedValue Is Nothing Then
+            Return
+        End If
+
+        Using unitCmd As New SqlClient.SqlCommand(
+            "select U_ID,U_Cargo,Price from IM_Menu_Units_V WHERE U_IM_ID = @U_IM_ID",
+            cn
+        )
+
+            unitCmd.Parameters.AddWithValue("@U_IM_ID", IM_Unit_cm.SelectedValue)
+
+            Using rdr As SqlClient.SqlDataReader = unitCmd.ExecuteReader()
+
+                If rdr.Read() Then
+
+                    U_Cargo = Convert.ToDouble(rdr("U_Cargo"))
+
+                    If U_Cargo <> 0 Then
+                        Current_QTY.Text = (Convert.ToDouble(IM_QTY) / U_Cargo).ToString("N")
+                        ALL_QTY_txt.Text = ALL_QTY / U_Cargo
+                    Else
+                        Current_QTY.Text = "0"
+                        ALL_QTY_txt.Text = "0"
+                    End If
+
+                    U_ID = Convert.ToInt32(rdr("U_ID"))
+
+                End If
+
+            End Using
+
+        End Using
+
+        Using costCmd As New SqlClient.SqlCommand(
+            "select Cost from IM_All_V WHERE IM_ID = @IM_ID",
+            cn
+        )
+
+            costCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+            Dim costValue As Object = costCmd.ExecuteScalar()
+
+            If costValue IsNot Nothing AndAlso costValue IsNot DBNull.Value Then
+                IM_Cost_txt.Text = (Convert.ToDouble(costValue) * U_Cargo).ToString()
+            End If
+
+        End Using
+
     End Sub
 
     Private Sub IM_Fetch_QTY()

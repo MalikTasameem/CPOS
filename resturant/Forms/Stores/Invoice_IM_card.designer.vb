@@ -109,7 +109,7 @@ Partial Class Invoice_IM_card
         Me.SP_2_CB.AutoSize = True
         Me.SP_2_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SP_2_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_2_CB.Location = New System.Drawing.Point(6, 168)
+        Me.SP_2_CB.Location = New System.Drawing.Point(324, 242)
         Me.SP_2_CB.Name = "SP_2_CB"
         Me.SP_2_CB.Size = New System.Drawing.Size(103, 24)
         Me.SP_2_CB.TabIndex = 1043
@@ -121,7 +121,7 @@ Partial Class Invoice_IM_card
         Me.SP_1_CB.AutoSize = True
         Me.SP_1_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SP_1_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_1_CB.Location = New System.Drawing.Point(217, 169)
+        Me.SP_1_CB.Location = New System.Drawing.Point(535, 243)
         Me.SP_1_CB.Name = "SP_1_CB"
         Me.SP_1_CB.Size = New System.Drawing.Size(59, 24)
         Me.SP_1_CB.TabIndex = 1042
@@ -133,7 +133,7 @@ Partial Class Invoice_IM_card
         Me.SP_CB.AutoSize = True
         Me.SP_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SP_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_CB.Location = New System.Drawing.Point(121, 169)
+        Me.SP_CB.Location = New System.Drawing.Point(439, 243)
         Me.SP_CB.Name = "SP_CB"
         Me.SP_CB.Size = New System.Drawing.Size(75, 24)
         Me.SP_CB.TabIndex = 1041
@@ -145,7 +145,7 @@ Partial Class Invoice_IM_card
         Me.Show_IM_Note_Valid_CB.AutoSize = True
         Me.Show_IM_Note_Valid_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_IM_Note_Valid_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_IM_Note_Valid_CB.Location = New System.Drawing.Point(287, 208)
+        Me.Show_IM_Note_Valid_CB.Location = New System.Drawing.Point(605, 282)
         Me.Show_IM_Note_Valid_CB.Name = "Show_IM_Note_Valid_CB"
         Me.Show_IM_Note_Valid_CB.Size = New System.Drawing.Size(83, 24)
         Me.Show_IM_Note_Valid_CB.TabIndex = 1036
@@ -156,7 +156,7 @@ Partial Class Invoice_IM_card
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label14.Location = New System.Drawing.Point(123, 204)
+        Me.Label14.Location = New System.Drawing.Point(441, 278)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(40, 20)
         Me.Label14.TabIndex = 1038
@@ -169,7 +169,7 @@ Partial Class Invoice_IM_card
         Me.IM_Valid_Note_Panel.Controls.Add(Me.Valid_ListBox)
         Me.IM_Valid_Note_Panel.Controls.Add(Me.Add_Valid_Btn)
         Me.IM_Valid_Note_Panel.Controls.Add(Me.Remove_Valid_Btn)
-        Me.IM_Valid_Note_Panel.Location = New System.Drawing.Point(114, 235)
+        Me.IM_Valid_Note_Panel.Location = New System.Drawing.Point(432, 309)
         Me.IM_Valid_Note_Panel.Name = "IM_Valid_Note_Panel"
         Me.IM_Valid_Note_Panel.Size = New System.Drawing.Size(256, 142)
         Me.IM_Valid_Note_Panel.TabIndex = 1037
@@ -244,7 +244,7 @@ Partial Class Invoice_IM_card
         Me.Panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel15.Controls.Add(Me.Label17)
         Me.Panel15.Controls.Add(Me.Prev_Sale_Unit_txt)
-        Me.Panel15.Location = New System.Drawing.Point(825, 160)
+        Me.Panel15.Location = New System.Drawing.Point(577, 184)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(224, 36)
         Me.Panel15.TabIndex = 1035
@@ -266,14 +266,14 @@ Partial Class Invoice_IM_card
         Me.Prev_Sale_Unit_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Prev_Sale_Unit_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Prev_Sale_Unit_txt.Enabled = False
-        Me.Prev_Sale_Unit_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Prev_Sale_Unit_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Prev_Sale_Unit_txt.ForeColor = System.Drawing.Color.DarkGreen
         Me.Prev_Sale_Unit_txt.Location = New System.Drawing.Point(3, 3)
         Me.Prev_Sale_Unit_txt.MaxLength = 250
         Me.Prev_Sale_Unit_txt.Name = "Prev_Sale_Unit_txt"
         Me.Prev_Sale_Unit_txt.ReadOnly = True
         Me.Prev_Sale_Unit_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Prev_Sale_Unit_txt.Size = New System.Drawing.Size(90, 28)
+        Me.Prev_Sale_Unit_txt.Size = New System.Drawing.Size(90, 27)
         Me.Prev_Sale_Unit_txt.TabIndex = 1009
         Me.Prev_Sale_Unit_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -282,7 +282,7 @@ Partial Class Invoice_IM_card
         Me.Two_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Two_Panel.Controls.Add(Me.Label28)
         Me.Two_Panel.Controls.Add(Me.NewSaleByOne)
-        Me.Two_Panel.Location = New System.Drawing.Point(250, 123)
+        Me.Two_Panel.Location = New System.Drawing.Point(2, 147)
         Me.Two_Panel.Name = "Two_Panel"
         Me.Two_Panel.Size = New System.Drawing.Size(180, 36)
         Me.Two_Panel.TabIndex = 1034
@@ -303,13 +303,13 @@ Partial Class Invoice_IM_card
         '
         Me.NewSaleByOne.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSaleByOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.NewSaleByOne.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.NewSaleByOne.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.NewSaleByOne.ForeColor = System.Drawing.Color.DarkGreen
         Me.NewSaleByOne.Location = New System.Drawing.Point(1, 3)
         Me.NewSaleByOne.MaxLength = 250
         Me.NewSaleByOne.Name = "NewSaleByOne"
         Me.NewSaleByOne.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSaleByOne.Size = New System.Drawing.Size(70, 28)
+        Me.NewSaleByOne.Size = New System.Drawing.Size(70, 27)
         Me.NewSaleByOne.TabIndex = 1008
         Me.NewSaleByOne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -318,7 +318,7 @@ Partial Class Invoice_IM_card
         Me.One_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.One_Panel.Controls.Add(Me.Label4)
         Me.One_Panel.Controls.Add(Me.CostByOne)
-        Me.One_Panel.Location = New System.Drawing.Point(433, 123)
+        Me.One_Panel.Location = New System.Drawing.Point(185, 147)
         Me.One_Panel.Name = "One_Panel"
         Me.One_Panel.Size = New System.Drawing.Size(182, 36)
         Me.One_Panel.TabIndex = 1033
@@ -339,14 +339,14 @@ Partial Class Invoice_IM_card
         '
         Me.CostByOne.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.CostByOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CostByOne.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.CostByOne.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.CostByOne.ForeColor = System.Drawing.Color.DarkGreen
         Me.CostByOne.Location = New System.Drawing.Point(2, 3)
         Me.CostByOne.MaxLength = 250
         Me.CostByOne.Name = "CostByOne"
         Me.CostByOne.ReadOnly = True
         Me.CostByOne.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.CostByOne.Size = New System.Drawing.Size(70, 28)
+        Me.CostByOne.Size = New System.Drawing.Size(70, 27)
         Me.CostByOne.TabIndex = 1007
         Me.CostByOne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -355,7 +355,7 @@ Partial Class Invoice_IM_card
         Me.Panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel12.Controls.Add(Me.Label7)
         Me.Panel12.Controls.Add(Me.NewSalePrice_txt)
-        Me.Panel12.Location = New System.Drawing.Point(445, 85)
+        Me.Panel12.Location = New System.Drawing.Point(197, 109)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(139, 36)
         Me.Panel12.TabIndex = 1032
@@ -376,13 +376,13 @@ Partial Class Invoice_IM_card
         '
         Me.NewSalePrice_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSalePrice_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.NewSalePrice_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.NewSalePrice_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.NewSalePrice_txt.ForeColor = System.Drawing.Color.DarkGreen
         Me.NewSalePrice_txt.Location = New System.Drawing.Point(1, 3)
         Me.NewSalePrice_txt.MaxLength = 250
         Me.NewSalePrice_txt.Name = "NewSalePrice_txt"
         Me.NewSalePrice_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSalePrice_txt.Size = New System.Drawing.Size(59, 28)
+        Me.NewSalePrice_txt.Size = New System.Drawing.Size(59, 27)
         Me.NewSalePrice_txt.TabIndex = 1003
         Me.NewSalePrice_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -391,7 +391,7 @@ Partial Class Invoice_IM_card
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.Label2)
         Me.Panel10.Controls.Add(Me.PriceTextBox)
-        Me.Panel10.Location = New System.Drawing.Point(586, 85)
+        Me.Panel10.Location = New System.Drawing.Point(338, 109)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(123, 36)
         Me.Panel10.TabIndex = 1031
@@ -412,13 +412,13 @@ Partial Class Invoice_IM_card
         '
         Me.PriceTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.PriceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PriceTextBox.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.PriceTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.PriceTextBox.ForeColor = System.Drawing.Color.DarkGreen
         Me.PriceTextBox.Location = New System.Drawing.Point(2, 3)
         Me.PriceTextBox.MaxLength = 250
         Me.PriceTextBox.Name = "PriceTextBox"
         Me.PriceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.PriceTextBox.Size = New System.Drawing.Size(60, 28)
+        Me.PriceTextBox.Size = New System.Drawing.Size(60, 27)
         Me.PriceTextBox.TabIndex = 1002
         Me.PriceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -427,7 +427,7 @@ Partial Class Invoice_IM_card
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.Label15)
         Me.Panel6.Controls.Add(Me.QtyTextBox)
-        Me.Panel6.Location = New System.Drawing.Point(711, 85)
+        Me.Panel6.Location = New System.Drawing.Point(463, 109)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(123, 36)
         Me.Panel6.TabIndex = 1030
@@ -449,13 +449,13 @@ Partial Class Invoice_IM_card
         Me.QtyTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 13.75!)
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
         Me.QtyTextBox.Location = New System.Drawing.Point(2, 3)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.QtyTextBox.Size = New System.Drawing.Size(58, 29)
+        Me.QtyTextBox.Size = New System.Drawing.Size(58, 27)
         Me.QtyTextBox.TabIndex = 1001
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -465,7 +465,7 @@ Partial Class Invoice_IM_card
         Me.Panel7.Controls.Add(Me.Label18)
         Me.Panel7.Controls.Add(Me.IM_Unit_cm)
         Me.Panel7.Controls.Add(Me.Ass_U_btn)
-        Me.Panel7.Location = New System.Drawing.Point(835, 85)
+        Me.Panel7.Location = New System.Drawing.Point(587, 109)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(214, 36)
         Me.Panel7.TabIndex = 1029
@@ -519,7 +519,7 @@ Partial Class Invoice_IM_card
         Me.All_St_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.All_St_Panel.Controls.Add(Me.Label5)
         Me.All_St_Panel.Controls.Add(Me.ALL_QTY_txt)
-        Me.All_St_Panel.Location = New System.Drawing.Point(2, 117)
+        Me.All_St_Panel.Location = New System.Drawing.Point(2, 75)
         Me.All_St_Panel.Name = "All_St_Panel"
         Me.All_St_Panel.Size = New System.Drawing.Size(245, 31)
         Me.All_St_Panel.TabIndex = 1027
@@ -542,7 +542,7 @@ Partial Class Invoice_IM_card
         '
         Me.ALL_QTY_txt.BackColor = System.Drawing.SystemColors.HighlightText
         Me.ALL_QTY_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ALL_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 12.75!)
+        Me.ALL_QTY_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.ALL_QTY_txt.ForeColor = System.Drawing.Color.Firebrick
         Me.ALL_QTY_txt.Location = New System.Drawing.Point(3, 1)
         Me.ALL_QTY_txt.Name = "ALL_QTY_txt"
@@ -557,7 +557,7 @@ Partial Class Invoice_IM_card
         Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel8.Controls.Add(Me.Label26)
         Me.Panel8.Controls.Add(Me.Current_QTY)
-        Me.Panel8.Location = New System.Drawing.Point(2, 85)
+        Me.Panel8.Location = New System.Drawing.Point(2, 43)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(245, 31)
         Me.Panel8.TabIndex = 1026
@@ -580,7 +580,7 @@ Partial Class Invoice_IM_card
         '
         Me.Current_QTY.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Current_QTY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Current_QTY.Font = New System.Drawing.Font("Times New Roman", 12.75!)
+        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Current_QTY.ForeColor = System.Drawing.Color.Firebrick
         Me.Current_QTY.Location = New System.Drawing.Point(3, 1)
         Me.Current_QTY.Name = "Current_QTY"
@@ -595,7 +595,7 @@ Partial Class Invoice_IM_card
         Me.Valid_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_Panel.Controls.Add(Me.D_Valid)
         Me.Valid_Panel.Controls.Add(Me.Label19)
-        Me.Valid_Panel.Location = New System.Drawing.Point(250, 85)
+        Me.Valid_Panel.Location = New System.Drawing.Point(2, 109)
         Me.Valid_Panel.Name = "Valid_Panel"
         Me.Valid_Panel.Size = New System.Drawing.Size(193, 36)
         Me.Valid_Panel.TabIndex = 1021
@@ -635,7 +635,7 @@ Partial Class Invoice_IM_card
         Me.Min_SP_Panel_2.Controls.Add(Me.Min_SP_2_By_One_txt)
         Me.Min_SP_Panel_2.Controls.Add(Me.Label10)
         Me.Min_SP_Panel_2.Controls.Add(Me.Min_SP_2_txt)
-        Me.Min_SP_Panel_2.Location = New System.Drawing.Point(378, 160)
+        Me.Min_SP_Panel_2.Location = New System.Drawing.Point(130, 184)
         Me.Min_SP_Panel_2.Name = "Min_SP_Panel_2"
         Me.Min_SP_Panel_2.Size = New System.Drawing.Size(445, 36)
         Me.Min_SP_Panel_2.TabIndex = 1023
@@ -677,10 +677,10 @@ Partial Class Invoice_IM_card
         Me.Min_SP_2_By_One_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Min_SP_2_By_One_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Min_SP_2_By_One_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_2_By_One_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Min_SP_2_By_One_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Min_SP_2_By_One_txt.Location = New System.Drawing.Point(21, 3)
         Me.Min_SP_2_By_One_txt.Name = "Min_SP_2_By_One_txt"
-        Me.Min_SP_2_By_One_txt.Size = New System.Drawing.Size(84, 28)
+        Me.Min_SP_2_By_One_txt.Size = New System.Drawing.Size(84, 27)
         Me.Min_SP_2_By_One_txt.TabIndex = 1011
         Me.Min_SP_2_By_One_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -701,10 +701,10 @@ Partial Class Invoice_IM_card
         Me.Min_SP_2_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Min_SP_2_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Min_SP_2_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_2_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Min_SP_2_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Min_SP_2_txt.Location = New System.Drawing.Point(277, 3)
         Me.Min_SP_2_txt.Name = "Min_SP_2_txt"
-        Me.Min_SP_2_txt.Size = New System.Drawing.Size(72, 28)
+        Me.Min_SP_2_txt.Size = New System.Drawing.Size(72, 27)
         Me.Min_SP_2_txt.TabIndex = 1010
         Me.Min_SP_2_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -717,7 +717,7 @@ Partial Class Invoice_IM_card
         Me.Min_SP_Panel.Controls.Add(Me.Label23)
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_By_One_txt)
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_txt)
-        Me.Min_SP_Panel.Location = New System.Drawing.Point(663, 123)
+        Me.Min_SP_Panel.Location = New System.Drawing.Point(415, 147)
         Me.Min_SP_Panel.Name = "Min_SP_Panel"
         Me.Min_SP_Panel.Size = New System.Drawing.Size(386, 36)
         Me.Min_SP_Panel.TabIndex = 1022
@@ -771,11 +771,11 @@ Partial Class Invoice_IM_card
         'Min_SP_By_One_txt
         '
         Me.Min_SP_By_One_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_By_One_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Min_SP_By_One_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Min_SP_By_One_txt.Location = New System.Drawing.Point(22, 2)
         Me.Min_SP_By_One_txt.Name = "Min_SP_By_One_txt"
         Me.Min_SP_By_One_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Min_SP_By_One_txt.Size = New System.Drawing.Size(72, 28)
+        Me.Min_SP_By_One_txt.Size = New System.Drawing.Size(72, 27)
         Me.Min_SP_By_One_txt.TabIndex = 1006
         Me.Min_SP_By_One_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -783,11 +783,11 @@ Partial Class Invoice_IM_card
         '
         Me.Min_SP_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Min_SP_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Min_SP_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.Min_SP_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Min_SP_txt.Location = New System.Drawing.Point(221, 2)
         Me.Min_SP_txt.Name = "Min_SP_txt"
         Me.Min_SP_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Min_SP_txt.Size = New System.Drawing.Size(68, 28)
+        Me.Min_SP_txt.Size = New System.Drawing.Size(68, 27)
         Me.Min_SP_txt.TabIndex = 1005
         Me.Min_SP_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -802,7 +802,7 @@ Partial Class Invoice_IM_card
         Me.IM_CalcAvgCost_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_CalcAvgCost_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.IM_CalcAvgCost_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.IM_CalcAvgCost_btn.Location = New System.Drawing.Point(617, 123)
+        Me.IM_CalcAvgCost_btn.Location = New System.Drawing.Point(369, 147)
         Me.IM_CalcAvgCost_btn.Name = "IM_CalcAvgCost_btn"
         Me.IM_CalcAvgCost_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.IM_CalcAvgCost_btn.Size = New System.Drawing.Size(44, 36)
@@ -822,7 +822,7 @@ Partial Class Invoice_IM_card
         Me.Confirm_ADD_bercent.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Confirm_ADD_bercent.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Confirm_ADD_bercent.Image = Global.resturant.My.Resources.Resources.if_ok_173061
-        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(3, 201)
+        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(321, 275)
         Me.Confirm_ADD_bercent.Name = "Confirm_ADD_bercent"
         Me.Confirm_ADD_bercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Confirm_ADD_bercent.Size = New System.Drawing.Size(41, 26)
@@ -896,7 +896,7 @@ Partial Class Invoice_IM_card
         Me.Exit_Btn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Exit_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Exit_Btn.Image = Global.resturant.My.Resources.Resources.Arrow_doodle_128
-        Me.Exit_Btn.Location = New System.Drawing.Point(808, 382)
+        Me.Exit_Btn.Location = New System.Drawing.Point(710, 379)
         Me.Exit_Btn.Name = "Exit_Btn"
         Me.Exit_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Exit_Btn.Size = New System.Drawing.Size(241, 89)
@@ -917,7 +917,7 @@ Partial Class Invoice_IM_card
         Me.ADD_New_IM_btn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
         Me.ADD_New_IM_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.ADD_New_IM_btn.Image = Global.resturant.My.Resources.Resources.if_Add_27831
-        Me.ADD_New_IM_btn.Location = New System.Drawing.Point(1003, 44)
+        Me.ADD_New_IM_btn.Location = New System.Drawing.Point(914, 48)
         Me.ADD_New_IM_btn.Name = "ADD_New_IM_btn"
         Me.ADD_New_IM_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ADD_New_IM_btn.Size = New System.Drawing.Size(37, 32)
@@ -938,7 +938,7 @@ Partial Class Invoice_IM_card
         Me.mySearchControl.MarginBetweenSearchAndGrid = 15
         Me.mySearchControl.MaxGridHeight = 400
         Me.mySearchControl.Name = "mySearchControl"
-        Me.mySearchControl.Size = New System.Drawing.Size(738, 35)
+        Me.mySearchControl.Size = New System.Drawing.Size(640, 35)
         Me.mySearchControl.TabIndex = 1047
         '
         'bercent_ADD_txt
@@ -946,7 +946,7 @@ Partial Class Invoice_IM_card
         Me.bercent_ADD_txt.BackColor = System.Drawing.Color.Lavender
         Me.bercent_ADD_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.bercent_ADD_txt.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.bercent_ADD_txt.Location = New System.Drawing.Point(45, 201)
+        Me.bercent_ADD_txt.Location = New System.Drawing.Point(363, 275)
         Me.bercent_ADD_txt.MaxLength = 18
         Me.bercent_ADD_txt.Name = "bercent_ADD_txt"
         Me.bercent_ADD_txt.Size = New System.Drawing.Size(75, 26)
@@ -956,7 +956,7 @@ Partial Class Invoice_IM_card
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1052, 472)
+        Me.ClientSize = New System.Drawing.Size(953, 472)
         Me.ControlBox = False
         Me.Controls.Add(Me.ADD_New_IM_btn)
         Me.Controls.Add(Me.mySearchControl)

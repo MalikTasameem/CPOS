@@ -52,9 +52,7 @@
 
         IM_ID = itemId
         Get_Unit = False
-        Load_IM_ALL_QTY(IM_ID, ALL_QTY, ALL_QTY_txt, U_Cargo)
-        Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-        Fetch_IM_Units()
+        Load_SelectedItemData()
         QtyTextBox.Select()
 
         If isValid = 1 Then
@@ -67,76 +65,76 @@
 
 
     Public Sub Load_ST()
-            Dim c As New C
-            Try
-                Dim s As String
-                s = "select ST_ID,ST_name from STORES ORDER By ST_ID ASC"
-                c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-                c.Da.Fill(c.Dt)
-                ST_cm.DataSource = c.Dt
-                ST_cm.DisplayMember = "ST_name"
-                ST_cm.ValueMember = "ST_ID"
-                ST_cm.SelectedValue = PCH_ST_ID
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-        End Sub
+        Dim c As New C
+        Try
+            Dim s As String
+            s = "select ST_ID,ST_name from STORES ORDER By ST_ID ASC"
+            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+            c.Da.Fill(c.Dt)
+            ST_cm.DataSource = c.Dt
+            ST_cm.DisplayMember = "ST_name"
+            ST_cm.ValueMember = "ST_ID"
+            ST_cm.SelectedValue = PCH_ST_ID
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 
     Private Sub ClearFields()
         ClearCatFields()
     End Sub
 
     Private Sub ADDCatButton_Click(sender As Object, e As EventArgs) Handles ADDCatButton.Click
-            If IM_ID = 0 Then
-                MsgBox("حددالصنف", MsgBoxStyle.Exclamation)
-                mySearchControl.txtSearch.Select()
-            Else
-                If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
+        If IM_ID = 0 Then
+            MsgBox("حددالصنف", MsgBoxStyle.Exclamation)
+            mySearchControl.txtSearch.Select()
+        Else
+            If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "1"
 
-                If IM_min_QTY = False Then
-                    If IM_Check_Neg_QTY_() = 1 Then
-                        MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
-                        Exit Sub
-                    End If
+            If IM_min_QTY = False Then
+                If IM_Check_Neg_QTY_() = 1 Then
+                    MsgBox("لا يمكنك إدراج صنف بكمية سالبة", MsgBoxStyle.Critical)
+                    Exit Sub
                 End If
-
-                Insert_Cat()
             End If
 
-        End Sub
+            Insert_Cat()
+        End If
 
-        Private Function IM_Check_Neg_QTY_()
-            Dim C As New C
-            Dim F As Integer = 0
-            With C.Com
-                .Connection = C.Con
-                .CommandText = "IM_Check_Neg_QTY_"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@F", 0)
-                .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
-                .Parameters.AddWithValue("@IM_ID", IM_ID)
-                .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
-                .Parameters.AddWithValue("@Enterd_Qty", QtyTextBox.Text)
-                .Parameters.AddWithValue("@Cargo", U_Cargo)
+    End Sub
 
-                .Parameters("@F").Direction = ParameterDirection.Output
-                If SQL_SP_EXEC(C.Com) Then
-                    F = .Parameters("@F").Value
-                End If
-            End With
+    Private Function IM_Check_Neg_QTY_()
+        Dim C As New C
+        Dim F As Integer = 0
+        With C.Com
+            .Connection = C.Con
+            .CommandText = "IM_Check_Neg_QTY_"
+            .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@F", 0)
+            .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
+            .Parameters.AddWithValue("@IM_ID", IM_ID)
+            .Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
+            .Parameters.AddWithValue("@Enterd_Qty", QtyTextBox.Text)
+            .Parameters.AddWithValue("@Cargo", U_Cargo)
 
-            Return F
-        End Function
+            .Parameters("@F").Direction = ParameterDirection.Output
+            If SQL_SP_EXEC(C.Com) Then
+                F = .Parameters("@F").Value
+            End If
+        End With
+
+        Return F
+    End Function
 
 
     Private Sub ClearCatFields()
-            mySearchControl.Clear_txt()
-            Current_QTY.Clear()
-            QtyTextBox.Clear()
-            IM_Cost_txt.Clear()
-            U_Dt.Clear()
-            Barcode_IM = ""
-        End Sub
+        mySearchControl.Clear_txt()
+        Current_QTY.Clear()
+        QtyTextBox.Clear()
+        IM_Cost_txt.Clear()
+        U_Dt.Clear()
+        Barcode_IM = ""
+    End Sub
 
 
 
@@ -165,96 +163,212 @@
     End Sub
 
     Private Sub IM_Cost_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Cost_txt.KeyDown
-            Select Case e.KeyCode
-                Case Keys.Up : mySearchControl.txtSearch.Select()
-                Case Keys.Right : QtyTextBox.Select()
-            End Select
-        End Sub
+        Select Case e.KeyCode
+            Case Keys.Up : mySearchControl.txtSearch.Select()
+            Case Keys.Right : QtyTextBox.Select()
+        End Select
+    End Sub
 
 
-        Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
+    Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
 
-            Select Case e.KeyCode
-                Case Keys.Return : If ADDCatButton.Enabled = True Then ADDCatButton_Click(sender, e)
-                Case Keys.Left : If Valid_Panel.Visible = True Then
-                        Valid_cm.Select()
-                        Valid_cm.DroppedDown = True
-                    End If
-                Case Keys.Up : mySearchControl.txtSearch.Select()
-                Case Keys.Right
-                    IM_Unit_cm.Select()
-                    IM_Unit_cm.DroppedDown = True
-            End Select
+        Select Case e.KeyCode
+            Case Keys.Return : If ADDCatButton.Enabled = True Then ADDCatButton_Click(sender, e)
+            Case Keys.Left : If Valid_Panel.Visible = True Then
+                    Valid_cm.Select()
+                    Valid_cm.DroppedDown = True
+                End If
+            Case Keys.Up : mySearchControl.txtSearch.Select()
+            Case Keys.Right
+                IM_Unit_cm.Select()
+                IM_Unit_cm.DroppedDown = True
+        End Select
 
-        End Sub
+    End Sub
 
-        Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
-            Check_Only_Float(sender, e)
-        End Sub
+    Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
+        Check_Only_Float(sender, e)
+    End Sub
 
-        Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
-            Check_Point_in_FloatNum(sender, e)
-        End Sub
+    Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
+        Check_Point_in_FloatNum(sender, e)
+    End Sub
 
 
     Private Sub Fetch_IM_Units()
-            Get_Unit = False
-            Dim c As New C
-            U_Dt.Clear()
-            Try
-                Dim s As String
-                s = "select U_IM_ID,U_Name from IM_Menu_Units_V  WHERE IM_ID = '" & IM_ID & "' Order By U_Cargo Desc"
-                c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-                c.Da.Fill(U_Dt)
+        Get_Unit = False
+        Dim c As New C
+        U_Dt.Clear()
+        Try
+            Dim s As String
+            s = "select U_IM_ID,U_Name from IM_Menu_Units_V  WHERE IM_ID = '" & IM_ID & "' Order By U_Cargo Desc"
+            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+            c.Da.Fill(U_Dt)
+            IM_Unit_cm.DataSource = U_Dt
+            IM_Unit_cm.DisplayMember = "U_Name"
+            IM_Unit_cm.ValueMember = "U_IM_ID"
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        Get_Unit = True
+        IM_Fetch_QTY()
+    End Sub
+
+    Private Sub Load_SelectedItemData()
+
+        Get_Unit = False
+        U_Dt.Clear()
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using allQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID",
+                    cn
+                )
+
+                    allQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    ALL_QTY = Convert.ToDouble(allQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Dim stId As Object = ST_cm.SelectedValue
+                If stId Is Nothing OrElse stId Is DBNull.Value Then stId = 0
+
+                Using storeQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID AND ST_ID = @ST_ID",
+                    cn
+                )
+
+                    storeQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    storeQtyCmd.Parameters.AddWithValue("@ST_ID", stId)
+                    IM_QTY = Convert.ToDouble(storeQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Using unitsCmd As New SqlClient.SqlCommand(
+                    "select U_IM_ID,U_Name from IM_Menu_Units_V WHERE IM_ID = @IM_ID Order By U_Cargo Desc",
+                    cn
+                )
+
+                    unitsCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+
+                    Using da As New SqlClient.SqlDataAdapter(unitsCmd)
+                        da.Fill(U_Dt)
+                    End Using
+
+                End Using
+
                 IM_Unit_cm.DataSource = U_Dt
                 IM_Unit_cm.DisplayMember = "U_Name"
                 IM_Unit_cm.ValueMember = "U_IM_ID"
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-            Get_Unit = True
-            IM_Fetch_QTY()
-        End Sub
 
-        Private Sub IM_Fetch_QTY()
-            Dim c As New C
-            Try
-                Dim s As String
-                s = "select U_ID,U_Cargo,Price from IM_Menu_Units_V WHERE U_IM_ID = '" & IM_Unit_cm.SelectedValue & "'"
-                c.Com = New SqlClient.SqlCommand(s, c.Con)
-                c.Con.Open()
-                c.Dr = c.Com.ExecuteReader
-                If c.Dr.HasRows Then
-                    c.Dr.Read()
-                    U_Cargo = c.Dr("U_Cargo")
-                    Dim N As Double = (Convert.ToDouble(IM_QTY) / c.Dr("U_Cargo"))
-                    Current_QTY.Text = N.ToString("N")
-                    ALL_QTY_txt.Text = ALL_QTY / U_Cargo
-                    U_ID = c.Dr("U_ID")
+                Get_Unit = True
+                ApplySelectedUnitData(cn)
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ApplySelectedUnitData(cn As SqlClient.SqlConnection)
+
+        If IM_Unit_cm.SelectedValue Is Nothing Then
+            Return
+        End If
+
+        Using unitCmd As New SqlClient.SqlCommand(
+            "select U_ID,U_Cargo,Price from IM_Menu_Units_V WHERE U_IM_ID = @U_IM_ID",
+            cn
+        )
+
+            unitCmd.Parameters.AddWithValue("@U_IM_ID", IM_Unit_cm.SelectedValue)
+
+            Using rdr As SqlClient.SqlDataReader = unitCmd.ExecuteReader()
+
+                If rdr.Read() Then
+
+                    U_Cargo = Convert.ToDouble(rdr("U_Cargo"))
+
+                    If U_Cargo <> 0 Then
+                        Current_QTY.Text = (Convert.ToDouble(IM_QTY) / U_Cargo).ToString("N")
+                        ALL_QTY_txt.Text = ALL_QTY / U_Cargo
+                    Else
+                        Current_QTY.Text = "0"
+                        ALL_QTY_txt.Text = "0"
+                    End If
+
+                    U_ID = Convert.ToInt32(rdr("U_ID"))
+
                 End If
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
+
+            End Using
+
+        End Using
+
+        Using costCmd As New SqlClient.SqlCommand(
+            "select Cost from IM_All_V WHERE IM_ID = @IM_ID",
+            cn
+        )
+
+            costCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+            Dim costValue As Object = costCmd.ExecuteScalar()
+
+            If costValue IsNot Nothing AndAlso costValue IsNot DBNull.Value Then
+                IM_Cost_txt.Text = (Convert.ToDouble(costValue) * U_Cargo).ToString()
+            End If
+
+        End Using
+
+    End Sub
+
+    Private Sub IM_Fetch_QTY()
+        Dim c As New C
+        Try
+            Dim s As String
+            s = "select U_ID,U_Cargo,Price from IM_Menu_Units_V WHERE U_IM_ID = '" & IM_Unit_cm.SelectedValue & "'"
+            c.Com = New SqlClient.SqlCommand(s, c.Con)
+            c.Con.Open()
+            c.Dr = c.Com.ExecuteReader
+            If c.Dr.HasRows Then
+                c.Dr.Read()
+                U_Cargo = c.Dr("U_Cargo")
+                Dim N As Double = (Convert.ToDouble(IM_QTY) / c.Dr("U_Cargo"))
+                Current_QTY.Text = N.ToString("N")
+                ALL_QTY_txt.Text = ALL_QTY / U_Cargo
+                U_ID = c.Dr("U_ID")
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
 
-            c = New C
-            Try
-                Dim s As String
-                s = "select Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
-                c.Com = New SqlClient.SqlCommand(s, c.Con)
-                c.Con.Open()
-                c.Dr = c.Com.ExecuteReader
-                If c.Dr.HasRows Then
-                    c.Dr.Read()
-                    IM_Cost_txt.Text = c.Dr("Cost") * U_Cargo
-                End If
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
+        c = New C
+        Try
+            Dim s As String
+            s = "select Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
+            c.Com = New SqlClient.SqlCommand(s, c.Con)
+            c.Con.Open()
+            c.Dr = c.Com.ExecuteReader
+            If c.Dr.HasRows Then
+                c.Dr.Read()
+                IM_Cost_txt.Text = c.Dr("Cost") * U_Cargo
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
-        End Sub
+    End Sub
 
-        Private Sub IM_Unit_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles IM_Unit_cm.SelectedValueChanged
+    Private Sub IM_Unit_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles IM_Unit_cm.SelectedValueChanged
         If String.IsNullOrWhiteSpace(Current_QTY.Text) = False And Get_Unit = True Then
             IM_Fetch_QTY()
             If Valid_Panel.Visible = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
@@ -262,24 +376,24 @@
         End If
     End Sub
 
-        Private Sub IM_Unit_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Unit_cm.KeyDown
-            Select Case e.KeyCode
-                Case Keys.Return, Keys.Left : QtyTextBox.Select()
-            End Select
-        End Sub
+    Private Sub IM_Unit_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Unit_cm.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Return, Keys.Left : QtyTextBox.Select()
+        End Select
+    End Sub
 
 
-        Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles ST_cm.SelectedValueChanged
-            If Get_Unit = True Then
-                Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-                IM_Fetch_QTY()
-                If Valid_Panel.Visible = True Then Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
-            End If
-        End Sub
+    Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles ST_cm.SelectedValueChanged
+        If Get_Unit = True Then
+            Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
+            IM_Fetch_QTY()
+            If Valid_Panel.Visible = True Then Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
+        End If
+    End Sub
 
-        Private Sub Valid_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles Valid_cm.SelectedValueChanged
-            If Get_Unit = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
-        End Sub
+    Private Sub Valid_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles Valid_cm.SelectedValueChanged
+        If Get_Unit = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
+    End Sub
 
     Private Sub Exit_Btn_Click(sender As Object, e As EventArgs) Handles Exit_Btn.Click
         Me.Close()

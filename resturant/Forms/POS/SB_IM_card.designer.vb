@@ -144,7 +144,7 @@ Partial Class SB_IM_card
         '
         Me.ALL_QTY_txt.BackColor = System.Drawing.SystemColors.HighlightText
         Me.ALL_QTY_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ALL_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 12.75!)
+        Me.ALL_QTY_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.ALL_QTY_txt.ForeColor = System.Drawing.Color.Firebrick
         Me.ALL_QTY_txt.Location = New System.Drawing.Point(3, 3)
         Me.ALL_QTY_txt.Name = "ALL_QTY_txt"
@@ -182,7 +182,7 @@ Partial Class SB_IM_card
         '
         Me.Current_QTY.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Current_QTY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Current_QTY.Font = New System.Drawing.Font("Times New Roman", 12.75!)
+        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Current_QTY.ForeColor = System.Drawing.Color.Firebrick
         Me.Current_QTY.Location = New System.Drawing.Point(3, 3)
         Me.Current_QTY.Name = "Current_QTY"

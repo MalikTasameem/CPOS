@@ -48,9 +48,7 @@
     Private Sub HandleItemSelected(itemId As Integer, isValid As String)
         IM_ID = itemId
         Get_Unit = False
-        Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-        Load_IM_ALL_QTY(IM_ID, ALL_QTY, ALL_QTY_txt, U_Cargo)
-        Fetch_IM_Units()
+        Load_SelectedItemData()
         QtyTextBox.Select()
 
         If isValid = 1 Then
@@ -69,42 +67,42 @@
 
 
     Public Sub Load_ST()
-            Dim c As New C
-            Try
-                Dim s As String
-                s = "select ST_ID,ST_name from STORES ORDER By ST_ID ASC"
-                c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-                c.Da.Fill(c.Dt)
-                ST_cm.DataSource = c.Dt
-                ST_cm.DisplayMember = "ST_name"
-                ST_cm.ValueMember = "ST_ID"
-                ST_cm.SelectedValue = PCH_ST_ID
-                If PCH_ST_Can_change = False Then ST_cm.Enabled = False
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-        End Sub
+        Dim c As New C
+        Try
+            Dim s As String
+            s = "select ST_ID,ST_name from STORES ORDER By ST_ID ASC"
+            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+            c.Da.Fill(c.Dt)
+            ST_cm.DataSource = c.Dt
+            ST_cm.DisplayMember = "ST_name"
+            ST_cm.ValueMember = "ST_ID"
+            ST_cm.SelectedValue = PCH_ST_ID
+            If PCH_ST_Can_change = False Then ST_cm.Enabled = False
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 
 
     Private Function IM_Check_Neg_QTY_For_Cancel_Pch()
-            Dim C As New C
-            Dim F As Integer = 0
-            With C.Com
-                .Connection = C.Con
-                .CommandText = "IM_Check_Neg_QTY_For_Cancel_Pch"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@F", 0)
-                .Parameters.AddWithValue("@T_ID", T_ID)
-                .Parameters.Add("@Str_Name", SqlDbType.Char, 1500)
-                .Parameters("@F").Direction = ParameterDirection.Output
-                .Parameters("@Str_Name").Direction = ParameterDirection.Output
-                If SQL_SP_EXEC(C.Com) Then
-                    F = .Parameters("@F").Value
-                    Str_Name = .Parameters("@Str_Name").Value
-                End If
-            End With
-            Return F
-        End Function
+        Dim C As New C
+        Dim F As Integer = 0
+        With C.Com
+            .Connection = C.Con
+            .CommandText = "IM_Check_Neg_QTY_For_Cancel_Pch"
+            .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@F", 0)
+            .Parameters.AddWithValue("@T_ID", T_ID)
+            .Parameters.Add("@Str_Name", SqlDbType.Char, 1500)
+            .Parameters("@F").Direction = ParameterDirection.Output
+            .Parameters("@Str_Name").Direction = ParameterDirection.Output
+            If SQL_SP_EXEC(C.Com) Then
+                F = .Parameters("@F").Value
+                Str_Name = .Parameters("@Str_Name").Value
+            End If
+        End With
+        Return F
+    End Function
 
 
     Private Sub ADDCatButton_Click(sender As Object, e As EventArgs) Handles ADDCatButton.Click
@@ -233,124 +231,124 @@
 
         End If
 
-        End Sub
+    End Sub
 
     Private Sub Valid_Notes_Insert()
 
-            For i = 0 To Valid_ListBox.Items.Count - 1
-                Valid_ListBox.SelectedIndex = i
+        For i = 0 To Valid_ListBox.Items.Count - 1
+            Valid_ListBox.SelectedIndex = i
 
-                Dim sqlComm As New SqlClient.SqlCommand
-                sqlComm.CommandText = "Valid_Notes_Insert"
-                sqlComm.CommandType = CommandType.StoredProcedure
-                sqlComm.Parameters.AddWithValue("@Pch_T_ID", Indx_ID)
-                sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
-                sqlComm.Parameters.AddWithValue("@VALID_DATE", Valid_ListBox.SelectedItem)
-                SQL_SP_EXEC(sqlComm)
+            Dim sqlComm As New SqlClient.SqlCommand
+            sqlComm.CommandText = "Valid_Notes_Insert"
+            sqlComm.CommandType = CommandType.StoredProcedure
+            sqlComm.Parameters.AddWithValue("@Pch_T_ID", Indx_ID)
+            sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
+            sqlComm.Parameters.AddWithValue("@VALID_DATE", Valid_ListBox.SelectedItem)
+            SQL_SP_EXEC(sqlComm)
 
-            Next
-        End Sub
+        Next
+    End Sub
 
 
     Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown
-            Select Case e.KeyCode
-                Case Keys.Return, Keys.Left : NewSalePrice_txt.Select()
+        Select Case e.KeyCode
+            Case Keys.Return, Keys.Left : NewSalePrice_txt.Select()
             Case Keys.Up : mySearchControl.txtSearch.Select()
             Case Keys.Right : QtyTextBox.Select()
-            End Select
-        End Sub
+        End Select
+    End Sub
 
-        Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
-            Check_Only_Float(sender, e)
-        End Sub
+    Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
+        Check_Only_Float(sender, e)
+    End Sub
 
-        Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
-            Check_Point_in_FloatNum(sender, e)
-            If Not String.IsNullOrWhiteSpace(PriceTextBox.Text) And U_Cargo > 1 Then
-                CostByOne.Text = Convert.ToDouble(PriceTextBox.Text) / U_Cargo
-                CalcAvgCost()
-            Else
-                CostByOne.Clear()
-                CalcAvgCost()
+    Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
+        Check_Point_in_FloatNum(sender, e)
+        If Not String.IsNullOrWhiteSpace(PriceTextBox.Text) And U_Cargo > 1 Then
+            CostByOne.Text = Convert.ToDouble(PriceTextBox.Text) / U_Cargo
+            CalcAvgCost()
+        Else
+            CostByOne.Clear()
+            CalcAvgCost()
+        End If
+
+        If S_Stores = True And Not String.IsNullOrWhiteSpace(ALL_QTY_txt.Text) Then
+            If Convert.ToDouble(ALL_QTY_txt.Text) <= 0 Then
+                NewSalePrice_txt.Text = PriceTextBox.Text
             End If
+        End If
 
-            If S_Stores = True And Not String.IsNullOrWhiteSpace(ALL_QTY_txt.Text) Then
-                If Convert.ToDouble(ALL_QTY_txt.Text) <= 0 Then
-                    NewSalePrice_txt.Text = PriceTextBox.Text
-                End If
-            End If
+    End Sub
 
-        End Sub
+    Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
 
-        Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
-
-            Select Case e.KeyCode
-                Case Keys.Return, Keys.Left : PriceTextBox.Select()
+        Select Case e.KeyCode
+            Case Keys.Return, Keys.Left : PriceTextBox.Select()
             Case Keys.Up : mySearchControl.txtSearch.Select()
             Case Keys.Right
-                    IM_Unit_cm.Select()
-                    IM_Unit_cm.DroppedDown = True
-            End Select
+                IM_Unit_cm.Select()
+                IM_Unit_cm.DroppedDown = True
+        End Select
 
-        End Sub
+    End Sub
 
-        Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
-            Check_Only_Float(sender, e)
-        End Sub
+    Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
+        Check_Only_Float(sender, e)
+    End Sub
 
-        Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
-            Check_Point_in_FloatNum(sender, e)
-            CalcAvgCost()
-        End Sub
+    Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
+        Check_Point_in_FloatNum(sender, e)
+        CalcAvgCost()
+    End Sub
 
-        Private Sub CalcAvgCost()
-            If S_Stores = True Then
-                If String.IsNullOrWhiteSpace(Current_QTY.Text) Then Current_QTY.Text = "0"
-                If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "0"
-                If Current_QTY.Text.Count > 0 Then If Convert.ToDouble(Current_QTY.Text) > 0 Then IM_Set_Avg()
+    Private Sub CalcAvgCost()
+        If S_Stores = True Then
+            If String.IsNullOrWhiteSpace(Current_QTY.Text) Then Current_QTY.Text = "0"
+            If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "0"
+            If Current_QTY.Text.Count > 0 Then If Convert.ToDouble(Current_QTY.Text) > 0 Then IM_Set_Avg()
+        End If
+    End Sub
+
+    Public Sub IM_Set_Avg()
+        Dim Prev_Cost As Double = 0
+        Dim Prev_Qty As Double = 0
+        If String.IsNullOrWhiteSpace(PriceTextBox.Text) Then PriceTextBox.Text = "0"
+
+        Dim c As New C
+        c = New C
+        Try
+            Dim s As String
+            s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "'"
+            c.Com = New SqlClient.SqlCommand(s, c.Con)
+            c.Con.Open()
+            c.Dr = c.Com.ExecuteReader
+            If c.Dr.HasRows Then
+                c.Dr.Read()
+                Prev_Qty = c.Dr("QTY")
             End If
-        End Sub
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        '------------------------------------------------------------------------------------------------
 
-        Public Sub IM_Set_Avg()
-            Dim Prev_Cost As Double = 0
-            Dim Prev_Qty As Double = 0
-            If String.IsNullOrWhiteSpace(PriceTextBox.Text) Then PriceTextBox.Text = "0"
-
-            Dim c As New C
-            c = New C
-            Try
-                Dim s As String
-                s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "'"
-                c.Com = New SqlClient.SqlCommand(s, c.Con)
-                c.Con.Open()
-                c.Dr = c.Com.ExecuteReader
-                If c.Dr.HasRows Then
-                    c.Dr.Read()
-                    Prev_Qty = c.Dr("QTY")
-                End If
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-            '------------------------------------------------------------------------------------------------
-
-            c = New C
-            Try
-                Dim s As String
-                s = "select Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
-                c.Com = New SqlClient.SqlCommand(s, c.Con)
-                c.Con.Open()
-                c.Dr = c.Com.ExecuteReader
-                If c.Dr.HasRows Then
-                    c.Dr.Read()
-                    Prev_Cost = c.Dr("Cost")
-                    NewSalePrice_txt.Text =
+        c = New C
+        Try
+            Dim s As String
+            s = "select Cost from IM_All_V WHERE IM_ID = '" & IM_ID & "'"
+            c.Com = New SqlClient.SqlCommand(s, c.Con)
+            c.Con.Open()
+            c.Dr = c.Com.ExecuteReader
+            If c.Dr.HasRows Then
+                c.Dr.Read()
+                Prev_Cost = c.Dr("Cost")
+                NewSalePrice_txt.Text =
                  ((((Prev_Cost * Prev_Qty) + (Convert.ToDouble(PriceTextBox.Text) * Convert.ToDouble(QtyTextBox.Text))) / (Prev_Qty + Convert.ToDouble(QtyTextBox.Text))) * U_Cargo).ToString("0.00")
-                End If
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
-        End Sub
+    End Sub
 
     Public Sub Fetch_IM_Units()
 
@@ -369,6 +367,156 @@
         End Try
         Get_Unit = True
         IM_Fetch_QTY()
+    End Sub
+
+    Private Sub Load_SelectedItemData()
+
+        Get_Unit = False
+        U_Dt.Clear()
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using allQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID",
+                    cn
+                )
+
+                    allQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    ALL_QTY = Convert.ToDouble(allQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Dim stId As Object = ST_cm.SelectedValue
+                If stId Is Nothing OrElse stId Is DBNull.Value Then stId = 0
+
+                Using storeQtyCmd As New SqlClient.SqlCommand(
+                    "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = @IM_ID AND ST_ID = @ST_ID",
+                    cn
+                )
+
+                    storeQtyCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+                    storeQtyCmd.Parameters.AddWithValue("@ST_ID", stId)
+                    IM_QTY = Convert.ToDouble(storeQtyCmd.ExecuteScalar())
+
+                End Using
+
+                Using unitsCmd As New SqlClient.SqlCommand(
+                    "select U_IM_ID,U_Name from IM_Menu_Units_V WHERE IM_ID = @IM_ID Order By U_Cargo Desc",
+                    cn
+                )
+
+                    unitsCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+
+                    Using da As New SqlClient.SqlDataAdapter(unitsCmd)
+                        da.Fill(U_Dt)
+                    End Using
+
+                End Using
+
+                IM_Unit_cm.DataSource = U_Dt
+                IM_Unit_cm.DisplayMember = "U_Name"
+                IM_Unit_cm.ValueMember = "U_IM_ID"
+
+                Get_Unit = True
+                ApplySelectedUnitData(cn)
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ApplySelectedUnitData(cn As SqlClient.SqlConnection)
+
+        If IM_Unit_cm.SelectedValue Is Nothing Then
+            Return
+        End If
+
+        Using unitCmd As New SqlClient.SqlCommand(
+            "select U_ID,U_Cargo,Price,Min_SP from IM_Menu_Units_V WHERE U_IM_ID = @U_IM_ID AND IM_ID = @IM_ID",
+            cn
+        )
+
+            unitCmd.Parameters.AddWithValue("@U_IM_ID", IM_Unit_cm.SelectedValue)
+            unitCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+
+            Using rdr As SqlClient.SqlDataReader = unitCmd.ExecuteReader()
+
+                If rdr.Read() Then
+
+                    U_Cargo = Convert.ToDouble(rdr("U_Cargo"))
+                    Prev_Sale_Unit_txt.Text = rdr("Price").ToString()
+
+                    If U_Cargo <> 0 Then
+                        Current_QTY.Text = (Convert.ToDouble(IM_QTY) / U_Cargo).ToString("N")
+                        ALL_QTY_txt.Text = ALL_QTY / U_Cargo
+                    Else
+                        Current_QTY.Text = "0"
+                        ALL_QTY_txt.Text = "0"
+                    End If
+
+                    U_ID = Convert.ToInt32(rdr("U_ID"))
+
+                    If U_Cargo > 1 Then
+                        One_Panel.Visible = True
+                        Two_Panel.Visible = True
+                        NewSaleByOne.Visible = True
+                        CostByOne.Visible = True
+                        Min_SP_By_One_Lb.Visible = True
+                        Min_SP_By_One_txt.Visible = True
+                        Min_SP_2_By_One_txt.Visible = True
+                        Min_SP_2_By_One_Lb.Visible = True
+                    Else
+                        One_Panel.Visible = False
+                        Two_Panel.Visible = False
+                        NewSaleByOne.Visible = False
+                        CostByOne.Visible = False
+                        Min_SP_By_One_Lb.Visible = False
+                        Min_SP_By_One_txt.Visible = False
+                        Min_SP_2_By_One_txt.Visible = False
+                        Min_SP_2_By_One_Lb.Visible = False
+                    End If
+
+                    CalcAvgCost()
+
+                End If
+
+            End Using
+
+        End Using
+
+        ApplyLastPurchasePrice(cn)
+
+    End Sub
+
+    Private Sub ApplyLastPurchasePrice(cn As SqlClient.SqlConnection)
+
+        PriceTextBox.Clear()
+
+        Using priceCmd As New SqlClient.SqlCommand(
+            "select TOP 1 Price from Pch_Details WHERE IM_ID = @IM_ID AND U_ID = @U_ID AND isDepended = 1 ORDER BY Date DESC",
+            cn
+        )
+
+            priceCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
+            priceCmd.Parameters.AddWithValue("@U_ID", U_ID)
+
+            Dim priceValue As Object = priceCmd.ExecuteScalar()
+
+            If priceValue IsNot Nothing AndAlso priceValue IsNot DBNull.Value Then
+                PriceTextBox.Text = priceValue.ToString()
+            End If
+
+        End Using
+
     End Sub
 
     Private Sub NewSalePrice_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles NewSalePrice_txt.KeyPress
@@ -699,75 +847,75 @@
 
 
     Private Sub Add_Valid_Btn_Click(sender As Object, e As EventArgs) Handles Add_Valid_Btn.Click
-            Valid_ListBox.Items.Add(Valid_For_List_Date.Value)
-        End Sub
+        Valid_ListBox.Items.Add(Valid_For_List_Date.Value)
+    End Sub
 
-        Private Sub Remove_Valid_Btn_Click(sender As Object, e As EventArgs) Handles Remove_Valid_Btn.Click
-            Valid_ListBox.Items.Remove(Valid_ListBox.SelectedItem)
-        End Sub
+    Private Sub Remove_Valid_Btn_Click(sender As Object, e As EventArgs) Handles Remove_Valid_Btn.Click
+        Valid_ListBox.Items.Remove(Valid_ListBox.SelectedItem)
+    End Sub
 
 
     Private Sub Show_IM_Note_Valid_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Show_IM_Note_Valid_CB.CheckedChanged
-            CB_CHecked(sender)
-            IM_Valid_Note_Panel.Visible = Show_IM_Note_Valid_CB.Checked()
-        End Sub
+        CB_CHecked(sender)
+        IM_Valid_Note_Panel.Visible = Show_IM_Note_Valid_CB.Checked()
+    End Sub
 
 
     Private Sub Min_SP_2_By_One_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Min_SP_2_By_One_txt.KeyDown
-            Select Case e.KeyCode
-                Case Keys.Return
+        Select Case e.KeyCode
+            Case Keys.Return
 
-                    If ADDCatButton.Enabled = True Then ADDCatButton_Click(sender, e)
+                If ADDCatButton.Enabled = True Then ADDCatButton_Click(sender, e)
 
-                Case Keys.Up : NewSalePrice_txt.Select()
-                Case Keys.Right : Min_SP_2_txt.Select()
+            Case Keys.Up : NewSalePrice_txt.Select()
+            Case Keys.Right : Min_SP_2_txt.Select()
 
-            End Select
-        End Sub
+        End Select
+    End Sub
 
-        Private Sub Confirm_ADD_bercent_Click(sender As Object, e As EventArgs) Handles Confirm_ADD_bercent.Click
-            If SP_CB.Checked = True Then NewSalePrice_txt.Text = ((Convert.ToDouble(bercent_ADD_txt.Text) * Convert.ToDouble(PriceTextBox.Text)) / 100) + Convert.ToDouble(PriceTextBox.Text)
+    Private Sub Confirm_ADD_bercent_Click(sender As Object, e As EventArgs) Handles Confirm_ADD_bercent.Click
+        If SP_CB.Checked = True Then NewSalePrice_txt.Text = ((Convert.ToDouble(bercent_ADD_txt.Text) * Convert.ToDouble(PriceTextBox.Text)) / 100) + Convert.ToDouble(PriceTextBox.Text)
 
-            If SP_1_CB.Checked = True Then Min_SP_txt.Text = ((Convert.ToDouble(bercent_ADD_txt.Text) * Convert.ToDouble(PriceTextBox.Text)) / 100) + Convert.ToDouble(PriceTextBox.Text)
+        If SP_1_CB.Checked = True Then Min_SP_txt.Text = ((Convert.ToDouble(bercent_ADD_txt.Text) * Convert.ToDouble(PriceTextBox.Text)) / 100) + Convert.ToDouble(PriceTextBox.Text)
 
-            If SP_2_CB.Checked = True Then Min_SP_2_txt.Text = ((Convert.ToDouble(bercent_ADD_txt.Text) * Convert.ToDouble(PriceTextBox.Text)) / 100) + Convert.ToDouble(PriceTextBox.Text)
+        If SP_2_CB.Checked = True Then Min_SP_2_txt.Text = ((Convert.ToDouble(bercent_ADD_txt.Text) * Convert.ToDouble(PriceTextBox.Text)) / 100) + Convert.ToDouble(PriceTextBox.Text)
 
-        End Sub
+    End Sub
 
     Private Sub SP_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_CB.CheckedChanged
-            CB_CHecked(sender)
-        End Sub
+        CB_CHecked(sender)
+    End Sub
 
-        Private Sub SP_1_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_1_CB.CheckedChanged
-            CB_CHecked(sender)
-        End Sub
+    Private Sub SP_1_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_1_CB.CheckedChanged
+        CB_CHecked(sender)
+    End Sub
 
-        Private Sub SP_2_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_2_CB.CheckedChanged
-            CB_CHecked(sender)
-        End Sub
+    Private Sub SP_2_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_2_CB.CheckedChanged
+        CB_CHecked(sender)
+    End Sub
 
-        Private Sub Min_SP_Panel_VisibleChanged(sender As Object, e As EventArgs) Handles Min_SP_Panel.VisibleChanged
-            SP_1_CB.Visible = Min_SP_Panel.Visible
-        End Sub
+    Private Sub Min_SP_Panel_VisibleChanged(sender As Object, e As EventArgs) Handles Min_SP_Panel.VisibleChanged
+        SP_1_CB.Visible = Min_SP_Panel.Visible
+    End Sub
 
-        Private Sub Min_SP_Panel_2_VisibleChanged(sender As Object, e As EventArgs) Handles Min_SP_Panel_2.VisibleChanged
-            SP_2_CB.Visible = Min_SP_Panel_2.Visible
-        End Sub
+    Private Sub Min_SP_Panel_2_VisibleChanged(sender As Object, e As EventArgs) Handles Min_SP_Panel_2.VisibleChanged
+        SP_2_CB.Visible = Min_SP_Panel_2.Visible
+    End Sub
 
 
     Private Sub Min_SP_By_One_txt_TextChanged(sender As Object, e As EventArgs) Handles Min_SP_By_One_txt.TextChanged
 
         If MIN_BY_ONE_RD.Checked = True Then
 
-                If Not String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) And U_Cargo > 1 Then
-                    Min_SP_txt.Text = (Convert.ToDouble(Min_SP_By_One_txt.Text) * U_Cargo).ToString("N")
-                Else
-                    Min_SP_txt.Clear()
-                End If
-
+            If Not String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) And U_Cargo > 1 Then
+                Min_SP_txt.Text = (Convert.ToDouble(Min_SP_By_One_txt.Text) * U_Cargo).ToString("N")
+            Else
+                Min_SP_txt.Clear()
             End If
 
-        End Sub
+        End If
+
+    End Sub
 
     Private Sub Exit_Btn_Click(sender As Object, e As EventArgs) Handles Exit_Btn.Click
         Me.Close()
