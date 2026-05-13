@@ -97,9 +97,9 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.Help_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Help_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.Help_LB.Location = New System.Drawing.Point(16, 51)
+        Me.Help_LB.Location = New System.Drawing.Point(0, 46)
         Me.Help_LB.Name = "Help_LB"
-        Me.Help_LB.Size = New System.Drawing.Size(996, 24)
+        Me.Help_LB.Size = New System.Drawing.Size(1023, 24)
         Me.Help_LB.TabIndex = 16
         Me.Help_LB.Text = "راجع ملخص الأثر وتفاصيل الحركات والقيد المحاسبي قبل اعتماد التعديل أو التراجع عنه" &
     "."
@@ -109,9 +109,9 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.SummaryTitle_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.SummaryTitle_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.SummaryTitle_LB.Location = New System.Drawing.Point(16, 79)
+        Me.SummaryTitle_LB.Location = New System.Drawing.Point(932, 73)
         Me.SummaryTitle_LB.Name = "SummaryTitle_LB"
-        Me.SummaryTitle_LB.Size = New System.Drawing.Size(996, 22)
+        Me.SummaryTitle_LB.Size = New System.Drawing.Size(91, 22)
         Me.SummaryTitle_LB.TabIndex = 17
         Me.SummaryTitle_LB.Text = "ملخص المستند"
         Me.SummaryTitle_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -120,9 +120,9 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.ImpactTitle_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.ImpactTitle_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.ImpactTitle_LB.Location = New System.Drawing.Point(16, 170)
+        Me.ImpactTitle_LB.Location = New System.Drawing.Point(4, 124)
         Me.ImpactTitle_LB.Name = "ImpactTitle_LB"
-        Me.ImpactTitle_LB.Size = New System.Drawing.Size(996, 22)
+        Me.ImpactTitle_LB.Size = New System.Drawing.Size(1007, 22)
         Me.ImpactTitle_LB.TabIndex = 18
         Me.ImpactTitle_LB.Text = "تفاصيل الأثر على الحركات"
         Me.ImpactTitle_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -131,9 +131,9 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.JournalTitle_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.JournalTitle_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.JournalTitle_LB.Location = New System.Drawing.Point(16, 526)
+        Me.JournalTitle_LB.Location = New System.Drawing.Point(4, 475)
         Me.JournalTitle_LB.Name = "JournalTitle_LB"
-        Me.JournalTitle_LB.Size = New System.Drawing.Size(996, 22)
+        Me.JournalTitle_LB.Size = New System.Drawing.Size(1006, 22)
         Me.JournalTitle_LB.TabIndex = 19
         Me.JournalTitle_LB.Text = "القيد المحاسبي المتوقع"
         Me.JournalTitle_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -142,9 +142,9 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(912, 105)
+        Me.Label1.Location = New System.Drawing.Point(576, 73)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(100, 23)
+        Me.Label1.Size = New System.Drawing.Size(59, 23)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Batch ID"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -153,9 +153,9 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(810, 144)
+        Me.Label2.Location = New System.Drawing.Point(392, 73)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(73, 23)
+        Me.Label2.Size = New System.Drawing.Size(67, 23)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "إجمالي الأثر"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -164,9 +164,9 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(576, 144)
+        Me.Label3.Location = New System.Drawing.Point(267, 73)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(71, 23)
+        Me.Label3.Size = New System.Drawing.Size(68, 23)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "أثر المخزون"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -175,7 +175,7 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(308, 144)
+        Me.Label4.Location = New System.Drawing.Point(123, 73)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(96, 23)
         Me.Label4.TabIndex = 3
@@ -186,7 +186,7 @@ Partial Class Frm_InventoryCostRecountPreview
         '
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(26, 144)
+        Me.Label5.Location = New System.Drawing.Point(13, 74)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(85, 23)
         Me.Label5.TabIndex = 4
@@ -198,11 +198,11 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Txt_BatchId.BackColor = System.Drawing.Color.White
         Me.Txt_BatchId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_BatchId.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Txt_BatchId.Location = New System.Drawing.Point(650, 105)
+        Me.Txt_BatchId.Location = New System.Drawing.Point(485, 98)
         Me.Txt_BatchId.Name = "Txt_BatchId"
         Me.Txt_BatchId.ReadOnly = True
         Me.Txt_BatchId.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Txt_BatchId.Size = New System.Drawing.Size(256, 23)
+        Me.Txt_BatchId.Size = New System.Drawing.Size(226, 23)
         Me.Txt_BatchId.TabIndex = 5
         '
         'Txt_TotalImpact
@@ -210,7 +210,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Txt_TotalImpact.BackColor = System.Drawing.Color.White
         Me.Txt_TotalImpact.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_TotalImpact.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Txt_TotalImpact.Location = New System.Drawing.Point(886, 144)
+        Me.Txt_TotalImpact.Location = New System.Drawing.Point(358, 98)
         Me.Txt_TotalImpact.Name = "Txt_TotalImpact"
         Me.Txt_TotalImpact.ReadOnly = True
         Me.Txt_TotalImpact.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -223,7 +223,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Txt_InventoryImpact.BackColor = System.Drawing.Color.White
         Me.Txt_InventoryImpact.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_InventoryImpact.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Txt_InventoryImpact.Location = New System.Drawing.Point(650, 144)
+        Me.Txt_InventoryImpact.Location = New System.Drawing.Point(231, 98)
         Me.Txt_InventoryImpact.Name = "Txt_InventoryImpact"
         Me.Txt_InventoryImpact.ReadOnly = True
         Me.Txt_InventoryImpact.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -236,7 +236,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Txt_COGSImpact.BackColor = System.Drawing.Color.White
         Me.Txt_COGSImpact.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_COGSImpact.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Txt_COGSImpact.Location = New System.Drawing.Point(406, 144)
+        Me.Txt_COGSImpact.Location = New System.Drawing.Point(104, 98)
         Me.Txt_COGSImpact.Name = "Txt_COGSImpact"
         Me.Txt_COGSImpact.ReadOnly = True
         Me.Txt_COGSImpact.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -249,7 +249,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Txt_ExpenseImpact.BackColor = System.Drawing.Color.White
         Me.Txt_ExpenseImpact.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_ExpenseImpact.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Txt_ExpenseImpact.Location = New System.Drawing.Point(115, 144)
+        Me.Txt_ExpenseImpact.Location = New System.Drawing.Point(3, 98)
         Me.Txt_ExpenseImpact.Name = "Txt_ExpenseImpact"
         Me.Txt_ExpenseImpact.ReadOnly = True
         Me.Txt_ExpenseImpact.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -266,7 +266,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.GridImpact.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -276,7 +276,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.GridImpact.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GridImpact.EnableHeadersVisualStyles = False
         Me.GridImpact.GridColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(240, Byte), Integer))
-        Me.GridImpact.Location = New System.Drawing.Point(16, 194)
+        Me.GridImpact.Location = New System.Drawing.Point(4, 148)
         Me.GridImpact.Name = "GridImpact"
         Me.GridImpact.ReadOnly = True
         Me.GridImpact.RowHeadersVisible = False
@@ -286,7 +286,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.GridImpact.RowTemplate.Height = 32
         Me.GridImpact.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.GridImpact.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GridImpact.Size = New System.Drawing.Size(996, 324)
+        Me.GridImpact.Size = New System.Drawing.Size(1008, 324)
         Me.GridImpact.TabIndex = 10
         '
         'GridJournal
@@ -298,7 +298,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.GridJournal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -308,7 +308,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.GridJournal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GridJournal.EnableHeadersVisualStyles = False
         Me.GridJournal.GridColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(240, Byte), Integer))
-        Me.GridJournal.Location = New System.Drawing.Point(16, 550)
+        Me.GridJournal.Location = New System.Drawing.Point(4, 499)
         Me.GridJournal.Name = "GridJournal"
         Me.GridJournal.ReadOnly = True
         Me.GridJournal.RowHeadersVisible = False
@@ -318,7 +318,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.GridJournal.RowTemplate.Height = 32
         Me.GridJournal.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.GridJournal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GridJournal.Size = New System.Drawing.Size(996, 98)
+        Me.GridJournal.Size = New System.Drawing.Size(1008, 173)
         Me.GridJournal.TabIndex = 11
         '
         'Btn_Post
@@ -329,7 +329,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Btn_Post.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Btn_Post.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Post.ForeColor = System.Drawing.Color.White
-        Me.Btn_Post.Location = New System.Drawing.Point(872, 662)
+        Me.Btn_Post.Location = New System.Drawing.Point(872, 678)
         Me.Btn_Post.Name = "Btn_Post"
         Me.Btn_Post.Size = New System.Drawing.Size(140, 36)
         Me.Btn_Post.TabIndex = 12
@@ -344,7 +344,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Btn_Rollback.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Btn_Rollback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Rollback.ForeColor = System.Drawing.Color.White
-        Me.Btn_Rollback.Location = New System.Drawing.Point(724, 662)
+        Me.Btn_Rollback.Location = New System.Drawing.Point(724, 678)
         Me.Btn_Rollback.Name = "Btn_Rollback"
         Me.Btn_Rollback.Size = New System.Drawing.Size(140, 36)
         Me.Btn_Rollback.TabIndex = 13
@@ -359,7 +359,7 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Btn_Close.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Close.ForeColor = System.Drawing.Color.White
-        Me.Btn_Close.Location = New System.Drawing.Point(576, 662)
+        Me.Btn_Close.Location = New System.Drawing.Point(576, 678)
         Me.Btn_Close.Name = "Btn_Close"
         Me.Btn_Close.Size = New System.Drawing.Size(140, 36)
         Me.Btn_Close.TabIndex = 14

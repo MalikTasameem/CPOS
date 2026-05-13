@@ -8,6 +8,7 @@
     Public WithEvents btnClear As New Button()
     Private WithEvents btnRefresh As New Button()
     Private WithEvents btnToggleView As New Button()
+    Private WithEvents btnIMINFOView As New Button()
 
     ' DataTable مصدر البيانات
     Private _itemsTable As DataTable
@@ -184,16 +185,26 @@
         currentX -= btnToggleView.Width + 1
 
         ' مربع البحث يتمدد بالعرض
-        txtSearch.Height = txtSearch.Height
-        txtSearch.Width = currentX - cmbSearchBy.Width - 10
+        btnIMINFOView.Height = txtSearch.Height
+        btnIMINFOView.Width = 30
+
+        txtSearch.Width = currentX - cmbSearchBy.Width - btnIMINFOView.Width - 12
+
+        If txtSearch.Width < 80 Then
+            txtSearch.Width = 80
+        End If
+
         txtSearch.Location = New Point(currentX - txtSearch.Width, txtSearch.Top)
 
+        btnIMINFOView.Location = New Point(txtSearch.Left - btnIMINFOView.Width - 1, txtSearch.Top)
+
         ' ComboBox في أقصى اليمين
-        cmbSearchBy.Location = New Point(txtSearch.Left - cmbSearchBy.Width - 1, txtSearch.Top)
+        cmbSearchBy.Location = New Point(btnIMINFOView.Left - cmbSearchBy.Width - 1, txtSearch.Top)
 
         ' ضبط Anchor
         cmbSearchBy.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         txtSearch.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        btnIMINFOView.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         btnClear.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         btnRefresh.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         btnToggleView.Anchor = AnchorStyles.Top Or AnchorStyles.Right
@@ -209,6 +220,7 @@
     'Public Event ItemSelected(ByVal itemId As Integer)
 
     Public Event ItemSelected(ByVal itemId As Integer, ByVal isValid As String)
+    Public Event ItemInfoRequested(ByVal searchText As String, ByVal searchBy As String)
 
     ' ToolTip
     Private tt As New ToolTip()
@@ -234,6 +246,21 @@
 
         Me.Controls.Add(cmbSearchBy)
 
+
+
+        btnIMINFOView.Text = "ℹ"
+        btnIMINFOView.Size = New Size(30, 22)
+        btnIMINFOView.FlatStyle = FlatStyle.Popup
+        btnIMINFOView.BackColor = Color.WhiteSmoke
+        btnIMINFOView.Cursor = Cursors.Hand
+        btnIMINFOView.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
+        btnIMINFOView.ForeColor = Color.FromArgb(37, 99, 235)
+        btnIMINFOView.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Me.Controls.Add(btnIMINFOView)
+
+
+
+
         'txtSearch.Location = New Point(110, 5)
         txtSearch.Location = New Point(cmbSearchBy.Right + 1, 1)
         txtSearch.Width = 160
@@ -249,8 +276,10 @@
         'btnToggleView.Location = New Point(345, 5)
         btnToggleView.Size = New Size(30, 22)
         btnToggleView.Location = New Point(btnRefresh.Right + 1, 1)
-        btnToggleView.FlatStyle = FlatStyle.Flat
-        btnToggleView.BackColor = Color.LightGray
+        btnToggleView.FlatStyle = FlatStyle.Popup
+        btnToggleView.BackColor = Color.WhiteSmoke
+        btnToggleView.Cursor = Cursors.Hand
+        btnToggleView.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
         btnToggleView.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Me.Controls.Add(btnToggleView)
 
@@ -261,8 +290,10 @@
         btnClear.Size = New Size(30, 22)
         btnClear.Location = New Point(txtSearch.Right + 1, 1)
         'btnClear.Location = New Point(275, 5)
-        btnClear.FlatStyle = FlatStyle.Flat
-        btnClear.BackColor = Color.LightGray
+        btnClear.FlatStyle = FlatStyle.Popup
+        btnClear.BackColor = Color.WhiteSmoke
+        btnClear.Cursor = Cursors.Hand
+        btnClear.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
         btnClear.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         btnClear.ForeColor = Color.DarkRed
         Me.Controls.Add(btnClear)
@@ -274,8 +305,10 @@
         'btnRefresh.Location = New Point(310, 5)
         btnRefresh.Size = New Size(30, 22)
         btnRefresh.Location = New Point(btnClear.Right + 1, 1)
-        btnRefresh.FlatStyle = FlatStyle.Flat
-        btnRefresh.BackColor = Color.LightGray
+        btnRefresh.FlatStyle = FlatStyle.Popup
+        btnRefresh.BackColor = Color.WhiteSmoke
+        btnRefresh.Cursor = Cursors.Hand
+        btnRefresh.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
         btnRefresh.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         btnRefresh.ForeColor = Color.Blue
         Me.Controls.Add(btnRefresh)
@@ -286,6 +319,7 @@
         tt.SetToolTip(btnClear, "مسح حقل البحث")
         tt.SetToolTip(btnRefresh, "تحديث البيانات من المصدر")
         tt.SetToolTip(btnToggleView, "عرض أو إخفاء كافة الأصناف")
+        tt.SetToolTip(btnIMINFOView, "معلومات الصنف")
 
         dgvResults.Location = New Point(0, txtSearch.Bottom + 5)
         dgvResults.Width = Me.Width
@@ -359,15 +393,20 @@
         End If
     End Sub
 
+    Dim itemId As Integer
+    Dim itemName As String
+    Dim isValid As String
+    Dim current_im_id As Integer
     Private Sub SelectCurrentRow()
 
 
 
         If dgvResults.CurrentRow IsNot Nothing Then
             Dim row As DataGridViewRow = dgvResults.CurrentRow
-            Dim itemId As Integer = CInt(row.Cells("ItemID").Value)
-            Dim itemName As String = row.Cells("ItemName").Value.ToString()
-            Dim isValid As String = row.Cells("isValid").Value.ToString()
+            Dim itemId = CInt(row.Cells("ItemID").Value)
+            current_im_id = itemId
+            Dim itemName = row.Cells("ItemName").Value.ToString()
+            Dim isValid = row.Cells("isValid").Value.ToString()
 
 
             txtSearch.Text = itemName
@@ -627,6 +666,23 @@
         End If
 
         txtSearch.Select()
+
+    End Sub
+
+    Private Sub btnIMINFOView_Click(sender As Object, e As EventArgs) Handles btnIMINFOView.Click
+
+
+        If current_im_id > 0 Then
+            Show_IM_Details.IM_ID = current_im_id
+            Show_IM_Details.ShowDialog()
+        End If
+
+        'RaiseEvent ItemInfoRequested(
+        '    txtSearch.Text.Trim(),
+        '    cmbSearchBy.Text
+        ')
+
+        'txtSearch.Select()
 
     End Sub
 

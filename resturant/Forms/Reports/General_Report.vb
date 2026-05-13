@@ -143,8 +143,8 @@ Public Class General_Report
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         GENERAL_REPORT_SELECT()
-        GENERAL_REPORT_SELECT_2()
-        GENERAL_REPORT_SELECT_3()
+        'GENERAL_REPORT_SELECT_2()
+        'GENERAL_REPORT_SELECT_3()
     End Sub
 
     Public Sub GENERAL_REPORT_SELECT()

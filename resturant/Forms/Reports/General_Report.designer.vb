@@ -31,7 +31,7 @@ Partial Class General_Report
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(General_Report))
-        Me.DataGridViewX = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.DataGridViewX = New System.Windows.Forms.DataGridView()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.PrintButton = New System.Windows.Forms.Button()
         Me.DataGridViewX1 = New DevComponents.DotNetBar.Controls.DataGridViewX()
@@ -79,7 +79,7 @@ Partial Class General_Report
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridViewX.DefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridViewX.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
-        Me.DataGridViewX.Location = New System.Drawing.Point(441, 90)
+        Me.DataGridViewX.Location = New System.Drawing.Point(17, 90)
         Me.DataGridViewX.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DataGridViewX.MultiSelect = False
         Me.DataGridViewX.Name = "DataGridViewX"
@@ -88,7 +88,7 @@ Partial Class General_Report
         DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 11.5!)
         Me.DataGridViewX.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.DataGridViewX.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridViewX.Size = New System.Drawing.Size(562, 555)
+        Me.DataGridViewX.Size = New System.Drawing.Size(986, 555)
         Me.DataGridViewX.TabIndex = 2
         '
         'Button1
@@ -166,7 +166,7 @@ Partial Class General_Report
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI", 11.5!)
         Me.DataGridViewX1.RowsDefaultCellStyle = DataGridViewCellStyle8
         Me.DataGridViewX1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridViewX1.Size = New System.Drawing.Size(436, 555)
+        Me.DataGridViewX1.Size = New System.Drawing.Size(10, 555)
         Me.DataGridViewX1.TabIndex = 657
         '
         'Total_Balance_txt
@@ -318,7 +318,7 @@ Partial Class General_Report
         Me.PerformLayout()
 
     End Sub
-    Public WithEvents DataGridViewX As DevComponents.DotNetBar.Controls.DataGridViewX
+    Public WithEvents DataGridViewX As System.Windows.Forms.DataGridView
     Friend WithEvents PrintButton As System.Windows.Forms.Button
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents DateRange As DateRange_Flate
