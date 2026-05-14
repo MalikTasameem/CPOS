@@ -8,6 +8,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Dim Print_CompName As String = ""
     Dim Print_EngName As String = ""
     Dim Print_BillNotes As String = ""
+    Private Print_LogoImage As Image = Nothing
     Dim Print_Y As Integer = 0
 
 
@@ -55,11 +56,11 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private ReadOnly RefreshButtonDefaultBackColor As Color = Color.White
     Private Const RefreshButtonDefaultText As String = "تحديث الأصناف"
     '--------------------------------------------------------------------------------------------------------------
-    Public Sub PrintCurrentBill()
+    Private Sub LoadPrintSettings()
+        Dim db As New C()
         Try
-            Dim db As New C()
             db.Str = "SELECT TOP 1 CompName, BillNotes, LOGO FROM SysSetting"
-            db.Com = New SqlCommand(db.Str, db.Con)
+            db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
             db.Con.Open()
             db.Dr = db.Com.ExecuteReader()
             If db.Dr.Read() Then
@@ -67,16 +68,23 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 Print_BillNotes = db.Dr("BillNotes").ToString()
                 If Not IsDBNull(db.Dr("LOGO")) Then
                     Dim Data As Byte() = DirectCast(db.Dr("LOGO"), Byte())
-                    Dim MS As New IO.MemoryStream(Data)
-                    Me.Tag = Image.FromStream(MS)
+                    Using MS As New IO.MemoryStream(Data)
+                        Using LogoSource As Image = Image.FromStream(MS)
+                            Print_LogoImage = New Bitmap(LogoSource)
+                        End Using
+                    End Using
                 Else
-                    Me.Tag = Nothing
+                    Print_LogoImage = Nothing
                 End If
             End If
-            db.Dr.Close()
-            db.Con.Close()
         Catch ex As Exception
+        Finally
+            If db.Dr IsNot Nothing AndAlso db.Dr.IsClosed = False Then db.Dr.Close()
+            If db.Con.State = ConnectionState.Open Then db.Con.Close()
         End Try
+    End Sub
+
+    Public Sub PrintCurrentBill()
 
         Dim EstimatedHeight As Integer = 450 + (dgvSales.Rows.Count * 30)
 
@@ -117,7 +125,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         }
 
         ' 1. اللوجو والاسم 
-        Dim logoImg As Image = TryCast(Me.Tag, Image)
+        Dim logoImg As Image = Print_LogoImage
         If logoImg IsNot Nothing Then
             g.DrawImage(logoImg, 5, Print_Y, 50, 50)
             g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(60, Print_Y + 10, 220, 50), fmtArabic)
@@ -256,6 +264,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         FormType = 0
         'F_MainForm.Fill_ALL_IM()
         'If AGMetroGrid.Rows.Count = 0 And isDepended = False Then Delete_Last_Empty_Bill(T_ID)
+        If Print_LogoImage IsNot Nothing Then
+            Print_LogoImage.Dispose()
+            Print_LogoImage = Nothing
+        End If
         Me.Dispose()
     End Sub
 
@@ -740,6 +752,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         EditState = Edit_butt.Text
         loadShortCut_IM()
         GET_Printer_Type()
+        LoadPrintSettings()
 
         AG_ID = Default_AG_ID
 

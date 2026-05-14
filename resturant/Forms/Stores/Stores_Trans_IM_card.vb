@@ -21,12 +21,46 @@
         Me.Dispose()
     End Sub
 
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
+
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp
+        drag = False
+    End Sub
+
     Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.F5 Then mySearchControl.txtSearch.Select()
 
     End Sub
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         If St_Count() = 1 Then All_St_Panel.Visible = False
 
 
@@ -49,7 +83,6 @@
         mySearchControl.txtSearch.Select()
 
     End Sub
-
 
     Private Sub HandleItemSelected(itemId As Integer, isValid As String)
 
@@ -178,17 +211,12 @@
         Barcode_IM = ""
     End Sub
 
-
-
-
-
     Private Sub IM_Cost_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Cost_txt.KeyDown
         Select Case e.KeyCode
             Case Keys.Up : mySearchControl.txtSearch.Select()
             Case Keys.Right : QTY_txt.Select()
         End Select
     End Sub
-
 
     Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QTY_txt.KeyDown
 
@@ -213,7 +241,6 @@
     Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QTY_txt.TextChanged
         Check_Point_in_FloatNum(sender, e)
     End Sub
-
 
     Private Sub Fetch_IM_Units()
         Get_Unit = False
@@ -401,7 +428,6 @@
             Case Keys.Return, Keys.Left : QTY_txt.Select()
         End Select
     End Sub
-
 
     Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles ST_cm.SelectedValueChanged
         If Get_Unit = True Then

@@ -21,13 +21,47 @@
             Me.Dispose()
         End Sub
 
-        Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
+
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp
+        drag = False
+    End Sub
+
+    Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
             Select Case e.KeyCode
                 Case Keys.Escape : Me.Close()
             End Select
         End Sub
 
-        Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
             'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
             If St_Count() = 1 Then All_St_Panel.Visible = False
             'FormType = 1
@@ -62,7 +96,7 @@
 
         End Sub
 
-        Private Sub HandleItemSelected(itemId As Integer, isValid As String)
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
             PriceTextBox.Clear()
             IM_ID = itemId
             Get_Unit = False
@@ -104,22 +138,21 @@
             End Try
         End Sub
 
-
-        Private Sub Enable_Fields()
+    Private Sub Enable_Fields()
             Ebable_CatFields()
         End Sub
 
-        Private Sub Disable_Fields()
+    Private Sub Disable_Fields()
             Disable_CatFields()
         End Sub
 
-        Private Sub Disable_CatFields()
+    Private Sub Disable_CatFields()
             QtyTextBox.Enabled = False
             PriceTextBox.Enabled = False
             ADDCatButton.Enabled = False
         End Sub
 
-        Private Sub Ebable_CatFields()
+    Private Sub Ebable_CatFields()
             QtyTextBox.Enabled = True
             PriceTextBox.Enabled = True
             ADDCatButton.Enabled = True
@@ -343,7 +376,7 @@
 
     End Sub
 
-        Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown
+    Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown
             Select Case e.KeyCode
                 Case Keys.Up : mySearchControl.txtSearch.Select()
               '  Case Keys.Down : If AGMetroGrid.Rows.Count > 0 = True Then AGMetroGrid.Select()
@@ -354,15 +387,15 @@
             End Select
         End Sub
 
-        Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
+    Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
             Check_Only_Float(sender, e)
         End Sub
 
-        Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
+    Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
             Check_Point_in_FloatNum(sender, e)
         End Sub
 
-        Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
+    Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
 
             Select Case e.KeyCode
                 Case Keys.Return : ADD_IM()
@@ -376,11 +409,11 @@
 
         End Sub
 
-        Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
+    Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
             Check_Only_Float(sender, e)
         End Sub
 
-        Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
+    Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
             Check_Point_in_FloatNum(sender, e)
         End Sub
 
@@ -561,8 +594,6 @@
 
     End Sub
 
-
-
     Private Sub IM_Fetch_QTY()
             Dim c As New C
             Try
@@ -599,8 +630,7 @@
             End Try
         End Sub
 
-
-        Private Sub Load_IM_LAST_SELL_AG()
+    Private Sub Load_IM_LAST_SELL_AG()
             Dim c As New C
             Try
                 Dim s As String
@@ -621,27 +651,24 @@
             End Try
         End Sub
 
-        Private Sub IM_Unit_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles IM_Unit_cm.SelectedValueChanged
+    Private Sub IM_Unit_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles IM_Unit_cm.SelectedValueChanged
             If String.IsNullOrWhiteSpace(Current_QTY.Text) = False And Get_Unit = True Then
                 IM_Fetch_QTY()
                 If Valid_Panel.Visible = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
             End If
         End Sub
 
-
-        Private Sub IM_Unit_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Unit_cm.KeyDown
+    Private Sub IM_Unit_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Unit_cm.KeyDown
             Select Case e.KeyCode
                 Case Keys.Return, Keys.Left : QtyTextBox.Select()
             End Select
         End Sub
 
-
-        Private Sub ADDCatButton_Click(sender As Object, e As EventArgs) Handles ADDCatButton.Click
+    Private Sub ADDCatButton_Click(sender As Object, e As EventArgs) Handles ADDCatButton.Click
             ADD_IM()
         End Sub
 
-
-        Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles ST_cm.SelectedValueChanged
+    Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles ST_cm.SelectedValueChanged
             If Get_Unit = True Then
                 Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
                 IM_Fetch_QTY()
@@ -650,12 +677,11 @@
             End If
         End Sub
 
-        Private Sub Valid_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles Valid_cm.SelectedValueChanged
+    Private Sub Valid_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles Valid_cm.SelectedValueChanged
             If Get_Unit = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
         End Sub
 
-
-        Private Sub Valid_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles Valid_cm.KeyDown
+    Private Sub Valid_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles Valid_cm.KeyDown
             Select Case e.KeyCode
                 Case Keys.Return
                     QtyTextBox.Select()
@@ -664,30 +690,28 @@
             End Select
         End Sub
 
-
-        Private Sub ALL_QTY_txt_TextChanged(sender As Object, e As EventArgs) Handles ALL_QTY_txt.TextChanged
+    Private Sub ALL_QTY_txt_TextChanged(sender As Object, e As EventArgs) Handles ALL_QTY_txt.TextChanged
             If Not String.IsNullOrWhiteSpace(ALL_QTY_txt.Text) Then
                 Dim N As Double = ALL_QTY_txt.Text
                 ALL_QTY_txt.Text = N.ToString("N")
             End If
         End Sub
 
-
-        Private Sub Min_SP_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Min_SP_CB.CheckedChanged
+    Private Sub Min_SP_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Min_SP_CB.CheckedChanged
             CB_CHecked(sender)
             If Min_SP_CB.Checked = True Then Min_SP_2_CB.Checked = False
             Price_Text_Check_Read()
             IM_Fetch_QTY()
         End Sub
 
-        Private Sub Min_SP_2_CBCheckedChanged(sender As Object, e As EventArgs) Handles Min_SP_2_CB.CheckedChanged
+    Private Sub Min_SP_2_CBCheckedChanged(sender As Object, e As EventArgs) Handles Min_SP_2_CB.CheckedChanged
             CB_CHecked(sender)
             If Min_SP_2_CB.Checked = True Then Min_SP_CB.Checked = False
             Price_Text_Check_Read()
             IM_Fetch_QTY()
         End Sub
 
-        Private Sub Price_Text_Check_Read()
+    Private Sub Price_Text_Check_Read()
             If Min_SP_CB.Checked = True Or Min_SP_2_CB.Checked = True Then
                 PriceTextBox.ReadOnly = True
             Else
@@ -701,7 +725,7 @@
             End If
         End Sub
 
-        Private Sub Exit_Btn_Click(sender As Object, e As EventArgs) Handles Exit_Btn.Click
+    Private Sub Exit_Btn_Click(sender As Object, e As EventArgs) Handles Exit_Btn.Click
             Me.Close()
         End Sub
 

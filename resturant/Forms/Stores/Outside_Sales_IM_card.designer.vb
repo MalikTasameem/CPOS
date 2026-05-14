@@ -23,6 +23,9 @@ Partial Class Outside_Sales_IM_card
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Outside_Sales_IM_card))
+        Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.ExitFormButton = New System.Windows.Forms.Button()
+        Me.Title_LB = New System.Windows.Forms.Label()
         Me.IM_Cost_Panel = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.PriceTextBox = New System.Windows.Forms.TextBox()
@@ -55,16 +58,63 @@ Partial Class Outside_Sales_IM_card
         Me.Panel8.SuspendLayout()
         Me.Valid_Panel.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        Me.TitleBar_Panel.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'TitleBar_Panel
+        '
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.ExitFormButton)
+        Me.TitleBar_Panel.Controls.Add(Me.Title_LB)
+        Me.TitleBar_Panel.Cursor = System.Windows.Forms.Cursors.SizeAll
+        Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
+        Me.TitleBar_Panel.Name = "TitleBar_Panel"
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(930, 42)
+        Me.TitleBar_Panel.TabIndex = 999
+        Me.TitleBar_Panel.Tag = "HEADER"
+        '
+        'ExitFormButton
+        '
+        Me.ExitFormButton.BackColor = System.Drawing.Color.Transparent
+        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ExitFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ExitFormButton.FlatAppearance.BorderSize = 0
+        Me.ExitFormButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
+        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ExitFormButton.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.ForeColor = System.Drawing.Color.White
+        Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
+        Me.ExitFormButton.Name = "ExitFormButton"
+        Me.ExitFormButton.Size = New System.Drawing.Size(45, 42)
+        Me.ExitFormButton.TabIndex = 3
+        Me.ExitFormButton.Tag = "DELETE"
+        Me.ExitFormButton.Text = "X"
+        Me.ExitFormButton.UseVisualStyleBackColor = False
+        '
+        'Title_LB
+        '
+        Me.Title_LB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Title_LB.AutoSize = True
+        Me.Title_LB.BackColor = System.Drawing.Color.Transparent
+        Me.Title_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Title_LB.ForeColor = System.Drawing.Color.White
+        Me.Title_LB.Location = New System.Drawing.Point(760, 9)
+        Me.Title_LB.Name = "Title_LB"
+        Me.Title_LB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Title_LB.Size = New System.Drawing.Size(144, 21)
+        Me.Title_LB.TabIndex = 1
+        Me.Title_LB.Tag = "TITLE_TRANSPARENT"
+        Me.Title_LB.Text = "إضافة صنف للفاتورة"
         '
         'IM_Cost_Panel
         '
         Me.IM_Cost_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_Cost_Panel.Controls.Add(Me.Label2)
         Me.IM_Cost_Panel.Controls.Add(Me.PriceTextBox)
-        Me.IM_Cost_Panel.Location = New System.Drawing.Point(577, 85)
+        Me.IM_Cost_Panel.Location = New System.Drawing.Point(399, 137)
         Me.IM_Cost_Panel.Name = "IM_Cost_Panel"
-        Me.IM_Cost_Panel.Size = New System.Drawing.Size(132, 36)
+        Me.IM_Cost_Panel.Size = New System.Drawing.Size(160, 36)
         Me.IM_Cost_Panel.TabIndex = 1031
         '
         'Label2
@@ -98,9 +148,9 @@ Partial Class Outside_Sales_IM_card
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.Label15)
         Me.Panel6.Controls.Add(Me.QtyTextBox)
-        Me.Panel6.Location = New System.Drawing.Point(711, 85)
+        Me.Panel6.Location = New System.Drawing.Point(4, 274)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(123, 36)
+        Me.Panel6.Size = New System.Drawing.Size(171, 35)
         Me.Panel6.TabIndex = 1030
         '
         'Label15
@@ -136,9 +186,9 @@ Partial Class Outside_Sales_IM_card
         Me.Panel7.Controls.Add(Me.Label18)
         Me.Panel7.Controls.Add(Me.IM_Unit_cm)
         Me.Panel7.Controls.Add(Me.Ass_U_btn)
-        Me.Panel7.Location = New System.Drawing.Point(835, 85)
+        Me.Panel7.Location = New System.Drawing.Point(177, 274)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(214, 36)
+        Me.Panel7.Size = New System.Drawing.Size(221, 35)
         Me.Panel7.TabIndex = 1029
         '
         'Label18
@@ -190,9 +240,9 @@ Partial Class Outside_Sales_IM_card
         Me.All_St_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.All_St_Panel.Controls.Add(Me.Label5)
         Me.All_St_Panel.Controls.Add(Me.ALL_QTY_txt)
-        Me.All_St_Panel.Location = New System.Drawing.Point(2, 117)
+        Me.All_St_Panel.Location = New System.Drawing.Point(2, 176)
         Me.All_St_Panel.Name = "All_St_Panel"
-        Me.All_St_Panel.Size = New System.Drawing.Size(245, 31)
+        Me.All_St_Panel.Size = New System.Drawing.Size(306, 36)
         Me.All_St_Panel.TabIndex = 1027
         '
         'Label5
@@ -228,9 +278,9 @@ Partial Class Outside_Sales_IM_card
         Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel8.Controls.Add(Me.Label26)
         Me.Panel8.Controls.Add(Me.Current_QTY)
-        Me.Panel8.Location = New System.Drawing.Point(2, 85)
+        Me.Panel8.Location = New System.Drawing.Point(2, 137)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(245, 31)
+        Me.Panel8.Size = New System.Drawing.Size(306, 36)
         Me.Panel8.TabIndex = 1026
         '
         'Label26
@@ -266,9 +316,9 @@ Partial Class Outside_Sales_IM_card
         Me.Valid_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_Panel.Controls.Add(Me.D_Valid)
         Me.Valid_Panel.Controls.Add(Me.Label19)
-        Me.Valid_Panel.Location = New System.Drawing.Point(382, 85)
+        Me.Valid_Panel.Location = New System.Drawing.Point(320, 176)
         Me.Valid_Panel.Name = "Valid_Panel"
-        Me.Valid_Panel.Size = New System.Drawing.Size(193, 36)
+        Me.Valid_Panel.Size = New System.Drawing.Size(237, 36)
         Me.Valid_Panel.TabIndex = 1021
         Me.Valid_Panel.Visible = False
         '
@@ -302,9 +352,9 @@ Partial Class Outside_Sales_IM_card
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel4.Controls.Add(Me.Label27)
         Me.Panel4.Controls.Add(Me.ST_cm)
-        Me.Panel4.Location = New System.Drawing.Point(2, 2)
+        Me.Panel4.Location = New System.Drawing.Point(2, 98)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(306, 35)
+        Me.Panel4.Size = New System.Drawing.Size(310, 35)
         Me.Panel4.TabIndex = 1044
         '
         'Label27
@@ -339,16 +389,16 @@ Partial Class Outside_Sales_IM_card
         Me.ADDCatButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.ADDCatButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ADDCatButton.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADDCatButton.Image = CType(resources.GetObject("ADDCatButton.Image"), System.Drawing.Image)
-        Me.ADDCatButton.Location = New System.Drawing.Point(4, 382)
-        Me.ADDCatButton.Name = "ADDCatButton"
+        Me.ADDCatButton.Location = New System.Drawing.Point(4, 373)
+        Me.ADDCatButton.Name = "ADDCatButton"
+        Me.ADDCatButton.Text = "➕ إضافة للفاتورة"
+        Me.ADDCatButton.Tag = "GENERAL"
         Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ADDCatButton.Size = New System.Drawing.Size(241, 89)
+        Me.ADDCatButton.Size = New System.Drawing.Size(570, 55)
         Me.ADDCatButton.TabIndex = 1045
         Me.ADDCatButton.TabStop = False
-        Me.ADDCatButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ADDCatButton.UseVisualStyleBackColor = False
         '
         'Exit_Btn
@@ -359,16 +409,16 @@ Partial Class Outside_Sales_IM_card
         Me.Exit_Btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Exit_Btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Exit_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Exit_Btn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Exit_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Exit_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Exit_Btn.Image = Global.resturant.My.Resources.Resources.Arrow_doodle_128
-        Me.Exit_Btn.Location = New System.Drawing.Point(808, 382)
-        Me.Exit_Btn.Name = "Exit_Btn"
+        Me.Exit_Btn.Location = New System.Drawing.Point(584, 373)
+        Me.Exit_Btn.Name = "Exit_Btn"
+        Me.Exit_Btn.Text = "رجوع ◀️"
+        Me.Exit_Btn.Tag = "DELETE"
         Me.Exit_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Exit_Btn.Size = New System.Drawing.Size(241, 89)
+        Me.Exit_Btn.Size = New System.Drawing.Size(338, 55)
         Me.Exit_Btn.TabIndex = 1046
         Me.Exit_Btn.TabStop = False
-        Me.Exit_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Exit_Btn.UseVisualStyleBackColor = False
         '
         'mySearchControl
@@ -378,20 +428,21 @@ Partial Class Outside_Sales_IM_card
         Me.mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
         Me.mySearchControl.ItemsTable = Nothing
         Me.mySearchControl.itemsTable_Barcode = Nothing
-        Me.mySearchControl.Location = New System.Drawing.Point(311, 5)
+        Me.mySearchControl.Location = New System.Drawing.Point(5, 58)
         Me.mySearchControl.Margin = New System.Windows.Forms.Padding(0)
         Me.mySearchControl.MarginBetweenSearchAndGrid = 15
         Me.mySearchControl.MaxGridHeight = 400
         Me.mySearchControl.Name = "mySearchControl"
-        Me.mySearchControl.Size = New System.Drawing.Size(738, 35)
+        Me.mySearchControl.Size = New System.Drawing.Size(916, 35)
         Me.mySearchControl.TabIndex = 1047
         '
         'Outside_Sales_IM_card
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1052, 472)
+        Me.ClientSize = New System.Drawing.Size(930, 436)
         Me.ControlBox = False
+        Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.mySearchControl)
         Me.Controls.Add(Me.Exit_Btn)
         Me.Controls.Add(Me.ADDCatButton)
@@ -403,7 +454,7 @@ Partial Class Outside_Sales_IM_card
         Me.Controls.Add(Me.Panel8)
         Me.Controls.Add(Me.Valid_Panel)
         Me.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -425,6 +476,8 @@ Partial Class Outside_Sales_IM_card
         Me.Valid_Panel.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
+        Me.TitleBar_Panel.ResumeLayout(False)
+        Me.TitleBar_Panel.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -453,4 +506,7 @@ Partial Class Outside_Sales_IM_card
     Friend WithEvents ADDCatButton As Button
     Friend WithEvents Exit_Btn As Button
     Friend WithEvents mySearchControl As SearchItemControl
+    Friend WithEvents TitleBar_Panel As System.Windows.Forms.Panel
+    Friend WithEvents ExitFormButton As System.Windows.Forms.Button
+    Friend WithEvents Title_LB As System.Windows.Forms.Label
 End Class

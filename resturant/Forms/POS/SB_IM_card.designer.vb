@@ -321,14 +321,14 @@ Partial Class SB_IM_card
         Me.Panel7.Controls.Add(Me.IM_Unit_cm)
         Me.Panel7.Location = New System.Drawing.Point(336, 274)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(221, 42)
+        Me.Panel7.Size = New System.Drawing.Size(221, 35)
         Me.Panel7.TabIndex = 1058
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label10.Location = New System.Drawing.Point(140, 8)
+        Me.Label10.Location = New System.Drawing.Point(140, 7)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(58, 20)
         Me.Label10.TabIndex = 616
@@ -340,9 +340,9 @@ Partial Class SB_IM_card
         Me.IM_Unit_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Unit_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.IM_Unit_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.IM_Unit_cm.FormattingEnabled = True
-        Me.IM_Unit_cm.Location = New System.Drawing.Point(3, 5)
+        Me.IM_Unit_cm.Location = New System.Drawing.Point(3, 2)
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
         Me.IM_Unit_cm.Size = New System.Drawing.Size(131, 28)
         Me.IM_Unit_cm.TabIndex = 615
@@ -354,14 +354,14 @@ Partial Class SB_IM_card
         Me.Panel6.Controls.Add(Me.PriceTextBox)
         Me.Panel6.Location = New System.Drawing.Point(177, 274)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(158, 42)
+        Me.Panel6.Size = New System.Drawing.Size(158, 35)
         Me.Panel6.TabIndex = 1057
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label11.Location = New System.Drawing.Point(101, 8)
+        Me.Label11.Location = New System.Drawing.Point(101, 6)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(53, 20)
         Me.Label11.TabIndex = 617
@@ -372,14 +372,14 @@ Partial Class SB_IM_card
         '
         Me.PriceTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.PriceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PriceTextBox.Font = New System.Drawing.Font("Stencil", 14.0!)
+        Me.PriceTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.PriceTextBox.ForeColor = System.Drawing.Color.DarkGreen
-        Me.PriceTextBox.Location = New System.Drawing.Point(2, 4)
+        Me.PriceTextBox.Location = New System.Drawing.Point(1, 2)
         Me.PriceTextBox.MaxLength = 250
         Me.PriceTextBox.Name = "PriceTextBox"
         Me.PriceTextBox.ReadOnly = True
         Me.PriceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.PriceTextBox.Size = New System.Drawing.Size(95, 30)
+        Me.PriceTextBox.Size = New System.Drawing.Size(95, 27)
         Me.PriceTextBox.TabIndex = 292
         Me.PriceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -390,14 +390,14 @@ Partial Class SB_IM_card
         Me.Panel5.Controls.Add(Me.QtyTextBox)
         Me.Panel5.Location = New System.Drawing.Point(4, 274)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(171, 42)
+        Me.Panel5.Size = New System.Drawing.Size(171, 35)
         Me.Panel5.TabIndex = 1056
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label12.Location = New System.Drawing.Point(103, 8)
+        Me.Label12.Location = New System.Drawing.Point(103, 6)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(55, 20)
         Me.Label12.TabIndex = 604
@@ -408,13 +408,13 @@ Partial Class SB_IM_card
         '
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(2, 3)
+        Me.QtyTextBox.Location = New System.Drawing.Point(2, 2)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.QtyTextBox.Size = New System.Drawing.Size(97, 32)
+        Me.QtyTextBox.Size = New System.Drawing.Size(97, 27)
         Me.QtyTextBox.TabIndex = 390
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -434,7 +434,7 @@ Partial Class SB_IM_card
         Me.Valid_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Valid_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Valid_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Valid_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Valid_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Valid_cm.FormattingEnabled = True
         Me.Valid_cm.Location = New System.Drawing.Point(107, 4)
         Me.Valid_cm.Name = "Valid_cm"
@@ -447,11 +447,11 @@ Partial Class SB_IM_card
         Me.Valid_QTY_txt.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Valid_QTY_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_QTY_txt.Enabled = False
-        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Times New Roman", 11.25!)
+        Me.Valid_QTY_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Valid_QTY_txt.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.Valid_QTY_txt.Location = New System.Drawing.Point(5, 5)
         Me.Valid_QTY_txt.Name = "Valid_QTY_txt"
-        Me.Valid_QTY_txt.Size = New System.Drawing.Size(96, 25)
+        Me.Valid_QTY_txt.Size = New System.Drawing.Size(96, 27)
         Me.Valid_QTY_txt.TabIndex = 640
         Me.Valid_QTY_txt.Text = "00"
         Me.Valid_QTY_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -505,7 +505,7 @@ Partial Class SB_IM_card
         Me.Bercent_TXT.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Bercent_TXT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Bercent_TXT.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Bercent_TXT.Location = New System.Drawing.Point(3, 4)
+        Me.Bercent_TXT.Location = New System.Drawing.Point(3, 3)
         Me.Bercent_TXT.Name = "Bercent_TXT"
         Me.Bercent_TXT.ReadOnly = True
         Me.Bercent_TXT.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -531,11 +531,11 @@ Partial Class SB_IM_card
         '
         Me.Barcode_SH_txt.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Barcode_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Barcode_SH_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Barcode_SH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Barcode_SH_txt.ForeColor = System.Drawing.Color.Blue
         Me.Barcode_SH_txt.Location = New System.Drawing.Point(320, 98)
         Me.Barcode_SH_txt.Name = "Barcode_SH_txt"
-        Me.Barcode_SH_txt.Size = New System.Drawing.Size(300, 29)
+        Me.Barcode_SH_txt.Size = New System.Drawing.Size(300, 27)
         Me.Barcode_SH_txt.TabIndex = 1064
         Me.Barcode_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -543,7 +543,7 @@ Partial Class SB_IM_card
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label1.Location = New System.Drawing.Point(623, 103)
+        Me.Label1.Location = New System.Drawing.Point(623, 102)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(91, 20)
         Me.Label1.TabIndex = 1065

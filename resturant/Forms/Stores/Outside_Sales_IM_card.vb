@@ -19,8 +19,41 @@
 
     End Sub
 
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
+
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp
+        drag = False
+    End Sub
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
 
         If St_Count() = 1 Then All_St_Panel.Visible = False
         '  FormType = 2
@@ -160,7 +193,6 @@
 
     End Sub
 
-
     Private Sub ClearCatFields()
         mySearchControl.Clear_txt()
         Current_QTY.Clear()
@@ -170,7 +202,6 @@
         Barcode_IM = ""
         IM_ID = 0
     End Sub
-
 
     Private Sub Insert_Cat()
 
@@ -203,7 +234,6 @@
             Me.Close()
         End If
     End Sub
-
 
     Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown
         Select Case e.KeyCode
@@ -387,8 +417,6 @@
 
     End Sub
 
-
-
     Private Sub IM_Fetch_QTY()
         Dim c As New C
         Try
@@ -433,7 +461,6 @@
         If Get_Unit = True Then IM_Fetch_QTY()
     End Sub
 
-
     Private Sub IM_Unit_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Unit_cm.KeyDown
 
         Select Case e.KeyCode
@@ -465,7 +492,6 @@
             sender.Text = N.ToString("N")
         End If
     End Sub
-
 
     Private Sub Exit_Btn_Click(sender As Object, e As EventArgs) Handles Exit_Btn.Click
         Me.Close()

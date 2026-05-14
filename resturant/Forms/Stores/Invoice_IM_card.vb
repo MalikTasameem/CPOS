@@ -19,8 +19,41 @@
 
     End Sub
 
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
+
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp
+        drag = False
+    End Sub
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
 
         If St_Count() = 1 Then All_St_Panel.Visible = False
         'FormType = 2
@@ -160,7 +193,6 @@
 
     End Sub
 
-
     Private Sub ClearCatFields()
 
 
@@ -179,7 +211,6 @@
         Valid_ListBox.Items.Clear()
         IM_ID = 0
     End Sub
-
 
     Private Sub Insert_Cat()
         Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
@@ -248,7 +279,6 @@
 
         Next
     End Sub
-
 
     Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown
         Select Case e.KeyCode
@@ -676,7 +706,6 @@
         If Get_Unit = True Then IM_Fetch_QTY()
     End Sub
 
-
     Private Sub IM_Unit_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Unit_cm.KeyDown
 
         Select Case e.KeyCode
@@ -715,7 +744,6 @@
                 If Min_SP_By_One_txt.Visible = True Then Min_SP_By_One_txt.Select()
         End Select
     End Sub
-
 
     Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles ST_cm.SelectedValueChanged
         If Get_Unit = True Then
@@ -793,8 +821,6 @@
         Check_Only_Float(sender, e)
     End Sub
 
-
-
     Private Sub Min_SP_2_txt_TextChanged(sender As Object, e As EventArgs) Handles Min_SP_2_txt.TextChanged
 
         If MIN_RD_2.Checked = True Then
@@ -845,7 +871,6 @@
 
     End Sub
 
-
     Private Sub Add_Valid_Btn_Click(sender As Object, e As EventArgs) Handles Add_Valid_Btn.Click
         Valid_ListBox.Items.Add(Valid_For_List_Date.Value)
     End Sub
@@ -854,12 +879,10 @@
         Valid_ListBox.Items.Remove(Valid_ListBox.SelectedItem)
     End Sub
 
-
     Private Sub Show_IM_Note_Valid_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Show_IM_Note_Valid_CB.CheckedChanged
         CB_CHecked(sender)
         IM_Valid_Note_Panel.Visible = Show_IM_Note_Valid_CB.Checked()
     End Sub
-
 
     Private Sub Min_SP_2_By_One_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Min_SP_2_By_One_txt.KeyDown
         Select Case e.KeyCode
@@ -902,7 +925,6 @@
         SP_2_CB.Visible = Min_SP_Panel_2.Visible
     End Sub
 
-
     Private Sub Min_SP_By_One_txt_TextChanged(sender As Object, e As EventArgs) Handles Min_SP_By_One_txt.TextChanged
 
         If MIN_BY_ONE_RD.Checked = True Then
@@ -920,7 +942,6 @@
     Private Sub Exit_Btn_Click(sender As Object, e As EventArgs) Handles Exit_Btn.Click
         Me.Close()
     End Sub
-
 
     Private Sub ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ADD_New_IM_btn.Click
         IM_ADD_New.ShowDialog()

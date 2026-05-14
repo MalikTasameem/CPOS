@@ -19,8 +19,41 @@
 
     End Sub
 
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
+
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub TitleBar_Panel_MouseDown(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseMove(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp
+        drag = False
+    End Sub
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
 
         If St_Count() = 1 Then All_St_Panel.Visible = False
         '  FormType = 2
@@ -167,7 +200,6 @@
         IM_ID = 0
     End Sub
 
-
     Private Sub Insert_Cat()
         If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
         Dim Row_Index As Integer = 0
@@ -228,7 +260,6 @@
             Next
         End Sub
 
-
     Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown
             Select Case e.KeyCode
                 Case Keys.Return, Keys.Left : NewSalePrice_txt.Select()
@@ -237,11 +268,11 @@
             End Select
         End Sub
 
-        Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
+    Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PriceTextBox.KeyPress
             Check_Only_Float(sender, e)
         End Sub
 
-        Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
+    Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
             Check_Point_in_FloatNum(sender, e)
             If Not String.IsNullOrWhiteSpace(PriceTextBox.Text) And U_Cargo > 1 Then
                 CostByOne.Text = Convert.ToDouble(PriceTextBox.Text) / U_Cargo
@@ -259,7 +290,7 @@
 
         End Sub
 
-        Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
+    Private Sub QtyTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles QtyTextBox.KeyDown
 
             Select Case e.KeyCode
                 Case Keys.Return, Keys.Left : PriceTextBox.Select()
@@ -271,16 +302,16 @@
 
         End Sub
 
-        Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
+    Private Sub QtyTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles QtyTextBox.KeyPress
             Check_Only_Float(sender, e)
         End Sub
 
-        Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
+    Private Sub QtyTextBox_TextChanged(sender As Object, e As EventArgs) Handles QtyTextBox.TextChanged
             Check_Point_in_FloatNum(sender, e)
             CalcAvgCost()
         End Sub
 
-        Private Sub CalcAvgCost()
+    Private Sub CalcAvgCost()
             If S_Stores = True Then
                 If String.IsNullOrWhiteSpace(Current_QTY.Text) Then Current_QTY.Text = "0"
                 If String.IsNullOrWhiteSpace(QtyTextBox.Text) Then QtyTextBox.Text = "0"
@@ -668,7 +699,6 @@
         If Get_Unit = True Then IM_Fetch_QTY()
     End Sub
 
-
     Private Sub IM_Unit_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Unit_cm.KeyDown
 
         Select Case e.KeyCode
@@ -707,7 +737,6 @@
                 If Min_SP_By_One_txt.Visible = True Then Min_SP_By_One_txt.Select()
         End Select
     End Sub
-
 
     Private Sub ST_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles ST_cm.SelectedValueChanged
         If Get_Unit = True Then
@@ -785,8 +814,6 @@
         Check_Only_Float(sender, e)
     End Sub
 
-
-
     Private Sub Min_SP_2_txt_TextChanged(sender As Object, e As EventArgs) Handles Min_SP_2_txt.TextChanged
 
         If MIN_RD_2.Checked = True Then
@@ -837,21 +864,18 @@
 
     End Sub
 
-
     Private Sub Add_Valid_Btn_Click(sender As Object, e As EventArgs) Handles Add_Valid_Btn.Click
             Valid_ListBox.Items.Add(Valid_For_List_Date.Value)
         End Sub
 
-        Private Sub Remove_Valid_Btn_Click(sender As Object, e As EventArgs) Handles Remove_Valid_Btn.Click
+    Private Sub Remove_Valid_Btn_Click(sender As Object, e As EventArgs) Handles Remove_Valid_Btn.Click
             Valid_ListBox.Items.Remove(Valid_ListBox.SelectedItem)
         End Sub
-
 
     Private Sub Show_IM_Note_Valid_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Show_IM_Note_Valid_CB.CheckedChanged
             CB_CHecked(sender)
             IM_Valid_Note_Panel.Visible = Show_IM_Note_Valid_CB.Checked()
         End Sub
-
 
     Private Sub Min_SP_2_By_One_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Min_SP_2_By_One_txt.KeyDown
             Select Case e.KeyCode
@@ -865,7 +889,7 @@
             End Select
         End Sub
 
-        Private Sub Confirm_ADD_bercent_Click(sender As Object, e As EventArgs) Handles Confirm_ADD_bercent.Click
+    Private Sub Confirm_ADD_bercent_Click(sender As Object, e As EventArgs) Handles Confirm_ADD_bercent.Click
             If SP_CB.Checked = True Then NewSalePrice_txt.Text = ((Convert.ToDouble(bercent_ADD_txt.Text) * Convert.ToDouble(PriceTextBox.Text)) / 100) + Convert.ToDouble(PriceTextBox.Text)
 
             If SP_1_CB.Checked = True Then Min_SP_txt.Text = ((Convert.ToDouble(bercent_ADD_txt.Text) * Convert.ToDouble(PriceTextBox.Text)) / 100) + Convert.ToDouble(PriceTextBox.Text)
@@ -878,22 +902,21 @@
             CB_CHecked(sender)
         End Sub
 
-        Private Sub SP_1_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_1_CB.CheckedChanged
+    Private Sub SP_1_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_1_CB.CheckedChanged
             CB_CHecked(sender)
         End Sub
 
-        Private Sub SP_2_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_2_CB.CheckedChanged
+    Private Sub SP_2_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SP_2_CB.CheckedChanged
             CB_CHecked(sender)
         End Sub
 
-        Private Sub Min_SP_Panel_VisibleChanged(sender As Object, e As EventArgs) Handles Min_SP_Panel.VisibleChanged
+    Private Sub Min_SP_Panel_VisibleChanged(sender As Object, e As EventArgs) Handles Min_SP_Panel.VisibleChanged
             SP_1_CB.Visible = Min_SP_Panel.Visible
         End Sub
 
-        Private Sub Min_SP_Panel_2_VisibleChanged(sender As Object, e As EventArgs) Handles Min_SP_Panel_2.VisibleChanged
+    Private Sub Min_SP_Panel_2_VisibleChanged(sender As Object, e As EventArgs) Handles Min_SP_Panel_2.VisibleChanged
             SP_2_CB.Visible = Min_SP_Panel_2.Visible
         End Sub
-
 
     Private Sub Min_SP_By_One_txt_TextChanged(sender As Object, e As EventArgs) Handles Min_SP_By_One_txt.TextChanged
 

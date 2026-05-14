@@ -308,7 +308,7 @@ Partial Class Sales
         Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Show_Cash_btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_Cash_btn.Location = New System.Drawing.Point(5, 74)
+        Me.Show_Cash_btn.Location = New System.Drawing.Point(5, 85)
         Me.Show_Cash_btn.Name = "Show_Cash_btn"
         Me.Show_Cash_btn.Size = New System.Drawing.Size(43, 52)
         Me.Show_Cash_btn.TabIndex = 655
@@ -322,7 +322,7 @@ Partial Class Sales
         Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OpenCahDR_Btn.Location = New System.Drawing.Point(48, 74)
+        Me.OpenCahDR_Btn.Location = New System.Drawing.Point(48, 85)
         Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
         Me.OpenCahDR_Btn.Size = New System.Drawing.Size(45, 52)
         Me.OpenCahDR_Btn.TabIndex = 654
@@ -440,14 +440,14 @@ Partial Class Sales
         '
         Me.User_Name_lb.BackColor = System.Drawing.SystemColors.ControlDark
         Me.User_Name_lb.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.User_Name_lb.Location = New System.Drawing.Point(3, 135)
+        Me.User_Name_lb.Location = New System.Drawing.Point(3, 146)
         Me.User_Name_lb.Name = "User_Name_lb"
         Me.User_Name_lb.Size = New System.Drawing.Size(319, 23)
         Me.User_Name_lb.TabIndex = 717
         '
         'DiscountPanel
         '
-        Me.DiscountPanel.BackColor = System.Drawing.Color.CornflowerBlue
+        Me.DiscountPanel.BackColor = System.Drawing.Color.AliceBlue
         Me.DiscountPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.DiscountPanel.Controls.Add(Me.Label3)
         Me.DiscountPanel.Controls.Add(Me.IM_Count_LB)
@@ -623,6 +623,7 @@ Partial Class Sales
         '
         'Notes_txt
         '
+        Me.Notes_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Notes_txt.Location = New System.Drawing.Point(3, 551)
         Me.Notes_txt.Name = "Notes_txt"
@@ -835,7 +836,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -844,7 +845,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.EnableHeadersVisualStyles = False
         Me.ReceiptsMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         Me.ReceiptsMetroGrid.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ReceiptsMetroGrid.Location = New System.Drawing.Point(5, 5)
+        Me.ReceiptsMetroGrid.Location = New System.Drawing.Point(5, 6)
         Me.ReceiptsMetroGrid.MultiSelect = False
         Me.ReceiptsMetroGrid.Name = "ReceiptsMetroGrid"
         Me.ReceiptsMetroGrid.ReadOnly = True
@@ -865,7 +866,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle5
         Me.ReceiptsMetroGrid.RowTemplate.Height = 30
         Me.ReceiptsMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ReceiptsMetroGrid.Size = New System.Drawing.Size(245, 67)
+        Me.ReceiptsMetroGrid.Size = New System.Drawing.Size(245, 75)
         Me.ReceiptsMetroGrid.TabIndex = 664
         '
         'Receipt_T_ID_CL
@@ -1017,7 +1018,7 @@ Partial Class Sales
         Me.Panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel13.Controls.Add(Me.Piedmoney_txt)
         Me.Panel13.Controls.Add(Me.Label4)
-        Me.Panel13.Location = New System.Drawing.Point(95, 74)
+        Me.Panel13.Location = New System.Drawing.Point(95, 85)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(231, 52)
         Me.Panel13.TabIndex = 691
@@ -1047,7 +1048,7 @@ Partial Class Sales
         'Panel16
         '
         Me.Panel16.AutoSize = True
-        Me.Panel16.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Panel16.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Panel16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel16.Controls.Add(Me.Panel6)
         Me.Panel16.Controls.Add(Me.Panel5)
@@ -1430,7 +1431,7 @@ Partial Class Sales
         Me.DeliveryingButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DeliveryingButton.Location = New System.Drawing.Point(256, 5)
         Me.DeliveryingButton.Name = "DeliveryingButton"
-        Me.DeliveryingButton.Size = New System.Drawing.Size(53, 68)
+        Me.DeliveryingButton.Size = New System.Drawing.Size(53, 76)
         Me.DeliveryingButton.TabIndex = 304
         Me.DeliveryingButton.Text = "🚚 دفع"
         Me.DeliveryingButton.UseVisualStyleBackColor = False
@@ -1520,7 +1521,7 @@ Partial Class Sales
         '
         'Panel4
         '
-        Me.Panel4.BackColor = System.Drawing.Color.Maroon
+        Me.Panel4.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Panel4.Controls.Add(Me.Panel13)
         Me.Panel4.Controls.Add(Me.ReceiptsMetroGrid)
         Me.Panel4.Controls.Add(Me.Show_Cash_btn)
