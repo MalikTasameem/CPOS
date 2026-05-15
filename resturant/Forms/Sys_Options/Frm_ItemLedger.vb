@@ -10,6 +10,7 @@ Public Class Frm_ItemLedger
     Private _ItemName As String = ""
     Private _ST_ID As Long = 0
     Private _PrintRowIndex As Integer = 0
+    Private _PrintDateTime As DateTime
 
     Public Sub New()
         InitializeComponent()
@@ -36,7 +37,7 @@ Public Class Frm_ItemLedger
 
         Dtp_From.Value = New DateTime(Date.Today.Year, 1, 1)
         Dtp_To.Value = Date.Today
-        Txt_ShopName.Text = SBill_Title_1
+        'Txt_ShopName.Text = SBill_Title_1
         Txt_ItemName.Text = _ItemName
 
         LoadStores()
@@ -661,6 +662,7 @@ ORDER BY ST_Name
     Private Sub PrepareLedgerPrint()
 
         _PrintRowIndex = 0
+        _PrintDateTime = Date.Now
         LedgerPrintDocument.DefaultPageSettings.Landscape = True
         LedgerPrintDocument.DocumentName = "كشف حركة صنف"
 
@@ -707,7 +709,8 @@ ORDER BY ST_Name
         )
         Dim y As Integer = bounds.Top
 
-        Using shopFont As New Font("Segoe UI", 12.0!, FontStyle.Bold),
+        Using shopFont As New Font("Segoe UI", 15.0!, FontStyle.Bold),
+              shopSubFont As New Font("Segoe UI", 10.0!, FontStyle.Bold),
               titleFont As New Font("Segoe UI", 11.0!, FontStyle.Bold),
               headerFont As New Font("Segoe UI", 7.5!, FontStyle.Bold),
               rowFont As New Font("Segoe UI Semibold", 7.5!, FontStyle.Bold),
@@ -722,28 +725,14 @@ ORDER BY ST_Name
             centerFormat.Alignment = StringAlignment.Center
             centerFormat.LineAlignment = StringAlignment.Center
 
-            Dim shopName As String = Txt_ShopName.Text.Trim()
-
-            If shopName <> "" Then
-
-                e.Graphics.DrawString(
-                    shopName,
-                    shopFont,
-                    Brushes.Black,
-                    New Rectangle(bounds.Left, y, bounds.Width, 26),
-                    rtlFormat
-                )
-
-                y += 28
-
-            End If
+            DrawReportStoreHeader(e.Graphics, bounds, y, shopFont, shopSubFont, centerFormat)
 
             e.Graphics.DrawString(
                 "كشف حركة صنف",
                 titleFont,
                 Brushes.Black,
                 New Rectangle(bounds.Left, y, bounds.Width, 24),
-                rtlFormat
+                centerFormat
             )
 
             y += 28
@@ -822,9 +811,14 @@ ORDER BY ST_Name
 
             y += rowHeight
 
+            Dim rowsPerPage As Integer = CalculatePrintableRowsPerPage(y, bounds.Bottom, rowHeight)
+            Dim totalPages As Integer = CalculateTotalPrintPages(GridLedger.Rows.Count, rowsPerPage)
+            Dim currentPage As Integer = CalculateCurrentPrintPage(_PrintRowIndex, rowsPerPage)
+
             While _PrintRowIndex < GridLedger.Rows.Count
 
                 If y + rowHeight > bounds.Bottom - 42 Then
+                    DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, smallFont, centerFormat)
                     e.HasMorePages = True
                     Return
                 End If
@@ -896,9 +890,152 @@ ORDER BY ST_Name
                 rtlFormat
             )
 
+            DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, smallFont, centerFormat)
+
         End Using
 
         e.HasMorePages = False
+
+    End Sub
+
+    Private Sub DrawReportStoreHeader(
+        graphics As Graphics,
+        bounds As Rectangle,
+        ByRef y As Integer,
+        shopFont As Font,
+        shopSubFont As Font,
+        centerFormat As StringFormat
+    )
+
+        Dim mainTitle As String = SBill_Title_1
+        Dim subTitle As String = SBill_Title_2
+
+        'If String.IsNullOrWhiteSpace(mainTitle) Then
+        '    mainTitle = Txt_ShopName.Text.Trim()
+        'End If
+
+        If Not String.IsNullOrWhiteSpace(mainTitle) Then
+            graphics.DrawString(
+                mainTitle,
+                shopFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 30),
+                centerFormat
+            )
+
+            y += 32
+        End If
+
+        If Not String.IsNullOrWhiteSpace(subTitle) Then
+            graphics.DrawString(
+                subTitle,
+                shopSubFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 22),
+                centerFormat
+            )
+
+            y += 24
+        End If
+
+    End Sub
+
+    Private Function CalculatePrintableRowsPerPage(
+        firstRowY As Integer,
+        pageBottom As Integer,
+        rowHeight As Integer
+    ) As Integer
+
+        Dim printableHeight As Integer = (pageBottom - 42) - firstRowY
+
+        If printableHeight <= 0 OrElse rowHeight <= 0 Then
+            Return 1
+        End If
+
+        Return Math.Max(1, printableHeight \ rowHeight)
+
+    End Function
+
+    Private Function CalculateTotalPrintPages(
+        totalRows As Integer,
+        rowsPerPage As Integer
+    ) As Integer
+
+        If rowsPerPage <= 0 Then
+            Return 1
+        End If
+
+        Return Math.Max(1, CInt(Math.Ceiling(totalRows / CDbl(rowsPerPage))))
+
+    End Function
+
+    Private Function CalculateCurrentPrintPage(
+        rowIndex As Integer,
+        rowsPerPage As Integer
+    ) As Integer
+
+        If rowsPerPage <= 0 Then
+            Return 1
+        End If
+
+        Return Math.Max(1, (rowIndex \ rowsPerPage) + 1)
+
+    End Function
+
+    Private Sub DrawReportFooter(
+        graphics As Graphics,
+        bounds As Rectangle,
+        currentPage As Integer,
+        totalPages As Integer,
+        footerFont As Font,
+        centerFormat As StringFormat
+    )
+
+        If _PrintDateTime = DateTime.MinValue Then
+            _PrintDateTime = Date.Now
+        End If
+
+        Dim footerY As Integer = bounds.Bottom - 28
+        Dim sideWidth As Integer = CInt(bounds.Width * 0.34)
+        Dim centerWidth As Integer = bounds.Width - (sideWidth * 2)
+
+        Using rightFormat As New StringFormat(),
+              leftFormat As New StringFormat()
+
+            rightFormat.Alignment = StringAlignment.Far
+            rightFormat.LineAlignment = StringAlignment.Center
+            rightFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+            leftFormat.Alignment = StringAlignment.Near
+            leftFormat.LineAlignment = StringAlignment.Center
+
+            graphics.DrawLine(Pens.LightGray, bounds.Left, footerY - 4, bounds.Right, footerY - 4)
+
+            graphics.DrawString(
+                "المعد: " & USER_NAME,
+                footerFont,
+                Brushes.Black,
+                New Rectangle(bounds.Right - sideWidth, footerY, sideWidth, 22),
+                rightFormat
+            )
+
+            graphics.DrawString(
+                currentPage.ToString() & "/" & totalPages.ToString(),
+                footerFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left + sideWidth, footerY, centerWidth, 22),
+                centerFormat
+            )
+
+            graphics.DrawString(
+                "تاريخ الطباعة: " & _PrintDateTime.ToString("yyyy/MM/dd HH:mm"),
+                footerFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, footerY, sideWidth, 22),
+                leftFormat
+            )
+
+        End Using
 
     End Sub
 

@@ -24,8 +24,6 @@ Partial Class Frm_ItemLedger
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Txt_ShopName As TextBox
     Friend WithEvents Txt_ItemName As TextBox
     Friend WithEvents Cmb_Store As ComboBox
 
@@ -61,8 +59,6 @@ Partial Class Frm_ItemLedger
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Txt_ShopName = New System.Windows.Forms.TextBox()
         Me.Txt_ItemName = New System.Windows.Forms.TextBox()
         Me.Cmb_Store = New System.Windows.Forms.ComboBox()
         Me.Dtp_From = New System.Windows.Forms.DateTimePicker()
@@ -146,8 +142,6 @@ Partial Class Frm_ItemLedger
         Me.PanelFilters.Controls.Add(Me.Label3)
         Me.PanelFilters.Controls.Add(Me.Label4)
         Me.PanelFilters.Controls.Add(Me.Label5)
-        Me.PanelFilters.Controls.Add(Me.Label9)
-        Me.PanelFilters.Controls.Add(Me.Txt_ShopName)
         Me.PanelFilters.Controls.Add(Me.Txt_ItemName)
         Me.PanelFilters.Controls.Add(Me.Cmb_Store)
         Me.PanelFilters.Controls.Add(Me.Dtp_From)
@@ -167,7 +161,7 @@ Partial Class Frm_ItemLedger
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(890, 34)
+        Me.Label2.Location = New System.Drawing.Point(890, 28)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 23)
         Me.Label2.TabIndex = 1
@@ -179,7 +173,7 @@ Partial Class Frm_ItemLedger
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(890, 65)
+        Me.Label3.Location = New System.Drawing.Point(890, 59)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(75, 23)
         Me.Label3.TabIndex = 2
@@ -210,37 +204,13 @@ Partial Class Frm_ItemLedger
         Me.Label5.Text = "إلى تاريخ"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label9
-        '
-        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Label9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label9.Location = New System.Drawing.Point(890, 4)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(75, 23)
-        Me.Label9.TabIndex = 13
-        Me.Label9.Text = "اسم المحل"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Txt_ShopName
-        '
-        Me.Txt_ShopName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Txt_ShopName.BackColor = System.Drawing.Color.White
-        Me.Txt_ShopName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Txt_ShopName.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Txt_ShopName.Location = New System.Drawing.Point(560, 4)
-        Me.Txt_ShopName.Name = "Txt_ShopName"
-        Me.Txt_ShopName.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Txt_ShopName.Size = New System.Drawing.Size(320, 23)
-        Me.Txt_ShopName.TabIndex = 12
-        '
         'Txt_ItemName
         '
         Me.Txt_ItemName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Txt_ItemName.BackColor = System.Drawing.Color.White
         Me.Txt_ItemName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_ItemName.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Txt_ItemName.Location = New System.Drawing.Point(560, 34)
+        Me.Txt_ItemName.Location = New System.Drawing.Point(560, 28)
         Me.Txt_ItemName.Name = "Txt_ItemName"
         Me.Txt_ItemName.ReadOnly = True
         Me.Txt_ItemName.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -254,7 +224,7 @@ Partial Class Frm_ItemLedger
         Me.Cmb_Store.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cmb_Store.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Cmb_Store.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Cmb_Store.Location = New System.Drawing.Point(560, 65)
+        Me.Cmb_Store.Location = New System.Drawing.Point(560, 59)
         Me.Cmb_Store.Name = "Cmb_Store"
         Me.Cmb_Store.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Cmb_Store.Size = New System.Drawing.Size(320, 23)
@@ -490,6 +460,8 @@ Partial Class Frm_ItemLedger
         '
         'Frm_ItemLedger
         '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1028, 716)
         Me.Controls.Add(Me.ResultsTitle_LB)
@@ -498,9 +470,7 @@ Partial Class Frm_ItemLedger
         Me.Controls.Add(Me.PanelTotals)
         Me.Controls.Add(Me.PanelFilters)
         Me.Controls.Add(Me.TitleBar_Panel)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable
         Me.MinimumSize = New System.Drawing.Size(1044, 755)
         Me.Name = "Frm_ItemLedger"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes

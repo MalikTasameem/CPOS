@@ -2,11 +2,12 @@
 
 Public Class Balances
 
-    Dim rs As New Resizer
+    ' Dim rs As New Resizer
     Private AG_MV_DT As New DataTable
     Private TR_MV_DT As New DataTable
     Private _agMvPrintRowIndex As Integer = 0
     Private _trMvPrintRowIndex As Integer = 0
+    Private _agBalancesPrintRowIndex As Integer = 0
     Dim Balance_Type As Integer = 0
 
     Public AGMV_Name As String
@@ -45,6 +46,7 @@ Public Class Balances
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
         ThemeManager.ApplyThemeToForm(Me)
+        ConfigureResponsiveLayout()
         If U_Balance = False Then
             MsgBox("خارج صلاحياتك", MsgBoxStyle.Critical, "صلاحية المستخدم")
             Me.Close()
@@ -327,80 +329,92 @@ Public Class Balances
     Dim AG_B_DT As New DataTable
     Private Sub Get_AgentsBalances()
 
-
         Rpt_Name = ""
         Dim C = New C
 
-        Dim Main_Query As String = ""
-        Dim Tr_Query As String = " SELECT [Tr_ID] AS ID,[Tr_Name] AS 'Agent_name',[T_Debit] , [T_Credit] , ISNULL(T_Balance,0) AS T_Balance FROM [dbo].[TR_MENU_V]"
-        'Dim Union_Str As String = " UNION "
-        '------------------------------------------------------------------------
+        Dim mainQuery As String = BuildAgentsBalancesQuery()
 
-        If Type_Cm.SelectedIndex = 0 Then
-
-            If Debit_WithDate_CB.Checked = True Then
-                Select_Debt_Till_Date()
-                Main_Query = " select [Ag_ID] AS ID,[Ag_name] AS Agent_name,'0' AS  [T_Debit],'0' AS  [T_Credit],[T_Balance_TMP] AS T_Balance from AGENTS_MENU_V "
-            Else
-                Main_Query = " select [Ag_ID] AS ID,[Ag_name] AS Agent_name,[T_Debit],[T_Credit],[T_Balance] from AGENTS_MENU_V "
-            End If
-
-
-            Dim middle As String = " where 1=1 "
-            Dim last As String = " order by Ag_name ASC "
-            middle += " AND Type_ID IN (-1"
-
-
-            For i As Integer = 0 To AG_Type_CB.Items.Count - 1
-                AG_Type_CB.SelectedIndex = i
-                If AG_Type_CB.GetItemCheckState(i) = CheckState.Checked Then
-                    If i = 0 Then
-                        middle += Select_ALL(AG_Type_CB)
-                        Rpt_Name += "---الكل---"
-                        Exit For
-                    End If
-                    middle += "," & AG_Type_CB.SelectedValue
-
-                    Select Case i
-                        Case 1
-                            Rpt_Name += ",حسابات عامة"
-                        Case 2
-                            Rpt_Name += ",زبائن"
-                        Case 3
-                            Rpt_Name += ",موردين"
-                        Case 4
-                            Rpt_Name += ",موظفين"
-                        Case 5
-                            Rpt_Name += ",الأصول الثابته"
-                    End Select
-
-                End If
-            Next
-
-            middle += ")"
-
-            If AlldebitsRadioButton.Checked = True Then
-                middle = middle & " AND T_Balance < 0 "
-            ElseIf AllCerditRadioButton.Checked = True Then
-                middle = middle & " AND T_Balance > 0 "
-            End If
-
-            Main_Query = Main_Query & middle & last
-
-        Else
-            Main_Query = Tr_Query
-
-        End If
         AG_B_DT.Clear()
-        C.Da = New SqlClient.SqlDataAdapter(Main_Query, C.Con)
+        C.Da = New SqlClient.SqlDataAdapter(mainQuery, C.Con)
         C.Da.Fill(AG_B_DT)
         DebtMetroGrid.DataSource = AG_B_DT
 
         Calc_T_Balances()
         Coloring()
 
-
     End Sub
+
+    Private Function BuildAgentsBalancesQuery() As String
+
+        If Type_Cm.SelectedIndex <> 0 Then
+            Return " SELECT [Tr_ID] AS ID,[Tr_Name] AS 'Agent_name',[T_Debit],[T_Credit],ISNULL(T_Balance,0) AS T_Balance FROM [dbo].[TR_MENU_V]"
+        End If
+
+        If Debit_WithDate_CB.Checked = True Then Select_Debt_Till_Date()
+
+        Dim baseQuery As String
+
+        If Debit_WithDate_CB.Checked = True Then
+            baseQuery = " SELECT [Ag_ID] AS ID,[Ag_name] AS Agent_name,'0' AS [T_Debit],'0' AS [T_Credit],[T_Balance_TMP] AS T_Balance FROM AGENTS_MENU_V "
+        Else
+            baseQuery = " SELECT [Ag_ID] AS ID,[Ag_name] AS Agent_name,[T_Debit],[T_Credit],[T_Balance] FROM AGENTS_MENU_V "
+        End If
+
+        Dim whereParts As New List(Of String)
+
+        whereParts.Add("Type_ID IN (-1" & BuildAgentTypesFilter() & ")")
+
+        If AlldebitsRadioButton.Checked = True Then
+            whereParts.Add("T_Balance < 0")
+        ElseIf AllCerditRadioButton.Checked = True Then
+            whereParts.Add("T_Balance > 0")
+        End If
+
+        Return baseQuery & " WHERE " & String.Join(" AND ", whereParts) & " ORDER BY Ag_name ASC "
+
+    End Function
+
+    Private Function BuildAgentTypesFilter() As String
+
+        Dim filter As String = ""
+
+        For i As Integer = 0 To AG_Type_CB.Items.Count - 1
+            If AG_Type_CB.GetItemCheckState(i) <> CheckState.Checked Then Continue For
+
+            If i = 0 Then
+                Rpt_Name = "---الكل---"
+                Return Select_ALL(AG_Type_CB)
+            End If
+
+            filter &= "," & GetCheckedListItemValue(AG_Type_CB, i)
+            Rpt_Name &= "," & GetCheckedListItemText(AG_Type_CB, i)
+        Next
+
+        Return filter
+
+    End Function
+
+    Private Function GetCheckedListItemValue(clb As CheckedListBox, index As Integer) As String
+
+        Dim rowView = TryCast(clb.Items(index), DataRowView)
+
+        If rowView IsNot Nothing Then Return rowView(clb.ValueMember).ToString()
+
+        clb.SelectedIndex = index
+        Return clb.SelectedValue.ToString()
+
+    End Function
+
+    Private Function GetCheckedListItemText(clb As CheckedListBox, index As Integer) As String
+
+        Dim rowView = TryCast(clb.Items(index), DataRowView)
+
+        If rowView IsNot Nothing Then Return rowView(clb.DisplayMember).ToString()
+
+        Return clb.GetItemText(clb.Items(index))
+
+    End Function
+
     Dim Rpt_Name As String = ""
     Private Function Select_ALL(ByVal CLB As CheckedListBox)
         Dim Str As String = ""
@@ -414,7 +428,304 @@ Public Class Balances
     End Function
 
     Private Sub Reports_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        rs.ResizeAllControls(Me)
+        ArrangeResponsiveLayout()
+    End Sub
+
+    Private Sub ConfigureResponsiveLayout()
+
+        Me.MinimumSize = New Size(1004, 739)
+        TitleBar_Panel.Dock = DockStyle.Top
+        MenuStrip1.Dock = DockStyle.Top
+        MetroTabControl1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+
+        SetAnchor(AGMVMetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
+        SetAnchor(Tr_MV_MetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
+        SetAnchor(DebtMetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
+        SetAnchor(SalariesMetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
+        SetAnchor(ALL_BALANCES_Grid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
+        SetAnchor(ALL_B_TOTAL_Grid, AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
+
+        SetAnchor(AG_Type_CB, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right)
+        SetAnchor(CMSearchTextBox, AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right)
+
+        SetAnchor(Type_Cm, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(Label36, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(AG_Cm, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(Treasury_ComboBox, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(ReceiptTypeComboBox, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(UsersComboBox, AnchorStyles.Top Or AnchorStyles.Right)
+
+        SetBottomAnchors(
+            Total_Balance, Total_Credit, Total_Debit,
+            NUM_CREDIT_TXT, NUM_DEBIT_TXT,
+            Label33, Label34, Label35, Label37, Label38
+        )
+
+        SetBottomAnchors(
+            Tr_Total_B, Tr_Total_C, Tr_Total_D,
+            Label30, Label31, Label32
+        )
+
+        SetBottomAnchors(
+            T_BalanceTextBox, T_CreditTextBox, T_DebitTextBox,
+            Label17, Label18, Label19
+        )
+
+        SetBottomAnchors(
+            TotalPureTextBox, TotalDebtTextBox,
+            Label15, Label16
+        )
+
+        SetAnchor(MVSearchButton, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(MVPrintButton, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(Send_To_Email_btn, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(Tr_SearchButton, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(Tr_PrintButton, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(AGBalancesPrintBtn, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(AG_BALANCE_Sch_Btn, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(SalarySearchButton, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(PrintButton, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(Insert_Salary_btn, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(Salary_Date, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(Label39, AnchorStyles.Top Or AnchorStyles.Left)
+        SetAnchor(YearComboBox, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(SalariesMonthComboBox, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(Label13, AnchorStyles.Top Or AnchorStyles.Right)
+        SetAnchor(Label14, AnchorStyles.Top Or AnchorStyles.Right)
+
+        SetAnchor(GroupBox1, AnchorStyles.Top)
+        SetAnchor(GroupBox2, AnchorStyles.Top)
+        SetAnchor(GroupBox3, AnchorStyles.Top)
+        SetAnchor(GroupBox4, AnchorStyles.Top)
+        SetAnchor(GroupBox5, AnchorStyles.Top)
+
+        SetGridResponsiveOptions(
+            AGMVMetroGrid,
+            Tr_MV_MetroGrid,
+            DebtMetroGrid,
+            SalariesMetroGrid,
+            ALL_BALANCES_Grid,
+            ALL_B_TOTAL_Grid
+        )
+
+        ArrangeResponsiveLayout()
+
+    End Sub
+
+    Private Sub SetAnchor(control As Control, anchor As AnchorStyles)
+
+        If control Is Nothing Then Return
+        control.Anchor = anchor
+
+    End Sub
+
+    Private Sub SetBottomAnchors(ParamArray controls() As Control)
+
+        For Each control As Control In controls
+            SetAnchor(control, AnchorStyles.Bottom Or AnchorStyles.Left)
+        Next
+
+    End Sub
+
+    Private Sub SetGridResponsiveOptions(ParamArray grids() As DataGridView)
+
+        For Each grid As DataGridView In grids
+            If grid Is Nothing Then Continue For
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None
+        Next
+
+    End Sub
+
+    Private Sub ArrangeResponsiveLayout()
+
+        If MetroTabControl1 Is Nothing OrElse TitleBar_Panel Is Nothing OrElse MenuStrip1 Is Nothing Then
+            Return
+        End If
+
+        Dim tabTop As Integer = TitleBar_Panel.Height + MenuStrip1.Height + 7
+        MetroTabControl1.SetBounds(0, tabTop, Me.ClientSize.Width, Math.Max(200, Me.ClientSize.Height - tabTop))
+
+        ArrangeAccountMovementPage()
+        ArrangeTreasuryMovementPage()
+        ArrangeSalariesPage()
+        ArrangePageFiveGroups()
+
+    End Sub
+
+    Private Sub ArrangeAccountMovementPage()
+
+        If MetroTabPage1 Is Nothing Then Return
+
+        Dim pageWidth As Integer = MetroTabPage1.ClientSize.Width
+        Dim pageHeight As Integer = MetroTabPage1.ClientSize.Height
+        If pageWidth <= 0 OrElse pageHeight <= 0 Then Return
+
+        Dim margin As Integer = 8
+        Dim gap As Integer = 8
+        Dim rowHeight As Integer = 30
+        Dim labelWidth As Integer = 74
+        Dim checkWidth As Integer = 58
+        Dim buttonWidth As Integer = 126
+        Dim comboMinWidth As Integer = 230
+        Dim topAreaHeight As Integer = 108
+        Dim footerHeight As Integer = 38
+
+        MVSearchButton.SetBounds(margin, 4, buttonWidth, 30)
+        MVPrintButton.SetBounds(margin, 38, buttonWidth, 30)
+        Send_To_Email_btn.SetBounds(margin, 72, buttonWidth, 30)
+
+        GroupBox1.SetBounds(margin + buttonWidth + gap, 2, GroupBox1.Width, GroupBox1.Height)
+
+        Dim labelX As Integer = pageWidth - margin - labelWidth
+        Dim comboRight As Integer = labelX - gap
+        Dim checkX As Integer = Math.Max(GroupBox1.Right + gap, comboRight - comboMinWidth - gap - checkWidth)
+        Dim comboX As Integer = checkX + checkWidth + gap
+        Dim comboWidth As Integer = Math.Max(comboMinWidth, comboRight - comboX)
+
+        Label3.SetBounds(labelX, 8, labelWidth, rowHeight)
+        AG_Cm.SetBounds(comboX, 2, comboWidth, 35)
+        AllAgentsCheckBox.SetBounds(checkX, 4, checkWidth, rowHeight)
+
+        Label8.SetBounds(labelX, 42, labelWidth, rowHeight)
+        ReceiptTypeComboBox.SetBounds(comboX, 37, comboWidth, rowHeight)
+        AllRecieptsCheckBox.SetBounds(checkX, 38, checkWidth, rowHeight)
+
+        Label7.SetBounds(labelX, 76, labelWidth, rowHeight)
+        UsersComboBox.SetBounds(comboX, 72, comboWidth, rowHeight)
+        AllUsersCheckBox.SetBounds(checkX, 72, checkWidth, rowHeight)
+        isVoid_CB.SetBounds(Math.Max(GroupBox1.Right + gap, checkX - isVoid_CB.Width - gap), 76, isVoid_CB.Width, isVoid_CB.Height)
+
+        AGMVMetroGrid.SetBounds(
+            3,
+            topAreaHeight,
+            Math.Max(200, pageWidth - 6),
+            Math.Max(120, pageHeight - topAreaHeight - footerHeight)
+        )
+
+    End Sub
+
+    Private Sub ArrangeTreasuryMovementPage()
+
+        If MetroTabPage2 Is Nothing Then Return
+
+        Dim pageWidth As Integer = MetroTabPage2.ClientSize.Width
+        Dim pageHeight As Integer = MetroTabPage2.ClientSize.Height
+        If pageWidth <= 0 OrElse pageHeight <= 0 Then Return
+
+        Dim margin As Integer = 8
+        Dim gap As Integer = 8
+        Dim rowHeight As Integer = 30
+        Dim labelWidth As Integer = 78
+        Dim checkWidth As Integer = 58
+        Dim buttonWidth As Integer = 126
+        Dim comboMinWidth As Integer = 250
+        Dim topAreaHeight As Integer = 108
+        Dim footerHeight As Integer = 38
+
+        Tr_SearchButton.SetBounds(margin, 4, buttonWidth, 46)
+        Tr_PrintButton.SetBounds(margin, 54, buttonWidth, 46)
+
+        GroupBox2.SetBounds(margin + buttonWidth + gap, 2, GroupBox2.Width, GroupBox2.Height)
+
+        Dim labelX As Integer = pageWidth - margin - labelWidth
+        Dim comboRight As Integer = labelX - gap
+        Dim checkX As Integer = Math.Max(GroupBox2.Right + gap, comboRight - comboMinWidth - gap - checkWidth)
+        Dim comboX As Integer = checkX + checkWidth + gap
+        Dim comboWidth As Integer = Math.Max(comboMinWidth, comboRight - comboX)
+
+        Label9.SetBounds(labelX, 8, labelWidth, rowHeight)
+        Treasury_ComboBox.SetBounds(comboX, 3, comboWidth, rowHeight)
+        AllTrCheckBox.SetBounds(checkX, 3, checkWidth, rowHeight)
+
+        Label4.SetBounds(labelX, 42, labelWidth, rowHeight)
+        TrTypeComboBox.SetBounds(comboX, 37, comboWidth, rowHeight)
+        TrAllTypeCheckBox.SetBounds(checkX, 37, checkWidth, rowHeight)
+
+        Label2.SetBounds(labelX, 76, labelWidth, rowHeight)
+        TrUsersComboBox.SetBounds(comboX, 72, comboWidth, rowHeight)
+        TrAllUsersCheckBox.SetBounds(checkX, 72, checkWidth, rowHeight)
+        TrisVoid_CB.SetBounds(Math.Max(GroupBox2.Right + gap, checkX - TrisVoid_CB.Width - gap), 76, TrisVoid_CB.Width, TrisVoid_CB.Height)
+
+        Tr_MV_MetroGrid.SetBounds(
+            3,
+            topAreaHeight,
+            Math.Max(200, pageWidth - 6),
+            Math.Max(120, pageHeight - topAreaHeight - footerHeight)
+        )
+
+    End Sub
+
+    Private Sub ArrangeSalariesPage()
+
+        If MetroTabPage3 Is Nothing Then Return
+
+        Dim pageWidth As Integer = MetroTabPage3.ClientSize.Width
+        Dim pageHeight As Integer = MetroTabPage3.ClientSize.Height
+        If pageWidth <= 0 OrElse pageHeight <= 0 Then Return
+
+        Dim margin As Integer = 8
+        Dim gap As Integer = 8
+        Dim topAreaHeight As Integer = 64
+        Dim footerHeight As Integer = 42
+        Dim buttonWidth As Integer = 105
+        Dim insertButtonWidth As Integer = 143
+        Dim labelWidth As Integer = 48
+
+        Label13.SetBounds(pageWidth - margin - labelWidth, 23, labelWidth, 24)
+        YearComboBox.SetBounds(Label13.Left - gap - 100, 15, 100, 34)
+
+        Label14.SetBounds(YearComboBox.Left - gap - labelWidth, 23, labelWidth, 24)
+        SalariesMonthComboBox.SetBounds(Label14.Left - gap - 78, 15, 78, 34)
+
+        SalarySearchButton.SetBounds(SalariesMonthComboBox.Left - gap - buttonWidth, 8, buttonWidth, 46)
+        PrintButton.SetBounds(SalarySearchButton.Left - gap - buttonWidth, 8, buttonWidth, 46)
+
+        Insert_Salary_btn.SetBounds(margin, 8, insertButtonWidth, 46)
+        Salary_Date.SetBounds(Insert_Salary_btn.Right + gap, 21, 231, 28)
+        Label39.SetBounds(Salary_Date.Right + gap, 25, 96, 24)
+
+        If Label39.Right + gap > PrintButton.Left Then
+            Salary_Date.Width = Math.Max(160, PrintButton.Left - gap - Label39.Width - gap - Salary_Date.Left)
+            Label39.Left = Salary_Date.Right + gap
+        End If
+
+        SalariesMetroGrid.SetBounds(
+            3,
+            topAreaHeight,
+            Math.Max(200, pageWidth - 6),
+            Math.Max(120, pageHeight - topAreaHeight - footerHeight)
+        )
+
+        Dim footerTop As Integer = Math.Max(SalariesMetroGrid.Bottom + 8, pageHeight - 36)
+        Dim totalWidth As Integer = 188
+        Dim firstGroupLeft As Integer = margin
+        Dim secondGroupLeft As Integer = firstGroupLeft + totalWidth + 110
+
+        TotalPureTextBox.SetBounds(firstGroupLeft, footerTop, totalWidth, 28)
+        Label15.SetBounds(TotalPureTextBox.Right + gap, footerTop + 4, 120, 24)
+
+        TotalDebtTextBox.SetBounds(secondGroupLeft, footerTop, totalWidth, 28)
+        Label16.SetBounds(TotalDebtTextBox.Right + gap, footerTop + 4, 170, 24)
+
+    End Sub
+
+    Private Sub ArrangePageFiveGroups()
+
+        If MetroTabPage5 Is Nothing Then Return
+
+        Dim pageWidth As Integer = MetroTabPage5.ClientSize.Width
+        If pageWidth <= 0 Then Return
+
+        GroupBox3.Left = Math.Max(8, (pageWidth - GroupBox3.Width) \ 2)
+
+        Dim gap As Integer = 32
+        Dim combinedWidth As Integer = GroupBox5.Width + gap + GroupBox4.Width
+        Dim leftStart As Integer = Math.Max(8, (pageWidth - combinedWidth) \ 2)
+
+        GroupBox5.Left = leftStart
+        GroupBox4.Left = leftStart + GroupBox5.Width + gap
+
     End Sub
 
     Private Sub AllAgentsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllAgentsCheckBox.CheckedChanged
@@ -787,12 +1098,7 @@ Public Class Balances
     End Sub
 
     Private Sub AGBalancesPrintBtn_Click(sender As Object, e As EventArgs) Handles AGBalancesPrintBtn.Click
-        If Debit_WithDate_CB.Checked = True Then Select_Debt_Till_Date()
-
-        AG_Report_print_Reset()
-        AG_Report_Copy()
         Print_AG_Balances()
-        AG_Report_print_Reset()
     End Sub
 
     Private Sub AG_Report_Copy()
@@ -828,86 +1134,301 @@ Public Class Balances
 
     Public Sub Print_AG_Balances()
 
-        Try
-            Dim p As New print
-            Dim pp As New ReportConnection
+        If DebtMetroGrid.Rows.Count = 0 Then
+            MsgBox("لا توجد بيانات للطباعة.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
 
+        Using printDocument As New System.Drawing.Printing.PrintDocument()
 
-            If Debit_WithDate_CB.Checked = False Then
-                pp.rp.Load(Application.StartupPath & "\reports\AG_Balances.rpt")
-            Else
-                pp.rp.Load(Application.StartupPath & "\reports\AG_Balances_With_Date.rpt")
-            End If
+            printDocument.DocumentName = "كشف أرصدة الحسابات"
+            printDocument.DefaultPageSettings.Landscape = True
+            printDocument.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(35, 35, 45, 45)
 
+            AddHandler printDocument.BeginPrint, AddressOf AG_Balances_PrintDocument_BeginPrint
+            AddHandler printDocument.PrintPage, AddressOf AG_Balances_PrintDocument_PrintPage
 
-            pp.CrTables = pp.rp.Database.Tables
-            For Each CrTable In pp.CrTables
-                pp.crtableLogoninfo = CrTable.LogOnInfo
-                pp.crtableLogoninfo.ConnectionInfo = pp.crConnectionInfo
-                CrTable.ApplyLogOnInfo(pp.crtableLogoninfo)
+            Using previewDialog As New PrintPreviewDialog()
+                previewDialog.Document = printDocument
+                previewDialog.WindowState = FormWindowState.Maximized
+                previewDialog.Text = "معاينة كشف أرصدة الحسابات"
+                previewDialog.ShowDialog(Me)
+            End Using
+
+        End Using
+
+    End Sub
+
+    Private Sub AG_Balances_PrintDocument_BeginPrint(sender As Object, e As System.Drawing.Printing.PrintEventArgs)
+
+        _agBalancesPrintRowIndex = 0
+
+    End Sub
+
+    Private Sub AG_Balances_PrintDocument_PrintPage(sender As Object, e As System.Drawing.Printing.PrintPageEventArgs)
+
+        Dim bounds As Rectangle = e.MarginBounds
+        Dim y As Integer = bounds.Top
+
+        Using storeTitleFont As New Font("Segoe UI", 15.0!, FontStyle.Bold),
+              storeSubTitleFont As New Font("Segoe UI", 10.0!, FontStyle.Bold),
+              titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
+              infoFont As New Font("Segoe UI", 9.0!, FontStyle.Bold),
+              headerFont As New Font("Segoe UI", 8.0!, FontStyle.Bold),
+              rowFont As New Font("Segoe UI", 8.0!, FontStyle.Regular),
+              totalsFont As New Font("Segoe UI", 9.0!, FontStyle.Bold)
+
+            Dim rtlFormat As New StringFormat()
+            rtlFormat.Alignment = StringAlignment.Far
+            rtlFormat.LineAlignment = StringAlignment.Center
+            rtlFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+            Dim centerFormat As New StringFormat()
+            centerFormat.Alignment = StringAlignment.Center
+            centerFormat.LineAlignment = StringAlignment.Center
+            centerFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            DrawReportStoreHeader(e.Graphics, bounds, y, storeTitleFont, storeSubTitleFont, centerFormat)
+
+            e.Graphics.DrawString(
+                "كشف أرصدة الحسابات",
+                titleFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 28),
+                rtlFormat
+            )
+            y += 30
+
+            e.Graphics.DrawString(
+                GetAgBalancesFilterText() & "    " & GetAgBalancesDateText() & "    الأنواع: " & If(String.IsNullOrWhiteSpace(Rpt_Name), "الكـــل", Rpt_Name),
+                infoFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 24),
+                rtlFormat
+            )
+            y += 30
+
+            Dim columnNames As String() = {
+                "__ROW_NO__",
+                "Agent_Report_name",
+                "B_T_Debit_CL",
+                "B_T_Credit_CL",
+                "AG_BALANCE_T_CL"
+            }
+
+            Dim headers As String() = {
+                "ت",
+                "الحساب",
+                "دائن",
+                "مدين",
+                "الرصيد"
+            }
+
+            Dim weights As Integer() = {45, 360, 125, 125, 135}
+            Dim totalWeight As Integer = 0
+            For Each weight As Integer In weights
+                totalWeight += weight
+            Next
+            Dim widths(weights.Length - 1) As Integer
+
+            For i As Integer = 0 To weights.Length - 1
+                widths(i) = CInt(bounds.Width * (weights(i) / CDbl(totalWeight)))
             Next
 
+            Dim rowHeight As Integer = 28
+            Dim x As Integer = bounds.Right
 
-            With pp
-                .rp.SetParameterValue(0, USER_NAME)
+            For i As Integer = 0 To headers.Length - 1
+                x -= widths(i)
+                Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+                Using backBrush As New SolidBrush(Color.FromArgb(45, 62, 80))
+                    e.Graphics.FillRectangle(backBrush, rect)
+                End Using
+                e.Graphics.DrawRectangle(Pens.DarkGray, rect)
+                e.Graphics.DrawString(headers(i), headerFont, Brushes.White, rect, centerFormat)
+            Next
 
-                If Type_Cm.SelectedIndex = 0 Then
+            y += rowHeight
+            Dim rowsPerPage As Integer = CalculatePrintableRowsPerPage(y, bounds.Bottom, rowHeight)
+            Dim totalPages As Integer = CalculateTotalPrintPages(DebtMetroGrid.Rows.Count, rowsPerPage)
+            Dim currentPage As Integer = CalculateCurrentPrintPage(_agBalancesPrintRowIndex, rowsPerPage)
 
-                    If AllBalancesRadioButton.Checked = True Then
-                        .rp.SetParameterValue(1, "حسب : الـكـل")
-                    ElseIf AlldebitsRadioButton.Checked = True Then
-                        .rp.SetParameterValue(1, "حسب : المدينيــن ")
-                    Else
-                        .rp.SetParameterValue(1, "حسب : الدائنيــن")
-                    End If
+            While _agBalancesPrintRowIndex < DebtMetroGrid.Rows.Count
 
-                    If Debit_WithDate_CB.Checked = False Then
-                        .rp.SetParameterValue(6, " الديون حتى تاريخ : " & " تاريخ الطباعة ")
-                    Else
-                        .rp.SetParameterValue(6, " الديون :  حتى تاريخ " & DATE_Before.Text)
-                    End If
-
-                Else
-
-                    .rp.SetParameterValue(1, Type_Cm.Text)
-                    .rp.SetParameterValue(6, " ")
-
+                If y + rowHeight > bounds.Bottom - 42 Then
+                    DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
+                    e.HasMorePages = True
+                    Return
                 End If
 
+                Dim row As DataGridViewRow = DebtMetroGrid.Rows(_agBalancesPrintRowIndex)
+                x = bounds.Right
 
-                .rp.SetParameterValue(2, T_DebitTextBox.Text)
-                .rp.SetParameterValue(3, T_CreditTextBox.Text)
-                .rp.SetParameterValue(4, F_MainForm.Serv_Label.Text)
-                .rp.SetParameterValue(5, T_BalanceTextBox.Text)
+                For i As Integer = 0 To columnNames.Length - 1
+                    x -= widths(i)
+                    Dim rect As New Rectangle(x, y, widths(i), rowHeight)
 
+                    If _agBalancesPrintRowIndex Mod 2 = 0 Then
+                        e.Graphics.FillRectangle(Brushes.White, rect)
+                    Else
+                        Using altBrush As New SolidBrush(Color.FromArgb(248, 250, 252))
+                            e.Graphics.FillRectangle(altBrush, rect)
+                        End Using
+                    End If
 
-                '.rp.SetParameterValue(6, Balance_Type)
-                .rp.SetParameterValue(7, Rpt_Name)
+                    e.Graphics.DrawRectangle(Pens.LightGray, rect)
+                    e.Graphics.DrawString(GetAgBalancePrintCellText(row, columnNames(i), _agBalancesPrintRowIndex + 1), rowFont, Brushes.Black, rect, centerFormat)
+                Next
 
-                '.rp.SetParameterValue(9, " نوع الحساب : " & Rpt_Name)
-                ''Else
-                '.rp.SetParameterValue(2, F_MainForm.Serv_Desc_lb.Text)
-                '.rp.SetParameterValue(3, T_BalanceTextBox.Text)
-                '.rp.SetParameterValue(4, Balance_Type)
-                '.rp.SetParameterValue(5, Rpt_Name)
+                y += rowHeight
+                _agBalancesPrintRowIndex += 1
 
-                '.rp.SetParameterValue(7, " نوع الحساب : " & Rpt_Name)
+            End While
 
-                'End If
+            y += 10
+            e.Graphics.DrawString(
+                "إجمالي الدائن: " & T_DebitTextBox.Text &
+                "    إجمالي المدين: " & T_CreditTextBox.Text &
+                "    الرصيد: " & T_BalanceTextBox.Text,
+                totalsFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 28),
+                rtlFormat
+            )
 
-                '.rp.PrintOptions.PrinterName = My_Settings.Default_Printer
-                '.rp.PrintToPrinter(1, False, 0, 0)
-                '.rp.Dispose()
+            DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
 
+        End Using
 
-                p.CrystalReportViewer1.ReportSource = pp.rp
-                p.ShowDialog()
+        e.HasMorePages = False
 
-            End With
+    End Sub
 
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    Private Function GetAgBalancePrintCellText(row As DataGridViewRow, columnName As String, rowNumber As Integer) As String
+
+        If columnName = "__ROW_NO__" Then Return rowNumber.ToString()
+
+        If Not DebtMetroGrid.Columns.Contains(columnName) Then Return ""
+
+        Dim value As Object = row.Cells(columnName).Value
+
+        If value Is Nothing OrElse value Is DBNull.Value Then Return ""
+
+        If columnName = "B_T_Debit_CL" OrElse columnName = "B_T_Credit_CL" OrElse columnName = "AG_BALANCE_T_CL" Then
+            Dim numberValue As Decimal
+            If Decimal.TryParse(value.ToString(), numberValue) Then Return numberValue.ToString("N2")
+        End If
+
+        Return value.ToString()
+
+    End Function
+
+    Private Function GetAgBalancesFilterText() As String
+
+        If Type_Cm.SelectedIndex <> 0 Then Return "حسب : " & Type_Cm.Text
+
+        If AllBalancesRadioButton.Checked = True Then Return "حسب : الـكـل"
+        If AlldebitsRadioButton.Checked = True Then Return "حسب : المدينيــن"
+
+        Return "حسب : الدائنيــن"
+
+    End Function
+
+    Private Function GetAgBalancesDateText() As String
+
+        If Type_Cm.SelectedIndex <> 0 Then Return ""
+        If Debit_WithDate_CB.Checked = True Then Return "الديون حتى تاريخ: " & DATE_Before.Text
+
+        Return "الديون حتى تاريخ الطباعة"
+
+    End Function
+
+    Private Sub DrawReportStoreHeader(graphics As Graphics, bounds As Rectangle, ByRef y As Integer, storeTitleFont As Font, storeSubTitleFont As Font, centerFormat As StringFormat)
+
+        If Not String.IsNullOrWhiteSpace(SBill_Title_1) Then
+            graphics.DrawString(
+                SBill_Title_1,
+                storeTitleFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 30),
+                centerFormat
+            )
+            y += 30
+        End If
+
+        If Not String.IsNullOrWhiteSpace(SBill_Title_2) Then
+            graphics.DrawString(
+                SBill_Title_2,
+                storeSubTitleFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 24),
+                centerFormat
+            )
+            y += 24
+        End If
+
+    End Sub
+
+    Private Function CalculatePrintableRowsPerPage(firstRowY As Integer, pageBottom As Integer, rowHeight As Integer) As Integer
+
+        Dim availableHeight As Integer = pageBottom - 42 - firstRowY
+
+        If availableHeight <= 0 Then Return 1
+
+        Return Math.Max(1, CInt(Math.Floor(availableHeight / CDbl(rowHeight))))
+
+    End Function
+
+    Private Function CalculateTotalPrintPages(totalRows As Integer, rowsPerPage As Integer) As Integer
+
+        If totalRows <= 0 Then Return 1
+
+        Return Math.Max(1, CInt(Math.Ceiling(totalRows / CDbl(rowsPerPage))))
+
+    End Function
+
+    Private Function CalculateCurrentPrintPage(rowIndex As Integer, rowsPerPage As Integer) As Integer
+
+        Return Math.Max(1, CInt(Math.Floor(rowIndex / CDbl(rowsPerPage))) + 1)
+
+    End Function
+
+    Private Sub DrawReportFooter(graphics As Graphics, bounds As Rectangle, currentPage As Integer, totalPages As Integer, footerFont As Font, centerFormat As StringFormat)
+
+        Dim footerTop As Integer = bounds.Bottom - 26
+        Dim sideWidth As Integer = CInt(bounds.Width * 0.34)
+        Dim centerWidth As Integer = bounds.Width - (sideWidth * 2)
+
+        Dim rightFormat As New StringFormat(centerFormat)
+        rightFormat.Alignment = StringAlignment.Far
+        rightFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+        Dim leftFormat As New StringFormat(centerFormat)
+        leftFormat.Alignment = StringAlignment.Near
+
+        graphics.DrawString(
+            "المعد: " & USER_NAME,
+            footerFont,
+            Brushes.Black,
+            New Rectangle(bounds.Right - sideWidth, footerTop, sideWidth, 24),
+            rightFormat
+        )
+
+        graphics.DrawString(
+            currentPage & "/" & totalPages,
+            footerFont,
+            Brushes.Black,
+            New Rectangle(bounds.Left + sideWidth, footerTop, centerWidth, 24),
+            centerFormat
+        )
+
+        graphics.DrawString(
+            "تاريخ الطباعة: " & Date.Now.ToString("yyyy/MM/dd HH:mm"),
+            footerFont,
+            Brushes.Black,
+            New Rectangle(bounds.Left, footerTop, sideWidth, 24),
+            leftFormat
+        )
 
     End Sub
 
@@ -1113,7 +1634,9 @@ Public Class Balances
         Dim bounds As Rectangle = e.MarginBounds
         Dim y As Integer = bounds.Top
 
-        Using titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
+        Using storeTitleFont As New Font("Segoe UI", 15.0!, FontStyle.Bold),
+              storeSubTitleFont As New Font("Segoe UI", 10.0!, FontStyle.Bold),
+              titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
               infoFont As New Font("Segoe UI", 9.0!, FontStyle.Bold),
               headerFont As New Font("Segoe UI", 8.0!, FontStyle.Bold),
               rowFont As New Font("Segoe UI", 8.0!, FontStyle.Regular),
@@ -1128,6 +1651,8 @@ Public Class Balances
             centerFormat.Alignment = StringAlignment.Center
             centerFormat.LineAlignment = StringAlignment.Center
             centerFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            DrawReportStoreHeader(e.Graphics, bounds, y, storeTitleFont, storeSubTitleFont, centerFormat)
 
             e.Graphics.DrawString(
                 "كشف حساب",
@@ -1194,10 +1719,14 @@ Public Class Balances
             Next
 
             y += rowHeight
+            Dim rowsPerPage As Integer = CalculatePrintableRowsPerPage(y, bounds.Bottom, rowHeight)
+            Dim totalPages As Integer = CalculateTotalPrintPages(AGMVMetroGrid.Rows.Count, rowsPerPage)
+            Dim currentPage As Integer = CalculateCurrentPrintPage(_agMvPrintRowIndex, rowsPerPage)
 
             While _agMvPrintRowIndex < AGMVMetroGrid.Rows.Count
 
                 If y + rowHeight > bounds.Bottom - 42 Then
+                    DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
                     e.HasMorePages = True
                     Return
                 End If
@@ -1239,6 +1768,8 @@ Public Class Balances
                 rtlFormat
             )
 
+            DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
+
         End Using
 
         e.HasMorePages = False
@@ -1260,7 +1791,10 @@ Public Class Balances
 
         If columnName = "Debit_CL" OrElse columnName = "Credit_CL" OrElse columnName = "Balance_CL" Then
             Dim numberValue As Decimal
-            If Decimal.TryParse(value.ToString(), numberValue) Then Return numberValue.ToString("N3")
+            If Decimal.TryParse(value.ToString(), numberValue) Then
+                If (columnName = "Debit_CL" OrElse columnName = "Credit_CL") AndAlso numberValue = 0D Then Return ""
+                Return numberValue.ToString("N3")
+            End If
         End If
 
         Return value.ToString()
@@ -1310,7 +1844,9 @@ Public Class Balances
         Dim bounds As Rectangle = e.MarginBounds
         Dim y As Integer = bounds.Top
 
-        Using titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
+        Using storeTitleFont As New Font("Segoe UI", 15.0!, FontStyle.Bold),
+              storeSubTitleFont As New Font("Segoe UI", 10.0!, FontStyle.Bold),
+              titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
               infoFont As New Font("Segoe UI", 9.0!, FontStyle.Bold),
               headerFont As New Font("Segoe UI", 8.0!, FontStyle.Bold),
               rowFont As New Font("Segoe UI", 8.0!, FontStyle.Regular),
@@ -1325,6 +1861,8 @@ Public Class Balances
             centerFormat.Alignment = StringAlignment.Center
             centerFormat.LineAlignment = StringAlignment.Center
             centerFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            DrawReportStoreHeader(e.Graphics, bounds, y, storeTitleFont, storeSubTitleFont, centerFormat)
 
             e.Graphics.DrawString(
                 "كشف حساب خزينة",
@@ -1391,10 +1929,14 @@ Public Class Balances
             Next
 
             y += rowHeight
+            Dim rowsPerPage As Integer = CalculatePrintableRowsPerPage(y, bounds.Bottom, rowHeight)
+            Dim totalPages As Integer = CalculateTotalPrintPages(Tr_MV_MetroGrid.Rows.Count, rowsPerPage)
+            Dim currentPage As Integer = CalculateCurrentPrintPage(_trMvPrintRowIndex, rowsPerPage)
 
             While _trMvPrintRowIndex < Tr_MV_MetroGrid.Rows.Count
 
                 If y + rowHeight > bounds.Bottom - 42 Then
+                    DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
                     e.HasMorePages = True
                     Return
                 End If
@@ -1434,6 +1976,8 @@ Public Class Balances
                 rtlFormat
             )
 
+            DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
+
         End Using
 
         e.HasMorePages = False
@@ -1455,7 +1999,10 @@ Public Class Balances
 
         If columnName = "Tr_Debit_CL" OrElse columnName = "Tr_Credit_CL" OrElse columnName = "Tr_Balance_CL" Then
             Dim numberValue As Decimal
-            If Decimal.TryParse(value.ToString(), numberValue) Then Return numberValue.ToString("N3")
+            If Decimal.TryParse(value.ToString(), numberValue) Then
+                If (columnName = "Tr_Debit_CL" OrElse columnName = "Tr_Credit_CL") AndAlso numberValue = 0D Then Return ""
+                Return numberValue.ToString("N3")
+            End If
         End If
 
         Return value.ToString()
@@ -1972,7 +2519,7 @@ Public Class Balances
     End Sub
 
     Private Sub Balances_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        rs.FindAllControls(Me)
+        'rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
 
         For i = 0 To AGMVMetroGrid.Columns.Count - 1

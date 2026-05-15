@@ -23,6 +23,7 @@ Partial Class Balances
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Balances))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -61,7 +62,6 @@ Partial Class Balances
         Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Balances))
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.HeaderMinBtn = New System.Windows.Forms.Button()
         Me.HeaderMaxBtn = New System.Windows.Forms.Button()
@@ -69,6 +69,7 @@ Partial Class Balances
         Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.MetroTabControl1 = New System.Windows.Forms.TabControl()
         Me.MetroTabPage1 = New MetroFramework.Controls.MetroTabPage()
+        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.NUM_CREDIT_TXT = New System.Windows.Forms.TextBox()
         Me.NUM_DEBIT_TXT = New System.Windows.Forms.TextBox()
         Me.Label37 = New System.Windows.Forms.Label()
@@ -251,7 +252,6 @@ Partial Class Balances
         Me.العهدToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.خروجToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
-        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
         Me.MetroTabControl1.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
@@ -406,6 +406,27 @@ Partial Class Balances
         Me.MetroTabPage1.VerticalScrollbarBarColor = True
         Me.MetroTabPage1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroTabPage1.VerticalScrollbarSize = 10
+        '
+        'AG_Cm
+        '
+        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.5!, System.Drawing.FontStyle.Bold)
+        Me.AG_Cm.Location = New System.Drawing.Point(570, 1)
+        Me.AG_Cm.Name = "AG_Cm"
+        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.AG_Cm.Size = New System.Drawing.Size(350, 30)
+        Me.AG_Cm.SQL_Column = "AG_NAME"
+        Me.AG_Cm.SQL_ID = "AG_ID"
+        Me.AG_Cm.SQL_IsNumericSearchField = False
+        Me.AG_Cm.SQL_ListSize = 200
+        Me.AG_Cm.SQL_NumberOfRows = 200
+        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField_WHERE = ""
+        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
+        Me.AG_Cm.TabIndex = 626
+        Me.AG_Cm.TextMaxLength = 250
+        Me.AG_Cm.Textt = ""
         '
         'NUM_CREDIT_TXT
         '
@@ -575,10 +596,10 @@ Partial Class Balances
         '
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.Location = New System.Drawing.Point(923, 72)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(66, 19)
+        Me.Label7.Size = New System.Drawing.Size(71, 20)
         Me.Label7.TabIndex = 417
         Me.Label7.Text = "المستخدم"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -587,10 +608,10 @@ Partial Class Balances
         '
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
-        Me.Label8.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.Location = New System.Drawing.Point(922, 42)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(69, 19)
+        Me.Label8.Size = New System.Drawing.Size(74, 20)
         Me.Label8.TabIndex = 416
         Me.Label8.Text = "نوع الحركة"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -598,7 +619,7 @@ Partial Class Balances
         'AllUsersCheckBox
         '
         Me.AllUsersCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllUsersCheckBox.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllUsersCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.AllUsersCheckBox.Location = New System.Drawing.Point(597, 68)
         Me.AllUsersCheckBox.Name = "AllUsersCheckBox"
         Me.AllUsersCheckBox.Size = New System.Drawing.Size(55, 29)
@@ -608,7 +629,7 @@ Partial Class Balances
         'AllRecieptsCheckBox
         '
         Me.AllRecieptsCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllRecieptsCheckBox.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllRecieptsCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.AllRecieptsCheckBox.Location = New System.Drawing.Point(509, 36)
         Me.AllRecieptsCheckBox.Name = "AllRecieptsCheckBox"
         Me.AllRecieptsCheckBox.Size = New System.Drawing.Size(55, 29)
@@ -621,13 +642,13 @@ Partial Class Balances
         Me.UsersComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.UsersComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.UsersComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.UsersComboBox.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.UsersComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.UsersComboBox.ForeColor = System.Drawing.Color.DarkRed
         Me.UsersComboBox.FormattingEnabled = True
-        Me.UsersComboBox.Location = New System.Drawing.Point(655, 68)
+        Me.UsersComboBox.Location = New System.Drawing.Point(655, 69)
         Me.UsersComboBox.Name = "UsersComboBox"
         Me.UsersComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.UsersComboBox.Size = New System.Drawing.Size(266, 29)
+        Me.UsersComboBox.Size = New System.Drawing.Size(266, 28)
         Me.UsersComboBox.TabIndex = 407
         '
         'GroupBox1
@@ -653,6 +674,7 @@ Partial Class Balances
         'AllTimeCheckBox
         '
         Me.AllTimeCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.AllTimeCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.AllTimeCheckBox.Location = New System.Drawing.Point(141, 28)
         Me.AllTimeCheckBox.Name = "AllTimeCheckBox"
         Me.AllTimeCheckBox.Size = New System.Drawing.Size(125, 29)
@@ -662,8 +684,8 @@ Partial Class Balances
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(223, 69)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(223, 65)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(45, 20)
         Me.Label1.TabIndex = 341
@@ -673,10 +695,10 @@ Partial Class Balances
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label5.Location = New System.Drawing.Point(118, 63)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(32, 21)
+        Me.Label5.Size = New System.Drawing.Size(31, 20)
         Me.Label5.TabIndex = 3
         Me.Label5.Text = "إلى"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -686,22 +708,22 @@ Partial Class Balances
         Me.MonthComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MonthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.MonthComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.MonthComboBox.Font = New System.Drawing.Font("Times New Roman", 12.0!)
+        Me.MonthComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.MonthComboBox.FormattingEnabled = True
         Me.MonthComboBox.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"})
         Me.MonthComboBox.Location = New System.Drawing.Point(154, 65)
         Me.MonthComboBox.Name = "MonthComboBox"
         Me.MonthComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.MonthComboBox.Size = New System.Drawing.Size(65, 27)
+        Me.MonthComboBox.Size = New System.Drawing.Size(65, 28)
         Me.MonthComboBox.TabIndex = 340
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label6.Location = New System.Drawing.Point(118, 27)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(30, 21)
+        Me.Label6.Size = New System.Drawing.Size(28, 20)
         Me.Label6.TabIndex = 2
         Me.Label6.Text = "من"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -710,24 +732,24 @@ Partial Class Balances
         '
         Me.DateTimePicker_From.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DateTimePicker_From.CustomFormat = "dd/MM/yyyy"
-        Me.DateTimePicker_From.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker_From.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.DateTimePicker_From.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DateTimePicker_From.Location = New System.Drawing.Point(4, 25)
         Me.DateTimePicker_From.Name = "DateTimePicker_From"
         Me.DateTimePicker_From.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.DateTimePicker_From.Size = New System.Drawing.Size(111, 26)
+        Me.DateTimePicker_From.Size = New System.Drawing.Size(111, 27)
         Me.DateTimePicker_From.TabIndex = 0
         '
         'DateTimePicker_To
         '
         Me.DateTimePicker_To.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DateTimePicker_To.CustomFormat = "dd/MM/yyyy"
-        Me.DateTimePicker_To.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker_To.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.DateTimePicker_To.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DateTimePicker_To.Location = New System.Drawing.Point(4, 61)
         Me.DateTimePicker_To.Name = "DateTimePicker_To"
         Me.DateTimePicker_To.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.DateTimePicker_To.Size = New System.Drawing.Size(111, 26)
+        Me.DateTimePicker_To.Size = New System.Drawing.Size(111, 27)
         Me.DateTimePicker_To.TabIndex = 1
         '
         'MVPrintButton
@@ -753,7 +775,7 @@ Partial Class Balances
         'AllAgentsCheckBox
         '
         Me.AllAgentsCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllAgentsCheckBox.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllAgentsCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.AllAgentsCheckBox.Location = New System.Drawing.Point(508, 2)
         Me.AllAgentsCheckBox.Name = "AllAgentsCheckBox"
         Me.AllAgentsCheckBox.Size = New System.Drawing.Size(55, 29)
@@ -785,23 +807,23 @@ Partial Class Balances
         Me.ReceiptTypeComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ReceiptTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ReceiptTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ReceiptTypeComboBox.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.ReceiptTypeComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ReceiptTypeComboBox.ForeColor = System.Drawing.Color.DarkRed
         Me.ReceiptTypeComboBox.FormattingEnabled = True
-        Me.ReceiptTypeComboBox.Location = New System.Drawing.Point(571, 37)
+        Me.ReceiptTypeComboBox.Location = New System.Drawing.Point(571, 36)
         Me.ReceiptTypeComboBox.Name = "ReceiptTypeComboBox"
         Me.ReceiptTypeComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ReceiptTypeComboBox.Size = New System.Drawing.Size(349, 29)
+        Me.ReceiptTypeComboBox.Size = New System.Drawing.Size(349, 28)
         Me.ReceiptTypeComboBox.TabIndex = 384
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(929, 8)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(924, 7)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(55, 19)
+        Me.Label3.Size = New System.Drawing.Size(58, 20)
         Me.Label3.TabIndex = 381
         Me.Label3.Text = "الحساب"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -967,7 +989,7 @@ Partial Class Balances
         '
         'isVoid_CB
         '
-        Me.isVoid_CB.BackColor = System.Drawing.SystemColors.AppWorkspace
+        Me.isVoid_CB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.isVoid_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.isVoid_CB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.isVoid_CB.Location = New System.Drawing.Point(415, 73)
@@ -1095,19 +1117,20 @@ Partial Class Balances
         '
         'Treasury_ComboBox
         '
+        Me.Treasury_ComboBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Treasury_ComboBox.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Treasury_ComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Treasury_ComboBox.DropDownHeight = 200
         Me.Treasury_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Treasury_ComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Treasury_ComboBox.ForeColor = System.Drawing.Color.Black
         Me.Treasury_ComboBox.FormattingEnabled = True
         Me.Treasury_ComboBox.IntegralHeight = False
         Me.Treasury_ComboBox.Location = New System.Drawing.Point(476, 3)
         Me.Treasury_ComboBox.Name = "Treasury_ComboBox"
         Me.Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Treasury_ComboBox.Size = New System.Drawing.Size(435, 29)
+        Me.Treasury_ComboBox.Size = New System.Drawing.Size(435, 28)
         Me.Treasury_ComboBox.TabIndex = 422
         '
         'GroupBox2
@@ -1133,10 +1156,10 @@ Partial Class Balances
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Label10.Location = New System.Drawing.Point(231, 71)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(45, 20)
+        Me.Label10.Size = New System.Drawing.Size(47, 21)
         Me.Label10.TabIndex = 406
         Me.Label10.Text = "الشهر"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1144,6 +1167,7 @@ Partial Class Balances
         'TrAllTimeCheckBox
         '
         Me.TrAllTimeCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.TrAllTimeCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TrAllTimeCheckBox.Location = New System.Drawing.Point(160, 28)
         Me.TrAllTimeCheckBox.Name = "TrAllTimeCheckBox"
         Me.TrAllTimeCheckBox.Size = New System.Drawing.Size(114, 29)
@@ -1153,7 +1177,7 @@ Partial Class Balances
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Label11.Location = New System.Drawing.Point(123, 63)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(32, 21)
@@ -1166,19 +1190,19 @@ Partial Class Balances
         Me.TrMonthComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TrMonthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.TrMonthComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.TrMonthComboBox.Font = New System.Drawing.Font("Times New Roman", 12.0!)
+        Me.TrMonthComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TrMonthComboBox.FormattingEnabled = True
         Me.TrMonthComboBox.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"})
         Me.TrMonthComboBox.Location = New System.Drawing.Point(159, 66)
         Me.TrMonthComboBox.Name = "TrMonthComboBox"
         Me.TrMonthComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.TrMonthComboBox.Size = New System.Drawing.Size(66, 27)
+        Me.TrMonthComboBox.Size = New System.Drawing.Size(66, 28)
         Me.TrMonthComboBox.TabIndex = 340
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Label12.Location = New System.Drawing.Point(125, 27)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(30, 21)
@@ -1190,30 +1214,31 @@ Partial Class Balances
         '
         Me.TrDateTimePicker_F.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TrDateTimePicker_F.CustomFormat = "dd/MM/yyyy"
-        Me.TrDateTimePicker_F.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TrDateTimePicker_F.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TrDateTimePicker_F.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.TrDateTimePicker_F.Location = New System.Drawing.Point(4, 25)
         Me.TrDateTimePicker_F.Name = "TrDateTimePicker_F"
         Me.TrDateTimePicker_F.RightToLeftLayout = True
-        Me.TrDateTimePicker_F.Size = New System.Drawing.Size(115, 26)
+        Me.TrDateTimePicker_F.Size = New System.Drawing.Size(115, 27)
         Me.TrDateTimePicker_F.TabIndex = 0
         '
         'TrDateTimePicker_T
         '
         Me.TrDateTimePicker_T.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TrDateTimePicker_T.CustomFormat = "dd/MM/yyyy"
-        Me.TrDateTimePicker_T.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TrDateTimePicker_T.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TrDateTimePicker_T.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.TrDateTimePicker_T.Location = New System.Drawing.Point(4, 61)
         Me.TrDateTimePicker_T.Name = "TrDateTimePicker_T"
         Me.TrDateTimePicker_T.RightToLeftLayout = True
-        Me.TrDateTimePicker_T.Size = New System.Drawing.Size(115, 26)
+        Me.TrDateTimePicker_T.Size = New System.Drawing.Size(115, 27)
         Me.TrDateTimePicker_T.TabIndex = 1
         '
         'TrAllUsersCheckBox
         '
+        Me.TrAllUsersCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrAllUsersCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.TrAllUsersCheckBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TrAllUsersCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TrAllUsersCheckBox.Location = New System.Drawing.Point(414, 68)
         Me.TrAllUsersCheckBox.Name = "TrAllUsersCheckBox"
         Me.TrAllUsersCheckBox.Size = New System.Drawing.Size(58, 29)
@@ -1222,8 +1247,9 @@ Partial Class Balances
         '
         'TrAllTypeCheckBox
         '
+        Me.TrAllTypeCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrAllTypeCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.TrAllTypeCheckBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TrAllTypeCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TrAllTypeCheckBox.Location = New System.Drawing.Point(415, 34)
         Me.TrAllTypeCheckBox.Name = "TrAllTypeCheckBox"
         Me.TrAllTypeCheckBox.Size = New System.Drawing.Size(58, 29)
@@ -1232,24 +1258,26 @@ Partial Class Balances
         '
         'TrUsersComboBox
         '
+        Me.TrUsersComboBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrUsersComboBox.BackColor = System.Drawing.SystemColors.Control
         Me.TrUsersComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TrUsersComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.TrUsersComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.TrUsersComboBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TrUsersComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TrUsersComboBox.ForeColor = System.Drawing.Color.DarkRed
         Me.TrUsersComboBox.FormattingEnabled = True
         Me.TrUsersComboBox.Location = New System.Drawing.Point(628, 69)
         Me.TrUsersComboBox.Name = "TrUsersComboBox"
         Me.TrUsersComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.TrUsersComboBox.Size = New System.Drawing.Size(283, 29)
+        Me.TrUsersComboBox.Size = New System.Drawing.Size(283, 28)
         Me.TrUsersComboBox.TabIndex = 416
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Label2.Location = New System.Drawing.Point(915, 74)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(72, 21)
@@ -1259,8 +1287,9 @@ Partial Class Balances
         '
         'AllTrCheckBox
         '
+        Me.AllTrCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AllTrCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AllTrCheckBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AllTrCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.AllTrCheckBox.Location = New System.Drawing.Point(416, 2)
         Me.AllTrCheckBox.Name = "AllTrCheckBox"
         Me.AllTrCheckBox.Size = New System.Drawing.Size(58, 29)
@@ -1269,36 +1298,39 @@ Partial Class Balances
         '
         'TrTypeComboBox
         '
+        Me.TrTypeComboBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrTypeComboBox.BackColor = System.Drawing.SystemColors.Control
         Me.TrTypeComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TrTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.TrTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.TrTypeComboBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TrTypeComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TrTypeComboBox.ForeColor = System.Drawing.Color.DarkRed
         Me.TrTypeComboBox.FormattingEnabled = True
         Me.TrTypeComboBox.Location = New System.Drawing.Point(475, 36)
         Me.TrTypeComboBox.Name = "TrTypeComboBox"
         Me.TrTypeComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.TrTypeComboBox.Size = New System.Drawing.Size(436, 29)
+        Me.TrTypeComboBox.Size = New System.Drawing.Size(436, 28)
         Me.TrTypeComboBox.TabIndex = 413
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Label4.Location = New System.Drawing.Point(915, 40)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(69, 19)
+        Me.Label4.Size = New System.Drawing.Size(76, 21)
         Me.Label4.TabIndex = 412
         Me.Label4.Text = "نوع الحركة"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.Location = New System.Drawing.Point(915, 8)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(54, 21)
@@ -1473,9 +1505,10 @@ Partial Class Balances
         '
         'TrisVoid_CB
         '
+        Me.TrisVoid_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrisVoid_CB.BackColor = System.Drawing.SystemColors.AppWorkspace
         Me.TrisVoid_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.TrisVoid_CB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TrisVoid_CB.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.TrisVoid_CB.Location = New System.Drawing.Point(476, 71)
         Me.TrisVoid_CB.Name = "TrisVoid_CB"
         Me.TrisVoid_CB.Size = New System.Drawing.Size(146, 23)
@@ -1937,7 +1970,7 @@ Partial Class Balances
         Me.Label39.AutoSize = True
         Me.Label39.BackColor = System.Drawing.Color.Transparent
         Me.Label39.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label39.Location = New System.Drawing.Point(238, 25)
+        Me.Label39.Location = New System.Drawing.Point(258, 27)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(87, 19)
         Me.Label39.TabIndex = 432
@@ -1946,16 +1979,16 @@ Partial Class Balances
         '
         'Salary_Date
         '
-        Me.Salary_Date.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Salary_Date.CalendarFont = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Salary_Date.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Salary_Date.CustomFormat = "yyyy-MM-dd  hh:mm:ss tt"
-        Me.Salary_Date.Font = New System.Drawing.Font("Times New Roman", 13.25!, System.Drawing.FontStyle.Bold)
+        Me.Salary_Date.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.Salary_Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.Salary_Date.Location = New System.Drawing.Point(3, 21)
         Me.Salary_Date.Name = "Salary_Date"
         Me.Salary_Date.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Salary_Date.RightToLeftLayout = True
-        Me.Salary_Date.Size = New System.Drawing.Size(231, 28)
+        Me.Salary_Date.Size = New System.Drawing.Size(251, 29)
         Me.Salary_Date.TabIndex = 431
         '
         'Insert_Salary_btn
@@ -2159,12 +2192,12 @@ Partial Class Balances
         Me.YearComboBox.BackColor = System.Drawing.SystemColors.MenuBar
         Me.YearComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.YearComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.YearComboBox.Font = New System.Drawing.Font("Simplified Arabic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.YearComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
         Me.YearComboBox.FormattingEnabled = True
-        Me.YearComboBox.Location = New System.Drawing.Point(845, 17)
+        Me.YearComboBox.Location = New System.Drawing.Point(845, 21)
         Me.YearComboBox.Name = "YearComboBox"
         Me.YearComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.YearComboBox.Size = New System.Drawing.Size(100, 34)
+        Me.YearComboBox.Size = New System.Drawing.Size(100, 27)
         Me.YearComboBox.TabIndex = 363
         '
         'Label14
@@ -2187,13 +2220,13 @@ Partial Class Balances
         Me.SalariesMonthComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SalariesMonthComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SalariesMonthComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SalariesMonthComboBox.Font = New System.Drawing.Font("Simplified Arabic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SalariesMonthComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
         Me.SalariesMonthComboBox.FormattingEnabled = True
         Me.SalariesMonthComboBox.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"})
-        Me.SalariesMonthComboBox.Location = New System.Drawing.Point(718, 17)
+        Me.SalariesMonthComboBox.Location = New System.Drawing.Point(718, 21)
         Me.SalariesMonthComboBox.Name = "SalariesMonthComboBox"
         Me.SalariesMonthComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SalariesMonthComboBox.Size = New System.Drawing.Size(77, 34)
+        Me.SalariesMonthComboBox.Size = New System.Drawing.Size(77, 27)
         Me.SalariesMonthComboBox.TabIndex = 361
         '
         'PrintButton
@@ -2799,19 +2832,19 @@ Partial Class Balances
         'سحـــبToolStripMenuItem
         '
         Me.سحـــبToolStripMenuItem.Name = "سحـــبToolStripMenuItem"
-        Me.سحـــبToolStripMenuItem.Size = New System.Drawing.Size(152, 26)
+        Me.سحـــبToolStripMenuItem.Size = New System.Drawing.Size(128, 26)
         Me.سحـــبToolStripMenuItem.Text = "سحـــب"
         '
         'إيــداعToolStripMenuItem
         '
         Me.إيــداعToolStripMenuItem.Name = "إيــداعToolStripMenuItem"
-        Me.إيــداعToolStripMenuItem.Size = New System.Drawing.Size(152, 26)
+        Me.إيــداعToolStripMenuItem.Size = New System.Drawing.Size(128, 26)
         Me.إيــداعToolStripMenuItem.Text = "إيــداع"
         '
         'تحويـــلToolStripMenuItem
         '
         Me.تحويـــلToolStripMenuItem.Name = "تحويـــلToolStripMenuItem"
-        Me.تحويـــلToolStripMenuItem.Size = New System.Drawing.Size(152, 26)
+        Me.تحويـــلToolStripMenuItem.Size = New System.Drawing.Size(128, 26)
         Me.تحويـــلToolStripMenuItem.Text = "تحويـــل"
         '
         'مكافئاتوخصوماتللموظفينToolStripMenuItem
@@ -2837,27 +2870,6 @@ Partial Class Balances
         Me.خروجToolStripMenuItem.Name = "خروجToolStripMenuItem"
         Me.خروجToolStripMenuItem.Size = New System.Drawing.Size(55, 25)
         Me.خروجToolStripMenuItem.Text = "خروج"
-        '
-        'AG_Cm
-        '
-        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.AG_Cm.Location = New System.Drawing.Point(570, 1)
-        Me.AG_Cm.Name = "AG_Cm"
-        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(350, 35)
-        Me.AG_Cm.SQL_Column = "AG_NAME"
-        Me.AG_Cm.SQL_ID = "AG_ID"
-        Me.AG_Cm.SQL_IsNumericSearchField = False
-        Me.AG_Cm.SQL_ListSize = 200
-        Me.AG_Cm.SQL_NumberOfRows = 200
-        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField_WHERE = ""
-        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
-        Me.AG_Cm.TabIndex = 626
-        Me.AG_Cm.TextMaxLength = 250
-        Me.AG_Cm.Textt = ""
         '
         'Balances
         '
