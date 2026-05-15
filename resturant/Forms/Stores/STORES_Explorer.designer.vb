@@ -38,7 +38,6 @@ Partial Class STORES_Explorer
         Me.Label3 = New System.Windows.Forms.Label()
         Me.textBox_total = New System.Windows.Forms.TextBox()
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.EXCEL_BTN = New System.Windows.Forms.Button()
         Me.Recount_Cost_btn = New System.Windows.Forms.Button()
         Me.Up_Update_btn = New System.Windows.Forms.Button()
@@ -58,6 +57,7 @@ Partial Class STORES_Explorer
         Me.Print_type_Cmb = New System.Windows.Forms.ComboBox()
         Me.Show_only_Zero_CB = New System.Windows.Forms.CheckBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.TitleBar_Panel.SuspendLayout()
         CType(Me.DataB, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -248,28 +248,6 @@ Partial Class STORES_Explorer
         Me.MetroToolTip1.Style = MetroFramework.MetroColorStyle.Blue
         Me.MetroToolTip1.StyleManager = Nothing
         Me.MetroToolTip1.Theme = MetroFramework.MetroThemeStyle.Light
-        '
-        'Button2
-        '
-        Me.Button2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Button2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Font = New System.Drawing.Font("Arial", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.Button2.ForeColor = System.Drawing.Color.Black
-        Me.Button2.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
-        Me.Button2.Location = New System.Drawing.Point(966, 2)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Button2.Name = "Button2"
-        Me.Button2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Button2.Size = New System.Drawing.Size(41, 70)
-        Me.Button2.TabIndex = 905
-        Me.Button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroToolTip1.SetToolTip(Me.Button2, "حفظ العرض")
-        Me.Button2.UseVisualStyleBackColor = False
         '
         'EXCEL_BTN
         '
@@ -599,6 +577,28 @@ Partial Class STORES_Explorer
         Me.Panel3.Size = New System.Drawing.Size(1057, 38)
         Me.Panel3.TabIndex = 912
         '
+        'Button2
+        '
+        Me.Button2.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Button2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button2.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Font = New System.Drawing.Font("Arial", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.Button2.ForeColor = System.Drawing.Color.Black
+        Me.Button2.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
+        Me.Button2.Location = New System.Drawing.Point(966, 2)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.Button2.Name = "Button2"
+        Me.Button2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Button2.Size = New System.Drawing.Size(41, 70)
+        Me.Button2.TabIndex = 905
+        Me.Button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MetroToolTip1.SetToolTip(Me.Button2, "حفظ العرض")
+        Me.Button2.UseVisualStyleBackColor = False
+        '
         'STORES_Explorer
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -653,7 +653,6 @@ Partial Class STORES_Explorer
     Friend WithEvents EXCEL_BTN As Button
     Friend WithEvents CheckedListBox1 As CheckedListBox
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents Button2 As Button
     Friend WithEvents gridv As Zuby.ADGV.AdvancedDataGridView
     Friend WithEvents miniToolStrip As Zuby.ADGV.AdvancedDataGridViewSearchToolBar
     Friend WithEvents grid_panel As Panel
@@ -666,4 +665,5 @@ Partial Class STORES_Explorer
     Friend WithEvents Show_only_Zero_CB As CheckBox
     Friend WithEvents Panel3 As Panel
     Friend WithEvents UcGridColumnsSelector1 As UcGridColumnsSelector
+    Friend WithEvents Button2 As Button
 End Class
