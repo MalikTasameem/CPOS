@@ -1,9 +1,13 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Drawing.Printing
 'Imports Microsoft.Win32
 Public Class STORES_Explorer
     'Dim rs As New Resizer
     Dim IM_DT As New DataTable
     Dim Get_IM As Boolean = False
+    Private _printRowIndex As Integer = 0
+    Private _printDateTime As DateTime
+    Private WithEvents PdfButton As Button
 
     Public is_Update_Valid_D As Boolean = False
     Public is_Update_QTY As Boolean = False
@@ -16,6 +20,7 @@ Public Class STORES_Explorer
     Private Sub STORES_Explorer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' 1. إعداد التكبير الديناميكي وإيقاف التحجيم التلقائي
         SetupAnchors()
+        SetupPdfButton()
 
         ' 2. تطبيق الثيم الإجباري 
         Try
@@ -122,6 +127,36 @@ Public Class STORES_Explorer
         If Recount_Cost_btn IsNot Nothing Then Recount_Cost_btn.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         If Up_Update_btn IsNot Nothing Then Up_Update_btn.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         If IM_btn IsNot Nothing Then IM_btn.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+    End Sub
+
+    Private Sub SetupPdfButton()
+
+        If PdfButton IsNot Nothing Then Return
+
+        PdfButton = New Button With {
+            .Anchor = PrintButton.Anchor,
+            .BackColor = PrintButton.BackColor,
+            .Cursor = Cursors.Hand,
+            .FlatStyle = PrintButton.FlatStyle,
+            .Font = PrintButton.Font,
+            .ForeColor = PrintButton.ForeColor,
+            .Location = New Point(PrintButton.Right + 8, PrintButton.Top),
+            .Name = "PdfButton",
+            .RightToLeft = RightToLeft.Yes,
+            .Size = PrintButton.Size,
+            .TabStop = False,
+            .Tag = "PRINT",
+            .Text = "PDF",
+            .UseVisualStyleBackColor = False
+        }
+
+        PdfButton.FlatAppearance.BorderColor = PrintButton.FlatAppearance.BorderColor
+        PdfButton.FlatAppearance.MouseDownBackColor = PrintButton.FlatAppearance.MouseDownBackColor
+        PdfButton.FlatAppearance.MouseOverBackColor = PrintButton.FlatAppearance.MouseOverBackColor
+
+        Panel2.Controls.Add(PdfButton)
+        PdfButton.BringToFront()
+
     End Sub
 
     Private Sub Make_Hints()
@@ -279,7 +314,7 @@ Public Class STORES_Explorer
         DataB.DataSource = IM_DT
         gridv.DataSource = DataB
 
-        advancedDataGridViewSearchToolBar_main.SetColumns(gridv.Columns)
+        '  advancedDataGridViewSearchToolBar_main.SetColumns(gridv.Columns)
 
 
         If IM_DT.Rows.Count > 0 Then
@@ -299,44 +334,39 @@ Public Class STORES_Explorer
             Next
 
 
-
-            'gridv.Columns(10).Tag = 1
-            'gridv.Columns(11).Tag = 1
-            'gridv.Columns(12).Tag = 1
-            'gridv.Columns(13).Tag = 1
-            'gridv.Columns(14).Tag = 1
-
-            'gridv.Columns(12).DefaultCellStyle.Format = "N3"
-            'gridv.Columns(13).DefaultCellStyle.Format = "N3"
-            'gridv.Columns(14).DefaultCellStyle.Format = "N3"
+            'If CheckedListBox1.Items.Count = 0 Then
+            '    CheckedListBox1.Items.Clear()
+            '    For i As Integer = 0 To gridv.ColumnCount - 1
+            '        Dim CL = gridv.Columns(i).Name
+            '        CheckedListBox1.Items.Add(CL)
+            '    Next
+            'End If
 
 
-            If CheckedListBox1.Items.Count = 0 Then
-                CheckedListBox1.Items.Clear()
-                For i As Integer = 0 To gridv.ColumnCount - 1
-                    Dim CL = gridv.Columns(i).Name
-                    CheckedListBox1.Items.Add(CL)
-                Next
-            End If
+            'Recover_STORES_Explorer_File_Setting(CheckedListBox1)
+
+            'For i = 0 To gridv.ColumnCount - 1
+            '    gridv.Columns(i).Visible = CheckedListBox1.GetItemChecked(i)
+            'Next
 
 
-            Recover_STORES_Explorer_File_Setting(CheckedListBox1)
+            UcGridColumnsSelector1.BindGrid(
+gridv,
+New List(Of String) From {""},
+Me.Name.ToString
+ )
 
-            For i = 0 To gridv.ColumnCount - 1
-                gridv.Columns(i).Visible = CheckedListBox1.GetItemChecked(i)
-            Next
 
+            'If U_SB_Show_IM_COST = False Then
+            '    gridv.Columns("      التكلفة").Visible = False
+            '    CheckedListBox1.SetItemCheckState(11, False)
 
-            If U_SB_Show_IM_COST = False Then
-                gridv.Columns("      التكلفة").Visible = False
-                CheckedListBox1.SetItemCheckState(11, False)
+            '    gridv.Columns("      أخر شراء").Visible = False
+            '    CheckedListBox1.SetItemCheckState(12, False)
 
-                gridv.Columns("      أخر شراء").Visible = False
-                CheckedListBox1.SetItemCheckState(12, False)
-
-                gridv.Columns("      إجمالي التكلفة").Visible = False
-                CheckedListBox1.SetItemCheckState(14, False)
-            End If
+            '    gridv.Columns("      إجمالي التكلفة").Visible = False
+            '    CheckedListBox1.SetItemCheckState(14, False)
+            'End If
 
 
             GET_TOTALS_GRID(gridv)
@@ -392,7 +422,10 @@ Public Class STORES_Explorer
 
 
     Private Sub PrintButton_Click(sender As Object, e As EventArgs) Handles PrintButton.Click
-        'If DataGridViewX.Rows.Count > 0 Then STORE_R_Print()
+        If gridv.Rows.Count = 0 Then
+            MsgBox("لا توجد بيانات للطباعة.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
 
         If U_SB_Show_IM_COST = False Then
             gridv.Columns(11).Visible = False
@@ -405,16 +438,398 @@ Public Class STORES_Explorer
             CheckedListBox1.SetItemCheckState(14, False)
         End If
 
-
-        Dim F As New Print_PDF
-        If Print_type_Cmb.SelectedIndex = 1 Then
-            F.PRINT_PDF_List(gridv, CheckedListBox1, " كشــف المخــزن ", 2)
-        Else
-            F.PRINT_PDF_List(gridv, CheckedListBox1, " كشــف المخــزن ", 1)
-        End If
-
+        PreviewStoresExplorerPrint()
 
     End Sub
+
+    Private Sub PdfButton_Click(sender As Object, e As EventArgs) Handles PdfButton.Click
+
+        If gridv.Rows.Count = 0 Then
+            MsgBox("لا توجد بيانات للتصدير.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
+
+        If U_SB_Show_IM_COST = False Then
+            gridv.Columns(11).Visible = False
+            CheckedListBox1.SetItemCheckState(11, False)
+
+            gridv.Columns(12).Visible = False
+            CheckedListBox1.SetItemCheckState(12, False)
+
+            gridv.Columns(14).Visible = False
+            CheckedListBox1.SetItemCheckState(14, False)
+        End If
+
+        ExportStoresExplorerPdf()
+
+    End Sub
+
+    Private Sub PreviewStoresExplorerPrint()
+
+        Using printDocument As PrintDocument = CreateStoresExplorerPrintDocument()
+            Using previewDialog As New PrintPreviewDialog()
+                previewDialog.Document = printDocument
+                previewDialog.WindowState = FormWindowState.Maximized
+                previewDialog.Text = "معاينة كشف المخزن"
+                previewDialog.ShowDialog(Me)
+            End Using
+        End Using
+
+    End Sub
+
+    Private Sub ExportStoresExplorerPdf()
+
+        Dim pdfPrinterName As String = GetPdfPrinterName()
+
+        If pdfPrinterName = "" Then
+            MsgBox("طابعة Microsoft Print to PDF غير متوفرة على هذا الجهاز.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
+
+        Using saveDialog As New SaveFileDialog()
+            saveDialog.Filter = "PDF Files (*.pdf)|*.pdf"
+            saveDialog.FileName = "كشف المخزن " & Date.Now.ToString("yyyyMMdd_HHmm") & ".pdf"
+            saveDialog.Title = "حفظ كشف المخزن PDF"
+
+            If saveDialog.ShowDialog(Me) <> DialogResult.OK Then Return
+
+            Using printDocument As PrintDocument = CreateStoresExplorerPrintDocument()
+                printDocument.PrinterSettings.PrinterName = pdfPrinterName
+                printDocument.PrinterSettings.PrintToFile = True
+                printDocument.PrinterSettings.PrintFileName = saveDialog.FileName
+                printDocument.PrintController = New StandardPrintController()
+                printDocument.Print()
+            End Using
+        End Using
+
+    End Sub
+
+    Private Function CreateStoresExplorerPrintDocument() As PrintDocument
+
+        Dim printDocument As New PrintDocument()
+        printDocument.DocumentName = "كشف المخزن"
+        printDocument.DefaultPageSettings.Landscape = Print_type_Cmb.SelectedIndex <> 1
+        printDocument.DefaultPageSettings.Margins = New Margins(30, 30, 40, 45)
+
+        AddHandler printDocument.BeginPrint, AddressOf StoresExplorerPrintDocument_BeginPrint
+        AddHandler printDocument.PrintPage, AddressOf StoresExplorerPrintDocument_PrintPage
+
+        Return printDocument
+
+    End Function
+
+    Private Sub StoresExplorerPrintDocument_BeginPrint(sender As Object, e As PrintEventArgs)
+
+        _printRowIndex = 0
+        _printDateTime = Date.Now
+
+    End Sub
+
+    Private Sub StoresExplorerPrintDocument_PrintPage(sender As Object, e As PrintPageEventArgs)
+
+        Dim bounds As Rectangle = e.MarginBounds
+        Dim y As Integer = bounds.Top
+        Dim visibleColumns As List(Of DataGridViewColumn) = GetPrintableColumns()
+
+        If visibleColumns.Count = 0 Then
+            e.HasMorePages = False
+            Return
+        End If
+
+        Using storeTitleFont As New Font("Segoe UI", 15.0!, FontStyle.Bold),
+              storeSubTitleFont As New Font("Segoe UI", 10.0!, FontStyle.Bold),
+              titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
+              infoFont As New Font("Segoe UI", 8.5!, FontStyle.Bold),
+              headerFont As New Font("Segoe UI", 7.0!, FontStyle.Bold),
+              rowFont As New Font("Segoe UI", 7.0!, FontStyle.Regular),
+              totalFont As New Font("Segoe UI", 8.0!, FontStyle.Bold)
+
+            Dim rtlFormat As New StringFormat()
+            rtlFormat.Alignment = StringAlignment.Far
+            rtlFormat.LineAlignment = StringAlignment.Center
+            rtlFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+            rtlFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            Dim centerFormat As New StringFormat()
+            centerFormat.Alignment = StringAlignment.Center
+            centerFormat.LineAlignment = StringAlignment.Center
+            centerFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            DrawStoresReportStoreHeader(e.Graphics, bounds, y, storeTitleFont, storeSubTitleFont, centerFormat)
+
+            e.Graphics.DrawString(
+                "كشف المخزن",
+                titleFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 28),
+                centerFormat
+            )
+            y += 30
+
+            e.Graphics.DrawString(
+                GetStoresExplorerFilterText(),
+                infoFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 24),
+                rtlFormat
+            )
+            y += 30
+
+            Dim rowHeight As Integer = 24
+            Dim widths As List(Of Integer) = CalculatePrintColumnWidths(visibleColumns, bounds.Width)
+            Dim x As Integer = bounds.Right
+
+            For i As Integer = 0 To visibleColumns.Count - 1
+                x -= widths(i)
+                Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+                Using backBrush As New SolidBrush(Color.FromArgb(45, 62, 80))
+                    e.Graphics.FillRectangle(backBrush, rect)
+                End Using
+
+                e.Graphics.DrawRectangle(Pens.DarkGray, rect)
+                e.Graphics.DrawString(visibleColumns(i).HeaderText.Trim(), headerFont, Brushes.White, rect, centerFormat)
+            Next
+
+            y += rowHeight
+
+            Dim rowsPerPage As Integer = CalculatePrintableRowsPerPage(y, bounds.Bottom, rowHeight)
+            Dim totalPages As Integer = CalculateTotalPrintPages(gridv.Rows.Count, rowsPerPage)
+            Dim currentPage As Integer = CalculateCurrentPrintPage(_printRowIndex, rowsPerPage)
+
+            While _printRowIndex < gridv.Rows.Count
+
+                If y + rowHeight > bounds.Bottom - 58 Then
+                    DrawStoresReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
+                    e.HasMorePages = True
+                    Return
+                End If
+
+                Dim row As DataGridViewRow = gridv.Rows(_printRowIndex)
+                x = bounds.Right
+
+                For i As Integer = 0 To visibleColumns.Count - 1
+                    x -= widths(i)
+                    Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+                    If _printRowIndex Mod 2 = 0 Then
+                        e.Graphics.FillRectangle(Brushes.White, rect)
+                    Else
+                        Using altBrush As New SolidBrush(Color.FromArgb(248, 250, 252))
+                            e.Graphics.FillRectangle(altBrush, rect)
+                        End Using
+                    End If
+
+                    e.Graphics.DrawRectangle(Pens.LightGray, rect)
+                    e.Graphics.DrawString(GetPrintableCellText(row, visibleColumns(i)), rowFont, Brushes.Black, rect, centerFormat)
+                Next
+
+                y += rowHeight
+                _printRowIndex += 1
+
+            End While
+
+            y += 8
+            DrawStoresTotals(e.Graphics, bounds, y, totalFont, centerFormat)
+            DrawStoresReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
+
+        End Using
+
+        e.HasMorePages = False
+
+    End Sub
+
+    Private Function GetPrintableColumns() As List(Of DataGridViewColumn)
+
+        Dim columns As New List(Of DataGridViewColumn)()
+
+        For Each col As DataGridViewColumn In gridv.Columns
+            If col.Visible Then columns.Add(col)
+        Next
+
+        Return columns
+
+    End Function
+
+    Private Function CalculatePrintColumnWidths(columns As List(Of DataGridViewColumn), availableWidth As Integer) As List(Of Integer)
+
+        Dim widths As New List(Of Integer)()
+        Dim totalGridWidth As Integer = 0
+
+        For Each col As DataGridViewColumn In columns
+            totalGridWidth += Math.Max(30, col.Width)
+        Next
+
+        If totalGridWidth <= 0 Then totalGridWidth = columns.Count * 80
+
+        Dim usedWidth As Integer = 0
+
+        For i As Integer = 0 To columns.Count - 1
+            Dim width As Integer
+
+            If i = columns.Count - 1 Then
+                width = Math.Max(30, availableWidth - usedWidth)
+            Else
+                width = Math.Max(30, CInt(availableWidth * (Math.Max(30, columns(i).Width) / CDbl(totalGridWidth))))
+            End If
+
+            widths.Add(width)
+            usedWidth += width
+        Next
+
+        Return widths
+
+    End Function
+
+    Private Function GetPrintableCellText(row As DataGridViewRow, column As DataGridViewColumn) As String
+
+        If row.Cells(column.Name).Value Is Nothing OrElse row.Cells(column.Name).Value Is DBNull.Value Then Return ""
+
+        If column.Tag IsNot Nothing AndAlso column.Tag.ToString() = "1" Then
+            Dim numberValue As Decimal
+            If Decimal.TryParse(row.Cells(column.Name).Value.ToString(), numberValue) Then Return numberValue.ToString(N_Point_Fter)
+        End If
+
+        Return row.Cells(column.Name).FormattedValue.ToString()
+
+    End Function
+
+    Private Function GetStoresExplorerFilterText() As String
+
+        Dim searchText As String = CMSearchTextBox.Text.Trim()
+        If searchText = "" Then searchText = "الكل"
+
+        Return "المخزن: " & ST_cm.Text &
+            "    المجموعة: " & GM_Serach.Text &
+            "    البحث: " & searchText &
+            "    عدد الأصناف: " & gridv.Rows.Count.ToString()
+
+    End Function
+
+    Private Sub DrawStoresReportStoreHeader(graphics As Graphics, bounds As Rectangle, ByRef y As Integer, storeTitleFont As Font, storeSubTitleFont As Font, centerFormat As StringFormat)
+
+        If Not String.IsNullOrWhiteSpace(SBill_Title_1) Then
+            graphics.DrawString(SBill_Title_1, storeTitleFont, Brushes.Black, New Rectangle(bounds.Left, y, bounds.Width, 30), centerFormat)
+            y += 30
+        End If
+
+        If Not String.IsNullOrWhiteSpace(SBill_Title_2) Then
+            graphics.DrawString(SBill_Title_2, storeSubTitleFont, Brushes.Black, New Rectangle(bounds.Left, y, bounds.Width, 24), centerFormat)
+            y += 24
+        End If
+
+    End Sub
+
+    Private Sub DrawStoresTotals(graphics As Graphics, bounds As Rectangle, y As Integer, totalFont As Font, centerFormat As StringFormat)
+
+        If TOTAL_Grid.Columns.Count = 0 OrElse TOTAL_Grid.Rows.Count = 0 Then Return
+
+        Dim rowHeight As Integer = 24
+        Dim colWidth As Integer = Math.Max(80, bounds.Width \ TOTAL_Grid.Columns.Count)
+        Dim x As Integer = bounds.Right
+
+        For Each col As DataGridViewColumn In TOTAL_Grid.Columns
+            x -= colWidth
+            Dim rect As New Rectangle(x, y, colWidth, rowHeight)
+            FillTotalCell(graphics, rect)
+            graphics.DrawString(col.HeaderText.Trim(), totalFont, Brushes.Black, rect, centerFormat)
+        Next
+
+        y += rowHeight
+        x = bounds.Right
+
+        For i As Integer = 0 To TOTAL_Grid.Columns.Count - 1
+            x -= colWidth
+            Dim rect As New Rectangle(x, y, colWidth, rowHeight)
+            FillTotalCell(graphics, rect)
+
+            Dim valueText As String = ""
+            Dim value As Object = TOTAL_Grid.Rows(0).Cells(i).Value
+
+            If value IsNot Nothing AndAlso value IsNot DBNull.Value Then
+                Dim numberValue As Decimal
+                If Decimal.TryParse(value.ToString(), numberValue) Then
+                    valueText = numberValue.ToString(N_Point_Fter)
+                Else
+                    valueText = value.ToString()
+                End If
+            End If
+
+            graphics.DrawString(valueText, totalFont, Brushes.Black, rect, centerFormat)
+        Next
+
+    End Sub
+
+    Private Sub FillTotalCell(graphics As Graphics, rect As Rectangle)
+
+        Using totalBrush As New SolidBrush(Color.FromArgb(235, 240, 245))
+            graphics.FillRectangle(totalBrush, rect)
+        End Using
+
+        graphics.DrawRectangle(Pens.LightGray, rect)
+
+    End Sub
+
+    Private Function CalculatePrintableRowsPerPage(firstRowY As Integer, pageBottom As Integer, rowHeight As Integer) As Integer
+
+        Dim availableHeight As Integer = pageBottom - 58 - firstRowY
+        If availableHeight <= 0 Then Return 1
+
+        Return Math.Max(1, CInt(Math.Floor(availableHeight / CDbl(rowHeight))))
+
+    End Function
+
+    Private Function CalculateTotalPrintPages(totalRows As Integer, rowsPerPage As Integer) As Integer
+
+        If totalRows <= 0 OrElse rowsPerPage <= 0 Then Return 1
+
+        Return Math.Max(1, CInt(Math.Ceiling(totalRows / CDbl(rowsPerPage))))
+
+    End Function
+
+    Private Function CalculateCurrentPrintPage(rowIndex As Integer, rowsPerPage As Integer) As Integer
+
+        If rowsPerPage <= 0 Then Return 1
+
+        Return Math.Max(1, (rowIndex \ rowsPerPage) + 1)
+
+    End Function
+
+    Private Sub DrawStoresReportFooter(graphics As Graphics, bounds As Rectangle, currentPage As Integer, totalPages As Integer, footerFont As Font, centerFormat As StringFormat)
+
+        If _printDateTime = DateTime.MinValue Then _printDateTime = Date.Now
+
+        Dim footerTop As Integer = bounds.Bottom - 26
+        Dim sideWidth As Integer = CInt(bounds.Width * 0.34)
+        Dim centerWidth As Integer = bounds.Width - (sideWidth * 2)
+
+        Using rightFormat As New StringFormat(),
+              leftFormat As New StringFormat()
+
+            rightFormat.Alignment = StringAlignment.Far
+            rightFormat.LineAlignment = StringAlignment.Center
+            rightFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+            leftFormat.Alignment = StringAlignment.Near
+            leftFormat.LineAlignment = StringAlignment.Center
+
+            graphics.DrawLine(Pens.LightGray, bounds.Left, footerTop - 4, bounds.Right, footerTop - 4)
+            graphics.DrawString("المعد: " & USER_NAME, footerFont, Brushes.Black, New Rectangle(bounds.Right - sideWidth, footerTop, sideWidth, 22), rightFormat)
+            graphics.DrawString(currentPage.ToString() & "/" & totalPages.ToString(), footerFont, Brushes.Black, New Rectangle(bounds.Left + sideWidth, footerTop, centerWidth, 22), centerFormat)
+            graphics.DrawString("تاريخ الطباعة: " & _printDateTime.ToString("yyyy/MM/dd HH:mm"), footerFont, Brushes.Black, New Rectangle(bounds.Left, footerTop, sideWidth, 22), leftFormat)
+        End Using
+
+    End Sub
+
+    Private Function GetPdfPrinterName() As String
+
+        For Each printerName As String In PrinterSettings.InstalledPrinters
+            If printerName.IndexOf("Microsoft Print to PDF", StringComparison.OrdinalIgnoreCase) >= 0 Then Return printerName
+        Next
+
+        Return ""
+
+    End Function
 
     Private Sub MakeBarcode_btn_Click(sender As Object, e As EventArgs)
         printbarcode.ShowDialog()
@@ -561,7 +976,7 @@ Public Class STORES_Explorer
 
     Private Sub Recount_Cost_btn_Click(sender As Object, e As EventArgs) Handles Recount_Cost_btn.Click
 
-        If MessageBox.Show(" تدوير متوسط تكلفةالأصناف ؟؟ ... قد تستغرق العملية بعض الوقت ", "تأكيد", MessageBoxButtons.OKCancel, _
+        If MessageBox.Show(" تدوير متوسط تكلفةالأصناف ؟؟ ... قد تستغرق العملية بعض الوقت ", "تأكيد", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then RECOUNT_IM_ALL_COST()
 
     End Sub
@@ -613,7 +1028,7 @@ Public Class STORES_Explorer
     End Sub
 
 
-    Private Sub advancedDataGridViewSearchToolBar_main_Search(sender As Object, e As Zuby.ADGV.AdvancedDataGridViewSearchToolBarSearchEventArgs) Handles advancedDataGridViewSearchToolBar_main.Search
+    Private Sub advancedDataGridViewSearchToolBar_main_Search(sender As Object, e As Zuby.ADGV.AdvancedDataGridViewSearchToolBarSearchEventArgs)
         Dim restartsearch = True
         Dim startColumn = 0
         Dim startRow = 0
@@ -694,4 +1109,7 @@ Public Class STORES_Explorer
         CB_CHecked(sender)
     End Sub
 
+    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
+
+    End Sub
 End Class

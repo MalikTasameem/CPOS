@@ -48,11 +48,11 @@ Partial Class STORES_Explorer
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
         Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         Me.gridv = New Zuby.ADGV.AdvancedDataGridView()
         Me.miniToolStrip = New Zuby.ADGV.AdvancedDataGridViewSearchToolBar()
         Me.grid_panel = New System.Windows.Forms.Panel()
         Me.TOTAL_Grid = New System.Windows.Forms.DataGridView()
-        Me.advancedDataGridViewSearchToolBar_main = New Zuby.ADGV.AdvancedDataGridViewSearchToolBar()
         Me.BarcodeSearch_CB = New System.Windows.Forms.CheckBox()
         Me.IMNUM_CB = New System.Windows.Forms.CheckBox()
         Me.Print_type_Cmb = New System.Windows.Forms.ComboBox()
@@ -146,15 +146,15 @@ Partial Class STORES_Explorer
         '
         'CMSearchTextBox
         '
-        Me.CMSearchTextBox.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.CMSearchTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CMSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CMSearchTextBox.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMSearchTextBox.ForeColor = System.Drawing.SystemColors.InfoText
-        Me.CMSearchTextBox.Location = New System.Drawing.Point(685, 39)
+        Me.CMSearchTextBox.Location = New System.Drawing.Point(598, 5)
         Me.CMSearchTextBox.Margin = New System.Windows.Forms.Padding(2, 5, 2, 5)
         Me.CMSearchTextBox.Name = "CMSearchTextBox"
         Me.CMSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.CMSearchTextBox.Size = New System.Drawing.Size(359, 25)
+        Me.CMSearchTextBox.Size = New System.Drawing.Size(446, 25)
         Me.CMSearchTextBox.TabIndex = 272
         Me.CMSearchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -163,7 +163,7 @@ Partial Class STORES_Explorer
         Me.Label9.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(329, 12)
+        Me.Label9.Location = New System.Drawing.Point(511, 23)
         Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(48, 19)
@@ -180,11 +180,11 @@ Partial Class STORES_Explorer
         Me.ST_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ST_cm.Font = New System.Drawing.Font("Arial", 12.25!)
         Me.ST_cm.FormattingEnabled = True
-        Me.ST_cm.Location = New System.Drawing.Point(249, 34)
+        Me.ST_cm.Location = New System.Drawing.Point(333, 45)
         Me.ST_cm.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.ST_cm.Name = "ST_cm"
         Me.ST_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ST_cm.Size = New System.Drawing.Size(181, 26)
+        Me.ST_cm.Size = New System.Drawing.Size(229, 26)
         Me.ST_cm.TabIndex = 647
         '
         'GM_Serach
@@ -200,10 +200,10 @@ Partial Class STORES_Explorer
         Me.GM_Serach.FormattingEnabled = True
         Me.GM_Serach.IntegralHeight = False
         Me.GM_Serach.Items.AddRange(New Object() {"قصيرة", "طويلة"})
-        Me.GM_Serach.Location = New System.Drawing.Point(449, 34)
+        Me.GM_Serach.Location = New System.Drawing.Point(581, 45)
         Me.GM_Serach.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.GM_Serach.Name = "GM_Serach"
-        Me.GM_Serach.Size = New System.Drawing.Size(177, 26)
+        Me.GM_Serach.Size = New System.Drawing.Size(241, 26)
         Me.GM_Serach.TabIndex = 654
         '
         'Label4
@@ -212,7 +212,7 @@ Partial Class STORES_Explorer
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(510, 12)
+        Me.Label4.Location = New System.Drawing.Point(766, 21)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(53, 19)
         Me.Label4.TabIndex = 653
@@ -225,7 +225,7 @@ Partial Class STORES_Explorer
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(167, 468)
+        Me.Label3.Location = New System.Drawing.Point(167, 516)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(118, 19)
@@ -261,7 +261,7 @@ Partial Class STORES_Explorer
         Me.Button2.Font = New System.Drawing.Font("Arial", 16.0!, System.Drawing.FontStyle.Bold)
         Me.Button2.ForeColor = System.Drawing.Color.Black
         Me.Button2.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
-        Me.Button2.Location = New System.Drawing.Point(651, 2)
+        Me.Button2.Location = New System.Drawing.Point(966, 2)
         Me.Button2.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Button2.Name = "Button2"
         Me.Button2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -299,7 +299,7 @@ Partial Class STORES_Explorer
         Me.Recount_Cost_btn.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Recount_Cost_btn.ForeColor = System.Drawing.Color.Black
         Me.Recount_Cost_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Recount_Cost_btn.Location = New System.Drawing.Point(12, 507)
+        Me.Recount_Cost_btn.Location = New System.Drawing.Point(12, 531)
         Me.Recount_Cost_btn.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Recount_Cost_btn.Name = "Recount_Cost_btn"
         Me.Recount_Cost_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -321,7 +321,7 @@ Partial Class STORES_Explorer
         Me.Up_Update_btn.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Up_Update_btn.ForeColor = System.Drawing.Color.Black
         Me.Up_Update_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Update_btn.Location = New System.Drawing.Point(259, 507)
+        Me.Up_Update_btn.Location = New System.Drawing.Point(259, 531)
         Me.Up_Update_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Up_Update_btn.Name = "Up_Update_btn"
         Me.Up_Update_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -340,10 +340,10 @@ Partial Class STORES_Explorer
         Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Button1.ForeColor = System.Drawing.Color.Black
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button1.Location = New System.Drawing.Point(125, 6)
+        Me.Button1.Location = New System.Drawing.Point(223, 42)
         Me.Button1.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -365,7 +365,7 @@ Partial Class STORES_Explorer
         Me.IM_btn.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_btn.ForeColor = System.Drawing.Color.Black
         Me.IM_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.IM_btn.Location = New System.Drawing.Point(160, 507)
+        Me.IM_btn.Location = New System.Drawing.Point(160, 531)
         Me.IM_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.IM_btn.Name = "IM_btn"
         Me.IM_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -404,16 +404,17 @@ Partial Class STORES_Explorer
         Me.CheckedListBox1.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CheckedListBox1.FormattingEnabled = True
         Me.CheckedListBox1.HorizontalScrollbar = True
-        Me.CheckedListBox1.Location = New System.Drawing.Point(697, 0)
+        Me.CheckedListBox1.Location = New System.Drawing.Point(1012, 0)
         Me.CheckedListBox1.MultiColumn = True
         Me.CheckedListBox1.Name = "CheckedListBox1"
         Me.CheckedListBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.CheckedListBox1.Size = New System.Drawing.Size(362, 79)
+        Me.CheckedListBox1.Size = New System.Drawing.Size(47, 79)
         Me.CheckedListBox1.TabIndex = 901
         '
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.UcGridColumnsSelector1)
         Me.Panel2.Controls.Add(Me.Button2)
         Me.Panel2.Controls.Add(Me.EXCEL_BTN)
         Me.Panel2.Controls.Add(Me.CheckedListBox1)
@@ -428,6 +429,19 @@ Partial Class STORES_Explorer
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1064, 81)
         Me.Panel2.TabIndex = 903
+        '
+        'UcGridColumnsSelector1
+        '
+        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(828, 36)
+        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
+        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
+        Me.UcGridColumnsSelector1.PopupMinHeight = 120
+        Me.UcGridColumnsSelector1.PopupWidth = 260
+        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
+    "ColumnsSettings"
+        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(120, 36)
+        Me.UcGridColumnsSelector1.TabIndex = 914
         '
         'gridv
         '
@@ -446,7 +460,7 @@ Partial Class STORES_Explorer
         Me.gridv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.gridv.FilterAndSortEnabled = True
         Me.gridv.FilterStringChangedInvokeBeforeDatasourceUpdate = True
-        Me.gridv.Location = New System.Drawing.Point(2, 4)
+        Me.gridv.Location = New System.Drawing.Point(2, 3)
         Me.gridv.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.gridv.MultiSelect = False
         Me.gridv.Name = "gridv"
@@ -455,7 +469,7 @@ Partial Class STORES_Explorer
         Me.gridv.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gridv.RowTemplate.Height = 25
         Me.gridv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.gridv.Size = New System.Drawing.Size(1053, 428)
+        Me.gridv.Size = New System.Drawing.Size(1053, 454)
         Me.gridv.SortStringChangedInvokeBeforeDatasourceUpdate = True
         Me.gridv.TabIndex = 902
         '
@@ -485,9 +499,9 @@ Partial Class STORES_Explorer
         Me.grid_panel.Controls.Add(Me.TOTAL_Grid)
         Me.grid_panel.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.grid_panel.Font = New System.Drawing.Font("Arial", 10.75!)
-        Me.grid_panel.Location = New System.Drawing.Point(0, 220)
+        Me.grid_panel.Location = New System.Drawing.Point(0, 172)
         Me.grid_panel.Name = "grid_panel"
-        Me.grid_panel.Size = New System.Drawing.Size(1064, 552)
+        Me.grid_panel.Size = New System.Drawing.Size(1064, 600)
         Me.grid_panel.TabIndex = 903
         '
         'TOTAL_Grid
@@ -499,7 +513,7 @@ Partial Class STORES_Explorer
         Me.TOTAL_Grid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.TOTAL_Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.TOTAL_Grid.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.TOTAL_Grid.Location = New System.Drawing.Point(361, 439)
+        Me.TOTAL_Grid.Location = New System.Drawing.Point(361, 463)
         Me.TOTAL_Grid.MultiSelect = False
         Me.TOTAL_Grid.Name = "TOTAL_Grid"
         Me.TOTAL_Grid.ReadOnly = True
@@ -511,29 +525,13 @@ Partial Class STORES_Explorer
         Me.TOTAL_Grid.Size = New System.Drawing.Size(694, 105)
         Me.TOTAL_Grid.TabIndex = 903
         '
-        'advancedDataGridViewSearchToolBar_main
-        '
-        Me.advancedDataGridViewSearchToolBar_main.AllowMerge = False
-        Me.advancedDataGridViewSearchToolBar_main.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.advancedDataGridViewSearchToolBar_main.AutoSize = False
-        Me.advancedDataGridViewSearchToolBar_main.Dock = System.Windows.Forms.DockStyle.None
-        Me.advancedDataGridViewSearchToolBar_main.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.advancedDataGridViewSearchToolBar_main.Location = New System.Drawing.Point(16, 7)
-        Me.advancedDataGridViewSearchToolBar_main.MaximumSize = New System.Drawing.Size(0, 20)
-        Me.advancedDataGridViewSearchToolBar_main.MinimumSize = New System.Drawing.Size(0, 20)
-        Me.advancedDataGridViewSearchToolBar_main.Name = "advancedDataGridViewSearchToolBar_main"
-        Me.advancedDataGridViewSearchToolBar_main.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.advancedDataGridViewSearchToolBar_main.Size = New System.Drawing.Size(1028, 20)
-        Me.advancedDataGridViewSearchToolBar_main.TabIndex = 909
-        Me.advancedDataGridViewSearchToolBar_main.Text = "AdvancedDataGridViewSearchToolBar1"
-        '
         'BarcodeSearch_CB
         '
-        Me.BarcodeSearch_CB.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.BarcodeSearch_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BarcodeSearch_CB.AutoSize = True
         Me.BarcodeSearch_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BarcodeSearch_CB.Font = New System.Drawing.Font("Arial", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.BarcodeSearch_CB.Location = New System.Drawing.Point(374, 42)
+        Me.BarcodeSearch_CB.Location = New System.Drawing.Point(374, 8)
         Me.BarcodeSearch_CB.Name = "BarcodeSearch_CB"
         Me.BarcodeSearch_CB.Size = New System.Drawing.Size(70, 22)
         Me.BarcodeSearch_CB.TabIndex = 903
@@ -542,11 +540,11 @@ Partial Class STORES_Explorer
         '
         'IMNUM_CB
         '
-        Me.IMNUM_CB.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.IMNUM_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.IMNUM_CB.AutoSize = True
         Me.IMNUM_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IMNUM_CB.Font = New System.Drawing.Font("Arial", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.IMNUM_CB.Location = New System.Drawing.Point(497, 42)
+        Me.IMNUM_CB.Location = New System.Drawing.Point(497, 8)
         Me.IMNUM_CB.Name = "IMNUM_CB"
         Me.IMNUM_CB.Size = New System.Drawing.Size(86, 22)
         Me.IMNUM_CB.TabIndex = 904
@@ -555,7 +553,7 @@ Partial Class STORES_Explorer
         '
         'Print_type_Cmb
         '
-        Me.Print_type_Cmb.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Print_type_Cmb.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Print_type_Cmb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.Print_type_Cmb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Print_type_Cmb.BackColor = System.Drawing.SystemColors.Info
@@ -566,7 +564,7 @@ Partial Class STORES_Explorer
         Me.Print_type_Cmb.FormattingEnabled = True
         Me.Print_type_Cmb.IntegralHeight = False
         Me.Print_type_Cmb.Items.AddRange(New Object() {"طباعة بالعرض", "طباعة بالطول"})
-        Me.Print_type_Cmb.Location = New System.Drawing.Point(14, 38)
+        Me.Print_type_Cmb.Location = New System.Drawing.Point(14, 4)
         Me.Print_type_Cmb.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Print_type_Cmb.Name = "Print_type_Cmb"
         Me.Print_type_Cmb.Size = New System.Drawing.Size(147, 26)
@@ -574,11 +572,11 @@ Partial Class STORES_Explorer
         '
         'Show_only_Zero_CB
         '
-        Me.Show_only_Zero_CB.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Show_only_Zero_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Show_only_Zero_CB.AutoSize = True
         Me.Show_only_Zero_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_only_Zero_CB.Font = New System.Drawing.Font("Arial", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Show_only_Zero_CB.Location = New System.Drawing.Point(175, 41)
+        Me.Show_only_Zero_CB.Location = New System.Drawing.Point(175, 7)
         Me.Show_only_Zero_CB.Name = "Show_only_Zero_CB"
         Me.Show_only_Zero_CB.Size = New System.Drawing.Size(103, 22)
         Me.Show_only_Zero_CB.TabIndex = 913
@@ -591,7 +589,6 @@ Partial Class STORES_Explorer
         Me.Panel3.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel3.Controls.Add(Me.Show_only_Zero_CB)
-        Me.Panel3.Controls.Add(Me.advancedDataGridViewSearchToolBar_main)
         Me.Panel3.Controls.Add(Me.CMSearchTextBox)
         Me.Panel3.Controls.Add(Me.IMNUM_CB)
         Me.Panel3.Controls.Add(Me.BarcodeSearch_CB)
@@ -599,7 +596,7 @@ Partial Class STORES_Explorer
         Me.Panel3.Location = New System.Drawing.Point(5, 129)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1057, 75)
+        Me.Panel3.Size = New System.Drawing.Size(1057, 38)
         Me.Panel3.TabIndex = 912
         '
         'STORES_Explorer
@@ -662,11 +659,11 @@ Partial Class STORES_Explorer
     Friend WithEvents grid_panel As Panel
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents textBox_total As System.Windows.Forms.TextBox
-    Friend WithEvents advancedDataGridViewSearchToolBar_main As Zuby.ADGV.AdvancedDataGridViewSearchToolBar
     Friend WithEvents IMNUM_CB As System.Windows.Forms.CheckBox
     Friend WithEvents BarcodeSearch_CB As System.Windows.Forms.CheckBox
     Friend WithEvents TOTAL_Grid As DataGridView
     Friend WithEvents Print_type_Cmb As ComboBox
     Friend WithEvents Show_only_Zero_CB As CheckBox
     Friend WithEvents Panel3 As Panel
+    Friend WithEvents UcGridColumnsSelector1 As UcGridColumnsSelector
 End Class

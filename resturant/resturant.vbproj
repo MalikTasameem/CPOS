@@ -1635,6 +1635,12 @@
     <Compile Include="Tools\SearchItemControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Tools\UcGridColumnsSelector.designer.vb">
+      <DependentUpon>UcGridColumnsSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\UcGridColumnsSelector.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Base_Form.resx">
@@ -2303,6 +2309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\SearchItemControl.resx">
       <DependentUpon>SearchItemControl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\UcGridColumnsSelector.resx">
+      <DependentUpon>UcGridColumnsSelector.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
