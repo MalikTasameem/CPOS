@@ -1264,10 +1264,10 @@ Partial Class POS
         Me.B5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.B5.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.B5.ForeColor = System.Drawing.SystemColors.Desktop
-        Me.B5.Location = New System.Drawing.Point(115, 86)
+        Me.B5.Location = New System.Drawing.Point(58, 86)
         Me.B5.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.B5.Name = "B5"
-        Me.B5.Size = New System.Drawing.Size(55, 50)
+        Me.B5.Size = New System.Drawing.Size(56, 50)
         Me.B5.TabIndex = 441
         Me.B5.Tag = "5"
         Me.B5.Text = "5"
@@ -1366,7 +1366,7 @@ Partial Class POS
         Me.B4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.B4.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.B4.ForeColor = System.Drawing.SystemColors.Desktop
-        Me.B4.Location = New System.Drawing.Point(59, 86)
+        Me.B4.Location = New System.Drawing.Point(2, 86)
         Me.B4.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.B4.Name = "B4"
         Me.B4.Size = New System.Drawing.Size(55, 50)
@@ -1383,7 +1383,7 @@ Partial Class POS
         Me.B6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.B6.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.B6.ForeColor = System.Drawing.SystemColors.Desktop
-        Me.B6.Location = New System.Drawing.Point(2, 86)
+        Me.B6.Location = New System.Drawing.Point(115, 86)
         Me.B6.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.B6.Name = "B6"
         Me.B6.Size = New System.Drawing.Size(55, 50)

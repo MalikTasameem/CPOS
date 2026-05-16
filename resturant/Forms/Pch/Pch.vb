@@ -386,8 +386,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Remove_Dist_btn.Enabled = True
         Cr_Equal_TXT.Enabled = True
         Aggregate_Btn.Enabled = True
-        'AGMetroGrid.BackgroundColor = Color.LightYellow
-        'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+        AGMetroGrid.BackgroundColor = Color.LightYellow
+        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
     End Sub
 
     Private Sub Disable_Fields()
@@ -473,8 +473,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Edit_butt.Text = EditState
             Delete_butt.Enabled = False
             AGMetroGrid.Enabled = True
-            'AGMetroGrid.BackgroundColor = Color.IndianRed
-            'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
+            AGMetroGrid.BackgroundColor = Color.IndianRed
+            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
             DiscountPanel.Enabled = False
             DeliveryingButton.Enabled = False
             Aggregate_Btn.Enabled = False
@@ -488,8 +488,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 UpdateFormStateIndicator("محفوظة", Color.DodgerBlue)
             Else
                 Print_btn.Enabled = True
-                'AGMetroGrid.BackgroundColor = Color.LightGreen
-                'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
+                AGMetroGrid.BackgroundColor = Color.LightGreen
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
                 DiscountPanel.Enabled = False
                 Disable_Fields()
             End If
@@ -585,8 +585,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                         UpdateFormStateIndicator("قيد التعديل", Color.DarkOrange)
                         On_Update = True
                         AGMetroGrid.Enabled = True
-                        'AGMetroGrid.BackgroundColor = Color.LightYellow
-                        'AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+                        AGMetroGrid.BackgroundColor = Color.LightYellow
+                        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
                         ADDCatButton.Enabled = True
                         RemoveCatButton.Enabled = True
                         Ebable_CatFields()

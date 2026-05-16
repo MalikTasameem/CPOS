@@ -836,7 +836,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -928,7 +928,7 @@ Partial Class Sales
         '
         Me.Marketer_Lb.BackColor = System.Drawing.Color.Transparent
         Me.Marketer_Lb.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Marketer_Lb.Location = New System.Drawing.Point(255, 46)
+        Me.Marketer_Lb.Location = New System.Drawing.Point(255, 98)
         Me.Marketer_Lb.Name = "Marketer_Lb"
         Me.Marketer_Lb.Size = New System.Drawing.Size(64, 21)
         Me.Marketer_Lb.TabIndex = 677
@@ -941,7 +941,7 @@ Partial Class Sales
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.Project_cm)
         Me.Panel2.Controls.Add(Me.Show_AG_Projects_btn)
-        Me.Panel2.Location = New System.Drawing.Point(699, 131)
+        Me.Panel2.Location = New System.Drawing.Point(699, 183)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(428, 37)
         Me.Panel2.TabIndex = 680
@@ -976,7 +976,7 @@ Partial Class Sales
         Me.BillNumPanel.Controls.Add(Me.Down_Bill_btn)
         Me.BillNumPanel.Controls.Add(Me.Up_Bill_btn)
         Me.BillNumPanel.Controls.Add(Me.Search_By_Bar_CB)
-        Me.BillNumPanel.Location = New System.Drawing.Point(699, 47)
+        Me.BillNumPanel.Location = New System.Drawing.Point(699, 99)
         Me.BillNumPanel.Name = "BillNumPanel"
         Me.BillNumPanel.Size = New System.Drawing.Size(428, 40)
         Me.BillNumPanel.TabIndex = 687
@@ -988,7 +988,7 @@ Partial Class Sales
         Me.Panel10.Controls.Add(Me.Label1)
         Me.Panel10.Controls.Add(Me.BillNumTxt)
         Me.Panel10.Controls.Add(Me.DateTimeEx)
-        Me.Panel10.Location = New System.Drawing.Point(334, 47)
+        Me.Panel10.Location = New System.Drawing.Point(334, 99)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(358, 40)
         Me.Panel10.TabIndex = 688
@@ -1029,7 +1029,7 @@ Partial Class Sales
         Me.Panel14.Controls.Add(Me.Label15)
         Me.Panel14.Controls.Add(Me.PauseCmb)
         Me.Panel14.Controls.Add(Me.MoveToBill_Btn)
-        Me.Panel14.Location = New System.Drawing.Point(334, 131)
+        Me.Panel14.Location = New System.Drawing.Point(334, 183)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(362, 37)
         Me.Panel14.TabIndex = 692
@@ -1186,7 +1186,7 @@ Partial Class Sales
         Me.IM_Check_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_Check_Panel.Controls.Add(Me.Check_Compute_txt)
         Me.IM_Check_Panel.Controls.Add(Me.Clear_Check_btn)
-        Me.IM_Check_Panel.Location = New System.Drawing.Point(3, 122)
+        Me.IM_Check_Panel.Location = New System.Drawing.Point(3, 174)
         Me.IM_Check_Panel.Name = "IM_Check_Panel"
         Me.IM_Check_Panel.Size = New System.Drawing.Size(300, 46)
         Me.IM_Check_Panel.TabIndex = 699
@@ -1382,7 +1382,7 @@ Partial Class Sales
         Me.AG_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.AG_Label.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AG_Label.ForeColor = System.Drawing.Color.Black
-        Me.AG_Label.Location = New System.Drawing.Point(334, 92)
+        Me.AG_Label.Location = New System.Drawing.Point(334, 144)
         Me.AG_Label.Name = "AG_Label"
         Me.AG_Label.Size = New System.Drawing.Size(242, 34)
         Me.AG_Label.TabIndex = 703
@@ -1497,7 +1497,7 @@ Partial Class Sales
         'Label24
         '
         Me.Label24.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(1070, 92)
+        Me.Label24.Location = New System.Drawing.Point(1070, 144)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(50, 34)
         Me.Label24.TabIndex = 710
@@ -1514,7 +1514,7 @@ Partial Class Sales
         Me.Panel1.Controls.Add(Me.New_butt)
         Me.Panel1.Controls.Add(Me.Save_butt)
         Me.Panel1.Controls.Add(Me.Delete_butt)
-        Me.Panel1.Location = New System.Drawing.Point(6, 175)
+        Me.Panel1.Location = New System.Drawing.Point(6, 41)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1148, 49)
         Me.Panel1.TabIndex = 723
@@ -1554,7 +1554,7 @@ Partial Class Sales
         Me.DeletedBillLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.DeletedBillLabel.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DeletedBillLabel.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.DeletedBillLabel.Location = New System.Drawing.Point(4, 87)
+        Me.DeletedBillLabel.Location = New System.Drawing.Point(4, 139)
         Me.DeletedBillLabel.Name = "DeletedBillLabel"
         Me.DeletedBillLabel.Size = New System.Drawing.Size(296, 33)
         Me.DeletedBillLabel.TabIndex = 727
@@ -1566,7 +1566,7 @@ Partial Class Sales
         '
         Me.Markter_Cm.CancelSearchImage = CType(resources.GetObject("Markter_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.Markter_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Markter_Cm.Location = New System.Drawing.Point(3, 41)
+        Me.Markter_Cm.Location = New System.Drawing.Point(3, 93)
         Me.Markter_Cm.Name = "Markter_Cm"
         Me.Markter_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Markter_Cm.Size = New System.Drawing.Size(245, 31)
@@ -1588,7 +1588,7 @@ Partial Class Sales
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.AG_Cm.ContextMenuStrip = Me.AG_ContextMenuStrip
         Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!)
-        Me.AG_Cm.Location = New System.Drawing.Point(582, 91)
+        Me.AG_Cm.Location = New System.Drawing.Point(582, 143)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.AG_Cm.Size = New System.Drawing.Size(482, 35)
