@@ -247,7 +247,7 @@ Public Class POS
         FormType = 1
         Load_ST()
 
-        Load_ALL_IM
+        Load_ALL_IM()
 
         Mange_FormOptions()
         If POS_ENTER_AS_ORDER = True Then BillTypeCmb.SelectedValue = 3
@@ -1548,6 +1548,7 @@ Public Class POS
 
     Private Sub RefreashButton_Click(sender As Object, e As EventArgs) Handles Button23.Click
         If On_Update = True Then Edit_butt_Click(sender, e)
+        Load_ALL_IM()
         ResetNewBill()
     End Sub
 

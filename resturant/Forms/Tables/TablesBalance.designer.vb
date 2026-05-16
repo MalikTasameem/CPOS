@@ -22,18 +22,17 @@ Partial Class TablesBalance
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TablesBalance))
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.F_Panel = New System.Windows.Forms.Panel()
         Me.IMGrid = New MetroFramework.Controls.MetroGrid()
         Me.IM_T_ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -117,25 +116,25 @@ Partial Class TablesBalance
         Me.IMGrid.CausesValidation = False
         Me.IMGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.IMGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IMGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IMGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
         Me.IMGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.IMGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IM_T_ID, Me.QTY_CL, Me.Unit_CL, Me.IM_NameCL, Me.Unit_Price_CL, Me.Total_CL})
         Me.IMGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IMGrid.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        DataGridViewCellStyle27.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IMGrid.DefaultCellStyle = DataGridViewCellStyle27
         Me.IMGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.IMGrid.EnableHeadersVisualStyles = False
         Me.IMGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -146,19 +145,19 @@ Partial Class TablesBalance
         Me.IMGrid.ReadOnly = True
         Me.IMGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.IMGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IMGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle28.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle28.Font = New System.Drawing.Font("Segoe UI", 10.25!)
+        DataGridViewCellStyle28.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IMGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle28
         Me.IMGrid.RowHeadersVisible = False
         Me.IMGrid.RowHeadersWidth = 100
         Me.IMGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Segoe UI", 10.75!)
-        Me.IMGrid.RowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle29.Font = New System.Drawing.Font("Segoe UI", 10.75!)
+        Me.IMGrid.RowsDefaultCellStyle = DataGridViewCellStyle29
         Me.IMGrid.RowTemplate.Height = 150
         Me.IMGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.IMGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -178,8 +177,8 @@ Partial Class TablesBalance
         'QTY_CL
         '
         Me.QTY_CL.DataPropertyName = "QTY"
-        DataGridViewCellStyle2.Format = "N1"
-        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle24.Format = "N1"
+        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle24
         Me.QTY_CL.FillWeight = 79.91894!
         Me.QTY_CL.HeaderText = "الكمية"
         Me.QTY_CL.Name = "QTY_CL"
@@ -204,8 +203,8 @@ Partial Class TablesBalance
         'Unit_Price_CL
         '
         Me.Unit_Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle3.Format = "N2"
-        Me.Unit_Price_CL.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle25.Format = "N2"
+        Me.Unit_Price_CL.DefaultCellStyle = DataGridViewCellStyle25
         Me.Unit_Price_CL.HeaderText = "السعر"
         Me.Unit_Price_CL.Name = "Unit_Price_CL"
         Me.Unit_Price_CL.ReadOnly = True
@@ -214,9 +213,9 @@ Partial Class TablesBalance
         'Total_CL
         '
         Me.Total_CL.DataPropertyName = "T_Price"
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle26.Format = "N2"
+        DataGridViewCellStyle26.NullValue = Nothing
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle26
         Me.Total_CL.FillWeight = 79.91894!
         Me.Total_CL.HeaderText = "الإجمالي"
         Me.Total_CL.Name = "Total_CL"
@@ -364,25 +363,25 @@ Partial Class TablesBalance
         Me.BillsMetroGrid.CausesValidation = False
         Me.BillsMetroGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.BillsMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.BillsMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle30.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle30.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle30.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.BillsMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle30
         Me.BillsMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.BillsMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Edit_TB_IMQty_CL, Me.Bills_T_ID_CL, Me.B_D_ID_CL, Me.B_Pr_ID_CL, Me.AG_ID_CL, Me.Date_CL, Me.AG_Name_Bill, Me.Total_TB_CL, Me.Discount_CL, Me.Pure_CL, Me.User_Name_CL, Me.B_Type_CL})
         Me.BillsMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.BillsMetroGrid.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle32.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.BillsMetroGrid.DefaultCellStyle = DataGridViewCellStyle32
         Me.BillsMetroGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.BillsMetroGrid.EnableHeadersVisualStyles = False
         Me.BillsMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -393,14 +392,14 @@ Partial Class TablesBalance
         Me.BillsMetroGrid.ReadOnly = True
         Me.BillsMetroGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.BillsMetroGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.BillsMetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle33.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle33.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.BillsMetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle33
         Me.BillsMetroGrid.RowHeadersVisible = False
         Me.BillsMetroGrid.RowHeadersWidth = 50
         Me.BillsMetroGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
@@ -480,9 +479,9 @@ Partial Class TablesBalance
         'Total_TB_CL
         '
         Me.Total_TB_CL.DataPropertyName = "Total"
-        DataGridViewCellStyle9.Format = "N2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.Total_TB_CL.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle31.Format = "N2"
+        DataGridViewCellStyle31.NullValue = Nothing
+        Me.Total_TB_CL.DefaultCellStyle = DataGridViewCellStyle31
         Me.Total_TB_CL.FillWeight = 60.11345!
         Me.Total_TB_CL.HeaderText = "الإجمالي"
         Me.Total_TB_CL.Name = "Total_TB_CL"
@@ -613,16 +612,15 @@ Partial Class TablesBalance
         Me.TranConfirm_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.TranConfirm_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TranConfirm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.TranConfirm_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.TranConfirm_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.TranConfirm_btn.ForeColor = System.Drawing.Color.Black
-        Me.TranConfirm_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_icon_refresh_2867936
         Me.TranConfirm_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.TranConfirm_btn.Location = New System.Drawing.Point(42, 11)
         Me.TranConfirm_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.TranConfirm_btn.Name = "TranConfirm_btn"
         Me.TranConfirm_btn.Size = New System.Drawing.Size(73, 27)
         Me.TranConfirm_btn.TabIndex = 567
-        Me.TranConfirm_btn.Text = "نقـــل"
+        Me.TranConfirm_btn.Text = "نقـــل 🔄"
         Me.TranConfirm_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.TranConfirm_btn.UseVisualStyleBackColor = False
         '
@@ -688,45 +686,44 @@ Partial Class TablesBalance
         Me.Debit_Table_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Debit_Table_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Debit_Table_btn.ForeColor = System.Drawing.Color.Black
-        Me.Debit_Table_btn.Image = Global.resturant.My.Resources.Resources.if_free_07_463022__1_
         Me.Debit_Table_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Debit_Table_btn.Location = New System.Drawing.Point(1, 480)
         Me.Debit_Table_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Debit_Table_btn.Name = "Debit_Table_btn"
         Me.Debit_Table_btn.Size = New System.Drawing.Size(84, 47)
         Me.Debit_Table_btn.TabIndex = 582
-        Me.Debit_Table_btn.Text = "مديونة"
+        Me.Debit_Table_btn.Text = "مديونة 📝"
         Me.Debit_Table_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Debit_Table_btn.UseVisualStyleBackColor = False
         '
         'Button51
         '
         Me.Button51.BackColor = System.Drawing.SystemColors.Info
-        Me.Button51.BackgroundImage = CType(resources.GetObject("Button51.BackgroundImage"), System.Drawing.Image)
         Me.Button51.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Button51.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button51.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button51.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button51.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!)
         Me.Button51.Location = New System.Drawing.Point(461, 354)
         Me.Button51.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Button51.Name = "Button51"
         Me.Button51.Size = New System.Drawing.Size(62, 66)
         Me.Button51.TabIndex = 581
+        Me.Button51.Text = "🔽"
         Me.Button51.UseVisualStyleBackColor = False
         '
         'Button50
         '
         Me.Button50.BackColor = System.Drawing.SystemColors.Info
-        Me.Button50.BackgroundImage = CType(resources.GetObject("Button50.BackgroundImage"), System.Drawing.Image)
         Me.Button50.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Button50.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button50.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button50.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button50.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button50.Location = New System.Drawing.Point(461, 122)
         Me.Button50.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Button50.Name = "Button50"
         Me.Button50.Size = New System.Drawing.Size(62, 66)
         Me.Button50.TabIndex = 580
+        Me.Button50.Text = "🔼"
         Me.Button50.UseVisualStyleBackColor = False
         '
         'PiedApart_btn
@@ -738,7 +735,6 @@ Partial Class TablesBalance
         Me.PiedApart_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.PiedApart_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.PiedApart_btn.ForeColor = System.Drawing.Color.Black
-        Me.PiedApart_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_money_299107
         Me.PiedApart_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.PiedApart_btn.Location = New System.Drawing.Point(238, 484)
         Me.PiedApart_btn.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -747,7 +743,6 @@ Partial Class TablesBalance
         Me.PiedApart_btn.Size = New System.Drawing.Size(120, 47)
         Me.PiedApart_btn.TabIndex = 579
         Me.PiedApart_btn.Text = "تسديد جزء"
-        Me.PiedApart_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.PiedApart_btn.UseVisualStyleBackColor = False
         '
         'TB_ButOnAG_btn
@@ -776,7 +771,6 @@ Partial Class TablesBalance
         Me.PrintBillButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.PrintBillButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.PrintBillButton.ForeColor = System.Drawing.Color.White
-        Me.PrintBillButton.Image = CType(resources.GetObject("PrintBillButton.Image"), System.Drawing.Image)
         Me.PrintBillButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.PrintBillButton.Location = New System.Drawing.Point(144, 484)
         Me.PrintBillButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -784,25 +778,25 @@ Partial Class TablesBalance
         Me.PrintBillButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.PrintBillButton.Size = New System.Drawing.Size(93, 47)
         Me.PrintBillButton.TabIndex = 567
-        Me.PrintBillButton.Text = "طبـاعة"
+        Me.PrintBillButton.Text = "طبـاعة 🖨️"
         Me.PrintBillButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.PrintBillButton.UseVisualStyleBackColor = False
         '
         'Refrech_btn
         '
         Me.Refrech_btn.BackColor = System.Drawing.Color.White
-        Me.Refrech_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_refresh_1608809
         Me.Refrech_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Refrech_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Refrech_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Refrech_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Refrech_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Refrech_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 21.25!)
         Me.Refrech_btn.ForeColor = System.Drawing.Color.DarkRed
         Me.Refrech_btn.Location = New System.Drawing.Point(392, 1)
         Me.Refrech_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Refrech_btn.Name = "Refrech_btn"
         Me.Refrech_btn.Size = New System.Drawing.Size(68, 40)
         Me.Refrech_btn.TabIndex = 563
+        Me.Refrech_btn.Text = "🔄"
         Me.Refrech_btn.UseVisualStyleBackColor = False
         '
         'TB_Types_CMB

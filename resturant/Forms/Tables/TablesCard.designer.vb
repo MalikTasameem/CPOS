@@ -94,6 +94,7 @@ Partial Class TablesCard
         '
         'TableNameTxt
         '
+        Me.TableNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TableNameTxt.Font = New System.Drawing.Font("Times New Roman", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TableNameTxt.Location = New System.Drawing.Point(499, 18)
         Me.TableNameTxt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)

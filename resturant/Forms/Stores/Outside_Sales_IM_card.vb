@@ -84,7 +84,7 @@
 
     End Sub
 
-    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String, isStore As Integer)
         IM_ID = itemId
         Get_Unit = False
         Load_SelectedItemData()

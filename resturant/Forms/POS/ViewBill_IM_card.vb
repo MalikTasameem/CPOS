@@ -96,26 +96,26 @@
 
         End Sub
 
-    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
-            PriceTextBox.Clear()
-            IM_ID = itemId
-            Get_Unit = False
-            Load_SelectedItemData()
-            Load_IM_Change_Price()
-            QtyTextBox.Select()
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String, isStore As Integer)
+        PriceTextBox.Clear()
+        IM_ID = itemId
+        Get_Unit = False
+        Load_SelectedItemData()
+        Load_IM_Change_Price()
+        QtyTextBox.Select()
 
-            If isValid = 1 Then
-                Valid_Panel.Visible = True
-                Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
-                IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
-            Else
-                Valid_Panel.Visible = False
-            End If
+        If isValid = 1 Then
+            Valid_Panel.Visible = True
+            Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
+            IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
+        Else
+            Valid_Panel.Visible = False
+        End If
 
-        End Sub
+    End Sub
 
 
-        Public Sub Check_View_Control()
+    Public Sub Check_View_Control()
 
             Min_SP_Panel.Visible = S_Allow_MinSP
             Serial_Code_Panel.Visible = S_SerialCode

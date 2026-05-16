@@ -88,7 +88,7 @@
         IM_Cost_Panel.Visible = U_SB_Show_IM_COST
     End Sub
 
-    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String, isStore As Integer)
 
         IM_ID = itemId
         Get_Unit = False

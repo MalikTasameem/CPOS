@@ -9,6 +9,7 @@
     Private WithEvents btnRefresh As New Button()
     Private WithEvents btnToggleView As New Button()
     Private WithEvents btnIMINFOView As New Button()
+    Private lblServiceItem As New Label()
 
     ' DataTable مصدر البيانات
     Private _itemsTable As DataTable
@@ -24,6 +25,7 @@
         Set(value As DataTable)
             _itemsTable = value
             dgvResults.Visible = False
+            UpdateServiceItemLabel(1)
             Me.Height = txtSearch.Height + 10
         End Set
     End Property
@@ -34,6 +36,7 @@
         Set(value As DataTable)
             _itemsTable_Barcode = value
             dgvResults.Visible = False
+            UpdateServiceItemLabel(1)
             Me.Height = txtSearch.Height + 10
         End Set
     End Property
@@ -88,6 +91,10 @@
 
         If dgvResults.Columns.Contains("isValid") Then
             dgvResults.Columns("isValid").Visible = False ' مخفي لكنه موجود
+        End If
+
+        If dgvResults.Columns.Contains("isStore") Then
+            dgvResults.Columns("isStore").Visible = False ' مخفي لكنه موجود
         End If
 
         If dgvResults.Columns.Contains("IM_NUMBER") Then
@@ -168,6 +175,7 @@
         ' حدد الهامش من اليمين
         Dim rightMargin As Integer = 10
         Dim currentX As Integer = Me.Width - rightMargin
+        Dim serviceLabelWidth As Integer = If(lblServiceItem.Visible, 120, 0)
 
         ' ترتيب الأزرار من اليمين لليسار
         btnRefresh.Height = txtSearch.Height
@@ -188,7 +196,7 @@
         btnIMINFOView.Height = txtSearch.Height
         btnIMINFOView.Width = 30
 
-        txtSearch.Width = currentX - cmbSearchBy.Width - btnIMINFOView.Width - 12
+        txtSearch.Width = currentX - cmbSearchBy.Width - btnIMINFOView.Width - serviceLabelWidth - 12
 
         If txtSearch.Width < 80 Then
             txtSearch.Width = 80
@@ -196,7 +204,15 @@
 
         txtSearch.Location = New Point(currentX - txtSearch.Width, txtSearch.Top)
 
-        btnIMINFOView.Location = New Point(txtSearch.Left - btnIMINFOView.Width - 1, txtSearch.Top)
+        If lblServiceItem.Visible Then
+            lblServiceItem.Size = New Size(serviceLabelWidth, txtSearch.Height)
+            lblServiceItem.Location = New Point(txtSearch.Left - serviceLabelWidth - 1, txtSearch.Top)
+            btnIMINFOView.Location = New Point(lblServiceItem.Left - btnIMINFOView.Width - 1, txtSearch.Top)
+        Else
+            lblServiceItem.Size = New Size(0, txtSearch.Height)
+            lblServiceItem.Location = New Point(txtSearch.Left, txtSearch.Top)
+            btnIMINFOView.Location = New Point(txtSearch.Left - btnIMINFOView.Width - 1, txtSearch.Top)
+        End If
 
         ' ComboBox في أقصى اليمين
         cmbSearchBy.Location = New Point(btnIMINFOView.Left - cmbSearchBy.Width - 1, txtSearch.Top)
@@ -204,6 +220,7 @@
         ' ضبط Anchor
         cmbSearchBy.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         txtSearch.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        lblServiceItem.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         btnIMINFOView.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         btnClear.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         btnRefresh.Anchor = AnchorStyles.Top Or AnchorStyles.Right
@@ -219,7 +236,7 @@
     ' الحدث: عند اختيار صنف
     'Public Event ItemSelected(ByVal itemId As Integer)
 
-    Public Event ItemSelected(ByVal itemId As Integer, ByVal isValid As String)
+    Public Event ItemSelected(ByVal itemId As Integer, ByVal isValid As String, ByVal isStore As Integer)
     Public Event ItemInfoRequested(ByVal searchText As String, ByVal searchBy As String)
 
     ' ToolTip
@@ -269,6 +286,19 @@
         SendMessage(txtSearch.Handle, &H1501, 0, "إبحث عن ( " & cmbSearchBy.Text & " )  ")
         txtSearch.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Me.Controls.Add(txtSearch)
+
+        lblServiceItem.Text = "⚠خدمة"
+        lblServiceItem.Size = New Size(120, txtSearch.Height)
+        lblServiceItem.BorderStyle = BorderStyle.FixedSingle
+        lblServiceItem.BackColor = Color.FromArgb(255, 232, 64)
+        lblServiceItem.ForeColor = Color.FromArgb(88, 28, 135)
+        lblServiceItem.Font = New Font("Segoe UI bold", 8.0!, FontStyle.Bold)
+        lblServiceItem.TextAlign = ContentAlignment.MiddleCenter
+        lblServiceItem.RightToLeft = RightToLeft.Yes
+        lblServiceItem.Visible = False
+        lblServiceItem.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Me.Controls.Add(lblServiceItem)
+        lblServiceItem.BringToFront()
 
         btnToggleView.Text = "📋"
         'btnToggleView.Width = 30
@@ -320,6 +350,7 @@
         tt.SetToolTip(btnRefresh, "تحديث البيانات من المصدر")
         tt.SetToolTip(btnToggleView, "عرض أو إخفاء كافة الأصناف")
         tt.SetToolTip(btnIMINFOView, "معلومات الصنف")
+        tt.SetToolTip(lblServiceItem, "هذا الصنف خدمي ولا يؤثر على المخزون")
 
         dgvResults.Location = New Point(0, txtSearch.Bottom + 5)
         dgvResults.Width = Me.Width
@@ -335,6 +366,7 @@
         dgvResults.RowHeadersVisible = False
         dgvResults.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None
         dgvResults.RowTemplate.Resizable = DataGridViewTriState.[False]
+        dgvResults.ScrollBars = ScrollBars.Vertical
         dgvResults.RowTemplate.Height = 30
         dgvResults.Anchor = AnchorStyles.Top Or AnchorStyles.Right Or AnchorStyles.Left Or AnchorStyles.Bottom
         dgvResults.ColumnHeadersVisible = False
@@ -349,6 +381,7 @@
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         txtSearch.BackColor = SystemColors.Window
+        UpdateServiceItemLabel(1)
         ApplyFilter()
     End Sub
 
@@ -407,13 +440,14 @@
             current_im_id = itemId
             Dim itemName = row.Cells("ItemName").Value.ToString()
             Dim isValid = row.Cells("isValid").Value.ToString()
-
+            Dim isStore = GetItemIsStoreValue(row.Cells("isStore").Value)
 
             txtSearch.Text = itemName
             txtSearch.BackColor = SystemColors.Info
+            UpdateServiceItemLabel(isStore)
 
             'RaiseEvent ItemSelected(itemId)
-            RaiseEvent ItemSelected(itemId, isValid)
+            RaiseEvent ItemSelected(itemId, isValid, isStore)
 
             dgvResults.Visible = False
             Me.Height = txtSearch.Height + 10
@@ -539,11 +573,13 @@
 
         Dim itemName As String = foundRows(0)("ItemName").ToString()
         Dim isValid As String = foundRows(0)("isValid").ToString()
+        Dim isStore As Integer = GetItemIsStoreValue(foundRows(0)("isStore"))
 
         txtSearch.Text = itemName
         txtSearch.BackColor = SystemColors.Info
+        UpdateServiceItemLabel(isStore)
 
-        RaiseEvent ItemSelected(itemId, isValid)
+        RaiseEvent ItemSelected(itemId, isValid, isStore)
 
         dgvResults.Visible = False
         Me.Height = txtSearch.Height + 10
@@ -625,6 +661,7 @@
     Public Sub Clear_txt()
         txtSearch.Text = ""
         txtSearch.BackColor = SystemColors.Window
+        UpdateServiceItemLabel(1)
         dgvResults.Visible = False
         Me.Height = txtSearch.Height + 10
         txtSearch.Select()
@@ -719,6 +756,27 @@
         End If
         Return Str
     End Function
+
+    Private Function GetItemIsStoreValue(value As Object) As Integer
+
+        If value Is Nothing OrElse value Is DBNull.Value Then Return 1
+
+        Dim isStore As Integer
+        If Integer.TryParse(value.ToString(), isStore) Then Return isStore
+
+        Return 1
+
+    End Function
+
+    Private Sub UpdateServiceItemLabel(isStore As Integer)
+
+        Dim shouldShow As Boolean = isStore = 0
+        If lblServiceItem.Visible = shouldShow Then Return
+
+        lblServiceItem.Visible = shouldShow
+        AdjustLayout()
+
+    End Sub
 
 
 

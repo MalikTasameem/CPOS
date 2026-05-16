@@ -2619,9 +2619,9 @@ Module FunModule
             IM_Dt.Clear()
 
             If SB_Sch_With_QTY = False Then
-                s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode ,isValid from IM_Menu_V  Order by item_name ASC"
+                s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode ,isValid,isStore from IM_Menu_V  Order by item_name ASC"
             Else
-                s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode ,isValid from IM_All_V_With_QTY  Order by item_name ASC"
+                s = "select  IM_ID as ItemID,IM_NUM AS IM_NUMBER ,item_name as ItemName,Barcode as Barcode ,isValid,isStore from IM_All_V_With_QTY  Order by item_name ASC"
             End If
             c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
             c.Da.Fill(IM_Dt)

@@ -29,8 +29,6 @@ Public Class STORES_Explorer
         End Try
         ' 'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         'rs.FindAllControls(Me)
-        Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
-        Zuby.ADGV.AdvancedDataGridViewSearchToolBar.SetTranslations(Zuby.ADGV.AdvancedDataGridViewSearchToolBar.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
         '' Me.WindowState = FormWindowState.Maximized
         fetch_ST()
         fetch_GM()
@@ -103,8 +101,6 @@ Public Class STORES_Explorer
 
         ' 3. شريط البحث والأجزاء العلوية
         'If Panel2 IsNot Nothing Then Panel2.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        'If advancedDataGridViewSearchToolBar_main IsNot Nothing Then advancedDataGridViewSearchToolBar_main.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-
         '' فلاتر البحث (يمين)
         'If ST_cm IsNot Nothing Then ST_cm.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         'If GM_Serach IsNot Nothing Then GM_Serach.Anchor = AnchorStyles.Top Or AnchorStyles.Right
@@ -279,8 +275,6 @@ Public Class STORES_Explorer
         '-----------------------------------------------------------------------------------------
         '-------------------------------------------------------------------------------------------------------------
 
-        DataB.Dispose()
-        DataB = New BindingSource
         gridv.DataSource = Nothing
         IM_DT = New DataTable
 
@@ -311,13 +305,9 @@ Public Class STORES_Explorer
         C.Da = New SqlClient.SqlDataAdapter(Main_Query, C.Con)
         C.Da.SelectCommand.CommandTimeout = 120
         C.Da.Fill(IM_DT)
-        DataB.DataSource = IM_DT
-        gridv.DataSource = DataB
+        gridv.DataSource = IM_DT
 
-        '  advancedDataGridViewSearchToolBar_main.SetColumns(gridv.Columns)
-
-
-        If IM_DT.Rows.Count > 0 Then
+        If gridv.Columns.Count > 0 Then
 
 
             ' Define a list or array of column names to check
@@ -356,7 +346,6 @@ New List(Of String) From {""},
 Me.Name.ToString
  )
 
-
             'If U_SB_Show_IM_COST = False Then
             '    gridv.Columns("      التكلفة").Visible = False
             '    CheckedListBox1.SetItemCheckState(11, False)
@@ -394,18 +383,17 @@ Me.Name.ToString
     Private Sub CMSearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles CMSearchTextBox.TextChanged
 
         If BarcodeSearch_CB.Checked = False And IMNUM_CB.Checked = False Then
-            Dim Dv As DataView
-            Dv = IM_DT.AsDataView
-            Dv.RowFilter = " item_name LIKE '%" + sender.Text + "%'"
+            IM_DT.DefaultView.RowFilter = " item_name LIKE '%" + EscapeRowFilterValue(sender.Text) + "%'"
 
-            'DataB.DataSource = IM_DT
-            'gridv.DataSource = DataB
-            'gridv.DataSource = Dv
-
-            DataB.DataSource = Dv
+            GET_TOTALS_GRID(gridv)
             'Get_Total_QYT()
         End If
     End Sub
+
+    Private Function EscapeRowFilterValue(value As String) As String
+        If value Is Nothing Then Return ""
+        Return value.Replace("'", "''").Replace("[", "[[]").Replace("%", "[%]").Replace("*", "[*]")
+    End Function
 
 
     Public Sub Get_Total_QYT()
@@ -427,16 +415,16 @@ Me.Name.ToString
             Return
         End If
 
-        If U_SB_Show_IM_COST = False Then
-            gridv.Columns(11).Visible = False
-            CheckedListBox1.SetItemCheckState(11, False)
+        'If U_SB_Show_IM_COST = False Then
+        '    gridv.Columns(11).Visible = False
+        '    CheckedListBox1.SetItemCheckState(11, False)
 
-            gridv.Columns(12).Visible = False
-            CheckedListBox1.SetItemCheckState(12, False)
+        '    gridv.Columns(12).Visible = False
+        '    CheckedListBox1.SetItemCheckState(12, False)
 
-            gridv.Columns(14).Visible = False
-            CheckedListBox1.SetItemCheckState(14, False)
-        End If
+        '    gridv.Columns(14).Visible = False
+        '    CheckedListBox1.SetItemCheckState(14, False)
+        'End If
 
         PreviewStoresExplorerPrint()
 
@@ -449,16 +437,16 @@ Me.Name.ToString
             Return
         End If
 
-        If U_SB_Show_IM_COST = False Then
-            gridv.Columns(11).Visible = False
-            CheckedListBox1.SetItemCheckState(11, False)
+        'If U_SB_Show_IM_COST = False Then
+        '    gridv.Columns(11).Visible = False
+        '    CheckedListBox1.SetItemCheckState(11, False)
 
-            gridv.Columns(12).Visible = False
-            CheckedListBox1.SetItemCheckState(12, False)
+        '    gridv.Columns(12).Visible = False
+        '    CheckedListBox1.SetItemCheckState(12, False)
 
-            gridv.Columns(14).Visible = False
-            CheckedListBox1.SetItemCheckState(14, False)
-        End If
+        '    gridv.Columns(14).Visible = False
+        '    CheckedListBox1.SetItemCheckState(14, False)
+        'End If
 
         ExportStoresExplorerPdf()
 
@@ -916,22 +904,17 @@ Me.Name.ToString
 
 
     Private Sub DataGridViewX_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles gridv.MouseDoubleClick
-        If U_Update_IM_QTY = True Then
-            If gridv.Rows.Count > 0 Then
-                '  If SHhow_Zero_Qty_btn.BackColor = Color.WhiteSmoke Then
-                If gridv.Rows.Count > 0 Then
-                    is_Update_Valid_D = False
-                    is_Update_QTY = True
-                    is_Update_Unit_Cost = False
-                    IM_Update_Qty.ShowDialog()
-                End If
-                'Else
-                '    If gridv.Rows.Count > 0 Then
-                '        MsgBox(" يمكنك تعديل بيانات الصنف الذي كميته 0 عن طريق فاتورة جرد ", MsgBoxStyle.Information)
-                '    End If
-                'End If
-            End If
-        End If
+        'If U_Update_IM_QTY = True Then
+        '    If gridv.Rows.Count > 0 Then
+        '        '  If SHhow_Zero_Qty_btn.BackColor = Color.WhiteSmoke Then
+        '        If gridv.Rows.Count > 0 Then
+        '            is_Update_Valid_D = False
+        '            is_Update_QTY = True
+        '            is_Update_Unit_Cost = False
+        '            IM_Update_Qty.ShowDialog()
+        '        End If
+        '    End If
+        'End If
     End Sub
 
     Private Sub DGV_Control_btn_Click(sender As Object, e As EventArgs)
@@ -1002,52 +985,23 @@ Me.Name.ToString
 
     End Sub
 
-    Private Sub gridv_FilterStringChanged(sender As Object, e As Zuby.ADGV.AdvancedDataGridView.FilterEventArgs) Handles gridv.FilterStringChanged
-        DataB.Filter = gridv.FilterString
-        ' Index_GV()
-        GET_TOTALS_GRID(gridv)
-    End Sub
-
-    Private Sub gridv_SortStringChanged(sender As Object, e As Zuby.ADGV.AdvancedDataGridView.SortEventArgs) Handles gridv.SortStringChanged
-        DataB.Sort = gridv.SortString
-        'Index_GV()
-        GET_TOTALS_GRID(gridv)
-    End Sub
-
     Private Sub EXCEL_BTN_Click(sender As Object, e As EventArgs) Handles EXCEL_BTN.Click
         EXCEL_EXPORT(gridv)
     End Sub
 
-
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        If CheckedListBox1.Items.Count > 0 Then
-            ExportButton_STORES_Explorer_Setting_ToFile(CheckedListBox1)
-        End If
-
+    Private Sub gridv_ColumnStateChanged(sender As Object, e As DataGridViewColumnStateChangedEventArgs) Handles gridv.ColumnStateChanged
+        If e.StateChanged = DataGridViewElementStates.Visible Then GET_TOTALS_GRID(gridv)
     End Sub
 
 
-    Private Sub advancedDataGridViewSearchToolBar_main_Search(sender As Object, e As Zuby.ADGV.AdvancedDataGridViewSearchToolBarSearchEventArgs)
-        Dim restartsearch = True
-        Dim startColumn = 0
-        Dim startRow = 0
-        If Not e.FromBegin Then
-            Dim endcol As Boolean = gridv.CurrentCell.ColumnIndex + 1 >= gridv.ColumnCount
-            Dim endrow As Boolean = gridv.CurrentCell.RowIndex + 1 >= gridv.RowCount
 
-            If endcol AndAlso endrow Then
-                startColumn = gridv.CurrentCell.ColumnIndex
-                startRow = gridv.CurrentCell.RowIndex
-            Else
-                startColumn = If(endcol, 0, gridv.CurrentCell.ColumnIndex + 1)
-                startRow = gridv.CurrentCell.RowIndex + If(endcol, 1, 0)
-            End If
-        End If
-        Dim c As DataGridViewCell = gridv.FindCell(e.ValueToSearch, If(e.ColumnToSearch IsNot Nothing, e.ColumnToSearch.Name, Nothing), startRow, startColumn, e.WholeWord, e.CaseSensitive)
-        If c Is Nothing AndAlso restartsearch Then c = gridv.FindCell(e.ValueToSearch, If(e.ColumnToSearch IsNot Nothing, e.ColumnToSearch.Name, Nothing), 0, 0, e.WholeWord, e.CaseSensitive)
-        If c IsNot Nothing Then gridv.CurrentCell = c
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
+        'If CheckedListBox1.Items.Count > 0 Then
+        '    ExportButton_STORES_Explorer_Setting_ToFile(CheckedListBox1)
+        'End If
+
     End Sub
+
 
     Private Sub BarcodeSearch_CB_CheckedChanged(sender As Object, e As EventArgs) Handles BarcodeSearch_CB.CheckedChanged
         CB_CHecked(sender)
@@ -1083,7 +1037,7 @@ Me.Name.ToString
                 arr_val.Add(SUM)
 
                 Dim col As New DataGridViewTextBoxColumn
-                col.HeaderText = "(إجمالي)" & gridv.columns(i).HeaderText
+                col.HeaderText = "إجمالي:- " & gridv.columns(i).HeaderText
                 col.DefaultCellStyle.Format = N_Point_Fter
                 TOTAL_Grid.Columns.Add(col)
 

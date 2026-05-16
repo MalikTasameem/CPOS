@@ -1107,13 +1107,12 @@ Partial Class POS
         Me.Sales_Btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IM_Search_LB, Me.سدادرقمطاولةToolStripMenuItem, Me.Show_Cash_LB, Me.Show_Open_Bill_LB, Me.حجـــزالخدمـــةToolStripMenuItem, Me.إدراجموظفللخدمةToolStripMenuItem})
         Me.Sales_Btn.Font = New System.Drawing.Font("Sakkal Majalla", 13.25!, System.Drawing.FontStyle.Bold)
         Me.Sales_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Sales_Btn.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.Sales_Btn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.Sales_Btn.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Sales_Btn.Name = "Sales_Btn"
         Me.Sales_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Sales_Btn.Size = New System.Drawing.Size(106, 35)
-        Me.Sales_Btn.Text = "الخيـــــارات"
+        Me.Sales_Btn.Size = New System.Drawing.Size(99, 35)
+        Me.Sales_Btn.Text = "الخيـــــارات 🔍"
         Me.Sales_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'IM_Search_LB

@@ -15,6 +15,7 @@
     Public Barcode_IM As String = ""
 
 
+
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Me.Dispose()
 
@@ -100,7 +101,7 @@
 
     End Sub
 
-    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String, isStore As Integer)
         IM_ID = itemId
         Get_Unit = False
         Load_SelectedItemData()
@@ -110,6 +111,13 @@
             Valid_Panel.Visible = True
         Else
             Valid_Panel.Visible = False
+        End If
+
+        If isStore = 0 Then
+            MsgBox("لا يمكن اضافة صنف من نوع خدمة للفاتورة", MsgBoxStyle.Critical, "خطأ")
+            ADDCatButton.Enabled = False
+        Else
+            ADDCatButton.Enabled = True
         End If
 
     End Sub

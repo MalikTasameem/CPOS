@@ -1253,7 +1253,7 @@ Public Class ItemsMenu
     'End Sub
 
 
-    Private Sub HandleItemSelected(itemId As Integer, isValid As String)
+    Private Sub HandleItemSelected(itemId As Integer, isValid As String, isStore As Integer)
         FRM_IM_ID = itemId
         Get_Unit = False
         Fetch_IM_Units()

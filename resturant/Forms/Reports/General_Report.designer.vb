@@ -44,6 +44,7 @@ Partial Class General_Report
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.HeaderCloseBtn = New System.Windows.Forms.Button()
         Me.TopTitle_LB = New System.Windows.Forms.Label()
+        Me.MaxFormButton = New System.Windows.Forms.Button()
         CType(Me.DataGridViewX, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridViewX1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -249,6 +250,7 @@ Partial Class General_Report
         'TitleBar_Panel
         '
         Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.MaxFormButton)
         Me.TitleBar_Panel.Controls.Add(Me.HeaderCloseBtn)
         Me.TitleBar_Panel.Controls.Add(Me.TopTitle_LB)
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
@@ -286,6 +288,22 @@ Partial Class General_Report
         Me.TopTitle_LB.TabIndex = 0
         Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
         Me.TopTitle_LB.Text = "التقرير العام"
+        '
+        'MaxFormButton
+        '
+        Me.MaxFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.MaxFormButton.Dock = System.Windows.Forms.DockStyle.Left
+        Me.MaxFormButton.FlatAppearance.BorderSize = 0
+        Me.MaxFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.MaxFormButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MaxFormButton.ForeColor = System.Drawing.Color.White
+        Me.MaxFormButton.Location = New System.Drawing.Point(53, 0)
+        Me.MaxFormButton.Name = "MaxFormButton"
+        Me.MaxFormButton.Size = New System.Drawing.Size(45, 40)
+        Me.MaxFormButton.TabIndex = 4
+        Me.MaxFormButton.Tag = "GENERAL"
+        Me.MaxFormButton.Text = "⬜"
+        Me.MaxFormButton.UseVisualStyleBackColor = True
         '
         'General_Report
         '
@@ -331,4 +349,5 @@ Partial Class General_Report
     Friend WithEvents TitleBar_Panel As Panel
     Friend WithEvents HeaderCloseBtn As Button
     Friend WithEvents TopTitle_LB As Label
+    Friend WithEvents MaxFormButton As Button
 End Class

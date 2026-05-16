@@ -244,99 +244,97 @@ Public Class Balances
     'End Sub
 
     Public Sub Load_Data()
-        Dim C As New C
-        Dim sql As String
+        Dim sql As String =
+            " select id,Type_Name from AgentBalance_Type WHERE ID NOT IN(14,15) AND Visible = 1 Order By RankNum ASC; " &
+            " Select User_ID,UserName from Users Order By User_ID ASC; " &
+            " Select Tr_ID,Tr_Name FROM TR_MENU_V; " &
+            " Select id,Type_Name from TreasuryBalance_Type; " &
+            " select Distinct top 10 Year from Agents_Balance_MV WHERE YEAR IS NOT NULL ORDER BY YEAR DESC "
 
         Try
-            sql = " select id,Type_Name from AgentBalance_Type WHERE ID NOT IN(14,15) AND Visible = 1 Order By RankNum ASC"
-            C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-            C.Da.Fill(C.Dt)
-            ReceiptTypeComboBox.DataSource = C.Dt
-            ReceiptTypeComboBox.DisplayMember = "Type_Name"
-            ReceiptTypeComboBox.ValueMember = "id"
-            ReceiptTypeComboBox.SelectedIndex = 0
+            Using sqlCon As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                sqlCon.Open()
+
+                Dim loadDataSet As New DataSet()
+                Using da As New SqlClient.SqlDataAdapter(sql, sqlCon)
+                    da.Fill(loadDataSet)
+                End Using
+
+                If loadDataSet.Tables.Count > 0 Then
+                    Dim receiptTypeDt As DataTable = loadDataSet.Tables(0)
+                    ReceiptTypeComboBox.DataSource = receiptTypeDt
+                    ReceiptTypeComboBox.DisplayMember = "Type_Name"
+                    ReceiptTypeComboBox.ValueMember = "id"
+                    If receiptTypeDt.Rows.Count > 0 Then ReceiptTypeComboBox.SelectedIndex = 0
+                End If
+
+                If loadDataSet.Tables.Count > 1 Then
+                    Dim usersDt As DataTable = loadDataSet.Tables(1)
+                    UsersComboBox.DataSource = usersDt
+                    UsersComboBox.DisplayMember = "UserName"
+                    UsersComboBox.ValueMember = "User_ID"
+                    If usersDt.Rows.Count > 0 Then UsersComboBox.SelectedIndex = 0
+
+                    TrUsersComboBox.DataSource = usersDt.Copy()
+                    TrUsersComboBox.DisplayMember = "UserName"
+                    TrUsersComboBox.ValueMember = "User_ID"
+                    If usersDt.Rows.Count > 0 Then TrUsersComboBox.SelectedIndex = 0
+                End If
+
+                If loadDataSet.Tables.Count > 2 Then
+                    Dim treasuryDt As DataTable = loadDataSet.Tables(2)
+                    Treasury_ComboBox.DataSource = treasuryDt
+                    Treasury_ComboBox.DisplayMember = "Tr_Name"
+                    Treasury_ComboBox.ValueMember = "Tr_ID"
+                    If treasuryDt.Rows.Count > 0 Then Treasury_ComboBox.SelectedIndex = 0
+                End If
+
+                If loadDataSet.Tables.Count > 3 Then
+                    Dim trTypeDt As DataTable = loadDataSet.Tables(3)
+                    TrTypeComboBox.DataSource = trTypeDt
+                    TrTypeComboBox.DisplayMember = "Type_Name"
+                    TrTypeComboBox.ValueMember = "id"
+                    If trTypeDt.Rows.Count > 0 Then TrTypeComboBox.SelectedIndex = 0
+                End If
+
+                If loadDataSet.Tables.Count > 4 Then
+                    Dim yearsDt As DataTable = loadDataSet.Tables(4)
+                    YearComboBox.DataSource = yearsDt
+                    YearComboBox.DisplayMember = "Year"
+                    If yearsDt.Rows.Count > 0 Then YearComboBox.SelectedIndex = 0
+                End If
+
+                SalariesMonthComboBox.Text = Date.Now.Month
+
+                Get_AgentsBalances(sqlCon)
+            End Using
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
-
-        C = New C
-        Try
-            sql = "Select User_ID,UserName from Users Order By User_ID ASC"
-            C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-            C.Da.Fill(C.Dt)
-            UsersComboBox.DataSource = C.Dt
-            UsersComboBox.DisplayMember = "UserName"
-            UsersComboBox.ValueMember = "User_ID"
-            UsersComboBox.SelectedIndex = 0
-
-            TrUsersComboBox.DataSource = C.Dt
-            TrUsersComboBox.DisplayMember = "UserName"
-            TrUsersComboBox.ValueMember = "User_ID"
-            TrUsersComboBox.SelectedIndex = 0
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-        C = New C
-        Try
-            sql = "Select Tr_ID,Tr_Name FROM TR_MENU_V "
-            C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-            C.Da.Fill(C.Dt)
-
-            Treasury_ComboBox.DataSource = C.Dt
-            Treasury_ComboBox.DisplayMember = "Tr_Name"
-            Treasury_ComboBox.ValueMember = "Tr_ID"
-            Treasury_ComboBox.SelectedIndex = 0
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-        C = New C
-        Try
-            sql = "Select id,Type_Name from TreasuryBalance_Type "
-            C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-            C.Da.Fill(C.Dt)
-
-            TrTypeComboBox.DataSource = C.Dt
-            TrTypeComboBox.DisplayMember = "Type_Name"
-            TrTypeComboBox.ValueMember = "id"
-            TrTypeComboBox.SelectedIndex = 0
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-        C = New C
-        Try
-            sql = "select Distinct top 10 Year from Agents_Balance_MV WHERE YEAR IS NOT NULL ORDER BY YEAR DESC "
-            C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-            C.Da.Fill(C.Dt)
-            YearComboBox.DataSource = C.Dt
-            YearComboBox.DisplayMember = "Year"
-            If C.Dt.Rows.Count > 0 Then YearComboBox.SelectedIndex = 0
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-        SalariesMonthComboBox.Text = Date.Now.Month
-
-        Get_AgentsBalances()
 
     End Sub
 
 
     Dim AG_B_DT As New DataTable
-    Private Sub Get_AgentsBalances()
+    Private Sub Get_AgentsBalances(Optional sqlCon As SqlClient.SqlConnection = Nothing)
 
         Rpt_Name = ""
-        Dim C = New C
 
-        Dim mainQuery As String = BuildAgentsBalancesQuery()
+        Dim mainQuery As String = BuildAgentsBalancesQuery(sqlCon)
 
         AG_B_DT.Clear()
-        C.Da = New SqlClient.SqlDataAdapter(mainQuery, C.Con)
-        C.Da.Fill(AG_B_DT)
+
+        If sqlCon Is Nothing Then
+            Dim C = New C
+            C.Da = New SqlClient.SqlDataAdapter(mainQuery, C.Con)
+            C.Da.Fill(AG_B_DT)
+        Else
+            Using da As New SqlClient.SqlDataAdapter(mainQuery, sqlCon)
+                da.Fill(AG_B_DT)
+            End Using
+        End If
+
         DebtMetroGrid.DataSource = AG_B_DT
 
         Calc_T_Balances()
@@ -344,13 +342,13 @@ Public Class Balances
 
     End Sub
 
-    Private Function BuildAgentsBalancesQuery() As String
+    Private Function BuildAgentsBalancesQuery(Optional sqlCon As SqlClient.SqlConnection = Nothing) As String
 
         If Type_Cm.SelectedIndex <> 0 Then
             Return " SELECT [Tr_ID] AS ID,[Tr_Name] AS 'Agent_name',[T_Debit],[T_Credit],ISNULL(T_Balance,0) AS T_Balance FROM [dbo].[TR_MENU_V]"
         End If
 
-        If Debit_WithDate_CB.Checked = True Then Select_Debt_Till_Date()
+        If Debit_WithDate_CB.Checked = True Then Select_Debt_Till_Date(sqlCon)
 
         Dim baseQuery As String
 
@@ -2054,9 +2052,9 @@ Public Class Balances
         NUM_CREDIT_TXT.Text = N_C
         NUM_DEBIT_TXT.Text = N_D
 
-        If Sum_B > 0 Then
+        If Sum_B < 0 Then
             Total_Balance.BackColor = colorToApply_DEBIT 'Color.IndianRed
-        ElseIf Sum_B < 0 Then
+        ElseIf Sum_B > 0 Then
             Total_Balance.BackColor = colorToApply_CREDIT  'Color.LightGreen
         ElseIf Sum_B = 0 Then
             Total_Balance.BackColor = SystemColors.ButtonHighlight
@@ -2088,9 +2086,9 @@ Public Class Balances
         Tr_Total_C.Text = Sum_C.ToString("n")
         Tr_Total_B.Text = Sum_B.ToString("n")
 
-        If Sum_B < 0 Then
+        If Sum_B > 0 Then
             Tr_Total_B.BackColor = colorToApply_CREDIT   'Color.IndianRed
-        ElseIf Sum_B > 0 Then
+        ElseIf Sum_B < 0 Then
             Tr_Total_B.BackColor = colorToApply_DEBIT  'Color.LightGreen
         End If
     End Sub
@@ -2399,7 +2397,25 @@ Public Class Balances
     End Sub
 
 
-    Public Sub Select_Debt_Till_Date()
+    Public Sub Select_Debt_Till_Date(Optional sqlCon As SqlClient.SqlConnection = Nothing)
+
+        If sqlCon IsNot Nothing Then
+            Using sqlComm As New SqlClient.SqlCommand("[Select_Debt_Till_Date]", sqlCon)
+                sqlComm.CommandType = CommandType.StoredProcedure
+                sqlComm.Parameters.AddWithValue("@Date", DATE_Before.Value)
+
+                Dim closeConnection As Boolean = sqlCon.State <> ConnectionState.Open
+
+                Try
+                    If closeConnection Then sqlCon.Open()
+                    sqlComm.ExecuteNonQuery()
+                Finally
+                    If closeConnection AndAlso sqlCon.State = ConnectionState.Open Then sqlCon.Close()
+                End Try
+            End Using
+
+            Return
+        End If
 
         Dim C As New C
         With C.Com
@@ -2558,5 +2574,11 @@ Public Class Balances
         EXCEL_EXPORT(ALL_BALANCES_Grid)
     End Sub
 
+    Private Sub MetroTabPage1_Click(sender As Object, e As EventArgs) Handles MetroTabPage1.Click
 
+    End Sub
+
+    Private Sub GroupBox2_Enter(sender As Object, e As EventArgs) Handles GroupBox2.Enter
+
+    End Sub
 End Class

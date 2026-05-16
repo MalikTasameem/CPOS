@@ -127,13 +127,13 @@ Partial Class SB_TablesMenu
         Me.Button51.BackColor = System.Drawing.SystemColors.Info
         Me.Button51.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button51.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button51.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button51.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button51.Location = New System.Drawing.Point(671, 268)
         Me.Button51.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Button51.Name = "Button51"
         Me.Button51.Size = New System.Drawing.Size(72, 113)
         Me.Button51.TabIndex = 561
-        Me.Button51.Text = "⬇️"
+        Me.Button51.Text = "▼"
         Me.Button51.UseVisualStyleBackColor = False
         '
         'Button50
@@ -141,13 +141,13 @@ Partial Class SB_TablesMenu
         Me.Button50.BackColor = System.Drawing.SystemColors.Info
         Me.Button50.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button50.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button50.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button50.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold)
         Me.Button50.Location = New System.Drawing.Point(671, 149)
         Me.Button50.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Button50.Name = "Button50"
         Me.Button50.Size = New System.Drawing.Size(72, 113)
         Me.Button50.TabIndex = 560
-        Me.Button50.Text = "⬆️"
+        Me.Button50.Text = "▲"
         Me.Button50.UseVisualStyleBackColor = False
         '
         'TBPanel
