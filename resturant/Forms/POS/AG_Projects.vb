@@ -15,7 +15,6 @@
         If String.IsNullOrWhiteSpace(SNameTextBox.Text) = False Then
             Store_Insert()
             SNameTextBox.Clear()
-            Load_StoreData()
         End If
     End Sub
     Public Sub Store_Insert()
@@ -38,7 +37,8 @@
             Try
                 sqlComm.ExecuteNonQuery()
                 MsgBox("تـــم إضافة الخدمة ", MsgBoxStyle.Information)
-               After_Update
+                RefreshProjectsData()
+                After_Update()
             Catch ex As Exception
                 MsgBox(ex.Message)
             End Try
@@ -46,25 +46,30 @@
         End Using
     End Sub
 
+    Private Function GetCurrentAGID() As Integer
+
+        If FormType = 1 Then Return F_Sales.AG_ID
+
+        Return F_ViewBill.AG_ID
+
+    End Function
+
     Private Sub STORES_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = " خدمات العميل : " + F_Sales.AG_Cm.Textt
         Load_StoreData()
     End Sub
 
     Public Sub Load_StoreData()
-        Dim c As New C
-        Dim S As String = ""
-        If FormType = 1 Then
-            S = "SELECT Proj_ID,Proj_NAME from AG_Projects_V WHERE AG_ID = '" & F_Sales.AG_ID & "' ORDER BY Proj_ID DESC"
-        Else
-            S = "SELECT Proj_ID,Proj_NAME from AG_Projects_V WHERE AG_ID = '" & F_ViewBill.AG_ID & "' ORDER BY Proj_ID DESC"
-        End If
+        RefreshProjectsData()
+    End Sub
 
-        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-        c.Da.Fill(c.Dt)
-        S_listBox.DataSource = c.Dt
+    Private Sub RefreshProjectsData()
+
+        Refresh_AG_Projects_DT(GetCurrentAGID())
+        S_listBox.DataSource = AG_Projects_DT.Copy()
         S_listBox.ValueMember = "Proj_ID"
         S_listBox.DisplayMember = "Proj_NAME"
+
     End Sub
 
     Private Sub EditSButton_Click(sender As Object, e As EventArgs) Handles EditSButton.Click
@@ -76,7 +81,6 @@
         Else
             If String.IsNullOrWhiteSpace(SNameTextBox.Text) = False Then
                 Store_Update()
-                Me.Load_StoreData()
                 SNameTextBox.Clear()
                 SNameTextBox.Enabled = False
                 EditSButton.Text = "تعديل"
@@ -99,6 +103,7 @@
             Try
                 sqlComm.ExecuteNonQuery()
                 MsgBox("تـم تعديل الخدمة ", MsgBoxStyle.Information)
+                RefreshProjectsData()
                 After_Update()
             Catch ex As Exception
                 MsgBox(ex.Message)
@@ -176,8 +181,8 @@
             Try
                 sqlComm.ExecuteNonQuery()
                 MsgBox("تـم حذف الخدمة ", MsgBoxStyle.Information)
+                RefreshProjectsData()
                 After_Update()
-                Load_StoreData()
                 SNameTextBox.Enabled = False
                 SNameTextBox.Clear()
                 DeleteSButton.Enabled = False

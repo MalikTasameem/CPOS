@@ -163,6 +163,49 @@
     Public Sales_AG_ID As Integer
     Public Sales_AG_Name As String
 
+    Public AG_Projects_DT As New DataTable
+    Public AG_Projects_Current_AG_ID As Integer = 0
+
+    Public Sub Refresh_AG_Projects_DT(ByVal agId As Integer)
+
+        AG_Projects_DT = New DataTable()
+        AG_Projects_DT.Columns.Add("Proj_ID", GetType(Integer))
+        AG_Projects_DT.Columns.Add("Proj_NAME", GetType(String))
+        AG_Projects_Current_AG_ID = agId
+
+        If agId <= 0 Then Return
+
+        Using sqlCon As New SqlClient.SqlConnection(My_Settings.SqlConStr)
+            Using sqlComm As New SqlClient.SqlCommand("SELECT Proj_ID,Proj_NAME from AG_Projects_V WHERE AG_ID = @AG_ID ORDER BY Proj_ID DESC", sqlCon)
+                sqlComm.Parameters.AddWithValue("@AG_ID", agId)
+
+                Using da As New SqlClient.SqlDataAdapter(sqlComm)
+                    da.Fill(AG_Projects_DT)
+                End Using
+            End Using
+        End Using
+
+    End Sub
+
+    Public Function Get_AG_Projects_DT(ByVal agId As Integer, Optional ByVal forceRefresh As Boolean = False) As DataTable
+
+        If forceRefresh OrElse AG_Projects_Current_AG_ID <> agId Then
+            Refresh_AG_Projects_DT(agId)
+        End If
+
+        Return AG_Projects_DT.Copy()
+
+    End Function
+
+    Public Sub Bind_AG_Projects_Combo(ByVal combo As ComboBox, ByVal agId As Integer, Optional ByVal forceRefresh As Boolean = False)
+
+        combo.DataSource = Get_AG_Projects_DT(agId, forceRefresh)
+        combo.ValueMember = "Proj_ID"
+        combo.DisplayMember = "Proj_NAME"
+        combo.SelectedIndex = -1
+
+    End Sub
+
     Public Home_Panel As String = ""
 
 

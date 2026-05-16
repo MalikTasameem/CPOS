@@ -24,6 +24,7 @@ Partial Class Sales
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales))
@@ -264,9 +265,9 @@ Partial Class Sales
         Me.MoveToBill_Btn.BackColor = System.Drawing.SystemColors.Control
         Me.MoveToBill_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MoveToBill_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 12.0!)
+        Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 11.0!)
         Me.MoveToBill_Btn.ForeColor = System.Drawing.Color.DarkRed
-        Me.MoveToBill_Btn.Location = New System.Drawing.Point(2, 6)
+        Me.MoveToBill_Btn.Location = New System.Drawing.Point(4, 7)
         Me.MoveToBill_Btn.Name = "MoveToBill_Btn"
         Me.MoveToBill_Btn.Size = New System.Drawing.Size(27, 24)
         Me.MoveToBill_Btn.TabIndex = 633
@@ -601,9 +602,10 @@ Partial Class Sales
         '
         'PauseCmb
         '
+        Me.PauseCmb.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
         Me.PauseCmb.Location = New System.Drawing.Point(33, 6)
         Me.PauseCmb.Name = "PauseCmb"
-        Me.PauseCmb.Size = New System.Drawing.Size(204, 23)
+        Me.PauseCmb.Size = New System.Drawing.Size(215, 25)
         Me.PauseCmb.TabIndex = 675
         '
         'Label4
@@ -624,7 +626,7 @@ Partial Class Sales
         'Notes_txt
         '
         Me.Notes_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Notes_txt.Location = New System.Drawing.Point(3, 551)
         Me.Notes_txt.Name = "Notes_txt"
         Me.Notes_txt.Size = New System.Drawing.Size(1087, 29)
@@ -806,9 +808,10 @@ Partial Class Sales
         '
         'Project_cm
         '
-        Me.Project_cm.Location = New System.Drawing.Point(32, 7)
+        Me.Project_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 10.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Project_cm.Location = New System.Drawing.Point(30, 3)
         Me.Project_cm.Name = "Project_cm"
-        Me.Project_cm.Size = New System.Drawing.Size(317, 23)
+        Me.Project_cm.Size = New System.Drawing.Size(317, 27)
         Me.Project_cm.TabIndex = 684
         '
         'ReceiptsMetroGrid
@@ -866,7 +869,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle5
         Me.ReceiptsMetroGrid.RowTemplate.Height = 30
         Me.ReceiptsMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ReceiptsMetroGrid.Size = New System.Drawing.Size(245, 75)
+        Me.ReceiptsMetroGrid.Size = New System.Drawing.Size(259, 75)
         Me.ReceiptsMetroGrid.TabIndex = 664
         '
         'Receipt_T_ID_CL
@@ -928,7 +931,7 @@ Partial Class Sales
         '
         Me.Marketer_Lb.BackColor = System.Drawing.Color.Transparent
         Me.Marketer_Lb.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Marketer_Lb.Location = New System.Drawing.Point(255, 98)
+        Me.Marketer_Lb.Location = New System.Drawing.Point(251, 98)
         Me.Marketer_Lb.Name = "Marketer_Lb"
         Me.Marketer_Lb.Size = New System.Drawing.Size(64, 21)
         Me.Marketer_Lb.TabIndex = 677
@@ -949,7 +952,7 @@ Partial Class Sales
         'Label7
         '
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(355, 8)
+        Me.Label7.Location = New System.Drawing.Point(351, 6)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(65, 21)
         Me.Label7.TabIndex = 683
@@ -962,7 +965,7 @@ Partial Class Sales
         Me.Show_AG_Projects_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_AG_Projects_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Show_AG_Projects_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Show_AG_Projects_btn.Location = New System.Drawing.Point(3, 4)
+        Me.Show_AG_Projects_btn.Location = New System.Drawing.Point(3, 3)
         Me.Show_AG_Projects_btn.Name = "Show_AG_Projects_btn"
         Me.Show_AG_Projects_btn.Size = New System.Drawing.Size(24, 27)
         Me.Show_AG_Projects_btn.TabIndex = 663
@@ -1038,9 +1041,9 @@ Partial Class Sales
         '
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(243, 6)
+        Me.Label15.Location = New System.Drawing.Point(251, 8)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(116, 21)
+        Me.Label15.Size = New System.Drawing.Size(106, 21)
         Me.Label15.TabIndex = 674
         Me.Label15.Text = "الفواتير المعلقة :"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1199,7 +1202,7 @@ Partial Class Sales
         Me.AGMetroGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -1208,6 +1211,14 @@ Partial Class Sales
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Bill_IMID_CL, Me.Check_CL, Me.Barcode_CL, Me.Serial_Code_CL, Me.U_ID_CL, Me.Date_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.IM_Discount_CL, Me.Total_CL, Me.Notes_CL, Me.T_ID_CL, Me.ST_ID_CL, Me.IM_NOTE_CL})
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle9
         Me.AGMetroGrid.Location = New System.Drawing.Point(4, 230)
         Me.AGMetroGrid.MultiSelect = False
         Me.AGMetroGrid.Name = "AGMetroGrid"
@@ -1429,7 +1440,7 @@ Partial Class Sales
         Me.DeliveryingButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DeliveryingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.DeliveryingButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.DeliveryingButton.Location = New System.Drawing.Point(256, 5)
+        Me.DeliveryingButton.Location = New System.Drawing.Point(270, 5)
         Me.DeliveryingButton.Name = "DeliveryingButton"
         Me.DeliveryingButton.Size = New System.Drawing.Size(53, 76)
         Me.DeliveryingButton.TabIndex = 304
@@ -1497,7 +1508,7 @@ Partial Class Sales
         'Label24
         '
         Me.Label24.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(1070, 144)
+        Me.Label24.Location = New System.Drawing.Point(1066, 144)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(50, 34)
         Me.Label24.TabIndex = 710
@@ -1529,7 +1540,7 @@ Partial Class Sales
         Me.Panel4.Controls.Add(Me.OpenCahDR_Btn)
         Me.Panel4.Controls.Add(Me.DeliveryingButton)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Panel4.Font = New System.Drawing.Font("Segoe UI Semibold", 10.75!, System.Drawing.FontStyle.Bold)
         Me.Panel4.Location = New System.Drawing.Point(842, 0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(325, 171)

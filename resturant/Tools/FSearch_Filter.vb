@@ -606,7 +606,7 @@ Public Class FSearch_Filter
     End Sub
 
     Public Sub Set_IM_By_ID(ID_ As String)
-        GetLIst_ALL()
+        'GetLIst_ALL()
 
         Dim Dv As DataView
         Dv = Dt.AsDataView
@@ -620,21 +620,6 @@ Public Class FSearch_Filter
             'Me.Text.SelectAll()
         End If
 
-        'Dim c As New C
-        'Try
-        '    Dim s As String
-        '    s = "Select " & _Column & " from " & _Table & " where " & _ID & "  = " & ID_
-        '    c.Com = New SqlClient.SqlCommand(s, c.Con)
-        '    c.Con.Open()
-        '    c.Dr = c.Com.ExecuteReader
-        '    If c.Dr.HasRows Then
-        '        c.Dr.Read()
-        '        Set_IM(c.Dr(_Column), ID_)
-        '        RollList()
-        '    End If
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
     End Sub
 
     Private Sub SelectNextItem()

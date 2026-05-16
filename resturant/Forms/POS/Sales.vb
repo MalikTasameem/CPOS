@@ -912,14 +912,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     Public Sub Fill_All_AG_Proj()
         Try
-            Dim C As New C
-            Dim s As String = "SELECT Proj_ID,Proj_NAME from AG_Projects_V WHERE AG_ID = '" & F_Sales.AG_ID & "' ORDER BY Proj_ID DESC"
-            C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
-            C.Da.Fill(C.Dt)
-            Project_cm.DataSource = C.Dt
-            Project_cm.ValueMember = "Proj_ID"
-            Project_cm.DisplayMember = "Proj_NAME"
-            Project_cm.SelectedIndex = -1
+            Bind_AG_Projects_Combo(Project_cm, AG_ID)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

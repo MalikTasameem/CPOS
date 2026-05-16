@@ -97,6 +97,14 @@
         Else
             Valid_Panel.Visible = False
         End If
+
+
+        If isStore = 0 Then
+            MsgBox("لا يمكن اضافة صنف من نوع خدمة للفاتورة", MsgBoxStyle.Critical, "خطأ")
+            ADDCatButton.Enabled = False
+        Else
+            ADDCatButton.Enabled = True
+        End If
     End Sub
 
 

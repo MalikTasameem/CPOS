@@ -184,7 +184,7 @@ Partial Class Stores_Trans_IM_card
         Me.Valid_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_Panel.Controls.Add(Me.Valid_cm)
         Me.Valid_Panel.Controls.Add(Me.Valid_QTY_txt)
-        Me.Valid_Panel.Location = New System.Drawing.Point(320, 176)
+        Me.Valid_Panel.Location = New System.Drawing.Point(423, 142)
         Me.Valid_Panel.Name = "Valid_Panel"
         Me.Valid_Panel.Size = New System.Drawing.Size(237, 36)
         Me.Valid_Panel.TabIndex = 1056
@@ -223,7 +223,7 @@ Partial Class Stores_Trans_IM_card
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.Label2)
         Me.Panel10.Controls.Add(Me.IM_Cost_txt)
-        Me.Panel10.Location = New System.Drawing.Point(465, 137)
+        Me.Panel10.Location = New System.Drawing.Point(662, 142)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(160, 36)
         Me.Panel10.TabIndex = 1055
@@ -260,7 +260,7 @@ Partial Class Stores_Trans_IM_card
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.Label15)
         Me.Panel6.Controls.Add(Me.QTY_txt)
-        Me.Panel6.Location = New System.Drawing.Point(4, 274)
+        Me.Panel6.Location = New System.Drawing.Point(423, 100)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(171, 35)
         Me.Panel6.TabIndex = 1054
@@ -297,7 +297,7 @@ Partial Class Stores_Trans_IM_card
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.Label18)
         Me.Panel7.Controls.Add(Me.IM_Unit_cm)
-        Me.Panel7.Location = New System.Drawing.Point(177, 274)
+        Me.Panel7.Location = New System.Drawing.Point(596, 100)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(221, 35)
         Me.Panel7.TabIndex = 1053
