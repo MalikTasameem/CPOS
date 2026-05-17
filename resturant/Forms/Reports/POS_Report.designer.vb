@@ -72,6 +72,9 @@ Partial Class POS_Report
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.Pay_Grid = New DevComponents.DotNetBar.Controls.DataGridViewX()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.LoadingPanel = New System.Windows.Forms.Panel()
+        Me.LoadingProgress = New System.Windows.Forms.ProgressBar()
+        Me.LoadingLabel = New System.Windows.Forms.Label()
         Me.GroupBox3.SuspendLayout()
         CType(Me.DataGridViewX, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.IM_Details_GV, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -80,6 +83,7 @@ Partial Class POS_Report
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         CType(Me.Pay_Grid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.LoadingPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox3
@@ -678,6 +682,40 @@ Partial Class POS_Report
         Me.Label1.Text = "الصافي = (إجمالي المقبوض - إجمالي المصروف)"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'LoadingPanel
+        '
+        Me.LoadingPanel.BackColor = System.Drawing.Color.White
+        Me.LoadingPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.LoadingPanel.Controls.Add(Me.LoadingProgress)
+        Me.LoadingPanel.Controls.Add(Me.LoadingLabel)
+        Me.LoadingPanel.Location = New System.Drawing.Point(282, 286)
+        Me.LoadingPanel.Name = "LoadingPanel"
+        Me.LoadingPanel.Size = New System.Drawing.Size(330, 92)
+        Me.LoadingPanel.TabIndex = 390
+        Me.LoadingPanel.Visible = False
+        '
+        'LoadingProgress
+        '
+        Me.LoadingProgress.Location = New System.Drawing.Point(21, 53)
+        Me.LoadingProgress.MarqueeAnimationSpeed = 30
+        Me.LoadingProgress.Name = "LoadingProgress"
+        Me.LoadingProgress.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.LoadingProgress.Size = New System.Drawing.Size(286, 14)
+        Me.LoadingProgress.Style = System.Windows.Forms.ProgressBarStyle.Marquee
+        Me.LoadingProgress.TabIndex = 1
+        '
+        'LoadingLabel
+        '
+        Me.LoadingLabel.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LoadingLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(68, Byte), Integer))
+        Me.LoadingLabel.Location = New System.Drawing.Point(21, 17)
+        Me.LoadingLabel.Name = "LoadingLabel"
+        Me.LoadingLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.LoadingLabel.Size = New System.Drawing.Size(286, 23)
+        Me.LoadingLabel.TabIndex = 0
+        Me.LoadingLabel.Text = "جاري تحميل التقرير ..."
+        Me.LoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'POS_Report
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 22.0!)
@@ -687,6 +725,7 @@ Partial Class POS_Report
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(895, 665)
         Me.ControlBox = False
+        Me.Controls.Add(Me.LoadingPanel)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.Pr_Panel)
         Me.Controls.Add(Me.Print_isShow_CB)
@@ -719,6 +758,7 @@ Partial Class POS_Report
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         CType(Me.Pay_Grid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.LoadingPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -758,4 +798,7 @@ Partial Class POS_Report
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
     Public WithEvents Pay_Grid As DevComponents.DotNetBar.Controls.DataGridViewX
+    Friend WithEvents LoadingPanel As Panel
+    Friend WithEvents LoadingProgress As ProgressBar
+    Friend WithEvents LoadingLabel As Label
 End Class

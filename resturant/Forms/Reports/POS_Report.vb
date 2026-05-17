@@ -1,16 +1,35 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Globalization
-
-
-Imports System.IO
-Imports System.Drawing.Imaging
 Imports System.Drawing.Printing
+
+Imports System.Threading.Tasks
 
 Public Class POS_Report
 
     Public Pr_Auto_Print As Boolean
     Public is_By_Pr As Boolean = False
     Dim rs As New Resizer
+    Private Const ReportCommandTimeout As Integer = 180
+    Private IsReportLoading As Boolean = False
+
+    Private Class POSReportRequest
+        Public Property IsAutoPrint As Boolean
+        Public Property PrID As Integer
+        Public Property HasPeriod As Boolean
+        Public Property SelectedPrID As Integer
+        Public Property GMID As Integer
+        Public Property DateFrom As Date
+        Public Property DateTo As Date
+    End Class
+
+    Private Class POSReportResult
+        Public Property FinancialTable As DataTable = New DataTable()
+        Public Property PayTable As DataTable = New DataTable()
+        Public Property IMDetailsTable As DataTable = New DataTable()
+        Public Property UserName As String = " الكــل "
+        Public Property TimeText As String = ""
+        Public Property StartNotes As String = "--"
+        Public Property EndNotes As String = "--"
+    End Class
     Private Sub SalesPrintButton_Click(sender As Object, e As EventArgs) Handles SalesPrintButton.Click
 
         Me.Cursor = Cursors.AppStarting
@@ -164,42 +183,6 @@ Public Class POS_Report
                 .rp.SetParameterValue(7, 0)
             End If
 
-
-            '.rp.SetParameterValue(5, DataGridViewX.Rows(2).Cells(2).Value)
-            '.rp.SetParameterValue(6, DataGridViewX.Rows(3).Cells(2).Value)
-
-            '' .rp.SetParameterValue(7, SB_T_D_txt.Text)
-
-            '.rp.SetParameterValue(8, DataGridViewX.Rows(6).Cells(2).Value)
-            '.rp.SetParameterValue(9, DataGridViewX.Rows(7).Cells(2).Value)
-
-
-            '.rp.SetParameterValue(10, DataGridViewX.Rows(15).Cells(2).Value)
-
-            '.rp.SetParameterValue(11, DataGridViewX.Rows(0).Cells(2).Value)
-            '.rp.SetParameterValue(12, HANY(DataGridViewX.Rows(0).Cells(2).Value, "EGYPT"))
-            '.rp.SetParameterValue(13, DataGridViewX.Rows(8).Cells(2).Value)
-            '.rp.SetParameterValue(14, DataGridViewX.Rows(9).Cells(2).Value)
-
-
-
-            '.rp.SetParameterValue(18, DataGridViewX.Rows(10).Cells(2).Value)
-            '.rp.SetParameterValue(19, DataGridViewX.Rows(11).Cells(2).Value)
-
-            '.rp.SetParameterValue(20, DataGridViewX.Rows(14).Cells(2).Value)
-
-            '.rp.SetParameterValue(21, MY_Settings.Server_Desc)
-
-            '.rp.SetParameterValue(22, DataGridViewX.Rows(4).Cells(2).Value)
-            '.rp.SetParameterValue(23, DataGridViewX.Rows(5).Cells(2).Value)
-
-            '.rp.SetParameterValue(24, DataGridViewX.Rows(1).Cells(2).Value)
-
-            '.rp.SetParameterValue(25, DataGridViewX.Rows(12).Cells(2).Value)
-
-            '.rp.SetParameterValue(26, DataGridViewX.Rows(13).Cells(2).Value)
-
-            '.rp.SetParameterValue(27, Finencial_T_txt.Text)
         End With
 
         If MY_Settings.Pr_Printer_isShow = True Then
@@ -312,66 +295,229 @@ Public Class POS_Report
 
     'End Sub
 
-    Private Sub Fetch_Pr_Details_()
+    Private Async Function Fetch_Pr_Details_() As Task
 
-        Dim C As New C
-        Dim DS As New DataSet()
+        If IsReportLoading Then Return
 
-        With C.Com
-            .Connection = C.Con
-            .Parameters.Clear()
+        Dim Request = Build_POS_Report_Request()
 
-            If Pr_Auto_Print = True Then
-                .CommandText = "Count_Total_Balance_By_Periods"
-                .Parameters.AddWithValue("@Pr_ID", Pr_ID)
-            Else
-                If PeriodsCmb.SelectedIndex = -1 Then
-                    .CommandText = "Count_Total_Balance_By_Date"
-                    .Parameters.AddWithValue("@D_F", HOME.DateRange_Flate.D_F.Value)
-                    .Parameters.AddWithValue("@D_T", HOME.DateRange_Flate.D_T.Value)
+        Try
+            SetReportLoading(True, "جاري تحميل التقرير ...")
+
+            Dim Result = Await Task.Run(Function() Load_POS_Report_Data(Request))
+            Apply_POS_Report_Data(Result)
+
+            If Request.IsAutoPrint Then
+                LoadingLabel.Text = "جاري تجهيز الطباعة ..."
+                Await Task.Delay(50)
+
+                If Pr_PrinterPage_Type = 0 Then
+                    PrintSalesAll()
                 Else
-                    .CommandText = "Count_Total_Balance_By_Periods"
-                    .Parameters.AddWithValue("@Pr_ID", PeriodsCmb.SelectedValue)
+                    PrintSales_Small()
                 End If
             End If
 
-            .CommandType = CommandType.StoredProcedure
-        End With
+        Catch ex As SqlException When ex.Number = -2
+            MsgBox("انتهت مهلة جلب التقرير، حاول تقليل نطاق التاريخ أو جلب فترة محددة.", MsgBoxStyle.Exclamation, "تنبيه")
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            SetReportLoading(False)
+        End Try
 
-        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-        C.Da.Fill(DS)
+    End Function
 
-        ' ==========================
-        ' Result Set الأول (القديم)
-        ' ==========================
-        DataGridViewX.DataSource = DS.Tables(0)
+    Private Function Build_POS_Report_Request() As POSReportRequest
 
-        Finencial_T_txt.Text =
-        DataGridViewX.Rows(0).Cells(2).Value -
-        DataGridViewX.Rows(DataGridViewX.Rows.Count - 1).Cells(2).Value
+        Dim Request As New POSReportRequest
+        Request.IsAutoPrint = Pr_Auto_Print
+        Request.PrID = Pr_ID
+        Request.DateFrom = HOME.DateRange_Flate.D_F.Value
+        Request.DateTo = HOME.DateRange_Flate.D_T.Value
+        Request.GMID = GetComboIntValue(GM_cmb, 0)
 
-        ' ==========================
-        ' Result Set الثاني (طرق الدفع)
-        ' ==========================
-        If DS.Tables.Count > 1 Then
-            Pay_Grid.DataSource = DS.Tables(1)
+        If PeriodsCmb.SelectedIndex > -1 Then
+            Request.HasPeriod = True
+            Request.SelectedPrID = GetComboIntValue(PeriodsCmb, 0)
         End If
 
-        ' ==========================
-        ' بقية المنطق كما هو
-        ' ==========================
-        If Pr_Auto_Print = False Then
-            Select_Other_Details()
-        Else
-            Select_Auto_Details()
-            If Pr_PrinterPage_Type = 0 Then
-                PrintSalesAll()
+        Return Request
+
+    End Function
+
+    Private Function Load_POS_Report_Data(ByVal Request As POSReportRequest) As POSReportResult
+
+        Dim Result As New POSReportResult
+        Dim DS As New DataSet()
+
+        Using sqlCon As New SqlConnection(MY_Settings.SqlConStr)
+            sqlCon.Open()
+
+            Using sqlComm As New SqlCommand()
+                sqlComm.Connection = sqlCon
+                sqlComm.CommandType = CommandType.StoredProcedure
+                sqlComm.CommandTimeout = ReportCommandTimeout
+
+                If Request.IsAutoPrint Then
+                    sqlComm.CommandText = "Count_Total_Balance_By_Periods"
+                    sqlComm.Parameters.AddWithValue("@Pr_ID", Request.PrID)
+                Else
+                    If Request.HasPeriod = False Then
+                        sqlComm.CommandText = "Count_Total_Balance_By_Date"
+                        sqlComm.Parameters.AddWithValue("@D_F", Request.DateFrom)
+                        sqlComm.Parameters.AddWithValue("@D_T", Request.DateTo)
+                    Else
+                        sqlComm.CommandText = "Count_Total_Balance_By_Periods"
+                        sqlComm.Parameters.AddWithValue("@Pr_ID", Request.SelectedPrID)
+                    End If
+                End If
+
+                Using Da As New SqlDataAdapter(sqlComm)
+                    Da.Fill(DS)
+                End Using
+            End Using
+
+            If DS.Tables.Count > 0 Then Result.FinancialTable = DS.Tables(0)
+            If DS.Tables.Count > 1 Then Result.PayTable = DS.Tables(1)
+
+            If Request.IsAutoPrint Then
+                Load_POS_Period_Details(sqlCon, Request.PrID, Result)
+                Result.IMDetailsTable = Load_POS_IM_Details(sqlCon, True, Request.PrID, Request.GMID, Request.DateFrom, Request.DateTo)
             Else
-                PrintSales_Small()
+                If Request.HasPeriod Then
+                    Load_POS_Period_Details(sqlCon, Request.SelectedPrID, Result)
+                    Result.IMDetailsTable = Load_POS_IM_Details(sqlCon, True, Request.SelectedPrID, Request.GMID, Request.DateFrom, Request.DateTo)
+                Else
+                    Result.UserName = " الكــل "
+                    Result.TimeText = " من تاريخ " + Request.DateFrom.ToShortDateString + " إلى " + Request.DateTo.ToShortDateString
+                    Result.IMDetailsTable = Load_POS_IM_Details(sqlCon, False, 0, Request.GMID, Request.DateFrom, Request.DateTo)
+                End If
             End If
-        End If
+        End Using
+
+        Return Result
+
+    End Function
+
+    Private Sub Load_POS_Period_Details(ByVal sqlCon As SqlConnection, ByVal PeriodID As Integer, ByVal Result As POSReportResult)
+
+        Using sqlComm As New SqlCommand("Pr_SelectDetails", sqlCon)
+            sqlComm.CommandType = CommandType.StoredProcedure
+            sqlComm.CommandTimeout = ReportCommandTimeout
+            sqlComm.Parameters.AddWithValue("@Pr_ID", PeriodID)
+
+            Using Dr = sqlComm.ExecuteReader()
+                If Dr.HasRows Then
+                    Dr.Read()
+                    Result.UserName = Dr("UserName").ToString()
+                    Result.TimeText = Dr("Time").ToString()
+                    Result.StartNotes = Dr("NotesOn_Start").ToString()
+                    Result.EndNotes = Dr("NotesOn_End").ToString()
+                End If
+            End Using
+        End Using
+
+    End Sub
+
+    Private Function Load_POS_IM_Details(ByVal sqlCon As SqlConnection, ByVal ByPeriod As Boolean, ByVal PeriodID As Integer, ByVal GMID As Integer, ByVal DateFrom As Date, ByVal DateTo As Date) As DataTable
+
+        Dim Dt As New DataTable()
+
+        Using sqlComm As New SqlCommand()
+            sqlComm.Connection = sqlCon
+            sqlComm.CommandType = CommandType.StoredProcedure
+            sqlComm.CommandTimeout = ReportCommandTimeout
+
+            If ByPeriod Then
+                sqlComm.CommandText = "SelectDetails_IM_By_Periods"
+                sqlComm.Parameters.AddWithValue("@Pr_ID", PeriodID)
+                sqlComm.Parameters.AddWithValue("GM_ID", GMID)
+            Else
+                sqlComm.CommandText = "SelectDetails_IM_By_Date"
+                sqlComm.Parameters.AddWithValue("@D_F", DateFrom)
+                sqlComm.Parameters.AddWithValue("@D_T", DateTo)
+                sqlComm.Parameters.AddWithValue("GM_ID", GMID)
+            End If
+
+            Using Da As New SqlDataAdapter(sqlComm)
+                Da.Fill(Dt)
+            End Using
+        End Using
+
+        Return Dt
+
+    End Function
+
+    Private Sub Apply_POS_Report_Data(ByVal Result As POSReportResult)
+
+        Finc_DT = Result.FinancialTable
+        DataGridViewX.DataSource = Finc_DT
+        Pay_Grid.DataSource = Result.PayTable
+        IM_Details_GV.DataSource = Result.IMDetailsTable
+
+        Finencial_T_txt.Text = GetFinancialNetValue(Finc_DT).ToString()
+
+        Pr_UserName_txt.Text = Result.UserName
+        Pr_Time_txt.Text = Result.TimeText
+        StartNotes_txt.Text = Result.StartNotes
+        EndNotes_txt.Text = Result.EndNotes
 
         TabControl1.SelectedTab = TabPage1
+
+    End Sub
+
+    Private Function GetFinancialNetValue(ByVal Dt As DataTable) As Double
+
+        If Dt Is Nothing OrElse Dt.Rows.Count = 0 OrElse Dt.Columns.Count <= 2 Then Return 0
+
+        Dim FirstValue As Double = GetTableDoubleValue(Dt, 0, 2)
+        Dim LastValue As Double = GetTableDoubleValue(Dt, Dt.Rows.Count - 1, 2)
+
+        Return FirstValue - LastValue
+
+    End Function
+
+    Private Function GetTableDoubleValue(ByVal Dt As DataTable, ByVal RowIndex As Integer, ByVal ColumnIndex As Integer) As Double
+
+        If Dt Is Nothing OrElse Dt.Rows.Count <= RowIndex OrElse Dt.Columns.Count <= ColumnIndex Then Return 0
+        If IsDBNull(Dt.Rows(RowIndex)(ColumnIndex)) Then Return 0
+
+        Return Convert.ToDouble(Dt.Rows(RowIndex)(ColumnIndex))
+
+    End Function
+
+    Private Function GetComboIntValue(ByVal combo As ComboBox, ByVal defaultValue As Integer) As Integer
+
+        If combo Is Nothing OrElse combo.SelectedValue Is Nothing Then Return defaultValue
+
+        Dim Value As Integer = defaultValue
+        If Integer.TryParse(combo.SelectedValue.ToString(), Value) Then Return Value
+
+        Return defaultValue
+
+    End Function
+
+    Private Sub SetReportLoading(ByVal Loading As Boolean, Optional ByVal Message As String = "جاري تحميل التقرير ...")
+
+        IsReportLoading = Loading
+        Me.UseWaitCursor = Loading
+        Me.Cursor = If(Loading, Cursors.WaitCursor, Cursors.Hand)
+
+        If LoadingLabel IsNot Nothing Then LoadingLabel.Text = Message
+        If LoadingProgress IsNot Nothing Then LoadingProgress.MarqueeAnimationSpeed = If(Loading, 30, 0)
+
+        If LoadingPanel IsNot Nothing Then
+            LoadingPanel.Visible = Loading
+            If Loading Then LoadingPanel.BringToFront()
+        End If
+
+        Fetch_Pr_Details.Enabled = Not Loading
+        Date_Search_Btn.Enabled = Not Loading
+        Fetch_Pr_Btn.Enabled = Not Loading
+        SalesPrintButton.Enabled = Not Loading
+        GM_cmb.Enabled = Not Loading
+        PeriodsCmb.Enabled = Not Loading
 
     End Sub
 
@@ -461,8 +607,8 @@ Public Class POS_Report
     End Sub
 
 
-    Private Sub Fetch_Pr_Details_Click(sender As Object, e As EventArgs) Handles Fetch_Pr_Details.Click
-        If PeriodsCmb.Items.Count.ToString > 0 Then Fetch_Pr_Details_()
+    Private Async Sub Fetch_Pr_Details_Click(sender As Object, e As EventArgs) Handles Fetch_Pr_Details.Click
+        If PeriodsCmb.Items.Count > 0 Then Await Fetch_Pr_Details_()
     End Sub
 
 
@@ -481,41 +627,11 @@ Public Class POS_Report
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Date_Search_Btn_Click(sender As Object, e As EventArgs) Handles Date_Search_Btn.Click
+    Private Async Sub Date_Search_Btn_Click(sender As Object, e As EventArgs) Handles Date_Search_Btn.Click
         is_By_Pr = False
         PeriodsCmb.DataSource = Nothing
-        Fetch_Pr_Details_()
+        Await Fetch_Pr_Details_()
     End Sub
-
-    'Private Sub ButtPrintItems_Click(sender As Object, e As EventArgs) Handles ButtPrintItems.Click
-    '    PrintIM()
-    'End Sub
-
-    'Private Sub PrintIM()
-    '    Dim pp As New ReportConnection
-    '    If IM_Print_Typecmb.SelectedIndex = 0 Then
-    '        pp.rp.Load(Application.StartupPath & "\reports\IM_A4.rpt")
-    '    ElseIf IM_Print_Typecmb.SelectedIndex = 1 Then
-    '        pp.rp.Load(Application.StartupPath & "\reports\IM.rpt")
-    '    Else
-    '        MsgBox("حدد نوع الطباعة", MsgBoxStyle.Exclamation)
-    '    End If
-
-    '    pp.LoadTables()
-    '    With pp
-    '        .rp.SetParameterValue(0, USER_NAME)
-    '        .rp.SetParameterValue(1, My_Settings.Server_Desc)
-    '    End With
-
-    '    Dim p As New print
-    '    p.CrystalReportViewer1.ReportSource = pp.rp
-    '    p.Show()
-
-    '    'pp.rp.PrintOptions.PrinterName = Default_Printer_80
-    '    'pp.rp.PrintToPrinter(1, False, 0, 0)
-    '    'pp.rp.Dispose()
-
-    'End Sub
 
 
     Function GetMailItems() As List(Of MailItem)
@@ -608,9 +724,9 @@ Public Class POS_Report
 
     End Sub
 
-    Private Sub POS_Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Async Sub POS_Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Pr_Auto_Print = True Then
-            Fetch_Pr_Details_()
+            Await Fetch_Pr_Details_()
             Pr_Auto_Print = False
             Me.Close()
         Else
@@ -624,9 +740,8 @@ Public Class POS_Report
         End If
     End Sub
 
-    Private Sub GM_cmb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GM_cmb.SelectedIndexChanged
-        On Error Resume Next
-        Fetch_Pr_Details_()
+    Private Async Sub GM_cmb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GM_cmb.SelectedIndexChanged
+        If GM_cmb.SelectedIndex > -1 Then Await Fetch_Pr_Details_()
     End Sub
 
     Private Sub POS_Report_Resize(sender As Object, e As EventArgs) Handles Me.Resize
