@@ -209,6 +209,7 @@ Module MY_Settings
                 sWriter.WriteLine("AG_Show_Balance_in_Receipt" & ":" & AG_Show_Balance_in_Receipt.ToString())
                 sWriter.WriteLine("is_Use_Multi_Pay" & ":" & is_Use_Multi_Pay.ToString())
                 sWriter.WriteLine("Show_AllBill_Clmns" & ":" & Show_AllBill_Clmns.ToString())
+                sWriter.WriteLine("Thread_Time" & ":" & Thread_Time.ToString())
 
 
 
@@ -916,7 +917,12 @@ Module MY_Settings
                     Show_AllBill_Clmns = Setting_Value
                 End If
 
-
+            Case "Thread_Time"
+                If Setting_Value = "True" Or Setting_Value = "False" Then
+                    Thread_Time = Convert.ToBoolean(Setting_Value)
+                Else
+                    Thread_Time = Setting_Value
+                End If
 
         End Select
     End Sub

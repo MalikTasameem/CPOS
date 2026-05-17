@@ -1,5 +1,3 @@
-﻿Imports CrystalDecisions.Shared
-
 Public Class Balances
 
     ' Dim rs As New Resizer
@@ -8,6 +6,12 @@ Public Class Balances
     Private _agMvPrintRowIndex As Integer = 0
     Private _trMvPrintRowIndex As Integer = 0
     Private _agBalancesPrintRowIndex As Integer = 0
+    Private _salaryPrintRowIndex As Integer = 0
+    Private _salaryPrintPageNumber As Integer = 1
+    Private _salaryPrintTotalPages As Integer = 1
+    Private _salaryPrintRowsPerPage As Integer = 0
+    Private _salaryPrintTotalRows As Integer = 0
+    Private _salarySummaryPrinted As Boolean = False
     Dim Balance_Type As Integer = 0
 
     Public AGMV_Name As String
@@ -1009,16 +1013,25 @@ Public Class Balances
     End Function
 
 
-    Private Sub SalarySearchButton_Click(sender As Object, e As EventArgs) Handles SalarySearchButton.Click
+    Private Function ValidateSalarySearchInputs() As Boolean
+
         If String.IsNullOrWhiteSpace(SalariesMonthComboBox.Text) Then
             MsgBox("حدد الشهر", MsgBoxStyle.Exclamation)
-            Exit Sub
+            Return False
         End If
 
         If String.IsNullOrWhiteSpace(YearComboBox.Text) Then
             MsgBox("حدد السنة", MsgBoxStyle.Exclamation)
-            Exit Sub
+            Return False
         End If
+
+        Return True
+
+    End Function
+
+    Private Sub SalarySearchButton_Click(sender As Object, e As EventArgs) Handles SalarySearchButton.Click
+        If ValidateSalarySearchInputs() = False Then Exit Sub
+
         Me.Cursor = Cursors.AppStarting
         salary()
         Me.Cursor = Cursors.Default
@@ -1042,43 +1055,269 @@ Public Class Balances
 
 
     Private Sub PrintButton_Click(sender As Object, e As EventArgs) Handles PrintButton.Click
+        If ValidateSalarySearchInputs() = False Then Return
         SalarySearchButton_Click(sender, e)
         Print_Salaries()
     End Sub
 
     Public Sub Print_Salaries()
 
-        Try
-            Dim p As New print
-            Dim pp As New ReportConnection
+        If GetSalaryPrintableRowsCount() = 0 Then
+            MsgBox("لا توجد بيانات للطباعة.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
 
-            pp.rp.Load(Application.StartupPath & "\reports\EMP_Salaries.rpt")
-
-            pp.CrTables = pp.rp.Database.Tables
-            For Each CrTable In pp.CrTables
-                pp.crtableLogoninfo = CrTable.LogOnInfo
-                pp.crtableLogoninfo.ConnectionInfo = pp.crConnectionInfo
-                CrTable.ApplyLogOnInfo(pp.crtableLogoninfo)
-            Next
-
-
-            With pp
-                .rp.SetParameterValue(0, USER_NAME)
-                .rp.SetParameterValue(1, " لشهــر " + SalariesMonthComboBox.Text + " سنــة " + YearComboBox.Text)
-                .rp.SetParameterValue(2, TotalDebtTextBox.Text)
-                .rp.SetParameterValue(3, TotalPureTextBox.Text)
-                .rp.SetParameterValue(4, F_MainForm.Serv_Label.Text)
-
-                p.CrystalReportViewer1.ReportSource = pp.rp
-                p.ShowDialog()
-
-            End With
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        Using printDocument As System.Drawing.Printing.PrintDocument = CreateSalariesPrintDocument()
+            Using previewDialog As New PrintPreviewDialog()
+                previewDialog.Document = printDocument
+                previewDialog.WindowState = FormWindowState.Maximized
+                previewDialog.Text = "معاينة تقرير المرتبات"
+                previewDialog.ShowDialog(Me)
+            End Using
+        End Using
 
     End Sub
+
+    Private Function CreateSalariesPrintDocument() As System.Drawing.Printing.PrintDocument
+
+        Dim printDocument As New System.Drawing.Printing.PrintDocument()
+        printDocument.DocumentName = "تقرير المرتبات"
+        printDocument.DefaultPageSettings.Landscape = True
+        printDocument.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(35, 35, 45, 45)
+
+        AddHandler printDocument.BeginPrint, AddressOf SalariesPrintDocument_BeginPrint
+        AddHandler printDocument.PrintPage, AddressOf SalariesPrintDocument_PrintPage
+
+        Return printDocument
+
+    End Function
+
+    Private Sub SalariesPrintDocument_BeginPrint(sender As Object, e As System.Drawing.Printing.PrintEventArgs)
+
+        _salaryPrintRowIndex = 0
+        _salaryPrintPageNumber = 1
+        _salaryPrintTotalPages = 1
+        _salaryPrintRowsPerPage = 0
+        _salaryPrintTotalRows = GetSalaryPrintableRowsCount()
+        _salarySummaryPrinted = False
+
+    End Sub
+
+    Private Sub SalariesPrintDocument_PrintPage(sender As Object, e As System.Drawing.Printing.PrintPageEventArgs)
+
+        Dim bounds As Rectangle = e.MarginBounds
+        Dim y As Integer = bounds.Top
+
+        Using storeTitleFont As New Font("Segoe UI", 15.0!, FontStyle.Bold),
+              storeSubTitleFont As New Font("Segoe UI", 10.0!, FontStyle.Bold),
+              titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
+              infoFont As New Font("Segoe UI", 9.0!, FontStyle.Bold),
+              headerFont As New Font("Segoe UI", 8.0!, FontStyle.Bold),
+              rowFont As New Font("Segoe UI", 8.0!, FontStyle.Regular),
+              totalsFont As New Font("Segoe UI", 9.0!, FontStyle.Bold)
+
+            Dim rtlFormat As New StringFormat()
+            rtlFormat.Alignment = StringAlignment.Far
+            rtlFormat.LineAlignment = StringAlignment.Center
+            rtlFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+            Dim centerFormat As New StringFormat()
+            centerFormat.Alignment = StringAlignment.Center
+            centerFormat.LineAlignment = StringAlignment.Center
+            centerFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            DrawReportStoreHeader(e.Graphics, bounds, y, storeTitleFont, storeSubTitleFont, centerFormat)
+
+            e.Graphics.DrawString(
+                "تقرير المرتبات",
+                titleFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 28),
+                rtlFormat
+            )
+            y += 30
+
+            e.Graphics.DrawString(
+                "لشهر: " & SalariesMonthComboBox.Text & "    سنة: " & YearComboBox.Text,
+                infoFont,
+                Brushes.Black,
+                New Rectangle(bounds.Left, y, bounds.Width, 24),
+                rtlFormat
+            )
+            y += 30
+
+            Dim columnNames As String() = {
+                "DataGridViewTextBoxColumn12",
+                "Salary_CL",
+                "SumDebit_CL",
+                "T_OtherVal_ADD_CL",
+                "T_OtherVal_Neg_CL",
+                "PureSalaey_CL",
+                "Inserted_Salary_CL"
+            }
+
+            Dim headers As String() = {
+                "الموظف",
+                "المرتب الشهري",
+                "دفعات على الحساب",
+                "مكافئات",
+                "خصومات",
+                "المرتب المرصد",
+                "صافي المرتب"
+            }
+
+            Dim weights As Integer() = {230, 115, 125, 95, 95, 120, 120}
+            Dim totalWeight As Integer = 0
+            For Each weight As Integer In weights
+                totalWeight += weight
+            Next
+            Dim widths(weights.Length - 1) As Integer
+
+            For i As Integer = 0 To weights.Length - 1
+                widths(i) = CInt(bounds.Width * (weights(i) / CDbl(totalWeight)))
+            Next
+
+            Dim rowHeight As Integer = 28
+            Dim tableBottom As Integer = bounds.Bottom - 42
+            Dim x As Integer = bounds.Right
+
+            For i As Integer = 0 To headers.Length - 1
+                x -= widths(i)
+                Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+                Using backBrush As New SolidBrush(Color.FromArgb(45, 62, 80))
+                    e.Graphics.FillRectangle(backBrush, rect)
+                End Using
+                e.Graphics.DrawRectangle(Pens.DarkGray, rect)
+                e.Graphics.DrawString(headers(i), headerFont, Brushes.White, rect, centerFormat)
+            Next
+
+            y += rowHeight
+
+            If _salaryPrintRowsPerPage = 0 Then
+                Dim printableTableHeight As Integer = Math.Max(rowHeight, tableBottom - y)
+                _salaryPrintRowsPerPage = Math.Max(1, CInt(Math.Floor(printableTableHeight / CDbl(rowHeight))))
+                _salaryPrintTotalPages = CalculateSalaryPrintTotalPages(_salaryPrintTotalRows, _salaryPrintRowsPerPage, printableTableHeight, rowHeight, 34)
+            End If
+
+            While _salaryPrintRowIndex < SalariesMetroGrid.Rows.Count
+
+                Dim row As DataGridViewRow = SalariesMetroGrid.Rows(_salaryPrintRowIndex)
+
+                If row.IsNewRow Then
+                    _salaryPrintRowIndex += 1
+                    Continue While
+                End If
+
+                If y + rowHeight > tableBottom Then
+                    DrawReportFooter(e.Graphics, bounds, _salaryPrintPageNumber, _salaryPrintTotalPages, infoFont, centerFormat)
+                    _salaryPrintPageNumber += 1
+                    e.HasMorePages = True
+                    Return
+                End If
+
+                x = bounds.Right
+
+                For i As Integer = 0 To columnNames.Length - 1
+                    x -= widths(i)
+                    Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+                    If _salaryPrintRowIndex Mod 2 = 0 Then
+                        e.Graphics.FillRectangle(Brushes.White, rect)
+                    Else
+                        Using altBrush As New SolidBrush(Color.FromArgb(248, 250, 252))
+                            e.Graphics.FillRectangle(altBrush, rect)
+                        End Using
+                    End If
+
+                    e.Graphics.DrawRectangle(Pens.LightGray, rect)
+                    e.Graphics.DrawString(GetSalaryPrintCellText(row, columnNames(i)), rowFont, Brushes.Black, rect, centerFormat)
+                Next
+
+                y += rowHeight
+                _salaryPrintRowIndex += 1
+
+            End While
+
+            If _salarySummaryPrinted = False Then
+                If y + 34 > tableBottom Then
+                    _salaryPrintTotalPages = Math.Max(_salaryPrintTotalPages, _salaryPrintPageNumber + 1)
+                    DrawReportFooter(e.Graphics, bounds, _salaryPrintPageNumber, _salaryPrintTotalPages, infoFont, centerFormat)
+                    _salaryPrintPageNumber += 1
+                    e.HasMorePages = True
+                    Return
+                End If
+
+                y += 6
+                e.Graphics.DrawString(
+                    "إجمالي دفعات على الحساب: " & TotalDebtTextBox.Text &
+                    "    إجمالي صافي المرتبات: " & TotalPureTextBox.Text,
+                    totalsFont,
+                    Brushes.Black,
+                    New Rectangle(bounds.Left, y, bounds.Width, 28),
+                    rtlFormat
+                )
+                _salarySummaryPrinted = True
+            End If
+
+            DrawReportFooter(e.Graphics, bounds, _salaryPrintPageNumber, _salaryPrintTotalPages, infoFont, centerFormat)
+
+        End Using
+
+        e.HasMorePages = False
+
+    End Sub
+
+    Private Function GetSalaryPrintableRowsCount() As Integer
+
+        Dim count As Integer = 0
+
+        For Each row As DataGridViewRow In SalariesMetroGrid.Rows
+            If row.IsNewRow = False Then count += 1
+        Next
+
+        Return count
+
+    End Function
+
+    Private Function CalculateSalaryPrintTotalPages(totalRows As Integer, rowsPerPage As Integer, printableTableHeight As Integer, rowHeight As Integer, summaryHeight As Integer) As Integer
+
+        If totalRows <= 0 Then Return 1
+
+        Dim totalPages As Integer = CalculateTotalPrintPages(totalRows, rowsPerPage)
+        Dim lastPageRows As Integer = totalRows Mod rowsPerPage
+
+        If lastPageRows = 0 Then lastPageRows = rowsPerPage
+
+        Dim lastPageRemainingHeight As Integer = printableTableHeight - (lastPageRows * rowHeight)
+
+        If lastPageRemainingHeight < summaryHeight Then totalPages += 1
+
+        Return Math.Max(1, totalPages)
+
+    End Function
+
+    Private Function GetSalaryPrintCellText(row As DataGridViewRow, columnName As String) As String
+
+        If Not SalariesMetroGrid.Columns.Contains(columnName) Then Return ""
+
+        Dim value As Object = row.Cells(columnName).Value
+
+        If value Is Nothing OrElse value Is DBNull.Value Then Return ""
+
+        If columnName = "Salary_CL" OrElse
+           columnName = "SumDebit_CL" OrElse
+           columnName = "T_OtherVal_ADD_CL" OrElse
+           columnName = "T_OtherVal_Neg_CL" OrElse
+           columnName = "PureSalaey_CL" OrElse
+           columnName = "Inserted_Salary_CL" Then
+
+            Dim numberValue As Decimal
+            If Decimal.TryParse(value.ToString(), numberValue) Then Return numberValue.ToString("N2")
+        End If
+
+        Return value.ToString()
+
+    End Function
 
     Private Sub AllBalancesRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AllBalancesRadioButton.CheckedChanged
         Balance_Type = 0
