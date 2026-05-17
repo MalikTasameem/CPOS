@@ -105,7 +105,6 @@ Partial Class Sales
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Value_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AG_Show_Balance_CB = New System.Windows.Forms.CheckBox()
-        Me.Marketer_Lb = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Show_AG_Projects_btn = New System.Windows.Forms.Button()
@@ -162,7 +161,6 @@ Partial Class Sales
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.DeletedBillLabel = New System.Windows.Forms.Label()
-        Me.Markter_Cm = New resturant.FSearch_Filter()
         Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
         Me.IM_ContextMenuStrip.SuspendLayout()
@@ -839,7 +837,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -855,7 +853,6 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -864,8 +861,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.RowHeadersVisible = False
         Me.ReceiptsMetroGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Empty
         Me.ReceiptsMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle5
         Me.ReceiptsMetroGrid.RowTemplate.Height = 30
         Me.ReceiptsMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -926,17 +922,6 @@ Partial Class Sales
         Me.AG_Show_Balance_CB.Text = "إظهار الديون فالفاتورة"
         Me.AG_Show_Balance_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.AG_Show_Balance_CB.UseVisualStyleBackColor = True
-        '
-        'Marketer_Lb
-        '
-        Me.Marketer_Lb.BackColor = System.Drawing.Color.Transparent
-        Me.Marketer_Lb.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Marketer_Lb.Location = New System.Drawing.Point(251, 98)
-        Me.Marketer_Lb.Name = "Marketer_Lb"
-        Me.Marketer_Lb.Size = New System.Drawing.Size(64, 21)
-        Me.Marketer_Lb.TabIndex = 677
-        Me.Marketer_Lb.Text = "المسوق :"
-        Me.Marketer_Lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Panel2
         '
@@ -1573,27 +1558,6 @@ Partial Class Sales
         Me.DeletedBillLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.DeletedBillLabel.Visible = False
         '
-        'Markter_Cm
-        '
-        Me.Markter_Cm.CancelSearchImage = CType(resources.GetObject("Markter_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.Markter_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Markter_Cm.Location = New System.Drawing.Point(3, 93)
-        Me.Markter_Cm.Name = "Markter_Cm"
-        Me.Markter_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Markter_Cm.Size = New System.Drawing.Size(245, 31)
-        Me.Markter_Cm.SQL_Column = "ST_name"
-        Me.Markter_Cm.SQL_ID = "ST_ID"
-        Me.Markter_Cm.SQL_IsNumericSearchField = False
-        Me.Markter_Cm.SQL_ListSize = 200
-        Me.Markter_Cm.SQL_NumberOfRows = 200
-        Me.Markter_Cm.SQL_OrderByField = "ST_name"
-        Me.Markter_Cm.SQL_SearchField = "ST_name"
-        Me.Markter_Cm.SQL_SearchField_WHERE = ""
-        Me.Markter_Cm.SQL_Table = "Marketers"
-        Me.Markter_Cm.TabIndex = 702
-        Me.Markter_Cm.TextMaxLength = 250
-        Me.Markter_Cm.Textt = ""
-        '
         'AG_Cm
         '
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
@@ -1625,8 +1589,6 @@ Partial Class Sales
         Me.Controls.Add(Me.AGMetroGrid)
         Me.Controls.Add(Me.DeletedBillLabel)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Marketer_Lb)
-        Me.Controls.Add(Me.Markter_Cm)
         Me.Controls.Add(Me.AG_Label)
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.Label24)
@@ -1750,7 +1712,6 @@ Partial Class Sales
     Friend WithEvents IM_Show_CxtMStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents طباعةورقةA4تصميمجاهز2ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Marketer_Lb As System.Windows.Forms.Label
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents BillNumPanel As System.Windows.Forms.Panel
@@ -1770,7 +1731,6 @@ Partial Class Sales
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents عرضربحالفاتورةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Show_SumPied_CB As System.Windows.Forms.CheckBox
-    Friend WithEvents Markter_Cm As resturant.FSearch_Filter
     Friend WithEvents Discount_MenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents تخفيضبنسبةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents عرضأخرمبيعاتللصنفبالنسبةللزبونToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem

@@ -85,4 +85,8 @@
     Private Sub KeyBoard_Btn_Click(sender As Object, e As EventArgs) Handles KeyBoard_Btn.Click
         Call_KeyBoard()
     End Sub
+
+    Private Sub Back_Btn_Click_1(sender As Object, e As EventArgs) Handles Back_Btn.Click
+        Me.Close()
+    End Sub
 End Class

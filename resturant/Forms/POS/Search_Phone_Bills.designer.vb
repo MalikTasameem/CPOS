@@ -42,6 +42,7 @@ Partial Class Search_Phone_Bills
         Me.SB_SearchTextBox = New System.Windows.Forms.TextBox()
         Me.BillsGrid = New MetroFramework.Controls.MetroGrid()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AG_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.B_Type_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.B_Pr_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AG_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -247,6 +248,7 @@ Partial Class Search_Phone_Bills
         'SB_SearchTextBox
         '
         Me.SB_SearchTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SB_SearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SB_SearchTextBox.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SB_SearchTextBox.Location = New System.Drawing.Point(475, 4)
         Me.SB_SearchTextBox.Margin = New System.Windows.Forms.Padding(5)
@@ -276,7 +278,7 @@ Partial Class Search_Phone_Bills
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.BillsGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.BillsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.BillsGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.B_Type_CL, Me.B_Pr_ID_CL, Me.AG_Name_CL, Me.Date_CL, Me.Cr_Phone_CL, Me.Total_CL, Me.Search_CL, Me.B_NAME_CL, Me.Barcode_CL, Me.TOTAL_BILL_CL, Me.DISCOUNT_CL, Me.Show_Bill, Me.Column1, Me.Print_Btn, Me.CASH_CL})
+        Me.BillsGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.AG_ID_CL, Me.B_Type_CL, Me.B_Pr_ID_CL, Me.AG_Name_CL, Me.Date_CL, Me.Cr_Phone_CL, Me.Total_CL, Me.Search_CL, Me.B_NAME_CL, Me.Barcode_CL, Me.TOTAL_BILL_CL, Me.DISCOUNT_CL, Me.Show_Bill, Me.Column1, Me.Print_Btn, Me.CASH_CL})
         Me.BillsGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -324,6 +326,14 @@ Partial Class Search_Phone_Bills
         Me.T_ID_CL.Name = "T_ID_CL"
         Me.T_ID_CL.ReadOnly = True
         Me.T_ID_CL.Visible = False
+        '
+        'AG_ID_CL
+        '
+        Me.AG_ID_CL.DataPropertyName = "AG_ID"
+        Me.AG_ID_CL.HeaderText = "AG_ID"
+        Me.AG_ID_CL.Name = "AG_ID_CL"
+        Me.AG_ID_CL.ReadOnly = True
+        Me.AG_ID_CL.Visible = False
         '
         'B_Type_CL
         '
@@ -490,20 +500,21 @@ Partial Class Search_Phone_Bills
     Friend WithEvents B2 As System.Windows.Forms.Button
     Friend WithEvents SB_SearchTextBox As System.Windows.Forms.TextBox
     Friend WithEvents BillsGrid As MetroFramework.Controls.MetroGrid
-    Friend WithEvents T_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents B_Type_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents B_Pr_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents AG_Name_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Date_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Cr_Phone_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Total_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Search_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents B_NAME_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Barcode_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents TOTAL_BILL_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DISCOUNT_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Show_Bill As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents Column1 As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents Print_Btn As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents CASH_CL As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents T_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents AG_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents B_Type_CL As DataGridViewTextBoxColumn
+    Friend WithEvents B_Pr_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents AG_Name_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Date_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Cr_Phone_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Total_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Search_CL As DataGridViewTextBoxColumn
+    Friend WithEvents B_NAME_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Barcode_CL As DataGridViewTextBoxColumn
+    Friend WithEvents TOTAL_BILL_CL As DataGridViewTextBoxColumn
+    Friend WithEvents DISCOUNT_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Show_Bill As DataGridViewButtonColumn
+    Friend WithEvents Column1 As DataGridViewButtonColumn
+    Friend WithEvents Print_Btn As DataGridViewButtonColumn
+    Friend WithEvents CASH_CL As DataGridViewButtonColumn
 End Class

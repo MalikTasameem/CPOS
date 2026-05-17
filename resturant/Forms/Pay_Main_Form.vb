@@ -3,6 +3,7 @@
     Public Tr_ID, Pay_ID, Temp_Tr_ID, AG_ID As Integer
     Public is_OK As Boolean = False
     Public MONEY_VALUE As Decimal = 0
+    Public Is_Force_Pay As Boolean = False
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles OK_Btn.Click
@@ -17,15 +18,22 @@
         If e.KeyCode = Keys.Escape Then Me.Close()
     End Sub
 
+
+
     Private Sub Pay_Main_Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Pay_Method1.Set_Tr_Form()
         Pay_Method1.Load_Tr()
         MONEY_VALUE_Txt.Text = MONEY_VALUE
-        If Pay_Method1.PaymentMethodsCount = 1 Or AG_ID <> Default_AG_ID Then
-            Tr_ID = Temp_Tr_ID
-            Pay_ID = 1
-            is_OK = True
-            Me.Close()
+
+        If (Pay_Method1.PaymentMethodsCount = 1 Or AG_ID <> Default_AG_ID) Then
+
+            If Is_Force_Pay = False Then
+                Tr_ID = Temp_Tr_ID
+                Pay_ID = 1
+                is_OK = True
+                Me.Close()
+            End If
+
         End If
 
         'If Pay_Method1.lbPayTypes.Items.Count = 1 Or AG_ID <> Default_AG_ID Then

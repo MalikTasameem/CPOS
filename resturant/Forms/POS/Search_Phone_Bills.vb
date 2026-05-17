@@ -62,24 +62,38 @@
 
     Public Sub ConfermBill()
 
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "SB_ConfermBill"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", BillsGrid.CurrentRow.Cells("T_ID_CL").Value)
-            .Parameters.AddWithValue("@TOTAL", BillsGrid.CurrentRow.Cells("TOTAL_BILL_CL").Value)
-            .Parameters.AddWithValue("@Discount", BillsGrid.CurrentRow.Cells("DISCOUNT_CL").Value)
-            .Parameters.AddWithValue("@Pure", BillsGrid.CurrentRow.Cells("TOTAL_CL").Value)
-            .Parameters.AddWithValue("@Pied", BillsGrid.CurrentRow.Cells("TOTAL_CL").Value)
-            .Parameters.AddWithValue("@AGType_ID", Cr_Type_ID)
-            .Parameters.AddWithValue("@Point_Inc", Point_Inc)
-            .Parameters.AddWithValue("@Points_Sale", Points_Sale)
-            .Parameters.AddWithValue("@Tr_ID", SB_TR_ID)
-            .Parameters.AddWithValue("@Pr_ID", Pr_ID)
-            .Parameters.AddWithValue("@User_ID", USER_ID)
-        End With
-        If SQL_SP_EXEC(c.Com) Then Load_Pr_Bils()
+        Dim F As New Pay_Main_Form
+        F.MONEY_VALUE = BillsGrid.CurrentRow.Cells("TOTAL_CL").Value
+        F.Temp_Tr_ID = SB_TR_ID
+        F.AG_ID = BillsGrid.CurrentRow.Cells("AG_ID_CL").Value
+        F.Is_Force_Pay = True
+        F.ShowDialog()
+
+        If F.is_OK = True Then
+            Dim Tr_ID, Pay_ID As Integer
+            Tr_ID = F.Tr_ID
+            Pay_ID = F.Pay_ID
+
+            Dim c As New C
+            With c.Com
+                .Connection = c.Con
+                .CommandText = "SB_ConfermBill"
+                .CommandType = CommandType.StoredProcedure
+                .Parameters.AddWithValue("@T_ID", BillsGrid.CurrentRow.Cells("T_ID_CL").Value)
+                .Parameters.AddWithValue("@TOTAL", BillsGrid.CurrentRow.Cells("TOTAL_BILL_CL").Value)
+                .Parameters.AddWithValue("@Discount", BillsGrid.CurrentRow.Cells("DISCOUNT_CL").Value)
+                .Parameters.AddWithValue("@Pure", BillsGrid.CurrentRow.Cells("TOTAL_CL").Value)
+                .Parameters.AddWithValue("@Pied", BillsGrid.CurrentRow.Cells("TOTAL_CL").Value)
+                .Parameters.AddWithValue("@AGType_ID", Cr_Type_ID)
+                .Parameters.AddWithValue("@Point_Inc", Point_Inc)
+                .Parameters.AddWithValue("@Points_Sale", Points_Sale)
+                .Parameters.AddWithValue("@Tr_ID", SB_TR_ID)
+                .Parameters.AddWithValue("@Pr_ID", Pr_ID)
+                .Parameters.AddWithValue("@User_ID", USER_ID)
+            End With
+            If SQL_SP_EXEC(c.Com) Then Load_Pr_Bils()
+
+        End If
     End Sub
 
     Public Sub CashPrint()

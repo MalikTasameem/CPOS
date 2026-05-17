@@ -245,11 +245,13 @@ Public Class Pay_Method
                 Treasury_ComboBox.SelectedValue = c.Dr("AccountID")
                 TR_ID = CInt(Treasury_ComboBox.SelectedValue)
 
-                If c.Dr("AccountID") = False Then
-                    Treasury_ComboBox.Enabled = False
-                Else
-                    Treasury_ComboBox.Enabled = True
-                End If
+
+                Treasury_ComboBox.Enabled = c.Dr("is_Lock")
+                'If c.Dr("is_Lock") = False Then
+                '    Treasury_ComboBox.Enabled = False
+                'Else
+                '    Treasury_ComboBox.Enabled = True
+                'End If
 
             Else
                 Treasury_ComboBox.SelectedValue = Tmp_Tr_ID
@@ -272,6 +274,10 @@ Public Class Pay_Method
         If Integer.TryParse(Treasury_ComboBox.SelectedValue.ToString(), val) Then
             TR_ID = val
         End If
+
+    End Sub
+
+    Private Sub MainLayout_Paint(sender As Object, e As PaintEventArgs) Handles MainLayout.Paint
 
     End Sub
 End Class

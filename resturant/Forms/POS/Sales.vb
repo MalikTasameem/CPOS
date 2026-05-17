@@ -54,6 +54,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Private mouseX As Integer
     Private mouseY As Integer
 
+    Dim is_Select_Mode = False
+
     ' تفعيل الظل الاحترافي للفورم
     Protected Overrides ReadOnly Property CreateParams() As CreateParams
         Get
@@ -330,8 +332,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         AGMetroGrid.Columns("Serial_Code_CL").Visible = MY_Settings.S_Serial_Code_CL
         AGMetroGrid.Columns("IM_NOTE_CL").Visible = MY_Settings.S_IM_NOTE_CL
         AGMetroGrid.Columns("IM_Discount_CL").Visible = MY_Settings.S_IM_Discount_CL
-        Markter_Cm.Visible = S_Marketers
-        Marketer_Lb.Visible = S_Marketers
+        'Markter_Cm.Visible = S_Marketers
+        'Marketer_Lb.Visible = S_Marketers
 
         IM_Check_Panel.Visible = SB_is_Check_IM
         AGMetroGrid.Columns("Check_CL").Visible = SB_is_Check_IM
@@ -339,89 +341,130 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Public Sub SB_Contents_SELECT_Bill()
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "SB_Contents_SELECT_Bill_2"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@SB_T_ID", Me.T_ID)
-        End With
-        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-        C.Da.Fill(C.Dt)
-        AGMetroGrid.DataSource = C.Dt
+        Using sqlCon As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+            sqlCon.Open()
+            SB_Contents_SELECT_Bill(sqlCon)
+        End Using
+    End Sub
+
+    Private Sub SB_Contents_SELECT_Bill(ByVal sqlCon As SqlClient.SqlConnection)
+
+        Dim Dt As New DataTable
+
+        Using sqlComm As New SqlClient.SqlCommand("SB_Contents_SELECT_Bill_2", sqlCon)
+            sqlComm.CommandType = CommandType.StoredProcedure
+            sqlComm.Parameters.AddWithValue("@SB_T_ID", Me.T_ID)
+
+            Using Da As New SqlClient.SqlDataAdapter(sqlComm)
+                Da.Fill(Dt)
+            End Using
+        End Using
+
+        AGMetroGrid.DataSource = Dt
         If AGMetroGrid.Rows.Count > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(AGMetroGrid.Rows.Count - 1).Cells("EX_Name_CL")
+
     End Sub
 
     Public Sub Fill_Bill_Info()
+        Using sqlCon As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+            sqlCon.Open()
+            Fill_Bill_Info(sqlCon)
+        End Using
+    End Sub
 
-        Dim C As New C
+    Private Function Fill_Bill_Info(ByVal sqlCon As SqlClient.SqlConnection) As Boolean
 
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "SB_Info_V_SELECT_Bill"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-        End With
-        C.Con.Open()
-        C.Dr = C.Com.ExecuteReader
-        If C.Dr.HasRows Then
-            C.Dr.Read()
+        Dim isBillFound As Boolean = False
 
-            AG_ID = C.Dr("AG_ID")
-            AG_Cm.Set_IM_By_ID(AG_ID)
-            'GET_AG()
-            AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
-            Fill_All_AG_Proj()
-            Project_cm.SelectedValue = C.Dr("Proj_ID")
+        Using sqlComm As New SqlClient.SqlCommand("SB_Info_V_SELECT_Bill", sqlCon)
+            sqlComm.CommandType = CommandType.StoredProcedure
+            sqlComm.Parameters.AddWithValue("@T_ID", Me.T_ID)
 
-            DateTimeEx.Text = C.Dr("Date")
-            BillNumTxt.Text = C.Dr("S_Bill_Pr_ID")
-            Barcode = C.Dr("Barcode")
+            Using sqlDr As SqlClient.SqlDataReader = sqlComm.ExecuteReader
+                If sqlDr.HasRows Then
+                    sqlDr.Read()
+                    isBillFound = True
 
-            If C.Dr("isPied") = 1 Then
-                Save_butt.Enabled = False
-            Else
-                Save_butt.Enabled = True
-            End If
-            Bill_ID_Txt.Text = C.Dr("SB_ID")
-            SB_ID = C.Dr("SB_ID")
+                    AG_ID = sqlDr("AG_ID")
+                    AG_Cm.Set_IM_By_ID(AG_ID)
+                    'GET_AG()
+                    AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
+                    Fill_All_AG_Proj()
+                    Project_cm.SelectedValue = sqlDr("Proj_ID")
+
+                    DateTimeEx.Text = sqlDr("Date")
+                    BillNumTxt.Text = sqlDr("S_Bill_Pr_ID")
+                    Barcode = sqlDr("Barcode")
+
+                    If sqlDr("isPied") = 1 Then
+                        Save_butt.Enabled = False
+                    Else
+                        Save_butt.Enabled = True
+                    End If
+                    Bill_ID_Txt.Text = sqlDr("SB_ID")
+                    SB_ID = sqlDr("SB_ID")
 
 
-            If C.Dr("Discount") > 0 Then
-                Discount_txt1.Text = C.Dr("Discount")
-                Disc = C.Dr("Discount")
-                'If Discount_Distribute = False Then Pure_txt.Text = C.Dr("Total") - C.Dr("Discount")
-                Old_Disc = Disc
-            End If
+                    If sqlDr("Discount") > 0 Then
+                        Discount_txt1.Text = sqlDr("Discount")
+                        Disc = sqlDr("Discount")
+                        'If Discount_Distribute = False Then Pure_txt.Text = C.Dr("Total") - C.Dr("Discount")
+                        Old_Disc = Disc
+                    End If
 
-            isVoid = C.Dr("isVoid")
-            isDepended = C.Dr("isDepended")
+                    isVoid = sqlDr("isVoid")
+                    isDepended = sqlDr("isDepended")
 
-            isPied = C.Dr("isPied")
+                    isPied = sqlDr("isPied")
 
-            User_Name_lb.Text = C.Dr("U_Name") + " - " + C.Dr("Date").ToString
-            BillUser_ID = C.Dr("User_ID")
-            Notes_txt.Text = C.Dr("About")
+                    User_Name_lb.Text = sqlDr("U_Name") + " - " + sqlDr("Date").ToString
+                    BillUser_ID = sqlDr("User_ID")
+                    Notes_txt.Text = sqlDr("About")
 
-            isPause = C.Dr("isPause")
-            If isPause = False Then
-                SBPauseBtn.Text = "تعليق F7"
-            Else
-                SBPauseBtn.Text = "إلغاء التعليق"
-            End If
-            Markter_Cm.Set_IM_By_ID(C.Dr("Markter_ID"))
-            Pure = C.Dr("Total") - C.Dr("Discount")
+                    isPause = sqlDr("isPause")
+                    If isPause = False Then
+                        SBPauseBtn.Text = "تعليق F7"
+                    Else
+                        SBPauseBtn.Text = "إلغاء التعليق"
+                    End If
+                    'Markter_Cm.Set_IM_By_ID(C.Dr("Markter_ID"))
+                    Pure = sqlDr("Total") - sqlDr("Discount")
 
-            'OUT_SALE_Bill_TXT.Text = C.Dr("Travel_ID")
+                    'OUT_SALE_Bill_TXT.Text = C.Dr("Travel_ID")
+                End If
+            End Using
+        End Using
 
-            Select_Sales_Receipt(T_ID)
+        If isBillFound Then
+            Select_Sales_Receipt_ByConnection(sqlCon, T_ID)
         Else
             AG_ID = Default_AG_ID
             'AG_SH_txt.Text = "نقدي"
             Fetch_ItemToList2()
             VoidLb.Enabled = False
         End If
-        C.Con.Close()
+
+        Return isBillFound
+
+    End Function
+
+    Private Sub Select_Sales_Receipt_ByConnection(ByVal sqlCon As SqlClient.SqlConnection, ByVal Bill_T_ID As Integer)
+        Try
+            Receipts_DT.Clear()
+
+            Using sqlComm As New SqlClient.SqlCommand("select T_ID,PAYMENT_NAME,Receipt_Num,Type_Name,Value from SB_Receipts_V WHERE Receipt_Tran_ID = @T_ID AND isVoid = 0", sqlCon)
+                sqlComm.Parameters.AddWithValue("@T_ID", Bill_T_ID)
+
+                Using Da As New SqlClient.SqlDataAdapter(sqlComm)
+                    Da.Fill(Receipts_DT)
+                End Using
+            End Using
+
+            ReceiptsMetroGrid.DataSource = Receipts_DT
+            If String.IsNullOrWhiteSpace(Piedmoney_txt.Text) Then Piedmoney_txt.Text = "0.000"
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub Enable_Fields()
@@ -431,7 +474,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Notes_txt.Enabled = True
         Project_cm.Enabled = True
         Show_AG_Projects_btn.Enabled = True
-        Markter_Cm.Enabled = True
+        'Markter_Cm.Enabled = True
         Ebable_CatFields()
     End Sub
 
@@ -441,7 +484,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Notes_txt.Enabled = False
         Project_cm.Enabled = False
         Show_AG_Projects_btn.Enabled = False
-        Markter_Cm.Enabled = False
+        'Markter_Cm.Enabled = False
         Disable_CatFields()
     End Sub
 
@@ -551,7 +594,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                 Show_AG_Projects_btn.Enabled = True
                 DiscountPanel.Enabled = True
                 AG_Cm.Enabled = True
-                Markter_Cm.Enabled = True
+                'Markter_Cm.Enabled = True
                 Ebable_CatFields()
                 Save_butt.Enabled = False
                 Edit_butt.Enabled = True
@@ -640,7 +683,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         On_Update = False
         SB_ID = 0
         Project_cm.SelectedIndex = -1
-        Markter_Cm.Set_IM_By_ID(1)
+        'Markter_Cm.Set_IM_By_ID(1)
     End Sub
 
     Private Sub ResetNewBill()
@@ -961,40 +1004,57 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     Public Sub Get_T_ID()
 
+        is_Select_Mode = True
 
-        Dim C As New C
         Dim S As String = ""
-        If Search_By_Bar_CB.Checked = True Then
-            S = "Select T_ID From Agents_Balance_MV Where Barcode = '" & Convert.ToInt64(Bill_ID_Txt.Text) & "'"
-        Else
-            S = "Select T_ID From Agents_Balance_MV Where SB_ID = '" & Convert.ToInt64(Bill_ID_Txt.Text) & "'"
+        Dim Bill_Search_ID As Long = 0
+
+        If Long.TryParse(Bill_ID_Txt.Text, Bill_Search_ID) = False Then
+            MsgBox("رقم الفاتورة غير صحيح", MsgBoxStyle.Exclamation)
+            Exit Sub
         End If
 
-        C.Com = New SqlClient.SqlCommand(S, C.Con)
-        C.Con.Open()
-        Try
-            C.Dr = C.Com.ExecuteReader
-            If C.Dr.HasRows Then
-                C.Dr.Read()
-                ClearFields()
-                T_ID = C.Dr("T_ID")
-                Fill_Bill_Info()
-                SB_Contents_SELECT_Bill()
-                SelectStateBt()
-            Else
-                MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
-                If Search_By_Bar_CB.Checked = True Then
-                    Bill_ID_Txt.Clear()
-                Else
-                    Bill_ID_Txt.Text = SB_ID
-                End If
+        If Search_By_Bar_CB.Checked = True Then
+            S = "Select T_ID From Agents_Balance_MV Where Barcode = @Bill_ID"
+        Else
+            S = "Select T_ID From Agents_Balance_MV Where SB_ID = @Bill_ID"
+        End If
 
-            End If
+        Try
+            Using sqlCon As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                sqlCon.Open()
+
+                Using sqlComm As New SqlClient.SqlCommand(S, sqlCon)
+                    If Search_By_Bar_CB.Checked = True Then
+                        sqlComm.Parameters.Add("@Bill_ID", SqlDbType.NVarChar, 50).Value = Bill_Search_ID.ToString()
+                    Else
+                        sqlComm.Parameters.Add("@Bill_ID", SqlDbType.BigInt).Value = Bill_Search_ID
+                    End If
+
+                    Dim result = sqlComm.ExecuteScalar()
+
+                    If result IsNot Nothing AndAlso result IsNot DBNull.Value Then
+                        ClearFields()
+                        T_ID = Convert.ToInt32(result)
+                        Fill_Bill_Info(sqlCon)
+                        SB_Contents_SELECT_Bill(sqlCon)
+                        SelectStateBt()
+                    Else
+                        MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
+                        If Search_By_Bar_CB.Checked = True Then
+                            Bill_ID_Txt.Clear()
+                        Else
+                            Bill_ID_Txt.Text = SB_ID
+                        End If
+                    End If
+                End Using
+            End Using
 
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
-        C.Con.Close()
+
+        is_Select_Mode = False
 
     End Sub
 
@@ -1603,9 +1663,9 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
         If AG_Cm.TXT_ID.Text > 0 Then
-            Fetch_ItemToList2()
+            If is_Select_Mode = False Then Fetch_ItemToList2()
             AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
-        End If
+            End If
     End Sub
 
     Private Sub Show_Bill_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Show_Bill_CB.CheckedChanged
@@ -1689,9 +1749,9 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Save_AppSetting()
     End Sub
 
-    Private Sub Markter_Cm_ID_Changed(sender As Object, e As EventArgs) Handles Markter_Cm.ID_Changed
-        AG_Balance_Update_Marketer(T_ID, Markter_Cm.TXT_ID.Text)
-    End Sub
+    'Private Sub Markter_Cm_ID_Changed(sender As Object, e As EventArgs)
+    '    AG_Balance_Update_Marketer(T_ID, Markter_Cm.TXT_ID.Text)
+    'End Sub
 
     Private Sub تخفيضبنسبةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles تخفيضبنسبةToolStripMenuItem.Click
         Dim F_Percent_Disc As New Percent_Disc
@@ -1868,7 +1928,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
         ' بيانات إضافية (أعلى اليسار)
         If IM_Check_Panel IsNot Nothing Then IM_Check_Panel.Anchor = AnchorStyles.Top Or AnchorStyles.Left
-        If Markter_Cm IsNot Nothing Then Markter_Cm.Anchor = AnchorStyles.Top Or AnchorStyles.Left
-        If Marketer_Lb IsNot Nothing Then Marketer_Lb.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        'If Markter_Cm IsNot Nothing Then Markter_Cm.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+        'If Marketer_Lb IsNot Nothing Then Marketer_Lb.Anchor = AnchorStyles.Top Or AnchorStyles.Left
     End Sub
 End Class
