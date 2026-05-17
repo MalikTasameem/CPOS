@@ -170,7 +170,7 @@
             ' أزرار الإجراءات
             If New_butt IsNot Nothing Then New_butt.Tag = "GENERAL"
             If Save_butt IsNot Nothing Then Save_butt.Tag = "SAVE"
-            If Edit_butt IsNot Nothing Then Edit_butt.Tag = "GENERAL"
+            '  If Edit_butt IsNot Nothing Then Edit_butt.Tag = "GENERAL"
             If Delete_butt IsNot Nothing Then Delete_butt.Tag = "DELETE"
             If Print_btn IsNot Nothing Then Print_btn.Tag = "PRINT"
             If SearchButton IsNot Nothing Then SearchButton.Tag = "GENERAL"
@@ -501,7 +501,7 @@
         User_Name_lb.Text = "---"
         Invoice_Type_cm.SelectedIndex = 0
         On_Update = False
-        Edit_butt.BackColor = Color.WhiteSmoke
+        '    Edit_butt.BackColor = Color.WhiteSmoke
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
