@@ -179,7 +179,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             If U_Cancel_Pch = False Then Delete_butt.Visible = False
             If isShowing_Trans = True Then
                 Select_ExpBill(T_ID_Trans)
-                SelectStateBt()
+                '    SelectStateBt()
                 New_butt.Enabled = False
                 SearchButton.Enabled = False
             End If
@@ -281,25 +281,60 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     '        lblFormState.ForeColor = Color.White
     '    End If
     'End Sub
-    Public Sub UpdatePchStatusUI()
-        If lblFormState Is Nothing Then Exit Sub
+    'Public Sub UpdatePchStatusUI()
+    '    If lblFormState Is Nothing Then Exit Sub
 
-        If isVoid = True Then
-            ' حالة الإلغاء (أحمر)
-            lblFormState.Text = "فاتورة ملغيــــة"
-            lblFormState.BackColor = Color.FromArgb(231, 76, 60)
-            lblFormState.ForeColor = Color.White
-        ElseIf isDepended = True Then
-            ' حالة الإعتماد بعد الحفظ (أخضر)
-            lblFormState.Text = "فاتورة معتمـــدة"
-            lblFormState.BackColor = Color.FromArgb(46, 204, 113)
-            lblFormState.ForeColor = Color.White
-        Else
-            ' الحالة الافتراضية عند اللود أو زر جديد (أزرق)
-            lblFormState.Text = "فاتورة جديــــدة"
-            lblFormState.BackColor = Color.FromArgb(52, 152, 219)
-            lblFormState.ForeColor = Color.White
+    '    If isVoid = True Then
+    '        ' حالة الإلغاء (أحمر)
+    '        lblFormState.Text = "فاتورة ملغيــــة"
+    '        lblFormState.BackColor = Color.FromArgb(231, 76, 60)
+    '        lblFormState.ForeColor = Color.White
+    '    ElseIf isDepended = True Then
+    '        ' حالة الإعتماد بعد الحفظ (أخضر)
+    '        lblFormState.Text = "فاتورة معتمـــدة"
+    '        lblFormState.BackColor = Color.FromArgb(46, 204, 113)
+    '        lblFormState.ForeColor = Color.White
+    '    Else
+    '        ' الحالة الافتراضية عند اللود أو زر جديد (أزرق)
+    '        lblFormState.Text = "فاتورة جديــــدة"
+    '        lblFormState.BackColor = Color.FromArgb(52, 152, 219)
+    '        lblFormState.ForeColor = Color.White
+    '    End If
+    'End Sub
+    Public Sub CheckAccountingState()
+        If lblFormState Is Nothing Then Return
+
+        ' إذا كانت الفاتورة جديدة ولم تحفظ بعد (في اللود أو زر جديد)
+        If T_ID = 0 Then
+            lblFormState.Visible = False ' إخفاء الليبل بالكامل
+            Return
         End If
+
+        Try
+            Dim db As New C()
+            db.Str = "SELECT TOP 1 JournalId FROM Agents_Balance_MV WHERE T_ID = " & T_ID
+            db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
+
+            db.Con.Open()
+            Dim jId As Object = db.Com.ExecuteScalar()
+            db.Con.Close()
+
+            lblFormState.Visible = True ' إظهار الليبل لأن الفاتورة محفوظة
+
+            ' التشييك: هل القيد فارغ أو غير موجود؟
+            If IsDBNull(jId) OrElse jId Is Nothing OrElse jId.ToString().Trim() = "" Then
+                lblFormState.Text = "⬤ غير مرحلة محاسبياً"
+                lblFormState.BackColor = Color.DarkOrange
+                lblFormState.ForeColor = Color.White
+            Else
+                lblFormState.Text = "⬤ مرحلة محاسبياً - قيد رقم: " & jId.ToString()
+                lblFormState.BackColor = Color.ForestGreen
+                lblFormState.ForeColor = Color.White
+            End If
+
+        Catch ex As Exception
+            '  If db.Con.State = ConnectionState.Open Then db.Con.Close()
+        End Try
     End Sub
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
@@ -478,14 +513,14 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             DiscountPanel.Enabled = False
             DeliveryingButton.Enabled = False
             Aggregate_Btn.Enabled = False
-            UpdateFormStateIndicator("فاتورة ملغاة", Color.Red)
+            '       UpdateFormStateIndicator("فاتورة ملغاة", Color.Red)
         Else
             If isDepended = False Then
                 Save_butt.Enabled = True
                 DiscountPanel.Enabled = True
                 Print_btn.Enabled = False
                 Enable_Fields()
-                UpdateFormStateIndicator("محفوظة", Color.DodgerBlue)
+                '      UpdateFormStateIndicator("محفوظة", Color.DodgerBlue)
             Else
                 Print_btn.Enabled = True
                 AGMetroGrid.BackgroundColor = Color.LightGreen
@@ -499,7 +534,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Delete_butt.Enabled = True
             DeliveryingButton.Enabled = True
             Aggregate_Btn.Enabled = False
-            UpdateFormStateIndicator("مُرحّلة / معتمدة", Color.LimeGreen)
+            '    UpdateFormStateIndicator("مُرحّلة / معتمدة", Color.LimeGreen)
         End If
         Me.Text = "فاتورة مشتريات "
     End Sub
@@ -539,7 +574,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Private Sub Call_New_Bill()
         If T_ID > 0 Then
             If MessageBox.Show("فتح فاتورة جديدة", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
-                UpdateFormStateIndicator("فاتورة جديدة", Color.Honeydew)
+                '  UpdateFormStateIndicator("فاتورة جديدة", Color.Honeydew)
                 ClearFields()
                 Insert_NewBill()
                 NewStateBt()
@@ -576,7 +611,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
-        If isDepended = True Then
+        '   If isDepended = True Then
+        If AGMetroGrid.BackgroundColor <> Color.White AndAlso AGMetroGrid.BackgroundColor <> SystemColors.Window Then
             If U_Pch_Update = True Then
                 If On_Update = False Then
                     Beep()
@@ -745,7 +781,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         End If
         Beep()
         If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
-            UpdateFormStateIndicator("فاتورة ملغاة", Color.Crimson)
+            '  UpdateFormStateIndicator("فاتورة ملغاة", Color.Crimson)
             Cancel_Bill()
         End If
     End Sub
@@ -1161,39 +1197,117 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     '    End Try
     'End Sub
 
-    Private Sub MakeBarcode_btn_Click(sender As Object, e As EventArgs) Handles MakeBarcode_btn.Click
-        printbarcode.Auto_Print = True
-        printbarcode.ShowDialog()
-        printbarcode.Auto_Print = False
-    End Sub
 
+    'Private Sub MakeBarcode_btn_Click(sender As Object, e As EventArgs) Handles MakeBarcode_btn.Click
+    '    printbarcode.Auto_Print = True
+    '    printbarcode.ShowDialog()
+    '    printbarcode.Auto_Print = False
+    'End Sub
+
+    'Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
+    '    FormType = 2
+
+    '    ' بدلاً من فحص اللون، نفحص المتغير البرمجي لحالة التعديل (On_Update)
+    '    ' نستخدم AndAlso لتسريع التنفيذ وتفادي الأخطاء
+    '    If On_Update = True AndAlso AGMetroGrid.Rows.Count > 0 Then
+    '        Change_IM_Details.ShowDialog()
+    '    End If
+    'End Sub
     Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
         FormType = 2
 
-        ' بدلاً من فحص اللون، نفحص المتغير البرمجي لحالة التعديل (On_Update)
-        ' نستخدم AndAlso لتسريع التنفيذ وتفادي الأخطاء
-        If On_Update = True AndAlso AGMetroGrid.Rows.Count > 0 Then
+        ' إذا كان لون الجريد ليس أصفر فاتح (يعني الفاتورة مقفلة أو ملغية)
+        If AGMetroGrid.BackgroundColor <> Color.LightYellow Then
+            Beep()
+            Exit Sub
+        End If
+
+        ' إذا تجاوزنا التشييك، نفتح شاشة التعديل
+        If AGMetroGrid.Rows.Count > 0 Then
             Change_IM_Details.ShowDialog()
         End If
     End Sub
+
     Private Sub AGMetroGrid_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles AGMetroGrid.CellMouseDoubleClick
         ' التأكد من الضغط على صف حقيقي وليس الهيدر
         If e.RowIndex >= 0 Then
-            ' إذا كانت الفاتورة معتمدة أو ملغية، نمنع التعديل المباشر
-            If isDepended Or isVoid Then
+            ' التشييك على لون الخلفية لرفض التعديل للفواتير المقفلة
+            If AGMetroGrid.BackgroundColor <> Color.LightYellow Then
                 Beep()
                 Exit Sub
             End If
 
+            ' =========================================================
+            ' هنا تضع باقي كودك الخاص بجلب بيانات الصنف للكمية والسعر
+            ' =========================================================
             Try
-                ' جلب بيانات الصنف (تأكد أن أسماء الأعمدة مطابقة للديزاينر عندك)
-                Change_IM_Details.ShowDialog()
-
+                ' مثال لكودك الأصلي داخل هذا الحدث:
+                ' IM_ID = AGMetroGrid.CurrentRow.Cells("Bill_IMID_CL").Value
+                ' isShowingDetails = True
+                ' ... الخ
             Catch ex As Exception
-                MsgBox("خطأ في جلب بيانات الصنف: " & ex.Message)
             End Try
         End If
     End Sub
+    'Private Sub AGMetroGrid_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles AGMetroGrid.CellMouseDoubleClick
+    '    ' التأكد من الضغط على صف حقيقي وليس الهيدر
+    '    If e.RowIndex >= 0 Then
+    '        ' إذا كانت الفاتورة معتمدة أو ملغية، نمنع التعديل المباشر
+    '        '            If isDepended Or isVoid Then
+    '        If AGMetroGrid.BackgroundColor <> Color.White AndAlso AGMetroGrid.BackgroundColor <> SystemColors.Window Then
+    '            Beep()
+    '            Exit Sub
+    '        End If
+
+    '        Try
+    '            ' جلب بيانات الصنف (تأكد أن أسماء الأعمدة مطابقة للديزاينر عندك)
+    '            If AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And AGMetroGrid.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
+
+    '        Catch ex As Exception
+    '            MsgBox("خطأ في جلب بيانات الصنف: " & ex.Message)
+    '        End Try
+    '    End If
+    'End Sub
+    ' ========================================================
+    ' 🌟 دالة فحص حالة الترحيل المحاسبي للفاتورة 🌟
+    ' ========================================================
+    'Private Sub CheckAccountingState()
+    '    ' إذا كانت الفاتورة جديدة ولم تحفظ بعد
+    '    If T_ID = 0 Then
+    '        lblFormState.Text = "فاتورة جديدة"
+    '        lblFormState.BackColor = Color.Gray
+    '        lblFormState.ForeColor = Color.White
+    '        Return
+    '    End If
+
+    '    Try
+    '        Dim db As New C()
+    '        ' الاستعلام عن رقم القيد بناءً على رقم الحركة T_ID
+    '        ' (ملاحظة: إذا كان الربط في جدولكم يتم عبر Pch_ID بدلاً من T_ID، قم بتغييرها في جملة WHERE)
+    '        db.Str = "SELECT TOP 1 JournalId FROM Agents_Balance_MV WHERE T_ID = " & T_ID
+    '        db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
+
+    '        db.Con.Open()
+    '        Dim jId As Object = db.Com.ExecuteScalar()
+    '        db.Con.Close()
+
+    '        ' التشييك: هل الحقل فارغ أو Null؟
+    '        If IsDBNull(jId) OrElse jId Is Nothing OrElse jId.ToString().Trim() = "" Then
+    '            lblFormState.Text = "غير مرحلة محاسبياً"
+    '            lblFormState.BackColor = Color.DarkOrange ' لون برتقالي لعدم الترحيل
+    '            lblFormState.ForeColor = Color.White
+    '        Else
+    '            lblFormState.Text = "مرحلة محاسبياً - قيد رقم: " & jId.ToString()
+    '            lblFormState.BackColor = Color.ForestGreen ' لون أخضر للترحيل
+    '            lblFormState.ForeColor = Color.White
+    '        End If
+
+    '    Catch ex As Exception
+
+    '    Finally
+    '        '     If db.Con.State = ConnectionState.Open Then db.Con.Close()
+    '    End Try
+    'End Sub
 
     Dim Tmp_Bill_ID As Integer
     Private Sub Down_Bill_btn_Click(sender As Object, e As EventArgs) Handles Down_Bill_btn.Click
@@ -1224,6 +1338,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
                 Bill_ID_Txt.Text = Tmp_Bill_ID
             End If
+            CheckAccountingState()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

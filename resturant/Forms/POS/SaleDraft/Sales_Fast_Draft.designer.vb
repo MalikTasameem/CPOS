@@ -128,10 +128,10 @@ Partial Class Sales_Fast_Draft
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.RemoveCatButton.Location = New System.Drawing.Point(943, 355)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(943, 382)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RemoveCatButton.Size = New System.Drawing.Size(55, 94)
+        Me.RemoveCatButton.Size = New System.Drawing.Size(55, 67)
         Me.RemoveCatButton.TabIndex = 395
         Me.RemoveCatButton.TabStop = False
         Me.RemoveCatButton.Text = "❌" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "F8"
@@ -847,7 +847,7 @@ Partial Class Sales_Fast_Draft
         Me.IMIncreaseButton.Location = New System.Drawing.Point(943, 149)
         Me.IMIncreaseButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.IMIncreaseButton.Name = "IMIncreaseButton"
-        Me.IMIncreaseButton.Size = New System.Drawing.Size(55, 95)
+        Me.IMIncreaseButton.Size = New System.Drawing.Size(55, 125)
         Me.IMIncreaseButton.TabIndex = 716
         Me.IMIncreaseButton.Text = "➕"
         Me.IMIncreaseButton.UseVisualStyleBackColor = False
@@ -860,7 +860,7 @@ Partial Class Sales_Fast_Draft
         Me.IMDicreaseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.IMDicreaseButton.Font = New System.Drawing.Font("Tahoma", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IMDicreaseButton.ForeColor = System.Drawing.Color.Black
-        Me.IMDicreaseButton.Location = New System.Drawing.Point(943, 246)
+        Me.IMDicreaseButton.Location = New System.Drawing.Point(943, 275)
         Me.IMDicreaseButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.IMDicreaseButton.Name = "IMDicreaseButton"
         Me.IMDicreaseButton.Size = New System.Drawing.Size(55, 56)
@@ -877,7 +877,7 @@ Partial Class Sales_Fast_Draft
         Me.Units_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Units_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Units_btn.ForeColor = System.Drawing.Color.Black
-        Me.Units_btn.Location = New System.Drawing.Point(943, 304)
+        Me.Units_btn.Location = New System.Drawing.Point(943, 332)
         Me.Units_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Units_btn.Name = "Units_btn"
         Me.Units_btn.Size = New System.Drawing.Size(55, 49)
@@ -926,7 +926,7 @@ Partial Class Sales_Fast_Draft
         Me.IM_Search_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.IM_Search_btn.Location = New System.Drawing.Point(902, 109)
         Me.IM_Search_btn.Name = "IM_Search_btn"
-        Me.IM_Search_btn.Size = New System.Drawing.Size(100, 40)
+        Me.IM_Search_btn.Size = New System.Drawing.Size(100, 39)
         Me.IM_Search_btn.TabIndex = 707
         Me.IM_Search_btn.Text = "بحث عن صنف"
         Me.IM_Search_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft

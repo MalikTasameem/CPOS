@@ -33,7 +33,6 @@ Partial Class Invoice
         Me.SearchButton = New System.Windows.Forms.Button()
         Me.DeletedBillLabel = New System.Windows.Forms.Label()
         Me.Header_Panel = New System.Windows.Forms.Panel()
-        Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.Up_Bill_btn = New System.Windows.Forms.Button()
         Me.Bill_ID_Txt = New System.Windows.Forms.TextBox()
@@ -261,7 +260,6 @@ Partial Class Invoice
         '
         'Header_Panel
         '
-        Me.Header_Panel.Controls.Add(Me.UcGridColumnsSelector1)
         Me.Header_Panel.Controls.Add(Me.Panel9)
         Me.Header_Panel.Controls.Add(Me.Panel3)
         Me.Header_Panel.Controls.Add(Me.Panel13)
@@ -273,19 +271,6 @@ Partial Class Invoice
         Me.Header_Panel.Size = New System.Drawing.Size(1200, 100)
         Me.Header_Panel.TabIndex = 5
         Me.Header_Panel.Tag = "TRANSPARENT"
-        '
-        'UcGridColumnsSelector1
-        '
-        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(214, 55)
-        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
-        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
-        Me.UcGridColumnsSelector1.PopupMinHeight = 120
-        Me.UcGridColumnsSelector1.PopupWidth = 260
-        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
-    "ColumnsSettings"
-        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(120, 39)
-        Me.UcGridColumnsSelector1.TabIndex = 915
         '
         'Panel9
         '
@@ -906,5 +891,4 @@ Partial Class Invoice
     Friend WithEvents تعديلصلاحياتالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents علاضبطاقةالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblFormState As Label
-    Friend WithEvents UcGridColumnsSelector1 As UcGridColumnsSelector
 End Class

@@ -22,6 +22,7 @@
     Dim U_Dt As New DataTable
     Dim Get_Unit As Boolean = False
 
+
     Public Bill_DT As New DataTable
     Dim ALL_QTY As Double = 0
     Dim U_ID As Integer
@@ -33,6 +34,82 @@
         If On_Update = True Then Edit_butt_Click(sender, e)
         FormType = 0
         Me.Dispose()
+    End Sub
+    ' ========================================================
+    ' 🌟 دالة فحص حالة الترحيل المحاسبي (لفاتورة الجرد) 🌟
+    ' ========================================================
+    'Public Sub CheckAccountingState()
+    '    ' إذا كان الليبل غير موجود في الفورم لتفادي الأخطاء
+    '    If lblFormState Is Nothing Then Return
+
+    '    ' إذا كانت الفاتورة جديدة بالكامل ولم تحفظ بعد (في اللود أو زر جديد)
+    '    If T_ID = 0 Then
+    '        lblFormState.Visible = False ' إخفاء الليبل تماماً في الفواتير الجديدة
+    '        Return
+    '    End If
+
+    '    Try
+    '        Dim db As New C()
+    '        ' فحص القيد بناءً على رقم حركة فاتورة الجرد T_ID
+    '        db.Str = "SELECT TOP 1 JournalId FROM Agents_Balance_MV WHERE T_ID = " & T_ID
+    '        db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
+
+    '        db.Con.Open()
+    '        Dim jId As Object = db.Com.ExecuteScalar()
+    '        db.Con.Close()
+
+    '        lblFormState.Visible = True ' إظهار الليبل لأن الفاتورة مسجلة ولها T_ID
+
+    '        ' التشييك على حقل القيد
+    '        If IsDBNull(jId) OrElse jId Is Nothing OrElse jId.ToString().Trim() = "" Then
+    '            lblFormState.Text = "⬤ غير مرحلة محاسبياً"
+    '            lblFormState.TextAlign = ContentAlignment.MiddleCenter
+    '            lblFormState.BackColor = Color.DarkOrange
+    '            lblFormState.ForeColor = Color.White
+    '        Else
+    '            lblFormState.Text = "⬤ مرحلة محاسبياً - قيد رقم: " & jId.ToString()
+    '            lblFormState.TextAlign = ContentAlignment.MiddleCenter
+    '            lblFormState.BackColor = Color.ForestGreen
+    '            lblFormState.ForeColor = Color.White
+    '        End If
+
+    '    Catch ex As Exception
+    '        '   If db.Con.State = ConnectionState.Open Then db.Con.Close()
+    '    End Try
+    'End Sub
+    Public Sub CheckAccountingState()
+        If lblFormState Is Nothing Then Return
+
+        If T_ID = 0 Then
+            lblFormState.Visible = False
+            Return
+        End If
+
+        Try
+            Dim db As New C()
+            db.Str = "SELECT TOP 1 JournalId FROM Agents_Balance_MV WHERE T_ID = " & T_ID
+            db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
+
+            db.Con.Open()
+            Dim jId As Object = db.Com.ExecuteScalar()
+            db.Con.Close()
+
+            If IsDBNull(jId) OrElse jId Is Nothing OrElse jId.ToString().Trim() = "" Then
+                lblFormState.Visible = True
+                lblFormState.Text = "⬤ غير مرحلة محاسبياً"
+                lblFormState.TextAlign = ContentAlignment.MiddleCenter
+                lblFormState.BackColor = Color.DarkOrange
+                lblFormState.ForeColor = Color.White
+            Else
+                lblFormState.Visible = True
+                lblFormState.Text = "⬤ مرحلة محاسبياً - قيد رقم: " & jId.ToString()
+                lblFormState.TextAlign = ContentAlignment.MiddleCenter
+                lblFormState.BackColor = Color.ForestGreen
+                lblFormState.ForeColor = Color.White
+            End If
+        Catch ex As Exception
+            '    If db.Con.State = ConnectionState.Open Then db.Con.Close()
+        End Try
     End Sub
 
     Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -123,7 +200,7 @@
         ' =========================================================
         '  If St_Count() = 1 Then All_St_Panel.Visible = False
         FormType = 4
-        'Check_View_Control()
+        Check_View_Control()
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
 
@@ -282,17 +359,31 @@
 
     End Sub
 
+    'Private Sub NewStateBt()
+    '    Enable_Fields()
+    '    Save_butt.Enabled = True
+    '    Edit_butt.Enabled = False
+    '    Delete_butt.Enabled = False
+    '    Me.Text = "فاتورة جرد جديدة"
+    '    'If My_Settings.S_Default = 0 Then
+    '    '    Barcode_SH_txt.Select()
+    '    'Else
+    '    '    IM_SH_txt.Select()
+    '    'End If
+    'End Sub
     Private Sub NewStateBt()
         Enable_Fields()
         Save_butt.Enabled = True
         Edit_butt.Enabled = False
         Delete_butt.Enabled = False
         Me.Text = "فاتورة جرد جديدة"
-        'If My_Settings.S_Default = 0 Then
-        '    Barcode_SH_txt.Select()
-        'Else
-        '    IM_SH_txt.Select()
-        'End If
+
+        ' 🌟 أهم تعديل: إرجاع لون الجريد للأصفر لتفعيل حماية الدبل كلك في الفاتورة الجديدة 🌟
+        AGMetroGrid.BackgroundColor = Color.LightYellow
+        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
+
+        ' 🌟 إخفاء ليبل القيود المحاسبية لأن الفاتورة لم تحفظ بعد 🌟
+        If lblFormState IsNot Nothing Then lblFormState.Visible = False
     End Sub
     'Private Sub DeleteOrUpdateStateBt()
     '    Disable_Fields()
@@ -310,8 +401,44 @@
         Me.Text = DefaultFormState
     End Sub
 
-    Public Sub SelectStateBt()
+    'Public Sub SelectStateBt()
 
+    '    If isVoid = True Then
+    '        DeletedBillLabel.Visible = True
+    '        Save_butt.Enabled = False
+    '        Edit_butt.Enabled = False
+    '        Edit_butt.Text = EditState
+    '        Delete_butt.Enabled = False
+    '        AGMetroGrid.Enabled = True
+    '        AGMetroGrid.BackgroundColor = Color.IndianRed
+    '        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
+    '        Print_btn.Enabled = False
+    '        Disable_Fields()
+    '    Else
+    '        If isDepended = False Then
+    '            Save_butt.Enabled = True
+    '            Edit_butt.Enabled = False
+    '            Print_btn.Enabled = False
+    '            ' AGMetroGrid.BackgroundColor = Color.Gray
+    '            ' AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.Gray
+    '            Delete_butt.Enabled = False
+    '            Enable_Fields()
+    '        Else
+    '            Edit_butt.Enabled = True
+    '            Print_btn.Enabled = True
+    '            Delete_butt.Enabled = True
+    '            DeletedBillLabel.Visible = False
+    '            Edit_butt.Text = EditState
+    '            Disable_Fields()
+    '            AGMetroGrid.BackgroundColor = Color.LightGreen
+    '            AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
+    '        End If
+
+    '    End If
+    '    Me.Text = "عرض بيانات فاتورة"
+
+    'End Sub
+    Public Sub SelectStateBt()
         If isVoid = True Then
             DeletedBillLabel.Visible = True
             Save_butt.Enabled = False
@@ -319,8 +446,11 @@
             Edit_butt.Text = EditState
             Delete_butt.Enabled = False
             AGMetroGrid.Enabled = True
+
+            ' فاتورة ملغية = أحمر (تقفل الدبل كلك)
             AGMetroGrid.BackgroundColor = Color.IndianRed
             AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
+
             Print_btn.Enabled = False
             Disable_Fields()
         Else
@@ -328,10 +458,12 @@
                 Save_butt.Enabled = True
                 Edit_butt.Enabled = False
                 Print_btn.Enabled = False
-                ' AGMetroGrid.BackgroundColor = Color.Gray
-                ' AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.Gray
                 Delete_butt.Enabled = False
                 Enable_Fields()
+
+                ' 🌟 فاتورة قابلة للتعديل = أصفر (تفتح الدبل كلك) 🌟
+                AGMetroGrid.BackgroundColor = Color.LightYellow
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
             Else
                 Edit_butt.Enabled = True
                 Print_btn.Enabled = True
@@ -339,13 +471,16 @@
                 DeletedBillLabel.Visible = False
                 Edit_butt.Text = EditState
                 Disable_Fields()
+
+                ' 🌟 فاتورة معتمدة = أخضر (تقفل الدبل كلك) 🌟
                 AGMetroGrid.BackgroundColor = Color.LightGreen
                 AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
             End If
-
         End If
         Me.Text = "عرض بيانات فاتورة"
 
+        ' 🌟 استدعاء فحص المحاسبة هنا فقط بعد تجهيز حالة الفورم 🌟
+        CheckAccountingState()
     End Sub
 
     Private Sub ClearFields()
@@ -370,6 +505,8 @@
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
+        'Call_New_Bill()
+        If On_Update = True Then Edit_butt_Click(sender, e)
         Call_New_Bill()
     End Sub
 
@@ -740,13 +877,6 @@
         C.Da.Fill(Bill_DT)
         AGMetroGrid.DataSource = Bill_DT
         If AGMetroGrid.Rows.Count > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(AGMetroGrid.Rows.Count - 1).Cells("EX_Name_CL")
-
-        UcGridColumnsSelector1.BindGrid(
-AGMetroGrid,
-New List(Of String) From {""},
-Me.Name.ToString
-)
-
     End Sub
 
 
@@ -923,9 +1053,39 @@ Me.Name.ToString
         Me.Cursor = Cursors.Default
     End Sub
 
+    'Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
+    '    FormType = 4
+    '    If AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And AGMetroGrid.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
+    'End Sub
     Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
-        FormType = 4
-        If AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And AGMetroGrid.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
+        FormType = 2
+
+        ' 🌟 التشييك: إذا لم يكن اللون أصفر، الفاتورة مقفلة 🌟
+        If AGMetroGrid.BackgroundColor <> Color.LightYellow Then
+            Beep()
+            Exit Sub
+        End If
+
+        If AGMetroGrid.Rows.Count > 0 Then
+            Change_IM_Details.ShowDialog()
+        End If
+    End Sub
+
+    Private Sub AGMetroGrid_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles AGMetroGrid.CellMouseDoubleClick
+        If e.RowIndex >= 0 Then
+            ' 🌟 التشييك لحماية الأصناف 🌟
+            If AGMetroGrid.BackgroundColor <> Color.LightYellow Then
+                Beep()
+                Exit Sub
+            End If
+
+            Try
+                ' =========================================================
+                ' هنا تترك كودك الأصلي لجلب بيانات الصنف (لا تقم بمسحه)
+                ' =========================================================
+            Catch ex As Exception
+            End Try
+        End If
     End Sub
 
     '-------------------------------------------------------------------------------------------------
@@ -1430,6 +1590,7 @@ Me.Name.ToString
                 ClearFields()
                 T_ID = C.Dr("T_ID")
                 Select_ExpBill(T_ID)
+
             Else
                 MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
                 Bill_ID_Txt.Text = Tmp_Bill_ID
@@ -1439,7 +1600,7 @@ Me.Name.ToString
             MsgBox(ex.Message)
         End Try
         C.Con.Close()
-
+        CheckAccountingState()
     End Sub
 
     Private Sub Up_Bill_btn_Click(sender As Object, e As EventArgs) Handles Up_Bill_btn.Click
