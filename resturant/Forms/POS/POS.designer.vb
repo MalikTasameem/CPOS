@@ -1241,17 +1241,17 @@ Partial Class POS
         '
         Me.MoveToBill_Btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.MoveToBill_Btn.BackColor = System.Drawing.SystemColors.Control
-        Me.MoveToBill_Btn.BackgroundImage = CType(resources.GetObject("MoveToBill_Btn.BackgroundImage"), System.Drawing.Image)
         Me.MoveToBill_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.MoveToBill_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MoveToBill_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 13.75!)
         Me.MoveToBill_Btn.ForeColor = System.Drawing.Color.Black
         Me.MoveToBill_Btn.Location = New System.Drawing.Point(226, 5)
         Me.MoveToBill_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MoveToBill_Btn.Name = "MoveToBill_Btn"
         Me.MoveToBill_Btn.Size = New System.Drawing.Size(37, 32)
         Me.MoveToBill_Btn.TabIndex = 545
+        Me.MoveToBill_Btn.Text = "✔️"
         Me.ToolTip1.SetToolTip(Me.MoveToBill_Btn, "فتح الفاتورة المعلقة")
         Me.MoveToBill_Btn.UseVisualStyleBackColor = False
         '

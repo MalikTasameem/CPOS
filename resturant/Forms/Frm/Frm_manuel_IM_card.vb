@@ -1134,7 +1134,7 @@
         Me.Close()
     End Sub
 
-    Private Sub ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ADD_New_IM_btn.Click
+    Private Sub ADD_New_IM_btn_Click(sender As Object, e As EventArgs)
         IM_ADD_New.ShowDialog()
         If is_Add_New_IM = True Then QtyTextBox.Select()
     End Sub

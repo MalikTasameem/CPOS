@@ -18,8 +18,8 @@ Partial Class Invoice
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.lblFormState = New System.Windows.Forms.Label()
         Me.Title_Label = New System.Windows.Forms.Label()
@@ -70,10 +70,17 @@ Partial Class Invoice
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.IM_Show_CxtMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AGMetroGrid = New System.Windows.Forms.DataGridView()
+        Me.IM_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.تعديلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضالتكلفةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.تعديلصلاحياتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.علاضبطاقةالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EX_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.U_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DATE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Barcode_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ST_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IMNUM_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -86,12 +93,6 @@ Partial Class Invoice
         Me.NewSaleByOne_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Total_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Notes_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IM_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.تعديلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.عرضالتكلفةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.تعديلصلاحياتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.علاضبطاقةالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TitleBar_Panel.SuspendLayout()
         Me.ActionBar_Panel.SuspendLayout()
         Me.Header_Panel.SuspendLayout()
@@ -134,11 +135,11 @@ Partial Class Invoice
         '
         Me.Title_Label.AutoSize = True
         Me.Title_Label.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Title_Label.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
-        Me.Title_Label.Location = New System.Drawing.Point(1090, 0)
+        Me.Title_Label.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Title_Label.Location = New System.Drawing.Point(1082, 0)
         Me.Title_Label.Name = "Title_Label"
         Me.Title_Label.Padding = New System.Windows.Forms.Padding(0, 8, 15, 0)
-        Me.Title_Label.Size = New System.Drawing.Size(110, 30)
+        Me.Title_Label.Size = New System.Drawing.Size(118, 33)
         Me.Title_Label.TabIndex = 0
         Me.Title_Label.Tag = "TITLE_TRANSPARENT"
         Me.Title_Label.Text = "فاتورة جــــرد"
@@ -295,9 +296,11 @@ Partial Class Invoice
         '
         'Bill_ID_Txt
         '
+        Me.Bill_ID_Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Bill_ID_Txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Bill_ID_Txt.Location = New System.Drawing.Point(45, 6)
         Me.Bill_ID_Txt.Name = "Bill_ID_Txt"
-        Me.Bill_ID_Txt.Size = New System.Drawing.Size(102, 25)
+        Me.Bill_ID_Txt.Size = New System.Drawing.Size(102, 27)
         Me.Bill_ID_Txt.TabIndex = 1
         Me.Bill_ID_Txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -324,9 +327,10 @@ Partial Class Invoice
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(190, 10)
+        Me.Label22.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(175, 10)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(46, 18)
+        Me.Label22.Size = New System.Drawing.Size(51, 20)
         Me.Label22.TabIndex = 0
         Me.Label22.Text = "التاريخ:"
         '
@@ -351,19 +355,21 @@ Partial Class Invoice
         'Label13
         '
         Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.Location = New System.Drawing.Point(188, 10)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(62, 18)
+        Me.Label13.Size = New System.Drawing.Size(69, 20)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "نوع الجرد:"
         '
         'Invoice_Type_cm
         '
         Me.Invoice_Type_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Invoice_Type_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Invoice_Type_cm.Items.AddRange(New Object() {"جرد اول مدة", "جرد أخر مدة"})
         Me.Invoice_Type_cm.Location = New System.Drawing.Point(5, 7)
         Me.Invoice_Type_cm.Name = "Invoice_Type_cm"
-        Me.Invoice_Type_cm.Size = New System.Drawing.Size(180, 26)
+        Me.Invoice_Type_cm.Size = New System.Drawing.Size(180, 28)
         Me.Invoice_Type_cm.TabIndex = 1
         '
         'Panel1
@@ -379,17 +385,20 @@ Partial Class Invoice
         'Label18
         '
         Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label18.Location = New System.Drawing.Point(290, 10)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(48, 18)
+        Me.Label18.Size = New System.Drawing.Size(57, 20)
         Me.Label18.TabIndex = 0
         Me.Label18.Text = "العنوان:"
         '
         'Title_txt
         '
+        Me.Title_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Title_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Title_txt.Location = New System.Drawing.Point(5, 7)
         Me.Title_txt.Name = "Title_txt"
-        Me.Title_txt.Size = New System.Drawing.Size(276, 25)
+        Me.Title_txt.Size = New System.Drawing.Size(276, 27)
         Me.Title_txt.TabIndex = 1
         '
         'Panel2
@@ -415,16 +424,20 @@ Partial Class Invoice
         '
         'Barcode_Search_txt
         '
+        Me.Barcode_Search_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Barcode_Search_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Barcode_Search_txt.Location = New System.Drawing.Point(460, 7)
         Me.Barcode_Search_txt.Name = "Barcode_Search_txt"
-        Me.Barcode_Search_txt.Size = New System.Drawing.Size(344, 25)
+        Me.Barcode_Search_txt.Size = New System.Drawing.Size(344, 27)
         Me.Barcode_Search_txt.TabIndex = 1
         '
         'Search_txt
         '
+        Me.Search_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Search_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Search_txt.Location = New System.Drawing.Point(20, 7)
         Me.Search_txt.Name = "Search_txt"
-        Me.Search_txt.Size = New System.Drawing.Size(430, 25)
+        Me.Search_txt.Size = New System.Drawing.Size(430, 27)
         Me.Search_txt.TabIndex = 2
         '
         'GridTools_Panel
@@ -615,130 +628,35 @@ Partial Class Invoice
         'AGMetroGrid
         '
         Me.AGMetroGrid.AllowUserToAddRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
-        Me.AGMetroGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.AGMetroGrid.AllowUserToDeleteRows = False
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
+        Me.AGMetroGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.AGMetroGrid.BackgroundColor = System.Drawing.Color.WhiteSmoke
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.ST_ID_CL, Me.EX_ID_CL, Me.U_ID_CL, Me.Barcode_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.NewSale_CL, Me.NewSaleByOne_CL, Me.Total_CL, Me.Notes_CL})
+        Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.ST_ID_CL, Me.EX_ID_CL, Me.U_ID_CL, Me.DATE_CL, Me.Barcode_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.NewSale_CL, Me.NewSaleByOne_CL, Me.Total_CL, Me.Notes_CL})
         Me.AGMetroGrid.ContextMenuStrip = Me.IM_ContextMenuStrip
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle4
         Me.AGMetroGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AGMetroGrid.Location = New System.Drawing.Point(0, 186)
         Me.AGMetroGrid.Name = "AGMetroGrid"
+        Me.AGMetroGrid.ReadOnly = True
         Me.AGMetroGrid.RowHeadersVisible = False
         Me.AGMetroGrid.RowTemplate.Height = 35
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.AGMetroGrid.Size = New System.Drawing.Size(1140, 454)
         Me.AGMetroGrid.TabIndex = 3
-        '
-        'T_ID_CL
-        '
-        Me.T_ID_CL.DataPropertyName = "T_ID"
-        Me.T_ID_CL.Name = "T_ID_CL"
-        Me.T_ID_CL.Visible = False
-        '
-        'ST_ID_CL
-        '
-        Me.ST_ID_CL.DataPropertyName = "ST_ID"
-        Me.ST_ID_CL.Name = "ST_ID_CL"
-        Me.ST_ID_CL.Visible = False
-        '
-        'EX_ID_CL
-        '
-        Me.EX_ID_CL.DataPropertyName = "IM_ID"
-        Me.EX_ID_CL.Name = "EX_ID_CL"
-        Me.EX_ID_CL.Visible = False
-        '
-        'U_ID_CL
-        '
-        Me.U_ID_CL.DataPropertyName = "U_ID"
-        Me.U_ID_CL.Name = "U_ID_CL"
-        Me.U_ID_CL.Visible = False
-        '
-        'Barcode_CL
-        '
-        Me.Barcode_CL.DataPropertyName = "Barcode"
-        Me.Barcode_CL.HeaderText = "باركود"
-        Me.Barcode_CL.Name = "Barcode_CL"
-        '
-        'ST_Name_CL
-        '
-        Me.ST_Name_CL.DataPropertyName = "St_Name"
-        Me.ST_Name_CL.HeaderText = "مخزن"
-        Me.ST_Name_CL.Name = "ST_Name_CL"
-        '
-        'IMNUM_CL
-        '
-        Me.IMNUM_CL.DataPropertyName = "IM_Num"
-        Me.IMNUM_CL.HeaderText = "رقم"
-        Me.IMNUM_CL.Name = "IMNUM_CL"
-        '
-        'EX_Name_CL
-        '
-        Me.EX_Name_CL.DataPropertyName = "item_name"
-        Me.EX_Name_CL.HeaderText = "الصنف"
-        Me.EX_Name_CL.Name = "EX_Name_CL"
-        '
-        'D_Valid_CL
-        '
-        Me.D_Valid_CL.DataPropertyName = "D_Vaild"
-        Me.D_Valid_CL.HeaderText = "صلاحية"
-        Me.D_Valid_CL.Name = "D_Valid_CL"
-        '
-        'IMUnit_CL
-        '
-        Me.IMUnit_CL.DataPropertyName = "U_Name"
-        Me.IMUnit_CL.HeaderText = "الوحدة"
-        Me.IMUnit_CL.Name = "IMUnit_CL"
-        '
-        'QTY_CL
-        '
-        Me.QTY_CL.DataPropertyName = "QYT"
-        Me.QTY_CL.HeaderText = "كمية"
-        Me.QTY_CL.Name = "QTY_CL"
-        '
-        'Price_CL
-        '
-        Me.Price_CL.DataPropertyName = "Price"
-        Me.Price_CL.HeaderText = "السعر"
-        Me.Price_CL.Name = "Price_CL"
-        '
-        'NewSale_CL
-        '
-        Me.NewSale_CL.DataPropertyName = "NewSale"
-        Me.NewSale_CL.HeaderText = "البيع"
-        Me.NewSale_CL.Name = "NewSale_CL"
-        '
-        'NewSaleByOne_CL
-        '
-        Me.NewSaleByOne_CL.DataPropertyName = "NewSaleByOne"
-        Me.NewSaleByOne_CL.HeaderText = "بيع القطعة"
-        Me.NewSaleByOne_CL.Name = "NewSaleByOne_CL"
-        Me.NewSaleByOne_CL.Visible = False
-        '
-        'Total_CL
-        '
-        Me.Total_CL.DataPropertyName = "Total"
-        Me.Total_CL.HeaderText = "إجمالي"
-        Me.Total_CL.Name = "Total_CL"
-        '
-        'Notes_CL
-        '
-        Me.Notes_CL.DataPropertyName = "Notes"
-        Me.Notes_CL.HeaderText = "ملاحظة"
-        Me.Notes_CL.Name = "Notes_CL"
         '
         'IM_ContextMenuStrip
         '
@@ -775,6 +693,130 @@ Partial Class Invoice
         Me.علاضبطاقةالصنفToolStripMenuItem.Name = "علاضبطاقةالصنفToolStripMenuItem"
         Me.علاضبطاقةالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.علاضبطاقةالصنفToolStripMenuItem.Text = "عرض بطاقة الصنف"
+        '
+        'T_ID_CL
+        '
+        Me.T_ID_CL.DataPropertyName = "T_ID"
+        Me.T_ID_CL.HeaderText = "T_ID_CL"
+        Me.T_ID_CL.Name = "T_ID_CL"
+        Me.T_ID_CL.ReadOnly = True
+        Me.T_ID_CL.Visible = False
+        '
+        'ST_ID_CL
+        '
+        Me.ST_ID_CL.DataPropertyName = "ST_ID"
+        Me.ST_ID_CL.HeaderText = "ST_ID_CL"
+        Me.ST_ID_CL.Name = "ST_ID_CL"
+        Me.ST_ID_CL.ReadOnly = True
+        Me.ST_ID_CL.Visible = False
+        '
+        'EX_ID_CL
+        '
+        Me.EX_ID_CL.DataPropertyName = "IM_ID"
+        Me.EX_ID_CL.HeaderText = "EX_ID_CL"
+        Me.EX_ID_CL.Name = "EX_ID_CL"
+        Me.EX_ID_CL.ReadOnly = True
+        Me.EX_ID_CL.Visible = False
+        '
+        'U_ID_CL
+        '
+        Me.U_ID_CL.DataPropertyName = "U_ID"
+        Me.U_ID_CL.HeaderText = "U_ID_CL"
+        Me.U_ID_CL.Name = "U_ID_CL"
+        Me.U_ID_CL.ReadOnly = True
+        Me.U_ID_CL.Visible = False
+        '
+        'DATE_CL
+        '
+        Me.DATE_CL.DataPropertyName = "DATE"
+        Me.DATE_CL.HeaderText = "التاريخ"
+        Me.DATE_CL.Name = "DATE_CL"
+        Me.DATE_CL.ReadOnly = True
+        '
+        'Barcode_CL
+        '
+        Me.Barcode_CL.DataPropertyName = "Barcode"
+        Me.Barcode_CL.HeaderText = "باركود"
+        Me.Barcode_CL.Name = "Barcode_CL"
+        Me.Barcode_CL.ReadOnly = True
+        '
+        'ST_Name_CL
+        '
+        Me.ST_Name_CL.DataPropertyName = "St_Name"
+        Me.ST_Name_CL.HeaderText = "مخزن"
+        Me.ST_Name_CL.Name = "ST_Name_CL"
+        Me.ST_Name_CL.ReadOnly = True
+        '
+        'IMNUM_CL
+        '
+        Me.IMNUM_CL.DataPropertyName = "IM_Num"
+        Me.IMNUM_CL.HeaderText = "رقم"
+        Me.IMNUM_CL.Name = "IMNUM_CL"
+        Me.IMNUM_CL.ReadOnly = True
+        '
+        'EX_Name_CL
+        '
+        Me.EX_Name_CL.DataPropertyName = "item_name"
+        Me.EX_Name_CL.HeaderText = "الصنف"
+        Me.EX_Name_CL.Name = "EX_Name_CL"
+        Me.EX_Name_CL.ReadOnly = True
+        '
+        'D_Valid_CL
+        '
+        Me.D_Valid_CL.DataPropertyName = "D_Vaild"
+        Me.D_Valid_CL.HeaderText = "صلاحية"
+        Me.D_Valid_CL.Name = "D_Valid_CL"
+        Me.D_Valid_CL.ReadOnly = True
+        '
+        'IMUnit_CL
+        '
+        Me.IMUnit_CL.DataPropertyName = "U_Name"
+        Me.IMUnit_CL.HeaderText = "الوحدة"
+        Me.IMUnit_CL.Name = "IMUnit_CL"
+        Me.IMUnit_CL.ReadOnly = True
+        '
+        'QTY_CL
+        '
+        Me.QTY_CL.DataPropertyName = "QYT"
+        Me.QTY_CL.HeaderText = "كمية"
+        Me.QTY_CL.Name = "QTY_CL"
+        Me.QTY_CL.ReadOnly = True
+        '
+        'Price_CL
+        '
+        Me.Price_CL.DataPropertyName = "Price"
+        Me.Price_CL.HeaderText = "السعر"
+        Me.Price_CL.Name = "Price_CL"
+        Me.Price_CL.ReadOnly = True
+        '
+        'NewSale_CL
+        '
+        Me.NewSale_CL.DataPropertyName = "NewSale"
+        Me.NewSale_CL.HeaderText = "البيع"
+        Me.NewSale_CL.Name = "NewSale_CL"
+        Me.NewSale_CL.ReadOnly = True
+        '
+        'NewSaleByOne_CL
+        '
+        Me.NewSaleByOne_CL.DataPropertyName = "NewSaleByOne"
+        Me.NewSaleByOne_CL.HeaderText = "بيع القطعة"
+        Me.NewSaleByOne_CL.Name = "NewSaleByOne_CL"
+        Me.NewSaleByOne_CL.ReadOnly = True
+        Me.NewSaleByOne_CL.Visible = False
+        '
+        'Total_CL
+        '
+        Me.Total_CL.DataPropertyName = "Total"
+        Me.Total_CL.HeaderText = "إجمالي"
+        Me.Total_CL.Name = "Total_CL"
+        Me.Total_CL.ReadOnly = True
+        '
+        'Notes_CL
+        '
+        Me.Notes_CL.DataPropertyName = "Notes"
+        Me.Notes_CL.HeaderText = "ملاحظة"
+        Me.Notes_CL.Name = "Notes_CL"
+        Me.Notes_CL.ReadOnly = True
         '
         'Invoice
         '
@@ -868,22 +910,6 @@ Partial Class Invoice
     Friend WithEvents Delete_butt As System.Windows.Forms.Button
     Friend WithEvents Edit_butt As System.Windows.Forms.Button
     Friend WithEvents AGMetroGrid As System.Windows.Forms.DataGridView
-    Friend WithEvents T_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ST_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents EX_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents U_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Barcode_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ST_Name_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents IMNUM_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents EX_Name_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents D_Valid_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents IMUnit_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents QTY_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Price_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents NewSale_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents NewSaleByOne_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Total_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Notes_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents IM_ContextMenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents تعديلToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents عرضالتكلفةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -891,4 +917,21 @@ Partial Class Invoice
     Friend WithEvents تعديلصلاحياتالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents علاضبطاقةالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblFormState As Label
+    Friend WithEvents T_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents ST_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents EX_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents U_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents DATE_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Barcode_CL As DataGridViewTextBoxColumn
+    Friend WithEvents ST_Name_CL As DataGridViewTextBoxColumn
+    Friend WithEvents IMNUM_CL As DataGridViewTextBoxColumn
+    Friend WithEvents EX_Name_CL As DataGridViewTextBoxColumn
+    Friend WithEvents D_Valid_CL As DataGridViewTextBoxColumn
+    Friend WithEvents IMUnit_CL As DataGridViewTextBoxColumn
+    Friend WithEvents QTY_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Price_CL As DataGridViewTextBoxColumn
+    Friend WithEvents NewSale_CL As DataGridViewTextBoxColumn
+    Friend WithEvents NewSaleByOne_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Total_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Notes_CL As DataGridViewTextBoxColumn
 End Class

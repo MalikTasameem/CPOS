@@ -159,7 +159,7 @@ Partial Class STORES_Explorer
         Me.Label9.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(620, 23)
+        Me.Label9.Location = New System.Drawing.Point(515, 22)
         Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(55, 21)
@@ -174,13 +174,13 @@ Partial Class STORES_Explorer
         Me.ST_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ST_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ST_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ST_cm.Font = New System.Drawing.Font("Arial", 12.25!)
+        Me.ST_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ST_cm.FormattingEnabled = True
-        Me.ST_cm.Location = New System.Drawing.Point(449, 48)
+        Me.ST_cm.Location = New System.Drawing.Point(308, 47)
         Me.ST_cm.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.ST_cm.Name = "ST_cm"
         Me.ST_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ST_cm.Size = New System.Drawing.Size(229, 26)
+        Me.ST_cm.Size = New System.Drawing.Size(264, 29)
         Me.ST_cm.TabIndex = 647
         '
         'GM_Serach
@@ -192,14 +192,14 @@ Partial Class STORES_Explorer
         Me.GM_Serach.Cursor = System.Windows.Forms.Cursors.Hand
         Me.GM_Serach.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.GM_Serach.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GM_Serach.Font = New System.Drawing.Font("Arial", 12.25!)
+        Me.GM_Serach.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GM_Serach.FormattingEnabled = True
         Me.GM_Serach.IntegralHeight = False
         Me.GM_Serach.Items.AddRange(New Object() {"قصيرة", "طويلة"})
-        Me.GM_Serach.Location = New System.Drawing.Point(697, 48)
+        Me.GM_Serach.Location = New System.Drawing.Point(576, 46)
         Me.GM_Serach.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.GM_Serach.Name = "GM_Serach"
-        Me.GM_Serach.Size = New System.Drawing.Size(241, 26)
+        Me.GM_Serach.Size = New System.Drawing.Size(362, 29)
         Me.GM_Serach.TabIndex = 654
         '
         'Label4
@@ -208,7 +208,7 @@ Partial Class STORES_Explorer
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(869, 22)
+        Me.Label4.Location = New System.Drawing.Point(869, 20)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(66, 21)
         Me.Label4.TabIndex = 653

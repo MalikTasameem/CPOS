@@ -266,7 +266,7 @@ Public Class ThemeManager
             '    End If
             'End If
             ' --- 4. حقول الإدخال والكومبو بوكس وأداة البحث (FSearch_Filter) ---
-            If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Or TypeOf ctrl Is NumericUpDown OrElse ctrl.GetType().Name = "FSearch_Filter" Then
+            If TypeOf ctrl Is TextBox Or TypeOf ctrl Is NumericUpDown Or TypeOf ctrl Is ComboBox OrElse ctrl.GetType().Name = "FSearch_Filter" Then ' 
                 'If TypeOf ctrl Is TextBox Or TypeOf ctrl Is ComboBox Or TypeOf ctrl Is NumericUpDown Then
 
                 ' تحديد الألوان بناءً على حالة الثيم (ليلي/نهاري) [cite: 564]

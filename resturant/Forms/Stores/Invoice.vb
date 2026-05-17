@@ -1058,7 +1058,7 @@
     '    If AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And AGMetroGrid.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
     'End Sub
     Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
-        FormType = 2
+        FormType = 4
 
         ' 🌟 التشييك: إذا لم يكن اللون أصفر، الفاتورة مقفلة 🌟
         If AGMetroGrid.BackgroundColor <> Color.LightYellow Then
