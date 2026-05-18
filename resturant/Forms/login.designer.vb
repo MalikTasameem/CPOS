@@ -404,7 +404,7 @@ Partial Class login
         Me.IM_PHONE_1_LB.AutoSize = True
         Me.IM_PHONE_1_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.IM_PHONE_1_LB.ForeColor = System.Drawing.Color.Gray
-        Me.IM_PHONE_1_LB.Location = New System.Drawing.Point(595, 447)
+        Me.IM_PHONE_1_LB.Location = New System.Drawing.Point(598, 447)
         Me.IM_PHONE_1_LB.Name = "IM_PHONE_1_LB"
         Me.IM_PHONE_1_LB.Size = New System.Drawing.Size(84, 15)
         Me.IM_PHONE_1_LB.TabIndex = 576
@@ -415,7 +415,7 @@ Partial Class login
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Label9.ForeColor = System.Drawing.Color.Gray
-        Me.Label9.Location = New System.Drawing.Point(570, 398)
+        Me.Label9.Location = New System.Drawing.Point(579, 398)
         Me.Label9.Name = "Label9"
         Me.Label9.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label9.Size = New System.Drawing.Size(105, 15)
@@ -427,7 +427,7 @@ Partial Class login
         Me.IM_PHONE_2_LB.AutoSize = True
         Me.IM_PHONE_2_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.IM_PHONE_2_LB.ForeColor = System.Drawing.Color.Gray
-        Me.IM_PHONE_2_LB.Location = New System.Drawing.Point(595, 432)
+        Me.IM_PHONE_2_LB.Location = New System.Drawing.Point(598, 432)
         Me.IM_PHONE_2_LB.Name = "IM_PHONE_2_LB"
         Me.IM_PHONE_2_LB.Size = New System.Drawing.Size(84, 15)
         Me.IM_PHONE_2_LB.TabIndex = 574
@@ -436,9 +436,9 @@ Partial Class login
         'SYS_DEVELOPER_LB
         '
         Me.SYS_DEVELOPER_LB.AutoSize = True
-        Me.SYS_DEVELOPER_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.SYS_DEVELOPER_LB.Font = New System.Drawing.Font("Segoe UI", 8.5!)
         Me.SYS_DEVELOPER_LB.ForeColor = System.Drawing.Color.Silver
-        Me.SYS_DEVELOPER_LB.Location = New System.Drawing.Point(526, 462)
+        Me.SYS_DEVELOPER_LB.Location = New System.Drawing.Point(532, 464)
         Me.SYS_DEVELOPER_LB.Name = "SYS_DEVELOPER_LB"
         Me.SYS_DEVELOPER_LB.Size = New System.Drawing.Size(153, 15)
         Me.SYS_DEVELOPER_LB.TabIndex = 577
@@ -449,7 +449,7 @@ Partial Class login
         Me.IM_PHONE_3_LB.AutoSize = True
         Me.IM_PHONE_3_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.IM_PHONE_3_LB.ForeColor = System.Drawing.Color.Gray
-        Me.IM_PHONE_3_LB.Location = New System.Drawing.Point(595, 417)
+        Me.IM_PHONE_3_LB.Location = New System.Drawing.Point(598, 417)
         Me.IM_PHONE_3_LB.Name = "IM_PHONE_3_LB"
         Me.IM_PHONE_3_LB.Size = New System.Drawing.Size(84, 15)
         Me.IM_PHONE_3_LB.TabIndex = 580
@@ -463,10 +463,10 @@ Partial Class login
         Me.AnyDesk_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.AnyDesk_Btn.FlatAppearance.BorderSize = 0
         Me.AnyDesk_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AnyDesk_Btn.Location = New System.Drawing.Point(389, 394)
+        Me.AnyDesk_Btn.Location = New System.Drawing.Point(389, 393)
         Me.AnyDesk_Btn.Name = "AnyDesk_Btn"
         Me.AnyDesk_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AnyDesk_Btn.Size = New System.Drawing.Size(90, 76)
+        Me.AnyDesk_Btn.Size = New System.Drawing.Size(90, 73)
         Me.AnyDesk_Btn.TabIndex = 579
         Me.AnyDesk_Btn.UseVisualStyleBackColor = False
         '
@@ -487,16 +487,17 @@ Partial Class login
         'Button10
         '
         Me.Button10.BackColor = System.Drawing.Color.Transparent
-        Me.Button10.BackgroundImage = CType(resources.GetObject("Button10.BackgroundImage"), System.Drawing.Image)
         Me.Button10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Button10.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button10.FlatAppearance.BorderSize = 0
         Me.Button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button10.Location = New System.Drawing.Point(489, 394)
+        Me.Button10.Font = New System.Drawing.Font("Arial", 25.0!)
+        Me.Button10.Location = New System.Drawing.Point(489, 393)
         Me.Button10.Name = "Button10"
         Me.Button10.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Button10.Size = New System.Drawing.Size(90, 76)
+        Me.Button10.Size = New System.Drawing.Size(90, 73)
         Me.Button10.TabIndex = 582
+        Me.Button10.Text = "🎨"
         Me.Button10.UseVisualStyleBackColor = False
         '
         'login

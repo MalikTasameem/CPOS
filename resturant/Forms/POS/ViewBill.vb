@@ -425,7 +425,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
         Disc = 0
         AG_Balance = 0
         Me.Text = FormState
-        Edit_butt.BackColor = Color.WhiteSmoke
+        Edit_butt.BackColor = Color.Silver
         Edit_butt.Text = EditState
         On_Update = False
     End Sub
@@ -497,7 +497,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
             End If
 
         End If
-       
+
     End Sub
 
     Public Sub ConfermBill()
@@ -522,7 +522,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     Private Sub Delete_butt_Click(sender As Object, e As EventArgs) Handles Delete_butt.Click
 
         Beep()
-        If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel, _
+        If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel,
                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
             Cancel_Bill()
         End If
@@ -610,7 +610,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
             .Parameters.AddWithValue("@T_ID", T_ID_CL)
         End With
         If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" الصنف:" & AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString & " الوحدة:" & AGMetroGrid.CurrentRow.Cells("IMUnit_CL").Value.ToString & _
+            Network_Edit_Tracker_insert(" الصنف:" & AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString & " الوحدة:" & AGMetroGrid.CurrentRow.Cells("IMUnit_CL").Value.ToString &
            " العدد:" & AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString & " السعر:" & AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Bill_ID_Txt.Text, 16, 2)
             ViewBill_Contents_SELECT_Bill()
 
@@ -720,33 +720,33 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     Public Sub Get_T_ID()
 
         Dim C As New C
-            Dim S As String = ""
-            If Search_By_Bar_CB.Checked = True Then
-                S = "Select T_ID From Agents_Balance_MV Where Barcode = '" & Convert.ToInt64(Bill_ID_Txt.Text) & "'"
+        Dim S As String = ""
+        If Search_By_Bar_CB.Checked = True Then
+            S = "Select T_ID From Agents_Balance_MV Where Barcode = '" & Convert.ToInt64(Bill_ID_Txt.Text) & "'"
+        Else
+            S = "Select T_ID From Agents_Balance_MV Where ViewSB_ID = '" & Convert.ToInt64(Bill_ID_Txt.Text) & "'"
+        End If
+
+        C.Com = New SqlClient.SqlCommand(S, C.Con)
+        C.Con.Open()
+        Try
+            C.Dr = C.Com.ExecuteReader
+            If C.Dr.HasRows Then
+                C.Dr.Read()
+                ClearFields()
+                T_ID = C.Dr("T_ID")
+                ViewBill_Contents_SELECT_Bill()
+                Fill_Bill_Info()
+                SelectStateBt()
             Else
-                S = "Select T_ID From Agents_Balance_MV Where ViewSB_ID = '" & Convert.ToInt64(Bill_ID_Txt.Text) & "'"
+                MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
+                Bill_ID_Txt.Text = Tmp_Bill_ID
             End If
 
-            C.Com = New SqlClient.SqlCommand(S, C.Con)
-            C.Con.Open()
-            Try
-                C.Dr = C.Com.ExecuteReader
-                If C.Dr.HasRows Then
-                    C.Dr.Read()
-                    ClearFields()
-                    T_ID = C.Dr("T_ID")
-                    ViewBill_Contents_SELECT_Bill()
-                    Fill_Bill_Info()
-                    SelectStateBt()
-                Else
-                    MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
-                    Bill_ID_Txt.Text = Tmp_Bill_ID
-                End If
-
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-            C.Con.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        C.Con.Close()
 
     End Sub
 
@@ -888,7 +888,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
 
 
-        If Edit_butt.BackColor = Color.WhiteSmoke Then
+        If Edit_butt.BackColor = Color.Silver Then
             Beep()
             If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
              MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
@@ -910,7 +910,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
             Save_Date(T_ID, DateTimeEx)
             On_Update = False
             Edit_butt.Text = EditState
-            Edit_butt.BackColor = Color.WhiteSmoke
+            Edit_butt.BackColor = Color.Silver
             Notes_txt.Enabled = False
             DateTimeEx.Enabled = False
             Project_cm.Enabled = False

@@ -104,44 +104,44 @@ Partial Class Format_Items_Auto
         'Down_Bill_btn
         '
         Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Down_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_Down
         Me.Down_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Down_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial", 14.0!)
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 4)
+        Me.Down_Bill_btn.Location = New System.Drawing.Point(1, 4)
         Me.Down_Bill_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Down_Bill_btn.Name = "Down_Bill_btn"
         Me.Down_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Down_Bill_btn.Size = New System.Drawing.Size(26, 29)
+        Me.Down_Bill_btn.Size = New System.Drawing.Size(29, 29)
         Me.Down_Bill_btn.TabIndex = 624
         Me.Down_Bill_btn.TabStop = False
+        Me.Down_Bill_btn.Text = "▼"
         Me.MetroToolTip1.SetToolTip(Me.Down_Bill_btn, "الفاتورة السابقة")
         Me.Down_Bill_btn.UseVisualStyleBackColor = False
         '
         'Up_Bill_btn
         '
         Me.Up_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Up_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_up_3017922
         Me.Up_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Up_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial", 14.0!)
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Bill_btn.Location = New System.Drawing.Point(115, 4)
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(118, 4)
         Me.Up_Bill_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Up_Bill_btn.Name = "Up_Bill_btn"
         Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Up_Bill_btn.Size = New System.Drawing.Size(26, 29)
+        Me.Up_Bill_btn.Size = New System.Drawing.Size(29, 29)
         Me.Up_Bill_btn.TabIndex = 623
         Me.Up_Bill_btn.TabStop = False
+        Me.Up_Bill_btn.Text = "▲"
         Me.MetroToolTip1.SetToolTip(Me.Up_Bill_btn, "الفاتورة التالية")
         Me.Up_Bill_btn.UseVisualStyleBackColor = False
         '
@@ -504,12 +504,12 @@ Partial Class Format_Items_Auto
         Me.Bill_ID_Txt.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.Bill_ID_Txt.Font = New System.Drawing.Font("Times New Roman", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Bill_ID_Txt.ForeColor = System.Drawing.Color.Black
-        Me.Bill_ID_Txt.Location = New System.Drawing.Point(30, 4)
+        Me.Bill_ID_Txt.Location = New System.Drawing.Point(32, 4)
         Me.Bill_ID_Txt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Bill_ID_Txt.MaxLength = 250
         Me.Bill_ID_Txt.Name = "Bill_ID_Txt"
         Me.Bill_ID_Txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Bill_ID_Txt.Size = New System.Drawing.Size(84, 29)
+        Me.Bill_ID_Txt.Size = New System.Drawing.Size(85, 29)
         Me.Bill_ID_Txt.TabIndex = 625
         Me.Bill_ID_Txt.Text = "1234567"
         Me.Bill_ID_Txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -566,7 +566,7 @@ Partial Class Format_Items_Auto
         Me.New_butt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.New_butt.ForeColor = System.Drawing.Color.Black
         Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.New_butt.Location = New System.Drawing.Point(792, 51)
+        Me.New_butt.Location = New System.Drawing.Point(774, 5)
         Me.New_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.New_butt.Name = "New_butt"
         Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -587,7 +587,7 @@ Partial Class Format_Items_Auto
         Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Save_butt.Location = New System.Drawing.Point(590, 51)
+        Me.Save_butt.Location = New System.Drawing.Point(572, 5)
         Me.Save_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -609,7 +609,7 @@ Partial Class Format_Items_Auto
         Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Delete_butt.Location = New System.Drawing.Point(456, 51)
+        Me.Delete_butt.Location = New System.Drawing.Point(438, 5)
         Me.Delete_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Delete_butt.Name = "Delete_butt"
         Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -623,15 +623,15 @@ Partial Class Format_Items_Auto
         '
         Me.Pure_txt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Pure_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Pure_txt.Font = New System.Drawing.Font("Stencil", 20.0!)
+        Me.Pure_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Pure_txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Pure_txt.Location = New System.Drawing.Point(1, 656)
+        Me.Pure_txt.Location = New System.Drawing.Point(1, 661)
         Me.Pure_txt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Pure_txt.MaxLength = 200
         Me.Pure_txt.Name = "Pure_txt"
         Me.Pure_txt.ReadOnly = True
         Me.Pure_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Pure_txt.Size = New System.Drawing.Size(190, 39)
+        Me.Pure_txt.Size = New System.Drawing.Size(199, 29)
         Me.Pure_txt.TabIndex = 619
         Me.Pure_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -641,7 +641,7 @@ Partial Class Format_Items_Auto
         Me.Notes_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Notes_txt.ForeColor = System.Drawing.Color.Black
-        Me.Notes_txt.Location = New System.Drawing.Point(1, 622)
+        Me.Notes_txt.Location = New System.Drawing.Point(1, 624)
         Me.Notes_txt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Notes_txt.MaxLength = 250
         Me.Notes_txt.Name = "Notes_txt"
@@ -760,7 +760,7 @@ Partial Class Format_Items_Auto
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.Label10)
         Me.Panel1.Controls.Add(Me.Title_txt)
-        Me.Panel1.Location = New System.Drawing.Point(246, 5)
+        Me.Panel1.Location = New System.Drawing.Point(246, 51)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(409, 40)
         Me.Panel1.TabIndex = 710
@@ -780,16 +780,16 @@ Partial Class Format_Items_Auto
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel3.Controls.Add(Me.Label3)
         Me.Panel3.Controls.Add(Me.DateTimeEx)
-        Me.Panel3.Location = New System.Drawing.Point(656, 5)
+        Me.Panel3.Location = New System.Drawing.Point(656, 51)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(200, 40)
+        Me.Panel3.Size = New System.Drawing.Size(196, 40)
         Me.Panel3.TabIndex = 712
         '
         'Label3
         '
         Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(138, 9)
+        Me.Label3.Location = New System.Drawing.Point(137, 8)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(54, 21)
         Me.Label3.TabIndex = 690
@@ -802,9 +802,9 @@ Partial Class Format_Items_Auto
         Me.Panel9.Controls.Add(Me.Bill_ID_Txt)
         Me.Panel9.Controls.Add(Me.Up_Bill_btn)
         Me.Panel9.Controls.Add(Me.Down_Bill_btn)
-        Me.Panel9.Location = New System.Drawing.Point(857, 5)
+        Me.Panel9.Location = New System.Drawing.Point(853, 51)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(146, 40)
+        Me.Panel9.Size = New System.Drawing.Size(150, 40)
         Me.Panel9.TabIndex = 711
         '
         'Label5
@@ -831,7 +831,7 @@ Partial Class Format_Items_Auto
         Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Edit_butt.Location = New System.Drawing.Point(321, 51)
+        Me.Edit_butt.Location = New System.Drawing.Point(303, 5)
         Me.Edit_butt.Name = "Edit_butt"
         Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Edit_butt.Size = New System.Drawing.Size(130, 40)

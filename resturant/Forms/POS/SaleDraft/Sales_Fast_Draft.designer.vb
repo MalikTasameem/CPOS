@@ -146,67 +146,66 @@ Partial Class Sales_Fast_Draft
         Me.DGV_Control_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.DGV_Control_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.DGV_Control_btn.Font = New System.Drawing.Font("Arial", 18.0!)
         Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DGV_Control_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_menu_1814109
         Me.DGV_Control_btn.Location = New System.Drawing.Point(3, 1)
         Me.DGV_Control_btn.Name = "DGV_Control_btn"
         Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.DGV_Control_btn.Size = New System.Drawing.Size(36, 33)
         Me.DGV_Control_btn.TabIndex = 648
         Me.DGV_Control_btn.TabStop = False
-        Me.DGV_Control_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.DGV_Control_btn.Text = "⚙️"
         Me.MetroToolTip1.SetToolTip(Me.DGV_Control_btn, "عرض بيانات الجدول")
         Me.DGV_Control_btn.UseVisualStyleBackColor = False
         '
         'CALC_Btn
         '
         Me.CALC_Btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.CALC_Btn.BackgroundImage = Global.resturant.My.Resources.Resources._171352_calculator_icon
         Me.CALC_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.CALC_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CALC_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CALC_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CALC_Btn.Font = New System.Drawing.Font("Arial", 18.0!)
         Me.CALC_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.CALC_Btn.Location = New System.Drawing.Point(114, 1)
         Me.CALC_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.CALC_Btn.Name = "CALC_Btn"
         Me.CALC_Btn.Size = New System.Drawing.Size(36, 33)
         Me.CALC_Btn.TabIndex = 708
+        Me.CALC_Btn.Text = "🔢"
         Me.MetroToolTip1.SetToolTip(Me.CALC_Btn, "فتح صندوق النقود")
         Me.CALC_Btn.UseVisualStyleBackColor = False
         '
         'OpenCahDR_Btn
         '
         Me.OpenCahDR_Btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.OpenCahDR_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.Drawer_64
         Me.OpenCahDR_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Arial", 18.0!)
         Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.OpenCahDR_Btn.Location = New System.Drawing.Point(77, 1)
         Me.OpenCahDR_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
         Me.OpenCahDR_Btn.Size = New System.Drawing.Size(36, 33)
         Me.OpenCahDR_Btn.TabIndex = 654
+        Me.OpenCahDR_Btn.Text = "🗄️"
         Me.MetroToolTip1.SetToolTip(Me.OpenCahDR_Btn, "فتح صندوق النقود")
         Me.OpenCahDR_Btn.UseVisualStyleBackColor = False
         '
         'Show_Cash_btn
         '
         Me.Show_Cash_btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.Show_Cash_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_money_299107
         Me.Show_Cash_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Show_Cash_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_Cash_btn.Font = New System.Drawing.Font("Arial", 18.0!)
         Me.Show_Cash_btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.Show_Cash_btn.Location = New System.Drawing.Point(40, 1)
         Me.Show_Cash_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Show_Cash_btn.Name = "Show_Cash_btn"
         Me.Show_Cash_btn.Size = New System.Drawing.Size(36, 33)
         Me.Show_Cash_btn.TabIndex = 655
+        Me.Show_Cash_btn.Text = "💵"
         Me.MetroToolTip1.SetToolTip(Me.Show_Cash_btn, "عرض المقبوض")
         Me.Show_Cash_btn.UseVisualStyleBackColor = False
         '
@@ -218,16 +217,16 @@ Partial Class Sales_Fast_Draft
         Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Down_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Down_Bill_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial", 14.0!)
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 4)
+        Me.Down_Bill_btn.Location = New System.Drawing.Point(5, 4)
         Me.Down_Bill_btn.Name = "Down_Bill_btn"
         Me.Down_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Down_Bill_btn.Size = New System.Drawing.Size(33, 30)
         Me.Down_Bill_btn.TabIndex = 624
         Me.Down_Bill_btn.TabStop = False
-        Me.Down_Bill_btn.Text = "🔽"
+        Me.Down_Bill_btn.Text = "▼"
         Me.MetroToolTip1.SetToolTip(Me.Down_Bill_btn, "الفاتورة السابقة")
         Me.Down_Bill_btn.UseVisualStyleBackColor = False
         '
@@ -239,16 +238,16 @@ Partial Class Sales_Fast_Draft
         Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Up_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Up_Bill_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial", 14.0!)
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Bill_btn.Location = New System.Drawing.Point(155, 4)
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(157, 4)
         Me.Up_Bill_btn.Name = "Up_Bill_btn"
         Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Up_Bill_btn.Size = New System.Drawing.Size(33, 30)
+        Me.Up_Bill_btn.Size = New System.Drawing.Size(34, 30)
         Me.Up_Bill_btn.TabIndex = 623
         Me.Up_Bill_btn.TabStop = False
-        Me.Up_Bill_btn.Text = "🔼"
+        Me.Up_Bill_btn.Text = "▲"
         Me.MetroToolTip1.SetToolTip(Me.Up_Bill_btn, "الفاتورة التالية")
         Me.Up_Bill_btn.UseVisualStyleBackColor = False
         '
@@ -340,7 +339,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.Total_TextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Total_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Total_TextBox.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.Total_TextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_TextBox.ForeColor = System.Drawing.Color.Black
         Me.Total_TextBox.Location = New System.Drawing.Point(1, 4)
         Me.Total_TextBox.MaxLength = 200
@@ -366,7 +365,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.Pure_txt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Pure_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Pure_txt.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.Pure_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Pure_txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Pure_txt.Location = New System.Drawing.Point(2, 5)
         Me.Pure_txt.MaxLength = 200
@@ -407,7 +406,7 @@ Partial Class Sales_Fast_Draft
         Me.Bill_ID_Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Bill_ID_Txt.Font = New System.Drawing.Font("Times New Roman", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Bill_ID_Txt.ForeColor = System.Drawing.Color.Black
-        Me.Bill_ID_Txt.Location = New System.Drawing.Point(37, 4)
+        Me.Bill_ID_Txt.Location = New System.Drawing.Point(39, 4)
         Me.Bill_ID_Txt.MaxLength = 250
         Me.Bill_ID_Txt.Name = "Bill_ID_Txt"
         Me.Bill_ID_Txt.ReadOnly = True
@@ -441,7 +440,7 @@ Partial Class Sales_Fast_Draft
         Me.DateTimeEx.Name = "DateTimeEx"
         Me.DateTimeEx.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.DateTimeEx.RightToLeftLayout = True
-        Me.DateTimeEx.Size = New System.Drawing.Size(218, 29)
+        Me.DateTimeEx.Size = New System.Drawing.Size(211, 29)
         Me.DateTimeEx.TabIndex = 383
         '
         'IM_Qty_LB
@@ -474,12 +473,12 @@ Partial Class Sales_Fast_Draft
         Me.AG_SH_txt.BackColor = System.Drawing.SystemColors.Info
         Me.AG_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.AG_SH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AG_SH_txt.Location = New System.Drawing.Point(2, 1)
+        Me.AG_SH_txt.Location = New System.Drawing.Point(2, 2)
         Me.AG_SH_txt.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.AG_SH_txt.Name = "AG_SH_txt"
         Me.AG_SH_txt.ReadOnly = True
         Me.AG_SH_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.AG_SH_txt.Size = New System.Drawing.Size(218, 29)
+        Me.AG_SH_txt.Size = New System.Drawing.Size(211, 29)
         Me.AG_SH_txt.TabIndex = 660
         Me.AG_SH_txt.Text = "نقدي"
         Me.AG_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -493,7 +492,7 @@ Partial Class Sales_Fast_Draft
         Me.Label16.Location = New System.Drawing.Point(3, 4)
         Me.Label16.Name = "Label16"
         Me.Label16.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label16.Size = New System.Drawing.Size(224, 33)
+        Me.Label16.Size = New System.Drawing.Size(217, 33)
         Me.Label16.TabIndex = 661
         Me.Label16.Text = "فاتورة مبيعات جديدة"
         Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -503,9 +502,9 @@ Partial Class Sales_Fast_Draft
         Me.AG_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.AG_Panel.Controls.Add(Me.DateTimeEx)
         Me.AG_Panel.Controls.Add(Me.AG_SH_txt)
-        Me.AG_Panel.Location = New System.Drawing.Point(2, 38)
+        Me.AG_Panel.Location = New System.Drawing.Point(3, 38)
         Me.AG_Panel.Name = "AG_Panel"
-        Me.AG_Panel.Size = New System.Drawing.Size(225, 65)
+        Me.AG_Panel.Size = New System.Drawing.Size(217, 65)
         Me.AG_Panel.TabIndex = 689
         '
         'Panel1
@@ -514,9 +513,9 @@ Partial Class Sales_Fast_Draft
         Me.Panel1.Controls.Add(Me.Down_Bill_btn)
         Me.Panel1.Controls.Add(Me.Bill_ID_Txt)
         Me.Panel1.Controls.Add(Me.Up_Bill_btn)
-        Me.Panel1.Location = New System.Drawing.Point(807, 60)
+        Me.Panel1.Location = New System.Drawing.Point(806, 60)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(195, 40)
+        Me.Panel1.Size = New System.Drawing.Size(196, 40)
         Me.Panel1.TabIndex = 690
         '
         'dgvSales
@@ -714,7 +713,7 @@ Partial Class Sales_Fast_Draft
         'Label27
         '
         Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label27.Location = New System.Drawing.Point(942, 452)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
@@ -830,7 +829,7 @@ Partial Class Sales_Fast_Draft
         Me.Draft_Btn.Location = New System.Drawing.Point(229, 4)
         Me.Draft_Btn.Name = "Draft_Btn"
         Me.Draft_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Draft_Btn.Size = New System.Drawing.Size(65, 47)
+        Me.Draft_Btn.Size = New System.Drawing.Size(65, 40)
         Me.Draft_Btn.TabIndex = 715
         Me.Draft_Btn.TabStop = False
         Me.Draft_Btn.Text = "المسودة"
@@ -875,7 +874,7 @@ Partial Class Sales_Fast_Draft
         Me.Units_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Units_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Units_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Units_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Units_btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Units_btn.ForeColor = System.Drawing.Color.Black
         Me.Units_btn.Location = New System.Drawing.Point(943, 332)
         Me.Units_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
@@ -898,7 +897,7 @@ Partial Class Sales_Fast_Draft
         Me.Refresh_IM_Btn.Location = New System.Drawing.Point(296, 4)
         Me.Refresh_IM_Btn.Name = "Refresh_IM_Btn"
         Me.Refresh_IM_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Refresh_IM_Btn.Size = New System.Drawing.Size(99, 47)
+        Me.Refresh_IM_Btn.Size = New System.Drawing.Size(99, 40)
         Me.Refresh_IM_Btn.TabIndex = 713
         Me.Refresh_IM_Btn.TabStop = False
         Me.Refresh_IM_Btn.Text = "تحديث الأصناف"
@@ -945,7 +944,7 @@ Partial Class Sales_Fast_Draft
         Me.IM_Profet_btn.Location = New System.Drawing.Point(396, 4)
         Me.IM_Profet_btn.Name = "IM_Profet_btn"
         Me.IM_Profet_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_Profet_btn.Size = New System.Drawing.Size(75, 47)
+        Me.IM_Profet_btn.Size = New System.Drawing.Size(75, 40)
         Me.IM_Profet_btn.TabIndex = 706
         Me.IM_Profet_btn.TabStop = False
         Me.IM_Profet_btn.Text = "الربح"
@@ -965,7 +964,7 @@ Partial Class Sales_Fast_Draft
         Me.DeliveryingButton.Location = New System.Drawing.Point(472, 4)
         Me.DeliveryingButton.Name = "DeliveryingButton"
         Me.DeliveryingButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.DeliveryingButton.Size = New System.Drawing.Size(75, 47)
+        Me.DeliveryingButton.Size = New System.Drawing.Size(75, 40)
         Me.DeliveryingButton.TabIndex = 703
         Me.DeliveryingButton.TabStop = False
         Me.DeliveryingButton.Text = "دفع"
@@ -1001,7 +1000,7 @@ Partial Class Sales_Fast_Draft
         Me.Edit_butt.Location = New System.Drawing.Point(700, 4)
         Me.Edit_butt.Name = "Edit_butt"
         Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(75, 47)
+        Me.Edit_butt.Size = New System.Drawing.Size(75, 40)
         Me.Edit_butt.TabIndex = 647
         Me.Edit_butt.TabStop = False
         Me.Edit_butt.Text = "تعديـل F3"
@@ -1021,7 +1020,7 @@ Partial Class Sales_Fast_Draft
         Me.Print_btn.Location = New System.Drawing.Point(776, 4)
         Me.Print_btn.Name = "Print_btn"
         Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Print_btn.Size = New System.Drawing.Size(75, 47)
+        Me.Print_btn.Size = New System.Drawing.Size(75, 40)
         Me.Print_btn.TabIndex = 307
         Me.Print_btn.TabStop = False
         Me.Print_btn.Tag = "PRINT"
@@ -1040,7 +1039,7 @@ Partial Class Sales_Fast_Draft
         Me.SBPauseBtn.Location = New System.Drawing.Point(548, 4)
         Me.SBPauseBtn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.SBPauseBtn.Name = "SBPauseBtn"
-        Me.SBPauseBtn.Size = New System.Drawing.Size(75, 47)
+        Me.SBPauseBtn.Size = New System.Drawing.Size(75, 40)
         Me.SBPauseBtn.TabIndex = 631
         Me.SBPauseBtn.Text = "تعليق F7"
         Me.SBPauseBtn.UseVisualStyleBackColor = False
@@ -1061,7 +1060,7 @@ Partial Class Sales_Fast_Draft
         Me.New_butt.Location = New System.Drawing.Point(928, 4)
         Me.New_butt.Name = "New_butt"
         Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.New_butt.Size = New System.Drawing.Size(75, 47)
+        Me.New_butt.Size = New System.Drawing.Size(75, 40)
         Me.New_butt.TabIndex = 294
         Me.New_butt.Text = "جديد F1"
         Me.New_butt.UseVisualStyleBackColor = False
@@ -1079,7 +1078,7 @@ Partial Class Sales_Fast_Draft
         Me.Save_butt.Location = New System.Drawing.Point(852, 4)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Save_butt.Size = New System.Drawing.Size(75, 47)
+        Me.Save_butt.Size = New System.Drawing.Size(75, 40)
         Me.Save_butt.TabIndex = 293
         Me.Save_butt.TabStop = False
         Me.Save_butt.Tag = "SAVE"
@@ -1100,7 +1099,7 @@ Partial Class Sales_Fast_Draft
         Me.Delete_butt.Location = New System.Drawing.Point(624, 4)
         Me.Delete_butt.Name = "Delete_butt"
         Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Delete_butt.Size = New System.Drawing.Size(75, 47)
+        Me.Delete_butt.Size = New System.Drawing.Size(75, 40)
         Me.Delete_butt.TabIndex = 296
         Me.Delete_butt.Tag = "DELETE"
         Me.Delete_butt.Text = " إلغاء F4"

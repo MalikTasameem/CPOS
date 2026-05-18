@@ -18,8 +18,8 @@ Partial Class Invoice
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.lblFormState = New System.Windows.Forms.Label()
         Me.Title_Label = New System.Windows.Forms.Label()
@@ -70,12 +70,6 @@ Partial Class Invoice
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.IM_Show_CxtMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AGMetroGrid = New System.Windows.Forms.DataGridView()
-        Me.IM_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.تعديلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.عرضالتكلفةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.تعديلصلاحياتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.علاضبطاقةالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EX_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -93,6 +87,12 @@ Partial Class Invoice
         Me.NewSaleByOne_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Total_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Notes_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IM_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.تعديلToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضالتكلفةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.تعديلصلاحياتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.علاضبطاقةالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TitleBar_Panel.SuspendLayout()
         Me.ActionBar_Panel.SuspendLayout()
         Me.Header_Panel.SuspendLayout()
@@ -629,25 +629,25 @@ Partial Class Invoice
         '
         Me.AGMetroGrid.AllowUserToAddRows = False
         Me.AGMetroGrid.AllowUserToDeleteRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
-        Me.AGMetroGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
+        Me.AGMetroGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.AGMetroGrid.BackgroundColor = System.Drawing.Color.WhiteSmoke
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.ST_ID_CL, Me.EX_ID_CL, Me.U_ID_CL, Me.DATE_CL, Me.Barcode_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.NewSale_CL, Me.NewSaleByOne_CL, Me.Total_CL, Me.Notes_CL})
         Me.AGMetroGrid.ContextMenuStrip = Me.IM_ContextMenuStrip
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle2
         Me.AGMetroGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AGMetroGrid.Location = New System.Drawing.Point(0, 186)
         Me.AGMetroGrid.Name = "AGMetroGrid"
@@ -657,42 +657,6 @@ Partial Class Invoice
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.AGMetroGrid.Size = New System.Drawing.Size(1140, 454)
         Me.AGMetroGrid.TabIndex = 3
-        '
-        'IM_ContextMenuStrip
-        '
-        Me.IM_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.تعديلToolStripMenuItem, Me.عرضالتكلفةToolStripMenuItem, Me.عرضربحالفاتورةToolStripMenuItem, Me.تعديلصلاحياتالصنفToolStripMenuItem, Me.علاضبطاقةالصنفToolStripMenuItem})
-        Me.IM_ContextMenuStrip.Name = "IM_ContextMenuStrip"
-        Me.IM_ContextMenuStrip.Size = New System.Drawing.Size(189, 114)
-        '
-        'تعديلToolStripMenuItem
-        '
-        Me.تعديلToolStripMenuItem.Name = "تعديلToolStripMenuItem"
-        Me.تعديلToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.تعديلToolStripMenuItem.Text = "تعديل"
-        '
-        'عرضالتكلفةToolStripMenuItem
-        '
-        Me.عرضالتكلفةToolStripMenuItem.Name = "عرضالتكلفةToolStripMenuItem"
-        Me.عرضالتكلفةToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.عرضالتكلفةToolStripMenuItem.Text = "عرض التكلفة"
-        '
-        'عرضربحالفاتورةToolStripMenuItem
-        '
-        Me.عرضربحالفاتورةToolStripMenuItem.Name = "عرضربحالفاتورةToolStripMenuItem"
-        Me.عرضربحالفاتورةToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.عرضربحالفاتورةToolStripMenuItem.Text = "عرض ربح الفاتورة"
-        '
-        'تعديلصلاحياتالصنفToolStripMenuItem
-        '
-        Me.تعديلصلاحياتالصنفToolStripMenuItem.Name = "تعديلصلاحياتالصنفToolStripMenuItem"
-        Me.تعديلصلاحياتالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.تعديلصلاحياتالصنفToolStripMenuItem.Text = "تعديل صلاحيات الصنف"
-        '
-        'علاضبطاقةالصنفToolStripMenuItem
-        '
-        Me.علاضبطاقةالصنفToolStripMenuItem.Name = "علاضبطاقةالصنفToolStripMenuItem"
-        Me.علاضبطاقةالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
-        Me.علاضبطاقةالصنفToolStripMenuItem.Text = "عرض بطاقة الصنف"
         '
         'T_ID_CL
         '
@@ -817,6 +781,42 @@ Partial Class Invoice
         Me.Notes_CL.HeaderText = "ملاحظة"
         Me.Notes_CL.Name = "Notes_CL"
         Me.Notes_CL.ReadOnly = True
+        '
+        'IM_ContextMenuStrip
+        '
+        Me.IM_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.تعديلToolStripMenuItem, Me.عرضالتكلفةToolStripMenuItem, Me.عرضربحالفاتورةToolStripMenuItem, Me.تعديلصلاحياتالصنفToolStripMenuItem, Me.علاضبطاقةالصنفToolStripMenuItem})
+        Me.IM_ContextMenuStrip.Name = "IM_ContextMenuStrip"
+        Me.IM_ContextMenuStrip.Size = New System.Drawing.Size(189, 114)
+        '
+        'تعديلToolStripMenuItem
+        '
+        Me.تعديلToolStripMenuItem.Name = "تعديلToolStripMenuItem"
+        Me.تعديلToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.تعديلToolStripMenuItem.Text = "تعديل"
+        '
+        'عرضالتكلفةToolStripMenuItem
+        '
+        Me.عرضالتكلفةToolStripMenuItem.Name = "عرضالتكلفةToolStripMenuItem"
+        Me.عرضالتكلفةToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.عرضالتكلفةToolStripMenuItem.Text = "عرض التكلفة"
+        '
+        'عرضربحالفاتورةToolStripMenuItem
+        '
+        Me.عرضربحالفاتورةToolStripMenuItem.Name = "عرضربحالفاتورةToolStripMenuItem"
+        Me.عرضربحالفاتورةToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.عرضربحالفاتورةToolStripMenuItem.Text = "عرض ربح الفاتورة"
+        '
+        'تعديلصلاحياتالصنفToolStripMenuItem
+        '
+        Me.تعديلصلاحياتالصنفToolStripMenuItem.Name = "تعديلصلاحياتالصنفToolStripMenuItem"
+        Me.تعديلصلاحياتالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.تعديلصلاحياتالصنفToolStripMenuItem.Text = "تعديل صلاحيات الصنف"
+        '
+        'علاضبطاقةالصنفToolStripMenuItem
+        '
+        Me.علاضبطاقةالصنفToolStripMenuItem.Name = "علاضبطاقةالصنفToolStripMenuItem"
+        Me.علاضبطاقةالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.علاضبطاقةالصنفToolStripMenuItem.Text = "عرض بطاقة الصنف"
         '
         'Invoice
         '

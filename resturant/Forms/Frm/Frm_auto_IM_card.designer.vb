@@ -219,7 +219,7 @@ Partial Class Frm_auto_IM_card
         Me.IM_Valid_Note_Panel.Controls.Add(Me.Remove_Valid_Btn)
         Me.IM_Valid_Note_Panel.Location = New System.Drawing.Point(493, 254)
         Me.IM_Valid_Note_Panel.Name = "IM_Valid_Note_Panel"
-        Me.IM_Valid_Note_Panel.Size = New System.Drawing.Size(235, 113)
+        Me.IM_Valid_Note_Panel.Size = New System.Drawing.Size(235, 117)
         Me.IM_Valid_Note_Panel.TabIndex = 1037
         Me.IM_Valid_Note_Panel.Visible = False
         '
@@ -242,7 +242,7 @@ Partial Class Frm_auto_IM_card
         Me.Valid_ListBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.25!, System.Drawing.FontStyle.Bold)
         Me.Valid_ListBox.FormattingEnabled = True
         Me.Valid_ListBox.ItemHeight = 15
-        Me.Valid_ListBox.Location = New System.Drawing.Point(2, 30)
+        Me.Valid_ListBox.Location = New System.Drawing.Point(2, 37)
         Me.Valid_ListBox.Name = "Valid_ListBox"
         Me.Valid_ListBox.Size = New System.Drawing.Size(224, 79)
         Me.Valid_ListBox.TabIndex = 707
@@ -250,37 +250,37 @@ Partial Class Frm_auto_IM_card
         'Add_Valid_Btn
         '
         Me.Add_Valid_Btn.BackColor = System.Drawing.Color.White
-        Me.Add_Valid_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.Add_Valid_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Add_Valid_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Add_Valid_Btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Add_Valid_Btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Add_Valid_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Add_Valid_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Add_Valid_Btn.Font = New System.Drawing.Font("Arial", 14.0!)
         Me.Add_Valid_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Add_Valid_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Add_Valid_Btn.Location = New System.Drawing.Point(68, 3)
+        Me.Add_Valid_Btn.Location = New System.Drawing.Point(64, 3)
         Me.Add_Valid_Btn.Name = "Add_Valid_Btn"
         Me.Add_Valid_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Add_Valid_Btn.Size = New System.Drawing.Size(25, 25)
+        Me.Add_Valid_Btn.Size = New System.Drawing.Size(28, 28)
         Me.Add_Valid_Btn.TabIndex = 709
         Me.Add_Valid_Btn.TabStop = False
-        Me.Add_Valid_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Add_Valid_Btn.Text = "➕"
+        Me.Add_Valid_Btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Add_Valid_Btn.UseVisualStyleBackColor = False
         '
         'Remove_Valid_Btn
         '
         Me.Remove_Valid_Btn.BackColor = System.Drawing.Color.White
-        Me.Remove_Valid_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_minus_173055
         Me.Remove_Valid_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Remove_Valid_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Remove_Valid_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Remove_Valid_Btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Remove_Valid_Btn.Location = New System.Drawing.Point(42, 3)
+        Me.Remove_Valid_Btn.Location = New System.Drawing.Point(36, 3)
         Me.Remove_Valid_Btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Remove_Valid_Btn.Name = "Remove_Valid_Btn"
-        Me.Remove_Valid_Btn.Size = New System.Drawing.Size(25, 25)
+        Me.Remove_Valid_Btn.Size = New System.Drawing.Size(26, 28)
         Me.Remove_Valid_Btn.TabIndex = 710
+        Me.Remove_Valid_Btn.Text = "-"
         Me.Remove_Valid_Btn.UseVisualStyleBackColor = False
         '
         'Panel15
@@ -541,13 +541,12 @@ Partial Class Frm_auto_IM_card
         'Ass_U_btn
         '
         Me.Ass_U_btn.BackColor = System.Drawing.Color.White
-        Me.Ass_U_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.Ass_U_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Ass_U_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Ass_U_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Ass_U_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Ass_U_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Ass_U_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Ass_U_btn.Font = New System.Drawing.Font("Arial", 14.0!)
         Me.Ass_U_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Ass_U_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Ass_U_btn.Location = New System.Drawing.Point(3, 3)
@@ -556,7 +555,8 @@ Partial Class Frm_auto_IM_card
         Me.Ass_U_btn.Size = New System.Drawing.Size(25, 29)
         Me.Ass_U_btn.TabIndex = 657
         Me.Ass_U_btn.TabStop = False
-        Me.Ass_U_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Ass_U_btn.Text = "➕"
+        Me.Ass_U_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Ass_U_btn.UseVisualStyleBackColor = False
         '
         'All_St_Panel
@@ -864,16 +864,17 @@ Partial Class Frm_auto_IM_card
         Me.Confirm_ADD_bercent.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Confirm_ADD_bercent.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Confirm_ADD_bercent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Confirm_ADD_bercent.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Confirm_ADD_bercent.Font = New System.Drawing.Font("Arial", 14.0!)
         Me.Confirm_ADD_bercent.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Confirm_ADD_bercent.Image = Global.resturant.My.Resources.Resources.if_ok_173061
-        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(691, 221)
+        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(691, 220)
         Me.Confirm_ADD_bercent.Name = "Confirm_ADD_bercent"
         Me.Confirm_ADD_bercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Confirm_ADD_bercent.Size = New System.Drawing.Size(37, 27)
+        Me.Confirm_ADD_bercent.Size = New System.Drawing.Size(37, 31)
         Me.Confirm_ADD_bercent.TabIndex = 1040
         Me.Confirm_ADD_bercent.TabStop = False
-        Me.Confirm_ADD_bercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Confirm_ADD_bercent.Text = "✔️"
+        Me.Confirm_ADD_bercent.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Confirm_ADD_bercent.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.Confirm_ADD_bercent.UseVisualStyleBackColor = False
         '
         'Panel4
@@ -920,14 +921,14 @@ Partial Class Frm_auto_IM_card
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADDCatButton.Location = New System.Drawing.Point(4, 373)
+        Me.ADDCatButton.Location = New System.Drawing.Point(4, 377)
         Me.ADDCatButton.Name = "ADDCatButton"
         Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ADDCatButton.Size = New System.Drawing.Size(570, 55)
+        Me.ADDCatButton.Size = New System.Drawing.Size(570, 53)
         Me.ADDCatButton.TabIndex = 1045
         Me.ADDCatButton.TabStop = False
         Me.ADDCatButton.Tag = "GENERAL"
-        Me.ADDCatButton.Text = "➕ إضافة للفاتورة"
+        Me.ADDCatButton.Text = "➕      إضافة للفاتورة"
         Me.ADDCatButton.UseVisualStyleBackColor = False
         '
         'Exit_Btn
@@ -940,14 +941,14 @@ Partial Class Frm_auto_IM_card
         Me.Exit_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Exit_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Exit_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Exit_Btn.Location = New System.Drawing.Point(584, 373)
+        Me.Exit_Btn.Location = New System.Drawing.Point(584, 377)
         Me.Exit_Btn.Name = "Exit_Btn"
         Me.Exit_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Exit_Btn.Size = New System.Drawing.Size(338, 55)
+        Me.Exit_Btn.Size = New System.Drawing.Size(338, 53)
         Me.Exit_Btn.TabIndex = 1046
         Me.Exit_Btn.TabStop = False
         Me.Exit_Btn.Tag = "DELETE"
-        Me.Exit_Btn.Text = "رجوع ◀️"
+        Me.Exit_Btn.Text = "رجوع       🔙"
         Me.Exit_Btn.UseVisualStyleBackColor = False
         '
         'mySearchControl

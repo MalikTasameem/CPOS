@@ -125,7 +125,7 @@ Partial Class ViewBill_IM_card
         Me.All_St_Panel.Controls.Add(Me.ALL_QTY_txt)
         Me.All_St_Panel.Location = New System.Drawing.Point(2, 174)
         Me.All_St_Panel.Name = "All_St_Panel"
-        Me.All_St_Panel.Size = New System.Drawing.Size(306, 38)
+        Me.All_St_Panel.Size = New System.Drawing.Size(310, 38)
         Me.All_St_Panel.TabIndex = 1027
         '
         'Label5
@@ -163,7 +163,7 @@ Partial Class ViewBill_IM_card
         Me.Panel8.Controls.Add(Me.Current_QTY)
         Me.Panel8.Location = New System.Drawing.Point(2, 135)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(306, 38)
+        Me.Panel8.Size = New System.Drawing.Size(310, 38)
         Me.Panel8.TabIndex = 1026
         '
         'Label26
@@ -288,7 +288,7 @@ Partial Class ViewBill_IM_card
         Me.LAST_SELL_Lb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.LAST_SELL_Lb.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.LAST_SELL_Lb.ForeColor = System.Drawing.Color.Black
-        Me.LAST_SELL_Lb.Location = New System.Drawing.Point(646, 216)
+        Me.LAST_SELL_Lb.Location = New System.Drawing.Point(655, 216)
         Me.LAST_SELL_Lb.Name = "LAST_SELL_Lb"
         Me.LAST_SELL_Lb.Size = New System.Drawing.Size(221, 39)
         Me.LAST_SELL_Lb.TabIndex = 1074
@@ -479,7 +479,7 @@ Partial Class ViewBill_IM_card
         Me.Serial_Code_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Serial_Code_Panel.Controls.Add(Me.Serial_Code_txt)
         Me.Serial_Code_Panel.Controls.Add(Me.Label21)
-        Me.Serial_Code_Panel.Location = New System.Drawing.Point(314, 216)
+        Me.Serial_Code_Panel.Location = New System.Drawing.Point(323, 216)
         Me.Serial_Code_Panel.Name = "Serial_Code_Panel"
         Me.Serial_Code_Panel.Size = New System.Drawing.Size(331, 39)
         Me.Serial_Code_Panel.TabIndex = 1069
@@ -515,7 +515,7 @@ Partial Class ViewBill_IM_card
         Me.ST_Bercent_Panel.Controls.Add(Me.Label19)
         Me.ST_Bercent_Panel.Location = New System.Drawing.Point(2, 216)
         Me.ST_Bercent_Panel.Name = "ST_Bercent_Panel"
-        Me.ST_Bercent_Panel.Size = New System.Drawing.Size(306, 39)
+        Me.ST_Bercent_Panel.Size = New System.Drawing.Size(310, 39)
         Me.ST_Bercent_Panel.TabIndex = 1075
         '
         'Bercent_TXT
@@ -523,7 +523,7 @@ Partial Class ViewBill_IM_card
         Me.Bercent_TXT.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Bercent_TXT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Bercent_TXT.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Bercent_TXT.Location = New System.Drawing.Point(3, 3)
+        Me.Bercent_TXT.Location = New System.Drawing.Point(7, 3)
         Me.Bercent_TXT.Name = "Bercent_TXT"
         Me.Bercent_TXT.ReadOnly = True
         Me.Bercent_TXT.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -537,7 +537,7 @@ Partial Class ViewBill_IM_card
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label19.Location = New System.Drawing.Point(105, 7)
+        Me.Label19.Location = New System.Drawing.Point(109, 7)
         Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(118, 20)
