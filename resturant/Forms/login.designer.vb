@@ -23,10 +23,13 @@ Partial Class login
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.ServeConnect_LB = New System.Windows.Forms.Label()
+        Me.Button23 = New System.Windows.Forms.Button()
         Me.Sys_Maintains_btn = New System.Windows.Forms.Button()
         Me.ServerButton = New System.Windows.Forms.Button()
         Me.ClearButton = New System.Windows.Forms.Button()
         Me.ExitButton = New System.Windows.Forms.Button()
+        Me.EnterButton = New System.Windows.Forms.Button()
+        Me.ShowPassButton = New System.Windows.Forms.Button()
         Me.ServersMenuBtn = New System.Windows.Forms.Button()
         Me.RestoreButton = New System.Windows.Forms.Button()
         Me.Button0 = New System.Windows.Forms.Button()
@@ -47,9 +50,6 @@ Partial Class login
         Me.IM_PHONE_3_LB = New System.Windows.Forms.Label()
         Me.AnyDesk_Btn = New System.Windows.Forms.Button()
         Me.Button15 = New System.Windows.Forms.Button()
-        Me.Button23 = New System.Windows.Forms.Button()
-        Me.EnterButton = New System.Windows.Forms.Button()
-        Me.ShowPassButton = New System.Windows.Forms.Button()
         Me.Button10 = New System.Windows.Forms.Button()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -111,6 +111,20 @@ Partial Class login
         Me.ServeConnect_LB.Text = "لا يوجد إتصال بالخادم"
         Me.ServeConnect_LB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'Button23
+        '
+        Me.Button23.BackColor = System.Drawing.Color.Transparent
+        Me.Button23.BackgroundImage = Global.resturant.My.Resources.Resources.if_refresh_1608809
+        Me.Button23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Button23.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button23.FlatAppearance.BorderSize = 0
+        Me.Button23.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button23.Location = New System.Drawing.Point(30, 385)
+        Me.Button23.Name = "Button23"
+        Me.Button23.Size = New System.Drawing.Size(35, 35)
+        Me.Button23.TabIndex = 516
+        Me.Button23.UseVisualStyleBackColor = False
+        '
         'Sys_Maintains_btn
         '
         Me.Sys_Maintains_btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(249, Byte), Integer), CType(CType(250, Byte), Integer))
@@ -171,6 +185,38 @@ Partial Class login
         Me.ExitButton.Tag = "Close"
         Me.ExitButton.Text = "خروج"
         Me.ExitButton.UseVisualStyleBackColor = False
+        '
+        'EnterButton
+        '
+        Me.EnterButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(167, Byte), Integer), CType(CType(69, Byte), Integer))
+        Me.EnterButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.EnterButton.FlatAppearance.BorderSize = 0
+        Me.EnterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.EnterButton.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.EnterButton.ForeColor = System.Drawing.Color.White
+        Me.EnterButton.Image = Global.resturant.My.Resources.Resources.if_hand_cursor_2639827
+        Me.EnterButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.EnterButton.Location = New System.Drawing.Point(30, 180)
+        Me.EnterButton.Name = "EnterButton"
+        Me.EnterButton.Size = New System.Drawing.Size(300, 60)
+        Me.EnterButton.TabIndex = 9
+        Me.EnterButton.Tag = "Save"
+        Me.EnterButton.Text = "دخـــــــول ENTER"
+        Me.EnterButton.UseVisualStyleBackColor = False
+        '
+        'ShowPassButton
+        '
+        Me.ShowPassButton.BackColor = System.Drawing.Color.White
+        Me.ShowPassButton.BackgroundImage = Global.resturant.My.Resources.Resources.show_hide_password
+        Me.ShowPassButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ShowPassButton.FlatAppearance.BorderSize = 0
+        Me.ShowPassButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ShowPassButton.Location = New System.Drawing.Point(290, 114)
+        Me.ShowPassButton.Name = "ShowPassButton"
+        Me.ShowPassButton.Size = New System.Drawing.Size(35, 35)
+        Me.ShowPassButton.TabIndex = 10
+        Me.ShowPassButton.UseVisualStyleBackColor = False
+        Me.ShowPassButton.Visible = False
         '
         'ServersMenuBtn
         '
@@ -438,52 +484,6 @@ Partial Class login
         Me.Button15.TabIndex = 581
         Me.Button15.UseVisualStyleBackColor = False
         '
-        'Button23
-        '
-        Me.Button23.BackColor = System.Drawing.Color.Transparent
-        Me.Button23.BackgroundImage = Global.resturant.My.Resources.Resources.if_refresh_1608809
-        Me.Button23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Button23.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button23.FlatAppearance.BorderSize = 0
-        Me.Button23.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button23.Location = New System.Drawing.Point(30, 385)
-        Me.Button23.Name = "Button23"
-        Me.Button23.Size = New System.Drawing.Size(35, 35)
-        Me.Button23.TabIndex = 516
-        Me.Button23.UseVisualStyleBackColor = False
-        '
-        'EnterButton
-        '
-        Me.EnterButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(167, Byte), Integer), CType(CType(69, Byte), Integer))
-        Me.EnterButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.EnterButton.FlatAppearance.BorderSize = 0
-        Me.EnterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.EnterButton.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.EnterButton.ForeColor = System.Drawing.Color.White
-        Me.EnterButton.Image = Global.resturant.My.Resources.Resources.if_hand_cursor_2639827
-        Me.EnterButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.EnterButton.Location = New System.Drawing.Point(30, 180)
-        Me.EnterButton.Name = "EnterButton"
-        Me.EnterButton.Size = New System.Drawing.Size(300, 60)
-        Me.EnterButton.TabIndex = 9
-        Me.EnterButton.Tag = "Save"
-        Me.EnterButton.Text = "دخـــــــول ENTER"
-        Me.EnterButton.UseVisualStyleBackColor = False
-        '
-        'ShowPassButton
-        '
-        Me.ShowPassButton.BackColor = System.Drawing.Color.White
-        Me.ShowPassButton.BackgroundImage = Global.resturant.My.Resources.Resources.show_hide_password
-        Me.ShowPassButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ShowPassButton.FlatAppearance.BorderSize = 0
-        Me.ShowPassButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ShowPassButton.Location = New System.Drawing.Point(290, 114)
-        Me.ShowPassButton.Name = "ShowPassButton"
-        Me.ShowPassButton.Size = New System.Drawing.Size(35, 35)
-        Me.ShowPassButton.TabIndex = 10
-        Me.ShowPassButton.UseVisualStyleBackColor = False
-        Me.ShowPassButton.Visible = False
-        '
         'Button10
         '
         Me.Button10.BackColor = System.Drawing.Color.Transparent
@@ -505,6 +505,7 @@ Partial Class login
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(245, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(709, 480)
+        Me.ControlBox = False
         Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.SYS_DEVELOPER_LB)
         Me.Controls.Add(Me.IM_PHONE_3_LB)
@@ -527,7 +528,8 @@ Partial Class login
         Me.Controls.Add(Me.ServersMenuBtn)
         Me.Controls.Add(Me.RestoreButton)
         Me.Controls.Add(Me.Panel2)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Cursor = System.Windows.Forms.Cursors.Default
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "login"

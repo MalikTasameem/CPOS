@@ -153,7 +153,7 @@ Partial Class Pch_IM_card_11
         Me.SP_2_CB.AutoSize = True
         Me.SP_2_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SP_2_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_2_CB.Location = New System.Drawing.Point(780, 318)
+        Me.SP_2_CB.Location = New System.Drawing.Point(766, 347)
         Me.SP_2_CB.Name = "SP_2_CB"
         Me.SP_2_CB.Size = New System.Drawing.Size(102, 24)
         Me.SP_2_CB.TabIndex = 1043
@@ -165,7 +165,7 @@ Partial Class Pch_IM_card_11
         Me.SP_1_CB.AutoSize = True
         Me.SP_1_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SP_1_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_1_CB.Location = New System.Drawing.Point(824, 287)
+        Me.SP_1_CB.Location = New System.Drawing.Point(810, 316)
         Me.SP_1_CB.Name = "SP_1_CB"
         Me.SP_1_CB.Size = New System.Drawing.Size(58, 24)
         Me.SP_1_CB.TabIndex = 1042
@@ -177,7 +177,7 @@ Partial Class Pch_IM_card_11
         Me.SP_CB.AutoSize = True
         Me.SP_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SP_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SP_CB.Location = New System.Drawing.Point(808, 256)
+        Me.SP_CB.Location = New System.Drawing.Point(794, 285)
         Me.SP_CB.Name = "SP_CB"
         Me.SP_CB.Size = New System.Drawing.Size(74, 24)
         Me.SP_CB.TabIndex = 1041
@@ -189,7 +189,7 @@ Partial Class Pch_IM_card_11
         Me.Show_IM_Note_Valid_CB.AutoSize = True
         Me.Show_IM_Note_Valid_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_IM_Note_Valid_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_IM_Note_Valid_CB.Location = New System.Drawing.Point(609, 226)
+        Me.Show_IM_Note_Valid_CB.Location = New System.Drawing.Point(280, 286)
         Me.Show_IM_Note_Valid_CB.Name = "Show_IM_Note_Valid_CB"
         Me.Show_IM_Note_Valid_CB.Size = New System.Drawing.Size(83, 24)
         Me.Show_IM_Note_Valid_CB.TabIndex = 1036
@@ -200,7 +200,7 @@ Partial Class Pch_IM_card_11
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label14.Location = New System.Drawing.Point(885, 228)
+        Me.Label14.Location = New System.Drawing.Point(827, 257)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(40, 20)
         Me.Label14.TabIndex = 1038
@@ -286,7 +286,7 @@ Partial Class Pch_IM_card_11
         Me.Panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel15.Controls.Add(Me.Label17)
         Me.Panel15.Controls.Add(Me.Prev_Sale_Unit_txt)
-        Me.Panel15.Location = New System.Drawing.Point(2, 253)
+        Me.Panel15.Location = New System.Drawing.Point(314, 176)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(222, 35)
         Me.Panel15.TabIndex = 1035
@@ -296,7 +296,7 @@ Partial Class Pch_IM_card_11
         Me.Label17.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(97, 8)
+        Me.Label17.Location = New System.Drawing.Point(97, 6)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(122, 20)
         Me.Label17.TabIndex = 604
@@ -325,17 +325,17 @@ Partial Class Pch_IM_card_11
         Me.Two_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Two_Panel.Controls.Add(Me.Label28)
         Me.Two_Panel.Controls.Add(Me.NewSaleByOne)
-        Me.Two_Panel.Location = New System.Drawing.Point(315, 176)
+        Me.Two_Panel.Location = New System.Drawing.Point(315, 137)
         Me.Two_Panel.Name = "Two_Panel"
-        Me.Two_Panel.Size = New System.Drawing.Size(200, 36)
+        Me.Two_Panel.Size = New System.Drawing.Size(157, 36)
         Me.Two_Panel.TabIndex = 1034
         '
         'Label28
         '
-        Me.Label28.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label28.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(110, 7)
+        Me.Label28.Location = New System.Drawing.Point(66, 8)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(86, 20)
         Me.Label28.TabIndex = 604
@@ -344,15 +344,16 @@ Partial Class Pch_IM_card_11
         '
         'NewSaleByOne
         '
+        Me.NewSaleByOne.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.NewSaleByOne.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.NewSaleByOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NewSaleByOne.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.NewSaleByOne.ForeColor = System.Drawing.Color.DarkGreen
-        Me.NewSaleByOne.Location = New System.Drawing.Point(22, 4)
+        Me.NewSaleByOne.Location = New System.Drawing.Point(3, 4)
         Me.NewSaleByOne.MaxLength = 250
         Me.NewSaleByOne.Name = "NewSaleByOne"
         Me.NewSaleByOne.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NewSaleByOne.Size = New System.Drawing.Size(85, 27)
+        Me.NewSaleByOne.Size = New System.Drawing.Size(59, 27)
         Me.NewSaleByOne.TabIndex = 1008
         Me.NewSaleByOne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -361,9 +362,9 @@ Partial Class Pch_IM_card_11
         Me.One_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.One_Panel.Controls.Add(Me.Label4)
         Me.One_Panel.Controls.Add(Me.CostByOne)
-        Me.One_Panel.Location = New System.Drawing.Point(518, 176)
+        Me.One_Panel.Location = New System.Drawing.Point(516, 137)
         Me.One_Panel.Name = "One_Panel"
-        Me.One_Panel.Size = New System.Drawing.Size(200, 36)
+        Me.One_Panel.Size = New System.Drawing.Size(199, 36)
         Me.One_Panel.TabIndex = 1033
         '
         'Label4
@@ -371,7 +372,7 @@ Partial Class Pch_IM_card_11
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(97, 7)
+        Me.Label4.Location = New System.Drawing.Point(79, 8)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(101, 20)
         Me.Label4.TabIndex = 604
@@ -389,7 +390,7 @@ Partial Class Pch_IM_card_11
         Me.CostByOne.Name = "CostByOne"
         Me.CostByOne.ReadOnly = True
         Me.CostByOne.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.CostByOne.Size = New System.Drawing.Size(90, 27)
+        Me.CostByOne.Size = New System.Drawing.Size(73, 27)
         Me.CostByOne.TabIndex = 1007
         Me.CostByOne.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -633,7 +634,7 @@ Partial Class Pch_IM_card_11
         Me.Valid_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_Panel.Controls.Add(Me.D_Valid)
         Me.Valid_Panel.Controls.Add(Me.Label19)
-        Me.Valid_Panel.Location = New System.Drawing.Point(697, 137)
+        Me.Valid_Panel.Location = New System.Drawing.Point(717, 137)
         Me.Valid_Panel.Name = "Valid_Panel"
         Me.Valid_Panel.Size = New System.Drawing.Size(212, 36)
         Me.Valid_Panel.TabIndex = 1021
@@ -755,7 +756,7 @@ Partial Class Pch_IM_card_11
         Me.Min_SP_Panel.Controls.Add(Me.Label23)
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_By_One_txt)
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_txt)
-        Me.Min_SP_Panel.Location = New System.Drawing.Point(315, 137)
+        Me.Min_SP_Panel.Location = New System.Drawing.Point(444, 215)
         Me.Min_SP_Panel.Name = "Min_SP_Panel"
         Me.Min_SP_Panel.Size = New System.Drawing.Size(380, 36)
         Me.Min_SP_Panel.TabIndex = 1022
@@ -837,7 +838,7 @@ Partial Class Pch_IM_card_11
         Me.IM_CalcAvgCost_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.IM_CalcAvgCost_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_CalcAvgCost_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.IM_CalcAvgCost_btn.Location = New System.Drawing.Point(720, 176)
+        Me.IM_CalcAvgCost_btn.Location = New System.Drawing.Point(474, 137)
         Me.IM_CalcAvgCost_btn.Name = "IM_CalcAvgCost_btn"
         Me.IM_CalcAvgCost_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.IM_CalcAvgCost_btn.Size = New System.Drawing.Size(40, 36)
@@ -855,7 +856,7 @@ Partial Class Pch_IM_card_11
         Me.Confirm_ADD_bercent.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Confirm_ADD_bercent.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Confirm_ADD_bercent.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(736, 224)
+        Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(722, 253)
         Me.Confirm_ADD_bercent.Name = "Confirm_ADD_bercent"
         Me.Confirm_ADD_bercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Confirm_ADD_bercent.Size = New System.Drawing.Size(37, 27)
@@ -978,10 +979,10 @@ Partial Class Pch_IM_card_11
         Me.bercent_ADD_txt.BackColor = System.Drawing.Color.Lavender
         Me.bercent_ADD_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.bercent_ADD_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.bercent_ADD_txt.Location = New System.Drawing.Point(774, 224)
+        Me.bercent_ADD_txt.Location = New System.Drawing.Point(760, 253)
         Me.bercent_ADD_txt.MaxLength = 18
         Me.bercent_ADD_txt.Name = "bercent_ADD_txt"
-        Me.bercent_ADD_txt.Size = New System.Drawing.Size(108, 27)
+        Me.bercent_ADD_txt.Size = New System.Drawing.Size(64, 27)
         Me.bercent_ADD_txt.TabIndex = 1039
         '
         'Pch_IM_card_11
