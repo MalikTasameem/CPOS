@@ -22,9 +22,17 @@ Partial Class Agent_Balance_For_Tree
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Agent_Balance_For_Tree))
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.EXP_DataGridView = New System.Windows.Forms.DataGridView()
+        Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.B_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TREE_CODE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AGENTS_DataGridView = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -48,14 +56,18 @@ Partial Class Agent_Balance_For_Tree
         Me.TreasuryTitle_LB = New System.Windows.Forms.Label()
         Me.StoresTitle_LB = New System.Windows.Forms.Label()
         Me.Help_LB = New System.Windows.Forms.Label()
-        Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.B_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TREE_CODE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TitleBar_Panel.SuspendLayout()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.PCH_EXP_DataGridView = New System.Windows.Forms.DataGridView()
+        Me.PCH_EX_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Pch_Ex_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PCH_EX_TREE_CODE_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.EXP_DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AGENTS_DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TR_DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ST_DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TitleBar_Panel.SuspendLayout()
+        CType(Me.PCH_EXP_DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ExitFormButton
@@ -89,9 +101,14 @@ Partial Class Agent_Balance_For_Tree
         Me.EXP_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.EXP_DataGridView.BackgroundColor = System.Drawing.Color.White
         Me.EXP_DataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.EXP_DataGridView.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        Me.EXP_DataGridView.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.EXP_DataGridView.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.EXP_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.EXP_DataGridView.ColumnHeadersHeight = 34
         Me.EXP_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.EXP_DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.B_NAME_CL, Me.TREE_CODE_CL})
@@ -109,8 +126,30 @@ Partial Class Agent_Balance_For_Tree
         Me.EXP_DataGridView.RowTemplate.Height = 32
         Me.EXP_DataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.EXP_DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.EXP_DataGridView.Size = New System.Drawing.Size(322, 520)
+        Me.EXP_DataGridView.Size = New System.Drawing.Size(322, 236)
         Me.EXP_DataGridView.TabIndex = 701
+        '
+        'T_ID_CL
+        '
+        Me.T_ID_CL.DataPropertyName = "EX_ID"
+        Me.T_ID_CL.HeaderText = "T_ID"
+        Me.T_ID_CL.Name = "T_ID_CL"
+        Me.T_ID_CL.ReadOnly = True
+        Me.T_ID_CL.Visible = False
+        '
+        'B_NAME_CL
+        '
+        Me.B_NAME_CL.DataPropertyName = "Ex_Name"
+        Me.B_NAME_CL.HeaderText = "الحســـاب"
+        Me.B_NAME_CL.Name = "B_NAME_CL"
+        Me.B_NAME_CL.ReadOnly = True
+        '
+        'TREE_CODE_CL
+        '
+        Me.TREE_CODE_CL.DataPropertyName = "TREE_CODE"
+        Me.TREE_CODE_CL.HeaderText = "كود الحساب"
+        Me.TREE_CODE_CL.Name = "TREE_CODE_CL"
+        Me.TREE_CODE_CL.ReadOnly = True
         '
         'AGENTS_DataGridView
         '
@@ -119,9 +158,14 @@ Partial Class Agent_Balance_For_Tree
         Me.AGENTS_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.AGENTS_DataGridView.BackgroundColor = System.Drawing.Color.White
         Me.AGENTS_DataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AGENTS_DataGridView.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        Me.AGENTS_DataGridView.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.AGENTS_DataGridView.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AGENTS_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.AGENTS_DataGridView.ColumnHeadersHeight = 34
         Me.AGENTS_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.AGENTS_DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3})
@@ -171,9 +215,14 @@ Partial Class Agent_Balance_For_Tree
         Me.TR_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.TR_DataGridView.BackgroundColor = System.Drawing.Color.White
         Me.TR_DataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TR_DataGridView.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        Me.TR_DataGridView.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.TR_DataGridView.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.TR_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.TR_DataGridView.ColumnHeadersHeight = 34
         Me.TR_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.TR_DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6})
@@ -191,7 +240,7 @@ Partial Class Agent_Balance_For_Tree
         Me.TR_DataGridView.RowTemplate.Height = 32
         Me.TR_DataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.TR_DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.TR_DataGridView.Size = New System.Drawing.Size(254, 236)
+        Me.TR_DataGridView.Size = New System.Drawing.Size(254, 225)
         Me.TR_DataGridView.TabIndex = 703
         '
         'DataGridViewTextBoxColumn4
@@ -223,9 +272,14 @@ Partial Class Agent_Balance_For_Tree
         Me.ST_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.ST_DataGridView.BackgroundColor = System.Drawing.Color.White
         Me.ST_DataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.ST_DataGridView.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        Me.ST_DataGridView.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.ST_DataGridView.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ST_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.ST_DataGridView.ColumnHeadersHeight = 34
         Me.ST_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.ST_DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9})
@@ -383,37 +437,97 @@ Partial Class Agent_Balance_For_Tree
         Me.Help_LB.Name = "Help_LB"
         Me.Help_LB.Size = New System.Drawing.Size(974, 26)
         Me.Help_LB.TabIndex = 714
-        Me.Help_LB.Text = "اكتب في مربع البحث لتصفية النتائج، وانقر نقرًا مزدوجًا على أي حساب لتعديل كود الحساب."
+        Me.Help_LB.Text = "اكتب في مربع البحث لتصفية النتائج، وانقر نقرًا مزدوجًا على أي حساب لتعديل كود الح" &
+    "ساب."
         Me.Help_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'T_ID_CL
+        'Label1
         '
-        Me.T_ID_CL.DataPropertyName = "EX_ID"
-        Me.T_ID_CL.HeaderText = "T_ID"
-        Me.T_ID_CL.Name = "T_ID_CL"
-        Me.T_ID_CL.ReadOnly = True
-        Me.T_ID_CL.Visible = False
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(15, 391)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(322, 24)
+        Me.Label1.TabIndex = 717
+        Me.Label1.Text = "مصروفات المشتريات"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'B_NAME_CL
+        'TextBox1
         '
-        Me.B_NAME_CL.DataPropertyName = "Ex_Name"
-        Me.B_NAME_CL.HeaderText = "الحســـاب"
-        Me.B_NAME_CL.Name = "B_NAME_CL"
-        Me.B_NAME_CL.ReadOnly = True
+        Me.TextBox1.BackColor = System.Drawing.Color.White
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.TextBox1.Location = New System.Drawing.Point(15, 418)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(322, 25)
+        Me.TextBox1.TabIndex = 716
         '
-        'TREE_CODE_CL
+        'PCH_EXP_DataGridView
         '
-        Me.TREE_CODE_CL.DataPropertyName = "TREE_CODE"
-        Me.TREE_CODE_CL.HeaderText = "كود الحساب"
-        Me.TREE_CODE_CL.Name = "TREE_CODE_CL"
-        Me.TREE_CODE_CL.ReadOnly = True
+        Me.PCH_EXP_DataGridView.AllowUserToAddRows = False
+        Me.PCH_EXP_DataGridView.AllowUserToDeleteRows = False
+        Me.PCH_EXP_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.PCH_EXP_DataGridView.BackgroundColor = System.Drawing.Color.White
+        Me.PCH_EXP_DataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.PCH_EXP_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.PCH_EXP_DataGridView.ColumnHeadersHeight = 34
+        Me.PCH_EXP_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.PCH_EXP_DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.PCH_EX_ID_CL, Me.Pch_Ex_Name_CL, Me.PCH_EX_TREE_CODE_CL})
+        Me.PCH_EXP_DataGridView.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PCH_EXP_DataGridView.EnableHeadersVisualStyles = False
+        Me.PCH_EXP_DataGridView.GridColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.PCH_EXP_DataGridView.Location = New System.Drawing.Point(15, 447)
+        Me.PCH_EXP_DataGridView.MultiSelect = False
+        Me.PCH_EXP_DataGridView.Name = "PCH_EXP_DataGridView"
+        Me.PCH_EXP_DataGridView.ReadOnly = True
+        Me.PCH_EXP_DataGridView.RowHeadersVisible = False
+        Me.PCH_EXP_DataGridView.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.PCH_EXP_DataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(99, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.PCH_EXP_DataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.PCH_EXP_DataGridView.RowTemplate.Height = 32
+        Me.PCH_EXP_DataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.PCH_EXP_DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PCH_EXP_DataGridView.Size = New System.Drawing.Size(322, 236)
+        Me.PCH_EXP_DataGridView.TabIndex = 715
+        '
+        'PCH_EX_ID_CL
+        '
+        Me.PCH_EX_ID_CL.DataPropertyName = "EX_ID"
+        Me.PCH_EX_ID_CL.HeaderText = "T_ID"
+        Me.PCH_EX_ID_CL.Name = "PCH_EX_ID_CL"
+        Me.PCH_EX_ID_CL.ReadOnly = True
+        Me.PCH_EX_ID_CL.Visible = False
+        '
+        'Pch_Ex_Name_CL
+        '
+        Me.Pch_Ex_Name_CL.DataPropertyName = "Ex_Name"
+        Me.Pch_Ex_Name_CL.HeaderText = "الحســـاب"
+        Me.Pch_Ex_Name_CL.Name = "Pch_Ex_Name_CL"
+        Me.Pch_Ex_Name_CL.ReadOnly = True
+        '
+        'PCH_EX_TREE_CODE_CL
+        '
+        Me.PCH_EX_TREE_CODE_CL.DataPropertyName = "TREE_CODE"
+        Me.PCH_EX_TREE_CODE_CL.HeaderText = "كود الحساب"
+        Me.PCH_EX_TREE_CODE_CL.Name = "PCH_EX_TREE_CODE_CL"
+        Me.PCH_EX_TREE_CODE_CL.ReadOnly = True
         '
         'Agent_Balance_For_Tree
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1004, 735)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.PCH_EXP_DataGridView)
         Me.Controls.Add(Me.Help_LB)
         Me.Controls.Add(Me.StoresTitle_LB)
         Me.Controls.Add(Me.TreasuryTitle_LB)
@@ -439,11 +553,12 @@ Partial Class Agent_Balance_For_Tree
         Me.RightToLeftLayout = True
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "الحسابات الإقتراضية العامة"
-        Me.TitleBar_Panel.ResumeLayout(False)
         CType(Me.EXP_DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AGENTS_DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TR_DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ST_DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TitleBar_Panel.ResumeLayout(False)
+        CType(Me.PCH_EXP_DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -477,4 +592,10 @@ Partial Class Agent_Balance_For_Tree
     Friend WithEvents TreasuryTitle_LB As Label
     Friend WithEvents StoresTitle_LB As Label
     Friend WithEvents Help_LB As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents PCH_EXP_DataGridView As DataGridView
+    Friend WithEvents PCH_EX_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Pch_Ex_Name_CL As DataGridViewTextBoxColumn
+    Friend WithEvents PCH_EX_TREE_CODE_CL As DataGridViewTextBoxColumn
 End Class

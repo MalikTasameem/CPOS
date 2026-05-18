@@ -4,6 +4,7 @@
     Dim AG_Dt As New DataTable
     Dim TR_Dt As New DataTable
     Dim ST_Dt As New DataTable
+    Dim PCH_EX_Dt As New DataTable
     Dim Rs As New Resizer
     Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles EXP_DataGridView.MouseDoubleClick
         Dim inp = InputBox(" : أدخل كود الحساب للحساب  " & vbNewLine & EXP_DataGridView.CurrentRow.Cells("B_NAME_CL").Value)
@@ -13,6 +14,17 @@
             'Load_MAIN_BALANCES()
         End If
     End Sub
+
+
+    Private Sub PCH_EXP_DataGridView_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles PCH_EXP_DataGridView.MouseDoubleClick
+        Dim inp = InputBox(" : أدخل كود الحساب للحساب  " & vbNewLine & PCH_EXP_DataGridView.CurrentRow.Cells("PCH_EX_NAME_CL").Value)
+        If inp <> "" Then
+            query("UPDATE Pch_Exp_Card SET TREE_CODE = '" & inp & "' WHERE Ex_ID = " & PCH_EXP_DataGridView.CurrentRow.Cells("PCH_EX_ID_CL").Value)
+            PCH_EXP_DataGridView.CurrentRow.Cells(2).Value = inp
+            'Load_MAIN_BALANCES()
+        End If
+    End Sub
+
 
     Private Sub AGENTS_DataGridView_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGENTS_DataGridView.MouseDoubleClick
         Dim inp = InputBox(" : أدخل كود الحساب للحساب  " & vbNewLine & AGENTS_DataGridView.CurrentRow.Cells(1).Value)
@@ -51,6 +63,7 @@
         Load_AG_BALANCES()
         Load_TR_BALANCES()
         Load_ST_BALANCES()
+        Load_PCH_EXP_BALANCES()
     End Sub
 
     Private Sub Load_ST_BALANCES()
@@ -111,6 +124,22 @@
             c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
             c.Da.Fill(IM_Dt)
             EXP_DataGridView.DataSource = IM_Dt
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Load_PCH_EXP_BALANCES()
+        Dim c As New C
+
+        Try
+            PCH_EX_Dt.Clear()
+            Dim s As String
+            s = "select [Ex_ID],[Ex_Name],TREE_CODE from [Pch_Exp_Card] "
+            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
+            c.Da.Fill(PCH_EX_Dt)
+            PCH_EXP_DataGridView.DataSource = PCH_EX_Dt
 
         Catch ex As Exception
             MsgBox(ex.Message)
