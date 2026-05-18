@@ -506,6 +506,7 @@ Partial Class login
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(245, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(709, 480)
+        Me.ControlBox = False
         Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.SYS_DEVELOPER_LB)
         Me.Controls.Add(Me.IM_PHONE_3_LB)
@@ -528,7 +529,8 @@ Partial Class login
         Me.Controls.Add(Me.ServersMenuBtn)
         Me.Controls.Add(Me.RestoreButton)
         Me.Controls.Add(Me.Panel2)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Cursor = System.Windows.Forms.Cursors.Default
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "login"

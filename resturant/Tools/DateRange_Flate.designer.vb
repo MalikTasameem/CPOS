@@ -22,7 +22,6 @@ Partial Class DateRange_Flate
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DateRange_Flate))
         Me.MonthCmbo = New System.Windows.Forms.ComboBox()
         Me.Down_Btn = New System.Windows.Forms.Button()
         Me.D_To = New System.Windows.Forms.DateTimePicker()
@@ -52,15 +51,16 @@ Partial Class DateRange_Flate
         '
         'Down_Btn
         '
-        Me.Down_Btn.BackgroundImage = CType(resources.GetObject("Down_Btn.BackgroundImage"), System.Drawing.Image)
         Me.Down_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Down_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Down_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Down_Btn.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Down_Btn.Location = New System.Drawing.Point(4, 4)
         Me.Down_Btn.Margin = New System.Windows.Forms.Padding(4)
         Me.Down_Btn.Name = "Down_Btn"
         Me.Down_Btn.Size = New System.Drawing.Size(31, 27)
         Me.Down_Btn.TabIndex = 9
+        Me.Down_Btn.Text = "▼"
         Me.Down_Btn.UseVisualStyleBackColor = True
         '
         'D_To
@@ -78,15 +78,16 @@ Partial Class DateRange_Flate
         '
         'Up_Btn
         '
-        Me.Up_Btn.BackgroundImage = CType(resources.GetObject("Up_Btn.BackgroundImage"), System.Drawing.Image)
         Me.Up_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Up_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Up_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Up_Btn.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Bold)
         Me.Up_Btn.Location = New System.Drawing.Point(43, 4)
         Me.Up_Btn.Margin = New System.Windows.Forms.Padding(4)
         Me.Up_Btn.Name = "Up_Btn"
         Me.Up_Btn.Size = New System.Drawing.Size(33, 27)
         Me.Up_Btn.TabIndex = 7
+        Me.Up_Btn.Text = "▲"
         Me.Up_Btn.UseVisualStyleBackColor = True
         '
         'D_From

@@ -1,4 +1,4 @@
-Public Class Balances
+﻿Public Class Balances
 
     ' Dim rs As New Resizer
     Private AG_MV_DT As New DataTable
