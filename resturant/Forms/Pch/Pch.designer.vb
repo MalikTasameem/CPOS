@@ -40,8 +40,6 @@ Partial Class Pch
         Me.MaxFormButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.IM_Show_CxtMStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.IM_Qty_LB = New System.Windows.Forms.Label()
@@ -145,7 +143,6 @@ Partial Class Pch
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
-        Me.IM_Show_CxtMStrip.SuspendLayout()
         Me.AG_ContextMenuStrip.SuspendLayout()
         CType(Me.ReceiptsMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DiscountPanel.SuspendLayout()
@@ -234,21 +231,7 @@ Partial Class Pch
         '
         Me.NULLContextMenuStrip.Name = "NULLContextMenuStrip"
         Me.NULLContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.NULLContextMenuStrip.Size = New System.Drawing.Size(61, 4)
-        '
-        'IM_Show_CxtMStrip
-        '
-        Me.IM_Show_CxtMStrip.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.IM_Show_CxtMStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
-        Me.IM_Show_CxtMStrip.Name = "IM_ContextMenuStrip"
-        Me.IM_Show_CxtMStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_Show_CxtMStrip.Size = New System.Drawing.Size(195, 26)
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(194, 22)
-        Me.ToolStripMenuItem1.Text = "عرض تفاصيل الصنف"
+        Me.NULLContextMenuStrip.Size = New System.Drawing.Size(153, 26)
         '
         'User_Name_lb
         '
@@ -1633,7 +1616,6 @@ Partial Class Pch
         Me.Text = "شاشة المشتريات"
         Me.TitleBar_Panel.ResumeLayout(False)
         Me.TitleBar_Panel.PerformLayout()
-        Me.IM_Show_CxtMStrip.ResumeLayout(False)
         Me.AG_ContextMenuStrip.ResumeLayout(False)
         CType(Me.ReceiptsMetroGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DiscountPanel.ResumeLayout(False)
@@ -1741,8 +1723,6 @@ Partial Class Pch
     Friend WithEvents عرضربحالفاتورةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents تعديلصلاحياتالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents علاضبطاقةالصنفToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents IM_Show_CxtMStrip As ContextMenuStrip
-    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents Discount_MenuStrip As ContextMenuStrip
     Friend WithEvents تخفيضبنسبةToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents lblFormState As Label
