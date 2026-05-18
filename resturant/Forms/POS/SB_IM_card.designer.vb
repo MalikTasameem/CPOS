@@ -82,7 +82,7 @@ Partial Class SB_IM_card
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
-        Me.TitleBar_Panel.Size = New System.Drawing.Size(728, 42)
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(725, 42)
         Me.TitleBar_Panel.TabIndex = 999
         Me.TitleBar_Panel.Tag = "HEADER"
         '
@@ -109,7 +109,7 @@ Partial Class SB_IM_card
         Me.Title_LB.AutoSize = True
         Me.Title_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Title_LB.ForeColor = System.Drawing.Color.White
-        Me.Title_LB.Location = New System.Drawing.Point(594, 9)
+        Me.Title_LB.Location = New System.Drawing.Point(591, 9)
         Me.Title_LB.Name = "Title_LB"
         Me.Title_LB.Size = New System.Drawing.Size(109, 21)
         Me.Title_LB.TabIndex = 0
@@ -121,9 +121,9 @@ Partial Class SB_IM_card
         Me.All_St_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.All_St_Panel.Controls.Add(Me.Label5)
         Me.All_St_Panel.Controls.Add(Me.ALL_QTY_txt)
-        Me.All_St_Panel.Location = New System.Drawing.Point(2, 185)
+        Me.All_St_Panel.Location = New System.Drawing.Point(4, 232)
         Me.All_St_Panel.Name = "All_St_Panel"
-        Me.All_St_Panel.Size = New System.Drawing.Size(306, 38)
+        Me.All_St_Panel.Size = New System.Drawing.Size(331, 38)
         Me.All_St_Panel.TabIndex = 1027
         '
         'Label5
@@ -159,9 +159,9 @@ Partial Class SB_IM_card
         Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel8.Controls.Add(Me.Label26)
         Me.Panel8.Controls.Add(Me.Current_QTY)
-        Me.Panel8.Location = New System.Drawing.Point(2, 146)
+        Me.Panel8.Location = New System.Drawing.Point(4, 193)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(306, 38)
+        Me.Panel8.Size = New System.Drawing.Size(331, 38)
         Me.Panel8.TabIndex = 1026
         '
         'Label26
@@ -243,7 +243,7 @@ Partial Class SB_IM_card
         Me.ADDCatButton.TabIndex = 1045
         Me.ADDCatButton.TabStop = False
         Me.ADDCatButton.Tag = "GENERAL"
-        Me.ADDCatButton.Text = "➕ إضافة للفاتورة"
+        Me.ADDCatButton.Text = "➕        إضافة للفاتورة"
         Me.ADDCatButton.UseVisualStyleBackColor = False
         '
         'Exit_Btn
@@ -263,7 +263,7 @@ Partial Class SB_IM_card
         Me.Exit_Btn.TabIndex = 1046
         Me.Exit_Btn.TabStop = False
         Me.Exit_Btn.Tag = "DELETE"
-        Me.Exit_Btn.Text = "رجوع ◀️"
+        Me.Exit_Btn.Text = "رجوع          🔙"
         Me.Exit_Btn.UseVisualStyleBackColor = False
         '
         'LAST_SELL_Lb
@@ -283,7 +283,7 @@ Partial Class SB_IM_card
         Me.Min_SP_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_2_CB)
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_CB)
-        Me.Min_SP_Panel.Location = New System.Drawing.Point(320, 146)
+        Me.Min_SP_Panel.Location = New System.Drawing.Point(473, 199)
         Me.Min_SP_Panel.Name = "Min_SP_Panel"
         Me.Min_SP_Panel.Size = New System.Drawing.Size(237, 36)
         Me.Min_SP_Panel.TabIndex = 1060
@@ -319,7 +319,7 @@ Partial Class SB_IM_card
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.Label10)
         Me.Panel7.Controls.Add(Me.IM_Unit_cm)
-        Me.Panel7.Location = New System.Drawing.Point(336, 274)
+        Me.Panel7.Location = New System.Drawing.Point(489, 143)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(221, 35)
         Me.Panel7.TabIndex = 1058
@@ -352,7 +352,7 @@ Partial Class SB_IM_card
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.Label11)
         Me.Panel6.Controls.Add(Me.PriceTextBox)
-        Me.Panel6.Location = New System.Drawing.Point(177, 274)
+        Me.Panel6.Location = New System.Drawing.Point(330, 143)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(158, 35)
         Me.Panel6.TabIndex = 1057
@@ -388,7 +388,7 @@ Partial Class SB_IM_card
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.Label12)
         Me.Panel5.Controls.Add(Me.QtyTextBox)
-        Me.Panel5.Location = New System.Drawing.Point(4, 274)
+        Me.Panel5.Location = New System.Drawing.Point(157, 143)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(171, 35)
         Me.Panel5.TabIndex = 1056
@@ -423,7 +423,7 @@ Partial Class SB_IM_card
         Me.Valid_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Valid_Panel.Controls.Add(Me.Valid_cm)
         Me.Valid_Panel.Controls.Add(Me.Valid_QTY_txt)
-        Me.Valid_Panel.Location = New System.Drawing.Point(320, 185)
+        Me.Valid_Panel.Location = New System.Drawing.Point(473, 238)
         Me.Valid_Panel.Name = "Valid_Panel"
         Me.Valid_Panel.Size = New System.Drawing.Size(237, 36)
         Me.Valid_Panel.TabIndex = 1051
@@ -495,9 +495,9 @@ Partial Class SB_IM_card
         Me.ST_Bercent_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ST_Bercent_Panel.Controls.Add(Me.Bercent_TXT)
         Me.ST_Bercent_Panel.Controls.Add(Me.Label19)
-        Me.ST_Bercent_Panel.Location = New System.Drawing.Point(2, 224)
+        Me.ST_Bercent_Panel.Location = New System.Drawing.Point(4, 276)
         Me.ST_Bercent_Panel.Name = "ST_Bercent_Panel"
-        Me.ST_Bercent_Panel.Size = New System.Drawing.Size(306, 36)
+        Me.ST_Bercent_Panel.Size = New System.Drawing.Size(331, 36)
         Me.ST_Bercent_Panel.TabIndex = 1063
         '
         'Bercent_TXT
@@ -505,11 +505,11 @@ Partial Class SB_IM_card
         Me.Bercent_TXT.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Bercent_TXT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Bercent_TXT.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.Bercent_TXT.Location = New System.Drawing.Point(3, 3)
+        Me.Bercent_TXT.Location = New System.Drawing.Point(2, 3)
         Me.Bercent_TXT.Name = "Bercent_TXT"
         Me.Bercent_TXT.ReadOnly = True
         Me.Bercent_TXT.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Bercent_TXT.Size = New System.Drawing.Size(153, 27)
+        Me.Bercent_TXT.Size = New System.Drawing.Size(183, 27)
         Me.Bercent_TXT.TabIndex = 673
         Me.Bercent_TXT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -519,7 +519,7 @@ Partial Class SB_IM_card
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.Font = New System.Drawing.Font("Segoe UI", 11.25!)
-        Me.Label19.Location = New System.Drawing.Point(166, 7)
+        Me.Label19.Location = New System.Drawing.Point(191, 7)
         Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(118, 20)
@@ -569,7 +569,7 @@ Partial Class SB_IM_card
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(728, 436)
+        Me.ClientSize = New System.Drawing.Size(725, 432)
         Me.ControlBox = False
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.Label1)

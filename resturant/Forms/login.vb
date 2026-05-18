@@ -812,4 +812,26 @@ Public Class login
         ThemeManager.LoadDefaultSystemTheme()
         ThemeManager.ApplyThemeToForm(Me)
     End Sub
+
+    Private drag As Boolean
+    Private mouseX As Integer
+    Private mouseY As Integer
+
+    Private Sub Login_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        drag = True
+        mouseX = Cursor.Position.X - Me.Left
+        mouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub Login_MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mouseY
+            Me.Left = Cursor.Position.X - mouseX
+        End If
+    End Sub
+
+    Private Sub Login_MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+        drag = False
+    End Sub
+
 End Class
