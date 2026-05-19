@@ -109,14 +109,15 @@
         Flate_cmb.SelectedValue = Tables_Flate_ID
 
         If F_Periods.Pr_Status = True Then
-            Start_PrButton.Text = "بـدء الوردية ENTER"
+            Start_PrButton.Text = "بـدء الوردية       ENTER"
         Else
-            Start_PrButton.Text = "إغلاق الوردية ENTER"
+            Start_PrButton.Text = "إغلاق الوردية       ENTER"
             If S_Tables = True Then Flate_cmb.SelectedValue = U_Flate_ID
             Flate_cmb.Enabled = False
         End If
 
         Start_PrButton.Select()
+        ThemeManager.ApplyThemeToForm(Me)
     End Sub
 
     Function GetMailItems() As List(Of MailItem)

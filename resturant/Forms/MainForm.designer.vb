@@ -20,8 +20,8 @@ Partial Class MainForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.TimeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -536,13 +536,13 @@ Partial Class MainForm
         'FRM_Auto_LB
         '
         Me.FRM_Auto_LB.Name = "FRM_Auto_LB"
-        Me.FRM_Auto_LB.Size = New System.Drawing.Size(149, 24)
+        Me.FRM_Auto_LB.Size = New System.Drawing.Size(152, 24)
         Me.FRM_Auto_LB.Text = "تصنيع آلي"
         '
         'FRM_M_LB
         '
         Me.FRM_M_LB.Name = "FRM_M_LB"
-        Me.FRM_M_LB.Size = New System.Drawing.Size(149, 24)
+        Me.FRM_M_LB.Size = New System.Drawing.Size(152, 24)
         Me.FRM_M_LB.Text = "تصنيع يدوي"
         '
         'ToolStripSeparator5_Frm
@@ -1272,21 +1272,21 @@ Partial Class MainForm
         '
         Me.ALERT_DGV.AllowUserToAddRows = False
         Me.ALERT_DGV.AllowUserToDeleteRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(245, Byte), Integer), CType(CType(245, Byte), Integer))
-        Me.ALERT_DGV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(245, Byte), Integer), CType(CType(245, Byte), Integer))
+        Me.ALERT_DGV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.ALERT_DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.ALERT_DGV.BackgroundColor = System.Drawing.Color.White
         Me.ALERT_DGV.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ALERT_DGV.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.ALERT_DGV.ColumnHeadersVisible = False
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(18, Byte), Integer))
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ALERT_DGV.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(18, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ALERT_DGV.DefaultCellStyle = DataGridViewCellStyle2
         Me.ALERT_DGV.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ALERT_DGV.GridColor = System.Drawing.Color.Silver
         Me.ALERT_DGV.Location = New System.Drawing.Point(3, 70)
