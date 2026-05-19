@@ -33,7 +33,7 @@
             AGMetroGrid.DataSource = Open_Dt
 
         End With
-
+        ThemeManager.ApplyThemeToForm(Me)
 
         'Open_MV_DV.Columns(0).Visible = False
         'Open_MV_DV.Columns(3).Visible = False

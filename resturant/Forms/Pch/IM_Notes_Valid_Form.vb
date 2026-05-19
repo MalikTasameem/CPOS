@@ -4,6 +4,7 @@ Public Class IM_Notes_Valid_Form
     Dim IM_DT As New DataTable
     Dim rs As New Resizer
     Private Sub IM_Valid_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized

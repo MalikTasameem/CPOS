@@ -66,9 +66,9 @@ Partial Class Items_Prices
         Me.DataGridViewX.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridViewX.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridViewX.BackgroundColor = System.Drawing.Color.SeaShell
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -79,7 +79,7 @@ Partial Class Items_Prices
         Me.DataGridViewX.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
@@ -215,7 +215,7 @@ Partial Class Items_Prices
         '
         Me.Label3.BackColor = System.Drawing.SystemColors.Control
         Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label3.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label3.Location = New System.Drawing.Point(2, 1)
         Me.Label3.Name = "Label3"
@@ -234,9 +234,8 @@ Partial Class Items_Prices
         Me.DGV_Control_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.DGV_Control_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DGV_Control_btn.Font = New System.Drawing.Font("Times New Roman", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.DGV_Control_btn.Font = New System.Drawing.Font("Arial Narrow", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DGV_Control_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_menu_1814109
         Me.DGV_Control_btn.Location = New System.Drawing.Point(4, 660)
         Me.DGV_Control_btn.Margin = New System.Windows.Forms.Padding(2)
         Me.DGV_Control_btn.Name = "DGV_Control_btn"
@@ -244,7 +243,7 @@ Partial Class Items_Prices
         Me.DGV_Control_btn.Size = New System.Drawing.Size(88, 31)
         Me.DGV_Control_btn.TabIndex = 675
         Me.DGV_Control_btn.TabStop = False
-        Me.DGV_Control_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.DGV_Control_btn.Text = "⚙️"
         Me.DGV_Control_btn.UseVisualStyleBackColor = False
         '
         'ExitFormButton
@@ -252,9 +251,8 @@ Partial Class Items_Prices
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ExitFormButton.Location = New System.Drawing.Point(861, 660)
         Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(2)
@@ -262,7 +260,6 @@ Partial Class Items_Prices
         Me.ExitFormButton.Size = New System.Drawing.Size(143, 33)
         Me.ExitFormButton.TabIndex = 674
         Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'Button1
@@ -273,9 +270,8 @@ Partial Class Items_Prices
         Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Times New Roman", 12.25!, System.Drawing.FontStyle.Bold)
+        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Image = Global.resturant.My.Resources.Resources.if_ok_173061
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Button1.Location = New System.Drawing.Point(314, 35)
         Me.Button1.Margin = New System.Windows.Forms.Padding(2)
@@ -284,7 +280,6 @@ Partial Class Items_Prices
         Me.Button1.Size = New System.Drawing.Size(142, 29)
         Me.Button1.TabIndex = 390
         Me.Button1.Text = "تحديث القائمة"
-        Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button1.UseVisualStyleBackColor = False
         '
         'Label9
@@ -323,9 +318,8 @@ Partial Class Items_Prices
         Me.PrintButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.PrintButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.PrintButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.PrintButton.Font = New System.Drawing.Font("Times New Roman", 12.25!, System.Drawing.FontStyle.Bold)
+        Me.PrintButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PrintButton.ForeColor = System.Drawing.Color.Black
-        Me.PrintButton.Image = Global.resturant.My.Resources.Resources.if_icon_124_printer_text_314703
         Me.PrintButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.PrintButton.Location = New System.Drawing.Point(166, 35)
         Me.PrintButton.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
@@ -333,8 +327,8 @@ Partial Class Items_Prices
         Me.PrintButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.PrintButton.Size = New System.Drawing.Size(146, 29)
         Me.PrintButton.TabIndex = 274
+        Me.PrintButton.Tag = "PRINT"
         Me.PrintButton.Text = "طباعــــة"
-        Me.PrintButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.PrintButton.UseVisualStyleBackColor = False
         '
         'CheckedListBox1

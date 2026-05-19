@@ -26,24 +26,6 @@ Partial Class IM_ORDERS_COMING
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IM_ORDERS_COMING))
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.AGMetroGrid = New System.Windows.Forms.DataGridView()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.حذفالصفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CMSearchTextBox = New System.Windows.Forms.TextBox()
-        Me.ExpandablePanel1 = New DevComponents.DotNetBar.ExpandablePanel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.MoveToBill_Btn = New System.Windows.Forms.Button()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.IM_Unit_cm = New System.Windows.Forms.ComboBox()
-        Me.Barcode_SH_txt = New System.Windows.Forms.TextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Details_Notes_txt = New System.Windows.Forms.TextBox()
-        Me.Details_Date = New System.Windows.Forms.DateTimePicker()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.USER_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.St_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -56,9 +38,27 @@ Partial Class IM_ORDERS_COMING
         Me.MONTHS_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NOTES_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.USER_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.حذفالصفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CMSearchTextBox = New System.Windows.Forms.TextBox()
+        Me.ExpandablePanel1 = New DevComponents.DotNetBar.ExpandablePanel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.ST_Cm = New resturant.FSearch_Filter()
         Me.QTY_txt = New resturant.F2FloatField()
+        Me.MoveToBill_Btn = New System.Windows.Forms.Button()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.IM_Unit_cm = New System.Windows.Forms.ComboBox()
         Me.IM_Cm = New resturant.FSearch_Filter()
+        Me.Barcode_SH_txt = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Details_Notes_txt = New System.Windows.Forms.TextBox()
+        Me.Details_Date = New System.Windows.Forms.DateTimePicker()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ExpandablePanel1.SuspendLayout()
@@ -69,24 +69,24 @@ Partial Class IM_ORDERS_COMING
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ExitFormButton.Location = New System.Drawing.Point(1, 639)
         Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ExitFormButton.Name = "ExitFormButton"
         Me.ExitFormButton.Size = New System.Drawing.Size(1006, 55)
         Me.ExitFormButton.TabIndex = 675
+        Me.ExitFormButton.Tag = "DELETE"
         Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'AGMetroGrid
         '
         Me.AGMetroGrid.AllowUserToAddRows = False
         Me.AGMetroGrid.AllowUserToDeleteRows = False
-        Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.AGMetroGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.AGMetroGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.USER_ID_CL, Me.St_Name_CL, Me.item_name_CL, Me.Barcode_CL, Me.U_Name_CL, Me.QTY_CL, Me.DATE_OF_ARRIV_CL, Me.DAYS_CL, Me.MONTHS_CL, Me.NOTES_CL, Me.USER_NAME_CL})
@@ -103,6 +103,92 @@ Partial Class IM_ORDERS_COMING
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.AGMetroGrid.Size = New System.Drawing.Size(1004, 577)
         Me.AGMetroGrid.TabIndex = 702
+        '
+        'T_ID_CL
+        '
+        Me.T_ID_CL.DataPropertyName = "T_ID"
+        Me.T_ID_CL.HeaderText = "T_ID"
+        Me.T_ID_CL.Name = "T_ID_CL"
+        Me.T_ID_CL.ReadOnly = True
+        Me.T_ID_CL.Visible = False
+        '
+        'USER_ID_CL
+        '
+        Me.USER_ID_CL.DataPropertyName = "USER_ID"
+        Me.USER_ID_CL.HeaderText = "USER_ID"
+        Me.USER_ID_CL.Name = "USER_ID_CL"
+        Me.USER_ID_CL.ReadOnly = True
+        Me.USER_ID_CL.Visible = False
+        '
+        'St_Name_CL
+        '
+        Me.St_Name_CL.DataPropertyName = "St_Name"
+        Me.St_Name_CL.HeaderText = "المخزن"
+        Me.St_Name_CL.Name = "St_Name_CL"
+        Me.St_Name_CL.ReadOnly = True
+        '
+        'item_name_CL
+        '
+        Me.item_name_CL.DataPropertyName = "item_name"
+        Me.item_name_CL.HeaderText = "الصنف"
+        Me.item_name_CL.Name = "item_name_CL"
+        Me.item_name_CL.ReadOnly = True
+        '
+        'Barcode_CL
+        '
+        Me.Barcode_CL.DataPropertyName = "Barcode"
+        Me.Barcode_CL.HeaderText = "الباركود"
+        Me.Barcode_CL.Name = "Barcode_CL"
+        Me.Barcode_CL.ReadOnly = True
+        '
+        'U_Name_CL
+        '
+        Me.U_Name_CL.DataPropertyName = "U_Name"
+        Me.U_Name_CL.HeaderText = "الوحدة"
+        Me.U_Name_CL.Name = "U_Name_CL"
+        Me.U_Name_CL.ReadOnly = True
+        '
+        'QTY_CL
+        '
+        Me.QTY_CL.DataPropertyName = "QTY"
+        Me.QTY_CL.HeaderText = "الكمية"
+        Me.QTY_CL.Name = "QTY_CL"
+        Me.QTY_CL.ReadOnly = True
+        '
+        'DATE_OF_ARRIV_CL
+        '
+        Me.DATE_OF_ARRIV_CL.DataPropertyName = "DATE_OF_ARRIV"
+        Me.DATE_OF_ARRIV_CL.HeaderText = "موعد الوصول"
+        Me.DATE_OF_ARRIV_CL.Name = "DATE_OF_ARRIV_CL"
+        Me.DATE_OF_ARRIV_CL.ReadOnly = True
+        '
+        'DAYS_CL
+        '
+        Me.DAYS_CL.DataPropertyName = "DAYS"
+        Me.DAYS_CL.HeaderText = "الباقي باليوم"
+        Me.DAYS_CL.Name = "DAYS_CL"
+        Me.DAYS_CL.ReadOnly = True
+        '
+        'MONTHS_CL
+        '
+        Me.MONTHS_CL.DataPropertyName = "MONTHS"
+        Me.MONTHS_CL.HeaderText = "الباقي بالشهر"
+        Me.MONTHS_CL.Name = "MONTHS_CL"
+        Me.MONTHS_CL.ReadOnly = True
+        '
+        'NOTES_CL
+        '
+        Me.NOTES_CL.DataPropertyName = "NOTES"
+        Me.NOTES_CL.HeaderText = "ملاحظة"
+        Me.NOTES_CL.Name = "NOTES_CL"
+        Me.NOTES_CL.ReadOnly = True
+        '
+        'USER_NAME_CL
+        '
+        Me.USER_NAME_CL.DataPropertyName = "USERNAME"
+        Me.USER_NAME_CL.HeaderText = "المدخل"
+        Me.USER_NAME_CL.Name = "USER_NAME_CL"
+        Me.USER_NAME_CL.ReadOnly = True
         '
         'ContextMenuStrip1
         '
@@ -186,6 +272,38 @@ Partial Class IM_ORDERS_COMING
         Me.Label1.Text = "المخزن"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'ST_Cm
+        '
+        Me.ST_Cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ST_Cm.CancelSearchImage = CType(resources.GetObject("ST_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.ST_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ST_Cm.Location = New System.Drawing.Point(83, 106)
+        Me.ST_Cm.Name = "ST_Cm"
+        Me.ST_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ST_Cm.Size = New System.Drawing.Size(402, 35)
+        Me.ST_Cm.SQL_Column = "St_Name"
+        Me.ST_Cm.SQL_ID = "ST_ID"
+        Me.ST_Cm.SQL_IsNumericSearchField = False
+        Me.ST_Cm.SQL_ListSize = 200
+        Me.ST_Cm.SQL_NumberOfRows = 200
+        Me.ST_Cm.SQL_OrderByField = "St_Name"
+        Me.ST_Cm.SQL_SearchField = "St_Name"
+        Me.ST_Cm.SQL_SearchField_WHERE = ""
+        Me.ST_Cm.SQL_Table = "Stores"
+        Me.ST_Cm.TabIndex = 748
+        Me.ST_Cm.TextMaxLength = 250
+        Me.ST_Cm.Textt = ""
+        '
+        'QTY_txt
+        '
+        Me.QTY_txt.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.QTY_txt.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Bold)
+        Me.QTY_txt.Location = New System.Drawing.Point(541, 108)
+        Me.QTY_txt.MaxLength = 0
+        Me.QTY_txt.Name = "QTY_txt"
+        Me.QTY_txt.Size = New System.Drawing.Size(100, 30)
+        Me.QTY_txt.TabIndex = 747
+        '
         'MoveToBill_Btn
         '
         Me.MoveToBill_Btn.BackColor = System.Drawing.SystemColors.Control
@@ -228,6 +346,28 @@ Partial Class IM_ORDERS_COMING
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
         Me.IM_Unit_cm.Size = New System.Drawing.Size(120, 30)
         Me.IM_Unit_cm.TabIndex = 744
+        '
+        'IM_Cm
+        '
+        Me.IM_Cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.IM_Cm.CancelSearchImage = CType(resources.GetObject("IM_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.IM_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Cm.Location = New System.Drawing.Point(542, 34)
+        Me.IM_Cm.Name = "IM_Cm"
+        Me.IM_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.IM_Cm.Size = New System.Drawing.Size(406, 35)
+        Me.IM_Cm.SQL_Column = "item_name"
+        Me.IM_Cm.SQL_ID = "IM_ID"
+        Me.IM_Cm.SQL_IsNumericSearchField = False
+        Me.IM_Cm.SQL_ListSize = 200
+        Me.IM_Cm.SQL_NumberOfRows = 200
+        Me.IM_Cm.SQL_OrderByField = "item_name"
+        Me.IM_Cm.SQL_SearchField = "item_name"
+        Me.IM_Cm.SQL_SearchField_WHERE = ""
+        Me.IM_Cm.SQL_Table = "IM_All_V"
+        Me.IM_Cm.TabIndex = 742
+        Me.IM_Cm.TextMaxLength = 250
+        Me.IM_Cm.Textt = ""
         '
         'Barcode_SH_txt
         '
@@ -331,7 +471,7 @@ Partial Class IM_ORDERS_COMING
         'Button1
         '
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Button1.Location = New System.Drawing.Point(105, 32)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(103, 28)
@@ -342,163 +482,13 @@ Partial Class IM_ORDERS_COMING
         'Button2
         '
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Button2.Location = New System.Drawing.Point(1, 32)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(103, 28)
         Me.Button2.TabIndex = 743
         Me.Button2.Text = "طباعة"
         Me.Button2.UseVisualStyleBackColor = True
-        '
-        'T_ID_CL
-        '
-        Me.T_ID_CL.DataPropertyName = "T_ID"
-        Me.T_ID_CL.HeaderText = "T_ID"
-        Me.T_ID_CL.Name = "T_ID_CL"
-        Me.T_ID_CL.ReadOnly = True
-        Me.T_ID_CL.Visible = False
-        Me.T_ID_CL.Width = 36
-        '
-        'USER_ID_CL
-        '
-        Me.USER_ID_CL.DataPropertyName = "USER_ID"
-        Me.USER_ID_CL.HeaderText = "USER_ID"
-        Me.USER_ID_CL.Name = "USER_ID_CL"
-        Me.USER_ID_CL.ReadOnly = True
-        Me.USER_ID_CL.Visible = False
-        Me.USER_ID_CL.Width = 56
-        '
-        'St_Name_CL
-        '
-        Me.St_Name_CL.DataPropertyName = "St_Name"
-        Me.St_Name_CL.HeaderText = "المخزن"
-        Me.St_Name_CL.Name = "St_Name_CL"
-        Me.St_Name_CL.ReadOnly = True
-        Me.St_Name_CL.Width = 69
-        '
-        'item_name_CL
-        '
-        Me.item_name_CL.DataPropertyName = "item_name"
-        Me.item_name_CL.HeaderText = "الصنف"
-        Me.item_name_CL.Name = "item_name_CL"
-        Me.item_name_CL.ReadOnly = True
-        Me.item_name_CL.Width = 70
-        '
-        'Barcode_CL
-        '
-        Me.Barcode_CL.DataPropertyName = "Barcode"
-        Me.Barcode_CL.HeaderText = "الباركود"
-        Me.Barcode_CL.Name = "Barcode_CL"
-        Me.Barcode_CL.ReadOnly = True
-        Me.Barcode_CL.Width = 73
-        '
-        'U_Name_CL
-        '
-        Me.U_Name_CL.DataPropertyName = "U_Name"
-        Me.U_Name_CL.HeaderText = "الوحدة"
-        Me.U_Name_CL.Name = "U_Name_CL"
-        Me.U_Name_CL.ReadOnly = True
-        Me.U_Name_CL.Width = 64
-        '
-        'QTY_CL
-        '
-        Me.QTY_CL.DataPropertyName = "QTY"
-        Me.QTY_CL.HeaderText = "الكمية"
-        Me.QTY_CL.Name = "QTY_CL"
-        Me.QTY_CL.ReadOnly = True
-        Me.QTY_CL.Width = 61
-        '
-        'DATE_OF_ARRIV_CL
-        '
-        Me.DATE_OF_ARRIV_CL.DataPropertyName = "DATE_OF_ARRIV"
-        Me.DATE_OF_ARRIV_CL.HeaderText = "موعد الوصول"
-        Me.DATE_OF_ARRIV_CL.Name = "DATE_OF_ARRIV_CL"
-        Me.DATE_OF_ARRIV_CL.ReadOnly = True
-        Me.DATE_OF_ARRIV_CL.Width = 105
-        '
-        'DAYS_CL
-        '
-        Me.DAYS_CL.DataPropertyName = "DAYS"
-        Me.DAYS_CL.HeaderText = "الباقي باليوم"
-        Me.DAYS_CL.Name = "DAYS_CL"
-        Me.DAYS_CL.ReadOnly = True
-        Me.DAYS_CL.Width = 91
-        '
-        'MONTHS_CL
-        '
-        Me.MONTHS_CL.DataPropertyName = "MONTHS"
-        Me.MONTHS_CL.HeaderText = "الباقي بالشهر"
-        Me.MONTHS_CL.Name = "MONTHS_CL"
-        Me.MONTHS_CL.ReadOnly = True
-        Me.MONTHS_CL.Width = 98
-        '
-        'NOTES_CL
-        '
-        Me.NOTES_CL.DataPropertyName = "NOTES"
-        Me.NOTES_CL.HeaderText = "ملاحظة"
-        Me.NOTES_CL.Name = "NOTES_CL"
-        Me.NOTES_CL.ReadOnly = True
-        Me.NOTES_CL.Width = 72
-        '
-        'USER_NAME_CL
-        '
-        Me.USER_NAME_CL.DataPropertyName = "USERNAME"
-        Me.USER_NAME_CL.HeaderText = "المدخل"
-        Me.USER_NAME_CL.Name = "USER_NAME_CL"
-        Me.USER_NAME_CL.ReadOnly = True
-        Me.USER_NAME_CL.Width = 66
-        '
-        'ST_Cm
-        '
-        Me.ST_Cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ST_Cm.CancelSearchImage = CType(resources.GetObject("ST_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.ST_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ST_Cm.Location = New System.Drawing.Point(83, 106)
-        Me.ST_Cm.Name = "ST_Cm"
-        Me.ST_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ST_Cm.Size = New System.Drawing.Size(402, 34)
-        Me.ST_Cm.SQL_Column = "St_Name"
-        Me.ST_Cm.SQL_ID = "ST_ID"
-        Me.ST_Cm.SQL_IsNumericSearchField = False
-        Me.ST_Cm.SQL_ListSize = 200
-        Me.ST_Cm.SQL_NumberOfRows = 200
-        Me.ST_Cm.SQL_OrderByField = "St_Name"
-        Me.ST_Cm.SQL_SearchField = "St_Name"
-        Me.ST_Cm.SQL_Table = "Stores"
-        Me.ST_Cm.TabIndex = 748
-        Me.ST_Cm.TextMaxLength = 250
-        Me.ST_Cm.Textt = ""
-        '
-        'QTY_txt
-        '
-        Me.QTY_txt.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.QTY_txt.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Bold)
-        Me.QTY_txt.Location = New System.Drawing.Point(541, 108)
-        Me.QTY_txt.MaxLength = 0
-        Me.QTY_txt.Name = "QTY_txt"
-        Me.QTY_txt.Size = New System.Drawing.Size(100, 30)
-        Me.QTY_txt.TabIndex = 747
-        '
-        'IM_Cm
-        '
-        Me.IM_Cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.IM_Cm.CancelSearchImage = CType(resources.GetObject("IM_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.IM_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_Cm.Location = New System.Drawing.Point(542, 34)
-        Me.IM_Cm.Name = "IM_Cm"
-        Me.IM_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_Cm.Size = New System.Drawing.Size(406, 34)
-        Me.IM_Cm.SQL_Column = "item_name"
-        Me.IM_Cm.SQL_ID = "IM_ID"
-        Me.IM_Cm.SQL_IsNumericSearchField = False
-        Me.IM_Cm.SQL_ListSize = 200
-        Me.IM_Cm.SQL_NumberOfRows = 200
-        Me.IM_Cm.SQL_OrderByField = "item_name"
-        Me.IM_Cm.SQL_SearchField = "item_name"
-        Me.IM_Cm.SQL_Table = "IM_All_V"
-        Me.IM_Cm.TabIndex = 742
-        Me.IM_Cm.TextMaxLength = 250
-        Me.IM_Cm.Textt = ""
         '
         'IM_ORDERS_COMING
         '

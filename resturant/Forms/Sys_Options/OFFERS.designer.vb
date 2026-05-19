@@ -23,11 +23,13 @@ Partial Class OFFERS
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(OFFERS))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.IM_MENU_FS = New resturant.FSearch_Filter()
         Me.AGMetroGrid = New System.Windows.Forms.DataGridView()
         Me.IM_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -72,10 +74,11 @@ Partial Class OFFERS
         'IM_MENU_FS
         '
         Me.IM_MENU_FS.CancelSearchImage = CType(resources.GetObject("IM_MENU_FS.CancelSearchImage"), System.Drawing.Image)
-        Me.IM_MENU_FS.Location = New System.Drawing.Point(581, 49)
+        Me.IM_MENU_FS.Location = New System.Drawing.Point(654, 40)
+        Me.IM_MENU_FS.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IM_MENU_FS.Name = "IM_MENU_FS"
         Me.IM_MENU_FS.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_MENU_FS.Size = New System.Drawing.Size(352, 34)
+        Me.IM_MENU_FS.Size = New System.Drawing.Size(396, 34)
         Me.IM_MENU_FS.SQL_Column = "item_name"
         Me.IM_MENU_FS.SQL_ID = "IM_ID"
         Me.IM_MENU_FS.SQL_IsNumericSearchField = False
@@ -83,6 +86,7 @@ Partial Class OFFERS
         Me.IM_MENU_FS.SQL_NumberOfRows = 200
         Me.IM_MENU_FS.SQL_OrderByField = "item_name"
         Me.IM_MENU_FS.SQL_SearchField = "item_name"
+        Me.IM_MENU_FS.SQL_SearchField_WHERE = ""
         Me.IM_MENU_FS.SQL_Table = "IM_Active_V"
         Me.IM_MENU_FS.TabIndex = 625
         Me.IM_MENU_FS.TextMaxLength = 250
@@ -95,10 +99,27 @@ Partial Class OFFERS
         Me.AGMetroGrid.AllowUserToResizeRows = False
         Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.AGMetroGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AGMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IM_ID_CL, Me.TITLE_CL, Me.item_name_CL, Me.DATE_F_CL, Me.DATE_T_CL, Me.TIME_F_CL, Me.TIME_T_CL})
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.AGMetroGrid.Location = New System.Drawing.Point(1, 184)
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle9
+        Me.AGMetroGrid.Location = New System.Drawing.Point(1, 162)
+        Me.AGMetroGrid.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.AGMetroGrid.MultiSelect = False
         Me.AGMetroGrid.Name = "AGMetroGrid"
         Me.AGMetroGrid.ReadOnly = True
@@ -106,7 +127,7 @@ Partial Class OFFERS
         Me.AGMetroGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
         Me.AGMetroGrid.RowTemplate.Height = 25
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMetroGrid.Size = New System.Drawing.Size(1003, 336)
+        Me.AGMetroGrid.Size = New System.Drawing.Size(1128, 224)
         Me.AGMetroGrid.TabIndex = 706
         '
         'IM_ID_CL
@@ -168,46 +189,46 @@ Partial Class OFFERS
         '
         Me.Unit_DataGridView.AllowUserToAddRows = False
         Me.Unit_DataGridView.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro
-        Me.Unit_DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.Gainsboro
+        Me.Unit_DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
         Me.Unit_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.Unit_DataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.Unit_DataGridView.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("JF Flat", 11.0!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Unit_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Unit_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
         Me.Unit_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Unit_DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.U_IM_ID_CL, Me.is_Default_CL, Me.U_Name_CL, Me.Barcode, Me.Price_CL, Me.Min_SP_CL, Me.Min_SP_2_CL, Me.UserName_CL, Me.U_Cargo_CL, Me.OFFER_PRICE_CL})
         Me.Unit_DataGridView.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("JF Flat", 11.0!)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Unit_DataGridView.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Unit_DataGridView.DefaultCellStyle = DataGridViewCellStyle13
         Me.Unit_DataGridView.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
-        Me.Unit_DataGridView.Location = New System.Drawing.Point(1, 2)
-        Me.Unit_DataGridView.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Unit_DataGridView.Location = New System.Drawing.Point(1, 1)
+        Me.Unit_DataGridView.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
         Me.Unit_DataGridView.MultiSelect = False
         Me.Unit_DataGridView.Name = "Unit_DataGridView"
         Me.Unit_DataGridView.RowHeadersVisible = False
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("JF Flat", 10.0!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Unit_DataGridView.RowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle14.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Unit_DataGridView.RowsDefaultCellStyle = DataGridViewCellStyle14
         Me.Unit_DataGridView.RowTemplate.Height = 32
         Me.Unit_DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Unit_DataGridView.Size = New System.Drawing.Size(579, 177)
+        Me.Unit_DataGridView.Size = New System.Drawing.Size(651, 157)
         Me.Unit_DataGridView.TabIndex = 707
         '
         'DataGridViewTextBoxColumn1
@@ -232,10 +253,10 @@ Partial Class OFFERS
         'is_Default_CL
         '
         Me.is_Default_CL.DataPropertyName = "is_Default"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.NullValue = False
-        Me.is_Default_CL.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.NullValue = False
+        Me.is_Default_CL.DefaultCellStyle = DataGridViewCellStyle12
         Me.is_Default_CL.FillWeight = 35.0!
         Me.is_Default_CL.HeaderText = "أساسي"
         Me.is_Default_CL.Name = "is_Default_CL"
@@ -303,10 +324,11 @@ Partial Class OFFERS
         'Label2
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.Font = New System.Drawing.Font("JF Flat", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(935, 50)
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(1067, 49)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(69, 34)
+        Me.Label2.Size = New System.Drawing.Size(48, 17)
         Me.Label2.TabIndex = 708
         Me.Label2.Text = "الصنف:"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -316,17 +338,16 @@ Partial Class OFFERS
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(879, 523)
-        Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ExitFormButton.Location = New System.Drawing.Point(989, 389)
+        Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(125, 40)
+        Me.ExitFormButton.Size = New System.Drawing.Size(141, 31)
         Me.ExitFormButton.TabIndex = 709
+        Me.ExitFormButton.Tag = "DELETE"
         Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'T_F
@@ -335,11 +356,11 @@ Partial Class OFFERS
         Me.T_F.CustomFormat = "HH:mm:ss"
         Me.T_F.Font = New System.Drawing.Font("Times New Roman", 11.25!)
         Me.T_F.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.T_F.Location = New System.Drawing.Point(802, 156)
-        Me.T_F.Margin = New System.Windows.Forms.Padding(7, 5, 7, 5)
+        Me.T_F.Location = New System.Drawing.Point(930, 133)
+        Me.T_F.Margin = New System.Windows.Forms.Padding(8, 3, 8, 3)
         Me.T_F.Name = "T_F"
         Me.T_F.ShowUpDown = True
-        Me.T_F.Size = New System.Drawing.Size(106, 25)
+        Me.T_F.Size = New System.Drawing.Size(119, 25)
         Me.T_F.TabIndex = 710
         '
         'T_T
@@ -348,11 +369,11 @@ Partial Class OFFERS
         Me.T_T.CustomFormat = "HH:mm:ss"
         Me.T_T.Font = New System.Drawing.Font("Times New Roman", 11.25!)
         Me.T_T.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.T_T.Location = New System.Drawing.Point(583, 153)
-        Me.T_T.Margin = New System.Windows.Forms.Padding(7, 5, 7, 5)
+        Me.T_T.Location = New System.Drawing.Point(657, 133)
+        Me.T_T.Margin = New System.Windows.Forms.Padding(8, 3, 8, 3)
         Me.T_T.Name = "T_T"
         Me.T_T.ShowUpDown = True
-        Me.T_T.Size = New System.Drawing.Size(106, 25)
+        Me.T_T.Size = New System.Drawing.Size(119, 25)
         Me.T_T.TabIndex = 711
         '
         'D_F
@@ -364,11 +385,12 @@ Partial Class OFFERS
         Me.D_F.CustomFormat = "dd/MM/yyyy"
         Me.D_F.Font = New System.Drawing.Font("Times New Roman", 11.25!)
         Me.D_F.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.D_F.Location = New System.Drawing.Point(802, 125)
+        Me.D_F.Location = New System.Drawing.Point(930, 105)
+        Me.D_F.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.D_F.Name = "D_F"
         Me.D_F.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.D_F.RightToLeftLayout = True
-        Me.D_F.Size = New System.Drawing.Size(106, 25)
+        Me.D_F.Size = New System.Drawing.Size(119, 25)
         Me.D_F.TabIndex = 733
         '
         'D_T
@@ -380,30 +402,33 @@ Partial Class OFFERS
         Me.D_T.CustomFormat = "dd/MM/yyyy"
         Me.D_T.Font = New System.Drawing.Font("Times New Roman", 11.25!)
         Me.D_T.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.D_T.Location = New System.Drawing.Point(583, 125)
+        Me.D_T.Location = New System.Drawing.Point(656, 105)
+        Me.D_T.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.D_T.Name = "D_T"
         Me.D_T.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.D_T.RightToLeftLayout = True
-        Me.D_T.Size = New System.Drawing.Size(106, 25)
+        Me.D_T.Size = New System.Drawing.Size(119, 25)
         Me.D_T.TabIndex = 734
         '
         'TITLE_TXT
         '
         Me.TITLE_TXT.BackColor = System.Drawing.Color.Lavender
-        Me.TITLE_TXT.Font = New System.Drawing.Font("JF Flat", 11.0!)
-        Me.TITLE_TXT.Location = New System.Drawing.Point(583, 86)
+        Me.TITLE_TXT.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!)
+        Me.TITLE_TXT.Location = New System.Drawing.Point(656, 76)
+        Me.TITLE_TXT.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TITLE_TXT.MaxLength = 50
         Me.TITLE_TXT.Name = "TITLE_TXT"
-        Me.TITLE_TXT.Size = New System.Drawing.Size(350, 33)
+        Me.TITLE_TXT.Size = New System.Drawing.Size(393, 24)
         Me.TITLE_TXT.TabIndex = 735
         '
         'Label1
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label1.Font = New System.Drawing.Font("JF Flat", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(936, 89)
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(1067, 80)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(70, 30)
+        Me.Label1.Size = New System.Drawing.Size(49, 17)
         Me.Label1.TabIndex = 736
         Me.Label1.Text = "العنوان:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -411,10 +436,11 @@ Partial Class OFFERS
         'Label3
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(910, 124)
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(1053, 107)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(91, 26)
+        Me.Label3.Size = New System.Drawing.Size(76, 17)
         Me.Label3.TabIndex = 737
         Me.Label3.Text = "بداية العرض:"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -422,10 +448,11 @@ Partial Class OFFERS
         'Label4
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label4.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(691, 124)
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(777, 108)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(106, 25)
+        Me.Label4.Size = New System.Drawing.Size(76, 17)
         Me.Label4.TabIndex = 738
         Me.Label4.Text = "نهاية العرض:"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -433,10 +460,11 @@ Partial Class OFFERS
         'Label5
         '
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(910, 156)
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(1062, 133)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(86, 26)
+        Me.Label5.Size = New System.Drawing.Size(61, 17)
         Me.Label5.TabIndex = 739
         Me.Label5.Text = "من ساعة:"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -444,10 +472,11 @@ Partial Class OFFERS
         'Label6
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label6.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(691, 153)
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(777, 138)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(87, 25)
+        Me.Label6.Size = New System.Drawing.Size(62, 17)
         Me.Label6.TabIndex = 740
         Me.Label6.Text = "إلى ساعة:"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -461,17 +490,15 @@ Partial Class OFFERS
         Me.DeleteButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.DeleteButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DeleteButton.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.DeleteButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DeleteButton.Image = Global.resturant.My.Resources.Resources.if_f_cross_256_282471
         Me.DeleteButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.DeleteButton.Location = New System.Drawing.Point(603, 523)
-        Me.DeleteButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.DeleteButton.Location = New System.Drawing.Point(678, 389)
+        Me.DeleteButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.DeleteButton.Name = "DeleteButton"
-        Me.DeleteButton.Size = New System.Drawing.Size(125, 40)
+        Me.DeleteButton.Size = New System.Drawing.Size(141, 31)
         Me.DeleteButton.TabIndex = 742
         Me.DeleteButton.Text = "حذف العرض"
-        Me.DeleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.DeleteButton.UseVisualStyleBackColor = False
         '
         'SaveButton
@@ -483,25 +510,25 @@ Partial Class OFFERS
         Me.SaveButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.SaveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SaveButton.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.SaveButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.SaveButton.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
         Me.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.SaveButton.Location = New System.Drawing.Point(736, 523)
-        Me.SaveButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SaveButton.Location = New System.Drawing.Point(822, 389)
+        Me.SaveButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(125, 40)
+        Me.SaveButton.Size = New System.Drawing.Size(163, 31)
         Me.SaveButton.TabIndex = 741
+        Me.SaveButton.Tag = "SAVE"
         Me.SaveButton.Text = "حفـظ "
-        Me.SaveButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.SaveButton.UseVisualStyleBackColor = False
         '
         'Label7
         '
-        Me.Label7.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(935, 14)
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(1067, 12)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(69, 29)
+        Me.Label7.Size = New System.Drawing.Size(47, 17)
         Me.Label7.TabIndex = 744
         Me.Label7.Text = "باركود :"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -512,18 +539,19 @@ Partial Class OFFERS
         Me.Barcode_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Barcode_SH_txt.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Barcode_SH_txt.ForeColor = System.Drawing.Color.Blue
-        Me.Barcode_SH_txt.Location = New System.Drawing.Point(581, 12)
+        Me.Barcode_SH_txt.Location = New System.Drawing.Point(654, 5)
+        Me.Barcode_SH_txt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Barcode_SH_txt.Name = "Barcode_SH_txt"
         Me.Barcode_SH_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Barcode_SH_txt.Size = New System.Drawing.Size(352, 32)
+        Me.Barcode_SH_txt.Size = New System.Drawing.Size(396, 32)
         Me.Barcode_SH_txt.TabIndex = 743
         Me.Barcode_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'OFFERS
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 26.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1004, 563)
+        Me.ClientSize = New System.Drawing.Size(1130, 422)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Barcode_SH_txt)
         Me.Controls.Add(Me.DeleteButton)
@@ -543,6 +571,7 @@ Partial Class OFFERS
         Me.Controls.Add(Me.Unit_DataGridView)
         Me.Controls.Add(Me.AGMetroGrid)
         Me.Controls.Add(Me.IM_MENU_FS)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "OFFERS"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Text = "عروض"

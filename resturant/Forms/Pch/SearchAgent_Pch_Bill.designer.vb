@@ -23,8 +23,8 @@ Partial Class SearchAgent_Pch_Bill
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SearchAgent_Pch_Bill))
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.isDeletedCheckBox = New System.Windows.Forms.CheckBox()
@@ -68,11 +68,11 @@ Partial Class SearchAgent_Pch_Bill
         '
         Me.isDeletedCheckBox.AutoSize = True
         Me.isDeletedCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.isDeletedCheckBox.Font = New System.Drawing.Font("Arial", 14.25!)
+        Me.isDeletedCheckBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.isDeletedCheckBox.Location = New System.Drawing.Point(360, 5)
         Me.isDeletedCheckBox.Name = "isDeletedCheckBox"
         Me.isDeletedCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.isDeletedCheckBox.Size = New System.Drawing.Size(85, 26)
+        Me.isDeletedCheckBox.Size = New System.Drawing.Size(98, 25)
         Me.isDeletedCheckBox.TabIndex = 666
         Me.isDeletedCheckBox.Text = "ملغية فقط"
         Me.isDeletedCheckBox.UseVisualStyleBackColor = True
@@ -80,12 +80,12 @@ Partial Class SearchAgent_Pch_Bill
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Arial", 14.25!)
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(940, 8)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label4.Size = New System.Drawing.Size(58, 22)
+        Me.Label4.Size = New System.Drawing.Size(57, 21)
         Me.Label4.TabIndex = 667
         Me.Label4.Text = "المورد :"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -93,11 +93,11 @@ Partial Class SearchAgent_Pch_Bill
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Font = New System.Drawing.Font("Arial", 14.25!)
+        Me.Label32.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label32.Location = New System.Drawing.Point(550, 6)
         Me.Label32.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(51, 22)
+        Me.Label32.Size = New System.Drawing.Size(48, 21)
         Me.Label32.TabIndex = 703
         Me.Label32.Text = "النوع :"
         Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -123,11 +123,11 @@ Partial Class SearchAgent_Pch_Bill
         '
         Me.Marketer_Lb.AutoSize = True
         Me.Marketer_Lb.BackColor = System.Drawing.Color.Transparent
-        Me.Marketer_Lb.Font = New System.Drawing.Font("Arial", 14.25!)
+        Me.Marketer_Lb.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Marketer_Lb.Location = New System.Drawing.Point(938, 41)
         Me.Marketer_Lb.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Marketer_Lb.Name = "Marketer_Lb"
-        Me.Marketer_Lb.Size = New System.Drawing.Size(64, 22)
+        Me.Marketer_Lb.Size = New System.Drawing.Size(68, 21)
         Me.Marketer_Lb.TabIndex = 705
         Me.Marketer_Lb.Text = "المسوق :"
         Me.Marketer_Lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -138,14 +138,14 @@ Partial Class SearchAgent_Pch_Bill
         Me.advancedDataGridView_main.AllowUserToDeleteRows = False
         Me.advancedDataGridView_main.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.advancedDataGridView_main.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 10.25!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.advancedDataGridView_main.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial", 10.25!)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.advancedDataGridView_main.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.advancedDataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.advancedDataGridView_main.FilterAndSortEnabled = True
         Me.advancedDataGridView_main.FilterStringChangedInvokeBeforeDatasourceUpdate = True
@@ -155,13 +155,13 @@ Partial Class SearchAgent_Pch_Bill
         Me.advancedDataGridView_main.Name = "advancedDataGridView_main"
         Me.advancedDataGridView_main.ReadOnly = True
         Me.advancedDataGridView_main.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 10.25!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        Me.advancedDataGridView_main.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Arial", 10.25!)
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        Me.advancedDataGridView_main.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.advancedDataGridView_main.RowTemplate.Height = 30
         Me.advancedDataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.advancedDataGridView_main.Size = New System.Drawing.Size(1002, 460)
@@ -183,10 +183,11 @@ Partial Class SearchAgent_Pch_Bill
         '
         'TITLE_TXT
         '
+        Me.TITLE_TXT.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TITLE_TXT.Location = New System.Drawing.Point(207, 3)
         Me.TITLE_TXT.Margin = New System.Windows.Forms.Padding(2)
         Me.TITLE_TXT.Name = "TITLE_TXT"
-        Me.TITLE_TXT.Size = New System.Drawing.Size(459, 23)
+        Me.TITLE_TXT.Size = New System.Drawing.Size(459, 25)
         Me.TITLE_TXT.TabIndex = 905
         Me.TITLE_TXT.Text = "تقرير فواتير الموردون"
         '
@@ -195,11 +196,11 @@ Partial Class SearchAgent_Pch_Bill
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Arial", 14.25!)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(670, 5)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(93, 22)
+        Me.Label2.Size = New System.Drawing.Size(93, 21)
         Me.Label2.TabIndex = 906
         Me.Label2.Text = "عنوان التقرير"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -265,11 +266,11 @@ Partial Class SearchAgent_Pch_Bill
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Arial", 11.25!)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(78, 6)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(109, 17)
+        Me.Label3.Size = New System.Drawing.Size(121, 17)
         Me.Label3.TabIndex = 908
         Me.Label3.Text = "الصفوف المستعرضة"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -288,16 +289,15 @@ Partial Class SearchAgent_Pch_Bill
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("Arial", 14.25!)
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(906, 61)
+        Me.ExitFormButton.Location = New System.Drawing.Point(840, 59)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(93, 35)
+        Me.ExitFormButton.Size = New System.Drawing.Size(157, 35)
         Me.ExitFormButton.TabIndex = 665
+        Me.ExitFormButton.Tag = "DELETE"
         Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'Print_btn
@@ -308,9 +308,8 @@ Partial Class SearchAgent_Pch_Bill
         Me.Print_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Print_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Print_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Print_btn.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Print_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Print_btn.Image = Global.resturant.My.Resources.Resources.output_onlinepngtools__2_
         Me.Print_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Print_btn.Location = New System.Drawing.Point(7, 52)
         Me.Print_btn.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
@@ -319,8 +318,8 @@ Partial Class SearchAgent_Pch_Bill
         Me.Print_btn.Size = New System.Drawing.Size(161, 41)
         Me.Print_btn.TabIndex = 704
         Me.Print_btn.TabStop = False
+        Me.Print_btn.Tag = "PRINT"
         Me.Print_btn.Text = "طباعة"
-        Me.Print_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Print_btn.UseVisualStyleBackColor = False
         '
         'Panel3
@@ -338,9 +337,8 @@ Partial Class SearchAgent_Pch_Bill
         Me.IM_Serach_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.IM_Serach_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Serach_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Serach_btn.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Serach_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Serach_btn.ForeColor = System.Drawing.Color.Black
-        Me.IM_Serach_btn.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.IM_Serach_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.IM_Serach_btn.Location = New System.Drawing.Point(4, 2)
         Me.IM_Serach_btn.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
@@ -348,7 +346,6 @@ Partial Class SearchAgent_Pch_Bill
         Me.IM_Serach_btn.Size = New System.Drawing.Size(179, 33)
         Me.IM_Serach_btn.TabIndex = 707
         Me.IM_Serach_btn.Text = "بحث"
-        Me.IM_Serach_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.IM_Serach_btn.UseVisualStyleBackColor = False
         '
         'bindingSource_main
@@ -362,14 +359,14 @@ Partial Class SearchAgent_Pch_Bill
         Me.RPT_CM.Cursor = System.Windows.Forms.Cursors.Hand
         Me.RPT_CM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.RPT_CM.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RPT_CM.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RPT_CM.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RPT_CM.FormattingEnabled = True
         Me.RPT_CM.IntegralHeight = False
         Me.RPT_CM.Items.AddRange(New Object() {"عرض تفصيل الفواتير", "عرض إحصائيـــات"})
-        Me.RPT_CM.Location = New System.Drawing.Point(681, 101)
+        Me.RPT_CM.Location = New System.Drawing.Point(686, 95)
         Me.RPT_CM.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.RPT_CM.Name = "RPT_CM"
-        Me.RPT_CM.Size = New System.Drawing.Size(323, 30)
+        Me.RPT_CM.Size = New System.Drawing.Size(309, 29)
         Me.RPT_CM.TabIndex = 914
         '
         'DateRange_Flate
@@ -390,7 +387,7 @@ Partial Class SearchAgent_Pch_Bill
         Me.AG_Cm.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(331, 34)
+        Me.AG_Cm.Size = New System.Drawing.Size(331, 35)
         Me.AG_Cm.SQL_Column = "Ag_name"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False
@@ -398,6 +395,7 @@ Partial Class SearchAgent_Pch_Bill
         Me.AG_Cm.SQL_NumberOfRows = 200
         Me.AG_Cm.SQL_OrderByField = "AG_NAME"
         Me.AG_Cm.SQL_SearchField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField_WHERE = ""
         Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
         Me.AG_Cm.TabIndex = 708
         Me.AG_Cm.TextMaxLength = 250
@@ -418,6 +416,7 @@ Partial Class SearchAgent_Pch_Bill
         Me.Markter_Cm.SQL_NumberOfRows = 200
         Me.Markter_Cm.SQL_OrderByField = "ST_name"
         Me.Markter_Cm.SQL_SearchField = "ST_name"
+        Me.Markter_Cm.SQL_SearchField_WHERE = ""
         Me.Markter_Cm.SQL_Table = "Marketers"
         Me.Markter_Cm.TabIndex = 706
         Me.Markter_Cm.TextMaxLength = 250

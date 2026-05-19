@@ -103,6 +103,7 @@
     End Sub
 
     Private Sub OFFERS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         OFFERS_MASTER_V_Select()
     End Sub
 

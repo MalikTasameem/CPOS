@@ -60,7 +60,7 @@ Public Class printbarcode
 
             LoadPrinters(Barcode_DefPrinter_Cm)
             If Not String.IsNullOrWhiteSpace(Default_Barcode_Printer) Then Barcode_DefPrinter_Cm.Text = Default_Barcode_Printer
-
+            ThemeManager.ApplyThemeToForm(Me)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

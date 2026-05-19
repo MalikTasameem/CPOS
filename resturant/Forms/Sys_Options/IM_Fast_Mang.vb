@@ -9,6 +9,7 @@
 
     Private Sub Add_Unit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         rs.FindAllControls(Me)
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         Load_GM()
         Fill_All_IM()

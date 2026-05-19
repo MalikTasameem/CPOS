@@ -40,10 +40,11 @@ Partial Class Receipt
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
         Me.DeleteButton = New System.Windows.Forms.Button()
         Me.Fields_Panel = New System.Windows.Forms.Panel()
+        Me.Discount_txt = New resturant.F2FloatField()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.CR_Phone_Txt = New System.Windows.Forms.TextBox()
         Me.Treasury_Balance = New System.Windows.Forms.TextBox()
+        Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AG_Cm = New resturant.FSearch_Filter()
         Me.Receipt_Title_combobox = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -77,7 +78,6 @@ Partial Class Receipt
         Me.print_butt = New System.Windows.Forms.Button()
         Me.save_butt = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Discount_txt = New resturant.F2FloatField()
         Me.TitleBar_Panel.SuspendLayout()
         Me.Rct_Move_Panel.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -250,7 +250,7 @@ Partial Class Receipt
         Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Up_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Up_Bill_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Up_Bill_btn.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Up_Bill_btn.Location = New System.Drawing.Point(221, 3)
@@ -260,7 +260,6 @@ Partial Class Receipt
         Me.Up_Bill_btn.TabIndex = 625
         Me.Up_Bill_btn.TabStop = False
         Me.Up_Bill_btn.Text = "▲"
-        Me.Up_Bill_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Up_Bill_btn.UseVisualStyleBackColor = False
         '
         'Down_Bill_btn
@@ -271,7 +270,7 @@ Partial Class Receipt
         Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Down_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Down_Bill_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Down_Bill_btn.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 3)
@@ -281,7 +280,6 @@ Partial Class Receipt
         Me.Down_Bill_btn.TabIndex = 626
         Me.Down_Bill_btn.TabStop = False
         Me.Down_Bill_btn.Text = "▼"
-        Me.Down_Bill_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Down_Bill_btn.UseVisualStyleBackColor = False
         '
         'DeleteButton
@@ -344,6 +342,17 @@ Partial Class Receipt
         Me.Fields_Panel.Size = New System.Drawing.Size(697, 367)
         Me.Fields_Panel.TabIndex = 282
         '
+        'Discount_txt
+        '
+        Me.Discount_txt.BackColor = System.Drawing.Color.Lavender
+        Me.Discount_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Discount_txt.Font = New System.Drawing.Font("Stencil", 14.75!)
+        Me.Discount_txt.Location = New System.Drawing.Point(3, 191)
+        Me.Discount_txt.MaxLength = 0
+        Me.Discount_txt.Name = "Discount_txt"
+        Me.Discount_txt.Size = New System.Drawing.Size(166, 31)
+        Me.Discount_txt.TabIndex = 664
+        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -354,12 +363,6 @@ Partial Class Receipt
         Me.Label10.TabIndex = 663
         Me.Label10.Text = "خصم"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'NULLContextMenuStrip
-        '
-        Me.NULLContextMenuStrip.Name = "NULLContextMenuStrip"
-        Me.NULLContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.NULLContextMenuStrip.Size = New System.Drawing.Size(61, 4)
         '
         'CR_Phone_Txt
         '
@@ -389,6 +392,12 @@ Partial Class Receipt
         Me.Treasury_Balance.Size = New System.Drawing.Size(166, 24)
         Me.Treasury_Balance.TabIndex = 660
         Me.Treasury_Balance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'NULLContextMenuStrip
+        '
+        Me.NULLContextMenuStrip.Name = "NULLContextMenuStrip"
+        Me.NULLContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.NULLContextMenuStrip.Size = New System.Drawing.Size(61, 4)
         '
         'AG_Cm
         '
@@ -604,7 +613,7 @@ Partial Class Receipt
         Me.Treasury_ComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Treasury_ComboBox.DropDownHeight = 200
         Me.Treasury_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Treasury_ComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Treasury_ComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Treasury_ComboBox.ForeColor = System.Drawing.Color.Black
         Me.Treasury_ComboBox.FormattingEnabled = True
@@ -842,17 +851,6 @@ Partial Class Receipt
         Me.save_butt.Tag = "SAVE"
         Me.save_butt.Text = "حفظ F12"
         Me.save_butt.UseVisualStyleBackColor = False
-        '
-        'Discount_txt
-        '
-        Me.Discount_txt.BackColor = System.Drawing.Color.Lavender
-        Me.Discount_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Discount_txt.Font = New System.Drawing.Font("Stencil", 14.75!)
-        Me.Discount_txt.Location = New System.Drawing.Point(3, 191)
-        Me.Discount_txt.MaxLength = 0
-        Me.Discount_txt.Name = "Discount_txt"
-        Me.Discount_txt.Size = New System.Drawing.Size(166, 31)
-        Me.Discount_txt.TabIndex = 664
         '
         'Receipt
         '
