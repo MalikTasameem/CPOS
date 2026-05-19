@@ -17,8 +17,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Public isCashReceipt_Success As Boolean = False
     Public isShowingDetails As Boolean = False
 
-
-    Public IM_ID As Integer = 0
+    ' Public IM_ID As Integer = 0
     Public Barcode As String = ""
     ' Public Barcode_IM As String = ""
     ' Dim IM_Dt As New DataTable
@@ -28,18 +27,18 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Public Disc As Double = 0
     Public Pure As Decimal = 0
     Public AG_ID As Integer = 0
-    Dim AG_Dt As New DataTable
+    ' Dim AG_Dt As New DataTable
     ' Dim U_Dt As New DataTable
     ' Public Get_Unit As Boolean = False
     ' Dim U_Cargo As Double = 0
     ' Dim ALL_QTY As Double = 0
     ' Dim Valid_Dt As New DataTable
-    Public isNewBill As Integer
+    ' Public isNewBill As Integer
     Dim isPied As Integer = 0
     Dim BillUser_ID As Integer
 
     Public On_Update As Boolean
-    Dim U_ID As Integer
+    '  Dim U_ID As Integer
     '  Dim Min_SP As Double
     '  Dim Min_SP_2 As Double
     Public IS_Show_Rctp As Boolean = False
@@ -81,8 +80,6 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         drag = False
     End Sub
 
-
-
     Private Sub MaxFormButton_Click(sender As Object, e As EventArgs) Handles MaxFormButton.Click
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
@@ -107,7 +104,6 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         FormType = 0
         Me.Dispose()
     End Sub
-
 
     Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
 
@@ -151,7 +147,6 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                             Else
                                 Change_IM_Qty(Def)
                             End If
-
 
                         End If
                     End If
@@ -230,6 +225,9 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' If St_Count() = 1 Then All_St_Panel.Visible = False
+
+        is_Select_Mode = True
+
         SetupAnchors()
         Try
             If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.Tag = "HEADER"
@@ -316,6 +314,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             ModernLoader.CloseLoader()
         End Try
 
+        is_Select_Mode = False
 
     End Sub
 
@@ -718,7 +717,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             Me.T_ID = C.Com.Parameters("@T_ID").Value
             Bill_ID_Txt.Text = C.Com.Parameters("@SB_ID").Value.ToString()
             BillNumTxt.Text = C.Com.Parameters("@Bill_Num").Value.ToString()
-            isNewBill = C.Com.Parameters("@isNew").Value
+            'isNewBill = C.Com.Parameters("@isNew").Value
             SB_Contents_SELECT_Bill()
             Fill_Bill_Info()
             SelectStateBt()
@@ -739,11 +738,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                     AG_Cm.Set_IM_By_ID(AG_ID)
                 End If
                 Beep()
-                Save_AG_Name(T_ID, AG_ID, On_Update)
-                Save_About(T_ID, Notes_txt.Text)
-                Save_Date(T_ID, DateTimeEx)
-                Save_Pro()
-                ConfermBill()
+                'Save_AG_Name(T_ID, AG_ID, On_Update)
+                SaveAndConfirmBill_WithSingleConnection()
                 AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
             End If
             isCashReceipt_Success = False
@@ -751,7 +747,71 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     End Sub
 
+    Private Sub SaveAndConfirmBill_WithSingleConnection()
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
+
+                    Try
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                If String.IsNullOrWhiteSpace(Notes_txt.Text) = False Then cmd.Parameters.AddWithValue("@About", Notes_txt.Text)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Date",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Date", DateTimeEx.Value)
+                                cmd.Parameters.AddWithValue("@Month", DateTimeEx.Value.Month)
+                                cmd.Parameters.AddWithValue("@YEAR", DateTimeEx.Value.Year)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_AG_Project",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Proj_ID", Project_cm.SelectedValue)
+                            End Sub)
+
+                        tr.Commit()
+
+                    Catch
+
+                        tr.Rollback()
+                        Throw
+
+                    End Try
+
+                End Using
+
+                ConfermBill(cn)
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
     Public Sub ConfermBill()
+
+        Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+            cn.Open()
+            ConfermBill(cn)
+        End Using
+
+    End Sub
+
+    Private Sub ConfermBill(ByVal sqlCon As SqlClient.SqlConnection)
 
         Dim F As New Pay_Main_Form
         F.Temp_Tr_ID = SB_TR_ID
@@ -764,40 +824,54 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             Tr_ID = F.Tr_ID
             Pay_ID = F.Pay_ID
 
-            Dim c As New C
-            With c.Com
-                .Connection = c.Con
-                .CommandText = "SB_ConfermBill"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@T_ID", Me.T_ID)
-                .Parameters.AddWithValue("@TOTAL", TOTAL)
-                .Parameters.AddWithValue("@Discount", Disc)
-                .Parameters.AddWithValue("@Pure", Pure)
-                If AG_ID <> Default_AG_ID Then .Parameters.AddWithValue("@Pied", Piedmoney_txt.Text)
-                .Parameters.AddWithValue("@AGType_ID", 1)
-                .Parameters.AddWithValue("@Tr_ID", Tr_ID) 'SB_TR_ID
-                .Parameters.AddWithValue("@Pr_ID", Pr_ID)
-                .Parameters.AddWithValue("@User_ID", USER_ID)
-                .Parameters.AddWithValue("@Pay_ID", Pay_ID)
-            End With
-            If SQL_SP_EXEC(c.Com) = True Then
-                Switch_Dependcy(1)
-                If SB_AutoOpenDrawer = True Then Open_Cash_Drawer()
-                If SB_AutoPrint = True Then
-                    Me.Cursor = Cursors.AppStarting
-                    CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
-                    Me.Cursor = Cursors.Default
+            Using sqlComm As New SqlClient.SqlCommand()
+
+                sqlComm.Connection = sqlCon
+                With sqlComm
+                    .CommandText = "SB_ConfermBill"
+                    .CommandType = CommandType.StoredProcedure
+                    .Parameters.AddWithValue("@T_ID", Me.T_ID)
+                    .Parameters.AddWithValue("@TOTAL", TOTAL)
+                    .Parameters.AddWithValue("@Discount", Disc)
+                    .Parameters.AddWithValue("@Pure", Pure)
+                    If AG_ID <> Default_AG_ID Then .Parameters.AddWithValue("@Pied", Piedmoney_txt.Text)
+                    .Parameters.AddWithValue("@AGType_ID", 1)
+                    .Parameters.AddWithValue("@Tr_ID", Tr_ID) 'SB_TR_ID
+                    .Parameters.AddWithValue("@Pr_ID", Pr_ID)
+                    .Parameters.AddWithValue("@User_ID", USER_ID)
+                    .Parameters.AddWithValue("@Pay_ID", Pay_ID)
+                End With
+
+                If ExecuteSalesConfirmBill(sqlComm) = True Then
+                    Switch_Dependcy(1)
+                    If SB_AutoOpenDrawer = True Then Open_Cash_Drawer()
+                    If SB_AutoPrint = True Then
+                        Me.Cursor = Cursors.AppStarting
+                        CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
+                        Me.Cursor = Cursors.Default
+                    End If
+                    SelectStateBt()
+                    Select_Sales_Receipt_ByConnection(sqlCon, T_ID)
+                    If MY_Settings.S_OpenNextBill = True Then Call_New_Bill()
+                    ' SELECT_IM()
                 End If
-                SelectStateBt()
-                Select_Sales_Receipt(T_ID)
-                If MY_Settings.S_OpenNextBill = True Then Call_New_Bill()
-                ' SELECT_IM()
-            End If
+
+            End Using
 
 
         End If
 
     End Sub
+
+    Private Function ExecuteSalesConfirmBill(sqlComm As SqlClient.SqlCommand) As Boolean
+
+        Dim isDone As Boolean = True
+        Dim result As Integer = sqlComm.ExecuteNonQuery()
+        If result = 0 Then isDone = False
+
+        Return isDone
+
+    End Function
 
 
     Private Sub Delete_butt_Click(sender As Object, e As EventArgs) Handles Delete_butt.Click
@@ -1645,12 +1719,12 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Save_AppSetting()
     End Sub
 
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
-        If IM_ID > 0 Then
-            Show_IM_Details.IM_ID = IM_ID
-            Show_IM_Details.ShowDialog()
-        End If
-    End Sub
+    'Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs)
+    '    If IM_ID > 0 Then
+    '        Show_IM_Details.IM_ID = IM_ID
+    '        Show_IM_Details.ShowDialog()
+    '    End If
+    'End Sub
 
     Private Sub طباعةورقةA4تصميمجاهز2ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles طباعةورقةA4تصميمجاهز2ToolStripMenuItem.Click
         CashPrint("\reports\Costmer_SB_A4_4.rpt", 5)

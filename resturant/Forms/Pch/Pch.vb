@@ -11,56 +11,17 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Public isVoid As Boolean
     Public Receipts_DT As New DataTable
     Dim Indx_ID As Integer
-
     Public isShowingDetails As Boolean = False
-    Public IM_ID As Integer = 0
-    Dim IM_Dt As New DataTable
-    Dim IM_QTY As Double = 0
     Public TOTAL As Double = 0
     Public AG_ID As Integer = 0
-    Dim AG_Dt As New DataTable
-    Dim U_Dt As New DataTable
-    Dim Get_Unit As Boolean = False
     Public Bill_DT As New DataTable
     Public Exp_DT As New DataTable
-    Dim U_Cargo As Double = 1
-    Dim ALL_QTY As Double = 0
     Public On_Update As Boolean
-    Dim U_ID As Integer
     Public Pch_ID As Integer
-    Dim AG_Balance As Double = 0
     Public Disc As Double = 0
     Public Pure As Double = 0
-    Public Barcode_IM As String = ""
-    'Private WithEvents PulseTimer As New System.Windows.Forms.Timer() With {.Interval = 30}
-    'Private PulseFactor As Double = 0.0
-    'Private PulseStep As Double = 0.05
-    'Private BaseStateColor As System.Drawing.Color = System.Drawing.Color.Black
-    'Private FadedColor As System.Drawing.Color = System.Drawing.Color.LightGray
-    'Private Sub PulseTimer_Tick(sender As Object, e As EventArgs) Handles PulseTimer.Tick
-    '    If lblFormState Is Nothing Then Return
 
-    '    ' حساب معامل التوهج والخفوت بنعومة
-    '    PulseFactor += PulseStep
-
-    '    If PulseFactor >= 1.0 Then
-    '        PulseFactor = 1.0
-    '        PulseStep = -0.05 ' عكس الاتجاه للخفوت
-    '    ElseIf PulseFactor <= 0.0 Then
-    '        PulseFactor = 0.0
-    '        PulseStep = 0.05 ' عكس الاتجاه للتوهج
-    '    End If
-
-    '    ' دمج الألوان (Color Interpolation)
-    '    Dim r As Integer = CInt(BaseStateColor.R + (FadedColor.R - BaseStateColor.R) * PulseFactor)
-    '    Dim g As Integer = CInt(BaseStateColor.G + (FadedColor.G - BaseStateColor.G) * PulseFactor)
-    '    Dim b As Integer = CInt(BaseStateColor.B + (FadedColor.B - BaseStateColor.B) * PulseFactor)
-
-    '    ' تطبيق اللون وإجبار الواجهة على التحديث الفوري (هنا السر في ظهور الوميض!)
-    '    lblFormState.ForeColor = System.Drawing.Color.FromArgb(r, g, b)
-    '    lblFormState.Refresh()
-    'End Sub
-
+    Dim is_Select_Mode = False
 
     ' =========================================================
     ' 🌟 دالة التحكم في مؤشر حالة الفاتورة البصري (ثابت بدون وميض)
@@ -92,25 +53,6 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         FormType = 0
     End Sub
 
-    ' =========================================================
-    ' 🌟 دالة التحكم في مؤشر حالة الفاتورة البصري (مع الوميض)
-    ' =========================================================
-    'Private Sub UpdateFormStateIndicator(ByVal StateText As String, ByVal StateColor As Color, Optional ByVal ShouldPulse As Boolean = False)
-    '    If lblFormState IsNot Nothing Then
-    '        lblFormState.Text = "⬤  " & StateText
-    '        BaseStateColor = StateColor ' حفظ اللون الأصلي
-    '        lblFormState.Visible = True
-
-    '        If ShouldPulse Then
-    '            PulseFactor = 0.0 ' تصفير العداد
-    '            PulseStep = 0.05
-    '            PulseTimer.Start() ' تشغيل تأثير التنفس
-    '        Else
-    '            PulseTimer.Stop() ' إيقاف التأثير
-    '            lblFormState.ForeColor = BaseStateColor ' إرجاع اللون للسطوع الكامل
-    '        End If
-    '    End If
-    'End Sub
     Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.F1 Then If New_butt.Enabled = True Then New_butt_Click(sender, e)
         If e.KeyCode = Keys.F2 Then If Print_btn.Enabled = True Then Print_btn_Click(sender, e)
@@ -359,6 +301,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Public Sub Get_Last_T_ID()
+        is_Select_Mode = True
         Dim C As New C
         Dim S As String = "Select Top 1 T_ID From Agents_Balance_MV Where User_ID = '" & USER_ID & "' AND BsType_ID = 7 AND isDepended = 0 AND isVoid = 0  AND T_ID BETWEEN " & START_ID & " AND " & END_ID & " ORDER BY T_ID DESC"
         C.Com = New SqlClient.SqlCommand(S, C.Con)
@@ -377,6 +320,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             MsgBox(ex.Message)
         End Try
         C.Con.Close()
+        is_Select_Mode = False
     End Sub
 
     Public Sub Check_View_Control()
@@ -559,7 +503,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         '  Edit_butt.BackColor = Color.WhiteSmoke
         'AG_SH_txt.Clear()
         AG_Cm.Textt = ""
-        AG_Balance = 0
+        '  AG_Balance = 0
         Discount_txt.Clear()
         Total_txt.Clear()
         Pure_txt.Text = "0"
@@ -598,16 +542,186 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 'End If
                 Beep()
                 If MessageBox.Show(" حفظ الفاتــورة ؟", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign) = Windows.Forms.DialogResult.OK Then
-                    Save_AG_Name(T_ID, AG_ID, On_Update)
-                    Save_About(T_ID, Notes_txt.Text)
-                    Save_ReferNum(T_ID, EX_ReferNumTextBox.Text)
-                    Save_Date(T_ID, DateTimeEx)
-                    AG_Balance_Update_Equal_Value()
-                    Prepare_Discount()
-                    If DependingBill(T_ID) = True Then Select_ExpBill(T_ID)
+                    Save_PchBill_WithSingleConnection()
                 End If
             End If
         End If
+    End Sub
+
+    Private Sub Save_PchBill_WithSingleConnection()
+
+        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+
+                cn.Open()
+
+                Dim isDependedSaved As Boolean = False
+                Dim calculatedDisc As Double = Convert.ToDouble(Discount_txt.Text) * Convert.ToDouble(Cr_Equal_TXT.Text)
+
+                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
+
+                    Try
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_AG",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@AG_ID", AG_ID)
+                                cmd.Parameters.AddWithValue("@ON_UPDATE", On_Update)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                If String.IsNullOrWhiteSpace(Notes_txt.Text) = False Then cmd.Parameters.AddWithValue("@About", Notes_txt.Text)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_ReferNum",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@ReferNum", EX_ReferNumTextBox.Text)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Date",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Date", DateTimeEx.Value)
+                                cmd.Parameters.AddWithValue("@Month", DateTimeEx.Value.Month)
+                                cmd.Parameters.AddWithValue("@YEAR", DateTimeEx.Value.Year)
+                            End Sub)
+
+                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Equal_Value",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                                cmd.Parameters.AddWithValue("@Cr_ID", Cr_CM.SelectedValue)
+                                If String.IsNullOrWhiteSpace(Cr_Equal_TXT.Text) = False Then cmd.Parameters.AddWithValue("@Cr_Equal_Value", Cr_Equal_TXT.Text)
+                            End Sub)
+
+                        ExecutePchDiscountUpdate(cn, tr, calculatedDisc)
+                        isDependedSaved = ExecutePchDependingBill(cn, tr)
+
+                        tr.Commit()
+
+                    Catch
+
+                        tr.Rollback()
+                        Throw
+
+                    End Try
+
+                End Using
+
+                ApplyPchDiscountValues(calculatedDisc)
+
+                If isDependedSaved = True Then
+                    SelectCurrentPchBill(cn)
+                End If
+
+            End Using
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ExecutePchDiscountUpdate(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, calculatedDisc As Double)
+
+        Using discountCmd As New SqlClient.SqlCommand(
+            "Update Agents_Balance_MV SET Discount = @Discount WHERE T_ID = @T_ID",
+            cn,
+            tr
+        )
+
+            discountCmd.Parameters.AddWithValue("@Discount", calculatedDisc)
+            discountCmd.Parameters.AddWithValue("@T_ID", T_ID)
+            discountCmd.ExecuteNonQuery()
+
+        End Using
+
+        ExecuteEditStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
+            Sub(cmd)
+                cmd.Parameters.AddWithValue("@User_ID", USER_ID)
+                cmd.Parameters.AddWithValue("@Notes", " تخفيض للفاتورة بقيمة:" & calculatedDisc.ToString)
+                cmd.Parameters.AddWithValue("@Bill_ID", Bill_ID_Txt.Text)
+                cmd.Parameters.AddWithValue("@Screen_Type", 7)
+                cmd.Parameters.AddWithValue("@Operation_ID", 3)
+                cmd.Parameters.AddWithValue("@CP_Name", My.Computer.Name)
+            End Sub)
+
+    End Sub
+
+    Private Function ExecutePchDependingBill(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction) As Boolean
+
+        Using cmd As New SqlClient.SqlCommand("AG_Balance_Update_isDepended", cn, tr)
+
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@T_ID", T_ID)
+            If isPr_Open Then cmd.Parameters.AddWithValue("@Pr_ID", Pr_ID)
+            cmd.Parameters.AddWithValue("@Tr_ID", PCH_TR_ID)
+            cmd.Parameters.AddWithValue("@Pay_ID", 1)
+
+            Return cmd.ExecuteNonQuery() <> 0
+
+        End Using
+
+    End Function
+
+    Private Sub ApplyPchDiscountValues(calculatedDisc As Double)
+
+        Disc = calculatedDisc
+        Discount_txt.Text = Disc
+        If Cr_CM.SelectedValue > 1 Then T_Other_Cr_TXT.Text = (Pure / Convert.ToDouble(Cr_Equal_TXT.Text)).ToString("n")
+        Pure_txt.Text = (TOTAL - Disc).ToString("n")
+        Pure = TOTAL - Disc
+
+    End Sub
+
+    Private Sub SelectCurrentPchBill(cn As SqlClient.SqlConnection)
+
+        Using cmd As New SqlClient.SqlCommand("Select * From Pch_Balance_MV_V Where T_ID = @T_ID", cn)
+
+            cmd.Parameters.AddWithValue("@T_ID", T_ID)
+
+            Using dr As SqlClient.SqlDataReader = cmd.ExecuteReader()
+
+                If dr.HasRows Then
+                    dr.Read()
+
+                    T_ID = dr("T_ID")
+                    Pch_ID = dr("Bill_ID")
+                    Bill_ID_Txt.Text = S_Sub_Code & dr("Bill_ID")
+                    AG_ID = dr("AG_ID")
+                    AG_Cm.Set_IM_By_ID(AG_ID)
+                    DateTimeEx.Text = dr("Date")
+                    Notes_txt.Text = dr("About")
+                    EX_ReferNumTextBox.Text = dr("ReferNum")
+                    TOTAL = dr("Cost")
+                    Disc = dr("Discount")
+                    Total_txt.Text = TOTAL.ToString("N")
+                    Pure_txt.Text = (TOTAL - Disc).ToString("N")
+                    Discount_txt.Text = Disc
+                    Switch_Dependcy(dr("isDepended"))
+                    isVoid = dr("isVoid")
+                    User_Name_lb.Text = dr("UserName") + " - " + dr("Date").ToString
+                    Cr_Equal_TXT.Text = dr("Cr_Equal_Value")
+                    SelectStateBt()
+
+                End If
+
+            End Using
+
+        End Using
+
+        Pch_Contents_SELECT_Bill(cn)
+        SelectPchReceiptWithConnection(cn)
+        Pch_Contents_SELECT_EXP(cn)
+        If AGMetroGrid.Rows.Count = 0 Then DateTimeEx.Value = Date.Now
+
     End Sub
 
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
@@ -890,34 +1004,79 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-    Public Sub Pch_Contents_SELECT_Bill()
+    Public Sub Pch_Contents_SELECT_Bill(Optional sqlCon As SqlClient.SqlConnection = Nothing)
+
+        If sqlCon Is Nothing Then
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                cn.Open()
+                Pch_Contents_SELECT_Bill(cn)
+            End Using
+            Return
+        End If
+
         Bill_DT.Clear()
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "Pch_Details_SELECT_Bill"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@Bill_T_ID", Me.T_ID)
-        End With
-        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-        C.Da.Fill(Bill_DT)
+
+        Using cmd As New SqlClient.SqlCommand()
+            cmd.Connection = sqlCon
+            cmd.CommandText = "Pch_Details_SELECT_Bill"
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@Bill_T_ID", Me.T_ID)
+
+            Using da As New SqlClient.SqlDataAdapter(cmd)
+                da.Fill(Bill_DT)
+            End Using
+        End Using
+
         AGMetroGrid.DataSource = Bill_DT
         If AGMetroGrid.Rows.Count > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(AGMetroGrid.Rows.Count - 1).Cells("EX_Name_CL")
         Calc_Total()
+
     End Sub
 
-    Public Sub Pch_Contents_SELECT_EXP()
+    Public Sub Pch_Contents_SELECT_EXP(Optional sqlCon As SqlClient.SqlConnection = Nothing)
+
+        If sqlCon Is Nothing Then
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                cn.Open()
+                Pch_Contents_SELECT_EXP(cn)
+            End Using
+            Return
+        End If
+
         Exp_DT.Clear()
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "[Pch_Details_SELECT_EXP_Dist]"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@Bill_T_ID", Me.T_ID)
-        End With
-        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-        C.Da.Fill(Exp_DT)
+
+        Using cmd As New SqlClient.SqlCommand()
+            cmd.Connection = sqlCon
+            cmd.CommandText = "[Pch_Details_SELECT_EXP_Dist]"
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.AddWithValue("@Bill_T_ID", Me.T_ID)
+
+            Using da As New SqlClient.SqlDataAdapter(cmd)
+                da.Fill(Exp_DT)
+            End Using
+        End Using
+
         Dist_DV.DataSource = Exp_DT
+
+    End Sub
+
+    Private Sub SelectPchReceiptWithConnection(sqlCon As SqlClient.SqlConnection)
+
+        Receipts_DT.Clear()
+
+        Using cmd As New SqlClient.SqlCommand("select T_ID,Receipt_Num,Type_Name,Value from Pch_Receipts_V WHERE Receipt_Tran_ID = @T_ID AND isVoid = 0", sqlCon)
+
+            cmd.Parameters.AddWithValue("@T_ID", T_ID)
+
+            Using da As New SqlClient.SqlDataAdapter(cmd)
+                da.Fill(Receipts_DT)
+            End Using
+
+        End Using
+
+        ReceiptsMetroGrid.DataSource = Receipts_DT
+        If String.IsNullOrWhiteSpace(CreditTextBox.Text) Then CreditTextBox.Text = "0.000"
+
     End Sub
 
     Private Sub Delete_Cat()
@@ -1054,98 +1213,6 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Return New_AG_ID
     End Function
 
-    'Public Sub Load_AG()
-    '    Dim c As New C
-    '    Try
-    '        AG_Dt.Clear()
-    '        Dim s As String
-    '        s = "select AG_ID,Ag_name,isnull(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Ag_name Like '%" & AG_SH_txt.Text & "%' AND Type_ID IN ('" & Suply_Type_ID & "','" & General_AG_Type_ID & "')"
-    '        c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-    '        c.Da.Fill(AG_Dt)
-    '        AG_Grid.DataSource = AG_Dt
-    '        If AG_Dt.Rows.Count > 0 Then
-    '            AG_Grid.Visible = True
-    '            AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
-    '        Else
-    '            AG_Grid.Visible = False
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
-    'Public Sub GET_AG()
-    '    Dim c As New C
-    '    Try
-    '        AG_Dt.Clear()
-    '        Dim s As String
-    '        s = "select Ag_name from Agents WHERE Ag_ID = '" & AG_ID & "'"
-    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
-    '        c.Con.Open()
-    '        c.Dr = c.Com.ExecuteReader
-    '        If c.Dr.HasRows Then
-    '            c.Dr.Read()
-    '            AG_SH_txt.Text = c.Dr("Ag_name")
-    '            AG_Grid.Visible = False
-    '            Fetch_AG_Currency()
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
-    'Private Sub AG_SH_txt_KeyDown(sender As Object, e As KeyEventArgs)
-    '    If e.KeyCode = Keys.Down Then AG_Grid.Select()
-    '    If e.KeyCode = Keys.Delete Then AG_SH_txt.Clear()
-    '    If e.KeyCode = Keys.Return Then If AG_Grid.Visible = True Then Fetch_ItemToList2()
-    'End Sub
-
-    'Private Sub AG_SH_txt_Enter(sender As Object, e As EventArgs)
-    '    Set_Ar_Language()
-    'End Sub
-
-    'Private Sub AG_SH_txt_TextChanged(sender As Object, e As EventArgs)
-    '    If AG_SH_txt.Text.Count > 0 Then
-    '        Load_AG()
-    '    Else
-    '        AG_Grid.Visible = False
-    '        AG_ID = Default_AG_ID
-    '        Save_AG_Name(T_ID, AG_ID, On_Update)
-    '        Fetch_AG_Currency()
-    '    End If
-    '    Check_AG_Pied()
-    'End Sub
-
-    'Private Sub Check_AG_Pied()
-    '    If AG_ID = Default_AG_ID Then
-    '        '  AG_SH_txt.BackColor = Color.LightGray
-    '    Else
-    '        '  AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-    '    End If
-    'End Sub
-
-    'Private Sub AG_Grid_CellClick(sender As Object, e As DataGridViewCellEventArgs)
-    '    Fetch_ItemToList2()
-    'End Sub
-
-    'Private Sub AG_Grid_KeyDown(sender As Object, e As KeyEventArgs)
-    '    If e.KeyCode = Keys.Return Then Fetch_ItemToList2()
-    '    If e.KeyCode = Keys.Up Then If AG_Grid.CurrentRow.Index = 0 Then AG_SH_txt.Select()
-    'End Sub
-
-    'Public Sub Fetch_ItemToList2()
-    '    If AG_Grid.Rows.Count > 0 Then
-    '        AG_ID = AG_Grid.CurrentRow.Cells(0).Value
-    '        AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
-    '        AG_Balance = AG_Grid.CurrentRow.Cells(2).Value
-    '        ' AG_SH_txt.BackColor = Color.LightGoldenrodYellow
-    '        AG_Grid.Visible = False
-    '        Save_AG_Name(T_ID, AG_ID, On_Update)
-    '        Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_SH_txt.Text, Bill_ID_Txt.Text, 7, 3)
-    '        Fetch_AG_Currency()
-    '        AG_Balance_Update_Equal_Value()
-    '    End If
-    'End Sub
 
     Public Sub Fetch_AG_Currency()
         Dim C As New C
@@ -1174,45 +1241,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         C.Con.Close()
     End Sub
 
-    'Private Sub Show_IM_btn2_Click(sender As Object, e As EventArgs)
-    '    If AG_Grid.Visible = True Then
-    '        AG_Grid.Visible = False
-    '    Else
-    '        Fill_All_AG()
-    '        AG_Grid.Visible = True
-    '        AG_Grid.Size = New Point(AG_Grid.Size.Width, 530)
-    '    End If
-    'End Sub
 
-    'Private Sub Fill_All_AG()
-    '    Try
-    '        Dim C As New C
-    '        AG_Dt.Clear()
-    '        Dim s As String = "SELECT top 100 AG_ID,Ag_name,ISNULL(T_Balance,0) AS T_Balance from AGENTS_MENU_V WHERE Type_ID IN ('" & Suply_Type_ID & "','" & General_AG_Type_ID & "') Order by Ag_name ASC"
-    '        C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
-    '        C.Da.Fill(AG_Dt)
-    '        AG_Grid.DataSource = AG_Dt
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
-
-    'Private Sub MakeBarcode_btn_Click(sender As Object, e As EventArgs) Handles MakeBarcode_btn.Click
-    '    printbarcode.Auto_Print = True
-    '    printbarcode.ShowDialog()
-    '    printbarcode.Auto_Print = False
-    'End Sub
-
-    'Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
-    '    FormType = 2
-
-    '    ' بدلاً من فحص اللون، نفحص المتغير البرمجي لحالة التعديل (On_Update)
-    '    ' نستخدم AndAlso لتسريع التنفيذ وتفادي الأخطاء
-    '    If On_Update = True AndAlso AGMetroGrid.Rows.Count > 0 Then
-    '        Change_IM_Details.ShowDialog()
-    '    End If
-    'End Sub
     Private Sub AGMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AGMetroGrid.MouseDoubleClick
         FormType = 2
 
@@ -1249,65 +1278,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             End Try
         End If
     End Sub
-    'Private Sub AGMetroGrid_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles AGMetroGrid.CellMouseDoubleClick
-    '    ' التأكد من الضغط على صف حقيقي وليس الهيدر
-    '    If e.RowIndex >= 0 Then
-    '        ' إذا كانت الفاتورة معتمدة أو ملغية، نمنع التعديل المباشر
-    '        '            If isDepended Or isVoid Then
-    '        If AGMetroGrid.BackgroundColor <> Color.White AndAlso AGMetroGrid.BackgroundColor <> SystemColors.Window Then
-    '            Beep()
-    '            Exit Sub
-    '        End If
 
-    '        Try
-    '            ' جلب بيانات الصنف (تأكد أن أسماء الأعمدة مطابقة للديزاينر عندك)
-    '            If AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And AGMetroGrid.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
-
-    '        Catch ex As Exception
-    '            MsgBox("خطأ في جلب بيانات الصنف: " & ex.Message)
-    '        End Try
-    '    End If
-    'End Sub
-    ' ========================================================
-    ' 🌟 دالة فحص حالة الترحيل المحاسبي للفاتورة 🌟
-    ' ========================================================
-    'Private Sub CheckAccountingState()
-    '    ' إذا كانت الفاتورة جديدة ولم تحفظ بعد
-    '    If T_ID = 0 Then
-    '        lblFormState.Text = "فاتورة جديدة"
-    '        lblFormState.BackColor = Color.Gray
-    '        lblFormState.ForeColor = Color.White
-    '        Return
-    '    End If
-
-    '    Try
-    '        Dim db As New C()
-    '        ' الاستعلام عن رقم القيد بناءً على رقم الحركة T_ID
-    '        ' (ملاحظة: إذا كان الربط في جدولكم يتم عبر Pch_ID بدلاً من T_ID، قم بتغييرها في جملة WHERE)
-    '        db.Str = "SELECT TOP 1 JournalId FROM Agents_Balance_MV WHERE T_ID = " & T_ID
-    '        db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
-
-    '        db.Con.Open()
-    '        Dim jId As Object = db.Com.ExecuteScalar()
-    '        db.Con.Close()
-
-    '        ' التشييك: هل الحقل فارغ أو Null؟
-    '        If IsDBNull(jId) OrElse jId Is Nothing OrElse jId.ToString().Trim() = "" Then
-    '            lblFormState.Text = "غير مرحلة محاسبياً"
-    '            lblFormState.BackColor = Color.DarkOrange ' لون برتقالي لعدم الترحيل
-    '            lblFormState.ForeColor = Color.White
-    '        Else
-    '            lblFormState.Text = "مرحلة محاسبياً - قيد رقم: " & jId.ToString()
-    '            lblFormState.BackColor = Color.ForestGreen ' لون أخضر للترحيل
-    '            lblFormState.ForeColor = Color.White
-    '        End If
-
-    '    Catch ex As Exception
-
-    '    Finally
-    '        '     If db.Con.State = ConnectionState.Open Then db.Con.Close()
-    '    End Try
-    'End Sub
 
     Dim Tmp_Bill_ID As Integer
     Private Sub Down_Bill_btn_Click(sender As Object, e As EventArgs) Handles Down_Bill_btn.Click
@@ -1323,6 +1294,9 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         End If
     End Sub
     Public Sub Get_T_ID()
+
+        is_Select_Mode = True
+
         Dim C As New C
         Dim S As String = "Select T_ID From Agents_Balance_MV Where Pch_ID = '" & Convert.ToInt64(Bill_ID_Txt.Text) & "'"
         C.Com = New SqlClient.SqlCommand(S, C.Con)
@@ -1343,6 +1317,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             MsgBox(ex.Message)
         End Try
         C.Con.Close()
+
+        is_Select_Mode = False
     End Sub
 
     Private Sub Up_Bill_btn_Click(sender As Object, e As EventArgs) Handles Up_Bill_btn.Click
@@ -1512,17 +1488,6 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         If SQL_SP_EXEC(sqlComm) = True Then Pch_Contents_SELECT_Bill()
     End Sub
 
-    'Private Sub AG_Grid_VisibleChanged(sender As Object, e As EventArgs)
-    '    If AG_Grid.Visible = True Then
-    '        Me.Controls.Add(AG_Grid)
-    '        AG_Grid.BringToFront()
-    '        AG_Grid.Location = New Point(AG_Panel.Location.X, AG_Panel.Location.Y + AG_Panel.Size.Height + 1)
-    '    Else
-    '        AG_Panel.Controls.Add(AG_Grid)
-    '        AG_Grid.Location = New Point(AG_SH_txt.Location.X, AG_SH_txt.Location.Y + AG_SH_txt.Size.Height + 1)
-    '    End If
-    'End Sub
-
     Public Sub IMTranPrintData()
         Try
             Dim pp As New ReportConnection
@@ -1598,13 +1563,6 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         isShowing_Trans = False
     End Sub
 
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
-        If IM_ID > 0 Then
-            Show_IM_Details.IM_ID = IM_ID
-            Show_IM_Details.ShowDialog()
-        End If
-    End Sub
-
     Private Sub DeletedBillLabel_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles DeletedBillLabel.MouseDoubleClick
         If U_Cancel_Pch = True Then
             Beep()
@@ -1618,14 +1576,13 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
         If AG_Cm.TXT_ID.Text > 0 Then
             AG_ID = AG_Cm.TXT_ID.Text
-            'AG_SH_txt.Text = AG_Grid.CurrentRow.Cells(1).Value
-            'AG_Balance = AG_Grid.CurrentRow.Cells(2).Value
-            'AG_Grid.Visible = False
-
-            Save_AG_Name(T_ID, AG_ID, On_Update)
-            Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, Bill_ID_Txt.Text, 7, 3)
+            If is_Select_Mode = False Then
+                Save_AG_Name(T_ID, AG_ID, On_Update)
+                Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, Bill_ID_Txt.Text, 7, 3)
+                AG_Balance_Update_Equal_Value()
+            End If
             Fetch_AG_Currency()
-            AG_Balance_Update_Equal_Value()
+
         End If
     End Sub
 
@@ -1637,7 +1594,5 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Select_ExpBill(T_ID)
     End Sub
 
-    Private Sub ADD_New_IM_btn_Click(sender As Object, e As EventArgs)
-    End Sub
 
 End Class
