@@ -25,6 +25,46 @@
     ' Public Barcode_IM As String = ""
 
     Public Bill_ID As Integer = 0
+
+    ' ========================================================
+    ' 🌟 دالة فحص حالة الترحيل المحاسبي (لفاتورة التنفيذ) 🌟
+    ' ========================================================
+    Public Sub CheckAccountingState()
+        If DeletedBillLabel Is Nothing Then Return
+
+        ' إذا كانت الفاتورة جديدة ولم تحفظ بعد
+        If T_ID = 0 Then
+            DeletedBillLabel.Visible = False ' إخفاء الليبل تماماً
+            Return
+        End If
+
+        Try
+            Dim db As New C()
+            db.Str = "SELECT TOP 1 JournalId FROM Agents_Balance_MV WHERE T_ID = " & T_ID
+            db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
+
+            db.Con.Open()
+            Dim jId As Object = db.Com.ExecuteScalar()
+            db.Con.Close()
+
+            DeletedBillLabel.Visible = True ' إظهار الليبل لأن الفاتورة محفوظة ولها T_ID
+
+            ' التشييك على حقل القيد
+            If IsDBNull(jId) OrElse jId Is Nothing OrElse jId.ToString().Trim() = "" Then
+                DeletedBillLabel.Text = "⬤ غير مرحلة محاسبياً"
+                DeletedBillLabel.BackColor = Color.DarkOrange
+                DeletedBillLabel.ForeColor = Color.White
+            Else
+                DeletedBillLabel.Text = "⬤ مرحلة محاسبياً - قيد رقم: " & jId.ToString()
+                DeletedBillLabel.BackColor = Color.ForestGreen
+                DeletedBillLabel.ForeColor = Color.White
+            End If
+
+        Catch ex As Exception
+            '     If db.Con.State = ConnectionState.Open Then db.Con.Close()
+        End Try
+    End Sub
+
     ' ========================================================
     ' 🌟 1. المتغيرات وآلة الحالة (State Machine) 🌟
     ' ========================================================

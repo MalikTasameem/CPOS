@@ -53,6 +53,7 @@ Public Class Stores_ImmediateOrder
     End Sub
 
     Private Sub Stores_ImmediateOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         '   If St_Count() = 1 Then All_St_Panel.Visible = False
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized

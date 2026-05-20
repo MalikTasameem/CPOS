@@ -58,6 +58,7 @@
     End Sub
 
     Private Sub ADD_Pch_Exp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         TextBox1.Text = "دينار ليبي"
         Load_Notes()
@@ -87,5 +88,7 @@
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Pch_Exp_Values_INSERT()
+        CD_Money_txt.Text = String.Empty
+        CD_Money_txt.Focus()
     End Sub
 End Class

@@ -45,6 +45,7 @@
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         ' If St_Count() = 1 Then All_St_Panel.Visible = False
+        ThemeManager.ApplyThemeToForm(Me)
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
         FormType = 13

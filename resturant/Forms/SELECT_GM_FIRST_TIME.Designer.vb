@@ -32,11 +32,11 @@ Partial Class SELECT_GM_FIRST_TIME
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(333, 10)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(375, 7)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(75, 26)
+        Me.Label2.Size = New System.Drawing.Size(63, 20)
         Me.Label2.TabIndex = 442
         Me.Label2.Text = "التصنيف"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -48,15 +48,15 @@ Partial Class SELECT_GM_FIRST_TIME
         Me.GM_Serach.BackColor = System.Drawing.SystemColors.Info
         Me.GM_Serach.Cursor = System.Windows.Forms.Cursors.Hand
         Me.GM_Serach.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GM_Serach.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GM_Serach.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GM_Serach.FormattingEnabled = True
         Me.GM_Serach.IntegralHeight = False
         Me.GM_Serach.Items.AddRange(New Object() {"قصيرة", "طويلة"})
-        Me.GM_Serach.Location = New System.Drawing.Point(3, 6)
-        Me.GM_Serach.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GM_Serach.Location = New System.Drawing.Point(3, 4)
+        Me.GM_Serach.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
         Me.GM_Serach.Name = "GM_Serach"
         Me.GM_Serach.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.GM_Serach.Size = New System.Drawing.Size(325, 34)
+        Me.GM_Serach.Size = New System.Drawing.Size(365, 26)
         Me.GM_Serach.TabIndex = 443
         '
         'ExitFormButton
@@ -64,44 +64,42 @@ Partial Class SELECT_GM_FIRST_TIME
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(285, 163)
-        Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ExitFormButton.Location = New System.Drawing.Point(321, 106)
+        Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(125, 40)
+        Me.ExitFormButton.Size = New System.Drawing.Size(141, 34)
         Me.ExitFormButton.TabIndex = 655
         Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'UpdateGBButton
         '
         Me.UpdateGBButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.UpdateGBButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.UpdateGBButton.Font = New System.Drawing.Font("JF Flat", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.UpdateGBButton.Image = Global.resturant.My.Resources.Resources.if_ok_173061
+        Me.UpdateGBButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UpdateGBButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.UpdateGBButton.Location = New System.Drawing.Point(3, 163)
+        Me.UpdateGBButton.Location = New System.Drawing.Point(3, 106)
+        Me.UpdateGBButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.UpdateGBButton.Name = "UpdateGBButton"
-        Me.UpdateGBButton.Size = New System.Drawing.Size(150, 39)
+        Me.UpdateGBButton.Size = New System.Drawing.Size(169, 33)
         Me.UpdateGBButton.TabIndex = 656
         Me.UpdateGBButton.Text = "موافــق"
-        Me.UpdateGBButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.UpdateGBButton.UseVisualStyleBackColor = True
         '
         'SELECT_GM_FIRST_TIME
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 26.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(411, 203)
+        Me.ClientSize = New System.Drawing.Size(462, 141)
         Me.ControlBox = False
         Me.Controls.Add(Me.UpdateGBButton)
         Me.Controls.Add(Me.ExitFormButton)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.GM_Serach)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "SELECT_GM_FIRST_TIME"
         Me.Text = "حدد التصنيف"
         Me.ResumeLayout(False)

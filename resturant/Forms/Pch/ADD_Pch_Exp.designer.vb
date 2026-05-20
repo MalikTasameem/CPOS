@@ -56,20 +56,20 @@ Partial Class ADD_Pch_Exp
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(22, 6)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(63, 26)
+        Me.Label3.Size = New System.Drawing.Size(49, 21)
         Me.Label3.TabIndex = 387
         Me.Label3.Text = "القيمة"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.Location = New System.Drawing.Point(17, 42)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(66, 26)
+        Me.Label9.Size = New System.Drawing.Size(60, 21)
         Me.Label9.TabIndex = 391
         Me.Label9.Text = "ذلك عن"
         '
@@ -83,9 +83,8 @@ Partial Class ADD_Pch_Exp
         Me.OrderDeliver_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.OrderDeliver_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.OrderDeliver_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.OrderDeliver_btn.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OrderDeliver_btn.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.OrderDeliver_btn.ForeColor = System.Drawing.Color.Black
-        Me.OrderDeliver_btn.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
         Me.OrderDeliver_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.OrderDeliver_btn.Location = New System.Drawing.Point(2, 212)
         Me.OrderDeliver_btn.Name = "OrderDeliver_btn"
@@ -93,7 +92,6 @@ Partial Class ADD_Pch_Exp
         Me.OrderDeliver_btn.Size = New System.Drawing.Size(348, 45)
         Me.OrderDeliver_btn.TabIndex = 577
         Me.OrderDeliver_btn.Text = "حفـــظ"
-        Me.OrderDeliver_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.OrderDeliver_btn.UseVisualStyleBackColor = False
         '
         'TextBox1
@@ -117,14 +115,14 @@ Partial Class ADD_Pch_Exp
         Me.Notes_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Notes_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Notes_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Notes_cm.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Notes_cm.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Notes_cm.FormattingEnabled = True
         Me.Notes_cm.IntegralHeight = False
         Me.Notes_cm.Items.AddRange(New Object() {"خدمة", "بضاعة", "تصنيع"})
         Me.Notes_cm.Location = New System.Drawing.Point(89, 37)
         Me.Notes_cm.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Notes_cm.Name = "Notes_cm"
-        Me.Notes_cm.Size = New System.Drawing.Size(252, 34)
+        Me.Notes_cm.Size = New System.Drawing.Size(252, 26)
         Me.Notes_cm.TabIndex = 579
         '
         'isWithBill_CB
@@ -133,13 +131,13 @@ Partial Class ADD_Pch_Exp
         Me.isWithBill_CB.BackColor = System.Drawing.Color.Transparent
         Me.isWithBill_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.isWithBill_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.isWithBill_CB.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.isWithBill_CB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.isWithBill_CB.ForeColor = System.Drawing.Color.Black
         Me.isWithBill_CB.Location = New System.Drawing.Point(89, 78)
         Me.isWithBill_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.isWithBill_CB.Name = "isWithBill_CB"
         Me.isWithBill_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.isWithBill_CB.Size = New System.Drawing.Size(165, 30)
+        Me.isWithBill_CB.Size = New System.Drawing.Size(150, 25)
         Me.isWithBill_CB.TabIndex = 580
         Me.isWithBill_CB.Text = "ضمن فاتورة المورد"
         Me.isWithBill_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -154,9 +152,8 @@ Partial Class ADD_Pch_Exp
         Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Arial", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Image = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Button1.Location = New System.Drawing.Point(2, 107)
         Me.Button1.Name = "Button1"
@@ -164,7 +161,6 @@ Partial Class ADD_Pch_Exp
         Me.Button1.Size = New System.Drawing.Size(348, 45)
         Me.Button1.TabIndex = 581
         Me.Button1.Text = "إضافة"
-        Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button1.UseVisualStyleBackColor = False
         '
         'ADD_Pch_Exp

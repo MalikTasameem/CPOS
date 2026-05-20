@@ -44,6 +44,7 @@
     End Sub
 
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
@@ -1208,6 +1209,14 @@
             query("DELETE FROM InSale_Details WHERE InSale_T_ID = " & T_ID)
             SELECT_EXP_Cats(T_ID)
         End If
+    End Sub
+
+    Private Sub AGMetroGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles AGMetroGrid.CellContentClick
+
+    End Sub
+
+    Private Sub InSale_All_ST_Btn_Click(sender As Object, e As EventArgs) Handles InSale_All_ST_Btn.Click
+
     End Sub
 
     'Private Sub InSale_ALL_ST()

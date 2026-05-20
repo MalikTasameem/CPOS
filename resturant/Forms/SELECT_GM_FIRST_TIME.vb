@@ -5,6 +5,7 @@
     End Sub
 
     Private Sub SELECT_GM_FIRST_TIME_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         fetch_GM()
     End Sub
 
