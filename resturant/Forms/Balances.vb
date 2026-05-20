@@ -71,15 +71,6 @@
     End Sub
 
 
-    Private Sub ALL_BALANCES_Grid_FilterStringChanged(sender As Object, e As Zuby.ADGV.AdvancedDataGridView.FilterEventArgs) Handles ALL_BALANCES_Grid.FilterStringChanged
-        DataB.Filter = ALL_BALANCES_Grid.FilterString
-
-    End Sub
-
-    Private Sub ALL_BALANCES_Grid_SortStringChanged(sender As Object, e As Zuby.ADGV.AdvancedDataGridView.SortEventArgs) Handles ALL_BALANCES_Grid.SortStringChanged
-        DataB.Sort = ALL_BALANCES_Grid.SortString
-
-    End Sub
     ' ==========================================
     ' 🌟 أكواد الشريط العلوي والتحكم بالنافذة 🌟
     ' ==========================================
@@ -123,76 +114,6 @@
     Private Sub TitleBar_Panel_MouseUp(sender As Object, e As MouseEventArgs) Handles TitleBar_Panel.MouseUp, TopTitle_LB.MouseUp
         drag = False
     End Sub
-    Private Sub SELECT_ALL_BALANCES_V()
-
-
-        DataB.Dispose()
-        DataB = New BindingSource
-        ALL_BALANCES_Grid.DataSource = Nothing
-
-        Dim C = New C
-        Dim Tr_Query As String = " SELECT  ROW_NUMBER() OVER(ORDER BY B_NAME ASC) AS [ت],[B_NAME] AS [الحساب],[T_CREDIT] AS [مدين-المجاميع],[T_DEBIT] AS [دائن-المجاميع],[T_CREDIT_1] AS [مدين-الأرصدة],[T_DEBIT_1] AS [دائن-الأرصدة] FROM [dbo].[ALL_BALANCES_V]  "
-        C.Da = New SqlClient.SqlDataAdapter(Tr_Query, C.Con)
-        C.Da.Fill(C.Dt)
-
-        DataB.DataSource = C.Dt
-        ALL_BALANCES_Grid.DataSource = DataB
-
-        ALL_BALANCES_Grid.DataSource = C.Dt
-        ALL_BALANCES_Grid.Columns(2).Tag = 1
-        ALL_BALANCES_Grid.Columns(3).Tag = 1
-        ALL_BALANCES_Grid.Columns(4).Tag = 1
-        ALL_BALANCES_Grid.Columns(5).Tag = 1
-
-        ALL_BALANCES_Grid.Columns(2).DefaultCellStyle.Format = "N3"
-        ALL_BALANCES_Grid.Columns(3).DefaultCellStyle.Format = "N3"
-        ALL_BALANCES_Grid.Columns(4).DefaultCellStyle.Format = "N3"
-        ALL_BALANCES_Grid.Columns(5).DefaultCellStyle.Format = "N3"
-
-        '' Calculate sums for each numeric column
-        'Dim totalCredit As Decimal = 0
-        'Dim totalDebit As Decimal = 0
-        'Dim totalCredit1 As Decimal = 0
-        'Dim totalDebit1 As Decimal = 0
-
-        'For Each row As DataRow In C.Dt.Rows
-        '    If Not IsDBNull(row("T_CREDIT")) Then totalCredit += Convert.ToDecimal(row("T_CREDIT"))
-        '    If Not IsDBNull(row("T_DEBIT")) Then totalDebit += Convert.ToDecimal(row("T_DEBIT"))
-        '    If Not IsDBNull(row("T_CREDIT_1")) Then totalCredit1 += Convert.ToDecimal(row("T_CREDIT_1"))
-        '    If Not IsDBNull(row("T_DEBIT_1")) Then totalDebit1 += Convert.ToDecimal(row("T_DEBIT_1"))
-        'Next
-
-        '' Add a new row for the summary
-        'Dim summaryRow As DataRow = C.Dt.NewRow()
-        'summaryRow("IDX") = DBNull.Value ' Leave IDX blank for summary row
-        'summaryRow("B_NAME") = "Total"
-        'summaryRow("T_CREDIT") = totalCredit
-        'summaryRow("T_DEBIT") = totalDebit
-        'summaryRow("T_CREDIT_1") = totalCredit1
-        'summaryRow("T_DEBIT_1") = totalDebit1
-
-        '' Add the summary row to the DataTable
-        'C.Dt.Rows.Add(summaryRow)
-
-
-        'ALL_BALANCES_Grid.DataSource = C.Dt
-
-        '' Make the summary row bold in the DataGridView
-        'Dim summaryRowIndex As Integer = ALL_BALANCES_Grid.Rows.Count - 1
-        'For Each cell As DataGridViewCell In ALL_BALANCES_Grid.Rows(summaryRowIndex).Cells
-        '    cell.Style.Font = New Font(ALL_BALANCES_Grid.Font, FontStyle.Bold)
-        'Next
-
-        '-----------------------------------------------------------------------------------------------------------------------------
-
-        C = New C
-        Tr_Query = " SELECT '--' IDX,'--' AS [B_NAME],SUM([T_CREDIT]) AS S1,SUM([T_DEBIT]) AS S2,SUM([T_CREDIT_1]) AS S3,SUM([T_DEBIT_1]) AS S4 FROM [dbo].[ALL_BALANCES_V]  "
-        C.Da = New SqlClient.SqlDataAdapter(Tr_Query, C.Con)
-        C.Da.Fill(C.Dt)
-        ALL_B_TOTAL_Grid.DataSource = C.Dt
-        ALL_B_TOTAL_Grid.ClearSelection()
-
-    End Sub
 
 
     Public Sub fetch_Agents_Types()
@@ -232,20 +153,6 @@
         Return mailItems
     End Function
 
-    'Private Sub Fetch_Agents_Type()
-    '    Dim C As New C
-    '    Try
-    '        Dim sql As String = "Select id,Type_Name from Agents_Types WHERE Visible = 1 Order By ID ASC"
-    '        C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
-    '        C.Da.Fill(C.Dt)
-    '        AG_Type_cm.DataSource = C.Dt
-    '        AG_Type_cm.DisplayMember = "Type_Name"
-    '        AG_Type_cm.ValueMember = "id"
-    '        AG_Type_cm.SelectedValue = 1
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
 
     Public Sub Load_Data()
         Dim sql As String =
@@ -444,8 +351,6 @@
         SetAnchor(Tr_MV_MetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
         SetAnchor(DebtMetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
         SetAnchor(SalariesMetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
-        SetAnchor(ALL_BALANCES_Grid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
-        SetAnchor(ALL_B_TOTAL_Grid, AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
 
         SetAnchor(AG_Type_CB, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right)
         SetAnchor(CMSearchTextBox, AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right)
@@ -497,17 +402,13 @@
 
         SetAnchor(GroupBox1, AnchorStyles.Top)
         SetAnchor(GroupBox2, AnchorStyles.Top)
-        SetAnchor(GroupBox3, AnchorStyles.Top)
-        SetAnchor(GroupBox4, AnchorStyles.Top)
-        SetAnchor(GroupBox5, AnchorStyles.Top)
+
 
         SetGridResponsiveOptions(
             AGMVMetroGrid,
             Tr_MV_MetroGrid,
             DebtMetroGrid,
-            SalariesMetroGrid,
-            ALL_BALANCES_Grid,
-            ALL_B_TOTAL_Grid
+            SalariesMetroGrid
         )
 
         ArrangeResponsiveLayout()
@@ -551,7 +452,7 @@
         ArrangeAccountMovementPage()
         ArrangeTreasuryMovementPage()
         ArrangeSalariesPage()
-        ArrangePageFiveGroups()
+        'ArrangePageFiveGroups()
 
     End Sub
 
@@ -712,23 +613,23 @@
 
     End Sub
 
-    Private Sub ArrangePageFiveGroups()
+    'Private Sub ArrangePageFiveGroups()
 
-        If MetroTabPage5 Is Nothing Then Return
+    '    If MetroTabPage5 Is Nothing Then Return
 
-        Dim pageWidth As Integer = MetroTabPage5.ClientSize.Width
-        If pageWidth <= 0 Then Return
+    '    Dim pageWidth As Integer = MetroTabPage5.ClientSize.Width
+    '    If pageWidth <= 0 Then Return
 
-        GroupBox3.Left = Math.Max(8, (pageWidth - GroupBox3.Width) \ 2)
+    '    GroupBox3.Left = Math.Max(8, (pageWidth - GroupBox3.Width) \ 2)
 
-        Dim gap As Integer = 32
-        Dim combinedWidth As Integer = GroupBox5.Width + gap + GroupBox4.Width
-        Dim leftStart As Integer = Math.Max(8, (pageWidth - combinedWidth) \ 2)
+    '    Dim gap As Integer = 32
+    '    Dim combinedWidth As Integer = GroupBox5.Width + gap + GroupBox4.Width
+    '    Dim leftStart As Integer = Math.Max(8, (pageWidth - combinedWidth) \ 2)
 
-        GroupBox5.Left = leftStart
-        GroupBox4.Left = leftStart + GroupBox5.Width + gap
+    '    GroupBox5.Left = leftStart
+    '    GroupBox4.Left = leftStart + GroupBox5.Width + gap
 
-    End Sub
+    'End Sub
 
     Private Sub AllAgentsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllAgentsCheckBox.CheckedChanged
         If AllAgentsCheckBox.Checked = True Then
@@ -2333,79 +2234,79 @@
     End Sub
 
 
-    Private Sub Total_Fetch_Btn_Click(sender As Object, e As EventArgs) Handles Total_Fetch_Btn.Click
-        Me.Cursor = Cursors.AppStarting
-        Count_Global_Balance()
-        Me.Cursor = Cursors.Default
-    End Sub
+    'Private Sub Total_Fetch_Btn_Click(sender As Object, e As EventArgs)
+    '    Me.Cursor = Cursors.AppStarting
+    '    Count_Global_Balance()
+    '    Me.Cursor = Cursors.Default
+    'End Sub
 
-    Private Sub Count_Global_Balance()
-        Dim C As New C
+    'Private Sub Count_Global_Balance()
+    '    Dim C As New C
 
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "Count_Global_Balance"
-            .Parameters.AddWithValue("@D_F", Total_D_F.Value)
-            .Parameters.AddWithValue("@D_T", Total_D_T.Value)
-            .CommandType = CommandType.StoredProcedure
+    '    With C.Com
+    '        .Connection = C.Con
+    '        .CommandText = "Count_Global_Balance"
+    '        .Parameters.AddWithValue("@D_F", Total_D_F.Value)
+    '        .Parameters.AddWithValue("@D_T", Total_D_T.Value)
+    '        .CommandType = CommandType.StoredProcedure
 
-            .Parameters.Add("@Total_Recived", SqlDbType.Float, "0")
-            .Parameters.Add("@Cash_Recived", SqlDbType.Float, "0")
-            .Parameters.Add("@CHECK_Recived", SqlDbType.Float, "0")
-            .Parameters.Add("@Total_Expens", SqlDbType.Float, "0")
-            .Parameters.Add("@Cash_Expens", SqlDbType.Float, "0")
-            .Parameters.Add("@CHECK_Expens", SqlDbType.Float, "0")
+    '        .Parameters.Add("@Total_Recived", SqlDbType.Float, "0")
+    '        .Parameters.Add("@Cash_Recived", SqlDbType.Float, "0")
+    '        .Parameters.Add("@CHECK_Recived", SqlDbType.Float, "0")
+    '        .Parameters.Add("@Total_Expens", SqlDbType.Float, "0")
+    '        .Parameters.Add("@Cash_Expens", SqlDbType.Float, "0")
+    '        .Parameters.Add("@CHECK_Expens", SqlDbType.Float, "0")
 
-            .Parameters("@Total_Recived").Direction = ParameterDirection.Output
-            .Parameters("@Cash_Recived").Direction = ParameterDirection.Output
-            .Parameters("@CHECK_Recived").Direction = ParameterDirection.Output
+    '        .Parameters("@Total_Recived").Direction = ParameterDirection.Output
+    '        .Parameters("@Cash_Recived").Direction = ParameterDirection.Output
+    '        .Parameters("@CHECK_Recived").Direction = ParameterDirection.Output
 
-            .Parameters("@Total_Expens").Direction = ParameterDirection.Output
-            .Parameters("@Cash_Expens").Direction = ParameterDirection.Output
-            .Parameters("@CHECK_Expens").Direction = ParameterDirection.Output
+    '        .Parameters("@Total_Expens").Direction = ParameterDirection.Output
+    '        .Parameters("@Cash_Expens").Direction = ParameterDirection.Output
+    '        .Parameters("@CHECK_Expens").Direction = ParameterDirection.Output
 
-        End With
-        If SQL_SP_EXEC(C.Com) = True Then
+    '    End With
+    '    If SQL_SP_EXEC(C.Com) = True Then
 
-            With C.Com
-                Dim N As Double = .Parameters("@Total_Recived").Value
-                Total_Recived_txt.Text = N.ToString("n")
-                Cash_Recived_txt.Text = .Parameters("@Cash_Recived").Value
-                CHECK_Recived_txt.Text = .Parameters("@CHECK_Recived").Value
-
-
-                N = .Parameters("@Total_Expens").Value
-                Total_Expens_txt.Text = N.ToString("n")
-                Cash_Expens_txt.Text = .Parameters("@Cash_Expens").Value
-                CHECK_Expens_txt.Text = .Parameters("@CHECK_Expens").Value
+    '        With C.Com
+    '            Dim N As Double = .Parameters("@Total_Recived").Value
+    '            Total_Recived_txt.Text = N.ToString("n")
+    '            Cash_Recived_txt.Text = .Parameters("@Cash_Recived").Value
+    '            CHECK_Recived_txt.Text = .Parameters("@CHECK_Recived").Value
 
 
-                Dim Total As Double = Convert.ToDouble(Total_Recived_txt.Text) - Convert.ToDouble(Total_Expens_txt.Text)
-
-                Select Case Total
-                    Case 0
-                        Total_Balance_txt.ForeColor = Color.Black
-                    Case Is < 0
-                        Total_Balance_txt.ForeColor = Color.DarkRed
-                    Case Is > 0
-                        Total_Balance_txt.ForeColor = Color.DarkGreen
-                End Select
-
-                Total_Balance_txt.Text = Total.ToString("n")
-
-            End With
+    '            N = .Parameters("@Total_Expens").Value
+    '            Total_Expens_txt.Text = N.ToString("n")
+    '            Cash_Expens_txt.Text = .Parameters("@Cash_Expens").Value
+    '            CHECK_Expens_txt.Text = .Parameters("@CHECK_Expens").Value
 
 
-        End If
-    End Sub
+    '            Dim Total As Double = Convert.ToDouble(Total_Recived_txt.Text) - Convert.ToDouble(Total_Expens_txt.Text)
 
-    Private Sub TotalMonth_cmb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TotalMonth_cmb.SelectedIndexChanged
-        Try
-            Total_D_F = GetFirstDayOfMonth(Total_D_F, TotalMonth_cmb.Text)
-            Total_D_T = GetLastDayOfMonth(Total_D_T, TotalMonth_cmb.Text)
-        Catch ex As Exception
-        End Try
-    End Sub
+    '            Select Case Total
+    '                Case 0
+    '                    Total_Balance_txt.ForeColor = Color.Black
+    '                Case Is < 0
+    '                    Total_Balance_txt.ForeColor = Color.DarkRed
+    '                Case Is > 0
+    '                    Total_Balance_txt.ForeColor = Color.DarkGreen
+    '            End Select
+
+    '            Total_Balance_txt.Text = Total.ToString("n")
+
+    '        End With
+
+
+    '    End If
+    'End Sub
+
+    'Private Sub TotalMonth_cmb_SelectedIndexChanged(sender As Object, e As EventArgs)
+    '    Try
+    '        Total_D_F = GetFirstDayOfMonth(Total_D_F, TotalMonth_cmb.Text)
+    '        Total_D_T = GetLastDayOfMonth(Total_D_T, TotalMonth_cmb.Text)
+    '    Catch ex As Exception
+    '    End Try
+    'End Sub
 
 
 
@@ -2734,9 +2635,6 @@
         F_Custody.ShowDialog()
     End Sub
 
-    Private Sub Refrech_Btn_Click(sender As Object, e As EventArgs) Handles Refrech_Btn.Click
-        SELECT_ALL_BALANCES_V()
-    End Sub
 
     Private Sub DebtMetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles DebtMetroGrid.MouseDoubleClick
         Me.Cursor = Cursors.AppStarting
@@ -2804,20 +2702,4 @@
         SendMessage(CMSearchTextBox.Handle, &H1501, 0, "إبحث عن حساب")
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim p As New Print_PDF
-        p.PRINT_PDF(ALL_BALANCES_Grid, 1, "ميزان المراجعة")
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        EXCEL_EXPORT(ALL_BALANCES_Grid)
-    End Sub
-
-    Private Sub MetroTabPage1_Click(sender As Object, e As EventArgs) Handles MetroTabPage1.Click
-
-    End Sub
-
-    Private Sub GroupBox2_Enter(sender As Object, e As EventArgs) Handles GroupBox2.Enter
-
-    End Sub
 End Class
