@@ -13,6 +13,7 @@ Public Class SearchAgent_Pch_Bill : Inherits System.Windows.Forms.Form
 
 
     Private Sub ExpSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         rs.FindAllControls(Me)
 
         Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
@@ -20,7 +21,7 @@ Public Class SearchAgent_Pch_Bill : Inherits System.Windows.Forms.Form
 
         Markter_Cm.Visible = S_Marketers
         Marketer_Lb.Visible = S_Marketers
-
+        ThemeManager.ApplyThemeToForm(Me)
         'For i = 0 To AGMetroGrid.Columns.Count - 1
         '    AGMetroGrid.Columns.Item(i).SortMode = DataGridViewColumnSortMode.NotSortable
         'Next i

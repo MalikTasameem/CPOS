@@ -69,6 +69,7 @@ Public Class ItemsMenu
 
     Private Sub ItemsMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+        ThemeManager.ApplyThemeToForm(Me)
         Load_GM()
         Load_Units(IM_Unit_cm)
         Coutnt_IM()

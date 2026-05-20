@@ -23,6 +23,7 @@ Partial Class Periods
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Periods))
         Me.Pr_NotesLabel = New System.Windows.Forms.Label()
@@ -43,7 +44,7 @@ Partial Class Periods
         'Pr_NotesLabel
         '
         Me.Pr_NotesLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Pr_NotesLabel.Font = New System.Drawing.Font("JF Flat", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Pr_NotesLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Pr_NotesLabel.ForeColor = System.Drawing.Color.Red
         Me.Pr_NotesLabel.Location = New System.Drawing.Point(687, 1)
         Me.Pr_NotesLabel.Name = "Pr_NotesLabel"
@@ -57,14 +58,14 @@ Partial Class Periods
         Me.Start_PrButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Start_PrButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Start_PrButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Start_PrButton.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Start_PrButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Start_PrButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Start_PrButton.Location = New System.Drawing.Point(687, 286)
+        Me.Start_PrButton.Location = New System.Drawing.Point(687, 230)
         Me.Start_PrButton.Margin = New System.Windows.Forms.Padding(5)
         Me.Start_PrButton.Name = "Start_PrButton"
-        Me.Start_PrButton.Size = New System.Drawing.Size(171, 50)
+        Me.Start_PrButton.Size = New System.Drawing.Size(171, 76)
         Me.Start_PrButton.TabIndex = 197
-        Me.Start_PrButton.Text = "بـدء الوردية ENTER"
+        Me.Start_PrButton.Text = "بـدء الوردية     ENTER"
         Me.Start_PrButton.UseVisualStyleBackColor = False
         '
         'End_PrButton
@@ -74,12 +75,12 @@ Partial Class Periods
         Me.End_PrButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.End_PrButton.Enabled = False
         Me.End_PrButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.End_PrButton.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.End_PrButton.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.End_PrButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.End_PrButton.Location = New System.Drawing.Point(687, 346)
+        Me.End_PrButton.Location = New System.Drawing.Point(687, 316)
         Me.End_PrButton.Margin = New System.Windows.Forms.Padding(5)
         Me.End_PrButton.Name = "End_PrButton"
-        Me.End_PrButton.Size = New System.Drawing.Size(171, 50)
+        Me.End_PrButton.Size = New System.Drawing.Size(171, 53)
         Me.End_PrButton.TabIndex = 196
         Me.End_PrButton.Text = "إغــــلاق الوردية "
         Me.End_PrButton.UseVisualStyleBackColor = False
@@ -89,16 +90,15 @@ Partial Class Periods
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(687, 538)
+        Me.ExitFormButton.Location = New System.Drawing.Point(687, 536)
         Me.ExitFormButton.Name = "ExitFormButton"
         Me.ExitFormButton.Size = New System.Drawing.Size(171, 38)
         Me.ExitFormButton.TabIndex = 657
+        Me.ExitFormButton.Tag = "DELETE"
         Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'Show_OpenBills_btn
@@ -107,7 +107,7 @@ Partial Class Periods
         Me.Show_OpenBills_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Show_OpenBills_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_OpenBills_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Show_OpenBills_btn.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_OpenBills_btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Show_OpenBills_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Show_OpenBills_btn.Location = New System.Drawing.Point(687, 170)
         Me.Show_OpenBills_btn.Margin = New System.Windows.Forms.Padding(5)
@@ -131,6 +131,14 @@ Partial Class Periods
         Me.Pr_Grid.MultiSelect = False
         Me.Pr_Grid.Name = "Pr_Grid"
         Me.Pr_Grid.ReadOnly = True
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Pr_Grid.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.Pr_Grid.RowHeadersVisible = False
         Me.Pr_Grid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
         Me.Pr_Grid.RowTemplate.Height = 25

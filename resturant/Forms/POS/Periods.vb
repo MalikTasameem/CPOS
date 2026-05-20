@@ -13,6 +13,7 @@
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         Load_Open_Periods()
         TimeTimer.Enabled = True
+        ThemeManager.ApplyThemeToForm(Me)
     End Sub
 
     Public Sub Load_Open_Periods()

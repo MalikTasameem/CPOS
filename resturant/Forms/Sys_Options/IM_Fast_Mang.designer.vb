@@ -24,11 +24,11 @@ Partial Class IM_Fast_Mang
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IM_Fast_Mang))
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.MetroGrid = New System.Windows.Forms.DataGridView()
-        Me.IM_SH_txt = New System.Windows.Forms.TextBox()
         Me.IM_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GM_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GM_CL = New System.Windows.Forms.DataGridViewComboBoxColumn()
@@ -38,6 +38,7 @@ Partial Class IM_Fast_Mang
         Me.isActive_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.ADD_CL = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.REMOVE_CL = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.IM_SH_txt = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GM_Serach = New System.Windows.Forms.ComboBox()
         CType(Me.MetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -51,19 +52,18 @@ Partial Class IM_Fast_Mang
         Me.ExitFormButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.ExitFormButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("JF Flat", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(893, 664)
+        Me.ExitFormButton.Location = New System.Drawing.Point(1, 661)
         Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.ExitFormButton.Name = "ExitFormButton"
         Me.ExitFormButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ExitFormButton.Size = New System.Drawing.Size(110, 31)
+        Me.ExitFormButton.Size = New System.Drawing.Size(1002, 33)
         Me.ExitFormButton.TabIndex = 672
         Me.ExitFormButton.TabStop = False
+        Me.ExitFormButton.Tag = "DELETE"
         Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'MetroGrid
@@ -74,7 +74,7 @@ Partial Class IM_Fast_Mang
         Me.MetroGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("JF Flat", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -83,29 +83,27 @@ Partial Class IM_Fast_Mang
         Me.MetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.MetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IM_ID_CL, Me.GM_Name_CL, Me.GM_CL, Me.IM_Name_CL, Me.IM_NUM_CL, Me.Price_CL, Me.isActive_CL, Me.ADD_CL, Me.REMOVE_CL})
         Me.MetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.MetroGrid.DefaultCellStyle = DataGridViewCellStyle3
         Me.MetroGrid.Location = New System.Drawing.Point(1, 37)
         Me.MetroGrid.Margin = New System.Windows.Forms.Padding(2)
         Me.MetroGrid.MultiSelect = False
         Me.MetroGrid.Name = "MetroGrid"
         Me.MetroGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.MetroGrid.RowHeadersVisible = False
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.MetroGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
         Me.MetroGrid.RowTemplate.Height = 35
         Me.MetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.MetroGrid.Size = New System.Drawing.Size(1002, 623)
         Me.MetroGrid.TabIndex = 706
-        '
-        'IM_SH_txt
-        '
-        Me.IM_SH_txt.BackColor = System.Drawing.SystemColors.Window
-        Me.IM_SH_txt.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_SH_txt.Location = New System.Drawing.Point(358, 1)
-        Me.IM_SH_txt.Margin = New System.Windows.Forms.Padding(5)
-        Me.IM_SH_txt.Name = "IM_SH_txt"
-        Me.IM_SH_txt.Size = New System.Drawing.Size(645, 34)
-        Me.IM_SH_txt.TabIndex = 707
         '
         'IM_ID_CL
         '
@@ -182,15 +180,25 @@ Partial Class IM_Fast_Mang
         Me.REMOVE_CL.Text = "حذف"
         Me.REMOVE_CL.UseColumnTextForButtonValue = True
         '
+        'IM_SH_txt
+        '
+        Me.IM_SH_txt.BackColor = System.Drawing.SystemColors.Window
+        Me.IM_SH_txt.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_SH_txt.Location = New System.Drawing.Point(358, 1)
+        Me.IM_SH_txt.Margin = New System.Windows.Forms.Padding(5)
+        Me.IM_SH_txt.Name = "IM_SH_txt"
+        Me.IM_SH_txt.Size = New System.Drawing.Size(645, 24)
+        Me.IM_SH_txt.TabIndex = 707
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("JF Flat", 11.25!)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(290, 6)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(68, 26)
+        Me.Label2.Size = New System.Drawing.Size(63, 20)
         Me.Label2.TabIndex = 708
         Me.Label2.Text = "التصنيف"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -203,7 +211,7 @@ Partial Class IM_Fast_Mang
         Me.GM_Serach.Cursor = System.Windows.Forms.Cursors.Hand
         Me.GM_Serach.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.GM_Serach.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GM_Serach.Font = New System.Drawing.Font("JF Flat", 11.0!)
+        Me.GM_Serach.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!)
         Me.GM_Serach.FormattingEnabled = True
         Me.GM_Serach.IntegralHeight = False
         Me.GM_Serach.Items.AddRange(New Object() {"قصيرة", "طويلة"})
@@ -211,12 +219,12 @@ Partial Class IM_Fast_Mang
         Me.GM_Serach.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GM_Serach.Name = "GM_Serach"
         Me.GM_Serach.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.GM_Serach.Size = New System.Drawing.Size(284, 34)
+        Me.GM_Serach.Size = New System.Drawing.Size(284, 26)
         Me.GM_Serach.TabIndex = 709
         '
         'IM_Fast_Mang
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 23.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1003, 695)
         Me.Controls.Add(Me.Label2)
@@ -224,7 +232,7 @@ Partial Class IM_Fast_Mang
         Me.Controls.Add(Me.IM_SH_txt)
         Me.Controls.Add(Me.MetroGrid)
         Me.Controls.Add(Me.ExitFormButton)
-        Me.Font = New System.Drawing.Font("JF Flat", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 6, 3, 6)
