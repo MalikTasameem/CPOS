@@ -13,6 +13,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Dim Indx_ID As Integer
     Public isShowingDetails As Boolean = False
     Public TOTAL As Double = 0
+    Dim TOTAL_NO_EXP As Double
     Public AG_ID As Integer = 0
     Public Bill_DT As New DataTable
     Public Exp_DT As New DataTable
@@ -20,6 +21,10 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     Public Pch_ID As Integer
     Public Disc As Double = 0
     Public Pure As Double = 0
+    Public PchExpWithBillTotal As Double = 0
+    Public PchExpWithoutBillTotal As Double = 0
+    Public PchTotalWithBillExpenses As Double = 0
+    Public PchTotalWithoutBillExpenses As Double = 0
 
     Dim is_Select_Mode = False
 
@@ -506,6 +511,11 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         '  AG_Balance = 0
         Discount_txt.Clear()
         Total_txt.Clear()
+        PchExpWithBillTotal = 0
+        PchExpWithoutBillTotal = 0
+        PchTotalWithBillExpenses = 0
+        PchTotalWithoutBillExpenses = 0
+        SetPurchaseExpenseTotalsText()
         Pure_txt.Text = "0"
     End Sub
 
@@ -565,12 +575,12 @@ Public Class Pch : Inherits System.Windows.Forms.Form
 
                     Try
 
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_AG",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@AG_ID", AG_ID)
-                                cmd.Parameters.AddWithValue("@ON_UPDATE", On_Update)
-                            End Sub)
+                        'ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_AG",
+                        '    Sub(cmd)
+                        '        cmd.Parameters.AddWithValue("@T_ID", T_ID)
+                        '        cmd.Parameters.AddWithValue("@AG_ID", AG_ID)
+                        '        cmd.Parameters.AddWithValue("@ON_UPDATE", On_Update)
+                        '    End Sub)
 
                         ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
                             Sub(cmd)
@@ -945,26 +955,87 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         Check_Only_Int(sender, e)
     End Sub
 
+
     Private Sub Calc_Total()
         TOTAL = 0
-        Dim Dist_Values As Double = 0
+        TOTAL_NO_EXP = 0
+        PchExpWithBillTotal = 0
+        PchExpWithoutBillTotal = 0
+        PchTotalWithBillExpenses = 0
+        PchTotalWithoutBillExpenses = 0
         Dim QTY As Double = 0
         For i = 0 To AGMetroGrid.Rows.Count - 1
-            TOTAL = TOTAL + AGMetroGrid.Rows(i).Cells("Total_CL").Value
-            QTY += AGMetroGrid.Rows(i).Cells("QTY_CL").Value
-        Next
-        For j = 0 To Dist_DV.Rows.Count - 1
-            If Dist_DV.Rows(j).Cells("isWithBill_CL").Value = False Then
-                Dist_Values = Dist_Values + Dist_DV.Rows(j).Cells("Dist_Values_CL").Value
+            If AGMetroGrid.Rows(i).IsNewRow = False Then
+                TOTAL += GetGridCellDoubleValue(AGMetroGrid.Rows(i), "Total_CL")
+                QTY += GetGridCellDoubleValue(AGMetroGrid.Rows(i), "QTY_CL")
+                TOTAL_NO_EXP += GetGridCellDoubleValue(AGMetroGrid.Rows(i), "Main_Price_CL") * GetGridCellDoubleValue(AGMetroGrid.Rows(i), "QTY_CL")
             End If
         Next
+        For j = 0 To Dist_DV.Rows.Count - 1
+            If Dist_DV.Rows(j).IsNewRow = False Then
+                If GetGridCellBooleanValue(Dist_DV.Rows(j), "isWithBill_CL") Then
+                    PchExpWithBillTotal += GetGridCellDoubleValue(Dist_DV.Rows(j), "Dist_Values_CL")
+                Else
+                    PchExpWithoutBillTotal += GetGridCellDoubleValue(Dist_DV.Rows(j), "Dist_Values_CL")
+                End If
+            End If
+        Next
+        PchTotalWithBillExpenses = TOTAL_NO_EXP + PchExpWithBillTotal
+        PchTotalWithoutBillExpenses = TOTAL_NO_EXP + PchExpWithoutBillTotal
         Total_txt.Text = TOTAL.ToString(N_Point_Fter)
+        SetPurchaseExpenseTotalsText()
         Pure_txt.Text = (TOTAL - Disc).ToString(N_Point_Fter)
         Pure = TOTAL - Disc
         IM_Count_LB.Text = AGMetroGrid.Rows.Count.ToString + " : مواد "
         IM_Qty_LB.Text = QTY.ToString + " : كميات "
         If Cr_CM.SelectedValue > 1 Then T_Other_Cr_TXT.Text = (Pure / Convert.ToDouble(Cr_Equal_TXT.Text)).ToString(N_Point_Fter)
     End Sub
+
+    Private Sub SetPurchaseExpenseTotalsText()
+
+        If Dist_TotalWithoutExpenses_txt IsNot Nothing Then Dist_TotalWithoutExpenses_txt.Text = TOTAL_NO_EXP.ToString(N_Point_Fter)
+        If Dist_TotalWithBill_txt IsNot Nothing Then Dist_TotalWithBill_txt.Text = PchTotalWithBillExpenses.ToString(N_Point_Fter)
+        If Dist_TotalWithoutBill_txt IsNot Nothing Then Dist_TotalWithoutBill_txt.Text = PchTotalWithoutBillExpenses.ToString(N_Point_Fter)
+
+    End Sub
+
+    Private Function GetGridCellDoubleValue(row As DataGridViewRow, columnName As String) As Double
+
+        If row Is Nothing OrElse row.DataGridView Is Nothing OrElse row.DataGridView.Columns.Contains(columnName) = False Then Return 0
+
+        Dim cellValue As Object = row.Cells(columnName).Value
+        If cellValue Is Nothing OrElse cellValue Is DBNull.Value OrElse String.IsNullOrWhiteSpace(cellValue.ToString()) Then Return 0
+
+        Try
+            Return Convert.ToDouble(cellValue)
+        Catch
+            Dim result As Double = 0
+            If Double.TryParse(cellValue.ToString(), result) Then Return result
+        End Try
+
+        Return 0
+
+    End Function
+
+    Private Function GetGridCellBooleanValue(row As DataGridViewRow, columnName As String) As Boolean
+
+        If row Is Nothing OrElse row.DataGridView Is Nothing OrElse row.DataGridView.Columns.Contains(columnName) = False Then Return False
+
+        Dim cellValue As Object = row.Cells(columnName).Value
+        If cellValue Is Nothing OrElse cellValue Is DBNull.Value Then Return False
+
+        If TypeOf cellValue Is Boolean Then Return Convert.ToBoolean(cellValue)
+
+        Try
+            Return Convert.ToDouble(cellValue) <> 0
+        Catch
+            Dim result As Boolean = False
+            If Boolean.TryParse(cellValue.ToString(), result) Then Return result
+        End Try
+
+        Return False
+
+    End Function
 
     Private Sub ADDCatButton_Click(sender As Object, e As EventArgs) Handles ADDCatButton.Click
         F_Pch_IM_card = New Pch_IM_card_11
@@ -1057,6 +1128,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         End Using
 
         Dist_DV.DataSource = Exp_DT
+        Calc_Total()
 
     End Sub
 
