@@ -726,7 +726,7 @@ Partial Class Stores_ImmediateOrder
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(204, 10)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(54, 21)
+        Me.Label3.Size = New System.Drawing.Size(44, 21)
         Me.Label3.TabIndex = 384
         Me.Label3.Text = "التاريخ :"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
