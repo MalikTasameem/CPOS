@@ -2268,7 +2268,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             .MetroTabControl1.TabPages.Remove(.MetroTabPage2)
             .MetroTabControl1.TabPages.Remove(.MetroTabPage3)
             .MetroTabControl1.TabPages.Remove(.MetroTabPage4)
-            .MetroTabControl1.TabPages.Remove(.MetroTabPage5)
+            '  .MetroTabControl1.TabPages.Remove(.MetroTabPage5)
             .MenuStrip1.Visible = False
         End With
         F_Balances.ShowDialog()
