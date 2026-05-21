@@ -25,6 +25,29 @@ Public Class ItemsMenu
     Dim Valid_St As String = "لا"
     Dim isShort_St As String = "لا"
     Dim is_New_IM As Boolean
+    ' 🌟 متغيرات الرام (الكاش) 🌟
+    Private ItemsCacheDt As DataTable = Nothing
+    Private IsItemsCacheLoaded As Boolean = False
+
+
+    Private Sub LoadItemsToCache()
+        If IsItemsCacheLoaded Then Return
+        Try
+            Dim db As New C()
+            ' نجلب كل البيانات مرة واحدة لتكون جاهزة في الذاكرة
+            db.Str = "SELECT * FROM Items_Table"
+            db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
+            db.Con.Open()
+            ItemsCacheDt = New DataTable()
+            ItemsCacheDt.Load(db.Com.ExecuteReader())
+            db.Con.Close()
+            IsItemsCacheLoaded = True
+        Catch ex As Exception
+            IsItemsCacheLoaded = False
+            '  If db.Con.State = ConnectionState.Open Then db.Con.Close()
+        End Try
+    End Sub
+
 
     Private Sub NonePhotoButton_Click(sender As Object, e As EventArgs) Handles NonePhotoButton.Click
         If IMPictureBox.Image IsNot Nothing Then IMPictureBox.Image = Nothing
@@ -69,6 +92,8 @@ Public Class ItemsMenu
 
     Private Sub ItemsMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+        ' تحميل البيانات للرام فور فتح الشاشة لتكون جاهزة للبحث
+        LoadItemsToCache()
         ThemeManager.ApplyThemeToForm(Me)
         Load_GM()
         Load_Units(IM_Unit_cm)
@@ -94,6 +119,23 @@ Public Class ItemsMenu
         'Me.Controls.Add(mySearchControl)
         ' استقبال الاختيار
         AddHandler IM_FRM_mySearchControl.ItemSelected, AddressOf HandleItemSelected
+
+
+
+        If String.IsNullOrEmpty(IM_SH_txt.Text) Then
+            Exit Sub
+        Else
+            If IMDataGridViewX.Visible = True Then
+                IMDataGridViewX.Visible = False
+            Else
+                IMDataGridViewX.Visible = True
+                Fill_All_IM()
+                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+            End If
+        End If
+
+
+
 
     End Sub
 
@@ -189,7 +231,7 @@ Public Class ItemsMenu
     End Sub
 
     Private Sub ChoasePicureButton_Click(sender As Object, e As EventArgs) Handles ChoasePicureButton.Click
-        Dim OpenFL As New OpenFileDialog With {.Filter = "(Image Files)|*.jpg;*.png;*.bmp;*.gif;*.ico|Jpg, | *.jpg|Png, | *.png|Bmp, | *.bmp|Gif, | *.gif|Ico | *.ico", _
+        Dim OpenFL As New OpenFileDialog With {.Filter = "(Image Files)|*.jpg;*.png;*.bmp;*.gif;*.ico|Jpg, | *.jpg|Png, | *.png|Bmp, | *.bmp|Gif, | *.gif|Ico | *.ico",
                                                .Multiselect = False, .Title = "إختر صورة"}
         If OpenFL.ShowDialog = Windows.Forms.DialogResult.OK Then
             IMPictureBox.Image = Image.FromFile(OpenFL.FileName)
@@ -317,7 +359,7 @@ Public Class ItemsMenu
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
         Beep()
-        If MessageBox.Show(" تـأكيــد حــذف الصــنف " + IM_Name_ToolStrip.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, _
+        If MessageBox.Show(" تـأكيــد حــذف الصــنف " + IM_Name_ToolStrip.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question,
                       MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
             Delete_IM()
         End If
@@ -570,14 +612,14 @@ Public Class ItemsMenu
 
 
                 IM_Units_Select()
-                    IM_Select_Qty()
+                IM_Select_Qty()
 
 
-                    IM_Formating_Menu_Select()
-                    IM_Qty_Alert_Select()
+                IM_Formating_Menu_Select()
+                IM_Qty_Alert_Select()
 
-                End If
-                SaveButton.Enabled = True
+            End If
+            SaveButton.Enabled = True
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -850,9 +892,23 @@ Public Class ItemsMenu
         End If
     End Sub
 
-    Private Sub BarCode_Test_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
-        If IM_SH_txt.Text.Count > 0 Then Search_IM()
-        Name_Error.Clear()
+    'Private Sub BarCode_Test_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
+    '    If IM_SH_txt.Text.Count > 0 Then Search_IM()
+    '    Name_Error.Clear()
+    'End Sub
+    Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
+        ' [كود الفلترة الخاص بك من الرام (Cache) هنا]
+        ' مثال:
+        ' dv.RowFilter = "Item_Name LIKE '%" & IM_SH_txt.Text & "%'"
+        ' IMDataGridViewX.DataSource = dv
+
+        ' إذا كان التكست فارغاً، أخفِ الجريد، وإلا طبق دالة التمدد
+        If String.IsNullOrWhiteSpace(IM_SH_txt.Text) Then
+            IMDataGridViewX.Visible = False
+        Else
+            ' الرقم 250 هو أقصى ارتفاع للجريد (تستطيع تغييره حسب تصميم الشاشة)
+            AutoResizeGridDropDown(IMDataGridViewX, 250)
+        End If
     End Sub
 
     Private Sub AG_Name_txtb_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles IM_SH_txt.Validating
@@ -875,7 +931,7 @@ Public Class ItemsMenu
             MsgBox("أدخل اسم مجموعة الجديد", MsgBoxStyle.Exclamation, "إضافة مجموعة")
             GM_Serach.Select()
         Else
-            If MessageBox.Show(" إضافة " + GM_Serach.Text + " إلى قائمة المجموعات ", " إضافة مجموعة ", MessageBoxButtons.YesNo, _
+            If MessageBox.Show(" إضافة " + GM_Serach.Text + " إلى قائمة المجموعات ", " إضافة مجموعة ", MessageBoxButtons.YesNo,
                                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
                 GM_Serach.SelectedValue = Insert_Fast_GM()
             End If
@@ -1120,7 +1176,38 @@ Public Class ItemsMenu
     Private Sub Unit_DataGridView_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Unit_DataGridView.MouseDoubleClick
         If Unit_DataGridView.Rows.Count > 0 Then Update_IM_Unit.ShowDialog()
     End Sub
+    Private Sub AutoResizeGridDropDown(grid As DataGridView, maxHeight As Integer)
+        ' 1. إذا لم يكن هناك نتائج أو مربع النص فارغ، قم بإخفاء الجريد أو تصغيرها
+        If grid.Rows.Count = 0 OrElse grid.DataSource Is Nothing Then
+            grid.Height = 0
+            grid.Visible = False
+            Return
+        End If
 
+        ' 2. إظهار الجريد وجعلها في المقدمة فوق كل الأدوات الأخرى
+        grid.Visible = True
+        grid.BringToFront()
+
+        ' 3. حساب الارتفاع الإجمالي (ارتفاع الهيدر + ارتفاع كل صف)
+        Dim totalHeight As Integer = grid.ColumnHeadersHeight
+
+        ' نجمع ارتفاع الصفوف الحالية
+        For Each row As DataGridViewRow In grid.Rows
+            totalHeight += row.Height
+        Next
+
+        ' إضافة مسافة بسيطة للإطار الخارجي (Borders) لتجنب ظهور السكرول بشكل مزعج
+        totalHeight += 5
+
+        ' 4. تطبيق الارتفاع مع مراعاة الحد الأقصى (Max Height)
+        If totalHeight > maxHeight Then
+            grid.Height = maxHeight
+            grid.ScrollBars = ScrollBars.Vertical ' إظهار شريط التمرير إذا تخطت الحد الأقصى
+        Else
+            grid.Height = totalHeight
+            grid.ScrollBars = ScrollBars.None ' إخفاء شريط التمرير إذا كانت البيانات قليلة
+        End If
+    End Sub
     Private Sub Fill_All_IM()
         Try
             Dim C As New C
@@ -1582,11 +1669,22 @@ Public Class ItemsMenu
         f.ShowDialog()
     End Sub
 
-    Private Sub Barcode_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles Barcode_Search_txt.TextChanged
-        If Sh_ByNum_Searh_CB.Checked = True And Barcode_Search_txt.Text.Count > 0 Then
-            Load_IMByNum()
-        Else
+    'Private Sub Barcode_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles Barcode_Search_txt.TextChanged
+    '    If Sh_ByNum_Searh_CB.Checked = True And Barcode_Search_txt.Text.Count > 0 Then
+    '        Load_IMByNum()
+    '    Else
+    '        IMNUM_Grid.Visible = False
+    '    End If
+    'End Sub
+    Private Sub Barcode_Search_txt_TextChanged(sender As Object, e As EventArgs) Handles Barcode_Search_txt.TextChanged
+        ' [كود الفلترة الخاص بك من الرام (Cache) هنا]
+
+        ' إذا كان التكست فارغاً، أخفِ الجريد، وإلا طبق دالة التمدد
+        If String.IsNullOrWhiteSpace(Barcode_Search_txt.Text) Then
             IMNUM_Grid.Visible = False
+        Else
+            ' الرقم 250 هو أقصى ارتفاع للجريد
+            AutoResizeGridDropDown(IMNUM_Grid, 250)
         End If
     End Sub
 

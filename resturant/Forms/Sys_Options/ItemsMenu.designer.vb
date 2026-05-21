@@ -20,32 +20,33 @@ Partial Class ItemsMenu
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
+
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle45 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle46 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ItemsMenu))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BarCode_txt = New System.Windows.Forms.TextBox()
@@ -69,7 +70,7 @@ Partial Class ItemsMenu
         Me.FKChoaseButton = New System.Windows.Forms.Button()
         Me.BKPanel = New System.Windows.Forms.Panel()
         Me.FKPanel = New System.Windows.Forms.Panel()
-        Me.Unit_DataGridView = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.Unit_DataGridView = New System.Windows.Forms.DataGridView()
         Me.U_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.U_IM_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.is_Default_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
@@ -99,7 +100,7 @@ Partial Class ItemsMenu
         Me.GM_Serach = New System.Windows.Forms.ComboBox()
         Me.Price_txt = New System.Windows.Forms.TextBox()
         Me.IM_Unit_cm = New System.Windows.Forms.ComboBox()
-        Me.IMDataGridViewX = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.IMDataGridViewX = New System.Windows.Forms.DataGridView()
         Me.IM_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.item_name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.isValid_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -160,7 +161,7 @@ Partial Class ItemsMenu
         Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.Label75 = New System.Windows.Forms.Label()
         Me.ST_cm = New System.Windows.Forms.ComboBox()
-        Me.IM_QTY_ALERT_DGV = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.IM_QTY_ALERT_DGV = New System.Windows.Forms.DataGridView()
         Me.ST_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Q_ALERT_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -178,13 +179,12 @@ Partial Class ItemsMenu
         Me.REMOVE_ST_ALERT_QTY_btn = New System.Windows.Forms.Button()
         Me.ADD_ST_ALERT_QTY_btn = New System.Windows.Forms.Button()
         Me.Frm_TabPage = New System.Windows.Forms.TabPage()
-        Me.IM_FRM_mySearchControl = New resturant.SearchItemControl()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.QtyTextBox = New System.Windows.Forms.TextBox()
         Me.IM_Unit_cm_2 = New System.Windows.Forms.ComboBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.IM_FRM_MENU_DV = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.IM_FRM_MENU_DV = New System.Windows.Forms.DataGridView()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.INDX_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -202,9 +202,10 @@ Partial Class ItemsMenu
         Me.DeleteButton = New System.Windows.Forms.Button()
         Me.NewEmpButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
-        Me.IMNUM_Grid = New DevComponents.DotNetBar.Controls.DataGridViewX()
+        Me.IMNUM_Grid = New System.Windows.Forms.DataGridView()
         Me.IM_ID_CL_2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IM_FRM_mySearchControl = New resturant.SearchItemControl()
         CType(Me.Unit_DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -379,7 +380,7 @@ Partial Class ItemsMenu
         Me.isChangePriceCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.isChangePriceCheckBox.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.isChangePriceCheckBox.ForeColor = System.Drawing.Color.Black
-        Me.isChangePriceCheckBox.Location = New System.Drawing.Point(555, 185)
+        Me.isChangePriceCheckBox.Location = New System.Drawing.Point(567, 181)
         Me.isChangePriceCheckBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.isChangePriceCheckBox.Name = "isChangePriceCheckBox"
         Me.isChangePriceCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -519,31 +520,31 @@ Partial Class ItemsMenu
         '
         Me.Unit_DataGridView.AllowUserToAddRows = False
         Me.Unit_DataGridView.AllowUserToDeleteRows = False
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle24.BackColor = System.Drawing.Color.Gainsboro
-        Me.Unit_DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Unit_DataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.Unit_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.Unit_DataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.Unit_DataGridView.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle25.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Unit_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Unit_DataGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.Unit_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Unit_DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.U_ID_CL, Me.U_IM_ID_CL, Me.is_Default_CL, Me.U_Name_CL, Me.Barcode_CL, Me.Price_CL, Me.Min_SP_CL, Me.Min_SP_2_CL, Me.UserName_CL, Me.U_Cargo_CL})
         Me.Unit_DataGridView.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle27.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Unit_DataGridView.DefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Unit_DataGridView.DefaultCellStyle = DataGridViewCellStyle4
         Me.Unit_DataGridView.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
         Me.Unit_DataGridView.Location = New System.Drawing.Point(3, 401)
         Me.Unit_DataGridView.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -551,12 +552,12 @@ Partial Class ItemsMenu
         Me.Unit_DataGridView.Name = "Unit_DataGridView"
         Me.Unit_DataGridView.ReadOnly = True
         Me.Unit_DataGridView.RowHeadersVisible = False
-        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle28.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle28.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        DataGridViewCellStyle28.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Unit_DataGridView.RowsDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Unit_DataGridView.RowsDefaultCellStyle = DataGridViewCellStyle5
         Me.Unit_DataGridView.RowTemplate.ContextMenuStrip = Me.ContextMenuStrip1
         Me.Unit_DataGridView.RowTemplate.Height = 32
         Me.Unit_DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -587,10 +588,10 @@ Partial Class ItemsMenu
         'is_Default_CL
         '
         Me.is_Default_CL.DataPropertyName = "is_Default"
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.NullValue = False
-        Me.is_Default_CL.DefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.NullValue = False
+        Me.is_Default_CL.DefaultCellStyle = DataGridViewCellStyle3
         Me.is_Default_CL.FillWeight = 35.0!
         Me.is_Default_CL.HeaderText = "أساسي"
         Me.is_Default_CL.Name = "is_Default_CL"
@@ -892,26 +893,26 @@ Partial Class ItemsMenu
         Me.IMDataGridViewX.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.IMDataGridViewX.BackgroundColor = System.Drawing.Color.White
         Me.IMDataGridViewX.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle29.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IMDataGridViewX.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle29
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IMDataGridViewX.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.IMDataGridViewX.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.IMDataGridViewX.ColumnHeadersVisible = False
         Me.IMDataGridViewX.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IM_ID_CL, Me.item_name_CL, Me.isValid_CL})
         Me.IMDataGridViewX.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle32.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.IMDataGridViewX.DefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.IMDataGridViewX.DefaultCellStyle = DataGridViewCellStyle9
         Me.IMDataGridViewX.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
         Me.IMDataGridViewX.Location = New System.Drawing.Point(275, 115)
         Me.IMDataGridViewX.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -920,9 +921,9 @@ Partial Class ItemsMenu
         Me.IMDataGridViewX.ReadOnly = True
         Me.IMDataGridViewX.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.IMDataGridViewX.RowHeadersVisible = False
-        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle33.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.IMDataGridViewX.RowsDefaultCellStyle = DataGridViewCellStyle33
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.IMDataGridViewX.RowsDefaultCellStyle = DataGridViewCellStyle10
         Me.IMDataGridViewX.RowTemplate.Height = 35
         Me.IMDataGridViewX.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.IMDataGridViewX.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -934,8 +935,8 @@ Partial Class ItemsMenu
         '
         Me.IM_ID_CL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.IM_ID_CL.DataPropertyName = "IM_ID"
-        DataGridViewCellStyle30.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_ID_CL.DefaultCellStyle = DataGridViewCellStyle30
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_ID_CL.DefaultCellStyle = DataGridViewCellStyle7
         Me.IM_ID_CL.FillWeight = 5.0!
         Me.IM_ID_CL.Frozen = True
         Me.IM_ID_CL.HeaderText = "رقم الصنف"
@@ -948,8 +949,8 @@ Partial Class ItemsMenu
         'item_name_CL
         '
         Me.item_name_CL.DataPropertyName = "item_name"
-        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.item_name_CL.DefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.item_name_CL.DefaultCellStyle = DataGridViewCellStyle8
         Me.item_name_CL.FillWeight = 69.61895!
         Me.item_name_CL.HeaderText = "الأصنــاف"
         Me.item_name_CL.Name = "item_name_CL"
@@ -1219,7 +1220,7 @@ Partial Class ItemsMenu
         Me.Cost_Panel.Controls.Add(Me.Label4)
         Me.Cost_Panel.Controls.Add(Me.IM_BoxCost_txt)
         Me.Cost_Panel.Controls.Add(Me.Label8)
-        Me.Cost_Panel.Location = New System.Drawing.Point(276, 215)
+        Me.Cost_Panel.Location = New System.Drawing.Point(276, 229)
         Me.Cost_Panel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Cost_Panel.Name = "Cost_Panel"
         Me.Cost_Panel.Size = New System.Drawing.Size(375, 58)
@@ -1255,21 +1256,21 @@ Partial Class ItemsMenu
         '
         Me.Open_Camera_btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Open_Camera_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Open_Camera_btn.BackgroundImage = CType(resources.GetObject("Open_Camera_btn.BackgroundImage"), System.Drawing.Image)
         Me.Open_Camera_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Open_Camera_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Open_Camera_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Open_Camera_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Open_Camera_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Open_Camera_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Open_Camera_btn.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Open_Camera_btn.Font = New System.Drawing.Font("Arial", 17.25!, System.Drawing.FontStyle.Bold)
         Me.Open_Camera_btn.ForeColor = System.Drawing.Color.DarkRed
         Me.Open_Camera_btn.Location = New System.Drawing.Point(169, 240)
         Me.Open_Camera_btn.Name = "Open_Camera_btn"
         Me.Open_Camera_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Open_Camera_btn.Size = New System.Drawing.Size(48, 30)
+        Me.Open_Camera_btn.Size = New System.Drawing.Size(48, 35)
         Me.Open_Camera_btn.TabIndex = 679
-        Me.Open_Camera_btn.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.Open_Camera_btn.Text = "📷"
+        Me.Open_Camera_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Open_Camera_btn.UseVisualStyleBackColor = False
         '
         'DeleteU_btn
@@ -1291,10 +1292,10 @@ Partial Class ItemsMenu
         '
         Me.Markter_Panel.Controls.Add(Me.Markter_Val_txt)
         Me.Markter_Panel.Controls.Add(Me.Label12)
-        Me.Markter_Panel.Location = New System.Drawing.Point(275, 274)
+        Me.Markter_Panel.Location = New System.Drawing.Point(275, 288)
         Me.Markter_Panel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Markter_Panel.Name = "Markter_Panel"
-        Me.Markter_Panel.Size = New System.Drawing.Size(375, 30)
+        Me.Markter_Panel.Size = New System.Drawing.Size(376, 30)
         Me.Markter_Panel.TabIndex = 678
         '
         'Markter_Val_txt
@@ -1354,16 +1355,17 @@ Partial Class ItemsMenu
         'Random_Barcode_btn
         '
         Me.Random_Barcode_btn.BackColor = System.Drawing.Color.White
-        Me.Random_Barcode_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_refresh_1608809
         Me.Random_Barcode_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Random_Barcode_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Random_Barcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Random_Barcode_btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Random_Barcode_btn.Location = New System.Drawing.Point(513, 374)
+        Me.Random_Barcode_btn.Font = New System.Drawing.Font("Arial", 13.75!, System.Drawing.FontStyle.Bold)
+        Me.Random_Barcode_btn.Location = New System.Drawing.Point(513, 371)
         Me.Random_Barcode_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Random_Barcode_btn.Name = "Random_Barcode_btn"
-        Me.Random_Barcode_btn.Size = New System.Drawing.Size(30, 26)
+        Me.Random_Barcode_btn.Size = New System.Drawing.Size(30, 28)
         Me.Random_Barcode_btn.TabIndex = 458
+        Me.Random_Barcode_btn.Text = "🔄"
+        Me.Random_Barcode_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Random_Barcode_btn.UseVisualStyleBackColor = False
         '
         'Notes_txt
@@ -1385,7 +1387,7 @@ Partial Class ItemsMenu
         Me.IMPH_Btn.Location = New System.Drawing.Point(91, 240)
         Me.IMPH_Btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IMPH_Btn.Name = "IMPH_Btn"
-        Me.IMPH_Btn.Size = New System.Drawing.Size(76, 30)
+        Me.IMPH_Btn.Size = New System.Drawing.Size(76, 35)
         Me.IMPH_Btn.TabIndex = 607
         Me.IMPH_Btn.Text = "....."
         Me.IMPH_Btn.UseVisualStyleBackColor = False
@@ -1399,7 +1401,7 @@ Partial Class ItemsMenu
         Me.IMPH_None_btn.Location = New System.Drawing.Point(4, 240)
         Me.IMPH_None_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IMPH_None_btn.Name = "IMPH_None_btn"
-        Me.IMPH_None_btn.Size = New System.Drawing.Size(85, 30)
+        Me.IMPH_None_btn.Size = New System.Drawing.Size(85, 35)
         Me.IMPH_None_btn.TabIndex = 606
         Me.IMPH_None_btn.Text = "بلا صورة"
         Me.IMPH_None_btn.UseVisualStyleBackColor = False
@@ -1683,31 +1685,31 @@ Partial Class ItemsMenu
         '
         Me.IM_QTY_ALERT_DGV.AllowUserToAddRows = False
         Me.IM_QTY_ALERT_DGV.AllowUserToDeleteRows = False
-        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle38.BackColor = System.Drawing.Color.Gainsboro
-        Me.IM_QTY_ALERT_DGV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle38
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.Gainsboro
+        Me.IM_QTY_ALERT_DGV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle15
         Me.IM_QTY_ALERT_DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.IM_QTY_ALERT_DGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.IM_QTY_ALERT_DGV.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle39.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle39.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle39.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IM_QTY_ALERT_DGV.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle39
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IM_QTY_ALERT_DGV.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle16
         Me.IM_QTY_ALERT_DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.IM_QTY_ALERT_DGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ST_ID_CL, Me.Q_ALERT_T_ID_CL, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10})
         Me.IM_QTY_ALERT_DGV.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        DataGridViewCellStyle40.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle40.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle40.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle40.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle40.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.IM_QTY_ALERT_DGV.DefaultCellStyle = DataGridViewCellStyle40
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.IM_QTY_ALERT_DGV.DefaultCellStyle = DataGridViewCellStyle17
         Me.IM_QTY_ALERT_DGV.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
         Me.IM_QTY_ALERT_DGV.Location = New System.Drawing.Point(7, 343)
         Me.IM_QTY_ALERT_DGV.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1715,12 +1717,12 @@ Partial Class ItemsMenu
         Me.IM_QTY_ALERT_DGV.Name = "IM_QTY_ALERT_DGV"
         Me.IM_QTY_ALERT_DGV.ReadOnly = True
         Me.IM_QTY_ALERT_DGV.RowHeadersVisible = False
-        DataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle41.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle41.Font = New System.Drawing.Font("Segoe UI", 11.0!)
-        DataGridViewCellStyle41.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IM_QTY_ALERT_DGV.RowsDefaultCellStyle = DataGridViewCellStyle41
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle18.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IM_QTY_ALERT_DGV.RowsDefaultCellStyle = DataGridViewCellStyle18
         Me.IM_QTY_ALERT_DGV.RowTemplate.Height = 32
         Me.IM_QTY_ALERT_DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.IM_QTY_ALERT_DGV.Size = New System.Drawing.Size(853, 196)
@@ -1933,21 +1935,6 @@ Partial Class ItemsMenu
         Me.Frm_TabPage.TabIndex = 4
         Me.Frm_TabPage.Text = "مكونات التصنيع الآلية"
         '
-        'IM_FRM_mySearchControl
-        '
-        Me.IM_FRM_mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.IM_FRM_mySearchControl.DefaultSearchField = "إسم الصنف"
-        Me.IM_FRM_mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
-        Me.IM_FRM_mySearchControl.ItemsTable = Nothing
-        Me.IM_FRM_mySearchControl.itemsTable_Barcode = Nothing
-        Me.IM_FRM_mySearchControl.Location = New System.Drawing.Point(5, 27)
-        Me.IM_FRM_mySearchControl.Margin = New System.Windows.Forms.Padding(0)
-        Me.IM_FRM_mySearchControl.MarginBetweenSearchAndGrid = 15
-        Me.IM_FRM_mySearchControl.MaxGridHeight = 400
-        Me.IM_FRM_mySearchControl.Name = "IM_FRM_mySearchControl"
-        Me.IM_FRM_mySearchControl.Size = New System.Drawing.Size(848, 31)
-        Me.IM_FRM_mySearchControl.TabIndex = 1048
-        '
         'Label22
         '
         Me.Label22.AutoSize = True
@@ -2016,31 +2003,31 @@ Partial Class ItemsMenu
         '
         Me.IM_FRM_MENU_DV.AllowUserToAddRows = False
         Me.IM_FRM_MENU_DV.AllowUserToDeleteRows = False
-        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle42.BackColor = System.Drawing.Color.Gainsboro
-        Me.IM_FRM_MENU_DV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle42
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle19.BackColor = System.Drawing.Color.Gainsboro
+        Me.IM_FRM_MENU_DV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
         Me.IM_FRM_MENU_DV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.IM_FRM_MENU_DV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.IM_FRM_MENU_DV.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle43.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle43.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle43.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle43.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle43.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IM_FRM_MENU_DV.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle43
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IM_FRM_MENU_DV.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle20
         Me.IM_FRM_MENU_DV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.IM_FRM_MENU_DV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.INDX_CL, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.USER_CL})
         Me.IM_FRM_MENU_DV.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        DataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle45.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle45.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle45.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle45.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.IM_FRM_MENU_DV.DefaultCellStyle = DataGridViewCellStyle45
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle22.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.IM_FRM_MENU_DV.DefaultCellStyle = DataGridViewCellStyle22
         Me.IM_FRM_MENU_DV.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
         Me.IM_FRM_MENU_DV.Location = New System.Drawing.Point(2, 103)
         Me.IM_FRM_MENU_DV.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2048,12 +2035,12 @@ Partial Class ItemsMenu
         Me.IM_FRM_MENU_DV.Name = "IM_FRM_MENU_DV"
         Me.IM_FRM_MENU_DV.ReadOnly = True
         Me.IM_FRM_MENU_DV.RowHeadersVisible = False
-        DataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle46.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle46.Font = New System.Drawing.Font("Segoe UI", 11.0!)
-        DataGridViewCellStyle46.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle46.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IM_FRM_MENU_DV.RowsDefaultCellStyle = DataGridViewCellStyle46
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IM_FRM_MENU_DV.RowsDefaultCellStyle = DataGridViewCellStyle23
         Me.IM_FRM_MENU_DV.RowTemplate.Height = 32
         Me.IM_FRM_MENU_DV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.IM_FRM_MENU_DV.Size = New System.Drawing.Size(859, 480)
@@ -2096,8 +2083,8 @@ Partial Class ItemsMenu
         'DataGridViewTextBoxColumn5
         '
         Me.DataGridViewTextBoxColumn5.DataPropertyName = "Qty"
-        DataGridViewCellStyle44.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle44
+        DataGridViewCellStyle21.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle21
         Me.DataGridViewTextBoxColumn5.FillWeight = 119.9922!
         Me.DataGridViewTextBoxColumn5.HeaderText = "الكمية"
         Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
@@ -2197,7 +2184,7 @@ Partial Class ItemsMenu
         Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(879, 624)
+        Me.ExitFormButton.Location = New System.Drawing.Point(878, 620)
         Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ExitFormButton.Name = "ExitFormButton"
         Me.ExitFormButton.Size = New System.Drawing.Size(125, 40)
@@ -2317,26 +2304,26 @@ Partial Class ItemsMenu
         Me.IMNUM_Grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.IMNUM_Grid.BackgroundColor = System.Drawing.Color.White
         Me.IMNUM_Grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        DataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle34.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle34.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle34.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle34.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IMNUM_Grid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle34
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IMNUM_Grid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
         Me.IMNUM_Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.IMNUM_Grid.ColumnHeadersVisible = False
         Me.IMNUM_Grid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IM_ID_CL_2, Me.DataGridViewTextBoxColumn11})
         Me.IMNUM_Grid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle36.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.IMNUM_Grid.DefaultCellStyle = DataGridViewCellStyle36
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.IMNUM_Grid.DefaultCellStyle = DataGridViewCellStyle13
         Me.IMNUM_Grid.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
         Me.IMNUM_Grid.Location = New System.Drawing.Point(693, 30)
         Me.IMNUM_Grid.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2345,9 +2332,9 @@ Partial Class ItemsMenu
         Me.IMNUM_Grid.ReadOnly = True
         Me.IMNUM_Grid.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.IMNUM_Grid.RowHeadersVisible = False
-        DataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle37.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.IMNUM_Grid.RowsDefaultCellStyle = DataGridViewCellStyle37
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.IMNUM_Grid.RowsDefaultCellStyle = DataGridViewCellStyle14
         Me.IMNUM_Grid.RowTemplate.Height = 35
         Me.IMNUM_Grid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.IMNUM_Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -2359,8 +2346,8 @@ Partial Class ItemsMenu
         '
         Me.IM_ID_CL_2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.IM_ID_CL_2.DataPropertyName = "IM_ID"
-        DataGridViewCellStyle35.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_ID_CL_2.DefaultCellStyle = DataGridViewCellStyle35
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_ID_CL_2.DefaultCellStyle = DataGridViewCellStyle12
         Me.IM_ID_CL_2.FillWeight = 5.0!
         Me.IM_ID_CL_2.Frozen = True
         Me.IM_ID_CL_2.HeaderText = "IM_ID"
@@ -2377,6 +2364,21 @@ Partial Class ItemsMenu
         Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
         Me.DataGridViewTextBoxColumn11.ReadOnly = True
         Me.DataGridViewTextBoxColumn11.Visible = False
+        '
+        'IM_FRM_mySearchControl
+        '
+        Me.IM_FRM_mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.IM_FRM_mySearchControl.DefaultSearchField = "إسم الصنف"
+        Me.IM_FRM_mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
+        Me.IM_FRM_mySearchControl.ItemsTable = Nothing
+        Me.IM_FRM_mySearchControl.itemsTable_Barcode = Nothing
+        Me.IM_FRM_mySearchControl.Location = New System.Drawing.Point(5, 27)
+        Me.IM_FRM_mySearchControl.Margin = New System.Windows.Forms.Padding(0)
+        Me.IM_FRM_mySearchControl.MarginBetweenSearchAndGrid = 15
+        Me.IM_FRM_mySearchControl.MaxGridHeight = 400
+        Me.IM_FRM_mySearchControl.Name = "IM_FRM_mySearchControl"
+        Me.IM_FRM_mySearchControl.Size = New System.Drawing.Size(848, 31)
+        Me.IM_FRM_mySearchControl.TabIndex = 1048
         '
         'ItemsMenu
         '
@@ -2497,9 +2499,9 @@ Partial Class ItemsMenu
     Friend WithEvents IM_Num_txt As System.Windows.Forms.TextBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Barcode_Search_txt As System.Windows.Forms.TextBox
-    Friend WithEvents Unit_DataGridView As DevComponents.DotNetBar.Controls.DataGridViewX
+    Friend WithEvents Unit_DataGridView As System.Windows.Forms.DataGridView
     Friend WithEvents Show_IM_btn As System.Windows.Forms.Button
-    Public WithEvents IMDataGridViewX As DevComponents.DotNetBar.Controls.DataGridViewX
+    Public WithEvents IMDataGridViewX As System.Windows.Forms.DataGridView
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
     Friend WithEvents TouchTabPage As System.Windows.Forms.TabPage
@@ -2522,7 +2524,7 @@ Partial Class ItemsMenu
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents IM_Type_cm As System.Windows.Forms.ComboBox
     Friend WithEvents Frm_TabPage As System.Windows.Forms.TabPage
-    Friend WithEvents IM_FRM_MENU_DV As DevComponents.DotNetBar.Controls.DataGridViewX
+    Friend WithEvents IM_FRM_MENU_DV As System.Windows.Forms.DataGridView
     Friend WithEvents QtyTextBox As System.Windows.Forms.TextBox
     Friend WithEvents IM_Unit_cm_2 As System.Windows.Forms.ComboBox
     Friend WithEvents Label20 As System.Windows.Forms.Label
@@ -2531,7 +2533,7 @@ Partial Class ItemsMenu
     Friend WithEvents REMOVE_FRM_Btn As System.Windows.Forms.Button
     Friend WithEvents ADD_FRM_Btn As System.Windows.Forms.Button
     Friend WithEvents IM_MV_btn As System.Windows.Forms.Button
-    Friend WithEvents IM_QTY_ALERT_DGV As DevComponents.DotNetBar.Controls.DataGridViewX
+    Friend WithEvents IM_QTY_ALERT_DGV As System.Windows.Forms.DataGridView
     Friend WithEvents REMOVE_ST_ALERT_QTY_btn As System.Windows.Forms.Button
     Friend WithEvents ADD_ST_ALERT_QTY_btn As System.Windows.Forms.Button
     Friend WithEvents Label75 As System.Windows.Forms.Label
@@ -2572,7 +2574,7 @@ Partial Class ItemsMenu
     Friend WithEvents ToolStripStatusLabel8 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel9 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Open_Camera_btn As System.Windows.Forms.Button
-    Public WithEvents IMNUM_Grid As DevComponents.DotNetBar.Controls.DataGridViewX
+    Public WithEvents IMNUM_Grid As System.Windows.Forms.DataGridView
     Friend WithEvents IM_ID_CL_2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn11 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents T_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
