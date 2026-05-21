@@ -143,7 +143,7 @@ Partial Class AG_Transfers
         Me.Cancel_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.Cancel_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Cancel_Btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Cancel_Btn.Location = New System.Drawing.Point(82, 444)
+        Me.Cancel_Btn.Location = New System.Drawing.Point(8, 443)
         Me.Cancel_Btn.Name = "Cancel_Btn"
         Me.Cancel_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Cancel_Btn.Size = New System.Drawing.Size(112, 35)
@@ -178,13 +178,12 @@ Partial Class AG_Transfers
         'Down_Bill_btn
         '
         Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Down_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_Down
         Me.Down_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Down_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Down_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Down_Bill_btn.Font = New System.Drawing.Font("Arial Black", 15.0!, System.Drawing.FontStyle.Bold)
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Down_Bill_btn.Location = New System.Drawing.Point(500, 44)
@@ -193,18 +192,18 @@ Partial Class AG_Transfers
         Me.Down_Bill_btn.Size = New System.Drawing.Size(36, 33)
         Me.Down_Bill_btn.TabIndex = 627
         Me.Down_Bill_btn.TabStop = False
+        Me.Down_Bill_btn.Text = "▼"
         Me.Down_Bill_btn.UseVisualStyleBackColor = False
         '
         'Up_Bill_btn
         '
         Me.Up_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Up_Bill_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_up_3017922
         Me.Up_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Up_Bill_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Up_Bill_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Narrow", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Up_Bill_btn.Font = New System.Drawing.Font("Arial Black", 15.0!, System.Drawing.FontStyle.Bold)
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Up_Bill_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Up_Bill_btn.Location = New System.Drawing.Point(705, 44)
@@ -213,6 +212,7 @@ Partial Class AG_Transfers
         Me.Up_Bill_btn.Size = New System.Drawing.Size(36, 33)
         Me.Up_Bill_btn.TabIndex = 626
         Me.Up_Bill_btn.TabStop = False
+        Me.Up_Bill_btn.Text = "▲"
         Me.Up_Bill_btn.UseVisualStyleBackColor = False
         '
         'Fields_Panel
@@ -466,7 +466,7 @@ Partial Class AG_Transfers
         Me.new_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.new_butt.ForeColor = System.Drawing.Color.Black
         Me.new_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.new_butt.Location = New System.Drawing.Point(538, 444)
+        Me.new_butt.Location = New System.Drawing.Point(501, 443)
         Me.new_butt.Name = "new_butt"
         Me.new_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.new_butt.Size = New System.Drawing.Size(112, 35)
@@ -484,7 +484,7 @@ Partial Class AG_Transfers
         Me.print_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.print_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.print_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.print_butt.Location = New System.Drawing.Point(196, 444)
+        Me.print_butt.Location = New System.Drawing.Point(126, 443)
         Me.print_butt.Name = "print_butt"
         Me.print_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.print_butt.Size = New System.Drawing.Size(112, 35)
@@ -505,10 +505,10 @@ Partial Class AG_Transfers
         Me.save_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.save_butt.Location = New System.Drawing.Point(312, 444)
+        Me.save_butt.Location = New System.Drawing.Point(244, 443)
         Me.save_butt.Name = "save_butt"
         Me.save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.save_butt.Size = New System.Drawing.Size(223, 35)
+        Me.save_butt.Size = New System.Drawing.Size(251, 35)
         Me.save_butt.TabIndex = 279
         Me.save_butt.TabStop = False
         Me.save_butt.Tag = "SAVE"

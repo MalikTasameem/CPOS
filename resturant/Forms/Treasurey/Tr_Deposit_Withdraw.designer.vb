@@ -730,7 +730,7 @@ Partial Class Tr_Deposit_Withdraw
         Me.new_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.new_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.new_butt.ForeColor = System.Drawing.Color.Black
-        Me.new_butt.Location = New System.Drawing.Point(414, 376)
+        Me.new_butt.Location = New System.Drawing.Point(480, 376)
         Me.new_butt.Name = "new_butt"
         Me.new_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.new_butt.Size = New System.Drawing.Size(102, 45)
@@ -885,7 +885,7 @@ Partial Class Tr_Deposit_Withdraw
         Me.save_butt.Location = New System.Drawing.Point(228, 376)
         Me.save_butt.Name = "save_butt"
         Me.save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.save_butt.Size = New System.Drawing.Size(180, 45)
+        Me.save_butt.Size = New System.Drawing.Size(246, 45)
         Me.save_butt.TabIndex = 279
         Me.save_butt.TabStop = False
         Me.save_butt.Tag = "SAVE"
