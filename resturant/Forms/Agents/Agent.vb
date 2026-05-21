@@ -345,6 +345,7 @@ Public Class Agent
             .Parameters.AddWithValue("@Date_Start", Date_Start.Value)
 
             .Parameters.AddWithValue("@isDefaultAG", Show_ag_menuCB.Checked)
+            .Parameters.AddWithValue("@USER_ID", USER_ID)
 
             .Parameters("@Ag_ID").Direction = ParameterDirection.Output
         End With
@@ -384,8 +385,8 @@ Public Class Agent
             .Parameters.AddWithValue("@is_Emp_Pause", is_Emp_Pause_CB.Checked)
             .Parameters.AddWithValue("@Cr_ID", Cr_CM.SelectedValue)
             .Parameters.AddWithValue("@Date_Start", Date_Start.Value)
-            .Parameters.AddWithValue("@Tree_Code", ACC_CODE_TXT.Text)
             .Parameters.AddWithValue("@isDefaultAG", Show_ag_menuCB.Checked)
+            .Parameters.AddWithValue("@USER_ID", USER_ID)
         End With
 
 
@@ -409,6 +410,7 @@ Public Class Agent
             .CommandText = "Agents_Delete"
             .CommandType = CommandType.StoredProcedure
             .Parameters.AddWithValue("@AG_ID", AG_ID)
+            .Parameters.AddWithValue("@USER_ID", USER_ID)
         End With
 
         If SQL_SP_EXEC(C.Com) = True Then

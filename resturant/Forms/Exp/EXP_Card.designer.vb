@@ -65,7 +65,7 @@ Partial Class EXP_Card
         Me.SNameTextBox.MaxLength = 350
         Me.SNameTextBox.Name = "SNameTextBox"
         Me.SNameTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SNameTextBox.Size = New System.Drawing.Size(302, 29)
+        Me.SNameTextBox.Size = New System.Drawing.Size(288, 29)
         Me.SNameTextBox.TabIndex = 429
         Me.SNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '

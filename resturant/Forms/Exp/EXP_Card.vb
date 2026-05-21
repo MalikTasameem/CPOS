@@ -24,6 +24,7 @@
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@Ex_ID", 0)
         sqlComm.Parameters.AddWithValue("@Ex_Name", SNameTextBox.Text)
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
         sqlComm.Parameters("@Ex_ID").Direction = ParameterDirection.Output
         If SQL_SP_EXEC(sqlComm) = True Then MsgBox("تمت إضافة البند", MsgBoxStyle.Information)
     End Sub
@@ -66,6 +67,7 @@
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@Ex_ID", S_ID)
         sqlComm.Parameters.AddWithValue("@Ex_Name", SNameTextBox.Text)
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تم تعديل بيانات البند", MsgBoxStyle.Information)
         End If
@@ -124,43 +126,14 @@
 
     End Sub
 
-    'Public Function check_StoreQTY()
 
-    '    Dim c1 As New C
-    '    Dim F As Boolean = False
-
-    '    Dim sql As String = "select  Sum(QTY) AS 'SumQ' from Stores_Balance where Store_ID ='" & S_ID & "'"
-    '    Dim com As New SqlClient.SqlCommand(sql, c1.Con)
-
-    '    c1.Con.Open()
-    '    Try
-
-    '        c1.Dr = com.ExecuteReader
-    '        If c1.Dr.HasRows Then
-    '            c1.Dr.Read()
-
-    '            If IsDBNull(c1.Dr("SumQ")) Or c1.Dr("SumQ") = 0 Then
-    '                F = False
-    '            Else
-    '                F = True
-    '            End If
-
-    '        End If
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    '    c1.Con.Close()
-
-    '    Return F
-
-    'End Function
 
     Public Sub S_Delete()
         Dim sqlComm As New SqlClient.SqlCommand
         sqlComm.CommandText = "ExpCard_Delete"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@Ex_ID", S_ID)
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
 
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تم حـــذف البند", MsgBoxStyle.Information)

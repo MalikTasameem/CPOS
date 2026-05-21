@@ -84,7 +84,6 @@ Partial Class MainForm
         Me.ToolStripSeparator5_Frm = New System.Windows.Forms.ToolStripSeparator()
         Me.Exp_Btn = New System.Windows.Forms.ToolStripDropDownButton()
         Me.Exp_LB = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Exp_Static_LB = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.Agents_btn = New System.Windows.Forms.ToolStripDropDownButton()
         Me.بطاقةالعملاءToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -553,7 +552,7 @@ Partial Class MainForm
         'Exp_Btn
         '
         Me.Exp_Btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Exp_Btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Exp_LB, Me.Exp_Static_LB})
+        Me.Exp_Btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Exp_LB})
         Me.Exp_Btn.Name = "Exp_Btn"
         Me.Exp_Btn.Size = New System.Drawing.Size(88, 23)
         Me.Exp_Btn.Text = "المصروفات"
@@ -563,12 +562,6 @@ Partial Class MainForm
         Me.Exp_LB.Name = "Exp_LB"
         Me.Exp_LB.Size = New System.Drawing.Size(166, 24)
         Me.Exp_LB.Text = "مصروفات عامة"
-        '
-        'Exp_Static_LB
-        '
-        Me.Exp_Static_LB.Name = "Exp_Static_LB"
-        Me.Exp_Static_LB.Size = New System.Drawing.Size(166, 24)
-        Me.Exp_Static_LB.Text = "مصروفات ثابتة"
         '
         'ToolStripSeparator6
         '
@@ -618,19 +611,19 @@ Partial Class MainForm
         'سحــبToolStripMenuItem
         '
         Me.سحــبToolStripMenuItem.Name = "سحــبToolStripMenuItem"
-        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
+        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
         Me.سحــبToolStripMenuItem.Text = "سحب"
         '
         'إيداعToolStripMenuItem
         '
         Me.إيداعToolStripMenuItem.Name = "إيداعToolStripMenuItem"
-        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(152, 24)
+        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
         Me.إيداعToolStripMenuItem.Text = "إيداع"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(152, 24)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(113, 24)
         Me.ToolStripMenuItem3.Text = "تحويل"
         '
         'تحويلبينالحساباتToolStripMenuItem
@@ -1635,7 +1628,6 @@ Partial Class MainForm
     Friend WithEvents FRM_Auto_LB As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents FRM_M_LB As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Exp_LB As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Exp_Static_LB As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents بطاقةالعملاءToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents الخزينــةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents سحــبToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem

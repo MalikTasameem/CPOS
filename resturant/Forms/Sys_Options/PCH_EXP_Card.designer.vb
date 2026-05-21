@@ -51,7 +51,7 @@ Partial Class PCH_EXP_Card
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(309, 6)
+        Me.Label15.Location = New System.Drawing.Point(295, 6)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(67, 21)
         Me.Label15.TabIndex = 428
@@ -65,7 +65,7 @@ Partial Class PCH_EXP_Card
         Me.SNameTextBox.MaxLength = 350
         Me.SNameTextBox.Name = "SNameTextBox"
         Me.SNameTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SNameTextBox.Size = New System.Drawing.Size(302, 29)
+        Me.SNameTextBox.Size = New System.Drawing.Size(288, 29)
         Me.SNameTextBox.TabIndex = 429
         Me.SNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '

@@ -219,7 +219,7 @@ Public Class SysOptions
     End Sub
 
     Private Sub Tree_AG_Button_Click(sender As Object, e As EventArgs) Handles Tree_AG_Button.Click
-        Dim f As New Agent_Balance_For_Tree
+        Dim f As New FRM_ACC_ENTITY_LINKS_MANAGER
         f.ShowDialog()
     End Sub
 

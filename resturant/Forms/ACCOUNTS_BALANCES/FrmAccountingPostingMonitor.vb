@@ -139,7 +139,7 @@ WHERE [Date] >= @FromDate
   AND (@SourceTable IS NULL OR SourceTable = @SourceTable)
   AND (@BsType_ID IS NULL OR BsType_ID = @BsType_ID)
   AND (@PostingStatus IS NULL OR PostingStatus = @PostingStatus)
-  AND ISNULL(isVoid, 0) = 0
+  AND ISNULL(isVoid, 0) = 0  and isDepended = 1
   AND
   (
       @SearchText IS NULL
@@ -566,9 +566,8 @@ ORDER BY b.T_ID;
         End If
     End Sub
 
-    Private Sub FrmAccountingPostingMonitor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    End Sub
+
 
 
 #End Region

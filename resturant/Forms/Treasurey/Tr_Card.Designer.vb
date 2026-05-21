@@ -41,6 +41,7 @@ Partial Class Tr_Card
         Me.ACC_CODE_TXT = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TR_NAMEErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.IS_BANK_CB = New System.Windows.Forms.CheckBox()
         Me.FieldsPanel.SuspendLayout()
         CType(Me.TR_NAMEErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -267,6 +268,7 @@ Partial Class Tr_Card
         '
         'FieldsPanel
         '
+        Me.FieldsPanel.Controls.Add(Me.IS_BANK_CB)
         Me.FieldsPanel.Controls.Add(Me.ACC_CODE_TXT)
         Me.FieldsPanel.Controls.Add(Me.Label12)
         Me.FieldsPanel.Controls.Add(Me.Label4)
@@ -311,6 +313,16 @@ Partial Class Tr_Card
         '
         Me.TR_NAMEErrorProvider.ContainerControl = Me
         Me.TR_NAMEErrorProvider.RightToLeft = True
+        '
+        'IS_BANK_CB
+        '
+        Me.IS_BANK_CB.AutoSize = True
+        Me.IS_BANK_CB.Location = New System.Drawing.Point(179, 231)
+        Me.IS_BANK_CB.Name = "IS_BANK_CB"
+        Me.IS_BANK_CB.Size = New System.Drawing.Size(119, 25)
+        Me.IS_BANK_CB.TabIndex = 619
+        Me.IS_BANK_CB.Text = "خزينة مصرفية"
+        Me.IS_BANK_CB.UseVisualStyleBackColor = True
         '
         'Tr_Card
         '
@@ -360,4 +372,5 @@ Partial Class Tr_Card
     Friend WithEvents TR_NAMEErrorProvider As System.Windows.Forms.ErrorProvider
     Friend WithEvents Label12 As Label
     Friend WithEvents ACC_CODE_TXT As TextBox
+    Friend WithEvents IS_BANK_CB As CheckBox
 End Class

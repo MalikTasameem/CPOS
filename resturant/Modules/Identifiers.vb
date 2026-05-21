@@ -106,7 +106,7 @@
     Public F_ViewBill As ViewBill
     Public F_Inside_Sales As Inside_Sales
     Public F_Outside_Sales As Outside_Sales
-    Public F_Exp_Static As Exp_Static
+    'Public F_Exp_Static As Exp_Static
     Public F_Format_Items_Manual As Format_Items_Manual
     Public F_Balances As Balances
     Public F_BillNotes As BillNotes

@@ -25,6 +25,7 @@
         sqlComm.Parameters.AddWithValue("@Ex_ID", 0)
         sqlComm.Parameters.AddWithValue("@Ex_Name", SNameTextBox.Text)
         sqlComm.Parameters("@Ex_ID").Direction = ParameterDirection.Output
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
         If SQL_SP_EXEC(sqlComm) = True Then MsgBox("تمت إضافة البند", MsgBoxStyle.Information)
     End Sub
 
@@ -66,9 +67,8 @@
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@Ex_ID", S_ID)
         sqlComm.Parameters.AddWithValue("@Ex_Name", SNameTextBox.Text)
-        If SQL_SP_EXEC(sqlComm) = True Then
-            MsgBox("تم تعديل بيانات البند", MsgBoxStyle.Information)
-        End If
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
+        If SQL_SP_EXEC(sqlComm) = True Then MsgBox("تم تعديل بيانات البند", MsgBoxStyle.Information)
     End Sub
 
     Private Sub S_listBox_MouseClick(sender As Object, e As MouseEventArgs) Handles S_listBox.MouseClick
@@ -130,22 +130,12 @@
         sqlComm.CommandText = "[Pch_Exp_DELETE]"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@Ex_ID", S_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
-            MsgBox("تم حـــذف البند", MsgBoxStyle.Information)
-        End If
+        MsgBox("تم تعديل بيانات البند", MsgBoxStyle.Information)
+        If SQL_SP_EXEC(sqlComm) = True Then MsgBox("تم حـــذف البند", MsgBoxStyle.Information)
     End Sub
 
     Private Sub SNameTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SNameTextBox.KeyDown
         If e.KeyCode = Keys.Return Then SaveSButton_Click(sender, e)
-    End Sub
-
-    Private Sub Saler_Percent_txt_KeyPress(sender As Object, e As KeyPressEventArgs)
-        Check_Only_Float(sender, e)
-    End Sub
-
-    Private Sub Saler_Percent_txt_TextChanged(sender As Object, e As EventArgs)
-        Check_Point_in_FloatNum(sender, e)
     End Sub
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click

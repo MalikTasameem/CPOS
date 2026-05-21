@@ -274,6 +274,18 @@
     <Compile Include="Classes\Online_C.vb" />
     <Compile Include="Classes\OSK_Class.vb" />
     <Compile Include="Classes\Resizer.vb" />
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FRM_ACC_ENTITY_LINKS_MANAGER.Designer.vb">
+      <DependentUpon>FRM_ACC_ENTITY_LINKS_MANAGER.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FRM_ACC_ENTITY_LINKS_MANAGER.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FRM_SELECT_ACCOUNT.Designer.vb">
+      <DependentUpon>FRM_SELECT_ACCOUNT.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FRM_SELECT_ACCOUNT.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Agents\Agent.designer.vb">
       <DependentUpon>Agent.vb</DependentUpon>
     </Compile>
@@ -286,22 +298,16 @@
     <Compile Include="Forms\Agents\AgentsMenu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Agents\Agent_Balance_For_Tree.Designer.vb">
-      <DependentUpon>Agent_Balance_For_Tree.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Agents\Agent_Balance_For_Tree.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Change_IM_Details.designer.vb">
       <DependentUpon>Change_IM_Details.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Change_IM_Details.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmAccountingPostingMonitor.Designer.vb">
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FrmAccountingPostingMonitor.Designer.vb">
       <DependentUpon>FrmAccountingPostingMonitor.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmAccountingPostingMonitor.vb">
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FrmAccountingPostingMonitor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Frm\Frm_manuel_IM_card.designer.vb">
@@ -314,6 +320,12 @@
       <DependentUpon>Frm_auto_IM_card.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Frm\Frm_auto_IM_card.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FRM_ACC_ENTITY_RULES_MANAGER.Designer.vb">
+      <DependentUpon>FRM_ACC_ENTITY_RULES_MANAGER.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FRM_ACC_ENTITY_RULES_MANAGER.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\IM_COST\Frm_InventoryCostRecountList.Designer.vb">
@@ -1132,12 +1144,6 @@
     <Compile Include="Forms\Sys_Options\SwitchActivation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Exp\Exp_Static_Add.designer.vb">
-      <DependentUpon>Exp_Static_Add.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Exp\Exp_Static_Add.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Costmer_Screen.Designer.vb">
       <DependentUpon>Costmer_Screen.vb</DependentUpon>
     </Compile>
@@ -1148,12 +1154,6 @@
       <DependentUpon>EXP_Details.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Exp\EXP_Details.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Exp\Exp_Static.designer.vb">
-      <DependentUpon>Exp_Static.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Exp\Exp_Static.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Frm\Format_Items_Manual.designer.vb">
@@ -1649,19 +1649,22 @@
     <EmbeddedResource Include="Classes\NotificationForm.resx">
       <DependentUpon>NotificationForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FRM_ACC_ENTITY_LINKS_MANAGER.resx">
+      <DependentUpon>FRM_ACC_ENTITY_LINKS_MANAGER.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FRM_SELECT_ACCOUNT.resx">
+      <DependentUpon>FRM_SELECT_ACCOUNT.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Agents\Agent.resx">
       <DependentUpon>Agent.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Agents\AgentsMenu.resx">
       <DependentUpon>AgentsMenu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Agents\Agent_Balance_For_Tree.resx">
-      <DependentUpon>Agent_Balance_For_Tree.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Change_IM_Details.resx">
       <DependentUpon>Change_IM_Details.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmAccountingPostingMonitor.resx">
+    <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FrmAccountingPostingMonitor.resx">
       <DependentUpon>FrmAccountingPostingMonitor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm\Frm_manuel_IM_card.resx">
@@ -1669,6 +1672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm\Frm_auto_IM_card.resx">
       <DependentUpon>Frm_auto_IM_card.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FRM_ACC_ENTITY_RULES_MANAGER.resx">
+      <DependentUpon>FRM_ACC_ENTITY_RULES_MANAGER.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\IM_COST\Frm_InventoryCostRecountList.resx">
       <DependentUpon>Frm_InventoryCostRecountList.vb</DependentUpon>
@@ -2054,17 +2060,11 @@
     <EmbeddedResource Include="Forms\Sys_Options\SwitchActivation.resx">
       <DependentUpon>SwitchActivation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Exp\Exp_Static_Add.resx">
-      <DependentUpon>Exp_Static_Add.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Costmer_Screen.resx">
       <DependentUpon>Costmer_Screen.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Exp\EXP_Details.resx">
       <DependentUpon>EXP_Details.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Exp\Exp_Static.resx">
-      <DependentUpon>Exp_Static.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm\Format_Items_Manual.resx">
       <DependentUpon>Format_Items_Manual.vb</DependentUpon>

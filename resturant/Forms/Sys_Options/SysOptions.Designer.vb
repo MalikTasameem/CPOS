@@ -22,6 +22,7 @@ Partial Class SysOptions
         Me.MaxFormButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.F_Panel = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.Button12 = New System.Windows.Forms.Button()
         Me.Button13 = New System.Windows.Forms.Button()
         Me.Button14 = New System.Windows.Forms.Button()
@@ -41,7 +42,6 @@ Partial Class SysOptions
         Me.Shurtcut_Btn = New System.Windows.Forms.Button()
         Me.TableButton = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.TitleBar_Panel.SuspendLayout()
         Me.F_Panel.SuspendLayout()
         Me.SuspendLayout()
@@ -130,6 +130,18 @@ Partial Class SysOptions
         Me.F_Panel.TabIndex = 1
         Me.F_Panel.Tag = "TRANSPARENT"
         '
+        'Button2
+        '
+        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button2.FlatAppearance.BorderSize = 0
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Button2.Location = New System.Drawing.Point(40, 424)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(183, 79)
+        Me.Button2.TabIndex = 19
+        Me.Button2.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & "ربط الحسابات العامة"
+        '
         'Button12
         '
         Me.Button12.Cursor = System.Windows.Forms.Cursors.Hand
@@ -212,7 +224,7 @@ Partial Class SysOptions
         Me.Tree_AG_Button.Name = "Tree_AG_Button"
         Me.Tree_AG_Button.Size = New System.Drawing.Size(183, 79)
         Me.Tree_AG_Button.TabIndex = 6
-        Me.Tree_AG_Button.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "ربط حسابات المدخلة"
+        Me.Tree_AG_Button.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & "إدارة الربط المحاسبي"
         '
         'ST_Button
         '
@@ -357,18 +369,6 @@ Partial Class SysOptions
         Me.Button1.Size = New System.Drawing.Size(183, 79)
         Me.Button1.TabIndex = 18
         Me.Button1.Text = "💳" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "حسابات الدفع الافتراضية"
-        '
-        'Button2
-        '
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.FlatAppearance.BorderSize = 0
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button2.Location = New System.Drawing.Point(40, 424)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(183, 79)
-        Me.Button2.TabIndex = 19
-        Me.Button2.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & "ربط الحسابات العامة"
         '
         'SysOptions
         '

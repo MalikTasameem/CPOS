@@ -280,11 +280,11 @@ Public Class MainForm
                     Me.ITEMS_btn.Enabled = True
                 End If
 
-                If c.Dr("Exp_Static") = False Then
-                    Me.Exp_Static_LB.Enabled = False
-                Else
-                    Me.Exp_Static_LB.Enabled = True
-                End If
+                'If c.Dr("Exp_Static") = False Then
+                '    Me.Exp_Static_LB.Enabled = False
+                'Else
+                '    Me.Exp_Static_LB.Enabled = True
+                'End If
 
 
                 If c.Dr("Frm_M") = False Then
@@ -1484,9 +1484,9 @@ Public Class MainForm
         F_EXP_Details.Show()
     End Sub
 
-    Private Sub Exp_Static_LBToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles Exp_Static_LB.Click
-        F_Exp_Static = New Exp_Static
-        F_Exp_Static.Show()
+    Private Sub Exp_Static_LBToolStripMenuItem1_Click(sender As Object, e As EventArgs)
+        'F_Exp_Static = New Exp_Static
+        'F_Exp_Static.Show()
     End Sub
 
     Private Sub ALL_Report_LB_Click(sender As Object, e As EventArgs) Handles ALL_Report_LB.Click

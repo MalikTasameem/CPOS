@@ -32,6 +32,8 @@
 
             sqlComm.Parameters.AddWithValue("@St_Name", SNameTextBox.Text)
             If Not String.IsNullOrWhiteSpace(Saler_Percent_txt.Text) Then sqlComm.Parameters.AddWithValue("@Saler_Percent", Saler_Percent_txt.Text)
+            sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
+
             sqlCon.Open()
             Try
                 sqlComm.ExecuteNonQuery()
@@ -91,6 +93,7 @@
             sqlComm.Parameters.AddWithValue("@ST_ID", S_ID)
             sqlComm.Parameters.AddWithValue("@St_Name", SNameTextBox.Text)
             If Not String.IsNullOrWhiteSpace(Saler_Percent_txt.Text) Then sqlComm.Parameters.AddWithValue("@Saler_Percent", Saler_Percent_txt.Text)
+            sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
             sqlCon.Open()
             Try
                 sqlComm.ExecuteNonQuery()
@@ -201,6 +204,7 @@
             sqlComm.CommandText = "Store_DELETE"
             sqlComm.CommandType = CommandType.StoredProcedure
             sqlComm.Parameters.AddWithValue("ST_ID", S_ID)
+            sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
             sqlCon.Open()
             Try
                 sqlComm.ExecuteNonQuery()

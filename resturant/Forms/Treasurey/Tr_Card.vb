@@ -62,6 +62,7 @@ Public Class Tr_Card
         Tr_BankNum_TextBox.Clear()
         Edit_butt.Text = EditState
         ACC_CODE_TXT.Clear()
+        IS_BANK_CB.Checked = True
         ' Me.Text = FormState
     End Sub
 
@@ -85,6 +86,9 @@ Public Class Tr_Card
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@Tr_Name", Tr_Name_txtb.Text)
         sqlComm.Parameters.AddWithValue("@Tr_AccountNumber", Tr_BankNum_TextBox.Text)
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
+        sqlComm.Parameters.AddWithValue("@IS_BANK", IS_BANK_CB.Checked)
+
         '  sqlComm.Parameters.AddWithValue("@Tree_Code", ACC_CODE_TXT.Text)
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تمت إضافة الخزينـــة", MsgBoxStyle.Information)
@@ -98,7 +102,9 @@ Public Class Tr_Card
         sqlComm.Parameters.AddWithValue("@Tr_ID", TR_ID)
         sqlComm.Parameters.AddWithValue("@Tr_Name", Tr_Name_txtb.Text)
         sqlComm.Parameters.AddWithValue("@Tr_AccountNumber", Tr_BankNum_TextBox.Text)
-        sqlComm.Parameters.AddWithValue("@Tree_Code", ACC_CODE_TXT.Text)
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
+        sqlComm.Parameters.AddWithValue("@IS_BANK", IS_BANK_CB.Checked)
+
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تم تعديل بيانات الخزينـــة", MsgBoxStyle.Information)
         End If
@@ -109,6 +115,8 @@ Public Class Tr_Card
         sqlComm.CommandText = "TreasuryCard_Delete"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@Tr_ID", TR_ID)
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
+
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تم حـــذف بيانات الخزينـــة", MsgBoxStyle.Information)
             ClearFields()
@@ -189,6 +197,10 @@ Public Class Tr_Card
                     ACC_CODE_TXT.Text = C.Dr("Tree_Code")
                 End If
 
+                If Not IsDBNull(C.Dr("is_BANK")) Then
+                    IS_BANK_CB.Checked = C.Dr("is_BANK")
+                End If
+
 
 
                 SelectStateBt()
@@ -259,4 +271,7 @@ Public Class Tr_Card
         Select_AG()
     End Sub
 
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles IS_BANK_CB.CheckedChanged
+        CB_CHecked(sender)
+    End Sub
 End Class

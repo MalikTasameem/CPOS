@@ -61,20 +61,21 @@ Partial Class FrmAccountingPostingMonitor
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlTop = New System.Windows.Forms.Panel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnSearch = New System.Windows.Forms.Button()
+        Me.dtpTo = New System.Windows.Forms.DateTimePicker()
+        Me.btnRefresh = New System.Windows.Forms.Button()
+        Me.lblSearch = New System.Windows.Forms.Label()
+        Me.lblTo = New System.Windows.Forms.Label()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblFrom = New System.Windows.Forms.Label()
         Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
-        Me.lblTo = New System.Windows.Forms.Label()
-        Me.dtpTo = New System.Windows.Forms.DateTimePicker()
         Me.lblSource = New System.Windows.Forms.Label()
-        Me.cmbSource = New System.Windows.Forms.ComboBox()
-        Me.lblType = New System.Windows.Forms.Label()
-        Me.cmbType = New System.Windows.Forms.ComboBox()
-        Me.lblStatus = New System.Windows.Forms.Label()
         Me.cmbPostingStatus = New System.Windows.Forms.ComboBox()
-        Me.lblSearch = New System.Windows.Forms.Label()
-        Me.btnSearch = New System.Windows.Forms.Button()
-        Me.btnRefresh = New System.Windows.Forms.Button()
-        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.cmbSource = New System.Windows.Forms.ComboBox()
+        Me.cmbType = New System.Windows.Forms.ComboBox()
+        Me.lblType = New System.Windows.Forms.Label()
+        Me.lblStatus = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.pnlActions = New System.Windows.Forms.Panel()
         Me.flowActions = New System.Windows.Forms.FlowLayoutPanel()
@@ -93,8 +94,8 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblPostedCount = New System.Windows.Forms.Label()
         Me.lblUnpostedCount = New System.Windows.Forms.Label()
         Me.lblStatusMessage = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.pnlTop.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.pnlActions.SuspendLayout()
         Me.flowActions.SuspendLayout()
         Me.pnlGrid.SuspendLayout()
@@ -103,7 +104,6 @@ Partial Class FrmAccountingPostingMonitor
         CType(Me.dgvJournal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlStatus.SuspendLayout()
         Me.flowStatus.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlTop
@@ -117,6 +117,100 @@ Partial Class FrmAccountingPostingMonitor
         Me.pnlTop.Padding = New System.Windows.Forms.Padding(10)
         Me.pnlTop.Size = New System.Drawing.Size(1280, 157)
         Me.pnlTop.TabIndex = 3
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.Controls.Add(Me.btnSearch)
+        Me.Panel1.Controls.Add(Me.dtpTo)
+        Me.Panel1.Controls.Add(Me.btnRefresh)
+        Me.Panel1.Controls.Add(Me.lblSearch)
+        Me.Panel1.Controls.Add(Me.lblTo)
+        Me.Panel1.Controls.Add(Me.txtSearch)
+        Me.Panel1.Controls.Add(Me.lblFrom)
+        Me.Panel1.Controls.Add(Me.dtpFrom)
+        Me.Panel1.Controls.Add(Me.lblSource)
+        Me.Panel1.Controls.Add(Me.cmbPostingStatus)
+        Me.Panel1.Controls.Add(Me.cmbSource)
+        Me.Panel1.Controls.Add(Me.cmbType)
+        Me.Panel1.Controls.Add(Me.lblType)
+        Me.Panel1.Controls.Add(Me.lblStatus)
+        Me.Panel1.Location = New System.Drawing.Point(10, 62)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1260, 90)
+        Me.Panel1.TabIndex = 1
+        '
+        'btnSearch
+        '
+        Me.btnSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        Me.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSearch.FlatAppearance.BorderSize = 0
+        Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSearch.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnSearch.ForeColor = System.Drawing.Color.White
+        Me.btnSearch.Location = New System.Drawing.Point(2, 51)
+        Me.btnSearch.Margin = New System.Windows.Forms.Padding(5)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(90, 34)
+        Me.btnSearch.TabIndex = 12
+        Me.btnSearch.Text = "بحث"
+        Me.btnSearch.UseVisualStyleBackColor = False
+        '
+        'dtpTo
+        '
+        Me.dtpTo.CustomFormat = "yyyy/MM/dd"
+        Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpTo.Location = New System.Drawing.Point(222, 62)
+        Me.dtpTo.Name = "dtpTo"
+        Me.dtpTo.Size = New System.Drawing.Size(120, 22)
+        Me.dtpTo.TabIndex = 3
+        '
+        'btnRefresh
+        '
+        Me.btnRefresh.BackColor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnRefresh.FlatAppearance.BorderSize = 0
+        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRefresh.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnRefresh.ForeColor = System.Drawing.Color.White
+        Me.btnRefresh.Location = New System.Drawing.Point(102, 51)
+        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(5)
+        Me.btnRefresh.Name = "btnRefresh"
+        Me.btnRefresh.Size = New System.Drawing.Size(90, 34)
+        Me.btnRefresh.TabIndex = 13
+        Me.btnRefresh.Text = "تحديث"
+        Me.btnRefresh.UseVisualStyleBackColor = False
+        '
+        'lblSearch
+        '
+        Me.lblSearch.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.lblSearch.Location = New System.Drawing.Point(1207, 3)
+        Me.lblSearch.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
+        Me.lblSearch.Name = "lblSearch"
+        Me.lblSearch.Size = New System.Drawing.Size(50, 31)
+        Me.lblSearch.TabIndex = 10
+        Me.lblSearch.Text = "بحث"
+        Me.lblSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblTo
+        '
+        Me.lblTo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.lblTo.Location = New System.Drawing.Point(347, 58)
+        Me.lblTo.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
+        Me.lblTo.Name = "lblTo"
+        Me.lblTo.Size = New System.Drawing.Size(56, 28)
+        Me.lblTo.TabIndex = 2
+        Me.lblTo.Text = "إلى تاريخ"
+        Me.lblTo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtSearch
+        '
+        Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSearch.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Location = New System.Drawing.Point(947, 8)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(249, 23)
+        Me.txtSearch.TabIndex = 11
         '
         'lblFrom
         '
@@ -138,26 +232,6 @@ Partial Class FrmAccountingPostingMonitor
         Me.dtpFrom.Size = New System.Drawing.Size(120, 22)
         Me.dtpFrom.TabIndex = 1
         '
-        'lblTo
-        '
-        Me.lblTo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblTo.Location = New System.Drawing.Point(347, 58)
-        Me.lblTo.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
-        Me.lblTo.Name = "lblTo"
-        Me.lblTo.Size = New System.Drawing.Size(56, 28)
-        Me.lblTo.TabIndex = 2
-        Me.lblTo.Text = "إلى تاريخ"
-        Me.lblTo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'dtpTo
-        '
-        Me.dtpTo.CustomFormat = "yyyy/MM/dd"
-        Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpTo.Location = New System.Drawing.Point(222, 62)
-        Me.dtpTo.Name = "dtpTo"
-        Me.dtpTo.Size = New System.Drawing.Size(120, 22)
-        Me.dtpTo.TabIndex = 3
-        '
         'lblSource
         '
         Me.lblSource.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
@@ -168,50 +242,6 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblSource.TabIndex = 4
         Me.lblSource.Text = "المصدر"
         Me.lblSource.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbSource
-        '
-        Me.cmbSource.BackColor = System.Drawing.SystemColors.Info
-        Me.cmbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbSource.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmbSource.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSource.Location = New System.Drawing.Point(715, 7)
-        Me.cmbSource.Name = "cmbSource"
-        Me.cmbSource.Size = New System.Drawing.Size(140, 24)
-        Me.cmbSource.TabIndex = 5
-        '
-        'lblType
-        '
-        Me.lblType.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblType.Location = New System.Drawing.Point(350, 4)
-        Me.lblType.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
-        Me.lblType.Name = "lblType"
-        Me.lblType.Size = New System.Drawing.Size(75, 28)
-        Me.lblType.TabIndex = 6
-        Me.lblType.Text = "نوع الحركة"
-        Me.lblType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbType
-        '
-        Me.cmbType.BackColor = System.Drawing.SystemColors.Info
-        Me.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbType.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.cmbType.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbType.Location = New System.Drawing.Point(428, 8)
-        Me.cmbType.Name = "cmbType"
-        Me.cmbType.Size = New System.Drawing.Size(190, 24)
-        Me.cmbType.TabIndex = 7
-        '
-        'lblStatus
-        '
-        Me.lblStatus.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblStatus.Location = New System.Drawing.Point(620, 3)
-        Me.lblStatus.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
-        Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(85, 28)
-        Me.lblStatus.TabIndex = 8
-        Me.lblStatus.Text = "حالة الترحيل"
-        Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbPostingStatus
         '
@@ -224,57 +254,49 @@ Partial Class FrmAccountingPostingMonitor
         Me.cmbPostingStatus.Size = New System.Drawing.Size(130, 24)
         Me.cmbPostingStatus.TabIndex = 9
         '
-        'lblSearch
+        'cmbSource
         '
-        Me.lblSearch.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.lblSearch.Location = New System.Drawing.Point(1207, 3)
-        Me.lblSearch.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
-        Me.lblSearch.Name = "lblSearch"
-        Me.lblSearch.Size = New System.Drawing.Size(50, 31)
-        Me.lblSearch.TabIndex = 10
-        Me.lblSearch.Text = "بحث"
-        Me.lblSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmbSource.BackColor = System.Drawing.SystemColors.Info
+        Me.cmbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbSource.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmbSource.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSource.Location = New System.Drawing.Point(715, 7)
+        Me.cmbSource.Name = "cmbSource"
+        Me.cmbSource.Size = New System.Drawing.Size(140, 24)
+        Me.cmbSource.TabIndex = 5
         '
-        'btnSearch
+        'cmbType
         '
-        Me.btnSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        Me.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSearch.FlatAppearance.BorderSize = 0
-        Me.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSearch.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnSearch.ForeColor = System.Drawing.Color.White
-        Me.btnSearch.Location = New System.Drawing.Point(2, 51)
-        Me.btnSearch.Margin = New System.Windows.Forms.Padding(5)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(90, 34)
-        Me.btnSearch.TabIndex = 12
-        Me.btnSearch.Text = "بحث"
-        Me.btnSearch.UseVisualStyleBackColor = False
+        Me.cmbType.BackColor = System.Drawing.SystemColors.Info
+        Me.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbType.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.cmbType.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbType.Location = New System.Drawing.Point(428, 8)
+        Me.cmbType.Name = "cmbType"
+        Me.cmbType.Size = New System.Drawing.Size(190, 24)
+        Me.cmbType.TabIndex = 7
         '
-        'btnRefresh
+        'lblType
         '
-        Me.btnRefresh.BackColor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnRefresh.FlatAppearance.BorderSize = 0
-        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnRefresh.ForeColor = System.Drawing.Color.White
-        Me.btnRefresh.Location = New System.Drawing.Point(102, 51)
-        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(5)
-        Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(90, 34)
-        Me.btnRefresh.TabIndex = 13
-        Me.btnRefresh.Text = "تحديث"
-        Me.btnRefresh.UseVisualStyleBackColor = False
+        Me.lblType.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.lblType.Location = New System.Drawing.Point(350, 4)
+        Me.lblType.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
+        Me.lblType.Name = "lblType"
+        Me.lblType.Size = New System.Drawing.Size(75, 28)
+        Me.lblType.TabIndex = 6
+        Me.lblType.Text = "نوع الحركة"
+        Me.lblType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'txtSearch
+        'lblStatus
         '
-        Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSearch.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSearch.Location = New System.Drawing.Point(947, 8)
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(249, 23)
-        Me.txtSearch.TabIndex = 11
+        Me.lblStatus.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.lblStatus.Location = New System.Drawing.Point(620, 3)
+        Me.lblStatus.Margin = New System.Windows.Forms.Padding(8, 3, 3, 3)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(85, 28)
+        Me.lblStatus.TabIndex = 8
+        Me.lblStatus.Text = "حالة الترحيل"
+        Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblTitle
         '
@@ -551,28 +573,6 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblStatusMessage.Text = "جاهز"
         Me.lblStatusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.Color.White
-        Me.Panel1.Controls.Add(Me.btnSearch)
-        Me.Panel1.Controls.Add(Me.dtpTo)
-        Me.Panel1.Controls.Add(Me.btnRefresh)
-        Me.Panel1.Controls.Add(Me.lblSearch)
-        Me.Panel1.Controls.Add(Me.lblTo)
-        Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Controls.Add(Me.lblFrom)
-        Me.Panel1.Controls.Add(Me.dtpFrom)
-        Me.Panel1.Controls.Add(Me.lblSource)
-        Me.Panel1.Controls.Add(Me.cmbPostingStatus)
-        Me.Panel1.Controls.Add(Me.cmbSource)
-        Me.Panel1.Controls.Add(Me.cmbType)
-        Me.Panel1.Controls.Add(Me.lblType)
-        Me.Panel1.Controls.Add(Me.lblStatus)
-        Me.Panel1.Location = New System.Drawing.Point(10, 62)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1260, 90)
-        Me.Panel1.TabIndex = 1
-        '
         'FrmAccountingPostingMonitor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
@@ -592,6 +592,8 @@ Partial Class FrmAccountingPostingMonitor
         Me.Text = "شاشة الترحيل المحاسبي"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.pnlTop.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.pnlActions.ResumeLayout(False)
         Me.flowActions.ResumeLayout(False)
         Me.pnlGrid.ResumeLayout(False)
@@ -600,8 +602,6 @@ Partial Class FrmAccountingPostingMonitor
         CType(Me.dgvJournal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlStatus.ResumeLayout(False)
         Me.flowStatus.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
