@@ -313,9 +313,9 @@ Public Class AgentsMenu
             .AllTimeCheckBox.Checked = True
             .AG_MV_Prepare_To_Search()
 
-            .MetroTabControl1.TabPages.Remove(.MetroTabPage2)
-            .MetroTabControl1.TabPages.Remove(.MetroTabPage3)
-            .MetroTabControl1.TabPages.Remove(.MetroTabPage4)
+            .ن.TabPages.Remove(.MetroTabPage2)
+            .ن.TabPages.Remove(.MetroTabPage3)
+            .ن.TabPages.Remove(.MetroTabPage4)
             ' .MetroTabControl1.TabPages.Remove(.MetroTabPage5)
             .MenuStrip1.Visible = False
         End With

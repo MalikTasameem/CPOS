@@ -345,7 +345,7 @@
         Me.MinimumSize = New Size(1004, 739)
         TitleBar_Panel.Dock = DockStyle.Top
         MenuStrip1.Dock = DockStyle.Top
-        MetroTabControl1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        'MetroTabControl1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
 
         SetAnchor(AGMVMetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
         SetAnchor(Tr_MV_MetroGrid, AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right)
@@ -411,6 +411,7 @@
             SalariesMetroGrid
         )
 
+        ConfigureMovementSearchDesign()
         ArrangeResponsiveLayout()
 
     End Sub
@@ -436,18 +437,163 @@
             If grid Is Nothing Then Continue For
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None
+            grid.BackgroundColor = Color.White
+            grid.BorderStyle = BorderStyle.FixedSingle
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
+            grid.DefaultCellStyle.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
+            grid.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 9.0!, FontStyle.Bold)
+            grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            grid.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            grid.GridColor = Color.Gainsboro
+            grid.RowTemplate.Height = 28
+            grid.ColumnHeadersHeight = 30
         Next
+
+    End Sub
+
+    Private Sub ConfigureMovementSearchDesign()
+
+        StyleSearchGroupBox(GroupBox1)
+        StyleSearchGroupBox(GroupBox2)
+
+        StyleSearchInput(AG_Cm)
+        StyleSearchInput(ReceiptTypeComboBox)
+        StyleSearchInput(UsersComboBox)
+        StyleSearchInput(Treasury_ComboBox)
+        StyleSearchInput(TrTypeComboBox)
+        StyleSearchInput(TrUsersComboBox)
+        StyleSearchInput(DateTimePicker_From)
+        StyleSearchInput(DateTimePicker_To)
+        StyleSearchInput(MonthComboBox)
+        StyleSearchInput(TrDateTimePicker_F)
+        StyleSearchInput(TrDateTimePicker_T)
+        StyleSearchInput(TrMonthComboBox)
+
+        StyleSearchLabel(Label3)
+        StyleSearchLabel(Label8)
+        StyleSearchLabel(Label7)
+        StyleSearchLabel(Label9)
+        StyleSearchLabel(Label4)
+        StyleSearchLabel(Label2)
+        StyleSearchLabel(Label1)
+        StyleSearchLabel(Label5)
+        StyleSearchLabel(Label6)
+        StyleSearchLabel(Label10)
+        StyleSearchLabel(Label11)
+        StyleSearchLabel(Label12)
+
+        StyleSearchCheckBox(AllAgentsCheckBox)
+        StyleSearchCheckBox(AllRecieptsCheckBox)
+        StyleSearchCheckBox(AllUsersCheckBox)
+        StyleSearchCheckBox(isVoid_CB)
+        StyleSearchCheckBox(AllTimeCheckBox)
+        StyleSearchCheckBox(AllTrCheckBox)
+        StyleSearchCheckBox(TrAllTypeCheckBox)
+        StyleSearchCheckBox(TrAllUsersCheckBox)
+        StyleSearchCheckBox(TrisVoid_CB)
+        StyleSearchCheckBox(TrAllTimeCheckBox)
+
+        StyleActionButton(MVSearchButton)
+        StyleActionButton(MVPrintButton)
+        StyleActionButton(Send_To_Email_btn)
+        StyleActionButton(Tr_SearchButton)
+        StyleActionButton(Tr_PrintButton)
+
+    End Sub
+
+    Private Sub StyleSearchGroupBox(groupBox As GroupBox)
+
+        If groupBox Is Nothing Then Return
+        groupBox.BackColor = Color.FromArgb(248, 250, 252)
+        groupBox.Font = New Font("Segoe UI", 9.0!, FontStyle.Regular)
+
+    End Sub
+
+    Private Sub StyleSearchInput(control As Control)
+
+        If control Is Nothing Then Return
+        control.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold)
+        control.BackColor = Color.White
+        control.ForeColor = Color.FromArgb(25, 35, 45)
+
+        Dim comboBox As ComboBox = TryCast(control, ComboBox)
+        If comboBox IsNot Nothing Then comboBox.FlatStyle = FlatStyle.Flat
+
+    End Sub
+
+    Private Sub StyleSearchLabel(label As Label)
+
+        If label Is Nothing Then Return
+        label.AutoSize = False
+        label.Font = New Font("Segoe UI", 9.0!, FontStyle.Regular)
+        label.TextAlign = ContentAlignment.MiddleRight
+
+    End Sub
+
+    Private Sub StyleSearchCheckBox(checkBox As CheckBox)
+
+        If checkBox Is Nothing Then Return
+        checkBox.AutoSize = False
+        checkBox.Font = New Font("Segoe UI Semibold", 8.75!, FontStyle.Bold)
+        checkBox.TextAlign = ContentAlignment.MiddleRight
+        checkBox.BackColor = Color.Transparent
+
+    End Sub
+
+    Private Sub StyleActionButton(button As Button)
+
+        If button Is Nothing Then Return
+        button.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold)
+        button.FlatStyle = FlatStyle.Flat
+        button.FlatAppearance.BorderColor = Color.FromArgb(174, 184, 196)
+        button.BackColor = Color.WhiteSmoke
+
+    End Sub
+
+    Private Sub ArrangeMovementRangeGroupBox(groupBox As GroupBox,
+                                            allTimeCheckBox As CheckBox,
+                                            fromDate As DateTimePicker,
+                                            toDate As DateTimePicker,
+                                            monthCombo As ComboBox,
+                                            fromLabel As Label,
+                                            toLabel As Label,
+                                            monthLabel As Label)
+
+        If groupBox Is Nothing Then Return
+
+        Dim gap As Integer = 6
+        Dim margin As Integer = 8
+        Dim rowTop1 As Integer = 24
+        Dim rowTop2 As Integer = 62
+        Dim rowHeight As Integer = 28
+        Dim monthLabelWidth As Integer = 48
+        Dim monthComboWidth As Integer = 76
+        Dim centerLabelWidth As Integer = 32
+
+        Dim monthLabelX As Integer = groupBox.Width - margin - monthLabelWidth
+        Dim monthComboX As Integer = monthLabelX - gap - monthComboWidth
+        Dim centerLabelX As Integer = monthComboX - gap - centerLabelWidth
+        Dim dateWidth As Integer = Math.Max(110, centerLabelX - margin - gap)
+
+        If allTimeCheckBox IsNot Nothing Then allTimeCheckBox.SetBounds(monthComboX, rowTop1, monthComboWidth + gap + monthLabelWidth, rowHeight)
+        If fromLabel IsNot Nothing Then fromLabel.SetBounds(centerLabelX, rowTop1, centerLabelWidth, rowHeight)
+        If toLabel IsNot Nothing Then toLabel.SetBounds(centerLabelX, rowTop2, centerLabelWidth, rowHeight)
+        If monthLabel IsNot Nothing Then monthLabel.SetBounds(monthLabelX, rowTop2, monthLabelWidth, rowHeight)
+        If monthCombo IsNot Nothing Then monthCombo.SetBounds(monthComboX, rowTop2, monthComboWidth, rowHeight)
+        If fromDate IsNot Nothing Then fromDate.SetBounds(margin, rowTop1, dateWidth, rowHeight)
+        If toDate IsNot Nothing Then toDate.SetBounds(margin, rowTop2, dateWidth, rowHeight)
 
     End Sub
 
     Private Sub ArrangeResponsiveLayout()
 
-        If MetroTabControl1 Is Nothing OrElse TitleBar_Panel Is Nothing OrElse MenuStrip1 Is Nothing Then
+        If TitleBar_Panel Is Nothing OrElse MenuStrip1 Is Nothing Then 'MetroTabControl1 Is Nothing OrElse
             Return
         End If
 
         Dim tabTop As Integer = TitleBar_Panel.Height + MenuStrip1.Height + 7
-        MetroTabControl1.SetBounds(0, tabTop, Me.ClientSize.Width, Math.Max(200, Me.ClientSize.Height - tabTop))
+        'MetroTabControl1.SetBounds(0, tabTop, Me.ClientSize.Width, Math.Max(200, Me.ClientSize.Height - tabTop))
 
         ArrangeAccountMovementPage()
         ArrangeTreasuryMovementPage()
@@ -467,37 +613,38 @@
         Dim margin As Integer = 8
         Dim gap As Integer = 8
         Dim rowHeight As Integer = 30
-        Dim labelWidth As Integer = 74
-        Dim checkWidth As Integer = 58
-        Dim buttonWidth As Integer = 126
-        Dim comboMinWidth As Integer = 230
-        Dim topAreaHeight As Integer = 108
+        Dim labelWidth As Integer = 84
+        Dim checkWidth As Integer = 62
+        Dim buttonWidth As Integer = 132
+        Dim groupWidth As Integer = Math.Min(390, Math.Max(310, CInt(pageWidth * 0.22)))
+        Dim topAreaHeight As Integer = 136
         Dim footerHeight As Integer = 38
 
-        MVSearchButton.SetBounds(margin, 4, buttonWidth, 30)
-        MVPrintButton.SetBounds(margin, 38, buttonWidth, 30)
-        Send_To_Email_btn.SetBounds(margin, 72, buttonWidth, 30)
+        MVSearchButton.SetBounds(margin, 5, buttonWidth, 34)
+        MVPrintButton.SetBounds(margin, 43, buttonWidth, 34)
+        Send_To_Email_btn.SetBounds(margin, 81, buttonWidth, 34)
 
-        GroupBox1.SetBounds(margin + buttonWidth + gap, 2, GroupBox1.Width, GroupBox1.Height)
+        GroupBox1.SetBounds(margin + buttonWidth + gap, 3, groupWidth, 104)
+        ArrangeMovementRangeGroupBox(GroupBox1, AllTimeCheckBox, DateTimePicker_From, DateTimePicker_To, MonthComboBox, Label6, Label5, Label1)
 
         Dim labelX As Integer = pageWidth - margin - labelWidth
         Dim comboRight As Integer = labelX - gap
-        Dim checkX As Integer = Math.Max(GroupBox1.Right + gap, comboRight - comboMinWidth - gap - checkWidth)
+        Dim checkX As Integer = GroupBox1.Right + gap
         Dim comboX As Integer = checkX + checkWidth + gap
-        Dim comboWidth As Integer = Math.Max(comboMinWidth, comboRight - comboX)
+        Dim comboWidth As Integer = Math.Max(180, comboRight - comboX)
 
         Label3.SetBounds(labelX, 8, labelWidth, rowHeight)
-        AG_Cm.SetBounds(comboX, 2, comboWidth, 35)
-        AllAgentsCheckBox.SetBounds(checkX, 4, checkWidth, rowHeight)
+        AG_Cm.SetBounds(comboX, 5, comboWidth, 32)
+        AllAgentsCheckBox.SetBounds(checkX, 5, checkWidth, rowHeight)
 
-        Label8.SetBounds(labelX, 42, labelWidth, rowHeight)
-        ReceiptTypeComboBox.SetBounds(comboX, 37, comboWidth, rowHeight)
-        AllRecieptsCheckBox.SetBounds(checkX, 38, checkWidth, rowHeight)
+        Label8.SetBounds(labelX, 43, labelWidth, rowHeight)
+        ReceiptTypeComboBox.SetBounds(comboX, 42, comboWidth, rowHeight)
+        AllRecieptsCheckBox.SetBounds(checkX, 42, checkWidth, rowHeight)
 
-        Label7.SetBounds(labelX, 76, labelWidth, rowHeight)
-        UsersComboBox.SetBounds(comboX, 72, comboWidth, rowHeight)
-        AllUsersCheckBox.SetBounds(checkX, 72, checkWidth, rowHeight)
-        isVoid_CB.SetBounds(Math.Max(GroupBox1.Right + gap, checkX - isVoid_CB.Width - gap), 76, isVoid_CB.Width, isVoid_CB.Height)
+        Label7.SetBounds(labelX, 78, labelWidth, rowHeight)
+        UsersComboBox.SetBounds(comboX, 77, comboWidth, rowHeight)
+        AllUsersCheckBox.SetBounds(checkX, 77, checkWidth, rowHeight)
+        isVoid_CB.SetBounds(checkX, 109, Math.Min(190, comboWidth + checkWidth + gap), 26)
 
         AGMVMetroGrid.SetBounds(
             3,
@@ -519,36 +666,37 @@
         Dim margin As Integer = 8
         Dim gap As Integer = 8
         Dim rowHeight As Integer = 30
-        Dim labelWidth As Integer = 78
-        Dim checkWidth As Integer = 58
-        Dim buttonWidth As Integer = 126
-        Dim comboMinWidth As Integer = 250
-        Dim topAreaHeight As Integer = 108
+        Dim labelWidth As Integer = 88
+        Dim checkWidth As Integer = 62
+        Dim buttonWidth As Integer = 132
+        Dim groupWidth As Integer = Math.Min(390, Math.Max(320, CInt(pageWidth * 0.22)))
+        Dim topAreaHeight As Integer = 136
         Dim footerHeight As Integer = 38
 
-        Tr_SearchButton.SetBounds(margin, 4, buttonWidth, 46)
-        Tr_PrintButton.SetBounds(margin, 54, buttonWidth, 46)
+        Tr_SearchButton.SetBounds(margin, 5, buttonWidth, 52)
+        Tr_PrintButton.SetBounds(margin, 61, buttonWidth, 52)
 
-        GroupBox2.SetBounds(margin + buttonWidth + gap, 2, GroupBox2.Width, GroupBox2.Height)
+        GroupBox2.SetBounds(margin + buttonWidth + gap, 3, groupWidth, 104)
+        ArrangeMovementRangeGroupBox(GroupBox2, TrAllTimeCheckBox, TrDateTimePicker_F, TrDateTimePicker_T, TrMonthComboBox, Label12, Label11, Label10)
 
         Dim labelX As Integer = pageWidth - margin - labelWidth
         Dim comboRight As Integer = labelX - gap
-        Dim checkX As Integer = Math.Max(GroupBox2.Right + gap, comboRight - comboMinWidth - gap - checkWidth)
+        Dim checkX As Integer = GroupBox2.Right + gap
         Dim comboX As Integer = checkX + checkWidth + gap
-        Dim comboWidth As Integer = Math.Max(comboMinWidth, comboRight - comboX)
+        Dim comboWidth As Integer = Math.Max(180, comboRight - comboX)
 
         Label9.SetBounds(labelX, 8, labelWidth, rowHeight)
-        Treasury_ComboBox.SetBounds(comboX, 3, comboWidth, rowHeight)
-        AllTrCheckBox.SetBounds(checkX, 3, checkWidth, rowHeight)
+        Treasury_ComboBox.SetBounds(comboX, 5, comboWidth, rowHeight)
+        AllTrCheckBox.SetBounds(checkX, 5, checkWidth, rowHeight)
 
-        Label4.SetBounds(labelX, 42, labelWidth, rowHeight)
-        TrTypeComboBox.SetBounds(comboX, 37, comboWidth, rowHeight)
-        TrAllTypeCheckBox.SetBounds(checkX, 37, checkWidth, rowHeight)
+        Label4.SetBounds(labelX, 43, labelWidth, rowHeight)
+        TrTypeComboBox.SetBounds(comboX, 42, comboWidth, rowHeight)
+        TrAllTypeCheckBox.SetBounds(checkX, 42, checkWidth, rowHeight)
 
-        Label2.SetBounds(labelX, 76, labelWidth, rowHeight)
-        TrUsersComboBox.SetBounds(comboX, 72, comboWidth, rowHeight)
-        TrAllUsersCheckBox.SetBounds(checkX, 72, checkWidth, rowHeight)
-        TrisVoid_CB.SetBounds(Math.Max(GroupBox2.Right + gap, checkX - TrisVoid_CB.Width - gap), 76, TrisVoid_CB.Width, TrisVoid_CB.Height)
+        Label2.SetBounds(labelX, 78, labelWidth, rowHeight)
+        TrUsersComboBox.SetBounds(comboX, 77, comboWidth, rowHeight)
+        TrAllUsersCheckBox.SetBounds(checkX, 77, checkWidth, rowHeight)
+        TrisVoid_CB.SetBounds(checkX, 109, Math.Min(190, comboWidth + checkWidth + gap), 26)
 
         Tr_MV_MetroGrid.SetBounds(
             3,
@@ -2648,7 +2796,7 @@
                     AllTimeCheckBox.Checked = True
                     AllAgentsCheckBox.Checked = False
                     MVSearchButton_Click(sender, e)
-                    MetroTabControl1.SelectedTab = MetroTabPage1
+                    'MetroTabControl1.SelectedTab = MetroTabPage1
                 Case 1
                     Treasury_ComboBox.SelectedValue = DebtMetroGrid.CurrentRow.Cells("ID_CL").Value
                     TrAllTypeCheckBox.Checked = True
@@ -2656,7 +2804,7 @@
                     TrAllTimeCheckBox.Checked = True
                     AllTrCheckBox.Checked = False
                     Tr_SearchButton_Click(sender, e)
-                    MetroTabControl1.SelectedTab = MetroTabPage2
+                    'MetroTabControl1.SelectedTab = MetroTabPage2
             End Select
 
         End If
@@ -2691,7 +2839,7 @@
         Me.Cursor = Cursors.Default
         'End If
 
-        MetroTabControl1.SelectedTab = MetroTabPage1
+        'MetroTabControl1.SelectedTab = MetroTabPage1
         Coloring()
 
         Try

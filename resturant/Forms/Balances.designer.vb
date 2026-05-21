@@ -23,7 +23,6 @@ Partial Class Balances
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Balances))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -57,17 +56,17 @@ Partial Class Balances
         Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Balances))
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.HeaderMinBtn = New System.Windows.Forms.Button()
         Me.HeaderMaxBtn = New System.Windows.Forms.Button()
         Me.HeaderCloseBtn = New System.Windows.Forms.Button()
         Me.TopTitle_LB = New System.Windows.Forms.Label()
-        Me.MetroTabControl1 = New System.Windows.Forms.TabControl()
+        Me.ن = New System.Windows.Forms.TabControl()
         Me.MetroTabPage1 = New MetroFramework.Controls.MetroTabPage()
         Me.MVSearchButton = New System.Windows.Forms.Button()
         Me.isVoid_CB = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.ReceiptTypeComboBox = New System.Windows.Forms.ComboBox()
         Me.NUM_CREDIT_TXT = New System.Windows.Forms.TextBox()
         Me.AllAgentsCheckBox = New System.Windows.Forms.CheckBox()
@@ -210,8 +209,9 @@ Partial Class Balances
         Me.العهدToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.خروجToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
+        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
-        Me.MetroTabControl1.SuspendLayout()
+        Me.ن.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.AGMVMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -300,19 +300,20 @@ Partial Class Balances
         Me.TopTitle_LB.Tag = "TITLE_TRANSPARENT"
         Me.TopTitle_LB.Text = "الحسابات"
         '
-        'MetroTabControl1
+        'ن
         '
-        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage1)
-        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage2)
-        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage4)
-        Me.MetroTabControl1.Controls.Add(Me.MetroTabPage3)
-        Me.MetroTabControl1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MetroTabControl1.Location = New System.Drawing.Point(0, 73)
-        Me.MetroTabControl1.Name = "MetroTabControl1"
-        Me.MetroTabControl1.RightToLeftLayout = True
-        Me.MetroTabControl1.SelectedIndex = 0
-        Me.MetroTabControl1.Size = New System.Drawing.Size(1004, 666)
-        Me.MetroTabControl1.TabIndex = 403
+        Me.ن.Controls.Add(Me.MetroTabPage1)
+        Me.ن.Controls.Add(Me.MetroTabPage2)
+        Me.ن.Controls.Add(Me.MetroTabPage4)
+        Me.ن.Controls.Add(Me.MetroTabPage3)
+        Me.ن.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ن.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ن.Location = New System.Drawing.Point(0, 66)
+        Me.ن.Name = "ن"
+        Me.ن.RightToLeftLayout = True
+        Me.ن.SelectedIndex = 0
+        Me.ن.Size = New System.Drawing.Size(1004, 673)
+        Me.ن.TabIndex = 403
         '
         'MetroTabPage1
         '
@@ -349,7 +350,7 @@ Partial Class Balances
         Me.MetroTabPage1.HorizontalScrollbarSize = 10
         Me.MetroTabPage1.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage1.Name = "MetroTabPage1"
-        Me.MetroTabPage1.Size = New System.Drawing.Size(996, 632)
+        Me.MetroTabPage1.Size = New System.Drawing.Size(996, 639)
         Me.MetroTabPage1.TabIndex = 0
         Me.MetroTabPage1.Text = "حركة العملاء"
         Me.MetroTabPage1.VerticalScrollbarBarColor = True
@@ -405,29 +406,6 @@ Partial Class Balances
         Me.Label3.Text = "الحساب"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'AG_Cm
-        '
-        Me.AG_Cm.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
-        Me.AG_Cm.Location = New System.Drawing.Point(571, 4)
-        Me.AG_Cm.Name = "AG_Cm"
-        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(365, 28)
-        Me.AG_Cm.SQL_Column = "AG_NAME"
-        Me.AG_Cm.SQL_ID = "AG_ID"
-        Me.AG_Cm.SQL_IsNumericSearchField = False
-        Me.AG_Cm.SQL_ListSize = 200
-        Me.AG_Cm.SQL_NumberOfRows = 200
-        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField_WHERE = ""
-        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
-        Me.AG_Cm.TabIndex = 626
-        Me.AG_Cm.TextMaxLength = 250
-        Me.AG_Cm.Textt = ""
-        '
         'ReceiptTypeComboBox
         '
         Me.ReceiptTypeComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -436,13 +414,13 @@ Partial Class Balances
         Me.ReceiptTypeComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ReceiptTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ReceiptTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ReceiptTypeComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
+        Me.ReceiptTypeComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.ReceiptTypeComboBox.ForeColor = System.Drawing.Color.DarkRed
         Me.ReceiptTypeComboBox.FormattingEnabled = True
         Me.ReceiptTypeComboBox.Location = New System.Drawing.Point(572, 39)
         Me.ReceiptTypeComboBox.Name = "ReceiptTypeComboBox"
         Me.ReceiptTypeComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ReceiptTypeComboBox.Size = New System.Drawing.Size(349, 25)
+        Me.ReceiptTypeComboBox.Size = New System.Drawing.Size(349, 27)
         Me.ReceiptTypeComboBox.TabIndex = 384
         '
         'NUM_CREDIT_TXT
@@ -644,13 +622,13 @@ Partial Class Balances
         Me.UsersComboBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.UsersComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.UsersComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.UsersComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
+        Me.UsersComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.UsersComboBox.ForeColor = System.Drawing.Color.DarkRed
         Me.UsersComboBox.FormattingEnabled = True
         Me.UsersComboBox.Location = New System.Drawing.Point(656, 72)
         Me.UsersComboBox.Name = "UsersComboBox"
         Me.UsersComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.UsersComboBox.Size = New System.Drawing.Size(266, 25)
+        Me.UsersComboBox.Size = New System.Drawing.Size(266, 27)
         Me.UsersComboBox.TabIndex = 407
         '
         'Label33
@@ -1006,7 +984,7 @@ Partial Class Balances
         Me.MetroTabPage2.HorizontalScrollbarSize = 1
         Me.MetroTabPage2.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage2.Name = "MetroTabPage2"
-        Me.MetroTabPage2.Size = New System.Drawing.Size(996, 632)
+        Me.MetroTabPage2.Size = New System.Drawing.Size(996, 639)
         Me.MetroTabPage2.TabIndex = 1
         Me.MetroTabPage2.Text = "حركــة الخزينــة"
         Me.MetroTabPage2.VerticalScrollbarBarColor = True
@@ -1559,7 +1537,7 @@ Partial Class Balances
         Me.MetroTabPage4.HorizontalScrollbarSize = 1
         Me.MetroTabPage4.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage4.Name = "MetroTabPage4"
-        Me.MetroTabPage4.Size = New System.Drawing.Size(996, 632)
+        Me.MetroTabPage4.Size = New System.Drawing.Size(996, 639)
         Me.MetroTabPage4.TabIndex = 3
         Me.MetroTabPage4.Text = "الأرصدة"
         Me.MetroTabPage4.VerticalScrollbarBarColor = True
@@ -1664,7 +1642,7 @@ Partial Class Balances
         Me.Type_Cm.Font = New System.Drawing.Font("Segoe UI Semilight", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Type_Cm.FormattingEnabled = True
         Me.Type_Cm.Items.AddRange(New Object() {"حسابات العملاء ", "الخزائن + الحسابات المصرفية"})
-        Me.Type_Cm.Location = New System.Drawing.Point(748, 3)
+        Me.Type_Cm.Location = New System.Drawing.Point(748, 10)
         Me.Type_Cm.Name = "Type_Cm"
         Me.Type_Cm.Size = New System.Drawing.Size(243, 29)
         Me.Type_Cm.TabIndex = 677
@@ -1936,7 +1914,7 @@ Partial Class Balances
         Me.MetroTabPage3.HorizontalScrollbarSize = 1
         Me.MetroTabPage3.Location = New System.Drawing.Point(4, 30)
         Me.MetroTabPage3.Name = "MetroTabPage3"
-        Me.MetroTabPage3.Size = New System.Drawing.Size(996, 632)
+        Me.MetroTabPage3.Size = New System.Drawing.Size(996, 639)
         Me.MetroTabPage3.TabIndex = 2
         Me.MetroTabPage3.Text = "مرتبات الموظفين"
         Me.MetroTabPage3.VerticalScrollbarBarColor = True
@@ -2331,12 +2309,35 @@ Partial Class Balances
         Me.خروجToolStripMenuItem.Size = New System.Drawing.Size(55, 25)
         Me.خروجToolStripMenuItem.Text = "خروج"
         '
+        'AG_Cm
+        '
+        Me.AG_Cm.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.5!, System.Drawing.FontStyle.Bold)
+        Me.AG_Cm.Location = New System.Drawing.Point(571, 4)
+        Me.AG_Cm.Name = "AG_Cm"
+        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.AG_Cm.Size = New System.Drawing.Size(365, 30)
+        Me.AG_Cm.SQL_Column = "AG_NAME"
+        Me.AG_Cm.SQL_ID = "AG_ID"
+        Me.AG_Cm.SQL_IsNumericSearchField = False
+        Me.AG_Cm.SQL_ListSize = 200
+        Me.AG_Cm.SQL_NumberOfRows = 200
+        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField_WHERE = ""
+        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
+        Me.AG_Cm.TabIndex = 626
+        Me.AG_Cm.TextMaxLength = 250
+        Me.AG_Cm.Textt = ""
+        '
         'Balances
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1004, 739)
-        Me.Controls.Add(Me.MetroTabControl1)
+        Me.Controls.Add(Me.ن)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -2347,7 +2348,7 @@ Partial Class Balances
         Me.Text = "الحسابات"
         Me.TitleBar_Panel.ResumeLayout(False)
         Me.TitleBar_Panel.PerformLayout()
-        Me.MetroTabControl1.ResumeLayout(False)
+        Me.ن.ResumeLayout(False)
         Me.MetroTabPage1.ResumeLayout(False)
         Me.MetroTabPage1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -2484,7 +2485,7 @@ Partial Class Balances
     Friend WithEvents Type_Cm As System.Windows.Forms.ComboBox
     Friend WithEvents Search_Panel As System.Windows.Forms.Panel
     Friend WithEvents العهدToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MetroTabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents ن As System.Windows.Forms.TabControl
     Friend WithEvents AG_Cm As resturant.FSearch_Filter
     Friend WithEvents Label39 As System.Windows.Forms.Label
     Friend WithEvents Salary_Date As System.Windows.Forms.DateTimePicker
