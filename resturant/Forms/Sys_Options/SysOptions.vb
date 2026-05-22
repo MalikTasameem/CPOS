@@ -214,7 +214,7 @@ Public Class SysOptions
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim frm As New FrmAccountingPostingSettings(MY_Settings.SqlConStr, USER_ID)
+        Dim frm As New FrmSystemAccountLinks   'FrmAccountingPostingSettings(MY_Settings.SqlConStr, USER_ID)
         frm.ShowDialog()
     End Sub
 
