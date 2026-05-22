@@ -1,13 +1,19 @@
 ﻿Imports System.Data.SqlClient
 
+Imports System.Drawing.Printing
+
 Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
-    Dim rs As New Resizer
+    Private Const ReportTitle As String = "كشف فواتير مبيعات"
     Dim Bills_DT As New DataTable
     Dim Dv As New DataView
     Dim BalanceType As String = ""
     Private drag As Boolean
     Private mouseX As Integer
     Private mouseY As Integer
+    Private _printRowIndex As Integer = 0
+    Private _printDateTime As DateTime
+    Private _printPageNumber As Integer = 1
+    Private _printTotalsPrinted As Boolean = False
     'Dim AG_ID As Integer
 
     Private Sub ExpSearch_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -44,22 +50,6 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
         drag = False
     End Sub
 
-    'Private Sub ExpSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    '    rs.FindAllControls(Me)
-
-    '    Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
-    '    Zuby.ADGV.AdvancedDataGridViewSearchToolBar.SetTranslations(Zuby.ADGV.AdvancedDataGridViewSearchToolBar.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
-
-    '    Markter_Cm.Visible = S_Marketers
-    '    Marketer_Lb.Visible = S_Marketers
-
-    '    Bill_cmb.SelectedIndex = MY_Settings.AG_SH_Bill_Type
-
-    '    RPT_CM.SelectedIndex = 0
-    '    AG_Cm.Focus()
-    '    is_Auto_Select_CB.Checked = MY_Settings.SB_Search_Bill_Autot_Select
-    'End Sub
-
     Private Sub SearchAgentBill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             ' ==========================================
@@ -82,23 +72,15 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
             ' التأكد من بقاء شريط العنوان في المقدمة باش ما يتغطاش بالفلاتر
             If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.BringToFront()
 
-            ' ==========================================
-            ' 3. تهيئة أدوات تغيير الحجم (Resize)
-            ' ==========================================
-            ' لازم تكون بعد الثيم باش تاخذ الأبعاد الصحيحة
-            rs.FindAllControls(Me)
-
-            ' ==========================================
-            ' 4. تحميل ملفات الترجمة لشبكة البيانات (ADGV)
-            ' ==========================================
-            Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
-            Zuby.ADGV.AdvancedDataGridViewSearchToolBar.SetTranslations(Zuby.ADGV.AdvancedDataGridViewSearchToolBar.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
+            SetupModernLayout()
+            ConfigureMainGrid()
+            Make_Hints()
 
             ' ==========================================
             ' 5. تطبيق الصلاحيات والإعدادات المحفوظة
             ' ==========================================
-            Markter_Cm.Visible = S_Marketers
-            Marketer_Lb.Visible = S_Marketers
+            'Markter_Cm.Visible = S_Marketers
+            'Marketer_Lb.Visible = S_Marketers
 
             Bill_cmb.SelectedIndex = MY_Settings.AG_SH_Bill_Type
             is_Auto_Select_CB.Checked = MY_Settings.SB_Search_Bill_Autot_Select
@@ -115,6 +97,95 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
         Catch ex As Exception
             MsgBox("حدث خطأ أثناء تحميل شاشة البحث: " & vbCrLf & ex.Message, MsgBoxStyle.Critical, "خطأ التحميل")
         End Try
+    End Sub
+
+    Private Sub SetupModernLayout()
+
+        Me.AutoScaleMode = AutoScaleMode.None
+        Me.DoubleBuffered = True
+
+        If Panel4 IsNot Nothing Then Panel4.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        If Panel1 IsNot Nothing Then Panel1.Dock = DockStyle.Bottom
+        If TitleBar_Panel IsNot Nothing Then TitleBar_Panel.BringToFront()
+
+        ArrangeModernLayout()
+
+    End Sub
+
+    Private Sub ArrangeModernLayout()
+
+        If Me.ClientSize.Width <= 0 Then Return
+
+        Dim paddingLeft As Integer = 12
+        Dim rightEdge As Integer = Me.ClientSize.Width - 24
+        Dim topY As Integer = If(TitleBar_Panel IsNot Nothing, TitleBar_Panel.Bottom + 10, 45)
+
+        If AG_Cm IsNot Nothing Then AG_Cm.SetBounds(Math.Max(300, rightEdge - 455), topY, Math.Min(410, rightEdge - 320), 31)
+        If Label4 IsNot Nothing Then Label4.SetBounds(rightEdge - 40, topY + 7, 55, 22)
+        'If Markter_Cm IsNot Nothing Then Markter_Cm.SetBounds(Math.Max(300, rightEdge - 365), topY + 39, 315, 31)
+        'If Marketer_Lb IsNot Nothing Then Marketer_Lb.SetBounds(rightEdge - 53, topY + 45, 70, 22)
+
+        If IM_Serach_btn IsNot Nothing Then IM_Serach_btn.SetBounds(paddingLeft, topY, 105, 36)
+        If Print_btn IsNot Nothing Then Print_btn.SetBounds(paddingLeft + 113, topY, 105, 36)
+        If PdfButton IsNot Nothing Then PdfButton.SetBounds(paddingLeft + 226, topY, 96, 36)
+        If isDeletedCheckBox IsNot Nothing Then isDeletedCheckBox.SetBounds(paddingLeft + 335, topY + 7, 95, 24)
+        If Label32 IsNot Nothing Then Label32.SetBounds(paddingLeft + 555, topY + 8, 50, 22)
+        If Bill_cmb IsNot Nothing Then Bill_cmb.SetBounds(paddingLeft + 425, topY + 4, 125, 29)
+
+        If Panel2 IsNot Nothing Then Panel2.SetBounds(paddingLeft, topY + 48, Math.Min(640, Math.Max(320, Me.ClientSize.Width - 410)), 46)
+        If is_Auto_Select_CB IsNot Nothing Then is_Auto_Select_CB.SetBounds(Math.Max(paddingLeft + 660, rightEdge - 160), topY + 88, 150, 24)
+
+        If Panel3 IsNot Nothing Then Panel3.SetBounds(paddingLeft, topY + 108, Math.Min(680, Math.Max(320, Me.ClientSize.Width - 365)), 34)
+        If RPT_CM IsNot Nothing Then RPT_CM.SetBounds(Math.Max(Panel3.Right + 25, rightEdge - 285), topY + 108, 270, 31)
+
+        If Panel4 IsNot Nothing AndAlso Panel1 IsNot Nothing Then
+            Dim gridTop As Integer = topY + 155
+            Panel4.SetBounds(4, gridTop, Math.Max(100, Me.ClientSize.Width - 8), Math.Max(100, Panel1.Top - gridTop - 5))
+        End If
+
+        If UcGridColumnsSelector1 IsNot Nothing Then UcGridColumnsSelector1.SetBounds(paddingLeft, topY + 108, 115, 34)
+
+    End Sub
+
+    Private Sub ConfigureMainGrid()
+
+        With advancedDataGridView_main
+            .AllowUserToAddRows = False
+            .AllowUserToDeleteRows = False
+            .AutoGenerateColumns = True
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            .BackgroundColor = Color.White
+            .BorderStyle = BorderStyle.None
+            .CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
+            .ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None
+            .ColumnHeadersHeight = 34
+            .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+            .EnableHeadersVisualStyles = False
+            .MultiSelect = False
+            .ReadOnly = True
+            .RightToLeft = RightToLeft.Yes
+            .RowHeadersVisible = False
+            .RowTemplate.Height = 31
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+
+            .ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 62, 80)
+            .ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+            .ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 9.25!, FontStyle.Bold)
+            .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .DefaultCellStyle.BackColor = Color.White
+            .DefaultCellStyle.ForeColor = Color.FromArgb(32, 39, 48)
+            .DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 235, 250)
+            .DefaultCellStyle.SelectionForeColor = Color.Black
+            .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252)
+        End With
+
+    End Sub
+
+    Private Sub Make_Hints()
+
+        If SearchFilterTextBox IsNot Nothing Then SendMessage(SearchFilterTextBox.Handle, &H1501, 0, "بحث برقم الفاتورة أو اسم الزبون أو الزبون 2")
+
     End Sub
 
     Public Sub Load_Data_2()
@@ -169,18 +240,12 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
             If Bills_DT.Rows.Count = 0 Then
                 MsgBox("لا توجد عناصر للعرض", MsgBoxStyle.Exclamation, "")
             Else
-
-                CheckedListBox1.Items.Clear()
                 For i As Integer = 0 To advancedDataGridView_main.ColumnCount - 1
-                    Dim CL = advancedDataGridView_main.Columns(i).HeaderText
-                    CheckedListBox1.Items.Add(CL)
-
                     advancedDataGridView_main.Columns(i).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
                 Next
             End If
 
-
-            advancedDataGridViewSearchToolBar_main.SetColumns(advancedDataGridView_main.Columns)
+            AfterGridDataBound()
 
 
             'Coloring()
@@ -246,8 +311,8 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
             '---------------------------------------------------------------------------------------------------------------------------------------------
             'Dim C As New C
 
-            With (C.Com)
-                .Connection = C.Con
+            With (c.Com)
+                .Connection = c.Con
                 .CommandText = "[SearchAgentBill]"
                 .CommandType = CommandType.StoredProcedure
                 .Parameters.AddWithValue("@isVoid", isDeletedCheckBox.Checked)
@@ -263,11 +328,11 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
 
             End With
 
-            C.Da = New SqlClient.SqlDataAdapter(C.Com)
+            c.Da = New SqlClient.SqlDataAdapter(c.Com)
             '---------------------------------------------------------------------------------------------------------------------------------------------
 
 
-            C.Da.SelectCommand.CommandTimeout = 120
+            c.Da.SelectCommand.CommandTimeout = 120
 
             c.Da.Fill(Bills_DT)
             bindingSource_main.DataSource = Bills_DT
@@ -290,17 +355,12 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
 
                 'advancedDataGridView_main.Columns(16).Visible = False
 
-                CheckedListBox1.Items.Clear()
                 For i As Integer = 0 To advancedDataGridView_main.ColumnCount - 1
-                    Dim CL = advancedDataGridView_main.Columns(i).HeaderText
-                    CheckedListBox1.Items.Add(CL)
-
                     advancedDataGridView_main.Columns(i).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
                 Next
             End If
 
-
-            advancedDataGridViewSearchToolBar_main.SetColumns(advancedDataGridView_main.Columns)
+            AfterGridDataBound()
 
 
             'Coloring()
@@ -362,7 +422,7 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
 
 
     Private Sub ExpSearch_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        rs.ResizeAllControls(Me)
+        ArrangeModernLayout()
     End Sub
 
     Private Sub AGMetroGrid_KeyDown(sender As Object, e As KeyEventArgs) Handles advancedDataGridView_main.KeyDown
@@ -402,14 +462,23 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Print_btn_Click(sender As Object, e As EventArgs) Handles Print_btn.Click
-        'Print()
-        '-------------------------
-        'AG_MV_print_Reset()
-        'AG_MV_print()
-        'AG_MV_print_Reset()
+        If advancedDataGridView_main.Rows.Count = 0 Then
+            MsgBox("لا توجد بيانات للطباعة.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
 
-        Dim P As New Print_PDF
-        P.PRINT_PDF_List(advancedDataGridView_main, CheckedListBox1, TITLE_TXT.Text, 1)
+        PreviewSearchAgentBillPrint()
+    End Sub
+
+    Private Sub PdfButton_Click(sender As Object, e As EventArgs) Handles PdfButton.Click
+
+        If advancedDataGridView_main.Rows.Count = 0 Then
+            MsgBox("لا توجد بيانات للتصدير.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
+
+        ExportSearchAgentBillPdf()
+
     End Sub
 
     'Public Sub AG_MV_print_Reset()
@@ -509,26 +578,136 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Load_bills()
-        'Me.Cursor = Cursors.WaitCursor
-        If RPT_CM.SelectedIndex = 0 Then
-            Load_Data()
-        Else
-            Load_Data_2()
+        Try
+            Me.Cursor = Cursors.WaitCursor
+            If IM_Serach_btn IsNot Nothing Then
+                IM_Serach_btn.Enabled = False
+                IM_Serach_btn.Text = "جاري البحث..."
+            End If
+
+            If RPT_CM.SelectedIndex = 0 Then
+                Load_Data()
+            Else
+                Load_Data_2()
+            End If
+
+        Finally
+            If IM_Serach_btn IsNot Nothing Then
+                IM_Serach_btn.Enabled = True
+                IM_Serach_btn.Text = "⌕ بحث"
+            End If
+            Me.Cursor = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub advancedDataGridView_main_Sorted(sender As Object, e As EventArgs) Handles advancedDataGridView_main.Sorted
+        Index_GV()
+    End Sub
+
+    Private Sub AfterGridDataBound()
+
+        ConfigureMainGrid()
+        BindColumnsSelector()
+        ApplySearchFilter()
+        Index_GV()
+        UpdateFinancialTotals()
+
+    End Sub
+
+    Private Sub BindColumnsSelector()
+
+        If UcGridColumnsSelector1 Is Nothing OrElse advancedDataGridView_main.Columns.Count = 0 Then Return
+
+        UcGridColumnsSelector1.BindGrid(
+            advancedDataGridView_main,
+            New List(Of String) From {""},
+            Me.Name.ToString()
+        )
+
+    End Sub
+
+    Private Sub SearchFilterTextBox_TextChanged(sender As Object, e As EventArgs) Handles SearchFilterTextBox.TextChanged
+        ApplySearchFilter()
+    End Sub
+
+    Private Sub SearchFilterTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles SearchFilterTextBox.KeyDown
+        If e.KeyCode = Keys.Delete Then SearchFilterTextBox.Clear()
+    End Sub
+
+    Private Sub ApplySearchFilter()
+
+        If bindingSource_main Is Nothing OrElse bindingSource_main.DataSource Is Nothing OrElse Bills_DT Is Nothing Then Return
+
+        Dim searchText As String = If(SearchFilterTextBox Is Nothing, "", SearchFilterTextBox.Text.Trim())
+
+        If searchText = "" Then
+            bindingSource_main.RemoveFilter()
+            Index_GV()
+            UpdateFinancialTotals()
+            Return
         End If
-        'Me.Cursor = Cursors.Default
+
+        Dim escapedText As String = EscapeRowFilterValue(searchText)
+        Dim filters As New List(Of String)()
+
+        AddLikeFilter(filters, "رقم الفاتورة", escapedText)
+        AddLikeFilter(filters, "الحساب", escapedText)
+        AddLikeFilter(filters, "الزبون 2", escapedText)
+        AddLikeFilter(filters, "Bill_ID", escapedText)
+        AddLikeFilter(filters, "Ag_name", escapedText)
+        AddLikeFilter(filters, "Proj_NAME", escapedText)
+
+        If filters.Count = 0 Then
+            bindingSource_main.RemoveFilter()
+        Else
+            bindingSource_main.Filter = String.Join(" OR ", filters)
+        End If
+
+        Index_GV()
+        UpdateFinancialTotals()
+
     End Sub
 
-    Private Sub gridv_FilterStringChanged(sender As Object, e As Zuby.ADGV.AdvancedDataGridView.FilterEventArgs) Handles advancedDataGridView_main.FilterStringChanged
-        bindingSource_main.Filter = advancedDataGridView_main.FilterString
-        Index_GV()
+    Private Sub AddLikeFilter(filters As List(Of String), caption As String, escapedText As String)
+
+        Dim columnName As String = FindColumnName(caption)
+        If columnName = "" Then Return
+
+        filters.Add("Convert([" & columnName.Replace("]", "\]") & "], 'System.String') LIKE '%" & escapedText & "%'")
+
     End Sub
 
-    Private Sub gridv_SortStringChanged(sender As Object, e As Zuby.ADGV.AdvancedDataGridView.SortEventArgs) Handles advancedDataGridView_main.SortStringChanged
-        bindingSource_main.Sort = advancedDataGridView_main.SortString
-        Index_GV()
-    End Sub
+    Private Function FindColumnName(caption As String) As String
+
+        If Bills_DT Is Nothing Then Return ""
+
+        Dim normalizedCaption As String = NormalizeColumnCaption(caption)
+
+        For Each column As DataColumn In Bills_DT.Columns
+            If NormalizeColumnCaption(column.ColumnName) = normalizedCaption Then Return column.ColumnName
+        Next
+
+        Return ""
+
+    End Function
+
+    Private Function NormalizeColumnCaption(value As String) As String
+
+        If value Is Nothing Then Return ""
+        Return value.Replace(" ", "").Replace(vbTab, "").Trim()
+
+    End Function
+
+    Private Function EscapeRowFilterValue(value As String) As String
+
+        If value Is Nothing Then Return ""
+        Return value.Replace("'", "''").Replace("[", "[[]").Replace("%", "[%]").Replace("*", "[*]")
+
+    End Function
 
     Private Sub Index_GV()
+        If advancedDataGridView_main.Columns.Count = 0 Then Return
+
         For i = 0 To advancedDataGridView_main.Rows.Count - 1
             advancedDataGridView_main.Rows(i).Cells(0).Value = i + 1
         Next
@@ -537,29 +716,456 @@ Public Class SearchAgentBill : Inherits System.Windows.Forms.Form
 
 
     Private Sub bindingSource_main_ListChanged(sender As Object, e As System.ComponentModel.ListChangedEventArgs) Handles bindingSource_main.ListChanged
-        textBox_total.Text = bindingSource_main.List.Count.ToString()
+        UpdateFinancialTotals()
     End Sub
 
-    Private Sub advancedDataGridViewSearchToolBar_main_Search(sender As Object, e As Zuby.ADGV.AdvancedDataGridViewSearchToolBarSearchEventArgs) Handles advancedDataGridViewSearchToolBar_main.Search
-        Dim restartsearch = True
-        Dim startColumn = 0
-        Dim startRow = 0
-        If Not e.FromBegin Then
-            Dim endcol As Boolean = advancedDataGridView_main.CurrentCell.ColumnIndex + 1 >= advancedDataGridView_main.ColumnCount
-            Dim endrow As Boolean = advancedDataGridView_main.CurrentCell.RowIndex + 1 >= advancedDataGridView_main.RowCount
+    Private Sub UpdateFinancialTotals()
 
-            If endcol AndAlso endrow Then
-                startColumn = advancedDataGridView_main.CurrentCell.ColumnIndex
-                startRow = advancedDataGridView_main.CurrentCell.RowIndex
-            Else
-                startColumn = If(endcol, 0, advancedDataGridView_main.CurrentCell.ColumnIndex + 1)
-                startRow = advancedDataGridView_main.CurrentCell.RowIndex + If(endcol, 1, 0)
-            End If
+        If TotalsGrid Is Nothing Then Return
+
+        Dim totalsTable As New DataTable()
+        totalsTable.Columns.Add("عدد الصفوف")
+
+        Dim financialColumns As New List(Of DataGridViewColumn)()
+
+        If advancedDataGridView_main IsNot Nothing Then
+            For Each column As DataGridViewColumn In advancedDataGridView_main.Columns
+                If column.Tag IsNot Nothing AndAlso column.Tag.ToString() = "1" Then
+                    financialColumns.Add(column)
+                    totalsTable.Columns.Add(column.HeaderText.Trim())
+                End If
+            Next
         End If
-        Dim c As DataGridViewCell = advancedDataGridView_main.FindCell(e.ValueToSearch, If(e.ColumnToSearch IsNot Nothing, e.ColumnToSearch.Name, Nothing), startRow, startColumn, e.WholeWord, e.CaseSensitive)
-        If c Is Nothing AndAlso restartsearch Then c = advancedDataGridView_main.FindCell(e.ValueToSearch, If(e.ColumnToSearch IsNot Nothing, e.ColumnToSearch.Name, Nothing), 0, 0, e.WholeWord, e.CaseSensitive)
-        If c IsNot Nothing Then advancedDataGridView_main.CurrentCell = c
+
+        Dim row As DataRow = totalsTable.NewRow()
+        row("عدد الصفوف") = If(advancedDataGridView_main Is Nothing, 0, advancedDataGridView_main.Rows.Count)
+
+        For Each column As DataGridViewColumn In financialColumns
+            Dim totalValue As Decimal = 0D
+
+            For Each gridRow As DataGridViewRow In advancedDataGridView_main.Rows
+                If gridRow.IsNewRow Then Continue For
+
+                Dim value As Object = gridRow.Cells(column.Name).Value
+                If value Is Nothing OrElse value Is DBNull.Value Then Continue For
+
+                Dim numberValue As Decimal
+                If Decimal.TryParse(value.ToString(), numberValue) Then totalValue += numberValue
+            Next
+
+            row(column.HeaderText.Trim()) = totalValue.ToString(N_Point_Fter)
+        Next
+
+        totalsTable.Rows.Add(row)
+        TotalsGrid.DataSource = totalsTable
+
+        For Each column As DataGridViewColumn In TotalsGrid.Columns
+            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        Next
+
     End Sub
+
+    Private Sub PreviewSearchAgentBillPrint()
+
+        Using printDocument As PrintDocument = CreateSearchAgentBillPrintDocument()
+            Using previewDialog As New PrintPreviewDialog()
+                previewDialog.Document = printDocument
+                previewDialog.WindowState = FormWindowState.Maximized
+                previewDialog.Text = "معاينة " & ReportTitle
+                previewDialog.ShowDialog(Me)
+            End Using
+        End Using
+
+    End Sub
+
+    Private Sub ExportSearchAgentBillPdf()
+
+        Dim pdfPrinterName As String = GetPdfPrinterName()
+
+        If pdfPrinterName = "" Then
+            MsgBox("طابعة Microsoft Print to PDF غير متوفرة على هذا الجهاز.", MsgBoxStyle.Exclamation, "")
+            Return
+        End If
+
+        Using saveDialog As New SaveFileDialog()
+            saveDialog.Filter = "PDF Files (*.pdf)|*.pdf"
+            saveDialog.FileName = ReportTitle & " " & Date.Now.ToString("yyyyMMdd_HHmm") & ".pdf"
+            saveDialog.Title = "حفظ " & ReportTitle & " PDF"
+
+            If saveDialog.ShowDialog(Me) <> DialogResult.OK Then Return
+
+            Using printDocument As PrintDocument = CreateSearchAgentBillPrintDocument()
+                printDocument.PrinterSettings.PrinterName = pdfPrinterName
+                printDocument.PrinterSettings.PrintToFile = True
+                printDocument.PrinterSettings.PrintFileName = saveDialog.FileName
+                printDocument.PrintController = New StandardPrintController()
+                printDocument.Print()
+            End Using
+        End Using
+
+    End Sub
+
+    Private Function CreateSearchAgentBillPrintDocument() As PrintDocument
+
+        Dim printDocument As New PrintDocument()
+        printDocument.DocumentName = ReportTitle
+        printDocument.DefaultPageSettings.Landscape = True
+        printDocument.DefaultPageSettings.Margins = New Margins(30, 30, 40, 45)
+
+        AddHandler printDocument.BeginPrint, AddressOf SearchAgentBillPrintDocument_BeginPrint
+        AddHandler printDocument.PrintPage, AddressOf SearchAgentBillPrintDocument_PrintPage
+
+        Return printDocument
+
+    End Function
+
+    Private Sub SearchAgentBillPrintDocument_BeginPrint(sender As Object, e As PrintEventArgs)
+
+        _printRowIndex = 0
+        _printDateTime = Date.Now
+        _printPageNumber = 1
+        _printTotalsPrinted = False
+
+    End Sub
+
+    Private Sub SearchAgentBillPrintDocument_PrintPage(sender As Object, e As PrintPageEventArgs)
+
+        Dim bounds As Rectangle = e.MarginBounds
+        Dim y As Integer = bounds.Top
+        Dim visibleColumns As List(Of DataGridViewColumn) = GetPrintableColumns()
+
+        If visibleColumns.Count = 0 Then
+            e.HasMorePages = False
+            Return
+        End If
+
+        Using storeTitleFont As New Font("Segoe UI", 15.0!, FontStyle.Bold),
+              storeSubTitleFont As New Font("Segoe UI", 10.0!, FontStyle.Bold),
+              titleFont As New Font("Segoe UI", 13.0!, FontStyle.Bold),
+              infoFont As New Font("Segoe UI", 8.5!, FontStyle.Bold),
+              headerFont As New Font("Segoe UI", 7.0!, FontStyle.Bold),
+              rowFont As New Font("Segoe UI", 7.0!, FontStyle.Regular)
+
+            Dim centerFormat As New StringFormat()
+            centerFormat.Alignment = StringAlignment.Center
+            centerFormat.LineAlignment = StringAlignment.Center
+            centerFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            Dim rtlFormat As New StringFormat()
+            rtlFormat.Alignment = StringAlignment.Far
+            rtlFormat.LineAlignment = StringAlignment.Center
+            rtlFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+            rtlFormat.Trimming = StringTrimming.EllipsisCharacter
+
+            DrawReportStoreHeader(e.Graphics, bounds, y, storeTitleFont, storeSubTitleFont, centerFormat)
+
+            e.Graphics.DrawString(ReportTitle, titleFont, Brushes.Black, New Rectangle(bounds.Left, y, bounds.Width, 28), centerFormat)
+            y += 30
+
+            e.Graphics.DrawString(GetSearchAgentBillFilterText(), infoFont, Brushes.Black, New Rectangle(bounds.Left, y, bounds.Width, 24), rtlFormat)
+            y += 30
+
+            Dim rowHeight As Integer = 24
+            Dim widths As List(Of Integer) = CalculatePrintColumnWidths(visibleColumns, bounds.Width)
+            Dim x As Integer = bounds.Right
+
+            For i As Integer = 0 To visibleColumns.Count - 1
+                x -= widths(i)
+                Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+                Using backBrush As New SolidBrush(Color.FromArgb(45, 62, 80))
+                    e.Graphics.FillRectangle(backBrush, rect)
+                End Using
+
+                e.Graphics.DrawRectangle(Pens.DarkGray, rect)
+                e.Graphics.DrawString(visibleColumns(i).HeaderText.Trim(), headerFont, Brushes.White, rect, centerFormat)
+            Next
+
+            y += rowHeight
+
+            Dim firstDataRowY As Integer = y
+            Dim rowsPerPage As Integer = CalculatePrintableRowsPerPage(firstDataRowY, bounds.Bottom, rowHeight)
+            Dim totalsHeight As Integer = CalculateTotalsPrintHeight(rowHeight)
+            Dim totalPages As Integer = CalculateTotalPrintPagesWithTotals(advancedDataGridView_main.Rows.Count, rowsPerPage, rowHeight, totalsHeight)
+            Dim currentPage As Integer = _printPageNumber
+
+            While _printRowIndex < advancedDataGridView_main.Rows.Count
+
+                If y + rowHeight > bounds.Bottom - 58 Then
+                    DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
+                    _printPageNumber += 1
+                    e.HasMorePages = True
+                    Return
+                End If
+
+                Dim row As DataGridViewRow = advancedDataGridView_main.Rows(_printRowIndex)
+                x = bounds.Right
+
+                For i As Integer = 0 To visibleColumns.Count - 1
+                    x -= widths(i)
+                    Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+                    If _printRowIndex Mod 2 = 0 Then
+                        e.Graphics.FillRectangle(Brushes.White, rect)
+                    Else
+                        Using altBrush As New SolidBrush(Color.FromArgb(248, 250, 252))
+                            e.Graphics.FillRectangle(altBrush, rect)
+                        End Using
+                    End If
+
+                    e.Graphics.DrawRectangle(Pens.LightGray, rect)
+                    e.Graphics.DrawString(GetPrintableCellText(row, visibleColumns(i)), rowFont, Brushes.Black, rect, centerFormat)
+                Next
+
+                y += rowHeight
+                _printRowIndex += 1
+
+            End While
+
+            If Not _printTotalsPrinted Then
+                If y + totalsHeight > bounds.Bottom - 58 Then
+                    DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
+                    _printPageNumber += 1
+                    e.HasMorePages = True
+                    Return
+                End If
+
+                y += 8
+                DrawFinancialTotals(e.Graphics, bounds, y, headerFont, rowFont, centerFormat)
+                _printTotalsPrinted = True
+            End If
+
+            DrawReportFooter(e.Graphics, bounds, currentPage, totalPages, infoFont, centerFormat)
+
+        End Using
+
+        e.HasMorePages = False
+
+    End Sub
+
+    Private Function GetPrintableColumns() As List(Of DataGridViewColumn)
+
+        Dim columns As New List(Of DataGridViewColumn)()
+
+        For Each col As DataGridViewColumn In advancedDataGridView_main.Columns
+            If col.Visible Then columns.Add(col)
+        Next
+
+        Return columns
+
+    End Function
+
+    Private Function CalculatePrintColumnWidths(columns As List(Of DataGridViewColumn), availableWidth As Integer) As List(Of Integer)
+
+        Dim widths As New List(Of Integer)()
+        Dim totalGridWidth As Integer = 0
+
+        For Each col As DataGridViewColumn In columns
+            totalGridWidth += Math.Max(35, col.Width)
+        Next
+
+        If totalGridWidth <= 0 Then totalGridWidth = columns.Count * 80
+
+        Dim usedWidth As Integer = 0
+
+        For i As Integer = 0 To columns.Count - 1
+            Dim width As Integer
+
+            If i = columns.Count - 1 Then
+                width = Math.Max(35, availableWidth - usedWidth)
+            Else
+                width = Math.Max(35, CInt(availableWidth * (Math.Max(35, columns(i).Width) / CDbl(totalGridWidth))))
+            End If
+
+            widths.Add(width)
+            usedWidth += width
+        Next
+
+        Return widths
+
+    End Function
+
+    Private Function CalculateTotalsPrintHeight(rowHeight As Integer) As Integer
+
+        If TotalsGrid Is Nothing OrElse TotalsGrid.Columns.Count = 0 OrElse TotalsGrid.Rows.Count = 0 Then Return 0
+
+        Return 8 + (rowHeight * 2)
+
+    End Function
+
+    Private Sub DrawFinancialTotals(graphics As Graphics, bounds As Rectangle, ByRef y As Integer, headerFont As Font, rowFont As Font, centerFormat As StringFormat)
+
+        If TotalsGrid Is Nothing OrElse TotalsGrid.Columns.Count = 0 OrElse TotalsGrid.Rows.Count = 0 Then Return
+
+        Dim columns As New List(Of DataGridViewColumn)()
+
+        For Each column As DataGridViewColumn In TotalsGrid.Columns
+            If column.Visible Then columns.Add(column)
+        Next
+
+        If columns.Count = 0 Then Return
+
+        Dim rowHeight As Integer = 24
+        Dim widths As List(Of Integer) = CalculatePrintColumnWidths(columns, bounds.Width)
+        Dim x As Integer = bounds.Right
+
+        For i As Integer = 0 To columns.Count - 1
+            x -= widths(i)
+            Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+            Using backBrush As New SolidBrush(Color.FromArgb(45, 62, 80))
+                graphics.FillRectangle(backBrush, rect)
+            End Using
+
+            graphics.DrawRectangle(Pens.DarkGray, rect)
+            graphics.DrawString(columns(i).HeaderText.Trim(), headerFont, Brushes.White, rect, centerFormat)
+        Next
+
+        y += rowHeight
+        x = bounds.Right
+
+        Dim totalRow As DataGridViewRow = TotalsGrid.Rows(0)
+
+        For i As Integer = 0 To columns.Count - 1
+            x -= widths(i)
+            Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+
+            Using totalBrush As New SolidBrush(Color.FromArgb(235, 240, 245))
+                graphics.FillRectangle(totalBrush, rect)
+            End Using
+
+            graphics.DrawRectangle(Pens.LightGray, rect)
+            graphics.DrawString(GetPrintableCellText(totalRow, columns(i)), rowFont, Brushes.Black, rect, centerFormat)
+        Next
+
+        y += rowHeight
+
+    End Sub
+
+    Private Function GetPrintableCellText(row As DataGridViewRow, column As DataGridViewColumn) As String
+
+        If row.Cells(column.Name).Value Is Nothing OrElse row.Cells(column.Name).Value Is DBNull.Value Then Return ""
+
+        If column.Tag IsNot Nothing AndAlso column.Tag.ToString() = "1" Then
+            Dim numberValue As Decimal
+            If Decimal.TryParse(row.Cells(column.Name).Value.ToString(), numberValue) Then Return numberValue.ToString(N_Point_Fter)
+        End If
+
+        Return row.Cells(column.Name).FormattedValue.ToString()
+
+    End Function
+
+    Private Function GetSearchAgentBillFilterText() As String
+
+        Dim searchText As String = If(SearchFilterTextBox Is Nothing OrElse SearchFilterTextBox.Text.Trim() = "", "الكل", SearchFilterTextBox.Text.Trim())
+
+        Return "الزبون: " & AG_Cm.Textt &
+            "    النوع: " & Bill_cmb.Text &
+            "    الفترة: " & GetDateRangeText() &
+            "    التقرير: " & RPT_CM.Text &
+            "    البحث: " & searchText &
+            "    عدد الصفوف: " & advancedDataGridView_main.Rows.Count.ToString()
+
+    End Function
+
+    Private Function GetDateRangeText() As String
+
+        If ALL_time_CheckBox IsNot Nothing AndAlso ALL_time_CheckBox.Checked Then Return "كل الفترات"
+
+        Return DateRange_Flate.D_From.Text & " - " & DateRange_Flate.D_To.Text
+
+    End Function
+
+    Private Sub DrawReportStoreHeader(graphics As Graphics, bounds As Rectangle, ByRef y As Integer, storeTitleFont As Font, storeSubTitleFont As Font, centerFormat As StringFormat)
+
+        If Not String.IsNullOrWhiteSpace(SBill_Title_1) Then
+            graphics.DrawString(SBill_Title_1, storeTitleFont, Brushes.Black, New Rectangle(bounds.Left, y, bounds.Width, 30), centerFormat)
+            y += 30
+        End If
+
+        If Not String.IsNullOrWhiteSpace(SBill_Title_2) Then
+            graphics.DrawString(SBill_Title_2, storeSubTitleFont, Brushes.Black, New Rectangle(bounds.Left, y, bounds.Width, 24), centerFormat)
+            y += 24
+        End If
+
+    End Sub
+
+    Private Function CalculatePrintableRowsPerPage(firstRowY As Integer, pageBottom As Integer, rowHeight As Integer) As Integer
+
+        Dim availableHeight As Integer = pageBottom - 58 - firstRowY
+        If availableHeight <= 0 Then Return 1
+
+        Return Math.Max(1, CInt(Math.Floor(availableHeight / CDbl(rowHeight))))
+
+    End Function
+
+    Private Function CalculateTotalPrintPages(totalRows As Integer, rowsPerPage As Integer) As Integer
+
+        If totalRows <= 0 OrElse rowsPerPage <= 0 Then Return 1
+
+        Return Math.Max(1, CInt(Math.Ceiling(totalRows / CDbl(rowsPerPage))))
+
+    End Function
+
+    Private Function CalculateTotalPrintPagesWithTotals(totalRows As Integer, rowsPerPage As Integer, rowHeight As Integer, totalsHeight As Integer) As Integer
+
+        Dim rowPages As Integer = CalculateTotalPrintPages(totalRows, rowsPerPage)
+
+        If totalsHeight <= 0 OrElse rowsPerPage <= 0 OrElse rowHeight <= 0 Then Return rowPages
+
+        Dim rowsOnLastPage As Integer = totalRows Mod rowsPerPage
+        If rowsOnLastPage = 0 AndAlso totalRows > 0 Then rowsOnLastPage = rowsPerPage
+
+        Dim availableHeightAfterRows As Integer = (rowsPerPage - rowsOnLastPage) * rowHeight
+        If totalsHeight > availableHeightAfterRows Then rowPages += 1
+
+        Return Math.Max(1, rowPages)
+
+    End Function
+
+    Private Function CalculateCurrentPrintPage(rowIndex As Integer, rowsPerPage As Integer) As Integer
+
+        If rowsPerPage <= 0 Then Return 1
+
+        Return Math.Max(1, (rowIndex \ rowsPerPage) + 1)
+
+    End Function
+
+    Private Sub DrawReportFooter(graphics As Graphics, bounds As Rectangle, currentPage As Integer, totalPages As Integer, footerFont As Font, centerFormat As StringFormat)
+
+        If _printDateTime = DateTime.MinValue Then _printDateTime = Date.Now
+
+        Dim footerTop As Integer = bounds.Bottom - 26
+        Dim sideWidth As Integer = CInt(bounds.Width * 0.34)
+        Dim centerWidth As Integer = bounds.Width - (sideWidth * 2)
+
+        Using rightFormat As New StringFormat(),
+              leftFormat As New StringFormat()
+
+            rightFormat.Alignment = StringAlignment.Far
+            rightFormat.LineAlignment = StringAlignment.Center
+            rightFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+            leftFormat.Alignment = StringAlignment.Near
+            leftFormat.LineAlignment = StringAlignment.Center
+
+            graphics.DrawLine(Pens.LightGray, bounds.Left, footerTop - 4, bounds.Right, footerTop - 4)
+            graphics.DrawString("المعد: " & USER_NAME, footerFont, Brushes.Black, New Rectangle(bounds.Right - sideWidth, footerTop, sideWidth, 22), rightFormat)
+            graphics.DrawString(currentPage.ToString() & "/" & totalPages.ToString(), footerFont, Brushes.Black, New Rectangle(bounds.Left + sideWidth, footerTop, centerWidth, 22), centerFormat)
+            graphics.DrawString("تاريخ الطباعة: " & _printDateTime.ToString("yyyy/MM/dd HH:mm"), footerFont, Brushes.Black, New Rectangle(bounds.Left, footerTop, sideWidth, 22), leftFormat)
+        End Using
+
+    End Sub
+
+    Private Function GetPdfPrinterName() As String
+
+        For Each printerName As String In PrinterSettings.InstalledPrinters
+            If printerName.IndexOf("Microsoft Print to PDF", StringComparison.OrdinalIgnoreCase) >= 0 Then Return printerName
+        Next
+
+        Return ""
+
+    End Function
 
     Private Sub is_Auto_Select_CB_CheckedChanged(sender As Object, e As EventArgs) Handles is_Auto_Select_CB.CheckedChanged
         CB_CHecked(sender)
