@@ -21,10 +21,15 @@ Partial Class FrmSystemAccountLinks
         Me.lblSubTitle = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.pnlButtons = New System.Windows.Forms.Panel()
-        Me.btnClose = New System.Windows.Forms.Button()
+        Me.btnEditType = New System.Windows.Forms.Button()
         Me.btnValidate = New System.Windows.Forms.Button()
         Me.btnChangeAccount = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
+        Me.btnDetails = New System.Windows.Forms.Button()
+        Me.btnCancelLink = New System.Windows.Forms.Button()
+        Me.cboFilter = New System.Windows.Forms.ComboBox()
+        Me.lblFilter = New System.Windows.Forms.Label()
+        Me.btnShowLog = New System.Windows.Forms.Button()
         Me.pnlMain = New System.Windows.Forms.Panel()
         Me.dgvLinks = New System.Windows.Forms.DataGridView()
         Me.pnlFooter = New System.Windows.Forms.Panel()
@@ -76,69 +81,127 @@ Partial Class FrmSystemAccountLinks
         'pnlButtons
         '
         Me.pnlButtons.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.pnlButtons.Controls.Add(Me.btnClose)
+        Me.pnlButtons.Controls.Add(Me.btnEditType)
         Me.pnlButtons.Controls.Add(Me.btnValidate)
         Me.pnlButtons.Controls.Add(Me.btnChangeAccount)
         Me.pnlButtons.Controls.Add(Me.btnRefresh)
+        Me.pnlButtons.Controls.Add(Me.btnDetails)
+        Me.pnlButtons.Controls.Add(Me.btnCancelLink)
+        Me.pnlButtons.Controls.Add(Me.cboFilter)
+        Me.pnlButtons.Controls.Add(Me.lblFilter)
+        Me.pnlButtons.Controls.Add(Me.btnShowLog)
         Me.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlButtons.Location = New System.Drawing.Point(0, 78)
         Me.pnlButtons.Name = "pnlButtons"
         Me.pnlButtons.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnlButtons.Size = New System.Drawing.Size(1050, 58)
+        Me.pnlButtons.Size = New System.Drawing.Size(1050, 52)
         Me.pnlButtons.TabIndex = 1
         '
-        'btnClose
+        'btnEditType
         '
-        Me.btnClose.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnClose.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnClose.Location = New System.Drawing.Point(10, 10)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(120, 38)
-        Me.btnClose.TabIndex = 3
-        Me.btnClose.Text = "إغلاق"
-        Me.btnClose.UseVisualStyleBackColor = True
+        Me.btnEditType.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnEditType.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnEditType.Location = New System.Drawing.Point(10, 6)
+        Me.btnEditType.Name = "btnEditType"
+        Me.btnEditType.Size = New System.Drawing.Size(100, 38)
+        Me.btnEditType.TabIndex = 4
+        Me.btnEditType.Text = "تعديل النمط"
+        Me.btnEditType.UseVisualStyleBackColor = True
         '
         'btnValidate
         '
-        Me.btnValidate.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnValidate.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnValidate.Location = New System.Drawing.Point(570, 10)
+        Me.btnValidate.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnValidate.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnValidate.Location = New System.Drawing.Point(652, 6)
         Me.btnValidate.Name = "btnValidate"
-        Me.btnValidate.Size = New System.Drawing.Size(150, 38)
+        Me.btnValidate.Size = New System.Drawing.Size(98, 38)
         Me.btnValidate.TabIndex = 2
         Me.btnValidate.Text = "فحص الربط"
         Me.btnValidate.UseVisualStyleBackColor = True
         '
         'btnChangeAccount
         '
-        Me.btnChangeAccount.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnChangeAccount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnChangeAccount.Location = New System.Drawing.Point(720, 10)
+        Me.btnChangeAccount.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnChangeAccount.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnChangeAccount.Location = New System.Drawing.Point(347, 6)
         Me.btnChangeAccount.Name = "btnChangeAccount"
-        Me.btnChangeAccount.Size = New System.Drawing.Size(170, 38)
+        Me.btnChangeAccount.Size = New System.Drawing.Size(117, 38)
         Me.btnChangeAccount.TabIndex = 1
         Me.btnChangeAccount.Text = "تغيير الحساب"
         Me.btnChangeAccount.UseVisualStyleBackColor = True
         '
         'btnRefresh
         '
-        Me.btnRefresh.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnRefresh.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnRefresh.Location = New System.Drawing.Point(890, 10)
+        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnRefresh.Location = New System.Drawing.Point(791, 6)
         Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(150, 38)
+        Me.btnRefresh.Size = New System.Drawing.Size(66, 38)
         Me.btnRefresh.TabIndex = 0
         Me.btnRefresh.Text = "تحديث"
         Me.btnRefresh.UseVisualStyleBackColor = True
+        '
+        'btnDetails
+        '
+        Me.btnDetails.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnDetails.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDetails.Location = New System.Drawing.Point(466, 6)
+        Me.btnDetails.Name = "btnDetails"
+        Me.btnDetails.Size = New System.Drawing.Size(84, 38)
+        Me.btnDetails.TabIndex = 6
+        Me.btnDetails.Text = "تفاصيل"
+        Me.btnDetails.UseVisualStyleBackColor = True
+        '
+        'btnCancelLink
+        '
+        Me.btnCancelLink.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnCancelLink.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCancelLink.Location = New System.Drawing.Point(552, 6)
+        Me.btnCancelLink.Name = "btnCancelLink"
+        Me.btnCancelLink.Size = New System.Drawing.Size(98, 38)
+        Me.btnCancelLink.TabIndex = 5
+        Me.btnCancelLink.Text = "إلغاء الربط"
+        Me.btnCancelLink.UseVisualStyleBackColor = True
+        '
+        'cboFilter
+        '
+        Me.cboFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFilter.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.cboFilter.FormattingEnabled = True
+        Me.cboFilter.Location = New System.Drawing.Point(860, 6)
+        Me.cboFilter.Name = "cboFilter"
+        Me.cboFilter.Size = New System.Drawing.Size(130, 23)
+        Me.cboFilter.TabIndex = 8
+        '
+        'lblFilter
+        '
+        Me.lblFilter.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFilter.Location = New System.Drawing.Point(990, 6)
+        Me.lblFilter.Name = "lblFilter"
+        Me.lblFilter.Size = New System.Drawing.Size(57, 22)
+        Me.lblFilter.TabIndex = 7
+        Me.lblFilter.Text = "عرض:"
+        Me.lblFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnShowLog
+        '
+        Me.btnShowLog.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnShowLog.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnShowLog.Location = New System.Drawing.Point(112, 6)
+        Me.btnShowLog.Name = "btnShowLog"
+        Me.btnShowLog.Size = New System.Drawing.Size(102, 38)
+        Me.btnShowLog.TabIndex = 9
+        Me.btnShowLog.Text = "سجل التعديلات"
+        Me.btnShowLog.UseVisualStyleBackColor = True
         '
         'pnlMain
         '
         Me.pnlMain.Controls.Add(Me.dgvLinks)
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlMain.Location = New System.Drawing.Point(0, 136)
+        Me.pnlMain.Location = New System.Drawing.Point(0, 130)
         Me.pnlMain.Name = "pnlMain"
         Me.pnlMain.Padding = New System.Windows.Forms.Padding(10)
-        Me.pnlMain.Size = New System.Drawing.Size(1050, 474)
+        Me.pnlMain.Size = New System.Drawing.Size(1050, 480)
         Me.pnlMain.TabIndex = 2
         '
         'dgvLinks
@@ -160,7 +223,7 @@ Partial Class FrmSystemAccountLinks
         Me.dgvLinks.RowHeadersVisible = False
         Me.dgvLinks.RowTemplate.Height = 30
         Me.dgvLinks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLinks.Size = New System.Drawing.Size(1030, 454)
+        Me.dgvLinks.Size = New System.Drawing.Size(1030, 460)
         Me.dgvLinks.TabIndex = 0
         '
         'pnlFooter
@@ -219,9 +282,16 @@ Partial Class FrmSystemAccountLinks
     Friend WithEvents btnRefresh As Button
     Friend WithEvents btnChangeAccount As Button
     Friend WithEvents btnValidate As Button
-    Friend WithEvents btnClose As Button
     Friend WithEvents pnlMain As Panel
     Friend WithEvents dgvLinks As DataGridView
     Friend WithEvents pnlFooter As Panel
     Friend WithEvents lblStatus As Label
+    Friend WithEvents btnEditType As Button
+
+    Friend WithEvents btnCancelLink As Button
+    Friend WithEvents btnDetails As Button
+    Friend WithEvents cboFilter As ComboBox
+    Friend WithEvents lblFilter As Label
+    Friend WithEvents btnShowLog As Button
+
 End Class

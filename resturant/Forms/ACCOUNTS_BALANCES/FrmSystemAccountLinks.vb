@@ -12,19 +12,29 @@ Public Class FrmSystemAccountLinks
     Private Sub FrmSystemAccountLinks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             SetupGrid()
+            SetupFilter()
             LoadLinks()
         Catch ex As Exception
             MessageBox.Show(ex.Message, "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
+    Private Sub SetupFilter()
+        cboFilter.Items.Clear()
+        cboFilter.Items.Add("الكل")
+        cboFilter.Items.Add("الأخطاء فقط")
+        cboFilter.Items.Add("غير مربوط")
+        cboFilter.Items.Add("الإجباري فقط")
+        cboFilter.Items.Add("الاختياري فقط")
+        cboFilter.Items.Add("الموقوف")
+        cboFilter.SelectedIndex = 0
+    End Sub
+
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadLinks()
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Me.Close()
-    End Sub
+
 
     Private Sub btnChangeAccount_Click(sender As Object, e As EventArgs) Handles btnChangeAccount.Click
         ChangeSelectedAccount()
@@ -60,18 +70,49 @@ Public Class FrmSystemAccountLinks
             .RowTemplate.Height = 32
         End With
 
-        AddTextColumn("AccountNameAr", "الحساب الأساسي", 230)
-        AddTextColumn("LinkedAccountDisplay", "الحساب المرتبط", 280)
-        AddTextColumn("Expected_ACC_NATURAL", "الطبيعة", 70)
-        AddTextColumn("RequiredText", "إلزامي", 70)
-        AddTextColumn("LeafText", "نوع الربط", 90)
+
+
+        AddTextColumn("AccountNameAr", "الحساب الأساسي", 220)
+        AddTextColumn("LinkedAccountDisplay", "الحساب المرتبط", 260)
+        AddTextColumn("RequiredStatusText", "الإلزام", 80)
+        AddTextColumn("NaturalStatusText", "الطبيعة", 80)
+        AddTextColumn("LeafStatusText", "نوع الحساب", 110)
+        AddTextColumn("DuplicateStatusText", "التكرار", 90)
+        AddTextColumn("ActiveStatusText", "الحالة", 80)
         AddTextColumn("ValidationMessage", "حالة التحقق", 260)
 
+        AddHiddenColumn("SystemAccountTypeID")
         AddHiddenColumn("AccountKey")
         AddHiddenColumn("ACC_T_ID")
         AddHiddenColumn("IsValid")
         AddHiddenColumn("Required")
         AddHiddenColumn("MustBeLeaf")
+        AddHiddenColumn("AllowSameAccount")
+        AddHiddenColumn("Expected_ACC_NATURAL")
+        AddHiddenColumn("TypeIsActive")
+        AddHiddenColumn("TypeNotes")
+
+
+        'AddTextColumn("AccountNameAr", "الحساب الأساسي", 220)
+        'AddTextColumn("LinkedAccountDisplay", "الحساب المرتبط", 260)
+        'AddTextColumn("RequiredStatusText", "الإلزام", 80)
+        'AddTextColumn("NaturalStatusText", "الطبيعة", 80)
+        'AddTextColumn("LeafStatusText", "نوع الحساب", 110)
+        'AddTextColumn("DuplicateStatusText", "تكرار الحساب", 100)
+        'AddTextColumn("ActiveStatusText", "الحالة", 80)
+        'AddTextColumn("ValidationMessage", "حالة التحقق", 260)
+
+        'AddHiddenColumn("SystemAccountTypeID")
+        'AddHiddenColumn("AccountKey")
+        'AddHiddenColumn("ACC_T_ID")
+        'AddHiddenColumn("IsValid")
+        'AddHiddenColumn("Required")
+        'AddHiddenColumn("MustBeLeaf")
+        'AddHiddenColumn("AllowSameAccount")
+        'AddHiddenColumn("Expected_ACC_NATURAL")
+        'AddHiddenColumn("TypeIsActive")
+
+
     End Sub
 
     Private Sub AddTextColumn(dataPropertyName As String, headerText As String, fillWeight As Single)
@@ -110,8 +151,11 @@ Public Class FrmSystemAccountLinks
 
             PrepareDisplayColumns(_dtLinks)
 
-            dgvLinks.DataSource = _dtLinks
-            ApplyRowsStyle()
+
+            ApplyFilter()
+
+            'dgvLinks.DataSource = _dtLinks
+            'ApplyRowsStyle()
 
             'lblStatus.Text = "تم تحميل " & _dtLinks.Rows.Count.ToString() & " حساب أساسي."
 
@@ -134,13 +178,170 @@ Public Class FrmSystemAccountLinks
 
 
 
-
-
         Catch ex As Exception
             lblStatus.Text = "فشل تحميل البيانات"
             MessageBox.Show(ex.Message, "خطأ في التحميل", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+
+
+
+    Private Sub ApplyFilter()
+        If _dtLinks Is Nothing Then Return
+
+        Dim dv As New DataView(_dtLinks)
+        Dim filterText As String = ""
+
+        If cboFilter IsNot Nothing AndAlso cboFilter.SelectedItem IsNot Nothing Then
+            filterText = cboFilter.SelectedItem.ToString()
+        End If
+
+        Select Case filterText
+            Case "الأخطاء فقط"
+                dv.RowFilter = "IsValid = False"
+
+            Case "غير مربوط"
+                dv.RowFilter = "ACC_T_ID IS NULL"
+
+            Case "الإجباري فقط"
+                dv.RowFilter = "Required = True"
+
+            Case "الاختياري فقط"
+                dv.RowFilter = "Required = False"
+
+            Case "الموقوف"
+                dv.RowFilter = "TypeIsActive = False"
+
+            Case Else
+                dv.RowFilter = ""
+        End Select
+
+        dgvLinks.DataSource = dv
+        ApplyRowsStyle()
+        UpdateStatusText()
+    End Sub
+
+
+
+    Private Sub UpdateStatusText()
+        If _dtLinks Is Nothing Then
+            lblStatus.Text = "جاهز"
+            Return
+        End If
+
+        Dim totalCount As Integer = _dtLinks.Rows.Count
+        Dim invalidCount As Integer = 0
+        Dim unlinkedCount As Integer = 0
+        Dim requiredCount As Integer = 0
+
+        For Each r As DataRow In _dtLinks.Rows
+            If _dtLinks.Columns.Contains("IsValid") AndAlso
+           r("IsValid") IsNot DBNull.Value AndAlso
+           Convert.ToBoolean(r("IsValid")) = False Then
+                invalidCount += 1
+            End If
+
+            If _dtLinks.Columns.Contains("ACC_T_ID") AndAlso r("ACC_T_ID") Is DBNull.Value Then
+                unlinkedCount += 1
+            End If
+
+            If _dtLinks.Columns.Contains("Required") AndAlso
+           r("Required") IsNot DBNull.Value AndAlso
+           Convert.ToBoolean(r("Required")) = True Then
+                requiredCount += 1
+            End If
+        Next
+
+        lblStatus.Text =
+        "الإجمالي: " & totalCount.ToString() &
+        " | الإجباري: " & requiredCount.ToString() &
+        " | غير مربوط: " & unlinkedCount.ToString() &
+        " | مشاكل: " & invalidCount.ToString()
+    End Sub
+
+    Private Sub btnCancelLink_Click(sender As Object, e As EventArgs) Handles btnCancelLink.Click
+        CancelSelectedLink()
+    End Sub
+
+
+    Private Sub CancelSelectedLink()
+        If dgvLinks.CurrentRow Is Nothing Then
+            MessageBox.Show("اختر حسابًا أساسيًا أولًا.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Dim row As DataGridViewRow = dgvLinks.CurrentRow
+
+        Dim typeId As Integer = 0
+        Dim accTId As Object = Nothing
+        Dim accountName As String = Convert.ToString(row.Cells("AccountNameAr").Value)
+        Dim linkedAccount As String = Convert.ToString(row.Cells("LinkedAccountDisplay").Value)
+        Dim required As Boolean = GetBooleanCell(row, "Required")
+
+        If row.Cells("SystemAccountTypeID").Value Is Nothing OrElse
+       row.Cells("SystemAccountTypeID").Value Is DBNull.Value Then
+            MessageBox.Show("لم يتم العثور على رقم نوع الحساب الأساسي.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        typeId = Convert.ToInt32(row.Cells("SystemAccountTypeID").Value)
+        accTId = row.Cells("ACC_T_ID").Value
+
+        If accTId Is Nothing OrElse accTId Is DBNull.Value Then
+            MessageBox.Show("هذا الحساب الأساسي غير مربوط أصلًا.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Dim warnMsg As String =
+        "هل تريد إلغاء ربط الحساب الأساسي التالي؟" & Environment.NewLine & Environment.NewLine &
+        "الحساب الأساسي: " & accountName & Environment.NewLine &
+        "الحساب المرتبط: " & linkedAccount
+
+        If required Then
+            warnMsg &= Environment.NewLine & Environment.NewLine &
+                   "تنبيه: هذا الحساب إجباري، وإلغاء ربطه سيجعل الترحيل يفشل حتى يتم ربطه من جديد."
+        End If
+
+        Dim result = MessageBox.Show(
+        warnMsg,
+        "تأكيد إلغاء الربط",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Warning,
+        MessageBoxDefaultButton.Button2
+    )
+
+        If result <> DialogResult.Yes Then Return
+
+        Try
+            Using cn As New SqlConnection(ConStr)
+                Using cmd As New SqlCommand("dbo.ACC_SYSTEM_ACCOUNT_LINK_CANCEL", cn)
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.CommandTimeout = 60
+
+                    cmd.Parameters.Add("@SystemAccountTypeID", SqlDbType.Int).Value = typeId
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = DBNull.Value
+                    cmd.Parameters.Add("@Notes", SqlDbType.NVarChar, 500).Value =
+                    "تم إلغاء الربط من شاشة الحسابات الأساسية"
+
+                    cn.Open()
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+
+            MessageBox.Show("تم إلغاء الربط بنجاح.", "تم", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            LoadLinks()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "خطأ في إلغاء الربط", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+
+
+
 
     Private Sub PrepareDisplayColumns(dt As DataTable)
         If dt Is Nothing Then Exit Sub
@@ -174,22 +375,48 @@ Public Class FrmSystemAccountLinks
         For Each gridRow As DataGridViewRow In dgvLinks.Rows
 
             Dim isValid As Boolean = False
+            Dim required As Boolean = False
+            Dim active As Boolean = True
 
-            If gridRow.Cells("IsValid").Value IsNot Nothing AndAlso
-               gridRow.Cells("IsValid").Value IsNot DBNull.Value Then
+            If dgvLinks.Columns.Contains("IsValid") AndAlso
+           gridRow.Cells("IsValid").Value IsNot Nothing AndAlso
+           gridRow.Cells("IsValid").Value IsNot DBNull.Value Then
                 isValid = Convert.ToBoolean(gridRow.Cells("IsValid").Value)
             End If
 
-            If isValid Then
+            If dgvLinks.Columns.Contains("Required") AndAlso
+           gridRow.Cells("Required").Value IsNot Nothing AndAlso
+           gridRow.Cells("Required").Value IsNot DBNull.Value Then
+                required = Convert.ToBoolean(gridRow.Cells("Required").Value)
+            End If
+
+            If dgvLinks.Columns.Contains("TypeIsActive") AndAlso
+           gridRow.Cells("TypeIsActive").Value IsNot Nothing AndAlso
+           gridRow.Cells("TypeIsActive").Value IsNot DBNull.Value Then
+                active = Convert.ToBoolean(gridRow.Cells("TypeIsActive").Value)
+            End If
+
+            If Not active Then
+                gridRow.DefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240)
+                gridRow.DefaultCellStyle.ForeColor = Color.Gray
+
+            ElseIf isValid Then
                 gridRow.DefaultCellStyle.BackColor = Color.FromArgb(232, 245, 233)
                 gridRow.DefaultCellStyle.ForeColor = Color.FromArgb(30, 80, 40)
-            Else
+
+            ElseIf required Then
                 gridRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 235, 238)
                 gridRow.DefaultCellStyle.ForeColor = Color.FromArgb(120, 30, 30)
+
+            Else
+                gridRow.DefaultCellStyle.BackColor = Color.FromArgb(255, 248, 225)
+                gridRow.DefaultCellStyle.ForeColor = Color.FromArgb(120, 90, 20)
             End If
 
         Next
     End Sub
+
+
 
     Private Sub ChangeSelectedAccount()
         If dgvLinks.CurrentRow Is Nothing Then
@@ -387,54 +614,127 @@ Public Class FrmSystemAccountLinks
         frm.ShowDialog(Me)
     End Sub
 
+    Private Sub btnEditType_Click(sender As Object, e As EventArgs) Handles btnEditType.Click
+        EditSelectedType()
+    End Sub
 
-    'Private Sub ValidateAllLinks()
-    '    Try
-    '        Using cn As New SqlConnection(ConStr)
-    '            Using cmd As New SqlCommand("dbo.ACC_SYSTEM_ACCOUNT_VALIDATE_ALL", cn)
-    '                cmd.CommandType = CommandType.StoredProcedure
-    '                cmd.CommandTimeout = 60
+    Private Sub EditSelectedType()
+        If dgvLinks.CurrentRow Is Nothing Then
+            MessageBox.Show("اختر حسابًا أساسيًا أولًا.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
 
-    '                cn.Open()
+        Dim row As DataGridViewRow = dgvLinks.CurrentRow
 
-    '                Dim dt As New DataTable()
-    '                Using da As New SqlDataAdapter(cmd)
-    '                    da.Fill(dt)
-    '                End Using
+        If row.Cells("SystemAccountTypeID").Value Is Nothing OrElse
+       row.Cells("SystemAccountTypeID").Value Is DBNull.Value Then
+            MessageBox.Show("لم يتم العثور على رقم نوع الحساب الأساسي.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
 
-    '                If dt.Rows.Count > 0 AndAlso dt.Columns.Contains("Success") Then
-    '                    MessageBox.Show(
-    '                        Convert.ToString(dt.Rows(0)("Message")),
-    '                        "فحص الربط",
-    '                        MessageBoxButtons.OK,
-    '                        MessageBoxIcon.Information
-    '                    )
-    '                Else
-    '                    MessageBox.Show(
-    '                        "تم تنفيذ الفحص.",
-    '                        "فحص الربط",
-    '                        MessageBoxButtons.OK,
-    '                        MessageBoxIcon.Information
-    '                    )
-    '                End If
-    '            End Using
-    '        End Using
+        Using frm As New FrmSystemAccountTypeEdit()
+            frm.SystemAccountTypeID = Convert.ToInt32(row.Cells("SystemAccountTypeID").Value)
+            frm.AccountNameAr = Convert.ToString(row.Cells("AccountNameAr").Value)
 
-    '        LoadLinks()
+            frm.RequiredValue = GetBooleanCell(row, "Required")
+            frm.AllowSameAccountValue = GetBooleanCell(row, "AllowSameAccount")
+            frm.MustBeLeafValue = GetBooleanCell(row, "MustBeLeaf")
+            frm.IsActiveValue = GetBooleanCell(row, "TypeIsActive")
 
-    '    Catch ex As SqlException
-    '        LoadLinks()
+            If row.Cells("Expected_ACC_NATURAL").Value Is Nothing OrElse
+           row.Cells("Expected_ACC_NATURAL").Value Is DBNull.Value Then
+                frm.ExpectedNaturalValue = ""
+            Else
+                frm.ExpectedNaturalValue = Convert.ToString(row.Cells("Expected_ACC_NATURAL").Value)
+            End If
 
-    '        MessageBox.Show(
-    '            ex.Message,
-    '            "نتيجة الفحص",
-    '            MessageBoxButtons.OK,
-    '            MessageBoxIcon.Warning
-    '        )
+            If dgvLinks.Columns.Contains("TypeNotes") AndAlso
+           row.Cells("TypeNotes").Value IsNot Nothing AndAlso
+           row.Cells("TypeNotes").Value IsNot DBNull.Value Then
+                frm.NotesValue = Convert.ToString(row.Cells("TypeNotes").Value)
+            Else
+                frm.NotesValue = ""
+            End If
 
-    '    Catch ex As Exception
-    '        MessageBox.Show(ex.Message, "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    End Try
-    'End Sub
+            If frm.ShowDialog(Me) = DialogResult.OK Then
+                LoadLinks()
+            End If
+        End Using
+    End Sub
+
+
+    Private Sub btnDetails_Click(sender As Object, e As EventArgs) Handles btnDetails.Click
+        ShowSelectedDetails()
+    End Sub
+
+
+
+    Private Sub ShowSelectedDetails()
+        If dgvLinks.CurrentRow Is Nothing Then
+            MessageBox.Show("اختر صفًا أولًا.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Dim row As DataGridViewRow = dgvLinks.CurrentRow
+
+        Dim msg As String =
+        "الحساب الأساسي: " & Convert.ToString(row.Cells("AccountNameAr").Value) & Environment.NewLine &
+        "المفتاح: " & Convert.ToString(row.Cells("AccountKey").Value) & Environment.NewLine &
+        "الحساب المرتبط: " & Convert.ToString(row.Cells("LinkedAccountDisplay").Value) & Environment.NewLine &
+        "إجباري: " & Convert.ToString(row.Cells("RequiredStatusText").Value) & Environment.NewLine &
+        "الطبيعة: " & Convert.ToString(row.Cells("NaturalStatusText").Value) & Environment.NewLine &
+        "نوع الحساب: " & Convert.ToString(row.Cells("LeafStatusText").Value) & Environment.NewLine &
+        "التكرار: " & Convert.ToString(row.Cells("DuplicateStatusText").Value) & Environment.NewLine &
+        "الحالة: " & Convert.ToString(row.Cells("ActiveStatusText").Value) & Environment.NewLine &
+        "رسالة التحقق: " & Convert.ToString(row.Cells("ValidationMessage").Value)
+
+        If dgvLinks.Columns.Contains("TypeNotes") Then
+            msg &= Environment.NewLine &
+               "ملاحظات: " & Convert.ToString(row.Cells("TypeNotes").Value)
+        End If
+
+        MessageBox.Show(msg, "تفاصيل الحساب الأساسي", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+
+    Private Function GetBooleanCell(row As DataGridViewRow, columnName As String) As Boolean
+        If row Is Nothing Then Return False
+        If Not dgvLinks.Columns.Contains(columnName) Then Return False
+
+        Dim v = row.Cells(columnName).Value
+
+        If v Is Nothing OrElse v Is DBNull.Value Then
+            Return False
+        End If
+
+        Return Convert.ToBoolean(v)
+    End Function
+
+
+    Private Sub btnShowLog_Click(sender As Object, e As EventArgs) Handles btnShowLog.Click
+        ShowSelectedLog()
+    End Sub
+
+    Private Sub ShowSelectedLog()
+        If dgvLinks.CurrentRow Is Nothing Then
+            MessageBox.Show("اختر حسابًا أساسيًا أولًا.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        If dgvLinks.CurrentRow.Cells("SystemAccountTypeID").Value Is Nothing OrElse
+           dgvLinks.CurrentRow.Cells("SystemAccountTypeID").Value Is DBNull.Value Then
+            MessageBox.Show("لم يتم العثور على رقم نوع الحساب الأساسي.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        Dim typeId As Integer = Convert.ToInt32(dgvLinks.CurrentRow.Cells("SystemAccountTypeID").Value)
+        Dim accountName As String = Convert.ToString(dgvLinks.CurrentRow.Cells("AccountNameAr").Value)
+
+        Using frm As New FrmSystemAccountLinksLog()
+            frm.SystemAccountTypeID = typeId
+            frm.AccountNameAr = accountName
+            frm.ShowDialog(Me)
+        End Using
+    End Sub
 
 End Class

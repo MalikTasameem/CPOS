@@ -29,6 +29,8 @@ Partial Class FrmAccountPicker
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSelect = New System.Windows.Forms.Button()
         Me.lblStatus = New System.Windows.Forms.Label()
+
+
         Me.pnlHeader.SuspendLayout()
         Me.pnlSearch.SuspendLayout()
         Me.pnlMain.SuspendLayout()
@@ -141,6 +143,8 @@ Partial Class FrmAccountPicker
         Me.pnlButtons.Controls.Add(Me.btnCancel)
         Me.pnlButtons.Controls.Add(Me.btnSelect)
         Me.pnlButtons.Controls.Add(Me.lblStatus)
+
+
         Me.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pnlButtons.Location = New System.Drawing.Point(0, 510)
         Me.pnlButtons.Name = "pnlButtons"
@@ -224,4 +228,7 @@ Partial Class FrmAccountPicker
     Friend WithEvents btnCancel As Button
     Friend WithEvents btnSelect As Button
     Friend WithEvents lblStatus As Label
+
+
+
 End Class

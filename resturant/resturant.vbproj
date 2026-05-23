@@ -286,6 +286,12 @@
     <Compile Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountLinks.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountLinksLog.Designer.vb">
+      <DependentUpon>FrmSystemAccountLinksLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountLinksLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\ACCOUNTS_BALANCES\FRM_ACC_ENTITY_LINKS_MANAGER.Designer.vb">
       <DependentUpon>FRM_ACC_ENTITY_LINKS_MANAGER.vb</DependentUpon>
     </Compile>
@@ -320,6 +326,12 @@
       <DependentUpon>FrmAccountingPostingMonitor.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\ACCOUNTS_BALANCES\FrmAccountingPostingMonitor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountTypeEdit.Designer.vb">
+      <DependentUpon>FrmSystemAccountTypeEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountTypeEdit.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Frm\Frm_manuel_IM_card.designer.vb">
@@ -1666,6 +1678,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountLinks.resx">
       <DependentUpon>FrmSystemAccountLinks.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountLinksLog.resx">
+      <DependentUpon>FrmSystemAccountLinksLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountTypeEdit.resx">
+      <DependentUpon>FrmSystemAccountTypeEdit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FRM_ACC_ENTITY_LINKS_MANAGER.resx">
       <DependentUpon>FRM_ACC_ENTITY_LINKS_MANAGER.vb</DependentUpon>
