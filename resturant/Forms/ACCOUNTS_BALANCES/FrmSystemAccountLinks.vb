@@ -46,6 +46,63 @@ Public Class FrmSystemAccountLinks
         End If
     End Sub
 
+    Private Sub dgvLinks_CellMouseDown(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLinks.CellMouseDown
+        If e.Button <> MouseButtons.Right OrElse e.RowIndex < 0 Then Return
+
+        dgvLinks.ClearSelection()
+        dgvLinks.Rows(e.RowIndex).Selected = True
+
+        Dim columnIndex As Integer = e.ColumnIndex
+        If columnIndex < 0 Then
+            Dim firstColumn As DataGridViewColumn = dgvLinks.Columns.GetFirstColumn(DataGridViewElementStates.Visible)
+            If firstColumn IsNot Nothing Then
+                columnIndex = firstColumn.Index
+            End If
+        End If
+
+        If columnIndex >= 0 Then
+            dgvLinks.CurrentCell = dgvLinks.Rows(e.RowIndex).Cells(columnIndex)
+        End If
+    End Sub
+
+    Private Sub cmsLinks_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmsLinks.Opening
+        Dim hasCurrentRow As Boolean = dgvLinks.CurrentRow IsNot Nothing AndAlso Not dgvLinks.CurrentRow.IsNewRow
+
+        mnuChangeAccount.Enabled = hasCurrentRow
+        mnuCancelLink.Enabled = hasCurrentRow
+        mnuDetails.Enabled = hasCurrentRow
+        mnuEditType.Enabled = hasCurrentRow
+        mnuShowLog.Enabled = hasCurrentRow
+    End Sub
+
+    Private Sub mnuRefresh_Click(sender As Object, e As EventArgs) Handles mnuRefresh.Click
+        btnRefresh.PerformClick()
+    End Sub
+
+    Private Sub mnuChangeAccount_Click(sender As Object, e As EventArgs) Handles mnuChangeAccount.Click
+        btnChangeAccount.PerformClick()
+    End Sub
+
+    Private Sub mnuCancelLink_Click(sender As Object, e As EventArgs) Handles mnuCancelLink.Click
+        btnCancelLink.PerformClick()
+    End Sub
+
+    Private Sub mnuDetails_Click(sender As Object, e As EventArgs) Handles mnuDetails.Click
+        btnDetails.PerformClick()
+    End Sub
+
+    Private Sub mnuValidate_Click(sender As Object, e As EventArgs) Handles mnuValidate.Click
+        btnValidate.PerformClick()
+    End Sub
+
+    Private Sub mnuEditType_Click(sender As Object, e As EventArgs) Handles mnuEditType.Click
+        btnEditType.PerformClick()
+    End Sub
+
+    Private Sub mnuShowLog_Click(sender As Object, e As EventArgs) Handles mnuShowLog.Click
+        btnShowLog.PerformClick()
+    End Sub
+
     Private Sub btnValidate_Click(sender As Object, e As EventArgs) Handles btnValidate.Click
         ValidateAllLinks()
     End Sub

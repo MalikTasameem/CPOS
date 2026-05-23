@@ -17,6 +17,7 @@ Partial Class FrmSystemAccountLinks
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.pnlHeader = New System.Windows.Forms.Panel()
         Me.lblSubTitle = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
@@ -32,12 +33,23 @@ Partial Class FrmSystemAccountLinks
         Me.btnShowLog = New System.Windows.Forms.Button()
         Me.pnlMain = New System.Windows.Forms.Panel()
         Me.dgvLinks = New System.Windows.Forms.DataGridView()
+        Me.cmsLinks = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuRefresh = New System.Windows.Forms.ToolStripMenuItem()
+        Me.sepLinksMain = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuChangeAccount = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuCancelLink = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDetails = New System.Windows.Forms.ToolStripMenuItem()
+        Me.sepLinksTools = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuValidate = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditType = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuShowLog = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlFooter = New System.Windows.Forms.Panel()
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.pnlHeader.SuspendLayout()
         Me.pnlButtons.SuspendLayout()
         Me.pnlMain.SuspendLayout()
         CType(Me.dgvLinks, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cmsLinks.SuspendLayout()
         Me.pnlFooter.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -214,6 +226,7 @@ Partial Class FrmSystemAccountLinks
         Me.dgvLinks.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dgvLinks.ColumnHeadersHeight = 36
         Me.dgvLinks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgvLinks.ContextMenuStrip = Me.cmsLinks
         Me.dgvLinks.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvLinks.Location = New System.Drawing.Point(10, 10)
         Me.dgvLinks.MultiSelect = False
@@ -225,6 +238,66 @@ Partial Class FrmSystemAccountLinks
         Me.dgvLinks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvLinks.Size = New System.Drawing.Size(1030, 460)
         Me.dgvLinks.TabIndex = 0
+        '
+        'cmsLinks
+        '
+        Me.cmsLinks.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.cmsLinks.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRefresh, Me.sepLinksMain, Me.mnuChangeAccount, Me.mnuCancelLink, Me.mnuDetails, Me.sepLinksTools, Me.mnuValidate, Me.mnuEditType, Me.mnuShowLog})
+        Me.cmsLinks.Name = "cmsLinks"
+        Me.cmsLinks.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.cmsLinks.Size = New System.Drawing.Size(181, 192)
+        '
+        'mnuRefresh
+        '
+        Me.mnuRefresh.Name = "mnuRefresh"
+        Me.mnuRefresh.Size = New System.Drawing.Size(180, 22)
+        Me.mnuRefresh.Text = "تحديث"
+        '
+        'sepLinksMain
+        '
+        Me.sepLinksMain.Name = "sepLinksMain"
+        Me.sepLinksMain.Size = New System.Drawing.Size(177, 6)
+        '
+        'mnuChangeAccount
+        '
+        Me.mnuChangeAccount.Name = "mnuChangeAccount"
+        Me.mnuChangeAccount.Size = New System.Drawing.Size(180, 22)
+        Me.mnuChangeAccount.Text = "تغيير الحساب"
+        '
+        'mnuCancelLink
+        '
+        Me.mnuCancelLink.Name = "mnuCancelLink"
+        Me.mnuCancelLink.Size = New System.Drawing.Size(180, 22)
+        Me.mnuCancelLink.Text = "إلغاء الربط"
+        '
+        'mnuDetails
+        '
+        Me.mnuDetails.Name = "mnuDetails"
+        Me.mnuDetails.Size = New System.Drawing.Size(180, 22)
+        Me.mnuDetails.Text = "تفاصيل"
+        '
+        'sepLinksTools
+        '
+        Me.sepLinksTools.Name = "sepLinksTools"
+        Me.sepLinksTools.Size = New System.Drawing.Size(177, 6)
+        '
+        'mnuValidate
+        '
+        Me.mnuValidate.Name = "mnuValidate"
+        Me.mnuValidate.Size = New System.Drawing.Size(180, 22)
+        Me.mnuValidate.Text = "فحص الربط"
+        '
+        'mnuEditType
+        '
+        Me.mnuEditType.Name = "mnuEditType"
+        Me.mnuEditType.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditType.Text = "تعديل النمط"
+        '
+        'mnuShowLog
+        '
+        Me.mnuShowLog.Name = "mnuShowLog"
+        Me.mnuShowLog.Size = New System.Drawing.Size(180, 22)
+        Me.mnuShowLog.Text = "سجل التعديلات"
         '
         'pnlFooter
         '
@@ -270,6 +343,7 @@ Partial Class FrmSystemAccountLinks
         Me.pnlButtons.ResumeLayout(False)
         Me.pnlMain.ResumeLayout(False)
         CType(Me.dgvLinks, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cmsLinks.ResumeLayout(False)
         Me.pnlFooter.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -293,5 +367,15 @@ Partial Class FrmSystemAccountLinks
     Friend WithEvents cboFilter As ComboBox
     Friend WithEvents lblFilter As Label
     Friend WithEvents btnShowLog As Button
+    Friend WithEvents cmsLinks As ContextMenuStrip
+    Friend WithEvents mnuRefresh As ToolStripMenuItem
+    Friend WithEvents sepLinksMain As ToolStripSeparator
+    Friend WithEvents mnuChangeAccount As ToolStripMenuItem
+    Friend WithEvents mnuCancelLink As ToolStripMenuItem
+    Friend WithEvents mnuDetails As ToolStripMenuItem
+    Friend WithEvents sepLinksTools As ToolStripSeparator
+    Friend WithEvents mnuValidate As ToolStripMenuItem
+    Friend WithEvents mnuEditType As ToolStripMenuItem
+    Friend WithEvents mnuShowLog As ToolStripMenuItem
 
 End Class
