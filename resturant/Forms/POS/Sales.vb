@@ -1460,12 +1460,14 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                 If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟", "تعديل فاتورة", MessageBoxButtons.YesNo,
                              MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
 
+                    If OpenBillForEdit() = False Then Return
+
                     On_Update = True
                     SelectStateBt() ' استدعاء دالة الحالات لتجهيز الفورم للتعديل
                 End If
 
             Else
-                Save_EditChanges()
+                If Save_EditChanges() = False Then Return
                 AG_Label.Text = "رصيد الحســاب: ( " & GET_AG_Balance().ToString & " ) "
 
                 On_Update = False
@@ -1475,7 +1477,35 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-    Private Sub Save_EditChanges()
+    Private Function OpenBillForEdit() As Boolean
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                Using cmd As New SqlClient.SqlCommand("dbo.Agents_Balance_MV_OpenForEdit", cn)
+
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
+                    cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+
+                    cn.Open()
+                    cmd.ExecuteNonQuery()
+
+                End Using
+            End Using
+
+            Return True
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في فتح التعديل")
+            Return False
+
+        End Try
+
+    End Function
+
+    Private Function Save_EditChanges() As Boolean
 
         If String.IsNullOrWhiteSpace(Discount_txt1.Text) Then Discount_txt1.Text = "0"
         Discount_calc()
@@ -1529,6 +1559,14 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
                         End Using
 
+                        ExecuteEditStoredProcedure(cn, tr, "dbo.Agents_Balance_MV_ConfirmEditAndRepost",
+                            Sub(cmd)
+                                cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
+                                cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+                                cmd.Parameters.Add("@Reason", SqlDbType.NVarChar, 500).Value =
+                                    "تأكيد تعديل فاتورة مبيعات رقم: " & Bill_ID_Txt.Text
+                            End Sub)
+
                         ExecuteEditStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
                             Sub(cmd)
                                 cmd.Parameters.AddWithValue("@User_ID", USER_ID)
@@ -1540,6 +1578,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                             End Sub)
 
                         tr.Commit()
+                        Return True
 
                     Catch
 
@@ -1555,10 +1594,11 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Catch ex As Exception
 
             MsgBox(ex.Message)
+            Return False
 
         End Try
 
-    End Sub
+    End Function
 
     Private Sub ExecuteEditStoredProcedure(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, procedureName As String, addParameters As Action(Of SqlClient.SqlCommand))
 
