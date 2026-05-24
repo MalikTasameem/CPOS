@@ -462,44 +462,81 @@
     End Sub
 
 
-    Public Sub Receipt_UPDATE()
+    Public Function Receipt_UPDATE() As Boolean
 
-        Dim sqlComm As New SqlClient.SqlCommand()
+        Try
 
-        sqlComm.CommandText = "[Agents_BalanceMV_Update_RCT]"
-        'sqlComm.Parameters.AddWithValue("@Receipt_Num", ReceiptNum)
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
 
-        sqlComm.CommandType = CommandType.StoredProcedure
-        'sqlComm.Parameters.AddWithValue("@Prev_T_ID", Reciept_T_ID)
-            sqlComm.Parameters.AddWithValue("@T_ID", Reciept_T_ID)
+                cn.Open()
 
-            If S_Pr = True And Pr_ID > 0 Then sqlComm.Parameters.AddWithValue("@Pr_ID", Pr_ID)
-            sqlComm.Parameters.AddWithValue("@Receipt_Tran_ID", Receipt_Tran_ID)
+                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
 
-            sqlComm.Parameters.AddWithValue("@AG_ID", Me.AG_ID)
-            sqlComm.Parameters.AddWithValue("Date", Me.DateTimeReceipt.Value)
-            sqlComm.Parameters.AddWithValue("@Receipt_Title", Me.Receipt_Title_combobox.Text)
+                    Try
 
-            sqlComm.Parameters.AddWithValue("@Pure", Convert.ToDouble(Me.money_num_txtb.Text))
+                        Using sqlComm As New SqlClient.SqlCommand("[Agents_BalanceMV_Update_RCT]", cn, tr)
 
-            sqlComm.Parameters.AddWithValue("@About", Notes_txtb.Text)
-            sqlComm.Parameters.AddWithValue("@BsType_ID", Me.ReceiptTypeComboBox.SelectedValue)
-            If payment_Type_combo.SelectedIndex = 1 Then
-                sqlComm.Parameters.AddWithValue("@Bank_Name", bankName_Combo.Text)
-                sqlComm.Parameters.AddWithValue("@CheckNum", CheckNum_txtb.Text)
-            End If
-            sqlComm.Parameters.AddWithValue("@User_ID", USER_ID)
-            sqlComm.Parameters.AddWithValue("@Tr_ID", Treasury_ComboBox.SelectedValue)
-        sqlComm.Parameters.AddWithValue("@Pay_ID", payment_Type_combo.SelectedValue)
+                            sqlComm.CommandType = CommandType.StoredProcedure
+                            sqlComm.Parameters.AddWithValue("@T_ID", Reciept_T_ID)
 
-        If SQL_SP_EXEC(sqlComm) = True Then
+                            If S_Pr = True And Pr_ID > 0 Then sqlComm.Parameters.AddWithValue("@Pr_ID", Pr_ID)
+                            sqlComm.Parameters.AddWithValue("@Receipt_Tran_ID", Receipt_Tran_ID)
 
-                MsgBox("تم حفظ الإيصــال", MsgBoxStyle.Information)
+                            sqlComm.Parameters.AddWithValue("@AG_ID", Me.AG_ID)
+                            sqlComm.Parameters.AddWithValue("Date", Me.DateTimeReceipt.Value)
+                            sqlComm.Parameters.AddWithValue("@Receipt_Title", Me.Receipt_Title_combobox.Text)
+
+                            sqlComm.Parameters.AddWithValue("@Pure", Convert.ToDouble(Me.money_num_txtb.Text))
+
+                            sqlComm.Parameters.AddWithValue("@About", Notes_txtb.Text)
+                            sqlComm.Parameters.AddWithValue("@BsType_ID", Me.ReceiptTypeComboBox.SelectedValue)
+                            If payment_Type_combo.SelectedIndex = 1 Then
+                                sqlComm.Parameters.AddWithValue("@Bank_Name", bankName_Combo.Text)
+                                sqlComm.Parameters.AddWithValue("@CheckNum", CheckNum_txtb.Text)
+                            End If
+                            sqlComm.Parameters.AddWithValue("@User_ID", USER_ID)
+                            sqlComm.Parameters.AddWithValue("@Tr_ID", Treasury_ComboBox.SelectedValue)
+                            sqlComm.Parameters.AddWithValue("@Pay_ID", payment_Type_combo.SelectedValue)
+
+                            sqlComm.ExecuteNonQuery()
+
+                        End Using
+
+                        ExecuteReceiptStoredProcedure(cn, tr, "dbo.Agents_Balance_MV_RCT_ConfirmEditAndRepost",
+                            Sub(cmd)
+                                cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = Reciept_T_ID
+                                cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+                                cmd.Parameters.Add("@Reason", SqlDbType.NVarChar, 500).Value = "تعديل إيصال بعد التقييد"
+                            End Sub)
+
+                        ExecuteReceiptStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
+                            Sub(cmd)
+                                cmd.Parameters.AddWithValue("@User_ID", USER_ID)
+                                cmd.Parameters.AddWithValue("@Notes", " إيصال للحساب " & AG_Cm.Textt & " بقيمة : " & money_num_txtb.Text)
+                                cmd.Parameters.AddWithValue("@Bill_ID", ReceiptNum_Txt.Text)
+                                cmd.Parameters.AddWithValue("@Screen_Type", AG_Type)
+                                cmd.Parameters.AddWithValue("@Operation_ID", 3)
+                                cmd.Parameters.AddWithValue("@CP_Name", My.Computer.Name)
+                            End Sub)
+
+                        tr.Commit()
+
+                    Catch
+
+                        tr.Rollback()
+                        Throw
+
+                    End Try
+
+                End Using
+
+            End Using
+
+            MsgBox("تم حفظ الإيصــال", MsgBoxStyle.Information)
 
             Current_QTY.Text = Show_AG_T_Balance(AG_ID)
             Is_ComandSuccess = True
             ReceiptNum_Txt.Text = ReceiptNum
-            Network_Edit_Tracker_insert(" إيصال للحساب " & AG_Cm.Textt & " بقيمة : " & money_num_txtb.Text, ReceiptNum_Txt.Text, AG_Type, 3)
 
             If FormType = 12 Then If Application.OpenForms().OfType(Of Custody).Any Then F_Custody.Custody_CLOSE()
             If FormType = 1 Then If Application.OpenForms().OfType(Of Sales).Any Then Select_Sales_Receipt(F_Sales.T_ID)
@@ -507,14 +544,32 @@
             If FormType = 8 Then If Application.OpenForms().OfType(Of EXP_Details).Any Then Select_EX_Receipt(F_EXP_Details.T_ID)
 
             Treasury_Balance.Text = Show_TR_T_Balance(Treasury_ComboBox.SelectedValue)
-        After_Save_Receipt()
+            After_Save_Receipt()
 
-        Edit_butt.Text = EditState
-        Edit_butt.BackColor = Color.White
-        On_Update = False
+            Edit_butt.Text = EditState
+            Edit_butt.BackColor = Color.White
+            On_Update = False
 
-            'If Application.OpenForms().OfType(Of SearchAgentBill).Any Then SearchAgentBill.Load_Data()
-        End If
+            Return True
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في حفظ تعديل الإيصال")
+            Return False
+
+        End Try
+
+    End Function
+
+    Private Sub ExecuteReceiptStoredProcedure(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, procedureName As String, addParameters As Action(Of SqlClient.SqlCommand))
+
+        Using cmd As New SqlClient.SqlCommand(procedureName, cn, tr)
+
+            cmd.CommandType = CommandType.StoredProcedure
+            addParameters(cmd)
+            cmd.ExecuteNonQuery()
+
+        End Using
 
     End Sub
 
@@ -845,6 +900,8 @@
                 Beep()
                 If MessageBox.Show(" تعديل الإيصال ؟ ", "تعديل", MessageBoxButtons.YesNo, _
                              MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+                    If OpenReceiptForEdit() = False Then Return
+
                     Edit_butt.BackColor = Color.GreenYellow
                     On_Update = True
                     Fields_Panel.Enabled = True
@@ -854,11 +911,41 @@
                     'Network_Edit_Tracker_insert("تعديل " + ReceiptTypeComboBox.Text + " / رقم  : " + ReceiptNum_Txt.Text, money_num_txtb.Text, 0, 0)
                 End If
             Else
-                If Preper_To_Insert() = 1 Then Receipt_UPDATE()
+                If Preper_To_Insert() = 1 Then
+                    If Receipt_UPDATE() = False Then Return
+                End If
 
             End If
         End If
     End Sub
+
+    Private Function OpenReceiptForEdit() As Boolean
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                Using cmd As New SqlClient.SqlCommand("dbo.Agents_Balance_MV_RCT_OpenForEdit", cn)
+
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = Reciept_T_ID
+                    cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+
+                    cn.Open()
+                    cmd.ExecuteNonQuery()
+
+                End Using
+            End Using
+
+            Return True
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في فتح تعديل الإيصال")
+            Return False
+
+        End Try
+
+    End Function
 
    
 

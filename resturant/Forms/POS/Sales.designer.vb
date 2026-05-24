@@ -677,9 +677,9 @@ Partial Class Sales
         Me.DateTimeEx.CustomFormat = "dd/MM/yyyy"
         Me.DateTimeEx.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimeEx.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTimeEx.Location = New System.Drawing.Point(171, 4)
+        Me.DateTimeEx.Location = New System.Drawing.Point(168, 4)
         Me.DateTimeEx.Name = "DateTimeEx"
-        Me.DateTimeEx.Size = New System.Drawing.Size(133, 29)
+        Me.DateTimeEx.Size = New System.Drawing.Size(136, 29)
         Me.DateTimeEx.TabIndex = 0
         '
         'BillNumTxt
@@ -910,7 +910,7 @@ Partial Class Sales
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.Project_cm)
         Me.Panel2.Controls.Add(Me.Show_AG_Projects_btn)
-        Me.Panel2.Location = New System.Drawing.Point(737, 183)
+        Me.Panel2.Location = New System.Drawing.Point(684, 183)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(428, 37)
         Me.Panel2.TabIndex = 680
