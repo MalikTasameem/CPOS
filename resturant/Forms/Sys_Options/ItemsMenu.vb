@@ -25,28 +25,127 @@ Public Class ItemsMenu
     Dim Valid_St As String = "لا"
     Dim isShort_St As String = "لا"
     Dim is_New_IM As Boolean
-    ' 🌟 متغيرات الرام (الكاش) 🌟
     Private ItemsCacheDt As DataTable = Nothing
+    Private ItemBarcodesCacheDt As DataTable = Nothing
     Private IsItemsCacheLoaded As Boolean = False
 
 
     Private Sub LoadItemsToCache()
-        If IsItemsCacheLoaded Then Return
+        If IsItemsCacheLoaded AndAlso ItemsCacheDt IsNot Nothing AndAlso ItemBarcodesCacheDt IsNot Nothing Then Return
         Try
             Dim db As New C()
-            ' نجلب كل البيانات مرة واحدة لتكون جاهزة في الذاكرة
-            db.Str = "SELECT * FROM Items_Table"
-            db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
-            db.Con.Open()
             ItemsCacheDt = New DataTable()
-            ItemsCacheDt.Load(db.Com.ExecuteReader())
-            db.Con.Close()
+            db.Str = "SELECT IM_ID,item_name,isValid,IM_Num FROM IM_All_V Order by item_name ASC"
+            db.Da = New SqlClient.SqlDataAdapter(db.Str, db.Con)
+            db.Da.Fill(ItemsCacheDt)
+
+            ItemBarcodesCacheDt = New DataTable()
+            db.Str = "SELECT IM_ID,Barcode FROM IM_All_Barcodes_V WHERE ISNULL(Barcode,'') <> '' Order by Barcode ASC"
+            db.Da = New SqlClient.SqlDataAdapter(db.Str, db.Con)
+            db.Da.Fill(ItemBarcodesCacheDt)
+
             IsItemsCacheLoaded = True
         Catch ex As Exception
             IsItemsCacheLoaded = False
-            '  If db.Con.State = ConnectionState.Open Then db.Con.Close()
+            ItemsCacheDt = Nothing
+            ItemBarcodesCacheDt = Nothing
         End Try
     End Sub
+
+    Private Sub RefreshItemsCache()
+        IsItemsCacheLoaded = False
+        LoadItemsToCache()
+    End Sub
+
+    Private Function SafeCacheText(row As DataRow, columnName As String) As String
+        If row Is Nothing OrElse row.Table Is Nothing OrElse Not row.Table.Columns.Contains(columnName) OrElse row.IsNull(columnName) Then Return ""
+        Return row(columnName).ToString()
+    End Function
+
+    Private Function SortSearchResults(dt As DataTable, sortExpression As String) As DataTable
+        If dt.Rows.Count = 0 Then Return dt
+        Dim view As New DataView(dt)
+        view.Sort = sortExpression
+        Return view.ToTable()
+    End Function
+
+    Private Function BuildItemNameResults(searchText As String) As DataTable
+        Dim result As New DataTable()
+        result.Columns.Add("IM_ID", GetType(Integer))
+        result.Columns.Add("item_name", GetType(String))
+        result.Columns.Add("isValid", GetType(Integer))
+
+        LoadItemsToCache()
+        If ItemsCacheDt Is Nothing OrElse String.IsNullOrWhiteSpace(searchText) Then Return result
+
+        For Each row As DataRow In ItemsCacheDt.Rows
+            Dim itemName As String = SafeCacheText(row, "item_name")
+            If itemName.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0 Then
+                Dim resultRow As DataRow = result.NewRow()
+                resultRow("IM_ID") = row("IM_ID")
+                resultRow("item_name") = itemName
+                resultRow("isValid") = If(row.IsNull("isValid"), 0, row("isValid"))
+                result.Rows.Add(resultRow)
+            End If
+        Next
+
+        Return SortSearchResults(result, "item_name ASC")
+    End Function
+
+    Private Function BuildItemNumberResults(searchText As String) As DataTable
+        Dim result As New DataTable()
+        result.Columns.Add("IM_ID", GetType(Integer))
+        result.Columns.Add("IM_NUM", GetType(String))
+        result.Columns.Add("isValid", GetType(Integer))
+
+        LoadItemsToCache()
+        If ItemsCacheDt Is Nothing OrElse String.IsNullOrWhiteSpace(searchText) Then Return result
+
+        For Each row As DataRow In ItemsCacheDt.Rows
+            Dim itemNumber As String = SafeCacheText(row, "IM_NUM")
+            If itemNumber.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0 Then
+                Dim resultRow As DataRow = result.NewRow()
+                resultRow("IM_ID") = row("IM_ID")
+                resultRow("IM_NUM") = itemNumber
+                resultRow("isValid") = If(row.IsNull("isValid"), 0, row("isValid"))
+                result.Rows.Add(resultRow)
+            End If
+        Next
+
+        Return SortSearchResults(result, "IM_NUM ASC")
+    End Function
+
+    Private Function BuildBarcodeResults(searchText As String) As DataTable
+        Dim result As New DataTable()
+        result.Columns.Add("IM_ID", GetType(Integer))
+        result.Columns.Add("Barcode", GetType(String))
+
+        LoadItemsToCache()
+        If ItemBarcodesCacheDt Is Nothing OrElse String.IsNullOrWhiteSpace(searchText) Then Return result
+
+        For Each row As DataRow In ItemBarcodesCacheDt.Rows
+            Dim barcode As String = SafeCacheText(row, "Barcode")
+            If barcode.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0 Then
+                Dim resultRow As DataRow = result.NewRow()
+                resultRow("IM_ID") = row("IM_ID")
+                resultRow("Barcode") = barcode
+                result.Rows.Add(resultRow)
+            End If
+        Next
+
+        Return SortSearchResults(result, "Barcode ASC")
+    End Function
+
+    Private Function FindItemByExactValue(source As DataTable, columnName As String, searchText As String) As DataRow
+        LoadItemsToCache()
+        If source Is Nothing OrElse Not source.Columns.Contains(columnName) Then Return Nothing
+
+        For Each row As DataRow In source.Rows
+            If String.Equals(SafeCacheText(row, columnName), searchText, StringComparison.CurrentCultureIgnoreCase) Then Return row
+        Next
+
+        Return Nothing
+    End Function
 
 
     Private Sub NonePhotoButton_Click(sender As Object, e As EventArgs) Handles NonePhotoButton.Click
@@ -294,27 +393,10 @@ Public Class ItemsMenu
 
 
     Public Sub Search_IM()
-        Dim c As New C
         Try
-            IM_Dt.Clear()
-
-            'Dim words As String() = IM_SH_txt.Text.Split(New Char() {" "c})
-            Dim Str As String = ""
-            'If words.Length() = 1 Then
-            Str = "select IM_ID,item_name from IM_Active_V WHERE item_name Like '%" & IM_SH_txt.Text & "%' Order by item_name ASC"
-            'Else
-            '    Str = "select IM_ID,item_name from IM_Active_V WHERE item_name Like '%" & words(0) & "%' AND  item_name Like '%" & words(1) & "%' Order by item_name ASC"
-            'End If
-
-            c.Da = New SqlClient.SqlDataAdapter(Str, c.Con)
-            c.Da.Fill(IM_Dt)
+            IM_Dt = BuildItemNameResults(IM_SH_txt.Text.Trim())
             IMDataGridViewX.DataSource = IM_Dt
-            If IM_Dt.Rows.Count > 0 Then
-                IMDataGridViewX.Visible = True
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            Else
-                IMDataGridViewX.Visible = False
-            End If
+            AutoResizeGridDropDown(IMDataGridViewX, 250)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -502,6 +584,7 @@ Public Class ItemsMenu
         If SQL_SP_EXEC(c.Com) = True Then
             MsgBox("تم حــذف الصــنف", MsgBoxStyle.Information)
             Network_Edit_Tracker_insert("" & IM_Name_ToolStrip.Text, IM_ID, 20, 2)
+            RefreshItemsCache()
             Coutnt_IM()
             Clear_Fields()
             Load_Units(IM_Unit_cm)
@@ -708,6 +791,7 @@ Public Class ItemsMenu
 
         If SQL_SP_EXEC(c.Com) = True Then
             MsgBox("تم الحفظ", MsgBoxStyle.Information)
+            RefreshItemsCache()
 
             If is_New_IM = True Then
                 Network_Edit_Tracker_insert(" إسم الصنف:" & IM_SH_txt.Text & " النوع:" & IM_Type_cm.Text & " التصنيف:" & GM_Serach.Text & " الرقم:" & IM_Num_txt.Text & " الصلاحية:" _
@@ -767,6 +851,7 @@ Public Class ItemsMenu
         If SQL_SP_EXEC(c.Com) = True Then
 
             Network_Edit_Tracker_insert(" إضافة وحدة للصنف " & IM_Name_ToolStrip.Text & " الوحدة:" & IM_Unit_cm.Text & " الباركود: " & BarCode_txt.Text & " السعر: " & Price_txt.Text & " الجملة: " & Min_SP_txt.Text & " جملة الجملة: " & Min_SP_2_txt.Text, 0, 20, 1)
+            RefreshItemsCache()
             Unit_cargo_txt.Clear()
             IM_Units_Select()
             Price_txt.Clear()
@@ -837,6 +922,7 @@ Public Class ItemsMenu
         If SQL_SP_EXEC(c.Com) = True Then
             Network_Edit_Tracker_insert(" حذف وحدة للصنف " & IM_Name_ToolStrip.Text & " الوحدة:" & Unit_DataGridView.CurrentRow.Cells("U_Name_CL").Value.ToString _
                                         & " الباركود:" & Unit_DataGridView.CurrentRow.Cells("Barcode_CL").Value.ToString & " السعر: " & Unit_DataGridView.CurrentRow.Cells("Price_CL").Value.ToString & " الجملة: " & Unit_DataGridView.CurrentRow.Cells("Min_SP_CL").Value.ToString & " جملة الجملة: " & Unit_DataGridView.CurrentRow.Cells("Min_SP_2_CL").Value.ToString, 0, 20, 2)
+            RefreshItemsCache()
             IM_Units_Select()
         End If
     End Sub
@@ -897,17 +983,12 @@ Public Class ItemsMenu
     '    Name_Error.Clear()
     'End Sub
     Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
-        ' [كود الفلترة الخاص بك من الرام (Cache) هنا]
-        ' مثال:
-        ' dv.RowFilter = "Item_Name LIKE '%" & IM_SH_txt.Text & "%'"
-        ' IMDataGridViewX.DataSource = dv
-
-        ' إذا كان التكست فارغاً، أخفِ الجريد، وإلا طبق دالة التمدد
+        Name_Error.Clear()
         If String.IsNullOrWhiteSpace(IM_SH_txt.Text) Then
             IMDataGridViewX.Visible = False
+            IMDataGridViewX.Height = 0
         Else
-            ' الرقم 250 هو أقصى ارتفاع للجريد (تستطيع تغييره حسب تصميم الشاشة)
-            AutoResizeGridDropDown(IMDataGridViewX, 250)
+            Search_IM()
         End If
     End Sub
 
@@ -1136,24 +1217,18 @@ Public Class ItemsMenu
     End Sub
 
     Public Sub Load_IM_Barcode()
-        Dim c As New C
-        Dim s As String
-
-        If Sh_ByNum_Searh_CB.Checked = True Then
-            s = "select IM_ID,item_name,isValid from IM_All_V WHERE IM_NUM = '" & Barcode_Search_txt.Text & "'"
-        Else
-            s = "select IM_ID from IM_Menu_Units_V WHERE Barcode = '" & Barcode_Search_txt.Text & "'"
-        End If
-
-        c.Com = New SqlCommand(s, c.Con)
-        c.Con.Open()
         Try
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows = True Then
-                c.Dr.Read()
-                ' isCatch_IM = True
-                'isEdit = True
-                IM_ID = c.Dr("IM_ID")
+            Dim foundRow As DataRow
+            LoadItemsToCache()
+
+            If Sh_ByNum_Searh_CB.Checked = True Then
+                foundRow = FindItemByExactValue(ItemsCacheDt, "IM_NUM", Barcode_Search_txt.Text.Trim())
+            Else
+                foundRow = FindItemByExactValue(ItemBarcodesCacheDt, "Barcode", Barcode_Search_txt.Text.Trim())
+            End If
+
+            If foundRow IsNot Nothing Then
+                IM_ID = foundRow("IM_ID")
                 Fetch_IM()
             Else
                 If MessageBox.Show("هذا الصنف غير موجود ضمن قائمة الأصناف ... هل تريد إضافته", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
@@ -1210,12 +1285,9 @@ Public Class ItemsMenu
     End Sub
     Private Sub Fill_All_IM()
         Try
-            Dim C As New C
-            IM_Dt.Clear()
-            Dim s As String = "select TOP 1000 IM_ID,item_name from IM_Active_V Order by item_name ASC"
-            C.Da = New SqlClient.SqlDataAdapter(s, C.Con)
-            C.Da.Fill(IM_Dt)
+            IM_Dt = BuildItemNameResults(IM_SH_txt.Text.Trim())
             IMDataGridViewX.DataSource = IM_Dt
+            AutoResizeGridDropDown(IMDataGridViewX, 250)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -1677,33 +1749,24 @@ Public Class ItemsMenu
     '    End If
     'End Sub
     Private Sub Barcode_Search_txt_TextChanged(sender As Object, e As EventArgs) Handles Barcode_Search_txt.TextChanged
-        ' [كود الفلترة الخاص بك من الرام (Cache) هنا]
-
-        ' إذا كان التكست فارغاً، أخفِ الجريد، وإلا طبق دالة التمدد
         If String.IsNullOrWhiteSpace(Barcode_Search_txt.Text) Then
             IMNUM_Grid.Visible = False
+            IMNUM_Grid.Height = 0
         Else
-            ' الرقم 250 هو أقصى ارتفاع للجريد
-            AutoResizeGridDropDown(IMNUM_Grid, 250)
+            Load_IMByNum()
         End If
     End Sub
 
     Public Sub Load_IMByNum()
-        Dim c As New C
-
         Try
-            IM_Dt_2.Clear()
-            Dim s As String
-            s = "select IM_ID,IM_NUM from IM_All_V WHERE IM_NUM Like '%" & Barcode_Search_txt.Text & "%' Order by IM_NUM ASC"
-            c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(IM_Dt_2)
-            IMNUM_Grid.DataSource = IM_Dt_2
-            If IM_Dt_2.Rows.Count > 0 Then
-                IMNUM_Grid.Visible = True
-                IMNUM_Grid.Size = New Point(IMNUM_Grid.Size.Width, 530)
+            If Sh_ByNum_Searh_CB.Checked = True Then
+                IM_Dt_2 = BuildItemNumberResults(Barcode_Search_txt.Text.Trim())
             Else
-                IMNUM_Grid.Visible = False
+                IM_Dt_2 = BuildBarcodeResults(Barcode_Search_txt.Text.Trim())
             End If
+
+            IMNUM_Grid.DataSource = IM_Dt_2
+            AutoResizeGridDropDown(IMNUM_Grid, 250)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
