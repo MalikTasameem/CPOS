@@ -23,6 +23,7 @@ Partial Class Balances
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Balances))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -56,7 +57,6 @@ Partial Class Balances
         Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Balances))
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.HeaderMinBtn = New System.Windows.Forms.Button()
         Me.HeaderMaxBtn = New System.Windows.Forms.Button()
@@ -67,6 +67,7 @@ Partial Class Balances
         Me.MVSearchButton = New System.Windows.Forms.Button()
         Me.isVoid_CB = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.ReceiptTypeComboBox = New System.Windows.Forms.ComboBox()
         Me.NUM_CREDIT_TXT = New System.Windows.Forms.TextBox()
         Me.AllAgentsCheckBox = New System.Windows.Forms.CheckBox()
@@ -209,7 +210,6 @@ Partial Class Balances
         Me.العهدToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.خروجToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
-        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
         Me.ن.SuspendLayout()
         Me.MetroTabPage1.SuspendLayout()
@@ -307,7 +307,7 @@ Partial Class Balances
         Me.ن.Controls.Add(Me.MetroTabPage4)
         Me.ن.Controls.Add(Me.MetroTabPage3)
         Me.ن.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ن.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ن.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.ن.Location = New System.Drawing.Point(0, 66)
         Me.ن.Name = "ن"
         Me.ن.RightToLeftLayout = True
@@ -348,9 +348,9 @@ Partial Class Balances
         Me.MetroTabPage1.HorizontalScrollbarBarColor = True
         Me.MetroTabPage1.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroTabPage1.HorizontalScrollbarSize = 10
-        Me.MetroTabPage1.Location = New System.Drawing.Point(4, 30)
+        Me.MetroTabPage1.Location = New System.Drawing.Point(4, 26)
         Me.MetroTabPage1.Name = "MetroTabPage1"
-        Me.MetroTabPage1.Size = New System.Drawing.Size(996, 639)
+        Me.MetroTabPage1.Size = New System.Drawing.Size(996, 643)
         Me.MetroTabPage1.TabIndex = 0
         Me.MetroTabPage1.Text = "حركة العملاء"
         Me.MetroTabPage1.VerticalScrollbarBarColor = True
@@ -369,12 +369,13 @@ Partial Class Balances
         Me.MVSearchButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MVSearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.MVSearchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.MVSearchButton.Location = New System.Drawing.Point(3, 3)
+        Me.MVSearchButton.Location = New System.Drawing.Point(3, 11)
         Me.MVSearchButton.Name = "MVSearchButton"
         Me.MVSearchButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.MVSearchButton.Size = New System.Drawing.Size(127, 32)
         Me.MVSearchButton.TabIndex = 403
         Me.MVSearchButton.TabStop = False
+        Me.MVSearchButton.Tag = "GENERAL"
         Me.MVSearchButton.Text = "بحــــــث"
         Me.MVSearchButton.UseVisualStyleBackColor = False
         '
@@ -385,7 +386,7 @@ Partial Class Balances
         Me.isVoid_CB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.isVoid_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.isVoid_CB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.isVoid_CB.Location = New System.Drawing.Point(416, 76)
+        Me.isVoid_CB.Location = New System.Drawing.Point(416, 87)
         Me.isVoid_CB.Name = "isVoid_CB"
         Me.isVoid_CB.Size = New System.Drawing.Size(156, 23)
         Me.isVoid_CB.TabIndex = 406
@@ -406,6 +407,29 @@ Partial Class Balances
         Me.Label3.Text = "الحساب"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'AG_Cm
+        '
+        Me.AG_Cm.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AG_Cm.Location = New System.Drawing.Point(572, 8)
+        Me.AG_Cm.Name = "AG_Cm"
+        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.AG_Cm.Size = New System.Drawing.Size(351, 27)
+        Me.AG_Cm.SQL_Column = "AG_NAME"
+        Me.AG_Cm.SQL_ID = "AG_ID"
+        Me.AG_Cm.SQL_IsNumericSearchField = False
+        Me.AG_Cm.SQL_ListSize = 200
+        Me.AG_Cm.SQL_NumberOfRows = 200
+        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField = "AG_NAME"
+        Me.AG_Cm.SQL_SearchField_WHERE = ""
+        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
+        Me.AG_Cm.TabIndex = 626
+        Me.AG_Cm.TextMaxLength = 250
+        Me.AG_Cm.Textt = ""
+        '
         'ReceiptTypeComboBox
         '
         Me.ReceiptTypeComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -417,7 +441,7 @@ Partial Class Balances
         Me.ReceiptTypeComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.ReceiptTypeComboBox.ForeColor = System.Drawing.Color.DarkRed
         Me.ReceiptTypeComboBox.FormattingEnabled = True
-        Me.ReceiptTypeComboBox.Location = New System.Drawing.Point(572, 39)
+        Me.ReceiptTypeComboBox.Location = New System.Drawing.Point(572, 48)
         Me.ReceiptTypeComboBox.Name = "ReceiptTypeComboBox"
         Me.ReceiptTypeComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ReceiptTypeComboBox.Size = New System.Drawing.Size(349, 27)
@@ -429,7 +453,7 @@ Partial Class Balances
         Me.NUM_CREDIT_TXT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NUM_CREDIT_TXT.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NUM_CREDIT_TXT.ForeColor = System.Drawing.Color.Black
-        Me.NUM_CREDIT_TXT.Location = New System.Drawing.Point(630, 597)
+        Me.NUM_CREDIT_TXT.Location = New System.Drawing.Point(630, 610)
         Me.NUM_CREDIT_TXT.MaxLength = 200
         Me.NUM_CREDIT_TXT.Name = "NUM_CREDIT_TXT"
         Me.NUM_CREDIT_TXT.ReadOnly = True
@@ -456,7 +480,7 @@ Partial Class Balances
         Me.NUM_DEBIT_TXT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NUM_DEBIT_TXT.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NUM_DEBIT_TXT.ForeColor = System.Drawing.Color.Black
-        Me.NUM_DEBIT_TXT.Location = New System.Drawing.Point(811, 597)
+        Me.NUM_DEBIT_TXT.Location = New System.Drawing.Point(811, 610)
         Me.NUM_DEBIT_TXT.MaxLength = 200
         Me.NUM_DEBIT_TXT.Name = "NUM_DEBIT_TXT"
         Me.NUM_DEBIT_TXT.ReadOnly = True
@@ -477,13 +501,13 @@ Partial Class Balances
         Me.MVPrintButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MVPrintButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.MVPrintButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.MVPrintButton.Location = New System.Drawing.Point(3, 36)
+        Me.MVPrintButton.Location = New System.Drawing.Point(3, 44)
         Me.MVPrintButton.Name = "MVPrintButton"
         Me.MVPrintButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.MVPrintButton.Size = New System.Drawing.Size(127, 32)
         Me.MVPrintButton.TabIndex = 402
         Me.MVPrintButton.TabStop = False
-        Me.MVPrintButton.Tag = "PRINT"
+        Me.MVPrintButton.Tag = "GENERAL"
         Me.MVPrintButton.Text = "طباعــة"
         Me.MVPrintButton.UseVisualStyleBackColor = False
         '
@@ -492,7 +516,7 @@ Partial Class Balances
         Me.Label37.AutoSize = True
         Me.Label37.BackColor = System.Drawing.Color.Transparent
         Me.Label37.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.Label37.Location = New System.Drawing.Point(875, 602)
+        Me.Label37.Location = New System.Drawing.Point(875, 615)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(64, 17)
         Me.Label37.TabIndex = 623
@@ -516,7 +540,7 @@ Partial Class Balances
         Me.GroupBox1.Location = New System.Drawing.Point(132, 6)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.GroupBox1.Size = New System.Drawing.Size(269, 94)
+        Me.GroupBox1.Size = New System.Drawing.Size(269, 107)
         Me.GroupBox1.TabIndex = 405
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "بحث في نطاق"
@@ -607,7 +631,7 @@ Partial Class Balances
         Me.Label38.AutoSize = True
         Me.Label38.BackColor = System.Drawing.Color.Transparent
         Me.Label38.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.Label38.Location = New System.Drawing.Point(690, 602)
+        Me.Label38.Location = New System.Drawing.Point(690, 615)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(69, 17)
         Me.Label38.TabIndex = 622
@@ -625,7 +649,7 @@ Partial Class Balances
         Me.UsersComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.UsersComboBox.ForeColor = System.Drawing.Color.DarkRed
         Me.UsersComboBox.FormattingEnabled = True
-        Me.UsersComboBox.Location = New System.Drawing.Point(656, 72)
+        Me.UsersComboBox.Location = New System.Drawing.Point(656, 81)
         Me.UsersComboBox.Name = "UsersComboBox"
         Me.UsersComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.UsersComboBox.Size = New System.Drawing.Size(266, 27)
@@ -636,7 +660,7 @@ Partial Class Balances
         Me.Label33.AutoSize = True
         Me.Label33.BackColor = System.Drawing.Color.Transparent
         Me.Label33.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.Label33.Location = New System.Drawing.Point(117, 602)
+        Me.Label33.Location = New System.Drawing.Point(117, 615)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(43, 17)
         Me.Label33.TabIndex = 621
@@ -649,7 +673,7 @@ Partial Class Balances
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AllRecieptsCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.AllRecieptsCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.25!, System.Drawing.FontStyle.Bold)
-        Me.AllRecieptsCheckBox.Location = New System.Drawing.Point(510, 39)
+        Me.AllRecieptsCheckBox.Location = New System.Drawing.Point(510, 50)
         Me.AllRecieptsCheckBox.Name = "AllRecieptsCheckBox"
         Me.AllRecieptsCheckBox.Size = New System.Drawing.Size(55, 29)
         Me.AllRecieptsCheckBox.TabIndex = 408
@@ -660,7 +684,7 @@ Partial Class Balances
         Me.Label34.AutoSize = True
         Me.Label34.BackColor = System.Drawing.Color.Transparent
         Me.Label34.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.Label34.Location = New System.Drawing.Point(486, 603)
+        Me.Label34.Location = New System.Drawing.Point(486, 616)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(79, 17)
         Me.Label34.TabIndex = 620
@@ -673,7 +697,7 @@ Partial Class Balances
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AllUsersCheckBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.AllUsersCheckBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.25!, System.Drawing.FontStyle.Bold)
-        Me.AllUsersCheckBox.Location = New System.Drawing.Point(598, 71)
+        Me.AllUsersCheckBox.Location = New System.Drawing.Point(598, 80)
         Me.AllUsersCheckBox.Name = "AllUsersCheckBox"
         Me.AllUsersCheckBox.Size = New System.Drawing.Size(55, 29)
         Me.AllUsersCheckBox.TabIndex = 409
@@ -684,7 +708,7 @@ Partial Class Balances
         Me.Label35.AutoSize = True
         Me.Label35.BackColor = System.Drawing.Color.Transparent
         Me.Label35.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.Label35.Location = New System.Drawing.Point(279, 602)
+        Me.Label35.Location = New System.Drawing.Point(279, 615)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(84, 17)
         Me.Label35.TabIndex = 619
@@ -698,7 +722,7 @@ Partial Class Balances
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(928, 45)
+        Me.Label8.Location = New System.Drawing.Point(928, 54)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(64, 17)
         Me.Label8.TabIndex = 416
@@ -711,7 +735,7 @@ Partial Class Balances
         Me.Total_Balance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Total_Balance.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_Balance.ForeColor = System.Drawing.Color.Black
-        Me.Total_Balance.Location = New System.Drawing.Point(1, 597)
+        Me.Total_Balance.Location = New System.Drawing.Point(1, 610)
         Me.Total_Balance.MaxLength = 200
         Me.Total_Balance.Name = "Total_Balance"
         Me.Total_Balance.ReadOnly = True
@@ -739,7 +763,7 @@ Partial Class Balances
         Me.Total_Credit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Total_Credit.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_Credit.ForeColor = System.Drawing.Color.Black
-        Me.Total_Credit.Location = New System.Drawing.Point(169, 597)
+        Me.Total_Credit.Location = New System.Drawing.Point(169, 610)
         Me.Total_Credit.MaxLength = 200
         Me.Total_Credit.Name = "Total_Credit"
         Me.Total_Credit.ReadOnly = True
@@ -755,7 +779,7 @@ Partial Class Balances
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(932, 75)
+        Me.Label7.Location = New System.Drawing.Point(932, 84)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(61, 17)
         Me.Label7.TabIndex = 417
@@ -768,7 +792,7 @@ Partial Class Balances
         Me.Total_Debit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Total_Debit.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_Debit.ForeColor = System.Drawing.Color.Black
-        Me.Total_Debit.Location = New System.Drawing.Point(376, 597)
+        Me.Total_Debit.Location = New System.Drawing.Point(376, 610)
         Me.Total_Debit.MaxLength = 200
         Me.Total_Debit.Name = "Total_Debit"
         Me.Total_Debit.ReadOnly = True
@@ -789,11 +813,12 @@ Partial Class Balances
         Me.Send_To_Email_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Send_To_Email_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Send_To_Email_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Send_To_Email_btn.Location = New System.Drawing.Point(3, 69)
+        Me.Send_To_Email_btn.Location = New System.Drawing.Point(3, 77)
         Me.Send_To_Email_btn.Name = "Send_To_Email_btn"
         Me.Send_To_Email_btn.Size = New System.Drawing.Size(127, 32)
         Me.Send_To_Email_btn.TabIndex = 617
         Me.Send_To_Email_btn.TabStop = False
+        Me.Send_To_Email_btn.Tag = "GENERAL"
         Me.Send_To_Email_btn.Text = "إرسال عبر البريد"
         Me.Send_To_Email_btn.UseVisualStyleBackColor = False
         '
@@ -833,7 +858,7 @@ Partial Class Balances
         Me.AGMVMetroGrid.EnableHeadersVisualStyles = False
         Me.AGMVMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         Me.AGMVMetroGrid.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.AGMVMetroGrid.Location = New System.Drawing.Point(3, 103)
+        Me.AGMVMetroGrid.Location = New System.Drawing.Point(3, 132)
         Me.AGMVMetroGrid.MultiSelect = False
         Me.AGMVMetroGrid.Name = "AGMVMetroGrid"
         Me.AGMVMetroGrid.ReadOnly = True
@@ -853,7 +878,7 @@ Partial Class Balances
         Me.AGMVMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle8
         Me.AGMVMetroGrid.RowTemplate.Height = 30
         Me.AGMVMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMVMetroGrid.Size = New System.Drawing.Size(992, 488)
+        Me.AGMVMetroGrid.Size = New System.Drawing.Size(992, 459)
         Me.AGMVMetroGrid.TabIndex = 291
         '
         'AG_MV_Type_ID_CL
@@ -2308,29 +2333,6 @@ Partial Class Balances
         Me.خروجToolStripMenuItem.Name = "خروجToolStripMenuItem"
         Me.خروجToolStripMenuItem.Size = New System.Drawing.Size(55, 25)
         Me.خروجToolStripMenuItem.Text = "خروج"
-        '
-        'AG_Cm
-        '
-        Me.AG_Cm.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.5!, System.Drawing.FontStyle.Bold)
-        Me.AG_Cm.Location = New System.Drawing.Point(571, 4)
-        Me.AG_Cm.Name = "AG_Cm"
-        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(365, 30)
-        Me.AG_Cm.SQL_Column = "AG_NAME"
-        Me.AG_Cm.SQL_ID = "AG_ID"
-        Me.AG_Cm.SQL_IsNumericSearchField = False
-        Me.AG_Cm.SQL_ListSize = 200
-        Me.AG_Cm.SQL_NumberOfRows = 200
-        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField_WHERE = ""
-        Me.AG_Cm.SQL_Table = "AGENTS_MENU_V"
-        Me.AG_Cm.TabIndex = 626
-        Me.AG_Cm.TextMaxLength = 250
-        Me.AG_Cm.Textt = ""
         '
         'Balances
         '

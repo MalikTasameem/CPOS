@@ -49,7 +49,7 @@
     Private Sub Reports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         Zuby.ADGV.AdvancedDataGridView.SetTranslations(Zuby.ADGV.AdvancedDataGridView.LoadTranslationsFromFile(Application.StartupPath & "\" & "lang.json"))
-        ThemeManager.ApplyThemeToForm(Me)
+
         ConfigureResponsiveLayout()
         If U_Balance = False Then
             MsgBox("خارج صلاحياتك", MsgBoxStyle.Critical, "صلاحية المستخدم")
@@ -68,6 +68,8 @@
 
         Tr_Total_D.BackColor = colorToApply_DEBIT
         Tr_Total_C.BackColor = colorToApply_CREDIT
+
+        ThemeManager.ApplyThemeToForm(Me)
     End Sub
 
 
@@ -357,7 +359,7 @@
 
         SetAnchor(Type_Cm, AnchorStyles.Top Or AnchorStyles.Right)
         SetAnchor(Label36, AnchorStyles.Top Or AnchorStyles.Right)
-        SetAnchor(AG_Cm, AnchorStyles.Top Or AnchorStyles.Right)
+        ' SetAnchor(AG_Cm, AnchorStyles.Top Or AnchorStyles.Right)
         SetAnchor(Treasury_ComboBox, AnchorStyles.Top Or AnchorStyles.Right)
         SetAnchor(ReceiptTypeComboBox, AnchorStyles.Top Or AnchorStyles.Right)
         SetAnchor(UsersComboBox, AnchorStyles.Top Or AnchorStyles.Right)
@@ -457,7 +459,7 @@
         StyleSearchGroupBox(GroupBox1)
         StyleSearchGroupBox(GroupBox2)
 
-        StyleSearchInput(AG_Cm)
+        '  StyleSearchInput(AG_Cm)
         StyleSearchInput(ReceiptTypeComboBox)
         StyleSearchInput(UsersComboBox)
         StyleSearchInput(Treasury_ComboBox)
@@ -634,7 +636,7 @@
         Dim comboWidth As Integer = Math.Max(180, comboRight - comboX)
 
         Label3.SetBounds(labelX, 8, labelWidth, rowHeight)
-        AG_Cm.SetBounds(comboX, 5, comboWidth, 32)
+        '   AG_Cm.SetBounds(comboX, 5, comboWidth, 32)
         AllAgentsCheckBox.SetBounds(checkX, 5, checkWidth, rowHeight)
 
         Label8.SetBounds(labelX, 43, labelWidth, rowHeight)
@@ -825,7 +827,7 @@
 
 
     Public Sub AG_MV_Prepare_To_Search()
-        SetAgMvSearchBusy(True)
+        ' SetAgMvSearchBusy(True)
 
         Try
             PrepareAgMvReportTitles()
@@ -835,7 +837,7 @@
             End If
 
         Finally
-            SetAgMvSearchBusy(False)
+            '   SetAgMvSearchBusy(False)
         End Try
     End Sub
 
@@ -869,12 +871,12 @@
 
     Private Sub SetAgMvSearchBusy(isBusy As Boolean)
 
-        Me.Cursor = If(isBusy, Cursors.AppStarting, Cursors.Default)
-        MVSearchButton.Enabled = Not isBusy
-        MVPrintButton.Enabled = Not isBusy
-        MVSearchButton.Text = If(isBusy, "جاري البحث...", "بحــــــث")
-        MVSearchButton.BackColor = If(isBusy, Color.FromArgb(255, 243, 205), Color.WhiteSmoke)
-        AGMVMetroGrid.Cursor = If(isBusy, Cursors.AppStarting, Cursors.Hand)
+        'Me.Cursor = If(isBusy, Cursors.AppStarting, Cursors.Default)
+        'MVSearchButton.Enabled = Not isBusy
+        'MVPrintButton.Enabled = Not isBusy
+        'MVSearchButton.Text = If(isBusy, "جاري البحث...", "بحــــــث")
+        'MVSearchButton.BackColor = If(isBusy, Color.FromArgb(255, 243, 205), Color.WhiteSmoke)
+        'AGMVMetroGrid.Cursor = If(isBusy, Cursors.AppStarting, Cursors.Hand)
 
     End Sub
 
