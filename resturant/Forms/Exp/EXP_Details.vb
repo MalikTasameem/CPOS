@@ -28,28 +28,71 @@
     End Enum
     Public CurrentState As BillState = BillState.Draft
 
+    Public Sub CheckAccountingState()
+        If lblFormState Is Nothing Then Return
+
+        If T_ID = 0 Then
+            lblFormState.Visible = False
+            Return
+        End If
+
+        Try
+            Dim db As New C()
+            db.Str = "SELECT TOP 1 JournalId FROM Agents_Balance_MV WHERE T_ID = " & T_ID
+            db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
+
+            db.Con.Open()
+            Dim jId As Object = db.Com.ExecuteScalar()
+            db.Con.Close()
+
+            lblFormState.Visible = True
+
+            If IsDBNull(jId) OrElse jId Is Nothing OrElse jId.ToString().Trim() = "" Then
+                lblFormState.Text = "⬤ غير مرحلة محاسبياً"
+                lblFormState.BackColor = Color.DarkOrange
+                lblFormState.ForeColor = Color.White
+            Else
+                lblFormState.Text = "⬤ مرحلة محاسبياً - قيد رقم: " & jId.ToString()
+                lblFormState.BackColor = Color.ForestGreen
+                lblFormState.ForeColor = Color.White
+            End If
+
+        Catch ex As Exception
+        End Try
+    End Sub
+
     Public Sub Set_Bill_State(State As BillState)
         CurrentState = State
 
         Select Case State
             Case BillState.Draft
+                AGMetroGrid.BackgroundColor = Color.LightYellow
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
                 DeletedBillLabel.Text = "فاتورة جديـدة"
                 DeletedBillLabel.BackColor = Color.SteelBlue
                 DeletedBillLabel.Visible = True
 
             Case BillState.Saved
+                AGMetroGrid.BackgroundColor = Color.LightGreen
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
                 DeletedBillLabel.Visible = False
 
             Case BillState.Editing
+                AGMetroGrid.BackgroundColor = Color.LightYellow
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
                 DeletedBillLabel.Text = "قيـد التعديـــل"
                 DeletedBillLabel.BackColor = Color.DarkOrange
                 DeletedBillLabel.Visible = True
 
             Case BillState.Voided
+                AGMetroGrid.BackgroundColor = Color.IndianRed
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
                 DeletedBillLabel.Text = "فاتورة ملغيـــة"
                 DeletedBillLabel.BackColor = Color.IndianRed
                 DeletedBillLabel.Visible = True
         End Select
+
+        CheckAccountingState()
     End Sub
 
 
@@ -99,25 +142,25 @@
     Public Sub Get_Last_T_ID()
 
         Dim C As New C
-            Dim S As String = "Select Top 1 T_ID From Agents_Balance_MV Where User_ID = '" & USER_ID & "' AND BsType_ID = 2 AND isDepended = 0 AND isVoid = 0  AND T_ID BETWEEN " & START_ID & " AND " & END_ID & "  ORDER BY T_ID DESC"
-            C.Com = New SqlClient.SqlCommand(S, C.Con)
-            C.Con.Open()
-            Try
-                C.Dr = C.Com.ExecuteReader
-                If C.Dr.HasRows Then
-                    C.Dr.Read()
-                    ClearFields()
-                    T_ID = C.Dr("T_ID")
-                    Select_ExpBill(T_ID)
-                Else
-                    'SELECT_MAX()
-                    Call_New_Bill()
-                End If
+        Dim S As String = "Select Top 1 T_ID From Agents_Balance_MV Where User_ID = '" & USER_ID & "' AND BsType_ID = 2 AND isDepended = 0 AND isVoid = 0  AND T_ID BETWEEN " & START_ID & " AND " & END_ID & "  ORDER BY T_ID DESC"
+        C.Com = New SqlClient.SqlCommand(S, C.Con)
+        C.Con.Open()
+        Try
+            C.Dr = C.Com.ExecuteReader
+            If C.Dr.HasRows Then
+                C.Dr.Read()
+                ClearFields()
+                T_ID = C.Dr("T_ID")
+                Select_ExpBill(T_ID)
+            Else
+                'SELECT_MAX()
+                Call_New_Bill()
+            End If
 
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-            C.Con.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        C.Con.Close()
 
     End Sub
 
@@ -326,7 +369,7 @@
 
     Private Sub Save_butt_Click(sender As Object, e As EventArgs) Handles Save_butt.Click
         Beep()
-        If MessageBox.Show("إعتماد المعاملة ؟", "تنويه", MessageBoxButtons.OKCancel, _
+        If MessageBox.Show("إعتماد المعاملة ؟", "تنويه", MessageBoxButtons.OKCancel,
                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign) = Windows.Forms.DialogResult.OK Then
 
             Save_Title_Name(T_ID, Title_txt.Text)
@@ -378,7 +421,7 @@
             If On_Update = False Then
 
                 Beep()
-                If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo, _
+                If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
                              MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
                     Edit_butt.BackColor = Color.GreenYellow
                     On_Update = True
@@ -412,7 +455,7 @@
 
     Private Sub Delete_butt_Click(sender As Object, e As EventArgs) Handles Delete_butt.Click
         Beep()
-        If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel, _
+        If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel,
                        MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
             Cancel_Bill()
         End If
@@ -576,7 +619,7 @@
         sqlComm.Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
         sqlComm.Parameters.AddWithValue("@On_Update", On_Update)
         If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" المصروف:" & AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString & _
+            Network_Edit_Tracker_insert(" المصروف:" & AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString &
                " العدد:" & AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString & " السعر:" & AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Bill_ID_Txt.Text, 2, 2)
             SELECT_EXP_Cats(T_ID)
             Update_Total()
@@ -612,7 +655,7 @@
     Private Sub RemoveCatButton_Click(sender As Object, e As EventArgs) Handles RemoveCatButton.Click
 
         If AGMetroGrid.Rows.Count > 0 Then
-            If MessageBox.Show(" حذف الصنف " + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value, "تأكيد", MessageBoxButtons.OKCancel, _
+            If MessageBox.Show(" حذف الصنف " + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value, "تأكيد", MessageBoxButtons.OKCancel,
                                MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
                 Delete_Cat()
             End If

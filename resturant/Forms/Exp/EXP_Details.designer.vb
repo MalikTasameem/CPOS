@@ -23,19 +23,20 @@ Partial Class EXP_Details
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle45 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle48 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle49 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle50 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle46 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle47 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle51 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle53 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle52 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EXP_Details))
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
+        Me.lblFormState = New System.Windows.Forms.Label()
         Me.DeletedBillLabel = New System.Windows.Forms.Label()
         Me.HeaderMinBtn = New System.Windows.Forms.Button()
         Me.HeaderMaxBtn = New System.Windows.Forms.Button()
@@ -88,17 +89,16 @@ Partial Class EXP_Details
         Me.إضافةضمنعهدةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeliveryingButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.EX_Cm = New resturant.FSearch_Filter()
-        Me.AG_Cm = New resturant.FSearch_Filter()
+        Me.Print_btn = New System.Windows.Forms.Button()
+        Me.SearchButton = New System.Windows.Forms.Button()
         Me.New_butt = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
-        Me.Print_btn = New System.Windows.Forms.Button()
-        Me.Delete_butt = New System.Windows.Forms.Button()
         Me.Edit_butt = New System.Windows.Forms.Button()
-        Me.SearchButton = New System.Windows.Forms.Button()
+        Me.Delete_butt = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.EX_Cm = New resturant.FSearch_Filter()
+        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -115,6 +115,7 @@ Partial Class EXP_Details
         'TitleBar_Panel
         '
         Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.Controls.Add(Me.lblFormState)
         Me.TitleBar_Panel.Controls.Add(Me.DeletedBillLabel)
         Me.TitleBar_Panel.Controls.Add(Me.HeaderMinBtn)
         Me.TitleBar_Panel.Controls.Add(Me.HeaderMaxBtn)
@@ -126,16 +127,28 @@ Partial Class EXP_Details
         Me.TitleBar_Panel.TabIndex = 999
         Me.TitleBar_Panel.Tag = "HEADER"
         '
+        'lblFormState
+        '
+        Me.lblFormState.Dock = System.Windows.Forms.DockStyle.Left
+        Me.lblFormState.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.lblFormState.ForeColor = System.Drawing.Color.White
+        Me.lblFormState.Location = New System.Drawing.Point(315, 0)
+        Me.lblFormState.Name = "lblFormState"
+        Me.lblFormState.Size = New System.Drawing.Size(475, 40)
+        Me.lblFormState.TabIndex = 1001
+        Me.lblFormState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblFormState.Visible = False
+        '
         'DeletedBillLabel
         '
         Me.DeletedBillLabel.BackColor = System.Drawing.Color.Red
         Me.DeletedBillLabel.Dock = System.Windows.Forms.DockStyle.Left
-        Me.DeletedBillLabel.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DeletedBillLabel.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DeletedBillLabel.ForeColor = System.Drawing.SystemColors.ButtonFace
         Me.DeletedBillLabel.Location = New System.Drawing.Point(135, 0)
         Me.DeletedBillLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.DeletedBillLabel.Name = "DeletedBillLabel"
-        Me.DeletedBillLabel.Size = New System.Drawing.Size(485, 40)
+        Me.DeletedBillLabel.Size = New System.Drawing.Size(180, 40)
         Me.DeletedBillLabel.TabIndex = 402
         Me.DeletedBillLabel.Text = "فاتورة ملغية"
         Me.DeletedBillLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -262,30 +275,30 @@ Partial Class EXP_Details
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.AGMetroGrid.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.AGMetroGrid.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AGMetroGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.AGMetroGrid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.AGMetroGrid.CausesValidation = False
-        Me.AGMetroGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+        Me.AGMetroGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
         Me.AGMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.AGMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle45.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle45.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle45.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle45.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle45.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AGMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle45
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.EX_ID_CL, Me.EX_Name_CL, Me.QTY_CL, Me.Price_CL, Me.Total_CL})
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle48.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle48.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle48.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
+        DataGridViewCellStyle48.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle48.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle48
         Me.AGMetroGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.AGMetroGrid.EnableHeadersVisualStyles = False
         Me.AGMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -296,19 +309,19 @@ Partial Class EXP_Details
         Me.AGMetroGrid.Name = "AGMetroGrid"
         Me.AGMetroGrid.ReadOnly = True
         Me.AGMetroGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.AGMetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle49.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle49.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle49.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle49.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle49.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AGMetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle49
         Me.AGMetroGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 13.0!)
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black
-        Me.AGMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle50.Font = New System.Drawing.Font("Segoe UI", 13.0!)
+        DataGridViewCellStyle50.ForeColor = System.Drawing.Color.Black
+        Me.AGMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle50
         Me.AGMetroGrid.RowTemplate.Height = 30
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.AGMetroGrid.Size = New System.Drawing.Size(936, 413)
@@ -349,8 +362,8 @@ Partial Class EXP_Details
         'Price_CL
         '
         Me.Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle2.Format = "N3"
-        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle46.Format = "N3"
+        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle46
         Me.Price_CL.HeaderText = "السعر"
         Me.Price_CL.Name = "Price_CL"
         Me.Price_CL.ReadOnly = True
@@ -358,8 +371,8 @@ Partial Class EXP_Details
         'Total_CL
         '
         Me.Total_CL.DataPropertyName = "Total"
-        DataGridViewCellStyle3.Format = "N3"
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle47.Format = "N3"
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle47
         Me.Total_CL.FillWeight = 112.3096!
         Me.Total_CL.HeaderText = "الإجمالي"
         Me.Total_CL.Name = "Total_CL"
@@ -367,9 +380,9 @@ Partial Class EXP_Details
         '
         'Title_txt
         '
-        Me.Title_txt.Location = New System.Drawing.Point(13, 9)
+        Me.Title_txt.Location = New System.Drawing.Point(3, 9)
         Me.Title_txt.Name = "Title_txt"
-        Me.Title_txt.Size = New System.Drawing.Size(273, 22)
+        Me.Title_txt.Size = New System.Drawing.Size(283, 22)
         Me.Title_txt.TabIndex = 624
         '
         'Notes_txt
@@ -396,12 +409,12 @@ Partial Class EXP_Details
         Me.QtyTextBox.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(3, 8)
+        Me.QtyTextBox.Location = New System.Drawing.Point(2, 2)
         Me.QtyTextBox.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.QtyTextBox.Size = New System.Drawing.Size(66, 29)
+        Me.QtyTextBox.Size = New System.Drawing.Size(68, 29)
         Me.QtyTextBox.TabIndex = 390
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -412,7 +425,7 @@ Partial Class EXP_Details
         Me.Bill_ID_Txt.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.Bill_ID_Txt.Font = New System.Drawing.Font("Times New Roman", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Bill_ID_Txt.ForeColor = System.Drawing.Color.Black
-        Me.Bill_ID_Txt.Location = New System.Drawing.Point(42, 4)
+        Me.Bill_ID_Txt.Location = New System.Drawing.Point(40, 4)
         Me.Bill_ID_Txt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Bill_ID_Txt.MaxLength = 250
         Me.Bill_ID_Txt.Name = "Bill_ID_Txt"
@@ -473,14 +486,14 @@ Partial Class EXP_Details
         '
         Me.DateTimeEx.CalendarFont = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimeEx.CustomFormat = "dd/MM/yyyy"
-        Me.DateTimeEx.Font = New System.Drawing.Font("Times New Roman", 14.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimeEx.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.DateTimeEx.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DateTimeEx.Location = New System.Drawing.Point(3, 4)
         Me.DateTimeEx.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.DateTimeEx.Name = "DateTimeEx"
         Me.DateTimeEx.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.DateTimeEx.RightToLeftLayout = True
-        Me.DateTimeEx.Size = New System.Drawing.Size(136, 30)
+        Me.DateTimeEx.Size = New System.Drawing.Size(122, 27)
         Me.DateTimeEx.TabIndex = 383
         '
         'Total_TextBox
@@ -516,10 +529,10 @@ Partial Class EXP_Details
         '
         Me.IM_Cost_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_Cost_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
-        Me.IM_Cost_txt.Location = New System.Drawing.Point(3, 10)
+        Me.IM_Cost_txt.Location = New System.Drawing.Point(3, 3)
         Me.IM_Cost_txt.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.IM_Cost_txt.Name = "IM_Cost_txt"
-        Me.IM_Cost_txt.Size = New System.Drawing.Size(96, 28)
+        Me.IM_Cost_txt.Size = New System.Drawing.Size(103, 28)
         Me.IM_Cost_txt.TabIndex = 618
         Me.IM_Cost_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -540,16 +553,16 @@ Partial Class EXP_Details
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.Label10)
         Me.Panel1.Controls.Add(Me.Title_txt)
-        Me.Panel1.Location = New System.Drawing.Point(208, 95)
+        Me.Panel1.Location = New System.Drawing.Point(157, 95)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(360, 40)
+        Me.Panel1.Size = New System.Drawing.Size(356, 40)
         Me.Panel1.TabIndex = 710
         '
         'Label10
         '
         Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(292, 11)
+        Me.Label10.Location = New System.Drawing.Point(288, 11)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(63, 21)
         Me.Label10.TabIndex = 623
@@ -562,16 +575,16 @@ Partial Class EXP_Details
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.Label13)
         Me.Panel6.Controls.Add(Me.IM_Cost_txt)
-        Me.Panel6.Location = New System.Drawing.Point(122, 44)
+        Me.Panel6.Location = New System.Drawing.Point(121, 143)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(152, 47)
+        Me.Panel6.Size = New System.Drawing.Size(158, 35)
         Me.Panel6.TabIndex = 712
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(102, 14)
+        Me.Label13.Location = New System.Drawing.Point(109, 9)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(42, 15)
         Me.Label13.TabIndex = 617
@@ -584,9 +597,9 @@ Partial Class EXP_Details
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.Label16)
         Me.Panel5.Controls.Add(Me.QtyTextBox)
-        Me.Panel5.Location = New System.Drawing.Point(3, 44)
+        Me.Panel5.Location = New System.Drawing.Point(2, 143)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(117, 47)
+        Me.Panel5.Size = New System.Drawing.Size(117, 35)
         Me.Panel5.TabIndex = 711
         '
         'Label16
@@ -594,7 +607,7 @@ Partial Class EXP_Details
         Me.Label16.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(71, 15)
+        Me.Label16.Location = New System.Drawing.Point(73, 9)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(39, 15)
         Me.Label16.TabIndex = 604
@@ -607,7 +620,7 @@ Partial Class EXP_Details
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.Label2)
         Me.Panel10.Controls.Add(Me.DateTimeEx)
-        Me.Panel10.Location = New System.Drawing.Point(576, 95)
+        Me.Panel10.Location = New System.Drawing.Point(515, 95)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(199, 40)
         Me.Panel10.TabIndex = 714
@@ -629,9 +642,9 @@ Partial Class EXP_Details
         Me.Panel9.Controls.Add(Me.Bill_ID_Txt)
         Me.Panel9.Controls.Add(Me.Down_Bill_btn)
         Me.Panel9.Controls.Add(Me.Up_Bill_btn)
-        Me.Panel9.Location = New System.Drawing.Point(781, 95)
+        Me.Panel9.Location = New System.Drawing.Point(717, 95)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(221, 40)
+        Me.Panel9.Size = New System.Drawing.Size(219, 40)
         Me.Panel9.TabIndex = 713
         '
         'Down_Bill_btn
@@ -731,26 +744,26 @@ Partial Class EXP_Details
         Me.ReceiptsMetroGrid.CausesValidation = False
         Me.ReceiptsMetroGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.ReceiptsMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ReceiptsMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle51.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle51.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle51.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle51.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle51.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ReceiptsMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle51
         Me.ReceiptsMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ReceiptsMetroGrid.ColumnHeadersVisible = False
         Me.ReceiptsMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Receipt_T_ID_CL, Me.Receipt_Num_CL, Me.DataGridViewTextBoxColumn3, Me.Value_CL})
         Me.ReceiptsMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.ReceiptsMetroGrid.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle53.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle53.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle53.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
+        DataGridViewCellStyle53.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle53.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle53.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.ReceiptsMetroGrid.DefaultCellStyle = DataGridViewCellStyle53
         Me.ReceiptsMetroGrid.EnableHeadersVisualStyles = False
         Me.ReceiptsMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         Me.ReceiptsMetroGrid.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -759,20 +772,20 @@ Partial Class EXP_Details
         Me.ReceiptsMetroGrid.Name = "ReceiptsMetroGrid"
         Me.ReceiptsMetroGrid.ReadOnly = True
         Me.ReceiptsMetroGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ReceiptsMetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle54.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle54.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle54.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle54.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle54.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle54.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ReceiptsMetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle54
         Me.ReceiptsMetroGrid.RowHeadersVisible = False
         Me.ReceiptsMetroGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black
-        Me.ReceiptsMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle55.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        DataGridViewCellStyle55.ForeColor = System.Drawing.Color.Black
+        Me.ReceiptsMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle55
         Me.ReceiptsMetroGrid.RowTemplate.Height = 30
         Me.ReceiptsMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.ReceiptsMetroGrid.Size = New System.Drawing.Size(247, 66)
@@ -806,8 +819,8 @@ Partial Class EXP_Details
         'Value_CL
         '
         Me.Value_CL.DataPropertyName = "Value"
-        DataGridViewCellStyle8.Format = "N2"
-        Me.Value_CL.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle52.Format = "N2"
+        Me.Value_CL.DefaultCellStyle = DataGridViewCellStyle52
         Me.Value_CL.FillWeight = 61.42132!
         Me.Value_CL.HeaderText = "المبلغ"
         Me.Value_CL.Name = "Value_CL"
@@ -864,6 +877,136 @@ Partial Class EXP_Details
         Me.ExitFormButton.Text = "خروج Esc"
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
+        'Print_btn
+        '
+        Me.Print_btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Print_btn.BackColor = System.Drawing.Color.White
+        Me.Print_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Print_btn.Enabled = False
+        Me.Print_btn.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Print_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Print_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Print_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Print_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Print_btn.Location = New System.Drawing.Point(403, 4)
+        Me.Print_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.Print_btn.Name = "Print_btn"
+        Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Print_btn.Size = New System.Drawing.Size(108, 33)
+        Me.Print_btn.TabIndex = 661
+        Me.Print_btn.TabStop = False
+        Me.Print_btn.Tag = "PRINT"
+        Me.Print_btn.Text = "طباعة F2"
+        Me.Print_btn.UseVisualStyleBackColor = False
+        '
+        'SearchButton
+        '
+        Me.SearchButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SearchButton.BackColor = System.Drawing.Color.White
+        Me.SearchButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SearchButton.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.SearchButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.SearchButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SearchButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.SearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.SearchButton.Location = New System.Drawing.Point(66, 4)
+        Me.SearchButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.SearchButton.Name = "SearchButton"
+        Me.SearchButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.SearchButton.Size = New System.Drawing.Size(108, 33)
+        Me.SearchButton.TabIndex = 306
+        Me.SearchButton.TabStop = False
+        Me.SearchButton.Text = "بحث"
+        Me.SearchButton.UseVisualStyleBackColor = False
+        '
+        'New_butt
+        '
+        Me.New_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.New_butt.BackColor = System.Drawing.Color.White
+        Me.New_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.New_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.New_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.New_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.New_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.New_butt.ForeColor = System.Drawing.Color.Black
+        Me.New_butt.Location = New System.Drawing.Point(666, 4)
+        Me.New_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.New_butt.Name = "New_butt"
+        Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.New_butt.Size = New System.Drawing.Size(111, 33)
+        Me.New_butt.TabIndex = 294
+        Me.New_butt.Text = " فاتورة جديدة F1"
+        Me.New_butt.UseVisualStyleBackColor = False
+        '
+        'Save_butt
+        '
+        Me.Save_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Save_butt.BackColor = System.Drawing.Color.Honeydew
+        Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Save_butt.Enabled = False
+        Me.Save_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Save_butt.Location = New System.Drawing.Point(515, 4)
+        Me.Save_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.Save_butt.Name = "Save_butt"
+        Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Save_butt.Size = New System.Drawing.Size(146, 33)
+        Me.Save_butt.TabIndex = 293
+        Me.Save_butt.TabStop = False
+        Me.Save_butt.Tag = "SAVE"
+        Me.Save_butt.Text = "حفظ F12"
+        Me.Save_butt.UseVisualStyleBackColor = False
+        '
+        'Edit_butt
+        '
+        Me.Edit_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Edit_butt.BackColor = System.Drawing.Color.White
+        Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Edit_butt.Enabled = False
+        Me.Edit_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Edit_butt.Location = New System.Drawing.Point(178, 4)
+        Me.Edit_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.Edit_butt.Name = "Edit_butt"
+        Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Edit_butt.Size = New System.Drawing.Size(108, 33)
+        Me.Edit_butt.TabIndex = 295
+        Me.Edit_butt.TabStop = False
+        Me.Edit_butt.Text = "تعديل F3"
+        Me.Edit_butt.UseVisualStyleBackColor = False
+        '
+        'Delete_butt
+        '
+        Me.Delete_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Delete_butt.BackColor = System.Drawing.Color.White
+        Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Delete_butt.Enabled = False
+        Me.Delete_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
+        Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Delete_butt.Location = New System.Drawing.Point(291, 4)
+        Me.Delete_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.Delete_butt.Name = "Delete_butt"
+        Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Delete_butt.Size = New System.Drawing.Size(108, 33)
+        Me.Delete_butt.TabIndex = 296
+        Me.Delete_butt.Tag = "DELETE"
+        Me.Delete_butt.Text = " إلغاء F4"
+        Me.Delete_butt.UseVisualStyleBackColor = False
+        '
         'Label3
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -874,6 +1017,20 @@ Partial Class EXP_Details
         Me.Label3.TabIndex = 379
         Me.Label3.Text = "الحساب :"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Panel2
+        '
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.SearchButton)
+        Me.Panel2.Controls.Add(Me.Edit_butt)
+        Me.Panel2.Controls.Add(Me.Delete_butt)
+        Me.Panel2.Controls.Add(Me.Print_btn)
+        Me.Panel2.Controls.Add(Me.Save_butt)
+        Me.Panel2.Controls.Add(Me.New_butt)
+        Me.Panel2.Location = New System.Drawing.Point(90, 43)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(846, 44)
+        Me.Panel2.TabIndex = 1000
         '
         'EX_Cm
         '
@@ -903,10 +1060,10 @@ Partial Class EXP_Details
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!)
-        Me.AG_Cm.Location = New System.Drawing.Point(207, 142)
+        Me.AG_Cm.Location = New System.Drawing.Point(285, 142)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(328, 35)
+        Me.AG_Cm.Size = New System.Drawing.Size(250, 35)
         Me.AG_Cm.SQL_Column = "AG_NAME"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False
@@ -919,172 +1076,6 @@ Partial Class EXP_Details
         Me.AG_Cm.TabIndex = 721
         Me.AG_Cm.TextMaxLength = 250
         Me.AG_Cm.Textt = ""
-        '
-        'New_butt
-        '
-        Me.New_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.New_butt.BackColor = System.Drawing.Color.White
-        Me.New_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.New_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.New_butt.FlatAppearance.BorderSize = 0
-        Me.New_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.New_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.New_butt.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.New_butt.ForeColor = System.Drawing.Color.Black
-        Me.New_butt.Location = New System.Drawing.Point(606, 4)
-        Me.New_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.New_butt.Name = "New_butt"
-        Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.New_butt.Size = New System.Drawing.Size(111, 35)
-        Me.New_butt.TabIndex = 294
-        Me.New_butt.Text = " فاتورة جديدة F1"
-        Me.New_butt.UseVisualStyleBackColor = False
-        '
-        'Save_butt
-        '
-        Me.Save_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Save_butt.BackColor = System.Drawing.Color.White
-        Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Save_butt.Enabled = False
-        Me.Save_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Save_butt.FlatAppearance.BorderSize = 0
-        Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Save_butt.Location = New System.Drawing.Point(455, 4)
-        Me.Save_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Save_butt.Name = "Save_butt"
-        Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Save_butt.Size = New System.Drawing.Size(146, 35)
-        Me.Save_butt.TabIndex = 293
-        Me.Save_butt.TabStop = False
-        Me.Save_butt.Tag = "SAVE"
-        Me.Save_butt.Text = "حفظ F12"
-        Me.Save_butt.UseVisualStyleBackColor = False
-        '
-        'Print_btn
-        '
-        Me.Print_btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Print_btn.BackColor = System.Drawing.Color.White
-        Me.Print_btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Print_btn.Enabled = False
-        Me.Print_btn.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Print_btn.FlatAppearance.BorderSize = 0
-        Me.Print_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Print_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.Print_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Print_btn.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Print_btn.Location = New System.Drawing.Point(343, 4)
-        Me.Print_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Print_btn.Name = "Print_btn"
-        Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Print_btn.Size = New System.Drawing.Size(108, 36)
-        Me.Print_btn.TabIndex = 661
-        Me.Print_btn.TabStop = False
-        Me.Print_btn.Tag = "PRINT"
-        Me.Print_btn.Text = "طباعة F2"
-        Me.Print_btn.UseVisualStyleBackColor = False
-        '
-        'Delete_butt
-        '
-        Me.Delete_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Delete_butt.BackColor = System.Drawing.Color.White
-        Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Delete_butt.Enabled = False
-        Me.Delete_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Delete_butt.FlatAppearance.BorderSize = 0
-        Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Delete_butt.Location = New System.Drawing.Point(231, 4)
-        Me.Delete_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Delete_butt.Name = "Delete_butt"
-        Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Delete_butt.Size = New System.Drawing.Size(108, 36)
-        Me.Delete_butt.TabIndex = 296
-        Me.Delete_butt.Tag = "DELETE"
-        Me.Delete_butt.Text = " إلغاء F4"
-        Me.Delete_butt.UseVisualStyleBackColor = False
-        '
-        'Edit_butt
-        '
-        Me.Edit_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Edit_butt.BackColor = System.Drawing.Color.White
-        Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Edit_butt.Enabled = False
-        Me.Edit_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Edit_butt.FlatAppearance.BorderSize = 0
-        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Edit_butt.Location = New System.Drawing.Point(118, 4)
-        Me.Edit_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Edit_butt.Name = "Edit_butt"
-        Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(108, 36)
-        Me.Edit_butt.TabIndex = 295
-        Me.Edit_butt.TabStop = False
-        Me.Edit_butt.Text = "تعديل F3"
-        Me.Edit_butt.UseVisualStyleBackColor = False
-        '
-        'SearchButton
-        '
-        Me.SearchButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SearchButton.BackColor = System.Drawing.Color.White
-        Me.SearchButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.SearchButton.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.SearchButton.FlatAppearance.BorderSize = 0
-        Me.SearchButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.SearchButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SearchButton.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.SearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.SearchButton.Location = New System.Drawing.Point(6, 4)
-        Me.SearchButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.SearchButton.Name = "SearchButton"
-        Me.SearchButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SearchButton.Size = New System.Drawing.Size(108, 35)
-        Me.SearchButton.TabIndex = 306
-        Me.SearchButton.TabStop = False
-        Me.SearchButton.Text = "بحث"
-        Me.SearchButton.UseVisualStyleBackColor = False
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel2.Controls.Add(Me.SearchButton)
-        Me.Panel2.Controls.Add(Me.Edit_butt)
-        Me.Panel2.Controls.Add(Me.Delete_butt)
-        Me.Panel2.Controls.Add(Me.Print_btn)
-        Me.Panel2.Controls.Add(Me.Save_butt)
-        Me.Panel2.Controls.Add(Me.New_butt)
-        Me.Panel2.Location = New System.Drawing.Point(276, 44)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(724, 47)
-        Me.Panel2.TabIndex = 1000
-        '
-        'Label21
-        '
-        Me.Label21.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label21.BackColor = System.Drawing.SystemColors.Control
-        Me.Label21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label21.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label21.Location = New System.Drawing.Point(2, 95)
-        Me.Label21.Name = "Label21"
-        Me.Label21.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label21.Size = New System.Drawing.Size(201, 40)
-        Me.Label21.TabIndex = 709
-        Me.Label21.Text = "مصروفات عامــة"
-        Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'EXP_Details
         '
@@ -1110,7 +1101,6 @@ Partial Class EXP_Details
         Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.ExitFormButton)
         Me.Controls.Add(Me.Total_TextBox)
         Me.Controls.Add(Me.Label6)
@@ -1150,15 +1140,21 @@ Partial Class EXP_Details
 
     End Sub
     Friend WithEvents MetroToolTip1 As MetroFramework.Components.MetroToolTip
+    Friend WithEvents New_butt As System.Windows.Forms.Button
+    Friend WithEvents Save_butt As System.Windows.Forms.Button
     Friend WithEvents AGMetroGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents Delete_butt As System.Windows.Forms.Button
+    Friend WithEvents Edit_butt As System.Windows.Forms.Button
     Friend WithEvents Total_TextBox As System.Windows.Forms.TextBox
     Friend WithEvents DateTimeEx As System.Windows.Forms.DateTimePicker
     Friend WithEvents QtyTextBox As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents ADDCatButton As System.Windows.Forms.Button
     Friend WithEvents RemoveCatButton As System.Windows.Forms.Button
+    Friend WithEvents SearchButton As System.Windows.Forms.Button
     Friend WithEvents NULLContextMenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents DeletedBillLabel As System.Windows.Forms.Label
+    Friend WithEvents lblFormState As System.Windows.Forms.Label
     Friend WithEvents Notes_txt As System.Windows.Forms.TextBox
     Friend WithEvents IM_Cost_txt As System.Windows.Forms.TextBox
     Friend WithEvents Title_txt As System.Windows.Forms.TextBox
@@ -1167,6 +1163,7 @@ Partial Class EXP_Details
     Friend WithEvents IM_Qty_LB As System.Windows.Forms.Label
     Friend WithEvents Up_Bill_btn As System.Windows.Forms.Button
     Friend WithEvents Down_Bill_btn As System.Windows.Forms.Button
+    Friend WithEvents Print_btn As System.Windows.Forms.Button
     Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents Bill_ID_Txt As System.Windows.Forms.TextBox
     Friend WithEvents Label19 As System.Windows.Forms.Label
@@ -1199,18 +1196,11 @@ Partial Class EXP_Details
     Friend WithEvents HeaderCloseBtn As System.Windows.Forms.Button
     Friend WithEvents HeaderMaxBtn As System.Windows.Forms.Button
     Friend WithEvents HeaderMinBtn As System.Windows.Forms.Button
+    Friend WithEvents Panel2 As Panel
     Friend WithEvents T_ID_CL As DataGridViewTextBoxColumn
     Friend WithEvents EX_ID_CL As DataGridViewTextBoxColumn
     Friend WithEvents EX_Name_CL As DataGridViewTextBoxColumn
     Friend WithEvents QTY_CL As DataGridViewTextBoxColumn
     Friend WithEvents Price_CL As DataGridViewTextBoxColumn
     Friend WithEvents Total_CL As DataGridViewTextBoxColumn
-    Friend WithEvents New_butt As Button
-    Friend WithEvents Save_butt As Button
-    Friend WithEvents Print_btn As Button
-    Friend WithEvents Delete_butt As Button
-    Friend WithEvents Edit_butt As Button
-    Friend WithEvents SearchButton As Button
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents Label21 As Label
 End Class

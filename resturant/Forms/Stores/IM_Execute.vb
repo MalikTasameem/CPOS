@@ -30,11 +30,11 @@
     ' 🌟 دالة فحص حالة الترحيل المحاسبي (لفاتورة التنفيذ) 🌟
     ' ========================================================
     Public Sub CheckAccountingState()
-        If DeletedBillLabel Is Nothing Then Return
+        If lblFormState Is Nothing Then Return
 
         ' إذا كانت الفاتورة جديدة ولم تحفظ بعد
         If T_ID = 0 Then
-            DeletedBillLabel.Visible = False ' إخفاء الليبل تماماً
+            lblFormState.Visible = False ' إخفاء الليبل تماماً
             Return
         End If
 
@@ -47,17 +47,17 @@
             Dim jId As Object = db.Com.ExecuteScalar()
             db.Con.Close()
 
-            DeletedBillLabel.Visible = True ' إظهار الليبل لأن الفاتورة محفوظة ولها T_ID
+            lblFormState.Visible = True ' إظهار الليبل لأن الفاتورة محفوظة ولها T_ID
 
             ' التشييك على حقل القيد
             If IsDBNull(jId) OrElse jId Is Nothing OrElse jId.ToString().Trim() = "" Then
-                DeletedBillLabel.Text = "⬤ غير مرحلة محاسبياً"
-                DeletedBillLabel.BackColor = Color.DarkOrange
-                DeletedBillLabel.ForeColor = Color.White
+                lblFormState.Text = "⬤ غير مرحلة محاسبياً"
+                lblFormState.BackColor = Color.DarkOrange
+                lblFormState.ForeColor = Color.White
             Else
-                DeletedBillLabel.Text = "⬤ مرحلة محاسبياً - قيد رقم: " & jId.ToString()
-                DeletedBillLabel.BackColor = Color.ForestGreen
-                DeletedBillLabel.ForeColor = Color.White
+                lblFormState.Text = "⬤ مرحلة محاسبياً - قيد رقم: " & jId.ToString()
+                lblFormState.BackColor = Color.ForestGreen
+                lblFormState.ForeColor = Color.White
             End If
 
         Catch ex As Exception
@@ -234,6 +234,8 @@
                 Me.Text = "فاتورة تالف جديـدة"
                 Edit_butt.Text = EditState
                 AGMetroGrid.Enabled = True
+                AGMetroGrid.BackgroundColor = Color.LightYellow
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
 
                 ' --- مؤشر الحالة ---
                 DeletedBillLabel.Text = "فاتورة جديـدة"
@@ -249,6 +251,8 @@
                 Me.Text = "عرض بيانات فاتورة"
                 Edit_butt.Text = EditState
                 AGMetroGrid.Enabled = True
+                AGMetroGrid.BackgroundColor = Color.LightGreen
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGreen
 
                 ' --- مؤشر الحالة ---
                 ' (نخفي الليبل لأن الفاتورة في وضعها الطبيعي المحفوظ)
@@ -265,6 +269,8 @@
                 Edit_butt.BackColor = Color.MediumSeaGreen
                 Edit_butt.ForeColor = Color.White
                 AGMetroGrid.Enabled = True
+                AGMetroGrid.BackgroundColor = Color.LightYellow
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
 
                 ' --- مؤشر الحالة ---
                 DeletedBillLabel.Text = "قيـد التعديـــل"
@@ -280,12 +286,16 @@
                 Me.Text = "فاتورة ملغية"
                 Edit_butt.Text = EditState
                 AGMetroGrid.Enabled = False
+                AGMetroGrid.BackgroundColor = Color.IndianRed
+                AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.IndianRed
 
                 ' --- مؤشر الحالة ---
                 DeletedBillLabel.Text = "فاتورة ملغيـــة"
                 DeletedBillLabel.BackColor = Color.IndianRed
                 DeletedBillLabel.Visible = True
         End Select
+
+        CheckAccountingState()
     End Sub
 
 
