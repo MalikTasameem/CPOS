@@ -76,11 +76,11 @@ Public Class ItemsMenu
         result.Columns.Add("isValid", GetType(Integer))
 
         LoadItemsToCache()
-        If ItemsCacheDt Is Nothing OrElse String.IsNullOrWhiteSpace(searchText) Then Return result
+        If ItemsCacheDt Is Nothing Then Return result
 
         For Each row As DataRow In ItemsCacheDt.Rows
             Dim itemName As String = SafeCacheText(row, "item_name")
-            If itemName.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0 Then
+            If String.IsNullOrWhiteSpace(searchText) OrElse itemName.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0 Then
                 Dim resultRow As DataRow = result.NewRow()
                 resultRow("IM_ID") = row("IM_ID")
                 resultRow("item_name") = itemName
@@ -221,17 +221,8 @@ Public Class ItemsMenu
 
 
 
-        If String.IsNullOrEmpty(IM_SH_txt.Text) Then
-            Exit Sub
-        Else
-            If IMDataGridViewX.Visible = True Then
-                IMDataGridViewX.Visible = False
-            Else
-                IMDataGridViewX.Visible = True
-                Fill_All_IM()
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            End If
-        End If
+        IMDataGridViewX.Visible = False
+        IMDataGridViewX.Height = 0
 
 
 
@@ -988,6 +979,7 @@ Public Class ItemsMenu
             IMDataGridViewX.Visible = False
             IMDataGridViewX.Height = 0
         Else
+            IMDataGridViewX.Visible = True
             Search_IM()
         End If
     End Sub
@@ -1294,13 +1286,15 @@ Public Class ItemsMenu
     End Sub
 
     Private Sub Show_IM_btn_Click_1(sender As Object, e As EventArgs) Handles Show_IM_btn.Click
-        If IMDataGridViewX.Visible = True Then
+        If IMDataGridViewX.Visible Then
             IMDataGridViewX.Visible = False
-        Else
-            IMDataGridViewX.Visible = True
-            Fill_All_IM()
-            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+            IMDataGridViewX.Height = 0
+            Return
         End If
+
+        IMDataGridViewX.Visible = True
+        Fill_All_IM()
+        IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
     End Sub
 
     'Private Sub ItemsMenu_Resize(sender As Object, e As EventArgs) Handles Me.Resize

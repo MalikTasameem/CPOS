@@ -957,6 +957,7 @@ Partial Class MainForm
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
         Me.TitleBar_Panel.Size = New System.Drawing.Size(1200, 40)
         Me.TitleBar_Panel.TabIndex = 3
+        Me.TitleBar_Panel.Tag = "HEADER"
         '
         'Title_Label
         '
