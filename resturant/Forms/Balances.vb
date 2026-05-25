@@ -636,7 +636,7 @@
         Dim comboWidth As Integer = Math.Max(180, comboRight - comboX)
 
         Label3.SetBounds(labelX, 8, labelWidth, rowHeight)
-        '   AG_Cm.SetBounds(comboX, 5, comboWidth, 32)
+        AG_Cm.SetBounds(comboX, 5, comboWidth, 34)
         AllAgentsCheckBox.SetBounds(checkX, 5, checkWidth, rowHeight)
 
         Label8.SetBounds(labelX, 43, labelWidth, rowHeight)

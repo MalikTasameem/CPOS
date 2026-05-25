@@ -59,6 +59,7 @@ Public Class FSearch_Filter
 
             ' ضبط ارتفاع صفوف الـ DataGridView تلقائيًا حسب حجم الخط
             AdjustGridRowHeights()
+            LayoutInternalControls()
         End Set
     End Property
 
@@ -283,8 +284,8 @@ Public Class FSearch_Filter
         cancelSearchButton.ImageAlign = ContentAlignment.MiddleCenter
         cancelSearchButton.TextImageRelation = TextImageRelation.Overlay
         Text.Width = Me.Width - BtSize.Width - 3
-        Me.Height = Text.Height + 4
         Text.Location = New Point(Me.ClientRectangle.X + BtSize.Width + 2, Me.ClientRectangle.Y + 1)
+        Me.Height = ClosedHeight()
         'Text.AutoSize = True
         Controls.Add(Text)
         Me.QuickView.AllowUserToAddRows = False
@@ -384,30 +385,36 @@ Public Class FSearch_Filter
 
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         MyBase.OnPaint(e)
-        Text.Width = Me.Width - BtSize.Width - 3
-        QuickView.Size = New Size(Me.Width - 2, _ListSize)
-        QuickView.Location = New Point(Me.ClientRectangle.X + 1, Text.Location.Y + Text.Height + 1)
-        If Not ShowFlag Then
-            Me.Height = Text.Height + 2
-        End If
+        LayoutInternalControls()
         ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, Color.Silver, ButtonBorderStyle.Solid)
     End Sub
 
     Protected Overrides Sub OnSizeChanged(e As EventArgs)
         MyBase.OnSizeChanged(e)
-        Text.Width = Me.Width - BtSize.Width - 3
-        QuickView.Size = New Size(Me.Width - 2, _ListSize)
-        QuickView.Location = New Point(Me.ClientRectangle.X + 1, Text.Location.Y + Text.Height + 1)
-        If Not ShowFlag Then
-            Me.Height = Text.Height + 2
-        End If
+        LayoutInternalControls()
         If ShowFlag Then
-            If Me.Height < (_ListSize + Text.Height) Then
-                Me.Height = Text.Height + 2
+            If Me.Height < (_ListSize + ClosedHeight()) Then
+                Me.Height = ClosedHeight()
                 cancelSearchButton.Image = New Bitmap(My.Resources.F7AD, 18, 18)
                 ShowFlag = False
                 cancelSearchButton.BackColor = Color.Transparent
             End If
+        End If
+    End Sub
+
+    Private Function ClosedHeight() As Integer
+        If Text Is Nothing Then Return Me.Height
+        Return Text.Location.Y + Text.Height + 4
+    End Function
+
+    Private Sub LayoutInternalControls()
+        If Text Is Nothing OrElse QuickView Is Nothing Then Return
+
+        Text.Width = Me.Width - BtSize.Width - 3
+        QuickView.Size = New Size(Me.Width - 2, _ListSize)
+        QuickView.Location = New Point(Me.ClientRectangle.X + 1, Text.Location.Y + Text.Height + 1)
+        If Not ShowFlag Then
+            Me.Height = ClosedHeight()
         End If
     End Sub
     Private Sub AdjustSize()

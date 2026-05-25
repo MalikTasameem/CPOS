@@ -4,6 +4,39 @@ Imports System.Windows.Forms
 
 Public Class Frm_DashboardButtons
     Dim Current_Button_ID As Integer = 0
+    Private Shared ReadOnly DefaultButtonColor As Color = Color.FromArgb(59, 130, 246)
+
+    Private Function ColorToStorageValue(value As Color) As String
+        Return value.R.ToString() & ", " & value.G.ToString() & ", " & value.B.ToString()
+    End Function
+
+    Private Function TryParseStoredColor(value As Object, ByRef parsedColor As Color) As Boolean
+        parsedColor = DefaultButtonColor
+        If value Is Nothing OrElse IsDBNull(value) Then Return False
+
+        Dim parts() As String = value.ToString().Split(","c)
+        If parts.Length <> 3 Then Return False
+
+        Dim r As Integer
+        Dim g As Integer
+        Dim b As Integer
+        If Not Integer.TryParse(parts(0).Trim(), r) Then Return False
+        If Not Integer.TryParse(parts(1).Trim(), g) Then Return False
+        If Not Integer.TryParse(parts(2).Trim(), b) Then Return False
+        If r < 0 OrElse r > 255 OrElse g < 0 OrElse g > 255 OrElse b < 0 OrElse b > 255 Then Return False
+
+        parsedColor = Color.FromArgb(r, g, b)
+        Return True
+    End Function
+
+    Private Sub SetBackColorSelection(value As Object)
+        Dim selectedColor As Color = DefaultButtonColor
+        TryParseStoredColor(value, selectedColor)
+        txtBackColor.Text = ColorToStorageValue(selectedColor)
+        btnBackColor.UseVisualStyleBackColor = False
+        btnBackColor.BackColor = selectedColor
+        ColorDialog1.Color = selectedColor
+    End Sub
 
     Private Sub Frm_DashboardButtons_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ThemeManager.ApplyThemeToForm(Me)
@@ -43,8 +76,7 @@ Public Class Frm_DashboardButtons
     Private Sub btnBackColor_Click(sender As Object, e As EventArgs) Handles btnBackColor.Click
         If ColorDialog1.ShowDialog() = DialogResult.OK Then
             Dim c As Color = ColorDialog1.Color
-            txtBackColor.Text = c.R & ", " & c.G & ", " & c.B
-            btnBackColor.BackColor = c
+            SetBackColorSelection(ColorToStorageValue(c))
         End If
     End Sub
 
@@ -90,12 +122,7 @@ Public Class Frm_DashboardButtons
                 chkIsActive.Checked = Convert.ToBoolean(db.Dr("Is_Global_Active"))
 
                 ' جلب لون الزر
-                Dim bg As String = db.Dr("Button_BackColor").ToString()
-                txtBackColor.Text = bg
-                If Not String.IsNullOrWhiteSpace(bg) Then
-                    Dim pts() As String = bg.Split(","c)
-                    If pts.Length = 3 Then btnBackColor.BackColor = Color.FromArgb(CInt(pts(0).Trim()), CInt(pts(1).Trim()), CInt(pts(2).Trim()))
-                End If
+                SetBackColorSelection(db.Dr("Button_BackColor"))
             End If
             db.Con.Close()
         End If
@@ -123,7 +150,10 @@ Public Class Frm_DashboardButtons
             db.Com.Parameters.AddWithValue("@Active", If(chkIsActive.Checked, 1, 0))
             db.Com.Parameters.AddWithValue("@Sort", numSortOrder.Value)
             db.Com.Parameters.AddWithValue("@Img", txtDefaultImage.Text)
-            db.Com.Parameters.AddWithValue("@BgColor", txtBackColor.Text)
+            Dim selectedColor As Color = btnBackColor.BackColor
+            Dim bgColorValue As String = ColorToStorageValue(selectedColor)
+            txtBackColor.Text = bgColorValue
+            db.Com.Parameters.AddWithValue("@BgColor", bgColorValue)
             db.Com.Parameters.AddWithValue("@ID", Current_Button_ID)
 
             db.Com.ExecuteNonQuery()

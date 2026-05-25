@@ -76,11 +76,11 @@ Public Class ItemsMenu
         result.Columns.Add("isValid", GetType(Integer))
 
         LoadItemsToCache()
-        If ItemsCacheDt Is Nothing OrElse String.IsNullOrWhiteSpace(searchText) Then Return result
+        If ItemsCacheDt Is Nothing Then Return result
 
         For Each row As DataRow In ItemsCacheDt.Rows
             Dim itemName As String = SafeCacheText(row, "item_name")
-            If itemName.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0 Then
+            If String.IsNullOrWhiteSpace(searchText) OrElse itemName.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0 Then
                 Dim resultRow As DataRow = result.NewRow()
                 resultRow("IM_ID") = row("IM_ID")
                 resultRow("item_name") = itemName
@@ -221,17 +221,9 @@ Public Class ItemsMenu
 
 
 
-        If String.IsNullOrEmpty(IM_SH_txt.Text) Then
-            Exit Sub
-        Else
-            If IMDataGridViewX.Visible = True Then
-                IMDataGridViewX.Visible = False
-            Else
-                IMDataGridViewX.Visible = True
-                Fill_All_IM()
-                IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-            End If
-        End If
+        IMDataGridViewX.Visible = True
+        Fill_All_IM()
+        IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
 
 
 
@@ -656,7 +648,7 @@ Public Class ItemsMenu
                 GM_Group_CM.SelectedValue = c.Dr("Grp_ID")
                 Markter_Val_txt.Text = c.Dr("Markter_Val")
                 ToolStripStatusLabel9.Text = c.Dr("Date")
-                IMDataGridViewX.Visible = False
+                IMDataGridViewX.Visible = True
 
                 If c.Dr("Row_Enabled") = False Then
                     IM_Case_Lb.Text = "إدخال جديـد"
@@ -984,12 +976,8 @@ Public Class ItemsMenu
     'End Sub
     Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
         Name_Error.Clear()
-        If String.IsNullOrWhiteSpace(IM_SH_txt.Text) Then
-            IMDataGridViewX.Visible = False
-            IMDataGridViewX.Height = 0
-        Else
-            Search_IM()
-        End If
+        IMDataGridViewX.Visible = True
+        Fill_All_IM()
     End Sub
 
     Private Sub AG_Name_txtb_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles IM_SH_txt.Validating
@@ -1294,13 +1282,9 @@ Public Class ItemsMenu
     End Sub
 
     Private Sub Show_IM_btn_Click_1(sender As Object, e As EventArgs) Handles Show_IM_btn.Click
-        If IMDataGridViewX.Visible = True Then
-            IMDataGridViewX.Visible = False
-        Else
-            IMDataGridViewX.Visible = True
-            Fill_All_IM()
-            IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
-        End If
+        IMDataGridViewX.Visible = True
+        Fill_All_IM()
+        IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
     End Sub
 
     'Private Sub ItemsMenu_Resize(sender As Object, e As EventArgs) Handles Me.Resize

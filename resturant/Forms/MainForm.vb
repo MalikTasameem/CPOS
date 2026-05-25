@@ -2936,6 +2936,26 @@ Public Class MainForm
         Frm.ShowDialog()
         Load_Dashboard_Buttons()
     End Sub
+
+    Private Function TryParseDashboardButtonColor(value As Object, ByRef parsedColor As Color) As Boolean
+        parsedColor = Color.FromArgb(59, 130, 246)
+        If value Is Nothing OrElse IsDBNull(value) Then Return False
+
+        Dim parts() As String = value.ToString().Split(","c)
+        If parts.Length <> 3 Then Return False
+
+        Dim r As Integer
+        Dim g As Integer
+        Dim b As Integer
+        If Not Integer.TryParse(parts(0).Trim(), r) Then Return False
+        If Not Integer.TryParse(parts(1).Trim(), g) Then Return False
+        If Not Integer.TryParse(parts(2).Trim(), b) Then Return False
+        If r < 0 OrElse r > 255 OrElse g < 0 OrElse g > 255 OrElse b < 0 OrElse b > 255 Then Return False
+
+        parsedColor = Color.FromArgb(r, g, b)
+        Return True
+    End Function
+
     ' =====================================================================
     ' 🚀 نظام توليد أزرار الداشبورد الديناميكية 🚀
     ' =====================================================================
@@ -2975,14 +2995,8 @@ Public Class MainForm
                     btn.Tag = "IGNORE"
 
                     ' قراءة اللون من الداتابيز
-                    Dim bgStr As String = row("Button_BackColor").ToString()
                     Dim bgColor As Color = Color.FromArgb(59, 130, 246) ' أزرق افتراضي 
-                    If Not String.IsNullOrWhiteSpace(bgStr) Then
-                        Dim pts() As String = bgStr.Split(","c)
-                        If pts.Length = 3 Then
-                            bgColor = Color.FromArgb(CInt(pts(0).Trim()), CInt(pts(1).Trim()), CInt(pts(2).Trim()))
-                        End If
-                    End If
+                    TryParseDashboardButtonColor(row("Button_BackColor"), bgColor)
 
                     ' تلوين الزر وتلوين النص بشكل متعاكس ليكون واضح
                     btn.BackColor = bgColor
