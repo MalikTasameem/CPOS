@@ -902,7 +902,7 @@
                              MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
                     If OpenReceiptForEdit() = False Then Return
 
-                    Edit_butt.BackColor = Color.GreenYellow
+                    Edit_butt.BackColor = Color.Green
                     On_Update = True
                     Fields_Panel.Enabled = True
                     'Show_IM_btn.Enabled = True

@@ -156,6 +156,7 @@ Partial Class printbarcode
         '
         'txtbarcode
         '
+        Me.txtbarcode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtbarcode.Font = New System.Drawing.Font("Arial Narrow", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtbarcode.Location = New System.Drawing.Point(375, 24)
         Me.txtbarcode.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -436,6 +437,7 @@ Partial Class printbarcode
         '
         'nud_Count
         '
+        Me.nud_Count.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.nud_Count.Font = New System.Drawing.Font("Arial Narrow", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.nud_Count.Location = New System.Drawing.Point(284, 111)
         Me.nud_Count.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -635,6 +637,7 @@ Partial Class printbarcode
         '
         'IM_Num_txt
         '
+        Me.IM_Num_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_Num_txt.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Num_txt.Location = New System.Drawing.Point(285, 59)
         Me.IM_Num_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -657,6 +660,7 @@ Partial Class printbarcode
         '
         'txtprice
         '
+        Me.txtprice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtprice.Font = New System.Drawing.Font("Arial Narrow", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtprice.Location = New System.Drawing.Point(206, 24)
         Me.txtprice.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -886,7 +890,7 @@ Partial Class printbarcode
         Me.Show_IM_btn.Name = "Show_IM_btn"
         Me.Show_IM_btn.Size = New System.Drawing.Size(39, 31)
         Me.Show_IM_btn.TabIndex = 611
-        Me.Show_IM_btn.Text = "📦"
+        Me.Show_IM_btn.Text = "⬇️"
         Me.Show_IM_btn.UseVisualStyleBackColor = False
         '
         'printbarcode

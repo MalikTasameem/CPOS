@@ -4,6 +4,7 @@ Public Class Items_Search
 
     Dim IM_DT As New DataTable
     Private CurrentSearchColumn As String = "item_name"
+    Private KeyboardInputHandlerAttached As Boolean = False
 
 
     Private Shared _instance As Items_Search = Nothing
@@ -18,11 +19,15 @@ Public Class Items_Search
 
     Public Sub New()
         InitializeComponent()
+        WireKeyboardInputHandler()
+    End Sub
 
-        ' هذا السطر سيعمل مرة واحدة فقط لكل نسخة من الفورم
-        ' إذا كان KB موجوداً ومضافاً من المصمم:
-        ' RemoveHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
-        ' AddHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
+    Private Sub WireKeyboardInputHandler()
+        If KB Is Nothing OrElse KeyboardInputHandlerAttached Then Return
+
+        RemoveHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
+        AddHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
+        KeyboardInputHandlerAttached = True
     End Sub
 
     Private Sub HandleKeyboardInput(sender As Object, e As EventArgs)
@@ -82,8 +87,6 @@ Public Class Items_Search
         ADD_NewGM_Btn.Visible = U_ADD_Pch
 
         SetSearchMode("item_name", btnSearchName)
-
-        AddHandler KB.UC_Button1Click, AddressOf HandleKeyboardInput
 
         'InitKeyboard()
     End Sub

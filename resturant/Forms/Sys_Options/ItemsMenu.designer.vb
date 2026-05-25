@@ -179,6 +179,7 @@ Partial Class ItemsMenu
         Me.REMOVE_ST_ALERT_QTY_btn = New System.Windows.Forms.Button()
         Me.ADD_ST_ALERT_QTY_btn = New System.Windows.Forms.Button()
         Me.Frm_TabPage = New System.Windows.Forms.TabPage()
+        Me.IM_FRM_mySearchControl = New resturant.SearchItemControl()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.QtyTextBox = New System.Windows.Forms.TextBox()
         Me.IM_Unit_cm_2 = New System.Windows.Forms.ComboBox()
@@ -205,7 +206,6 @@ Partial Class ItemsMenu
         Me.IMNUM_Grid = New System.Windows.Forms.DataGridView()
         Me.IM_ID_CL_2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IM_FRM_mySearchControl = New resturant.SearchItemControl()
         CType(Me.Unit_DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -247,7 +247,7 @@ Partial Class ItemsMenu
         Me.BarCode_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BarCode_txt.ContextMenuStrip = Me.NoneContextMenuStrip
         Me.BarCode_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BarCode_txt.Location = New System.Drawing.Point(544, 369)
+        Me.BarCode_txt.Location = New System.Drawing.Point(544, 366)
         Me.BarCode_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.BarCode_txt.Name = "BarCode_txt"
         Me.BarCode_txt.Size = New System.Drawing.Size(135, 27)
@@ -278,7 +278,7 @@ Partial Class ItemsMenu
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label6.Location = New System.Drawing.Point(629, 345)
+        Me.Label6.Location = New System.Drawing.Point(629, 342)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(36, 15)
@@ -743,9 +743,10 @@ Partial Class ItemsMenu
         '
         'IM_BoxCost_txt
         '
+        Me.IM_BoxCost_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_BoxCost_txt.ContextMenuStrip = Me.NoneContextMenuStrip
         Me.IM_BoxCost_txt.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_BoxCost_txt.Location = New System.Drawing.Point(2, 30)
+        Me.IM_BoxCost_txt.Location = New System.Drawing.Point(2, 35)
         Me.IM_BoxCost_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_BoxCost_txt.Name = "IM_BoxCost_txt"
         Me.IM_BoxCost_txt.ReadOnly = True
@@ -758,7 +759,7 @@ Partial Class ItemsMenu
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(167, 30)
+        Me.Label8.Location = New System.Drawing.Point(167, 35)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(97, 19)
@@ -771,7 +772,7 @@ Partial Class ItemsMenu
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.Location = New System.Drawing.Point(803, 342)
+        Me.Label5.Location = New System.Drawing.Point(803, 339)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(39, 15)
@@ -784,7 +785,7 @@ Partial Class ItemsMenu
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(442, 346)
+        Me.Label3.Location = New System.Drawing.Point(442, 343)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(54, 15)
@@ -795,7 +796,7 @@ Partial Class ItemsMenu
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.WinPrice_Lb)
-        Me.GroupBox1.Location = New System.Drawing.Point(4, 354)
+        Me.GroupBox1.Location = New System.Drawing.Point(4, 348)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -819,9 +820,10 @@ Partial Class ItemsMenu
         'IM_Cost_txt
         '
         Me.IM_Cost_txt.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.IM_Cost_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_Cost_txt.ContextMenuStrip = Me.NoneContextMenuStrip
         Me.IM_Cost_txt.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_Cost_txt.Location = New System.Drawing.Point(2, 3)
+        Me.IM_Cost_txt.Location = New System.Drawing.Point(2, 5)
         Me.IM_Cost_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_Cost_txt.Name = "IM_Cost_txt"
         Me.IM_Cost_txt.ReadOnly = True
@@ -835,7 +837,7 @@ Partial Class ItemsMenu
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(169, 4)
+        Me.Label4.Location = New System.Drawing.Point(169, 6)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(87, 19)
@@ -865,7 +867,7 @@ Partial Class ItemsMenu
         Me.Price_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Price_txt.ContextMenuStrip = Me.NoneContextMenuStrip
         Me.Price_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
-        Me.Price_txt.Location = New System.Drawing.Point(426, 370)
+        Me.Price_txt.Location = New System.Drawing.Point(426, 367)
         Me.Price_txt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Price_txt.Name = "Price_txt"
         Me.Price_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -883,7 +885,7 @@ Partial Class ItemsMenu
         Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Unit_cm.FormattingEnabled = True
         Me.IM_Unit_cm.Items.AddRange(New Object() {"قصيرة", "طويلة"})
-        Me.IM_Unit_cm.Location = New System.Drawing.Point(748, 366)
+        Me.IM_Unit_cm.Location = New System.Drawing.Point(748, 363)
         Me.IM_Unit_cm.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
         Me.IM_Unit_cm.Size = New System.Drawing.Size(110, 29)
@@ -1007,6 +1009,7 @@ Partial Class ItemsMenu
         '
         'Barcode_Search_txt
         '
+        Me.Barcode_Search_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Barcode_Search_txt.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.Barcode_Search_txt.Location = New System.Drawing.Point(693, 2)
         Me.Barcode_Search_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -1224,10 +1227,10 @@ Partial Class ItemsMenu
         Me.Cost_Panel.Controls.Add(Me.Label4)
         Me.Cost_Panel.Controls.Add(Me.IM_BoxCost_txt)
         Me.Cost_Panel.Controls.Add(Me.Label8)
-        Me.Cost_Panel.Location = New System.Drawing.Point(276, 229)
+        Me.Cost_Panel.Location = New System.Drawing.Point(276, 226)
         Me.Cost_Panel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Cost_Panel.Name = "Cost_Panel"
-        Me.Cost_Panel.Size = New System.Drawing.Size(375, 58)
+        Me.Cost_Panel.Size = New System.Drawing.Size(375, 65)
         Me.Cost_Panel.TabIndex = 705
         '
         'Label27
@@ -1235,7 +1238,7 @@ Partial Class ItemsMenu
         Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label27.Location = New System.Drawing.Point(686, 346)
+        Me.Label27.Location = New System.Drawing.Point(686, 343)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(44, 15)
         Me.Label27.TabIndex = 704
@@ -1248,7 +1251,7 @@ Partial Class ItemsMenu
         Me.Unit_cargo_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Unit_cargo_txt.Font = New System.Drawing.Font("Times New Roman", 12.75!)
         Me.Unit_cargo_txt.ForeColor = System.Drawing.Color.Black
-        Me.Unit_cargo_txt.Location = New System.Drawing.Point(688, 369)
+        Me.Unit_cargo_txt.Location = New System.Drawing.Point(688, 366)
         Me.Unit_cargo_txt.MaxLength = 250
         Me.Unit_cargo_txt.Name = "Unit_cargo_txt"
         Me.Unit_cargo_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1284,7 +1287,7 @@ Partial Class ItemsMenu
         Me.DeleteU_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DeleteU_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DeleteU_btn.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DeleteU_btn.Location = New System.Drawing.Point(169, 368)
+        Me.DeleteU_btn.Location = New System.Drawing.Point(169, 365)
         Me.DeleteU_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.DeleteU_btn.Name = "DeleteU_btn"
         Me.DeleteU_btn.Size = New System.Drawing.Size(38, 28)
@@ -1296,18 +1299,19 @@ Partial Class ItemsMenu
         '
         Me.Markter_Panel.Controls.Add(Me.Markter_Val_txt)
         Me.Markter_Panel.Controls.Add(Me.Label12)
-        Me.Markter_Panel.Location = New System.Drawing.Point(275, 288)
+        Me.Markter_Panel.Location = New System.Drawing.Point(276, 294)
         Me.Markter_Panel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Markter_Panel.Name = "Markter_Panel"
-        Me.Markter_Panel.Size = New System.Drawing.Size(376, 30)
+        Me.Markter_Panel.Size = New System.Drawing.Size(375, 33)
         Me.Markter_Panel.TabIndex = 678
         '
         'Markter_Val_txt
         '
         Me.Markter_Val_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Markter_Val_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Markter_Val_txt.ContextMenuStrip = Me.NoneContextMenuStrip
         Me.Markter_Val_txt.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Markter_Val_txt.Location = New System.Drawing.Point(2, 2)
+        Me.Markter_Val_txt.Location = New System.Drawing.Point(2, 3)
         Me.Markter_Val_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Markter_Val_txt.Name = "Markter_Val_txt"
         Me.Markter_Val_txt.Size = New System.Drawing.Size(162, 26)
@@ -1320,7 +1324,7 @@ Partial Class ItemsMenu
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(168, 2)
+        Me.Label12.Location = New System.Drawing.Point(168, 4)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(143, 19)
@@ -1335,7 +1339,7 @@ Partial Class ItemsMenu
         Me.InsertU_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.InsertU_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.InsertU_btn.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.InsertU_btn.Location = New System.Drawing.Point(208, 368)
+        Me.InsertU_btn.Location = New System.Drawing.Point(208, 365)
         Me.InsertU_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.InsertU_btn.Name = "InsertU_btn"
         Me.InsertU_btn.Size = New System.Drawing.Size(38, 28)
@@ -1363,7 +1367,7 @@ Partial Class ItemsMenu
         Me.Random_Barcode_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Random_Barcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Random_Barcode_btn.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Random_Barcode_btn.Location = New System.Drawing.Point(513, 370)
+        Me.Random_Barcode_btn.Location = New System.Drawing.Point(513, 367)
         Me.Random_Barcode_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Random_Barcode_btn.Name = "Random_Barcode_btn"
         Me.Random_Barcode_btn.Size = New System.Drawing.Size(30, 26)
@@ -1474,12 +1478,13 @@ Partial Class ItemsMenu
         Me.Show_IM_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Show_IM_btn.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_IM_btn.Location = New System.Drawing.Point(276, 77)
+        Me.Show_IM_btn.Location = New System.Drawing.Point(276, 76)
         Me.Show_IM_btn.Margin = New System.Windows.Forms.Padding(4, 2, 4, 2)
         Me.Show_IM_btn.Name = "Show_IM_btn"
-        Me.Show_IM_btn.Size = New System.Drawing.Size(47, 34)
+        Me.Show_IM_btn.Size = New System.Drawing.Size(47, 33)
         Me.Show_IM_btn.TabIndex = 604
-        Me.Show_IM_btn.Text = "📦"
+        Me.Show_IM_btn.Text = "⬇️"
+        Me.Show_IM_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Show_IM_btn.UseVisualStyleBackColor = False
         '
         'ADD_NewGM_Btn
@@ -1503,10 +1508,10 @@ Partial Class ItemsMenu
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_2_txt)
         Me.Min_SP_Panel.Controls.Add(Me.Label23)
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_txt)
-        Me.Min_SP_Panel.Location = New System.Drawing.Point(248, 336)
+        Me.Min_SP_Panel.Location = New System.Drawing.Point(248, 333)
         Me.Min_SP_Panel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Min_SP_Panel.Name = "Min_SP_Panel"
-        Me.Min_SP_Panel.Size = New System.Drawing.Size(177, 61)
+        Me.Min_SP_Panel.Size = New System.Drawing.Size(177, 63)
         Me.Min_SP_Panel.TabIndex = 465
         '
         'Label26
@@ -1515,7 +1520,7 @@ Partial Class ItemsMenu
         Me.Label26.AutoSize = True
         Me.Label26.BackColor = System.Drawing.Color.Transparent
         Me.Label26.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label26.Location = New System.Drawing.Point(4, 9)
+        Me.Label26.Location = New System.Drawing.Point(4, 8)
         Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(65, 15)
@@ -1529,7 +1534,7 @@ Partial Class ItemsMenu
         Me.Min_SP_2_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Min_SP_2_txt.ContextMenuStrip = Me.NoneContextMenuStrip
         Me.Min_SP_2_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
-        Me.Min_SP_2_txt.Location = New System.Drawing.Point(3, 33)
+        Me.Min_SP_2_txt.Location = New System.Drawing.Point(3, 32)
         Me.Min_SP_2_txt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Min_SP_2_txt.Name = "Min_SP_2_txt"
         Me.Min_SP_2_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1543,7 +1548,7 @@ Partial Class ItemsMenu
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.Transparent
         Me.Label23.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label23.Location = New System.Drawing.Point(94, 9)
+        Me.Label23.Location = New System.Drawing.Point(94, 8)
         Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(63, 15)
@@ -1557,7 +1562,7 @@ Partial Class ItemsMenu
         Me.Min_SP_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Min_SP_txt.ContextMenuStrip = Me.NoneContextMenuStrip
         Me.Min_SP_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
-        Me.Min_SP_txt.Location = New System.Drawing.Point(91, 33)
+        Me.Min_SP_txt.Location = New System.Drawing.Point(90, 32)
         Me.Min_SP_txt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Min_SP_txt.Name = "Min_SP_txt"
         Me.Min_SP_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1941,6 +1946,21 @@ Partial Class ItemsMenu
         Me.Frm_TabPage.Size = New System.Drawing.Size(865, 593)
         Me.Frm_TabPage.TabIndex = 4
         Me.Frm_TabPage.Text = "مكونات التصنيع الآلية"
+        '
+        'IM_FRM_mySearchControl
+        '
+        Me.IM_FRM_mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.IM_FRM_mySearchControl.DefaultSearchField = "إسم الصنف"
+        Me.IM_FRM_mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
+        Me.IM_FRM_mySearchControl.ItemsTable = Nothing
+        Me.IM_FRM_mySearchControl.itemsTable_Barcode = Nothing
+        Me.IM_FRM_mySearchControl.Location = New System.Drawing.Point(5, 27)
+        Me.IM_FRM_mySearchControl.Margin = New System.Windows.Forms.Padding(0)
+        Me.IM_FRM_mySearchControl.MarginBetweenSearchAndGrid = 15
+        Me.IM_FRM_mySearchControl.MaxGridHeight = 400
+        Me.IM_FRM_mySearchControl.Name = "IM_FRM_mySearchControl"
+        Me.IM_FRM_mySearchControl.Size = New System.Drawing.Size(848, 31)
+        Me.IM_FRM_mySearchControl.TabIndex = 1048
         '
         'Label22
         '
@@ -2371,21 +2391,6 @@ Partial Class ItemsMenu
         Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
         Me.DataGridViewTextBoxColumn11.ReadOnly = True
         Me.DataGridViewTextBoxColumn11.Visible = False
-        '
-        'IM_FRM_mySearchControl
-        '
-        Me.IM_FRM_mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.IM_FRM_mySearchControl.DefaultSearchField = "إسم الصنف"
-        Me.IM_FRM_mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
-        Me.IM_FRM_mySearchControl.ItemsTable = Nothing
-        Me.IM_FRM_mySearchControl.itemsTable_Barcode = Nothing
-        Me.IM_FRM_mySearchControl.Location = New System.Drawing.Point(5, 27)
-        Me.IM_FRM_mySearchControl.Margin = New System.Windows.Forms.Padding(0)
-        Me.IM_FRM_mySearchControl.MarginBetweenSearchAndGrid = 15
-        Me.IM_FRM_mySearchControl.MaxGridHeight = 400
-        Me.IM_FRM_mySearchControl.Name = "IM_FRM_mySearchControl"
-        Me.IM_FRM_mySearchControl.Size = New System.Drawing.Size(848, 31)
-        Me.IM_FRM_mySearchControl.TabIndex = 1048
         '
         'ItemsMenu
         '

@@ -13,11 +13,19 @@ Public Class OnKeyBoard
     Private OriginalSize As Size
     Private LayoutInitialized As Boolean = False
     Private IsResizing As Boolean = False
+    Private ButtonsBound As Boolean = False
 
     Private Sub OnKeyBoard_Load(sender As Object, e As EventArgs) Handles Me.Load
-        BindButtons(Me)
+        BindButtonsOnce()
         InitializeResponsiveLayout()
         ApplyButtonStyle(Me)
+    End Sub
+
+    Private Sub BindButtonsOnce()
+        If ButtonsBound Then Exit Sub
+
+        BindButtons(Me)
+        ButtonsBound = True
     End Sub
 
     Private Sub InitializeResponsiveLayout()
@@ -48,6 +56,7 @@ Public Class OnKeyBoard
     Private Sub BindButtons(parent As Control)
         For Each c As Control In parent.Controls
             If TypeOf c Is Button Then
+                RemoveHandler c.Click, AddressOf Dynamic_DoubleclickItems
                 AddHandler c.Click, AddressOf Dynamic_DoubleclickItems
             End If
 
