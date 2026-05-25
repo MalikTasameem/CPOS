@@ -299,6 +299,7 @@ Public Class Frm_InventoryCostRecountPreview
             )
 
             LoadBatch()
+            NotifyOwnerListChanged()
 
         Catch ex As Exception
 
@@ -359,6 +360,7 @@ Public Class Frm_InventoryCostRecountPreview
             )
 
             LoadBatch()
+            NotifyOwnerListChanged()
 
         Catch ex As Exception
 
@@ -370,6 +372,17 @@ Public Class Frm_InventoryCostRecountPreview
             )
 
         End Try
+
+    End Sub
+
+    Private Sub NotifyOwnerListChanged()
+
+        Dim listForm As Frm_InventoryCostRecountList =
+            TryCast(Me.Owner, Frm_InventoryCostRecountList)
+
+        If listForm IsNot Nothing Then
+            listForm.RefreshGrid()
+        End If
 
     End Sub
 

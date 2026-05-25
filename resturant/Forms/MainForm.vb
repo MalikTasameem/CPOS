@@ -3108,14 +3108,8 @@ Public Class MainForm
         Me.Cursor = Cursors.Default
     End Sub
 
-
-
-
-
-    Private Sub التكلفةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles التكلفةToolStripMenuItem.Click
-        Dim f As New Frm_InventoryCostRecountList
-        f.Show()
+    Private Sub متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Click
+        Dim F As New FrmAccountingRepostMonitor(MY_Settings.SqlConStr, USER_ID)
+        F.Show()
     End Sub
-
-
 End Class

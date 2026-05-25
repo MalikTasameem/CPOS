@@ -87,7 +87,7 @@ Partial Class Frm_InventoryCostRecountList
         '
         Me.Help_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Help_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.Help_LB.Location = New System.Drawing.Point(32, 55)
+        Me.Help_LB.Location = New System.Drawing.Point(32, 47)
         Me.Help_LB.Name = "Help_LB"
         Me.Help_LB.Size = New System.Drawing.Size(996, 24)
         Me.Help_LB.TabIndex = 13
@@ -99,18 +99,18 @@ Partial Class Frm_InventoryCostRecountList
         '
         Me.FiltersTitle_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.FiltersTitle_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.FiltersTitle_LB.Location = New System.Drawing.Point(16, 79)
+        Me.FiltersTitle_LB.Location = New System.Drawing.Point(4, 78)
         Me.FiltersTitle_LB.Name = "FiltersTitle_LB"
-        Me.FiltersTitle_LB.Size = New System.Drawing.Size(996, 22)
+        Me.FiltersTitle_LB.Size = New System.Drawing.Size(1024, 22)
         Me.FiltersTitle_LB.TabIndex = 14
         Me.FiltersTitle_LB.Text = "عوامل التصفية"
         Me.FiltersTitle_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'ResultsTitle_LB
         '
-        Me.ResultsTitle_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.ResultsTitle_LB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ResultsTitle_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.ResultsTitle_LB.Location = New System.Drawing.Point(16, 164)
+        Me.ResultsTitle_LB.Location = New System.Drawing.Point(19, 167)
         Me.ResultsTitle_LB.Name = "ResultsTitle_LB"
         Me.ResultsTitle_LB.Size = New System.Drawing.Size(80, 22)
         Me.ResultsTitle_LB.TabIndex = 15
@@ -119,9 +119,9 @@ Partial Class Frm_InventoryCostRecountList
         '
         'Label1
         '
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(702, 110)
+        Me.Label1.Location = New System.Drawing.Point(245, 115)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(85, 24)
         Me.Label1.TabIndex = 0
@@ -130,9 +130,9 @@ Partial Class Frm_InventoryCostRecountList
         '
         'Label2
         '
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(470, 110)
+        Me.Label2.Location = New System.Drawing.Point(18, 113)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(60, 24)
         Me.Label2.TabIndex = 1
@@ -141,9 +141,9 @@ Partial Class Frm_InventoryCostRecountList
         '
         'Label3
         '
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(8, 135)
+        Me.Label3.Location = New System.Drawing.Point(7, 140)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(70, 24)
         Me.Label3.TabIndex = 2
@@ -152,9 +152,9 @@ Partial Class Frm_InventoryCostRecountList
         '
         'Label4
         '
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(193, 136)
+        Me.Label4.Location = New System.Drawing.Point(237, 143)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(70, 24)
         Me.Label4.TabIndex = 3
@@ -166,7 +166,7 @@ Partial Class Frm_InventoryCostRecountList
         Me.Txt_IM_ID.BackColor = System.Drawing.Color.White
         Me.Txt_IM_ID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_IM_ID.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Txt_IM_ID.Location = New System.Drawing.Point(790, 110)
+        Me.Txt_IM_ID.Location = New System.Drawing.Point(332, 115)
         Me.Txt_IM_ID.Name = "Txt_IM_ID"
         Me.Txt_IM_ID.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Txt_IM_ID.Size = New System.Drawing.Size(130, 23)
@@ -178,7 +178,7 @@ Partial Class Frm_InventoryCostRecountList
         Me.Cmb_Status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cmb_Status.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Cmb_Status.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Cmb_Status.Location = New System.Drawing.Point(535, 110)
+        Me.Cmb_Status.Location = New System.Drawing.Point(83, 113)
         Me.Cmb_Status.Name = "Cmb_Status"
         Me.Cmb_Status.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Cmb_Status.Size = New System.Drawing.Size(150, 23)
@@ -187,23 +187,23 @@ Partial Class Frm_InventoryCostRecountList
         'Dtp_From
         '
         Me.Dtp_From.CustomFormat = "yyyy/MM/dd"
-        Me.Dtp_From.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Dtp_From.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Dtp_From.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.Dtp_From.Location = New System.Drawing.Point(82, 136)
+        Me.Dtp_From.Location = New System.Drawing.Point(80, 140)
         Me.Dtp_From.Name = "Dtp_From"
         Me.Dtp_From.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Dtp_From.Size = New System.Drawing.Size(108, 23)
+        Me.Dtp_From.Size = New System.Drawing.Size(153, 27)
         Me.Dtp_From.TabIndex = 6
         '
         'Dtp_To
         '
         Me.Dtp_To.CustomFormat = "yyyy/MM/dd"
-        Me.Dtp_To.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Dtp_To.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Dtp_To.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.Dtp_To.Location = New System.Drawing.Point(266, 138)
+        Me.Dtp_To.Location = New System.Drawing.Point(309, 142)
         Me.Dtp_To.Name = "Dtp_To"
         Me.Dtp_To.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Dtp_To.Size = New System.Drawing.Size(111, 23)
+        Me.Dtp_To.Size = New System.Drawing.Size(153, 27)
         Me.Dtp_To.TabIndex = 7
         '
         'Btn_Search
@@ -211,14 +211,17 @@ Partial Class Frm_InventoryCostRecountList
         Me.Btn_Search.BackColor = System.Drawing.Color.FromArgb(CType(CType(59, Byte), Integer), CType(CType(130, Byte), Integer), CType(CType(246, Byte), Integer))
         Me.Btn_Search.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Search.FlatAppearance.BorderSize = 0
+        Me.Btn_Search.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(78, Byte), Integer), CType(CType(216, Byte), Integer))
+        Me.Btn_Search.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(99, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.Btn_Search.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Btn_Search.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Btn_Search.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Search.ForeColor = System.Drawing.Color.White
-        Me.Btn_Search.Location = New System.Drawing.Point(790, 138)
+        Me.Btn_Search.Location = New System.Drawing.Point(517, 153)
         Me.Btn_Search.Name = "Btn_Search"
-        Me.Btn_Search.Size = New System.Drawing.Size(130, 30)
+        Me.Btn_Search.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Btn_Search.Size = New System.Drawing.Size(130, 32)
         Me.Btn_Search.TabIndex = 8
-        Me.Btn_Search.Text = "بحث"
+        Me.Btn_Search.Text = "⌕  بحث"
         Me.Btn_Search.UseVisualStyleBackColor = False
         '
         'Btn_Open
@@ -226,29 +229,35 @@ Partial Class Frm_InventoryCostRecountList
         Me.Btn_Open.BackColor = System.Drawing.Color.FromArgb(CType(CType(16, Byte), Integer), CType(CType(185, Byte), Integer), CType(CType(129, Byte), Integer))
         Me.Btn_Open.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Open.FlatAppearance.BorderSize = 0
+        Me.Btn_Open.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(4, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(87, Byte), Integer))
+        Me.Btn_Open.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(105, Byte), Integer))
         Me.Btn_Open.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Btn_Open.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Btn_Open.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Open.ForeColor = System.Drawing.Color.White
-        Me.Btn_Open.Location = New System.Drawing.Point(655, 138)
+        Me.Btn_Open.Location = New System.Drawing.Point(649, 153)
         Me.Btn_Open.Name = "Btn_Open"
-        Me.Btn_Open.Size = New System.Drawing.Size(130, 30)
+        Me.Btn_Open.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Btn_Open.Size = New System.Drawing.Size(130, 32)
         Me.Btn_Open.TabIndex = 9
-        Me.Btn_Open.Text = "فتح المستند"
+        Me.Btn_Open.Text = "↗  فتح المستند"
         Me.Btn_Open.UseVisualStyleBackColor = False
         '
         'Btn_Close
         '
-        Me.Btn_Close.BackColor = System.Drawing.Color.IndianRed
+        Me.Btn_Close.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.Btn_Close.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Close.FlatAppearance.BorderSize = 0
+        Me.Btn_Close.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(27, Byte), Integer), CType(CType(27, Byte), Integer))
+        Me.Btn_Close.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(185, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer))
         Me.Btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Btn_Close.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Close.ForeColor = System.Drawing.Color.White
-        Me.Btn_Close.Location = New System.Drawing.Point(520, 138)
+        Me.Btn_Close.Location = New System.Drawing.Point(894, 155)
         Me.Btn_Close.Name = "Btn_Close"
-        Me.Btn_Close.Size = New System.Drawing.Size(130, 30)
+        Me.Btn_Close.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Btn_Close.Size = New System.Drawing.Size(118, 30)
         Me.Btn_Close.TabIndex = 10
-        Me.Btn_Close.Text = "إغلاق"
+        Me.Btn_Close.Text = "✕  إغلاق"
         Me.Btn_Close.UseVisualStyleBackColor = False
         '
         'GridBatches
@@ -260,7 +269,7 @@ Partial Class Frm_InventoryCostRecountList
         Me.GridBatches.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
