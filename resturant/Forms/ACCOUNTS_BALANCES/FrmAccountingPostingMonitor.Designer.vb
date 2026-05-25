@@ -94,6 +94,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblPostedCount = New System.Windows.Forms.Label()
         Me.lblUnpostedCount = New System.Windows.Forms.Label()
         Me.lblStatusMessage = New System.Windows.Forms.Label()
+        Me.IM_RECOUNT_COST_Link = New System.Windows.Forms.LinkLabel()
         Me.pnlTop.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.pnlActions.SuspendLayout()
@@ -121,6 +122,7 @@ Partial Class FrmAccountingPostingMonitor
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.Controls.Add(Me.IM_RECOUNT_COST_Link)
         Me.Panel1.Controls.Add(Me.btnSearch)
         Me.Panel1.Controls.Add(Me.dtpTo)
         Me.Panel1.Controls.Add(Me.btnRefresh)
@@ -573,6 +575,17 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblStatusMessage.Text = "جاهز"
         Me.lblStatusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'IM_RECOUNT_COST_Link
+        '
+        Me.IM_RECOUNT_COST_Link.AutoSize = True
+        Me.IM_RECOUNT_COST_Link.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_RECOUNT_COST_Link.Location = New System.Drawing.Point(984, 56)
+        Me.IM_RECOUNT_COST_Link.Name = "IM_RECOUNT_COST_Link"
+        Me.IM_RECOUNT_COST_Link.Size = New System.Drawing.Size(216, 21)
+        Me.IM_RECOUNT_COST_Link.TabIndex = 14
+        Me.IM_RECOUNT_COST_Link.TabStop = True
+        Me.IM_RECOUNT_COST_Link.Text = "مستنذات إعادة إحتساب المخزون"
+        '
         'FrmAccountingPostingMonitor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
@@ -607,4 +620,5 @@ Partial Class FrmAccountingPostingMonitor
     End Sub
 
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents IM_RECOUNT_COST_Link As LinkLabel
 End Class

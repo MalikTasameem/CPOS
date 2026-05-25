@@ -130,6 +130,12 @@ ORDER BY CreatedAt DESC
 
     End Sub
 
+    Public Sub RefreshGrid()
+
+        LoadData()
+
+    End Sub
+
     Private Sub FormatGrid()
 
         If GridBatches.Columns.Count = 0 Then
@@ -275,7 +281,9 @@ ORDER BY CreatedAt DESC
 
             frm.BatchId = batchId
 
-            frm.ShowDialog()
+            frm.ShowDialog(Me)
+
+            RefreshGrid()
 
         Catch ex As Exception
 

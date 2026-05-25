@@ -326,14 +326,17 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Btn_Post.BackColor = System.Drawing.Color.FromArgb(CType(CType(16, Byte), Integer), CType(CType(185, Byte), Integer), CType(CType(129, Byte), Integer))
         Me.Btn_Post.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Post.FlatAppearance.BorderSize = 0
+        Me.Btn_Post.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(4, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(87, Byte), Integer))
+        Me.Btn_Post.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(105, Byte), Integer))
         Me.Btn_Post.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Btn_Post.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Btn_Post.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Post.ForeColor = System.Drawing.Color.White
-        Me.Btn_Post.Location = New System.Drawing.Point(872, 678)
+        Me.Btn_Post.Location = New System.Drawing.Point(858, 678)
         Me.Btn_Post.Name = "Btn_Post"
-        Me.Btn_Post.Size = New System.Drawing.Size(140, 36)
+        Me.Btn_Post.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Btn_Post.Size = New System.Drawing.Size(154, 36)
         Me.Btn_Post.TabIndex = 12
-        Me.Btn_Post.Text = "اعتماد التعديل"
+        Me.Btn_Post.Text = "✓  اعتماد التعديل"
         Me.Btn_Post.UseVisualStyleBackColor = False
         '
         'Btn_Rollback
@@ -341,29 +344,35 @@ Partial Class Frm_InventoryCostRecountPreview
         Me.Btn_Rollback.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(158, Byte), Integer), CType(CType(11, Byte), Integer))
         Me.Btn_Rollback.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Rollback.FlatAppearance.BorderSize = 0
+        Me.Btn_Rollback.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(9, Byte), Integer))
+        Me.Btn_Rollback.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(119, Byte), Integer), CType(CType(6, Byte), Integer))
         Me.Btn_Rollback.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Btn_Rollback.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Btn_Rollback.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Rollback.ForeColor = System.Drawing.Color.White
-        Me.Btn_Rollback.Location = New System.Drawing.Point(724, 678)
+        Me.Btn_Rollback.Location = New System.Drawing.Point(696, 678)
         Me.Btn_Rollback.Name = "Btn_Rollback"
-        Me.Btn_Rollback.Size = New System.Drawing.Size(140, 36)
+        Me.Btn_Rollback.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Btn_Rollback.Size = New System.Drawing.Size(154, 36)
         Me.Btn_Rollback.TabIndex = 13
-        Me.Btn_Rollback.Text = "تراجع"
+        Me.Btn_Rollback.Text = "↶  تراجع"
         Me.Btn_Rollback.UseVisualStyleBackColor = False
         '
         'Btn_Close
         '
-        Me.Btn_Close.BackColor = System.Drawing.Color.IndianRed
+        Me.Btn_Close.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.Btn_Close.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Close.FlatAppearance.BorderSize = 0
+        Me.Btn_Close.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(27, Byte), Integer), CType(CType(27, Byte), Integer))
+        Me.Btn_Close.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(185, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer))
         Me.Btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Btn_Close.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Btn_Close.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Btn_Close.ForeColor = System.Drawing.Color.White
-        Me.Btn_Close.Location = New System.Drawing.Point(576, 678)
+        Me.Btn_Close.Location = New System.Drawing.Point(16, 678)
         Me.Btn_Close.Name = "Btn_Close"
-        Me.Btn_Close.Size = New System.Drawing.Size(140, 36)
+        Me.Btn_Close.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Btn_Close.Size = New System.Drawing.Size(118, 36)
         Me.Btn_Close.TabIndex = 14
-        Me.Btn_Close.Text = "إغلاق"
+        Me.Btn_Close.Text = "✕  إغلاق"
         Me.Btn_Close.UseVisualStyleBackColor = False
         '
         'Frm_InventoryCostRecountPreview

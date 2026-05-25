@@ -249,6 +249,44 @@ ORDER BY [Date] DESC, T_ID DESC;
         End Try
     End Sub
 
+    Private Sub UpdateInventoryRecountDraftCount()
+        Try
+            Dim draftCount As Integer = 0
+
+            Dim sql As String = "
+SELECT COUNT(1)
+FROM dbo.InventoryCostRecountBatch
+WHERE Status = @Status;
+"
+
+            Using con As New SqlConnection(_connectionString)
+                Using cmd As New SqlCommand(sql, con)
+                    cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 20).Value = "Draft"
+
+                    con.Open()
+
+                    Dim result As Object = cmd.ExecuteScalar()
+
+                    If result IsNot Nothing AndAlso result IsNot DBNull.Value Then
+                        draftCount = Convert.ToInt32(result)
+                    End If
+                End Using
+            End Using
+
+            IM_RECOUNT_COST_Link.Text = "مستندات إعادة احتساب المخزون(" & draftCount.ToString() & ")"
+
+        Catch ex As Exception
+            IM_RECOUNT_COST_Link.Text = "مستندات إعادة احتساب المخزون(0)"
+
+            MessageBox.Show(
+                ex.Message,
+                "خطأ في تحميل عدد مستندات إعادة احتساب المخزون",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            )
+        End Try
+    End Sub
+
     Private Function GetNullableComboValue(cmb As ComboBox) As Object
         If cmb Is Nothing Then Return DBNull.Value
         If cmb.SelectedIndex <= 0 Then Return DBNull.Value
@@ -768,7 +806,12 @@ ORDER BY b.T_ID;
     End Sub
 
     Private Sub FrmAccountingPostingMonitor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UpdateInventoryRecountDraftCount()
+    End Sub
 
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IM_RECOUNT_COST_Link.LinkClicked
+        Dim f As New Frm_InventoryCostRecountList
+        f.Show()
     End Sub
 
 
