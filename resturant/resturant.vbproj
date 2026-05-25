@@ -334,6 +334,12 @@
     <Compile Include="Forms\ACCOUNTS_BALANCES\FrmSystemAccountTypeEdit.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Exp\EXP_Details.designer.vb">
+      <DependentUpon>EXP_Details.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Exp\EXP_Details.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Frm\Frm_manuel_IM_card.designer.vb">
       <DependentUpon>Frm_manuel_IM_card.vb</DependentUpon>
     </Compile>
@@ -1174,12 +1180,6 @@
     <Compile Include="Forms\Costmer_Screen.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Exp\EXP_Details.designer.vb">
-      <DependentUpon>EXP_Details.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Exp\EXP_Details.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Frm\Format_Items_Manual.designer.vb">
       <DependentUpon>Format_Items_Manual.vb</DependentUpon>
     </Compile>
@@ -1703,6 +1703,9 @@
     <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FrmAccountingPostingMonitor.resx">
       <DependentUpon>FrmAccountingPostingMonitor.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Exp\EXP_Details.resx">
+      <DependentUpon>EXP_Details.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm\Frm_manuel_IM_card.resx">
       <DependentUpon>Frm_manuel_IM_card.vb</DependentUpon>
     </EmbeddedResource>
@@ -2098,9 +2101,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Costmer_Screen.resx">
       <DependentUpon>Costmer_Screen.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Exp\EXP_Details.resx">
-      <DependentUpon>EXP_Details.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm\Format_Items_Manual.resx">
       <DependentUpon>Format_Items_Manual.vb</DependentUpon>

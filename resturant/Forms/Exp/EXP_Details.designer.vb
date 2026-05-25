@@ -89,17 +89,16 @@ Partial Class EXP_Details
         Me.إضافةضمنعهدةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeliveryingButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.EX_Cm = New resturant.FSearch_Filter()
-        Me.AG_Cm = New resturant.FSearch_Filter()
+        Me.Print_btn = New System.Windows.Forms.Button()
+        Me.SearchButton = New System.Windows.Forms.Button()
         Me.New_butt = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
-        Me.Print_btn = New System.Windows.Forms.Button()
-        Me.Delete_butt = New System.Windows.Forms.Button()
         Me.Edit_butt = New System.Windows.Forms.Button()
-        Me.SearchButton = New System.Windows.Forms.Button()
+        Me.Delete_butt = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.EX_Cm = New resturant.FSearch_Filter()
+        Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -878,74 +877,49 @@ Partial Class EXP_Details
         Me.ExitFormButton.Text = "خروج Esc"
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
-        'Label3
+        'Print_btn
         '
         Me.Print_btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Print_btn.BackColor = System.Drawing.Color.White
         Me.Print_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Print_btn.Enabled = False
         Me.Print_btn.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Print_btn.FlatAppearance.BorderSize = 0
         Me.Print_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Print_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Print_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Print_btn.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Print_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Print_btn.Location = New System.Drawing.Point(343, 4)
+        Me.Print_btn.Location = New System.Drawing.Point(403, 4)
         Me.Print_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Print_btn.Name = "Print_btn"
         Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Print_btn.Size = New System.Drawing.Size(108, 36)
+        Me.Print_btn.Size = New System.Drawing.Size(108, 33)
         Me.Print_btn.TabIndex = 661
         Me.Print_btn.TabStop = False
         Me.Print_btn.Tag = "PRINT"
         Me.Print_btn.Text = "طباعة F2"
         Me.Print_btn.UseVisualStyleBackColor = False
         '
-        'EX_Cm
+        'SearchButton
         '
         Me.SearchButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SearchButton.BackColor = System.Drawing.Color.White
         Me.SearchButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SearchButton.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.SearchButton.FlatAppearance.BorderSize = 0
         Me.SearchButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.SearchButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SearchButton.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.SearchButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.SearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.SearchButton.Location = New System.Drawing.Point(6, 4)
+        Me.SearchButton.Location = New System.Drawing.Point(66, 4)
         Me.SearchButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.SearchButton.Name = "SearchButton"
         Me.SearchButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SearchButton.Size = New System.Drawing.Size(108, 35)
+        Me.SearchButton.Size = New System.Drawing.Size(108, 33)
         Me.SearchButton.TabIndex = 306
         Me.SearchButton.TabStop = False
         Me.SearchButton.Text = "بحث"
         Me.SearchButton.UseVisualStyleBackColor = False
-        '
-        'AG_Cm
-        '
-        Me.AG_Cm.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!)
-        Me.AG_Cm.Location = New System.Drawing.Point(207, 142)
-        Me.AG_Cm.Name = "AG_Cm"
-        Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(328, 35)
-        Me.AG_Cm.SQL_Column = "AG_NAME"
-        Me.AG_Cm.SQL_ID = "AG_ID"
-        Me.AG_Cm.SQL_IsNumericSearchField = False
-        Me.AG_Cm.SQL_ListSize = 200
-        Me.AG_Cm.SQL_NumberOfRows = 200
-        Me.AG_Cm.SQL_OrderByField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField = "AG_NAME"
-        Me.AG_Cm.SQL_SearchField_WHERE = ""
-        Me.AG_Cm.SQL_Table = "AG_EXP_CARD_V"
-        Me.AG_Cm.TabIndex = 721
-        Me.AG_Cm.TextMaxLength = 250
-        Me.AG_Cm.Textt = ""
         '
         'New_butt
         '
@@ -990,24 +964,23 @@ Partial Class EXP_Details
         Me.Save_butt.Text = "حفظ F12"
         Me.Save_butt.UseVisualStyleBackColor = False
         '
-        'Print_btn
+        'Edit_butt
         '
         Me.Edit_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Edit_butt.BackColor = System.Drawing.Color.White
         Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Edit_butt.Enabled = False
         Me.Edit_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Edit_butt.FlatAppearance.BorderSize = 0
         Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Edit_butt.Location = New System.Drawing.Point(118, 4)
+        Me.Edit_butt.Location = New System.Drawing.Point(178, 4)
         Me.Edit_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Edit_butt.Name = "Edit_butt"
         Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(108, 36)
+        Me.Edit_butt.Size = New System.Drawing.Size(108, 33)
         Me.Edit_butt.TabIndex = 295
         Me.Edit_butt.TabStop = False
         Me.Edit_butt.Text = "تعديل F3"
@@ -1034,50 +1007,16 @@ Partial Class EXP_Details
         Me.Delete_butt.Text = " إلغاء F4"
         Me.Delete_butt.UseVisualStyleBackColor = False
         '
-        'Edit_butt
+        'Label3
         '
-        Me.Edit_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Edit_butt.BackColor = System.Drawing.Color.White
-        Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Edit_butt.Enabled = False
-        Me.Edit_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Edit_butt.FlatAppearance.BorderSize = 0
-        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Edit_butt.Location = New System.Drawing.Point(118, 4)
-        Me.Edit_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.Edit_butt.Name = "Edit_butt"
-        Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(108, 36)
-        Me.Edit_butt.TabIndex = 295
-        Me.Edit_butt.TabStop = False
-        Me.Edit_butt.Text = "تعديل F3"
-        Me.Edit_butt.UseVisualStyleBackColor = False
-        '
-        'SearchButton
-        '
-        Me.SearchButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SearchButton.BackColor = System.Drawing.Color.White
-        Me.SearchButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.SearchButton.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.SearchButton.FlatAppearance.BorderSize = 0
-        Me.SearchButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.SearchButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
-        Me.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SearchButton.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.SearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.SearchButton.Location = New System.Drawing.Point(6, 4)
-        Me.SearchButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
-        Me.SearchButton.Name = "SearchButton"
-        Me.SearchButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SearchButton.Size = New System.Drawing.Size(108, 35)
-        Me.SearchButton.TabIndex = 306
-        Me.SearchButton.TabStop = False
-        Me.SearchButton.Text = "بحث"
-        Me.SearchButton.UseVisualStyleBackColor = False
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(541, 147)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(61, 21)
+        Me.Label3.TabIndex = 379
+        Me.Label3.Text = "الحساب :"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Panel2
         '
@@ -1093,16 +1032,38 @@ Partial Class EXP_Details
         Me.Panel2.Size = New System.Drawing.Size(846, 44)
         Me.Panel2.TabIndex = 1000
         '
-        'Label21
+        'EX_Cm
         '
-        Me.Label21.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.EX_Cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.EX_Cm.CancelSearchImage = CType(resources.GetObject("EX_Cm.CancelSearchImage"), System.Drawing.Image)
+        Me.EX_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!)
+        Me.EX_Cm.Location = New System.Drawing.Point(608, 143)
+        Me.EX_Cm.Name = "EX_Cm"
+        Me.EX_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.EX_Cm.Size = New System.Drawing.Size(328, 35)
+        Me.EX_Cm.SQL_Column = "Ex_NAME"
+        Me.EX_Cm.SQL_ID = "Ex_ID"
+        Me.EX_Cm.SQL_IsNumericSearchField = False
+        Me.EX_Cm.SQL_ListSize = 200
+        Me.EX_Cm.SQL_NumberOfRows = 200
+        Me.EX_Cm.SQL_OrderByField = "Ex_NAME"
+        Me.EX_Cm.SQL_SearchField = "Ex_NAME"
+        Me.EX_Cm.SQL_SearchField_WHERE = ""
+        Me.EX_Cm.SQL_Table = "Expenses_Card"
+        Me.EX_Cm.TabIndex = 722
+        Me.EX_Cm.TextMaxLength = 250
+        Me.EX_Cm.Textt = ""
+        '
+        'AG_Cm
+        '
+        Me.AG_Cm.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!)
-        Me.AG_Cm.Location = New System.Drawing.Point(207, 142)
+        Me.AG_Cm.Location = New System.Drawing.Point(285, 142)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(328, 35)
+        Me.AG_Cm.Size = New System.Drawing.Size(250, 35)
         Me.AG_Cm.SQL_Column = "AG_NAME"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False
@@ -1179,13 +1140,18 @@ Partial Class EXP_Details
 
     End Sub
     Friend WithEvents MetroToolTip1 As MetroFramework.Components.MetroToolTip
+    Friend WithEvents New_butt As System.Windows.Forms.Button
+    Friend WithEvents Save_butt As System.Windows.Forms.Button
     Friend WithEvents AGMetroGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents Delete_butt As System.Windows.Forms.Button
+    Friend WithEvents Edit_butt As System.Windows.Forms.Button
     Friend WithEvents Total_TextBox As System.Windows.Forms.TextBox
     Friend WithEvents DateTimeEx As System.Windows.Forms.DateTimePicker
     Friend WithEvents QtyTextBox As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents ADDCatButton As System.Windows.Forms.Button
     Friend WithEvents RemoveCatButton As System.Windows.Forms.Button
+    Friend WithEvents SearchButton As System.Windows.Forms.Button
     Friend WithEvents NULLContextMenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents DeletedBillLabel As System.Windows.Forms.Label
     Friend WithEvents lblFormState As System.Windows.Forms.Label
@@ -1197,6 +1163,7 @@ Partial Class EXP_Details
     Friend WithEvents IM_Qty_LB As System.Windows.Forms.Label
     Friend WithEvents Up_Bill_btn As System.Windows.Forms.Button
     Friend WithEvents Down_Bill_btn As System.Windows.Forms.Button
+    Friend WithEvents Print_btn As System.Windows.Forms.Button
     Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents Bill_ID_Txt As System.Windows.Forms.TextBox
     Friend WithEvents Label19 As System.Windows.Forms.Label
@@ -1229,6 +1196,7 @@ Partial Class EXP_Details
     Friend WithEvents HeaderCloseBtn As System.Windows.Forms.Button
     Friend WithEvents HeaderMaxBtn As System.Windows.Forms.Button
     Friend WithEvents HeaderMinBtn As System.Windows.Forms.Button
+    Friend WithEvents Panel2 As Panel
     Friend WithEvents T_ID_CL As DataGridViewTextBoxColumn
     Friend WithEvents EX_ID_CL As DataGridViewTextBoxColumn
     Friend WithEvents EX_Name_CL As DataGridViewTextBoxColumn

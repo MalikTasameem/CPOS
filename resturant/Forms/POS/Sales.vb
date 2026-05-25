@@ -100,7 +100,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        If On_Update = True Then Edit_butt_Click(sender, e)
+        'If On_Update = True Then Edit_butt_Click(sender, e)
         FormType = 0
         Me.Dispose()
     End Sub
@@ -1559,13 +1559,13 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
                         End Using
 
-                        ExecuteEditStoredProcedure(cn, tr, "dbo.Agents_Balance_MV_ConfirmEditAndRepost",
-                            Sub(cmd)
-                                cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
-                                cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
-                                cmd.Parameters.Add("@Reason", SqlDbType.NVarChar, 500).Value =
-                                    "تأكيد تعديل فاتورة مبيعات رقم: " & Bill_ID_Txt.Text
-                            End Sub)
+                        'ExecuteEditStoredProcedure(cn, tr, "dbo.Agents_Balance_MV_ConfirmEditAndRepost",
+                        '    Sub(cmd)
+                        '        cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
+                        '        cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+                        '        cmd.Parameters.Add("@Reason", SqlDbType.NVarChar, 500).Value =
+                        '            "تأكيد تعديل فاتورة مبيعات رقم: " & Bill_ID_Txt.Text
+                        '    End Sub)
 
                         ExecuteEditStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
                             Sub(cmd)

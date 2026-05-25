@@ -322,6 +322,8 @@
         If Edit_butt.Text = EditState Then
 
             MsgBox(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ", MsgBoxStyle.Information, "تعديل فاتورة")
+            If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+
             On_Update = True
             Edit_butt.Text = "إيقاف التعديل"
             Enable_Fields()

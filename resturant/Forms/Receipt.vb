@@ -502,12 +502,12 @@
 
                         End Using
 
-                        ExecuteReceiptStoredProcedure(cn, tr, "dbo.Agents_Balance_MV_RCT_ConfirmEditAndRepost",
-                            Sub(cmd)
-                                cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = Reciept_T_ID
-                                cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
-                                cmd.Parameters.Add("@Reason", SqlDbType.NVarChar, 500).Value = "تعديل إيصال بعد التقييد"
-                            End Sub)
+                        'ExecuteReceiptStoredProcedure(cn, tr, "dbo.Agents_Balance_MV_RCT_ConfirmEditAndRepost",
+                        '    Sub(cmd)
+                        '        cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = Reciept_T_ID
+                        '        cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+                        '        cmd.Parameters.Add("@Reason", SqlDbType.NVarChar, 500).Value = "تعديل إيصال بعد التقييد"
+                        '    End Sub)
 
                         ExecuteReceiptStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
                             Sub(cmd)

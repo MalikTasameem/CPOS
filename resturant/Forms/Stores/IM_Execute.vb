@@ -676,6 +676,8 @@
         If CurrentState = BillState.Saved Then
             ' --- بدء التعديل ---
             MsgBox(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ", MsgBoxStyle.Information, "تعديل فاتورة")
+            If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+
             On_Update = True
             Set_Bill_State(BillState.Editing)
             Network_Edit_Tracker_insert("تعديل فاتورة تالف / رقم آلي : " + Bill_ID_Txt.Text + " / المدخل :  " + User_Name_lb.Text, Total_TextBox.Text, 0, 0)

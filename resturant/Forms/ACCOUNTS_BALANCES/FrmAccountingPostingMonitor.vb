@@ -66,11 +66,21 @@ Partial Class FrmAccountingPostingMonitor
         cmbSource.DisplayMember = "Text"
     End Sub
 
+    'Private Sub LoadStatusCombo()
+    '    cmbPostingStatus.Items.Clear()
+    '    cmbPostingStatus.Items.Add("الكل")
+    '    cmbPostingStatus.Items.Add("غير مرحل")
+    '    cmbPostingStatus.Items.Add("مرحل")
+    '    cmbPostingStatus.SelectedIndex = 0
+    'End Sub
+
     Private Sub LoadStatusCombo()
         cmbPostingStatus.Items.Clear()
         cmbPostingStatus.Items.Add("الكل")
-        cmbPostingStatus.Items.Add("غير مرحل")
-        cmbPostingStatus.Items.Add("مرحل")
+        cmbPostingStatus.Items.Add("غير مقيد")
+        cmbPostingStatus.Items.Add("يحتاج إعادة تقييد")
+        cmbPostingStatus.Items.Add("مقيد")
+        cmbPostingStatus.Items.Add("حالة غير طبيعية")
         cmbPostingStatus.SelectedIndex = 0
     End Sub
 
@@ -112,8 +122,7 @@ ORDER BY id;
             lblStatusMessage.Text = "جاري تحميل البيانات..."
             Application.DoEvents()
 
-            Dim sql As String =
-"
+            Dim sql As String = "
 SELECT
     SourceTable,
     T_ID,
@@ -121,7 +130,7 @@ SELECT
     BsType_ID,
     Type_Name,
     AG_NAME,
-    Tr_NAME,
+    Tr_Name,
     Total,
     Discount,
     Pure,
@@ -130,7 +139,13 @@ SELECT
     JournalId,
     PostedAt,
     PostedBy,
+    NeedRepost,
+    OriginalJournalId,
+    LastReversalJournalId,
+    EditVersion,
     PostingStatus,
+    PostingAction,
+    NeedsAccountingAction,
     Receipt_Title,
     About
 FROM dbo.V_AccountingPostingMonitor
@@ -139,7 +154,10 @@ WHERE [Date] >= @FromDate
   AND (@SourceTable IS NULL OR SourceTable = @SourceTable)
   AND (@BsType_ID IS NULL OR BsType_ID = @BsType_ID)
   AND (@PostingStatus IS NULL OR PostingStatus = @PostingStatus)
-  AND ISNULL(isVoid, 0) = 0  and isDepended = 1
+  AND (@PostingAction IS NULL OR PostingAction = @PostingAction)
+  AND ISNULL(isVoid, 0) = 0
+  AND isDepended = 1
+ -- AND NeedsAccountingAction = 1
   AND
   (
       @SearchText IS NULL
@@ -151,6 +169,45 @@ WHERE [Date] >= @FromDate
   )
 ORDER BY [Date] DESC, T_ID DESC;
 "
+
+            '"
+            'SELECT
+            '    SourceTable,
+            '    T_ID,
+            '    [Date],
+            '    BsType_ID,
+            '    Type_Name,
+            '    AG_NAME,
+            '    Tr_NAME,
+            '    Total,
+            '    Discount,
+            '    Pure,
+            '    isDepended,
+            '    isVoid,
+            '    JournalId,
+            '    PostedAt,
+            '    PostedBy,
+            '    PostingStatus,
+            '    Receipt_Title,
+            '    About
+            'FROM dbo.V_AccountingPostingMonitor
+            'WHERE [Date] >= @FromDate
+            '  AND [Date] < DATEADD(DAY, 1, @ToDate)
+            '  AND (@SourceTable IS NULL OR SourceTable = @SourceTable)
+            '  AND (@BsType_ID IS NULL OR BsType_ID = @BsType_ID)
+            '  AND (@PostingStatus IS NULL OR PostingStatus = @PostingStatus)
+            '  AND ISNULL(isVoid, 0) = 0  and isDepended = 1
+            '  AND
+            '  (
+            '      @SearchText IS NULL
+            '      OR CAST(T_ID AS NVARCHAR(50)) LIKE '%' + @SearchText + '%'
+            '      OR ISNULL(Type_Name, '') LIKE '%' + @SearchText + '%'
+            '      OR ISNULL(Receipt_Title, '') LIKE '%' + @SearchText + '%'
+            '      OR ISNULL(About, '') LIKE '%' + @SearchText + '%'
+            '      OR CAST(ISNULL(JournalId, 0) AS NVARCHAR(50)) LIKE '%' + @SearchText + '%'
+            '  )
+            'ORDER BY [Date] DESC, T_ID DESC;
+            '"
 
             Dim dt As New DataTable()
 
@@ -167,6 +224,7 @@ ORDER BY [Date] DESC, T_ID DESC;
                         statusValue = cmbPostingStatus.Text
                     End If
                     da.SelectCommand.Parameters.Add("@PostingStatus", SqlDbType.NVarChar, 50).Value = statusValue
+                    da.SelectCommand.Parameters.Add("@PostingAction", SqlDbType.NVarChar, 50).Value = DBNull.Value
 
                     Dim searchValue As Object = DBNull.Value
                     If txtSearch.Text.Trim() <> "" Then
@@ -223,9 +281,21 @@ ORDER BY [Date] DESC, T_ID DESC;
         SetHeader("Receipt_Title", "البيان", 250)
         SetHeader("About", "ملاحظات", 280)
 
+        SetHeader("NeedRepost", "RePost", 70)
+        SetHeader("PostingAction", "الإجراء", 130)
+        SetHeader("NeedsAccountingAction", "يحتاج إجراء", 90)
+        SetHeader("OriginalJournalId", "القيد الأصلي", 90)
+        SetHeader("LastReversalJournalId", "آخر قيد عكسي", 100)
+        SetHeader("EditVersion", "نسخة التعديل", 90)
+
+
         HideColumn("isDepended")
         HideColumn("isVoid")
         HideColumn("PostedBy")
+
+        HideColumn("NeedsAccountingAction")
+        HideColumn("OriginalJournalId")
+        HideColumn("LastReversalJournalId")
 
         FormatNumericColumn("Total")
         FormatNumericColumn("Discount")
@@ -252,23 +322,54 @@ ORDER BY [Date] DESC, T_ID DESC;
         End If
     End Sub
 
+
     Private Sub UpdateCounters(dt As DataTable)
         Dim total As Integer = dt.Rows.Count
-        Dim posted As Integer = 0
-        Dim unposted As Integer = 0
+        Dim postFirst As Integer = 0
+        Dim repost As Integer = 0
+        Dim checkCount As Integer = 0
 
         For Each row As DataRow In dt.Rows
-            If row("PostingStatus").ToString() = "مرحل" Then
-                posted += 1
-            Else
-                unposted += 1
-            End If
+            Dim action As String = Convert.ToString(row("PostingAction"))
+
+            Select Case action
+                Case "POST_FIRST_TIME"
+                    postFirst += 1
+
+                Case "REPOST"
+                    repost += 1
+
+                Case Else
+                    checkCount += 1
+            End Select
         Next
 
         lblTotalCount.Text = "الإجمالي: " & total.ToString()
-        lblPostedCount.Text = "المرحل: " & posted.ToString()
-        lblUnpostedCount.Text = "غير المرحل: " & unposted.ToString()
+        lblPostedCount.Text = "إعادة تقييد: " & repost.ToString()
+        lblUnpostedCount.Text = "تقييد أول مرة: " & postFirst.ToString()
+
+        If checkCount > 0 Then
+            lblStatusMessage.Text = "يوجد حالات تحتاج مراجعة: " & checkCount.ToString()
+        End If
     End Sub
+
+    'Private Sub UpdateCounters(dt As DataTable)
+    '    Dim total As Integer = dt.Rows.Count
+    '    Dim posted As Integer = 0
+    '    Dim unposted As Integer = 0
+
+    '    For Each row As DataRow In dt.Rows
+    '        If row("PostingStatus").ToString() = "مرحل" Then
+    '            posted += 1
+    '        Else
+    '            unposted += 1
+    '        End If
+    '    Next
+
+    '    lblTotalCount.Text = "الإجمالي: " & total.ToString()
+    '    lblPostedCount.Text = "المرحل: " & posted.ToString()
+    '    lblUnpostedCount.Text = "غير المرحل: " & unposted.ToString()
+    'End Sub
 
 #End Region
 
@@ -297,21 +398,56 @@ ORDER BY [Date] DESC, T_ID DESC;
 
             Dim sourceTable As String = row.Cells("SourceTable").Value.ToString()
             Dim movementId As Integer = Convert.ToInt32(row.Cells("T_ID").Value)
-            Dim status As String = row.Cells("PostingStatus").Value.ToString()
 
-            If status = "مرحل" Then
-                MessageBox.Show("هذه الحركة مرحلة مسبقًا", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+
+
+            Dim postingAction As String = Convert.ToString(row.Cells("PostingAction").Value)
+
+            If postingAction = "NO_ACTION" Then
+                MessageBox.Show("هذه الحركة لا تحتاج أي إجراء محاسبي.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
 
-            If MessageBox.Show("هل تريد ترحيل الحركة المحددة؟",
-                               "تأكيد الترحيل",
-                               MessageBoxButtons.YesNo,
-                               MessageBoxIcon.Question) = DialogResult.No Then
+            If postingAction = "CHECK" Then
+                MessageBox.Show("هذه الحركة في حالة غير طبيعية وتحتاج مراجعة قبل التقييد.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
-            PostSingleMovement(sourceTable, movementId)
+
+            'Dim status As String = row.Cells("PostingStatus").Value.ToString()
+
+            'If status = "مرحل" Then
+            '    MessageBox.Show("هذه الحركة مرحلة مسبقًا", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            '    Return
+            'End If
+
+            'If MessageBox.Show("هل تريد ترحيل الحركة المحددة؟",
+            '                   "تأكيد الترحيل",
+            '                   MessageBoxButtons.YesNo,
+            '                   MessageBoxIcon.Question) = DialogResult.No Then
+            'Return
+            'End If
+
+
+            Dim confirmText As String
+
+            If postingAction = "REPOST" Then
+                confirmText = "هذه الحركة تحتاج إعادة تقييد بعد تعديل. هل تريد تنفيذ إعادة التقييد؟"
+            Else
+                confirmText = "هل تريد تقييد الحركة المحددة لأول مرة؟"
+            End If
+
+            If MessageBox.Show(confirmText,
+                   "تأكيد الإجراء المحاسبي",
+                   MessageBoxButtons.YesNo,
+                   MessageBoxIcon.Question) = DialogResult.No Then
+                Return
+            End If
+
+            PostSingleMovement(sourceTable, movementId, postingAction)
+
+            'PostSingleMovement(sourceTable, movementId)
 
             MessageBox.Show("تم الترحيل بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information)
             LoadPostingMonitor()
@@ -328,12 +464,21 @@ ORDER BY [Date] DESC, T_ID DESC;
                 Return
             End If
 
-            If MessageBox.Show("هل تريد ترحيل كل الحركات غير المرحلة الظاهرة في الشاشة؟",
-                               "تأكيد الترحيل الجماعي",
-                               MessageBoxButtons.YesNo,
-                               MessageBoxIcon.Question) = DialogResult.No Then
+
+
+            If MessageBox.Show("هل تريد تنفيذ التقييد / إعادة التقييد لكل الحركات الظاهرة؟",
+                   "تأكيد الإجراء الجماعي",
+                   MessageBoxButtons.YesNo,
+                   MessageBoxIcon.Question) = DialogResult.No Then
                 Return
             End If
+
+            'If MessageBox.Show("هل تريد ترحيل كل الحركات غير المرحلة الظاهرة في الشاشة؟",
+            '                   "تأكيد الترحيل الجماعي",
+            '                   MessageBoxButtons.YesNo,
+            '                   MessageBoxIcon.Question) = DialogResult.No Then
+            'Return
+            'End If
 
             Dim successCount As Integer = 0
             Dim failCount As Integer = 0
@@ -347,14 +492,24 @@ ORDER BY [Date] DESC, T_ID DESC;
             For Each row As DataGridViewRow In dgvPosting.Rows
                 If row.IsNewRow Then Continue For
 
-                Dim status As String = row.Cells("PostingStatus").Value.ToString()
-                If status = "مرحل" Then Continue For
+
+                Dim postingAction As String = Convert.ToString(row.Cells("PostingAction").Value)
+
+                If postingAction = "NO_ACTION" OrElse postingAction = "CHECK" Then
+                    Continue For
+                End If
+
+                'Dim status As String = row.Cells("PostingStatus").Value.ToString()
+                'If status = "مرحل" Then Continue For
 
                 Dim sourceTable As String = row.Cells("SourceTable").Value.ToString()
                 Dim movementId As Integer = Convert.ToInt32(row.Cells("T_ID").Value)
 
                 Try
-                    PostSingleMovement(sourceTable, movementId)
+
+                    PostSingleMovement(sourceTable, movementId, postingAction)
+
+                    'PostSingleMovement(sourceTable, movementId)
                     successCount += 1
 
                 Catch ex As Exception
@@ -397,21 +552,38 @@ ORDER BY [Date] DESC, T_ID DESC;
 
 #Region "Posting"
 
-    Private Sub PostSingleMovement(sourceTable As String, movementId As Integer)
+    Private Sub PostSingleMovement(sourceTable As String, movementId As Integer, postingAction As String)
         Using con As New SqlConnection(_connectionString)
             Using cmd As New SqlCommand("dbo.PostToAccounting", con)
                 cmd.CommandType = CommandType.StoredProcedure
-                cmd.CommandTimeout = 120
+                cmd.CommandTimeout = 180
 
                 cmd.Parameters.Add("@SourceTable", SqlDbType.NVarChar, 20).Value = sourceTable
                 cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = movementId
                 cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = _currentUserId
+                cmd.Parameters.Add("@PostingAction", SqlDbType.NVarChar, 50).Value = postingAction
 
                 con.Open()
                 cmd.ExecuteNonQuery()
             End Using
         End Using
     End Sub
+
+    'Private Sub PostSingleMovement(sourceTable As String, movementId As Integer)
+    '    Using con As New SqlConnection(_connectionString)
+    '        Using cmd As New SqlCommand("dbo.PostToAccounting", con)
+    '            cmd.CommandType = CommandType.StoredProcedure
+    '            cmd.CommandTimeout = 120
+
+    '            cmd.Parameters.Add("@SourceTable", SqlDbType.NVarChar, 20).Value = sourceTable
+    '            cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = movementId
+    '            cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = _currentUserId
+
+    '            con.Open()
+    '            cmd.ExecuteNonQuery()
+    '        End Using
+    '    End Using
+    'End Sub
 
 #End Region
 
@@ -427,7 +599,13 @@ ORDER BY [Date] DESC, T_ID DESC;
 
             If row.Cells("JournalId").Value Is DBNull.Value OrElse row.Cells("JournalId").Value Is Nothing Then
                 dgvJournal.DataSource = Nothing
-                MessageBox.Show("هذه الحركة غير مرحلة ولا يوجد لها قيد.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                'MessageBox.Show("هذه الحركة غير مرحلة ولا يوجد لها قيد.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                MessageBox.Show("هذه الحركة لا يوجد لها قيد حالي. إذا كانت تقييد أول مرة فقم بتنفيذ التقييد أولًا.",
+                "تنبيه",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information)
+
                 Return
             End If
 
@@ -524,17 +702,40 @@ ORDER BY b.T_ID;
 
         Dim row As DataGridViewRow = dgvPosting.Rows(e.RowIndex)
 
-        If dgvPosting.Columns.Contains("PostingStatus") Then
-            Dim status As String = Convert.ToString(row.Cells("PostingStatus").Value)
 
-            If status = "مرحل" Then
-                row.DefaultCellStyle.BackColor = Color.FromArgb(232, 248, 245)
-                row.DefaultCellStyle.ForeColor = Color.FromArgb(20, 90, 50)
-            Else
-                row.DefaultCellStyle.BackColor = Color.FromArgb(253, 237, 236)
-                row.DefaultCellStyle.ForeColor = Color.FromArgb(120, 40, 31)
-            End If
+        If dgvPosting.Columns.Contains("PostingAction") Then
+            Dim action As String = Convert.ToString(row.Cells("PostingAction").Value)
+
+            Select Case action
+                Case "POST_FIRST_TIME"
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(253, 237, 236)
+                    row.DefaultCellStyle.ForeColor = Color.FromArgb(120, 40, 31)
+
+                Case "REPOST"
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(255, 249, 196)
+                    row.DefaultCellStyle.ForeColor = Color.FromArgb(120, 90, 20)
+
+                Case "CHECK"
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(235, 235, 235)
+                    row.DefaultCellStyle.ForeColor = Color.FromArgb(80, 80, 80)
+
+                Case Else
+                    row.DefaultCellStyle.BackColor = Color.White
+                    row.DefaultCellStyle.ForeColor = Color.Black
+            End Select
         End If
+
+        'If dgvPosting.Columns.Contains("PostingStatus") Then
+        '    Dim status As String = Convert.ToString(row.Cells("PostingStatus").Value)
+
+        '    If status = "مرحل" Then
+        '        row.DefaultCellStyle.BackColor = Color.FromArgb(232, 248, 245)
+        '        row.DefaultCellStyle.ForeColor = Color.FromArgb(20, 90, 50)
+        '    Else
+        '        row.DefaultCellStyle.BackColor = Color.FromArgb(253, 237, 236)
+        '        row.DefaultCellStyle.ForeColor = Color.FromArgb(120, 40, 31)
+        '    End If
+        'End If
 
         If dgvPosting.Columns(e.ColumnIndex).Name = "SourceTable" Then
             If e.Value IsNot Nothing Then
@@ -564,6 +765,10 @@ ORDER BY b.T_ID;
             e.SuppressKeyPress = True
             LoadPostingMonitor()
         End If
+    End Sub
+
+    Private Sub FrmAccountingPostingMonitor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 
 

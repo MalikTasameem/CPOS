@@ -741,6 +741,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
                 If On_Update = False Then
                     Beep()
                     If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟", "تعديل فاتورة", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+                        If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+
                         '  Edit_butt.BackColor = Color.GreenYellow
                         UpdateFormStateIndicator("قيد التعديل", Color.DarkOrange)
                         On_Update = True

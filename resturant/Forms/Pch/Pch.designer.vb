@@ -169,6 +169,7 @@ Partial Class Pch
         '
         'TitleBar_Panel
         '
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.TitleBar_Panel.Controls.Add(Me.lblFormState)
         Me.TitleBar_Panel.Controls.Add(Me.Title_Label)
         Me.TitleBar_Panel.Controls.Add(Me.MaxFormButton)
@@ -196,6 +197,7 @@ Partial Class Pch
         Me.Title_Label.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Title_Label.AutoSize = True
         Me.Title_Label.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Title_Label.ForeColor = System.Drawing.Color.White
         Me.Title_Label.Location = New System.Drawing.Point(946, 8)
         Me.Title_Label.Name = "Title_Label"
         Me.Title_Label.Size = New System.Drawing.Size(112, 21)
@@ -210,6 +212,7 @@ Partial Class Pch
         Me.MaxFormButton.FlatAppearance.BorderSize = 0
         Me.MaxFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MaxFormButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MaxFormButton.ForeColor = System.Drawing.Color.White
         Me.MaxFormButton.Location = New System.Drawing.Point(45, 0)
         Me.MaxFormButton.Name = "MaxFormButton"
         Me.MaxFormButton.Size = New System.Drawing.Size(45, 41)
@@ -225,6 +228,7 @@ Partial Class Pch
         Me.ExitFormButton.FlatAppearance.BorderSize = 0
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ExitFormButton.ForeColor = System.Drawing.Color.White
         Me.ExitFormButton.Location = New System.Drawing.Point(0, 0)
         Me.ExitFormButton.Name = "ExitFormButton"
         Me.ExitFormButton.Size = New System.Drawing.Size(45, 41)

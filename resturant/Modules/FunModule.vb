@@ -2396,6 +2396,39 @@ Module FunModule
 
     End Sub
 
+    Public Function Open_Agents_Balance_MV_For_Edit(Bill_T_ID As Integer, Optional ErrorTitle As String = "خطأ في فتح التعديل") As Boolean
+
+        If Bill_T_ID <= 0 Then
+            MsgBox("لم يتم العثور على رقم الفاتورة.", MsgBoxStyle.Exclamation, ErrorTitle)
+            Return False
+        End If
+
+        Try
+
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                Using cmd As New SqlClient.SqlCommand("dbo.Agents_Balance_MV_OpenForEdit", cn)
+
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = Bill_T_ID
+                    cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+
+                    cn.Open()
+                    cmd.ExecuteNonQuery()
+
+                End Using
+            End Using
+
+            Return True
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, MsgBoxStyle.Critical, ErrorTitle)
+            Return False
+
+        End Try
+
+    End Function
+
 
     Public Sub Fetch_Pr_Details_()
         Dim c As New C
