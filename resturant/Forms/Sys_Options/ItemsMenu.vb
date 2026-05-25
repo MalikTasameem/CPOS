@@ -221,9 +221,8 @@ Public Class ItemsMenu
 
 
 
-        IMDataGridViewX.Visible = True
-        Fill_All_IM()
-        IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
+        IMDataGridViewX.Visible = False
+        IMDataGridViewX.Height = 0
 
 
 
@@ -648,7 +647,7 @@ Public Class ItemsMenu
                 GM_Group_CM.SelectedValue = c.Dr("Grp_ID")
                 Markter_Val_txt.Text = c.Dr("Markter_Val")
                 ToolStripStatusLabel9.Text = c.Dr("Date")
-                IMDataGridViewX.Visible = True
+                IMDataGridViewX.Visible = False
 
                 If c.Dr("Row_Enabled") = False Then
                     IM_Case_Lb.Text = "إدخال جديـد"
@@ -976,8 +975,13 @@ Public Class ItemsMenu
     'End Sub
     Private Sub IM_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles IM_SH_txt.TextChanged
         Name_Error.Clear()
-        IMDataGridViewX.Visible = True
-        Fill_All_IM()
+        If String.IsNullOrWhiteSpace(IM_SH_txt.Text) Then
+            IMDataGridViewX.Visible = False
+            IMDataGridViewX.Height = 0
+        Else
+            IMDataGridViewX.Visible = True
+            Search_IM()
+        End If
     End Sub
 
     Private Sub AG_Name_txtb_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles IM_SH_txt.Validating
@@ -1282,6 +1286,12 @@ Public Class ItemsMenu
     End Sub
 
     Private Sub Show_IM_btn_Click_1(sender As Object, e As EventArgs) Handles Show_IM_btn.Click
+        If IMDataGridViewX.Visible Then
+            IMDataGridViewX.Visible = False
+            IMDataGridViewX.Height = 0
+            Return
+        End If
+
         IMDataGridViewX.Visible = True
         Fill_All_IM()
         IMDataGridViewX.Size = New Point(IMDataGridViewX.Size.Width, 530)
