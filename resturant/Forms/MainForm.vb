@@ -3103,5 +3103,8 @@ Public Class MainForm
         f.Show()
     End Sub
 
-
+    Private Sub متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Click
+        Dim F As New FrmAccountingRepostMonitor(MY_Settings.SqlConStr, USER_ID)
+        F.Show()
+    End Sub
 End Class

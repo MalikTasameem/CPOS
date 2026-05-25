@@ -155,7 +155,7 @@ WHERE [Date] >= @FromDate
   AND (@BsType_ID IS NULL OR BsType_ID = @BsType_ID)
   AND (@PostingStatus IS NULL OR PostingStatus = @PostingStatus)
   AND (@PostingAction IS NULL OR PostingAction = @PostingAction)
-  AND ISNULL(isVoid, 0) = 0
+  --AND ISNULL(isVoid, 0) = 0
   AND isDepended = 1
  -- AND NeedsAccountingAction = 1
   AND

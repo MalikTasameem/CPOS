@@ -182,6 +182,7 @@ Partial Class MainForm
         Me.check_print_Btn3 = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
+        Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -590,7 +591,7 @@ Partial Class MainForm
         'Balances_btn
         '
         Me.Balances_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Balances_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.شاشةالحساباتToolStripMenuItem, Me.الخزينــةToolStripMenuItem, Me.تحويلبينالحساباتToolStripMenuItem, Me.ترحيلمحاسبيToolStripMenuItem})
+        Me.Balances_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.شاشةالحساباتToolStripMenuItem, Me.الخزينــةToolStripMenuItem, Me.تحويلبينالحساباتToolStripMenuItem, Me.ترحيلمحاسبيToolStripMenuItem, Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem})
         Me.Balances_btn.Name = "Balances_btn"
         Me.Balances_btn.Size = New System.Drawing.Size(77, 23)
         Me.Balances_btn.Text = "الحسابات"
@@ -598,14 +599,14 @@ Partial Class MainForm
         'شاشةالحساباتToolStripMenuItem
         '
         Me.شاشةالحساباتToolStripMenuItem.Name = "شاشةالحساباتToolStripMenuItem"
-        Me.شاشةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
+        Me.شاشةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
         Me.شاشةالحساباتToolStripMenuItem.Text = "شاشة الحسابات"
         '
         'الخزينــةToolStripMenuItem
         '
         Me.الخزينــةToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.سحــبToolStripMenuItem, Me.إيداعToolStripMenuItem, Me.ToolStripMenuItem3})
         Me.الخزينــةToolStripMenuItem.Name = "الخزينــةToolStripMenuItem"
-        Me.الخزينــةToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
+        Me.الخزينــةToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
         Me.الخزينــةToolStripMenuItem.Text = "الخزينة"
         '
         'سحــبToolStripMenuItem
@@ -629,13 +630,13 @@ Partial Class MainForm
         'تحويلبينالحساباتToolStripMenuItem
         '
         Me.تحويلبينالحساباتToolStripMenuItem.Name = "تحويلبينالحساباتToolStripMenuItem"
-        Me.تحويلبينالحساباتToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
+        Me.تحويلبينالحساباتToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
         Me.تحويلبينالحساباتToolStripMenuItem.Text = "تحويل حسابات"
         '
         'ترحيلمحاسبيToolStripMenuItem
         '
         Me.ترحيلمحاسبيToolStripMenuItem.Name = "ترحيلمحاسبيToolStripMenuItem"
-        Me.ترحيلمحاسبيToolStripMenuItem.Size = New System.Drawing.Size(172, 24)
+        Me.ترحيلمحاسبيToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
         Me.ترحيلمحاسبيToolStripMenuItem.Text = "ترحيل محاسبي"
         '
         'ToolStripSeparator8
@@ -1480,6 +1481,12 @@ Partial Class MainForm
         Me.Save_butt.Text = "حفظ الإعدادات"
         Me.Save_butt.UseVisualStyleBackColor = False
         '
+        'متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem
+        '
+        Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Name = "متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem"
+        Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
+        Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Text = "متابعة تعديلات وإعادة تقييد القيود المحاسبية"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1709,4 +1716,5 @@ Partial Class MainForm
     Friend WithEvents ترحيلمحاسبيToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents تسويةمخزنToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents التكلفةToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem As ToolStripMenuItem
 End Class
