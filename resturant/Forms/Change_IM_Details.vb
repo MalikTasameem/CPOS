@@ -681,7 +681,7 @@ CHECK:
 
             Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " الشراء:" + PriceTextBox.Text + " البيع:" + NewSalePrice_txt.Text _
                                         + " بيع القطعة:" + NewSaleByOne.Text, F_Pch.Bill_ID_Txt.Text, 7, 3)
-            F_Pch.Pch_Contents_SELECT_Bill()
+            'F_Pch.Pch_Contents_SELECT_Bill()
 
             Me.Close()
 

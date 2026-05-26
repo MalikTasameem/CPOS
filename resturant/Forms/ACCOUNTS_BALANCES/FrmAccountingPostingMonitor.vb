@@ -881,6 +881,7 @@ ORDER BY b.T_ID;
         End Using
 
         UpdateInventoryRecountDraftCount()
+        LoadPostingMonitor()
     End Sub
 
 
