@@ -595,7 +595,7 @@ WHERE Status = @Status;
 
                 Dim postingAction As String = Convert.ToString(row.Cells("PostingAction").Value)
 
-                If postingAction = "NO_ACTION" OrElse postingAction = "CHECK" OrElse postingAction = "VOID_NO_ACTION" Then
+                If postingAction = "NO_ACTION" OrElse postingAction = "CHECK" OrElse postingAction = "VOID_NO_ACTION" OrElse postingAction = "VOID_REVERSED" Then
                     Continue For
                 End If
 

@@ -20,6 +20,7 @@ Public Class Tr_Card
         'rs.FindAllControls(Me)
         EditState = Edit_butt.Text
         DefaultFormState = Me.Text
+        SendMessage(SEARCH_txt.Handle, &H1501, 0, "إبحث عن خزينة")
         Load_AG()
     End Sub
 
@@ -133,9 +134,7 @@ Public Class Tr_Card
             Dim sql As String = " select Tr_ID,Tr_name,T_Balance from TR_MENU_V Order By Tr_ID ASC"
             C.Da = New SqlClient.SqlDataAdapter(sql, C.Con)
             C.Da.Fill(TR_DT)
-            S_listBox.DataSource = TR_DT
-            S_listBox.DisplayMember = "Tr_name"
-            S_listBox.ValueMember = "Tr_ID"
+            ApplySearchFilter()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -143,9 +142,24 @@ Public Class Tr_Card
 
     End Sub
 
+    Private Sub ApplySearchFilter()
+        Dim dv As DataView = TR_DT.DefaultView
+        Dim searchValue As String = SEARCH_txt.Text.Trim().Replace("'", "''")
+
+        If searchValue = "" Then
+            dv.RowFilter = ""
+        Else
+            dv.RowFilter = "Convert([Tr_name], 'System.String') LIKE '%" & searchValue & "%'"
+        End If
+
+        S_listBox.DataSource = dv
+        S_listBox.DisplayMember = "Tr_name"
+        S_listBox.ValueMember = "Tr_ID"
+    End Sub
+
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
         If Edit_butt.Text = EditState Then
-            Edit_butt.Text = "تأكيد التعديلات"
+            Edit_butt.Text = "✓ تأكيد التعديلات"
             FieldsPanel.Enabled = True
         Else
             If ValidateChildren() = True Then
@@ -269,6 +283,10 @@ Public Class Tr_Card
     Private Sub S_listBox_MouseClick(sender As Object, e As MouseEventArgs) Handles S_listBox.MouseClick
         '   ClearFields()
         Select_AG()
+    End Sub
+
+    Private Sub SEARCH_txt_TextChanged(sender As Object, e As EventArgs) Handles SEARCH_txt.TextChanged
+        ApplySearchFilter()
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles IS_BANK_CB.CheckedChanged

@@ -919,7 +919,7 @@ Partial Class ItemsMenu
         DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.IMDataGridViewX.DefaultCellStyle = DataGridViewCellStyle9
         Me.IMDataGridViewX.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
-        Me.IMDataGridViewX.Location = New System.Drawing.Point(275, 115)
+        Me.IMDataGridViewX.Location = New System.Drawing.Point(275, 108)
         Me.IMDataGridViewX.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IMDataGridViewX.MultiSelect = False
         Me.IMDataGridViewX.Name = "IMDataGridViewX"

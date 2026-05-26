@@ -44,9 +44,7 @@ Partial Class STORES_Explorer
         Me.IM_btn = New System.Windows.Forms.Button()
         Me.PrintButton = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         Me.gridv = New System.Windows.Forms.DataGridView()
-        Me.grid_panel = New System.Windows.Forms.Panel()
         Me.TOTAL_Grid = New System.Windows.Forms.DataGridView()
         Me.BarcodeSearch_CB = New System.Windows.Forms.CheckBox()
         Me.IMNUM_CB = New System.Windows.Forms.CheckBox()
@@ -54,10 +52,10 @@ Partial Class STORES_Explorer
         Me.Show_only_Zero_CB = New System.Windows.Forms.CheckBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         Me.TitleBar_Panel.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.gridv, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grid_panel.SuspendLayout()
         CType(Me.TOTAL_Grid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -73,7 +71,7 @@ Partial Class STORES_Explorer
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
-        Me.TitleBar_Panel.Size = New System.Drawing.Size(1064, 40)
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(1012, 40)
         Me.TitleBar_Panel.TabIndex = 999
         Me.TitleBar_Panel.Tag = "HEADER"
         '
@@ -132,7 +130,7 @@ Partial Class STORES_Explorer
         Me.Title_LB.AutoSize = True
         Me.Title_LB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Title_LB.ForeColor = System.Drawing.Color.White
-        Me.Title_LB.Location = New System.Drawing.Point(920, 9)
+        Me.Title_LB.Location = New System.Drawing.Point(868, 9)
         Me.Title_LB.Name = "Title_LB"
         Me.Title_LB.Size = New System.Drawing.Size(108, 21)
         Me.Title_LB.TabIndex = 0
@@ -142,15 +140,14 @@ Partial Class STORES_Explorer
         '
         'CMSearchTextBox
         '
-        Me.CMSearchTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CMSearchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CMSearchTextBox.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CMSearchTextBox.ForeColor = System.Drawing.SystemColors.InfoText
-        Me.CMSearchTextBox.Location = New System.Drawing.Point(598, 5)
+        Me.CMSearchTextBox.Location = New System.Drawing.Point(447, 6)
         Me.CMSearchTextBox.Margin = New System.Windows.Forms.Padding(2, 5, 2, 5)
         Me.CMSearchTextBox.Name = "CMSearchTextBox"
         Me.CMSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.CMSearchTextBox.Size = New System.Drawing.Size(455, 27)
+        Me.CMSearchTextBox.Size = New System.Drawing.Size(442, 27)
         Me.CMSearchTextBox.TabIndex = 272
         Me.CMSearchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -219,11 +216,11 @@ Partial Class STORES_Explorer
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(5, 2)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(91, 8)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(141, 20)
+        Me.Label3.Size = New System.Drawing.Size(110, 15)
         Me.Label3.TabIndex = 910
         Me.Label3.Text = "الصفوف المستعرضة"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -232,10 +229,10 @@ Partial Class STORES_Explorer
         '
         Me.textBox_total.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.textBox_total.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textBox_total.Location = New System.Drawing.Point(3, 26)
+        Me.textBox_total.Location = New System.Drawing.Point(3, 2)
         Me.textBox_total.Name = "textBox_total"
         Me.textBox_total.ReadOnly = True
-        Me.textBox_total.Size = New System.Drawing.Size(139, 25)
+        Me.textBox_total.Size = New System.Drawing.Size(85, 25)
         Me.textBox_total.TabIndex = 909
         '
         'MetroToolTip1
@@ -272,11 +269,11 @@ Partial Class STORES_Explorer
         Me.Recount_Cost_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 9.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Recount_Cost_btn.ForeColor = System.Drawing.Color.Black
         Me.Recount_Cost_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Recount_Cost_btn.Location = New System.Drawing.Point(5, 76)
+        Me.Recount_Cost_btn.Location = New System.Drawing.Point(5, 71)
         Me.Recount_Cost_btn.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Recount_Cost_btn.Name = "Recount_Cost_btn"
         Me.Recount_Cost_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Recount_Cost_btn.Size = New System.Drawing.Size(147, 37)
+        Me.Recount_Cost_btn.Size = New System.Drawing.Size(100, 37)
         Me.Recount_Cost_btn.TabIndex = 688
         Me.Recount_Cost_btn.Text = "تدوير متوسط التكلفة"
         Me.Recount_Cost_btn.UseVisualStyleBackColor = False
@@ -293,7 +290,7 @@ Partial Class STORES_Explorer
         Me.Up_Update_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Up_Update_btn.ForeColor = System.Drawing.Color.Black
         Me.Up_Update_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Update_btn.Location = New System.Drawing.Point(252, 76)
+        Me.Up_Update_btn.Location = New System.Drawing.Point(205, 71)
         Me.Up_Update_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Up_Update_btn.Name = "Up_Update_btn"
         Me.Up_Update_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -337,7 +334,7 @@ Partial Class STORES_Explorer
         Me.IM_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_btn.ForeColor = System.Drawing.Color.Black
         Me.IM_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.IM_btn.Location = New System.Drawing.Point(153, 76)
+        Me.IM_btn.Location = New System.Drawing.Point(106, 71)
         Me.IM_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.IM_btn.Name = "IM_btn"
         Me.IM_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -372,7 +369,6 @@ Partial Class STORES_Explorer
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel2.Controls.Add(Me.UcGridColumnsSelector1)
         Me.Panel2.Controls.Add(Me.EXCEL_BTN)
         Me.Panel2.Controls.Add(Me.Label4)
         Me.Panel2.Controls.Add(Me.GM_Serach)
@@ -383,22 +379,8 @@ Partial Class STORES_Explorer
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 40)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1064, 81)
+        Me.Panel2.Size = New System.Drawing.Size(1012, 81)
         Me.Panel2.TabIndex = 903
-        '
-        'UcGridColumnsSelector1
-        '
-        Me.UcGridColumnsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(944, 40)
-        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
-        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
-        Me.UcGridColumnsSelector1.PopupMinHeight = 120
-        Me.UcGridColumnsSelector1.PopupWidth = 260
-        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
-    "ColumnsSettings"
-        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(115, 36)
-        Me.UcGridColumnsSelector1.TabIndex = 914
         '
         'gridv
         '
@@ -408,15 +390,14 @@ Partial Class STORES_Explorer
         Me.gridv.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.gridv.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.gridv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.gridv.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gridv.Location = New System.Drawing.Point(0, 0)
+        Me.gridv.Location = New System.Drawing.Point(3, 161)
         Me.gridv.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.gridv.MultiSelect = False
         Me.gridv.Name = "gridv"
@@ -424,17 +405,8 @@ Partial Class STORES_Explorer
         Me.gridv.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.gridv.RowTemplate.Height = 25
         Me.gridv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.gridv.Size = New System.Drawing.Size(1064, 482)
+        Me.gridv.Size = New System.Drawing.Size(1006, 499)
         Me.gridv.TabIndex = 902
-        '
-        'grid_panel
-        '
-        Me.grid_panel.Controls.Add(Me.gridv)
-        Me.grid_panel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grid_panel.Location = New System.Drawing.Point(0, 172)
-        Me.grid_panel.Name = "grid_panel"
-        Me.grid_panel.Size = New System.Drawing.Size(1064, 482)
-        Me.grid_panel.TabIndex = 903
         '
         'TOTAL_Grid
         '
@@ -445,7 +417,7 @@ Partial Class STORES_Explorer
         Me.TOTAL_Grid.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.TOTAL_Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.TOTAL_Grid.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.TOTAL_Grid.Location = New System.Drawing.Point(363, 3)
+        Me.TOTAL_Grid.Location = New System.Drawing.Point(338, 3)
         Me.TOTAL_Grid.MultiSelect = False
         Me.TOTAL_Grid.Name = "TOTAL_Grid"
         Me.TOTAL_Grid.ReadOnly = True
@@ -454,104 +426,113 @@ Partial Class STORES_Explorer
         Me.TOTAL_Grid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DeepSkyBlue
         Me.TOTAL_Grid.RowTemplate.Height = 30
         Me.TOTAL_Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.TOTAL_Grid.Size = New System.Drawing.Size(694, 105)
+        Me.TOTAL_Grid.Size = New System.Drawing.Size(670, 103)
         Me.TOTAL_Grid.TabIndex = 903
         '
         'BarcodeSearch_CB
         '
-        Me.BarcodeSearch_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BarcodeSearch_CB.AutoSize = True
         Me.BarcodeSearch_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BarcodeSearch_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BarcodeSearch_CB.Location = New System.Drawing.Point(372, 7)
+        Me.BarcodeSearch_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BarcodeSearch_CB.Location = New System.Drawing.Point(259, 8)
         Me.BarcodeSearch_CB.Name = "BarcodeSearch_CB"
-        Me.BarcodeSearch_CB.Size = New System.Drawing.Size(80, 24)
+        Me.BarcodeSearch_CB.Size = New System.Drawing.Size(70, 21)
         Me.BarcodeSearch_CB.TabIndex = 903
         Me.BarcodeSearch_CB.Text = "بالباركود"
         Me.BarcodeSearch_CB.UseVisualStyleBackColor = True
         '
         'IMNUM_CB
         '
-        Me.IMNUM_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.IMNUM_CB.AutoSize = True
         Me.IMNUM_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.IMNUM_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IMNUM_CB.Location = New System.Drawing.Point(488, 7)
+        Me.IMNUM_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IMNUM_CB.Location = New System.Drawing.Point(344, 8)
         Me.IMNUM_CB.Name = "IMNUM_CB"
-        Me.IMNUM_CB.Size = New System.Drawing.Size(103, 24)
+        Me.IMNUM_CB.Size = New System.Drawing.Size(91, 21)
         Me.IMNUM_CB.TabIndex = 904
         Me.IMNUM_CB.Text = "برقم الصنف"
         Me.IMNUM_CB.UseVisualStyleBackColor = True
         '
         'Print_type_Cmb
         '
-        Me.Print_type_Cmb.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Print_type_Cmb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.Print_type_Cmb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Print_type_Cmb.BackColor = System.Drawing.SystemColors.Info
         Me.Print_type_Cmb.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Print_type_Cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Print_type_Cmb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Print_type_Cmb.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Print_type_Cmb.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
         Me.Print_type_Cmb.FormattingEnabled = True
         Me.Print_type_Cmb.IntegralHeight = False
         Me.Print_type_Cmb.Items.AddRange(New Object() {"طباعة بالعرض", "طباعة بالطول"})
-        Me.Print_type_Cmb.Location = New System.Drawing.Point(14, 6)
+        Me.Print_type_Cmb.Location = New System.Drawing.Point(4, 6)
         Me.Print_type_Cmb.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Print_type_Cmb.Name = "Print_type_Cmb"
-        Me.Print_type_Cmb.Size = New System.Drawing.Size(147, 25)
+        Me.Print_type_Cmb.Size = New System.Drawing.Size(134, 25)
         Me.Print_type_Cmb.TabIndex = 906
         '
         'Show_only_Zero_CB
         '
-        Me.Show_only_Zero_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Show_only_Zero_CB.AutoSize = True
         Me.Show_only_Zero_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Show_only_Zero_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_only_Zero_CB.Location = New System.Drawing.Point(168, 6)
+        Me.Show_only_Zero_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.5!, System.Drawing.FontStyle.Bold)
+        Me.Show_only_Zero_CB.Location = New System.Drawing.Point(144, 8)
         Me.Show_only_Zero_CB.Name = "Show_only_Zero_CB"
-        Me.Show_only_Zero_CB.Size = New System.Drawing.Size(118, 24)
+        Me.Show_only_Zero_CB.Size = New System.Drawing.Size(106, 21)
         Me.Show_only_Zero_CB.TabIndex = 913
         Me.Show_only_Zero_CB.Text = "عرض كمية =0"
         Me.Show_only_Zero_CB.UseVisualStyleBackColor = True
         '
         'Panel3
         '
-        Me.Panel3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel3.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.UcGridColumnsSelector1)
         Me.Panel3.Controls.Add(Me.Show_only_Zero_CB)
         Me.Panel3.Controls.Add(Me.CMSearchTextBox)
         Me.Panel3.Controls.Add(Me.IMNUM_CB)
         Me.Panel3.Controls.Add(Me.BarcodeSearch_CB)
         Me.Panel3.Controls.Add(Me.Print_type_Cmb)
-        Me.Panel3.Location = New System.Drawing.Point(5, 129)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 121)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1057, 38)
+        Me.Panel3.Size = New System.Drawing.Size(1012, 38)
         Me.Panel3.TabIndex = 912
         '
         'Panel1
         '
-        Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.Panel1.Controls.Add(Me.TOTAL_Grid)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.Recount_Cost_btn)
         Me.Panel1.Controls.Add(Me.Up_Update_btn)
         Me.Panel1.Controls.Add(Me.textBox_total)
         Me.Panel1.Controls.Add(Me.IM_btn)
-        Me.Panel1.Location = New System.Drawing.Point(2, 655)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel1.Location = New System.Drawing.Point(0, 663)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1060, 114)
+        Me.Panel1.Size = New System.Drawing.Size(1012, 109)
         Me.Panel1.TabIndex = 911
+        '
+        'UcGridColumnsSelector1
+        '
+        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(890, 6)
+        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
+        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
+        Me.UcGridColumnsSelector1.PopupMinHeight = 120
+        Me.UcGridColumnsSelector1.PopupWidth = 260
+        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
+    "ColumnsSettings"
+        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(111, 27)
+        Me.UcGridColumnsSelector1.TabIndex = 914
         '
         'STORES_Explorer
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(1064, 772)
+        Me.ClientSize = New System.Drawing.Size(1012, 772)
+        Me.Controls.Add(Me.gridv)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.grid_panel)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.TitleBar_Panel)
@@ -570,7 +551,6 @@ Partial Class STORES_Explorer
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.gridv, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grid_panel.ResumeLayout(False)
         CType(Me.TOTAL_Grid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
@@ -600,7 +580,6 @@ Partial Class STORES_Explorer
     Friend WithEvents EXCEL_BTN As Button
     Friend WithEvents Panel2 As Panel
     Friend WithEvents gridv As DataGridView
-    Friend WithEvents grid_panel As Panel
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents textBox_total As System.Windows.Forms.TextBox
     Friend WithEvents IMNUM_CB As System.Windows.Forms.CheckBox

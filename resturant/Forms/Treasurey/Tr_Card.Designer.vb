@@ -42,94 +42,99 @@ Partial Class Tr_Card
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TR_NAMEErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.IS_BANK_CB = New System.Windows.Forms.CheckBox()
+        Me.HeaderPanel = New System.Windows.Forms.Panel()
+        Me.Title_Label = New System.Windows.Forms.Label()
+        Me.SEARCH_txt = New System.Windows.Forms.TextBox()
+        Me.SearchLabel = New System.Windows.Forms.Label()
         Me.FieldsPanel.SuspendLayout()
         CType(Me.TR_NAMEErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HeaderPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'ExitFormButton
         '
         Me.ExitFormButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
+        Me.ExitFormButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(68, Byte), Integer))
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
-        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ExitFormButton.Location = New System.Drawing.Point(488, 353)
+        Me.ExitFormButton.FlatAppearance.BorderSize = 0
+        Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.ForeColor = System.Drawing.Color.White
+        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.ExitFormButton.Location = New System.Drawing.Point(16, 370)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(115, 40)
+        Me.ExitFormButton.Size = New System.Drawing.Size(120, 34)
         Me.ExitFormButton.TabIndex = 667
-        Me.ExitFormButton.Text = "خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ExitFormButton.Text = "↩ خروج"
+        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'Delete_butt
         '
         Me.Delete_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Delete_butt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Delete_butt.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(69, Byte), Integer))
         Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Delete_butt.Enabled = False
-        Me.Delete_butt.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.Delete_butt.FlatAppearance.BorderSize = 0
+        Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(185, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer))
+        Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(50, Byte), Integer))
         Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
-        Me.Delete_butt.Image = Global.resturant.My.Resources.Resources.if_cancel_46786
-        Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Delete_butt.Location = New System.Drawing.Point(4, 354)
+        Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Delete_butt.ForeColor = System.Drawing.Color.White
+        Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Delete_butt.Location = New System.Drawing.Point(154, 370)
         Me.Delete_butt.Name = "Delete_butt"
         Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Delete_butt.Size = New System.Drawing.Size(110, 40)
+        Me.Delete_butt.Size = New System.Drawing.Size(116, 34)
         Me.Delete_butt.TabIndex = 664
-        Me.Delete_butt.Text = " حـذف"
-        Me.Delete_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Delete_butt.Text = "✕ حذف"
+        Me.Delete_butt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.Delete_butt.UseVisualStyleBackColor = False
         '
         'Edit_butt
         '
         Me.Edit_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Edit_butt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Edit_butt.BackColor = System.Drawing.Color.FromArgb(CType(CType(13, Byte), Integer), CType(CType(110, Byte), Integer), CType(CType(253, Byte), Integer))
         Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Edit_butt.Enabled = False
-        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.Edit_butt.FlatAppearance.BorderSize = 0
+        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(94, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
-        Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Edit_butt.Image = Global.resturant.My.Resources.Resources.if_icon_136_document_edit_314724
-        Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Edit_butt.Location = New System.Drawing.Point(116, 354)
+        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Edit_butt.ForeColor = System.Drawing.Color.White
+        Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Edit_butt.Location = New System.Drawing.Point(278, 370)
         Me.Edit_butt.Name = "Edit_butt"
         Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(110, 40)
+        Me.Edit_butt.Size = New System.Drawing.Size(116, 34)
         Me.Edit_butt.TabIndex = 663
         Me.Edit_butt.TabStop = False
-        Me.Edit_butt.Text = "تعديـــل"
-        Me.Edit_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Edit_butt.Text = "✎ تعديل"
+        Me.Edit_butt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.Edit_butt.UseVisualStyleBackColor = False
         '
         'Save_butt
         '
         Me.Save_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Save_butt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Save_butt.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(135, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Save_butt.Enabled = False
-        Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.Save_butt.FlatAppearance.BorderSize = 0
+        Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(20, Byte), Integer), CType(CType(108, Byte), Integer), CType(CType(67, Byte), Integer))
+        Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(95, Byte), Integer))
         Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
-        Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Save_butt.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
-        Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Save_butt.Location = New System.Drawing.Point(228, 354)
+        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Save_butt.ForeColor = System.Drawing.Color.White
+        Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Save_butt.Location = New System.Drawing.Point(402, 370)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Save_butt.Size = New System.Drawing.Size(110, 40)
+        Me.Save_butt.Size = New System.Drawing.Size(116, 34)
         Me.Save_butt.TabIndex = 661
         Me.Save_butt.TabStop = False
-        Me.Save_butt.Text = "حفظ"
-        Me.Save_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Save_butt.Text = "✓ حفظ"
+        Me.Save_butt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.Save_butt.UseVisualStyleBackColor = False
         '
         'MetroToolTip1
@@ -141,24 +146,23 @@ Partial Class Tr_Card
         'New_butt
         '
         Me.New_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.New_butt.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.New_butt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.New_butt.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.New_butt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.New_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.New_butt.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.New_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.New_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.New_butt.FlatAppearance.BorderSize = 0
+        Me.New_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
+        Me.New_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(105, Byte), Integer))
         Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.New_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
-        Me.New_butt.ForeColor = System.Drawing.Color.Black
-        Me.New_butt.Image = Global.resturant.My.Resources.Resources.if_Add_27831
-        Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.New_butt.Location = New System.Drawing.Point(340, 354)
+        Me.New_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.New_butt.ForeColor = System.Drawing.Color.White
+        Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.New_butt.Location = New System.Drawing.Point(526, 370)
         Me.New_butt.Name = "New_butt"
         Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.New_butt.Size = New System.Drawing.Size(110, 40)
+        Me.New_butt.Size = New System.Drawing.Size(116, 34)
         Me.New_butt.TabIndex = 662
-        Me.New_butt.Text = " جديـد"
-        Me.New_butt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.New_butt.Text = "＋ جديد"
+        Me.New_butt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.New_butt.UseVisualStyleBackColor = False
         '
         'Tr_BalanceTextBox
@@ -247,23 +251,24 @@ Partial Class Tr_Card
         Me.Total_BS_Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Total_BS_Txt.Font = New System.Drawing.Font("Stencil", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_BS_Txt.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Total_BS_Txt.Location = New System.Drawing.Point(313, 307)
+        Me.Total_BS_Txt.Location = New System.Drawing.Point(330, 310)
         Me.Total_BS_Txt.MaxLength = 250
         Me.Total_BS_Txt.Name = "Total_BS_Txt"
         Me.Total_BS_Txt.ReadOnly = True
         Me.Total_BS_Txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Total_BS_Txt.Size = New System.Drawing.Size(290, 32)
+        Me.Total_BS_Txt.Size = New System.Drawing.Size(312, 32)
         Me.Total_BS_Txt.TabIndex = 666
         Me.Total_BS_Txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'S_listBox
         '
         Me.S_listBox.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.S_listBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.S_listBox.FormattingEnabled = True
-        Me.S_listBox.ItemHeight = 21
-        Me.S_listBox.Location = New System.Drawing.Point(314, 5)
+        Me.S_listBox.ItemHeight = 17
+        Me.S_listBox.Location = New System.Drawing.Point(330, 104)
         Me.S_listBox.Name = "S_listBox"
-        Me.S_listBox.Size = New System.Drawing.Size(289, 298)
+        Me.S_listBox.Size = New System.Drawing.Size(312, 191)
         Me.S_listBox.TabIndex = 668
         '
         'FieldsPanel
@@ -277,9 +282,11 @@ Partial Class Tr_Card
         Me.FieldsPanel.Controls.Add(Me.Label1)
         Me.FieldsPanel.Controls.Add(Me.Tr_Name_txtb)
         Me.FieldsPanel.Controls.Add(Me.Tr_BankNum_TextBox)
-        Me.FieldsPanel.Location = New System.Drawing.Point(4, 5)
+        Me.FieldsPanel.BackColor = System.Drawing.Color.White
+        Me.FieldsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.FieldsPanel.Location = New System.Drawing.Point(16, 72)
         Me.FieldsPanel.Name = "FieldsPanel"
-        Me.FieldsPanel.Size = New System.Drawing.Size(302, 334)
+        Me.FieldsPanel.Size = New System.Drawing.Size(302, 270)
         Me.FieldsPanel.TabIndex = 669
         '
         'ACC_CODE_TXT
@@ -324,13 +331,67 @@ Partial Class Tr_Card
         Me.IS_BANK_CB.Text = "خزينة مصرفية"
         Me.IS_BANK_CB.UseVisualStyleBackColor = True
         '
+        'HeaderPanel
+        '
+        Me.HeaderPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.HeaderPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(68, Byte), Integer))
+        Me.HeaderPanel.Controls.Add(Me.Title_Label)
+        Me.HeaderPanel.Location = New System.Drawing.Point(0, 0)
+        Me.HeaderPanel.Name = "HeaderPanel"
+        Me.HeaderPanel.Size = New System.Drawing.Size(658, 56)
+        Me.HeaderPanel.TabIndex = 670
+        '
+        'Title_Label
+        '
+        Me.Title_Label.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Title_Label.AutoSize = True
+        Me.Title_Label.Font = New System.Drawing.Font("Segoe UI Semibold", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Title_Label.ForeColor = System.Drawing.Color.White
+        Me.Title_Label.Location = New System.Drawing.Point(577, 15)
+        Me.Title_Label.Name = "Title_Label"
+        Me.Title_Label.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Title_Label.Size = New System.Drawing.Size(65, 25)
+        Me.Title_Label.TabIndex = 0
+        Me.Title_Label.Text = "الخزينة"
+        '
+        'SEARCH_txt
+        '
+        Me.SEARCH_txt.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
+        Me.SEARCH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.SEARCH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SEARCH_txt.Location = New System.Drawing.Point(330, 72)
+        Me.SEARCH_txt.MaxLength = 350
+        Me.SEARCH_txt.Name = "SEARCH_txt"
+        Me.SEARCH_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.SEARCH_txt.Size = New System.Drawing.Size(242, 25)
+        Me.SEARCH_txt.TabIndex = 671
+        Me.SEARCH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'SearchLabel
+        '
+        Me.SearchLabel.AutoSize = True
+        Me.SearchLabel.BackColor = System.Drawing.Color.Transparent
+        Me.SearchLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SearchLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
+        Me.SearchLabel.Location = New System.Drawing.Point(578, 77)
+        Me.SearchLabel.Name = "SearchLabel"
+        Me.SearchLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.SearchLabel.Size = New System.Drawing.Size(40, 15)
+        Me.SearchLabel.TabIndex = 672
+        Me.SearchLabel.Text = "⌕ بحث"
+        '
         'Tr_Card
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
-        Me.ClientSize = New System.Drawing.Size(605, 397)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(658, 420)
         Me.ControlBox = False
+        Me.Controls.Add(Me.SearchLabel)
+        Me.Controls.Add(Me.SEARCH_txt)
+        Me.Controls.Add(Me.HeaderPanel)
         Me.Controls.Add(Me.FieldsPanel)
         Me.Controls.Add(Me.S_listBox)
         Me.Controls.Add(Me.ExitFormButton)
@@ -350,6 +411,8 @@ Partial Class Tr_Card
         Me.FieldsPanel.ResumeLayout(False)
         Me.FieldsPanel.PerformLayout()
         CType(Me.TR_NAMEErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HeaderPanel.ResumeLayout(False)
+        Me.HeaderPanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -373,4 +436,8 @@ Partial Class Tr_Card
     Friend WithEvents Label12 As Label
     Friend WithEvents ACC_CODE_TXT As TextBox
     Friend WithEvents IS_BANK_CB As CheckBox
+    Friend WithEvents HeaderPanel As Panel
+    Friend WithEvents Title_Label As Label
+    Friend WithEvents SEARCH_txt As TextBox
+    Friend WithEvents SearchLabel As Label
 End Class

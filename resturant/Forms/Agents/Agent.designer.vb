@@ -821,21 +821,21 @@ Partial Class Agent
         'Search_By_Acc_Code_txt
         '
         Me.Search_By_Acc_Code_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Search_By_Acc_Code_txt.Font = New System.Drawing.Font("Arial", 14.25!)
+        Me.Search_By_Acc_Code_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Search_By_Acc_Code_txt.Location = New System.Drawing.Point(3, 389)
         Me.Search_By_Acc_Code_txt.Name = "Search_By_Acc_Code_txt"
         Me.Search_By_Acc_Code_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Search_By_Acc_Code_txt.Size = New System.Drawing.Size(468, 29)
+        Me.Search_By_Acc_Code_txt.Size = New System.Drawing.Size(468, 27)
         Me.Search_By_Acc_Code_txt.TabIndex = 675
         '
         'Search_By_Acc_Name_txt
         '
         Me.Search_By_Acc_Name_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Search_By_Acc_Name_txt.Font = New System.Drawing.Font("Arial", 14.25!)
+        Me.Search_By_Acc_Name_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Search_By_Acc_Name_txt.Location = New System.Drawing.Point(472, 389)
         Me.Search_By_Acc_Name_txt.Name = "Search_By_Acc_Name_txt"
         Me.Search_By_Acc_Name_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Search_By_Acc_Name_txt.Size = New System.Drawing.Size(552, 29)
+        Me.Search_By_Acc_Name_txt.Size = New System.Drawing.Size(540, 27)
         Me.Search_By_Acc_Name_txt.TabIndex = 674
         '
         'StatusStrip1

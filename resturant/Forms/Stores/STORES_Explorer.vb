@@ -90,7 +90,7 @@ Public Class STORES_Explorer
         Me.DoubleBuffered = True
 
         ' 1. الجريدات الأساسية
-        If grid_panel IsNot Nothing Then grid_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        'If grid_panel IsNot Nothing Then grid_panel.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         If gridv IsNot Nothing Then gridv.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
 
         ' 2. الأجزاء السفلية

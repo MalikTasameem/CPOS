@@ -1,6 +1,7 @@
 ﻿Public Class EXP_Card
     Dim S_ID As Integer
     Dim S_Name As String
+    Dim EXP_DT As New DataTable
     Private Sub NewEmpButton_Click(sender As Object, e As EventArgs) Handles NewSButton.Click
         SaveSButton.Enabled = True
         EditSButton.Enabled = False
@@ -8,7 +9,7 @@
         SNameTextBox.Clear()
         SNameTextBox.Enabled = True
         SNameTextBox.Select()
-        EditSButton.Text = "تعديل"
+        EditSButton.Text = "✎ تعديل"
     End Sub
 
     Private Sub SaveSButton_Click(sender As Object, e As EventArgs) Handles SaveSButton.Click
@@ -30,6 +31,7 @@
     End Sub
 
     Private Sub STORES_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SendMessage(SEARCH_txt.Handle, &H1501, 0, "إبحث عن بند")
         Load_StoreData()
     End Sub
 
@@ -37,26 +39,39 @@
         Dim c As New C
         Dim s As String = " select Ex_ID,Ex_Name from Expenses_Card Order By Ex_ID ASC"
         c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-        Dim dt As New DataTable
-        c.Da.Fill(dt)
-        S_listBox.DataSource = dt
+        EXP_DT.Clear()
+        c.Da.Fill(EXP_DT)
+        ApplySearchFilter()
+    End Sub
+
+    Private Sub ApplySearchFilter()
+        Dim dv As DataView = EXP_DT.DefaultView
+        Dim searchValue As String = SEARCH_txt.Text.Trim().Replace("'", "''")
+
+        If searchValue = "" Then
+            dv.RowFilter = ""
+        Else
+            dv.RowFilter = "Convert([Ex_Name], 'System.String') LIKE '%" & searchValue & "%'"
+        End If
+
+        S_listBox.DataSource = dv
         S_listBox.DisplayMember = "Ex_Name"
         S_listBox.ValueMember = "Ex_ID"
     End Sub
 
     Private Sub EditSButton_Click(sender As Object, e As EventArgs) Handles EditSButton.Click
-        If EditSButton.Text = "تعديل" Then
+        If EditSButton.Text = "✎ تعديل" Then
             SNameTextBox.Enabled = True
             DeleteSButton.Enabled = False
             SaveSButton.Enabled = False
-            EditSButton.Text = "تأكيد التعديل"
+            EditSButton.Text = "✓ تأكيد التعديل"
         Else
             If String.IsNullOrWhiteSpace(SNameTextBox.Text) = False Then
                 Store_Update()
                 Me.Load_StoreData()
                 SNameTextBox.Clear()
                 SNameTextBox.Enabled = False
-                EditSButton.Text = "تعديل"
+                EditSButton.Text = "✎ تعديل"
             End If
         End If
     End Sub
@@ -79,7 +94,7 @@
         DeleteSButton.Enabled = True
         EditSButton.Enabled = True
         SaveSButton.Enabled = False
-        EditSButton.Text = "تعديل"
+        EditSButton.Text = "✎ تعديل"
         'If S_ID = 1 Then
         '    '    MsgBox(" المخزن " + S_Name + " هوا المخزن الرئيسي للنظام ... لذا لا يمكن  حذفه ", MsgBoxStyle.Information)
         '    DeleteSButton.Enabled = False
@@ -156,6 +171,10 @@
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
         Me.Close()
+    End Sub
+
+    Private Sub SEARCH_txt_TextChanged(sender As Object, e As EventArgs) Handles SEARCH_txt.TextChanged
+        ApplySearchFilter()
     End Sub
 
     Private Sub STORES_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed

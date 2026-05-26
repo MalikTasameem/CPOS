@@ -4,9 +4,9 @@ Partial Class frmPaymentDefaultAccount
 
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
         Me.Title_Label = New System.Windows.Forms.Label()
         Me.InputPanel = New System.Windows.Forms.Panel()
@@ -17,15 +17,15 @@ Partial Class frmPaymentDefaultAccount
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnNew = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
-        Me.dgvLinks = New System.Windows.Forms.DataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Show_AG_Projects_btn = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.isLockCB = New System.Windows.Forms.CheckBox()
         Me.IsActive_CB = New System.Windows.Forms.CheckBox()
         Me.Percent_Disc_txt = New resturant.F2FloatField()
+        Me.dgvLinks = New System.Windows.Forms.DataGridView()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GridPanel = New System.Windows.Forms.Panel()
         Me.GridTitle_Label = New System.Windows.Forms.Label()
         Me.HeaderPanel.SuspendLayout()
@@ -54,7 +54,7 @@ Partial Class frmPaymentDefaultAccount
         Me.Title_Label.Location = New System.Drawing.Point(565, 16)
         Me.Title_Label.Name = "Title_Label"
         Me.Title_Label.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Title_Label.Size = New System.Drawing.Size(271, 25)
+        Me.Title_Label.Size = New System.Drawing.Size(281, 25)
         Me.Title_Label.TabIndex = 0
         Me.Title_Label.Text = "ربط طرق الدفع بالحساب الافتراضي"
         '
@@ -89,34 +89,36 @@ Partial Class frmPaymentDefaultAccount
         Me.Notes_Label.BackColor = System.Drawing.Color.Transparent
         Me.Notes_Label.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Notes_Label.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
-        Me.Notes_Label.Location = New System.Drawing.Point(319, 20)
+        Me.Notes_Label.Location = New System.Drawing.Point(259, 6)
         Me.Notes_Label.Name = "Notes_Label"
         Me.Notes_Label.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Notes_Label.Size = New System.Drawing.Size(55, 15)
+        Me.Notes_Label.Size = New System.Drawing.Size(52, 15)
         Me.Notes_Label.TabIndex = 670
         Me.Notes_Label.Text = "ملاحظات"
         Me.Notes_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbPaymentMethod
         '
+        Me.cmbPaymentMethod.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.cmbPaymentMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPaymentMethod.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbPaymentMethod.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbPaymentMethod.Location = New System.Drawing.Point(462, 16)
+        Me.cmbPaymentMethod.Location = New System.Drawing.Point(396, 8)
         Me.cmbPaymentMethod.Name = "cmbPaymentMethod"
         Me.cmbPaymentMethod.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.cmbPaymentMethod.Size = New System.Drawing.Size(265, 23)
+        Me.cmbPaymentMethod.Size = New System.Drawing.Size(254, 23)
         Me.cmbPaymentMethod.TabIndex = 0
         '
         'cmbAccount
         '
+        Me.cmbAccount.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.cmbAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbAccount.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbAccount.Location = New System.Drawing.Point(462, 53)
+        Me.cmbAccount.Location = New System.Drawing.Point(396, 35)
         Me.cmbAccount.Name = "cmbAccount"
         Me.cmbAccount.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.cmbAccount.Size = New System.Drawing.Size(265, 23)
+        Me.cmbAccount.Size = New System.Drawing.Size(254, 23)
         Me.cmbAccount.TabIndex = 1
         '
         'txtNotes
@@ -124,11 +126,11 @@ Partial Class frmPaymentDefaultAccount
         Me.txtNotes.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
         Me.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtNotes.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNotes.Location = New System.Drawing.Point(18, 18)
+        Me.txtNotes.Location = New System.Drawing.Point(6, 24)
         Me.txtNotes.Multiline = True
         Me.txtNotes.Name = "txtNotes"
         Me.txtNotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtNotes.Size = New System.Drawing.Size(295, 70)
+        Me.txtNotes.Size = New System.Drawing.Size(308, 70)
         Me.txtNotes.TabIndex = 2
         '
         'btnSave
@@ -139,7 +141,7 @@ Partial Class frmPaymentDefaultAccount
         Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSave.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSave.ForeColor = System.Drawing.Color.White
-        Me.btnSave.Location = New System.Drawing.Point(18, 96)
+        Me.btnSave.Location = New System.Drawing.Point(92, 100)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(140, 30)
         Me.btnSave.TabIndex = 3
@@ -154,9 +156,9 @@ Partial Class frmPaymentDefaultAccount
         Me.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnNew.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnNew.ForeColor = System.Drawing.Color.White
-        Me.btnNew.Location = New System.Drawing.Point(166, 96)
+        Me.btnNew.Location = New System.Drawing.Point(234, 100)
         Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(100, 30)
+        Me.btnNew.Size = New System.Drawing.Size(80, 30)
         Me.btnNew.TabIndex = 4
         Me.btnNew.Text = "جديد"
         Me.btnNew.UseVisualStyleBackColor = False
@@ -169,58 +171,13 @@ Partial Class frmPaymentDefaultAccount
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDelete.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDelete.ForeColor = System.Drawing.Color.White
-        Me.btnDelete.Location = New System.Drawing.Point(274, 96)
+        Me.btnDelete.Location = New System.Drawing.Point(6, 100)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(84, 30)
         Me.btnDelete.TabIndex = 5
         Me.btnDelete.Text = "تعطيل"
         Me.btnDelete.UseVisualStyleBackColor = False
         Me.btnDelete.Visible = False
-        '
-        'dgvLinks
-        '
-        Me.dgvLinks.AllowUserToAddRows = False
-        Me.dgvLinks.AllowUserToDeleteRows = False
-        Me.dgvLinks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvLinks.BackgroundColor = System.Drawing.Color.White
-        Me.dgvLinks.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvLinks.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.dgvLinks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(68, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(68, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvLinks.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvLinks.ColumnHeadersHeight = 34
-        Me.dgvLinks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(219, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(254, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(39, Byte), Integer))
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvLinks.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvLinks.EnableHeadersVisualStyles = False
-        Me.dgvLinks.GridColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(240, Byte), Integer))
-        Me.dgvLinks.Location = New System.Drawing.Point(12, 44)
-        Me.dgvLinks.MultiSelect = False
-        Me.dgvLinks.Name = "dgvLinks"
-        Me.dgvLinks.ReadOnly = True
-        Me.dgvLinks.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.dgvLinks.RowHeadersVisible = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(219, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(254, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(39, Byte), Integer))
-        Me.dgvLinks.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvLinks.RowTemplate.Height = 30
-        Me.dgvLinks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLinks.Size = New System.Drawing.Size(804, 304)
-        Me.dgvLinks.TabIndex = 6
         '
         'Label11
         '
@@ -229,10 +186,10 @@ Partial Class frmPaymentDefaultAccount
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
-        Me.Label11.Location = New System.Drawing.Point(744, 20)
+        Me.Label11.Location = New System.Drawing.Point(654, 12)
         Me.Label11.Name = "Label11"
         Me.Label11.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label11.Size = New System.Drawing.Size(63, 15)
+        Me.Label11.Size = New System.Drawing.Size(68, 15)
         Me.Label11.TabIndex = 618
         Me.Label11.Text = "طريقة الدفع"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -244,10 +201,10 @@ Partial Class frmPaymentDefaultAccount
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(656, 57)
+        Me.Label1.Location = New System.Drawing.Point(654, 39)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label1.Size = New System.Drawing.Size(151, 15)
+        Me.Label1.Size = New System.Drawing.Size(153, 15)
         Me.Label1.TabIndex = 619
         Me.Label1.Text = "حساب (خزينة/مصرف) المقابل"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -255,17 +212,17 @@ Partial Class frmPaymentDefaultAccount
         'Show_AG_Projects_btn
         '
         Me.Show_AG_Projects_btn.BackColor = System.Drawing.Color.White
-        Me.Show_AG_Projects_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.Show_AG_Projects_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Show_AG_Projects_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_AG_Projects_btn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
-        Me.Show_AG_Projects_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Show_AG_Projects_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_AG_Projects_btn.Location = New System.Drawing.Point(425, 16)
+        Me.Show_AG_Projects_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Show_AG_Projects_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_AG_Projects_btn.Location = New System.Drawing.Point(364, 8)
         Me.Show_AG_Projects_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Show_AG_Projects_btn.Name = "Show_AG_Projects_btn"
         Me.Show_AG_Projects_btn.Size = New System.Drawing.Size(30, 24)
         Me.Show_AG_Projects_btn.TabIndex = 664
+        Me.Show_AG_Projects_btn.Text = "➕"
         Me.ToolTip1.SetToolTip(Me.Show_AG_Projects_btn, "إضافة نوع جديد")
         Me.Show_AG_Projects_btn.UseVisualStyleBackColor = False
         '
@@ -276,10 +233,10 @@ Partial Class frmPaymentDefaultAccount
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(726, 96)
+        Me.Label2.Location = New System.Drawing.Point(656, 65)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label2.Size = New System.Drawing.Size(81, 15)
+        Me.Label2.Size = New System.Drawing.Size(83, 15)
         Me.Label2.TabIndex = 666
         Me.Label2.Text = "عمولة الخصم%"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -289,10 +246,10 @@ Partial Class frmPaymentDefaultAccount
         Me.isLockCB.AutoSize = True
         Me.isLockCB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.isLockCB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.isLockCB.Location = New System.Drawing.Point(311, 95)
+        Me.isLockCB.Location = New System.Drawing.Point(484, 93)
         Me.isLockCB.Name = "isLockCB"
         Me.isLockCB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.isLockCB.Size = New System.Drawing.Size(183, 19)
+        Me.isLockCB.Size = New System.Drawing.Size(166, 19)
         Me.isLockCB.TabIndex = 667
         Me.isLockCB.Text = "منع تبديل الخزينة فالإيصالات"
         Me.isLockCB.UseVisualStyleBackColor = True
@@ -302,10 +259,10 @@ Partial Class frmPaymentDefaultAccount
         Me.IsActive_CB.AutoSize = True
         Me.IsActive_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IsActive_CB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.IsActive_CB.Location = New System.Drawing.Point(520, 95)
+        Me.IsActive_CB.Location = New System.Drawing.Point(396, 65)
         Me.IsActive_CB.Name = "IsActive_CB"
         Me.IsActive_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IsActive_CB.Size = New System.Drawing.Size(52, 19)
+        Me.IsActive_CB.Size = New System.Drawing.Size(50, 19)
         Me.IsActive_CB.TabIndex = 669
         Me.IsActive_CB.Text = "نشط"
         Me.IsActive_CB.UseVisualStyleBackColor = True
@@ -315,12 +272,57 @@ Partial Class frmPaymentDefaultAccount
         Me.Percent_Disc_txt.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
         Me.Percent_Disc_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Percent_Disc_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Percent_Disc_txt.Location = New System.Drawing.Point(590, 92)
+        Me.Percent_Disc_txt.Location = New System.Drawing.Point(592, 61)
         Me.Percent_Disc_txt.MaxLength = 0
         Me.Percent_Disc_txt.Name = "Percent_Disc_txt"
-        Me.Percent_Disc_txt.Size = New System.Drawing.Size(125, 23)
+        Me.Percent_Disc_txt.Size = New System.Drawing.Size(60, 23)
         Me.Percent_Disc_txt.TabIndex = 668
         Me.Percent_Disc_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'dgvLinks
+        '
+        Me.dgvLinks.AllowUserToAddRows = False
+        Me.dgvLinks.AllowUserToDeleteRows = False
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(219, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(254, Byte), Integer))
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(39, Byte), Integer))
+        Me.dgvLinks.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
+        Me.dgvLinks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvLinks.BackgroundColor = System.Drawing.Color.White
+        Me.dgvLinks.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvLinks.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+        Me.dgvLinks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(68, Byte), Integer))
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(68, Byte), Integer))
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvLinks.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
+        Me.dgvLinks.ColumnHeadersHeight = 34
+        Me.dgvLinks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle12.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(219, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(254, Byte), Integer))
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(24, Byte), Integer), CType(CType(39, Byte), Integer))
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvLinks.DefaultCellStyle = DataGridViewCellStyle12
+        Me.dgvLinks.EnableHeadersVisualStyles = False
+        Me.dgvLinks.GridColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.dgvLinks.Location = New System.Drawing.Point(12, 44)
+        Me.dgvLinks.MultiSelect = False
+        Me.dgvLinks.Name = "dgvLinks"
+        Me.dgvLinks.ReadOnly = True
+        Me.dgvLinks.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.dgvLinks.RowHeadersVisible = False
+        Me.dgvLinks.RowTemplate.Height = 30
+        Me.dgvLinks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvLinks.Size = New System.Drawing.Size(804, 304)
+        Me.dgvLinks.TabIndex = 6
         '
         'GridPanel
         '
@@ -345,7 +347,7 @@ Partial Class frmPaymentDefaultAccount
         Me.GridTitle_Label.Location = New System.Drawing.Point(655, 13)
         Me.GridTitle_Label.Name = "GridTitle_Label"
         Me.GridTitle_Label.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.GridTitle_Label.Size = New System.Drawing.Size(161, 19)
+        Me.GridTitle_Label.Size = New System.Drawing.Size(164, 19)
         Me.GridTitle_Label.TabIndex = 0
         Me.GridTitle_Label.Text = "الحسابات الافتراضية للدفع"
         Me.GridTitle_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight

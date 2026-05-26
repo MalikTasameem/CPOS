@@ -361,7 +361,7 @@ FROM dbo.STORES
                     cmd.CommandType = CommandType.StoredProcedure
 
                     cmd.Parameters.AddWithValue("@BatchId", BatchId)
-                    cmd.Parameters.AddWithValue("@PostedBy", 1)
+                    cmd.Parameters.AddWithValue("@PostedBy", USER_ID)
 
                     cn.Open()
 

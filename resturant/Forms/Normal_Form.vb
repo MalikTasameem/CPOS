@@ -12,7 +12,7 @@
         SNameTextBox.Clear()
         SNameTextBox.Enabled = True
         SNameTextBox.Select()
-        EditSButton.Text = "تعديل"
+        EditSButton.Text = "✎ تعديل"
     End Sub
 
     Private Sub SaveSButton_Click(sender As Object, e As EventArgs) Handles SaveSButton.Click
@@ -42,6 +42,7 @@
 
     Private Sub STORES_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = " قائمة : " & Form_Name_Arabic
+        Title_Label.Text = "قائمة : " & Form_Name_Arabic
         SendMessage(SEARCH_txt.Handle, &H1501, 0, "إبحث عن عنصر")
         Load_StoreData()
     End Sub
@@ -54,24 +55,39 @@
         Dim s As String = "select " & F_ID & "," & F_Name & " from " & Form_Name & "  WHERE " & F_ID & " Not IN (" & ids & ") ORDER BY " & F_Name & " ASC "
         c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
         c.Da.Fill(IM_DT)
-        S_listBox.DataSource = IM_DT
+        ApplySearchFilter()
+    End Sub
+
+    Private Sub ApplySearchFilter()
+        If String.IsNullOrWhiteSpace(F_Name) Then Exit Sub
+
+        Dim dv As DataView = IM_DT.DefaultView
+        Dim searchValue As String = SEARCH_txt.Text.Trim().Replace("'", "''")
+
+        If searchValue = "" Then
+            dv.RowFilter = ""
+        Else
+            dv.RowFilter = "Convert([" & F_Name & "], 'System.String') LIKE '%" & searchValue & "%'"
+        End If
+
+        S_listBox.DataSource = dv
         S_listBox.DisplayMember = F_Name
         S_listBox.ValueMember = F_ID
     End Sub
 
     Private Sub EditSButton_Click(sender As Object, e As EventArgs) Handles EditSButton.Click
-        If EditSButton.Text = "تعديل" Then
+        If EditSButton.Text = "✎ تعديل" Then
             SNameTextBox.Enabled = True
             DeleteSButton.Enabled = False
             SaveSButton.Enabled = False
-            EditSButton.Text = "تأكيد التعديل"
+            EditSButton.Text = "✓ تأكيد التعديل"
         Else
             If String.IsNullOrWhiteSpace(SNameTextBox.Text) = False Then
                 Store_Update()
                 Me.Load_StoreData()
                 SNameTextBox.Clear()
                 SNameTextBox.Enabled = False
-                EditSButton.Text = "تعديل"
+                EditSButton.Text = "✎ تعديل"
             End If
         End If
     End Sub
@@ -210,9 +226,6 @@
     End Sub
 
     Private Sub SEARCH_txt_TextChanged(sender As Object, e As EventArgs) Handles SEARCH_txt.TextChanged
-        Dim Dv As DataView
-        Dv = IM_DT.AsDataView
-        Dv.RowFilter = F_Name & " LIKE '%" + sender.Text + "%'"
-        S_listBox.DataSource = Dv
+        ApplySearchFilter()
     End Sub
 End Class
