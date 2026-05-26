@@ -2384,15 +2384,15 @@ Module FunModule
 
     Public Sub AG_Balance_UN_Void_Row(T_ID As Integer, Bill_ID As Integer, ag_type As Integer)
 
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_UN_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
+        'Dim sqlComm As New SqlClient.SqlCommand
+        'sqlComm.CommandText = "AG_Balance_UN_Void_Row"
+        'sqlComm.CommandType = CommandType.StoredProcedure
+        'sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
 
-        If SQL_SP_EXEC(sqlComm) = True Then
-            MsgBox("تم التراجع", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" تراجع عن إلغاء فاتورة ", Bill_ID, ag_type, 3)
-        End If
+        'If SQL_SP_EXEC(sqlComm) = True Then
+        '    MsgBox("تم التراجع", MsgBoxStyle.Information)
+        '    Network_Edit_Tracker_insert(" تراجع عن إلغاء فاتورة ", Bill_ID, ag_type, 3)
+        'End If
 
     End Sub
 

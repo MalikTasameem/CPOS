@@ -35,6 +35,7 @@ Partial Class Sales_Fast_Draft
         Me.Show_Cash_btn = New System.Windows.Forms.Button()
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
         Me.Up_Bill_btn = New System.Windows.Forms.Button()
+        Me.PreviousBillsButton = New System.Windows.Forms.Button()
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
@@ -172,7 +173,7 @@ Partial Class Sales_Fast_Draft
         Me.CALC_Btn.Size = New System.Drawing.Size(36, 33)
         Me.CALC_Btn.TabIndex = 708
         Me.CALC_Btn.Text = "🔢"
-        Me.MetroToolTip1.SetToolTip(Me.CALC_Btn, "فتح صندوق النقود")
+        Me.MetroToolTip1.SetToolTip(Me.CALC_Btn, "فتح الألة الحاسبة")
         Me.CALC_Btn.UseVisualStyleBackColor = False
         '
         'OpenCahDR_Btn
@@ -250,6 +251,26 @@ Partial Class Sales_Fast_Draft
         Me.Up_Bill_btn.Text = "▲"
         Me.MetroToolTip1.SetToolTip(Me.Up_Bill_btn, "الفاتورة التالية")
         Me.Up_Bill_btn.UseVisualStyleBackColor = False
+        '
+        'PreviousBillsButton
+        '
+        Me.PreviousBillsButton.BackColor = System.Drawing.Color.White
+        Me.PreviousBillsButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PreviousBillsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.PreviousBillsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.PreviousBillsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.PreviousBillsButton.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PreviousBillsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.PreviousBillsButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.PreviousBillsButton.Location = New System.Drawing.Point(624, 4)
+        Me.PreviousBillsButton.Name = "PreviousBillsButton"
+        Me.PreviousBillsButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.PreviousBillsButton.Size = New System.Drawing.Size(75, 40)
+        Me.PreviousBillsButton.TabIndex = 718
+        Me.PreviousBillsButton.TabStop = False
+        Me.PreviousBillsButton.Text = "مراجعة" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "الفواتير"
+        Me.MetroToolTip1.SetToolTip(Me.PreviousBillsButton, "مراجعة الفواتير السابقة")
+        Me.PreviousBillsButton.UseVisualStyleBackColor = False
         '
         'IM_Count_LB
         '
@@ -1140,6 +1161,7 @@ Partial Class Sales_Fast_Draft
         Me.Controls.Add(Me.DiscountPanel)
         Me.Controls.Add(Me.Print_btn)
         Me.Controls.Add(Me.SBPauseBtn)
+        Me.Controls.Add(Me.PreviousBillsButton)
         Me.Controls.Add(Me.New_butt)
         Me.Controls.Add(Me.Save_butt)
         Me.Controls.Add(Me.Delete_butt)
@@ -1195,6 +1217,7 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents Bill_ID_Txt As System.Windows.Forms.TextBox
     Friend WithEvents User_Name_lb As System.Windows.Forms.Label
     Friend WithEvents SBPauseBtn As System.Windows.Forms.Button
+    Friend WithEvents PreviousBillsButton As System.Windows.Forms.Button
     Friend WithEvents DiscountPanel As System.Windows.Forms.Panel
     Friend WithEvents Discount_txt As System.Windows.Forms.TextBox
     Friend WithEvents IM_Qty_LB As System.Windows.Forms.Label

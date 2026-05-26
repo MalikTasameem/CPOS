@@ -183,6 +183,8 @@ ORDER BY ST_Name
                     Dim dt As New DataTable()
 
                     da.Fill(dt)
+                    AddStoreNameColumn(dt)
+                    AddUnitNameColumn(dt)
 
                     GridLedger.DataSource = dt
 
@@ -216,11 +218,10 @@ ORDER BY ST_Name
 
         ShowColumn("Seq", "م", 45)
         ShowColumn("Date", "التاريخ", 115)
+        ShowColumn("ST_Name", "المخزن", 130)
         ShowColumn("MovementType", "الحركة", 110)
         ShowColumn("SourceParentId", "رقم الفاتورة", 95)
-        ShowColumn("SourceId", "رقم السطر", 80)
-        ShowColumn("ST_ID", "المخزن", 70)
-        ShowColumn("U_ID", "الوحدة", 70)
+        ShowColumn("U_Name", "الوحدة", 90)
         ShowColumn("U_Cargo", "تعادل", 75)
         ShowColumn("UnitQty", "كمية", 85)
         ShowColumn("QtyIn", "دخول", 85)
@@ -260,6 +261,117 @@ ORDER BY ST_Name
         FormatNumericColumn("BalanceQty")
         FormatNumericColumn("UnitCost")
         FormatNumericColumn("TotalCost")
+
+        SetColumnDisplayOrder(
+            "Seq",
+            "Date",
+            "ST_Name",
+            "MovementType",
+            "SourceParentId",
+            "U_Name",
+            "U_Cargo",
+            "UnitQty",
+            "QtyIn",
+            "QtyOut",
+            "BalanceQty",
+            "UnitCost",
+            "TotalCost"
+        )
+
+    End Sub
+
+    Private Sub AddStoreNameColumn(dt As DataTable)
+
+        If dt Is Nothing OrElse Not dt.Columns.Contains("ST_ID") Then Return
+
+        If Not dt.Columns.Contains("ST_Name") Then
+            dt.Columns.Add("ST_Name", GetType(String))
+        End If
+
+        Dim storesTable As DataTable = TryCast(Cmb_Store.DataSource, DataTable)
+        If storesTable Is Nothing Then Return
+
+        Dim storeNames As New Dictionary(Of Long, String)()
+
+        For Each row As DataRow In storesTable.Rows
+
+            If row("ST_ID") Is DBNull.Value Then Continue For
+
+            Dim stId As Long = CLng(row("ST_ID"))
+
+            If stId > 0 AndAlso Not storeNames.ContainsKey(stId) Then
+                storeNames.Add(stId, row("ST_Name").ToString())
+            End If
+
+        Next
+
+        For Each row As DataRow In dt.Rows
+
+            If row("ST_ID") Is DBNull.Value Then Continue For
+
+            Dim stId As Long = CLng(row("ST_ID"))
+
+            If storeNames.ContainsKey(stId) Then
+                row("ST_Name") = storeNames(stId)
+            End If
+
+        Next
+
+    End Sub
+
+    Private Sub AddUnitNameColumn(dt As DataTable)
+
+        If dt Is Nothing OrElse Not dt.Columns.Contains("U_ID") Then Return
+
+        If Not dt.Columns.Contains("U_Name") Then
+            dt.Columns.Add("U_Name", GetType(String))
+        End If
+
+        Dim unitNames As New Dictionary(Of Long, String)()
+
+        Using cn As New SqlConnection(ConnectionString)
+
+            Dim sql As String = "
+SELECT
+    CAST(U_ID AS bigint) AS U_ID,
+    CAST(U_Name AS nvarchar(2500)) AS U_Name
+FROM dbo.Units
+"
+
+            Using cmd As New SqlCommand(sql, cn)
+
+                Dim da As New SqlDataAdapter(cmd)
+                Dim unitsTable As New DataTable()
+
+                da.Fill(unitsTable)
+
+                For Each row As DataRow In unitsTable.Rows
+
+                    If row("U_ID") Is DBNull.Value Then Continue For
+
+                    Dim unitId As Long = CLng(row("U_ID"))
+
+                    If unitId > 0 AndAlso Not unitNames.ContainsKey(unitId) Then
+                        unitNames.Add(unitId, row("U_Name").ToString())
+                    End If
+
+                Next
+
+            End Using
+
+        End Using
+
+        For Each row As DataRow In dt.Rows
+
+            If row("U_ID") Is DBNull.Value Then Continue For
+
+            Dim unitId As Long = CLng(row("U_ID"))
+
+            If unitNames.ContainsKey(unitId) Then
+                row("U_Name") = unitNames(unitId)
+            End If
+
+        Next
 
     End Sub
 
@@ -462,6 +574,21 @@ ORDER BY ST_Name
                 DataGridViewContentAlignment.MiddleCenter
 
         End If
+
+    End Sub
+
+    Private Sub SetColumnDisplayOrder(ParamArray columnNames() As String)
+
+        Dim displayIndex As Integer = 0
+
+        For Each columnName As String In columnNames
+
+            If GridLedger.Columns.Contains(columnName) AndAlso GridLedger.Columns(columnName).Visible Then
+                GridLedger.Columns(columnName).DisplayIndex = displayIndex
+                displayIndex += 1
+            End If
+
+        Next
 
     End Sub
 
@@ -766,6 +893,12 @@ ORDER BY ST_Name
                     visibleColumns.Add(col)
                 End If
             Next
+
+            visibleColumns.Sort(
+                Function(firstColumn, secondColumn)
+                    Return firstColumn.DisplayIndex.CompareTo(secondColumn.DisplayIndex)
+                End Function
+            )
 
             If visibleColumns.Count = 0 Then
                 e.HasMorePages = False

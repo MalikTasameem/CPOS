@@ -62,6 +62,7 @@ Partial Class FrmAccountingPostingMonitor
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlTop = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.IM_RECOUNT_COST_Link = New System.Windows.Forms.LinkLabel()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.dtpTo = New System.Windows.Forms.DateTimePicker()
         Me.btnRefresh = New System.Windows.Forms.Button()
@@ -94,7 +95,6 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblPostedCount = New System.Windows.Forms.Label()
         Me.lblUnpostedCount = New System.Windows.Forms.Label()
         Me.lblStatusMessage = New System.Windows.Forms.Label()
-        Me.IM_RECOUNT_COST_Link = New System.Windows.Forms.LinkLabel()
         Me.pnlTop.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.pnlActions.SuspendLayout()
@@ -141,6 +141,17 @@ Partial Class FrmAccountingPostingMonitor
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1260, 90)
         Me.Panel1.TabIndex = 1
+        '
+        'IM_RECOUNT_COST_Link
+        '
+        Me.IM_RECOUNT_COST_Link.AutoSize = True
+        Me.IM_RECOUNT_COST_Link.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_RECOUNT_COST_Link.Location = New System.Drawing.Point(984, 56)
+        Me.IM_RECOUNT_COST_Link.Name = "IM_RECOUNT_COST_Link"
+        Me.IM_RECOUNT_COST_Link.Size = New System.Drawing.Size(254, 21)
+        Me.IM_RECOUNT_COST_Link.TabIndex = 14
+        Me.IM_RECOUNT_COST_Link.TabStop = True
+        Me.IM_RECOUNT_COST_Link.Text = "مستنذات إعادة إحتساب تكلفة المخزون"
         '
         'btnSearch
         '
@@ -574,17 +585,6 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblStatusMessage.TabIndex = 3
         Me.lblStatusMessage.Text = "جاهز"
         Me.lblStatusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'IM_RECOUNT_COST_Link
-        '
-        Me.IM_RECOUNT_COST_Link.AutoSize = True
-        Me.IM_RECOUNT_COST_Link.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_RECOUNT_COST_Link.Location = New System.Drawing.Point(984, 56)
-        Me.IM_RECOUNT_COST_Link.Name = "IM_RECOUNT_COST_Link"
-        Me.IM_RECOUNT_COST_Link.Size = New System.Drawing.Size(216, 21)
-        Me.IM_RECOUNT_COST_Link.TabIndex = 14
-        Me.IM_RECOUNT_COST_Link.TabStop = True
-        Me.IM_RECOUNT_COST_Link.Text = "مستنذات إعادة إحتساب المخزون"
         '
         'FrmAccountingPostingMonitor
         '

@@ -35,26 +35,28 @@ Public Class Frm_InventoryCostRecountList
 
                 Dim sql As String = "
 SELECT
-    BatchId,
-    IM_ID,
-    FromDate,
-    OldPurchaseCost,
-    NewPurchaseCost,
-    CostDiff,
-    TotalImpact,
-    InventoryImpact,
-    COGSImpact,
-    ExpenseImpact,
-    Status,
-    CreatedAt,
-    PostedAt
-FROM dbo.InventoryCostRecountBatch
+    b.BatchId,
+    b.IM_ID,
+    ISNULL(im.item_name, '') AS ItemName,
+    b.FromDate,
+    b.OldPurchaseCost,
+    b.NewPurchaseCost,
+    b.CostDiff,
+    b.TotalImpact,
+    b.InventoryImpact,
+    b.COGSImpact,
+    b.ExpenseImpact,
+    b.Status,
+    b.CreatedAt,
+    b.PostedAt
+FROM dbo.InventoryCostRecountBatch b
+LEFT JOIN dbo.IM_MENU im ON im.IM_ID = b.IM_ID
 WHERE 1 = 1
 "
 
                 If Txt_IM_ID.Text.Trim() <> "" Then
 
-                    sql &= " AND IM_ID = @IM_ID "
+                    sql &= " AND b.IM_ID = @IM_ID "
 
                 End If
 
@@ -149,7 +151,11 @@ ORDER BY CreatedAt DESC
             End If
 
             If GridBatches.Columns.Contains("IM_ID") Then
-                GridBatches.Columns("IM_ID").HeaderText = "الصنف"
+                GridBatches.Columns("IM_ID").Visible = False
+            End If
+
+            If GridBatches.Columns.Contains("ItemName") Then
+                GridBatches.Columns("ItemName").HeaderText = "الصنف"
             End If
 
             If GridBatches.Columns.Contains("FromDate") Then

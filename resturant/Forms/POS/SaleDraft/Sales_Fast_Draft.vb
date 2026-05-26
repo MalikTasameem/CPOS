@@ -88,18 +88,37 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         Dim EstimatedHeight As Integer = 450 + (dgvSales.Rows.Count * 30)
 
+        If String.IsNullOrWhiteSpace(Default_Printer_80) Then
+            MsgBox("لم يتم تحديد طابعة البيع السريع الإفتراضية", MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
+            Exit Sub
+        End If
+
+        If IsPrinterInstalled(Default_Printer_80) = False Then
+            MsgBox("الطابعة المحددة غير موجودة: " & Default_Printer_80, MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
+            Exit Sub
+        End If
+
         Dim pd As New PrintDocument()
         ' 🌟 عرض الورقة 280 بكسل لضمان التوافق مع أضيق الطابعات 🌟
+        pd.PrinterSettings.PrinterName = Default_Printer_80
+        pd.PrintController = New StandardPrintController()
         pd.DefaultPageSettings.PaperSize = New System.Drawing.Printing.PaperSize("Thermal80mm", 280, EstimatedHeight)
         pd.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(0, 0, 0, 0)
 
         AddHandler pd.PrintPage, AddressOf PrintReceiptPage
 
-        Dim ppd As New PrintPreviewDialog()
-        ppd.Document = pd
-        ppd.WindowState = FormWindowState.Maximized
-        ppd.ShowDialog()
+        pd.Print()
     End Sub
+
+    Private Function IsPrinterInstalled(printerName As String) As Boolean
+
+        For Each installedPrinter As String In PrinterSettings.InstalledPrinters
+            If String.Equals(installedPrinter, printerName, StringComparison.OrdinalIgnoreCase) Then Return True
+        Next
+
+        Return False
+
+    End Function
     ' ========================================================
     ' 🌟 رسم الفاتورة (مضغوطة الصفوف بخط أصغر للأصناف) 🌟
     ' ========================================================
@@ -500,8 +519,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         Dim newQty As Decimal = item.QTY + deltaQty
 
-        If newQty < 0 Then
-            MessageBox.Show("لا يمكن أن تصبح الكمية سالبة.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If newQty < 1 Then
+            'MessageBox.Show("لا يمكن أن تصبح الكمية سالبة.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -513,6 +532,63 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         UpdateDraftTotalsOnScreen()
 
     End Sub
+
+    Private Sub SetSelectedDraftItemQty(newQty As Decimal)
+
+        If CurrentDraft Is Nothing Then Exit Sub
+        If dgvSales.CurrentRow Is Nothing Then Exit Sub
+
+        If newQty <= 0D Then
+            MsgBox("يجب أن تكون الكمية أكبر من صفر", MsgBoxStyle.Exclamation, "تنبيه")
+            Exit Sub
+        End If
+
+        Dim draftLineId As String = dgvSales.CurrentRow.Cells("DraftLineId").Value.ToString()
+
+        Dim item As SaleDraftItem =
+        CurrentDraft.Items.FirstOrDefault(Function(x) x.DraftLineId = draftLineId)
+
+        If item Is Nothing Then Exit Sub
+
+        item.QTY = newQty
+
+        DraftCalculator.RecalculateDraft(CurrentDraft)
+        DraftManager.SaveDraft(CurrentDraft)
+        LoadDraftToGrid()
+        SelectDraftLine(draftLineId)
+        UpdateDraftTotalsOnScreen()
+
+    End Sub
+
+    Private Sub SelectDraftLine(draftLineId As String)
+
+        If String.IsNullOrWhiteSpace(draftLineId) Then Exit Sub
+        If Not dgvSales.Columns.Contains("DraftLineId") Then Exit Sub
+
+        For Each row As DataGridViewRow In dgvSales.Rows
+            If Convert.ToString(row.Cells("DraftLineId").Value) = draftLineId Then
+                Dim cellName As String = GetFirstExistingGridColumnName("QTY_CL", "QTY", "Item_Name", "ItemName", "Barcode_CL")
+                dgvSales.CurrentCell = row.Cells(cellName)
+                row.Selected = True
+                Exit For
+            End If
+        Next
+
+    End Sub
+
+    Private Function GetFirstExistingGridColumnName(ParamArray columnNames() As String) As String
+
+        For Each columnName As String In columnNames
+            If dgvSales.Columns.Contains(columnName) Then Return columnName
+        Next
+
+        For Each column As DataGridViewColumn In dgvSales.Columns
+            If column.Visible Then Return column.Name
+        Next
+
+        Return dgvSales.Columns(0).Name
+
+    End Function
 
     Private Sub ChangeQtyByInput(def_type As Integer, Optional choice As Boolean = True)
 
@@ -1533,6 +1609,225 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         If dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow And dgvSales.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
     End Sub
 
+    Private Sub dgvSales_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSales.CellClick
+
+        If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Exit Sub
+        If CurrentDraft Is Nothing Then Exit Sub
+
+        Dim column As DataGridViewColumn = dgvSales.Columns(e.ColumnIndex)
+        If Not IsQuantityColumn(column) Then Exit Sub
+
+        dgvSales.CurrentCell = dgvSales.Rows(e.RowIndex).Cells(e.ColumnIndex)
+
+        Dim currentQty As Decimal = 1D
+        Decimal.TryParse(Convert.ToString(dgvSales.Rows(e.RowIndex).Cells(e.ColumnIndex).Value), currentQty)
+
+        Dim selectedQty As Decimal
+        If ShowTouchQuantityDialog(currentQty, selectedQty) = DialogResult.OK Then
+            SetSelectedDraftItemQty(selectedQty)
+        End If
+
+    End Sub
+
+    Private Function IsQuantityColumn(column As DataGridViewColumn) As Boolean
+
+        If column Is Nothing Then Return False
+
+        Dim columnName As String = If(column.Name, "")
+        Dim dataName As String = If(column.DataPropertyName, "")
+        Dim headerText As String = If(column.HeaderText, "")
+
+        Return columnName.Equals("QTY", StringComparison.OrdinalIgnoreCase) OrElse
+               columnName.Equals("QTY_CL", StringComparison.OrdinalIgnoreCase) OrElse
+               dataName.Equals("QTY", StringComparison.OrdinalIgnoreCase) OrElse
+               headerText.Trim() = "الكمية" OrElse
+               headerText.Trim() = "كمية"
+
+    End Function
+
+    Private Function ShowTouchQuantityDialog(currentQty As Decimal, ByRef selectedQty As Decimal) As DialogResult
+
+        selectedQty = currentQty
+
+        Using frm As New Form()
+            Dim resultQty As Decimal = currentQty
+
+            frm.Text = "إدخال الكمية"
+            frm.StartPosition = FormStartPosition.CenterParent
+            frm.FormBorderStyle = FormBorderStyle.FixedDialog
+            frm.MaximizeBox = False
+            frm.MinimizeBox = False
+            frm.ShowInTaskbar = False
+            frm.RightToLeft = RightToLeft.Yes
+            frm.RightToLeftLayout = True
+            frm.ClientSize = New Size(390, 520)
+            frm.BackColor = Color.White
+
+            Dim rootPanel As New TableLayoutPanel()
+            rootPanel.Dock = DockStyle.Fill
+            rootPanel.Padding = New Padding(10)
+            rootPanel.ColumnCount = 1
+            rootPanel.RowCount = 4
+            rootPanel.BackColor = Color.White
+            rootPanel.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100.0!))
+            rootPanel.RowStyles.Add(New RowStyle(SizeType.Absolute, 76.0!))
+            rootPanel.RowStyles.Add(New RowStyle(SizeType.Percent, 100.0!))
+            rootPanel.RowStyles.Add(New RowStyle(SizeType.Absolute, 66.0!))
+            rootPanel.RowStyles.Add(New RowStyle(SizeType.Absolute, 76.0!))
+            frm.Controls.Add(rootPanel)
+
+            Dim display As New TextBox()
+            display.ReadOnly = True
+            display.TextAlign = HorizontalAlignment.Center
+            display.Font = New Font("Segoe UI", 26.0!, FontStyle.Bold)
+            display.Text = currentQty.ToString("0.###")
+            display.Tag = True
+            display.Dock = DockStyle.Fill
+            display.Margin = New Padding(0, 0, 0, 8)
+            display.BackColor = Color.White
+            display.BorderStyle = BorderStyle.FixedSingle
+            rootPanel.Controls.Add(display, 0, 0)
+
+            Dim buttonsPanel As New TableLayoutPanel()
+            buttonsPanel.Dock = DockStyle.Fill
+            buttonsPanel.Margin = New Padding(0)
+            buttonsPanel.ColumnCount = 3
+            buttonsPanel.RowCount = 4
+            buttonsPanel.BackColor = Color.White
+            buttonsPanel.RightToLeft = RightToLeft.No
+
+            For i As Integer = 1 To 3
+                buttonsPanel.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 33.333!))
+            Next
+
+            For i As Integer = 1 To 4
+                buttonsPanel.RowStyles.Add(New RowStyle(SizeType.Percent, 25.0!))
+            Next
+
+            rootPanel.Controls.Add(buttonsPanel, 0, 1)
+
+            Dim toolsPanel As New TableLayoutPanel()
+            toolsPanel.Dock = DockStyle.Fill
+            toolsPanel.Margin = New Padding(0, 8, 0, 0)
+            toolsPanel.ColumnCount = 2
+            toolsPanel.RowCount = 1
+            toolsPanel.BackColor = Color.White
+            toolsPanel.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0!))
+            toolsPanel.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0!))
+            toolsPanel.RowStyles.Add(New RowStyle(SizeType.Percent, 100.0!))
+            rootPanel.Controls.Add(toolsPanel, 0, 2)
+
+            Dim appendValue As Action(Of String) =
+                Sub(value As String)
+                    If display.Tag IsNot Nothing AndAlso CBool(display.Tag) = True Then
+                        display.Text = ""
+                        display.Tag = False
+                    End If
+
+                    If display.Text = "0" Then display.Text = ""
+                    If value = "." AndAlso display.Text.Contains(".") Then Exit Sub
+                    display.Text &= value
+                End Sub
+
+            Dim createButton As Func(Of String, Color, Color, Button) =
+                Function(text As String, backColor As Color, foreColor As Color) As Button
+                    Dim btn As New Button()
+                    btn.Dock = DockStyle.Fill
+                    btn.Margin = New Padding(4)
+                    btn.Text = text
+                    btn.Font = New Font("Segoe UI", 17.0!, FontStyle.Bold)
+                    btn.BackColor = backColor
+                    btn.ForeColor = foreColor
+                    btn.FlatStyle = FlatStyle.Flat
+                    btn.Cursor = Cursors.Hand
+                    btn.UseVisualStyleBackColor = False
+
+                    AddHandler btn.Click,
+                        Sub()
+                            Select Case text
+                                Case "تأكيد"
+                                    Dim parsedQty As Decimal
+                                    If TryParseTouchQuantity(display.Text, parsedQty) = False OrElse parsedQty <= 0D Then
+                                        MsgBox("الكمية المدخلة غير صحيحة", MsgBoxStyle.Exclamation, "تنبيه")
+                                        Exit Sub
+                                    End If
+
+                                    resultQty = parsedQty
+                                    frm.DialogResult = DialogResult.OK
+                                    frm.Close()
+
+                                Case "تراجع"
+                                    frm.DialogResult = DialogResult.Cancel
+                                    frm.Close()
+
+                                Case "مسح"
+                                    display.Text = ""
+                                    display.Tag = False
+
+                                Case "حذف"
+                                    display.Tag = False
+                                    If display.Text.Length > 0 Then display.Text = display.Text.Substring(0, display.Text.Length - 1)
+
+                                Case Else
+                                    appendValue(text)
+                            End Select
+                        End Sub
+
+                    Return btn
+                End Function
+
+            Dim addButton As Action(Of String, Integer, Integer, Color, Color) =
+                Sub(text As String, row As Integer, col As Integer, backColor As Color, foreColor As Color)
+                    Dim btn As Button = createButton(text, backColor, foreColor)
+                    buttonsPanel.Controls.Add(btn, col, row)
+                End Sub
+
+            addButton("1", 0, 0, Color.WhiteSmoke, Color.Black)
+            addButton("2", 0, 1, Color.WhiteSmoke, Color.Black)
+            addButton("3", 0, 2, Color.WhiteSmoke, Color.Black)
+            addButton("4", 1, 0, Color.WhiteSmoke, Color.Black)
+            addButton("5", 1, 1, Color.WhiteSmoke, Color.Black)
+            addButton("6", 1, 2, Color.WhiteSmoke, Color.Black)
+            addButton("7", 2, 0, Color.WhiteSmoke, Color.Black)
+            addButton("8", 2, 1, Color.WhiteSmoke, Color.Black)
+            addButton("9", 2, 2, Color.WhiteSmoke, Color.Black)
+            addButton(".", 3, 0, Color.Gainsboro, Color.Black)
+            addButton("0", 3, 1, Color.WhiteSmoke, Color.Black)
+            addButton("حذف", 3, 2, Color.Gainsboro, Color.Black)
+
+            toolsPanel.Controls.Add(createButton("مسح", Color.LightGray, Color.Black), 0, 0)
+            toolsPanel.Controls.Add(createButton("تراجع", Color.IndianRed, Color.White), 1, 0)
+
+            Dim confirmButton As Button = createButton("تأكيد", Color.SeaGreen, Color.White)
+            confirmButton.Font = New Font("Segoe UI", 20.0!, FontStyle.Bold)
+            confirmButton.Margin = New Padding(0, 8, 0, 0)
+            rootPanel.Controls.Add(confirmButton, 0, 3)
+
+            AddHandler frm.Shown,
+                Sub()
+                    display.Focus()
+                    display.SelectAll()
+                End Sub
+
+            Dim result As DialogResult = frm.ShowDialog(Me)
+            If result = DialogResult.OK Then selectedQty = resultQty
+
+            Return result
+        End Using
+
+    End Function
+
+    Private Function TryParseTouchQuantity(value As String, ByRef quantity As Decimal) As Boolean
+
+        value = If(value, "").Trim().Replace("٫", ".").Replace(",", ".")
+
+        If String.IsNullOrWhiteSpace(value) Then Return False
+
+        Return Decimal.TryParse(value, Globalization.NumberStyles.Number, Globalization.CultureInfo.InvariantCulture, quantity) OrElse
+               Decimal.TryParse(value, quantity)
+
+    End Function
+
     Public Sub Calc_Total()
         TOTAL = 0
         If String.IsNullOrWhiteSpace(Discount_txt.Text) Then
@@ -2277,9 +2572,14 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Sub Print_btn_Click(sender As Object, e As EventArgs) Handles Print_btn.Click
         If dgvSales.Rows.Count > 0 Then
-            Me.Cursor = Cursors.AppStarting
-            CashPrint()
-            Me.Cursor = Cursors.Default
+            Try
+                Me.Cursor = Cursors.AppStarting
+                PrintCurrentBill()
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في الطباعة")
+            Finally
+                Me.Cursor = Cursors.Default
+            End Try
         End If
     End Sub
 
@@ -2402,6 +2702,12 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
         ResetNewBill()
+    End Sub
+
+    Private Sub PreviousBillsButton_Click(sender As Object, e As EventArgs) Handles PreviousBillsButton.Click
+        Sales_Fast.OpenForPreviousBillsReview = True
+        Sales_Fast.Show()
+        Sales_Fast.Activate()
     End Sub
 
 

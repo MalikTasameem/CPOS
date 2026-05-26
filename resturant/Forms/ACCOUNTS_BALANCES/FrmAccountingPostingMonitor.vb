@@ -7,6 +7,9 @@ Partial Class FrmAccountingPostingMonitor
 
     Private ReadOnly _connectionString As String
     Private ReadOnly _currentUserId As Integer
+    Private _inventoryRecountDraftCount As Integer = 0
+    Private _isPostingLockedByInventoryRecount As Boolean = False
+    Private _inventoryRecountLockMessageShown As Boolean = False
 
     Public Sub New(connectionString As String, currentUserId As Integer)
         InitializeComponent()
@@ -239,9 +242,12 @@ ORDER BY [Date] DESC, T_ID DESC;
             dgvPosting.DataSource = dt
             FormatPostingGrid()
             UpdateCounters(dt)
+            UpdateInventoryRecountDraftCount()
 
             dgvJournal.DataSource = Nothing
-            lblStatusMessage.Text = "تم تحميل البيانات"
+            If Not _isPostingLockedByInventoryRecount Then
+                lblStatusMessage.Text = "تم تحميل البيانات"
+            End If
 
         Catch ex As Exception
             lblStatusMessage.Text = "حدث خطأ"
@@ -249,7 +255,7 @@ ORDER BY [Date] DESC, T_ID DESC;
         End Try
     End Sub
 
-    Private Sub UpdateInventoryRecountDraftCount()
+    Private Function UpdateInventoryRecountDraftCount() As Integer
         Try
             Dim draftCount As Integer = 0
 
@@ -274,9 +280,13 @@ WHERE Status = @Status;
             End Using
 
             IM_RECOUNT_COST_Link.Text = "مستندات إعادة احتساب المخزون(" & draftCount.ToString() & ")"
+            ApplyInventoryRecountPostingLock(draftCount, True)
+
+            Return draftCount
 
         Catch ex As Exception
             IM_RECOUNT_COST_Link.Text = "مستندات إعادة احتساب المخزون(0)"
+            ApplyInventoryRecountPostingLock(0, False)
 
             MessageBox.Show(
                 ex.Message,
@@ -284,8 +294,56 @@ WHERE Status = @Status;
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error
             )
+
+            Return 0
         End Try
+    End Function
+
+    Private Sub ApplyInventoryRecountPostingLock(draftCount As Integer, showMessage As Boolean)
+
+        _inventoryRecountDraftCount = draftCount
+        _isPostingLockedByInventoryRecount = draftCount > 0
+
+        btnPostSelected.Enabled = Not _isPostingLockedByInventoryRecount
+        btnPostAll.Enabled = Not _isPostingLockedByInventoryRecount
+
+        If _isPostingLockedByInventoryRecount Then
+            lblStatusMessage.Text = "يوجد مستندات تسوية مخزون لم تتم تسويتها: " & draftCount.ToString()
+
+            If showMessage AndAlso Not _inventoryRecountLockMessageShown Then
+                MessageBox.Show(
+                    "يوجد مستندات تسوية مخزون لم تتم تسويتها." & Environment.NewLine &
+                    "يجب اعتماد أو معالجة هذه المستندات قبل تنفيذ أي عملية ترحيل.",
+                    "تنبيه",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                )
+
+                _inventoryRecountLockMessageShown = True
+            End If
+        Else
+            _inventoryRecountLockMessageShown = False
+        End If
+
     End Sub
+
+    Private Function CanRunPostingAction() As Boolean
+
+        UpdateInventoryRecountDraftCount()
+
+        If Not _isPostingLockedByInventoryRecount Then Return True
+
+        MessageBox.Show(
+            "يوجد مستندات تسوية مخزون لم تتم تسويتها." & Environment.NewLine &
+            "لا يمكن تنفيذ الترحيل قبل معالجة هذه المستندات.",
+            "تنبيه",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Warning
+        )
+
+        Return False
+
+    End Function
 
     Private Function GetNullableComboValue(cmb As ComboBox) As Object
         If cmb Is Nothing Then Return DBNull.Value
@@ -427,6 +485,8 @@ WHERE Status = @Status;
 
     Private Sub btnPostSelected_Click(sender As Object, e As EventArgs)
         Try
+            If Not CanRunPostingAction() Then Return
+
             If dgvPosting.SelectedRows.Count = 0 Then
                 MessageBox.Show("يرجى اختيار حركة للترحيل", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
@@ -497,6 +557,8 @@ WHERE Status = @Status;
 
     Private Sub btnPostAll_Click(sender As Object, e As EventArgs)
         Try
+            If Not CanRunPostingAction() Then Return
+
             If dgvPosting.Rows.Count = 0 Then
                 MessageBox.Show("لا توجد حركات ظاهرة للترحيل", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
@@ -533,7 +595,7 @@ WHERE Status = @Status;
 
                 Dim postingAction As String = Convert.ToString(row.Cells("PostingAction").Value)
 
-                If postingAction = "NO_ACTION" OrElse postingAction = "CHECK" Then
+                If postingAction = "NO_ACTION" OrElse postingAction = "CHECK" OrElse postingAction = "VOID_NO_ACTION" Then
                     Continue For
                 End If
 
@@ -577,8 +639,12 @@ WHERE Status = @Status;
         Catch ex As Exception
             MessageBox.Show(ex.Message, "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            btnPostAll.Enabled = True
-            btnPostSelected.Enabled = True
+            UpdateInventoryRecountDraftCount()
+
+            If Not _isPostingLockedByInventoryRecount Then
+                btnPostAll.Enabled = True
+                btnPostSelected.Enabled = True
+            End If
         End Try
     End Sub
 
@@ -810,8 +876,11 @@ ORDER BY b.T_ID;
     End Sub
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IM_RECOUNT_COST_Link.LinkClicked
-        Dim f As New Frm_InventoryCostRecountList
-        f.Show()
+        Using f As New Frm_InventoryCostRecountList
+            f.ShowDialog(Me)
+        End Using
+
+        UpdateInventoryRecountDraftCount()
     End Sub
 
 

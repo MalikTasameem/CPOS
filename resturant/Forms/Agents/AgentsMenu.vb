@@ -131,6 +131,7 @@ Public Class AgentsMenu
                 If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
                     MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك فتح فاتورة جديدة له", MsgBoxStyle.Critical, "خطأ فالإدراج")
                 Else
+
                     Choase_Ag()
                 End If
             Else
@@ -140,8 +141,20 @@ Public Class AgentsMenu
 
         Else
 
-            is_OK = True
-            Me.Close()
+
+            If U_AG_Skip_Max = False Then
+                If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
+                    MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك فتح فاتورة جديدة له", MsgBoxStyle.Critical, "خطأ فالإدراج")
+                Else
+                    is_OK = True
+                    Me.Close()
+                End If
+            Else
+                If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then MsgBox("هذا الزبون قد تخطى سقف الدين الخاص به", MsgBoxStyle.Exclamation, "تنويه ")
+                is_OK = True
+                Me.Close()
+            End If
+
 
         End If
 

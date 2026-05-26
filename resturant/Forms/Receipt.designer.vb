@@ -346,11 +346,11 @@ Partial Class Receipt
         '
         Me.Discount_txt.BackColor = System.Drawing.Color.Lavender
         Me.Discount_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Discount_txt.Font = New System.Drawing.Font("Stencil", 14.75!)
+        Me.Discount_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Discount_txt.Location = New System.Drawing.Point(3, 191)
         Me.Discount_txt.MaxLength = 0
         Me.Discount_txt.Name = "Discount_txt"
-        Me.Discount_txt.Size = New System.Drawing.Size(166, 31)
+        Me.Discount_txt.Size = New System.Drawing.Size(166, 29)
         Me.Discount_txt.TabIndex = 664
         '
         'Label10
@@ -371,11 +371,11 @@ Partial Class Receipt
         Me.CR_Phone_Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CR_Phone_Txt.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CR_Phone_Txt.ForeColor = System.Drawing.Color.Blue
-        Me.CR_Phone_Txt.Location = New System.Drawing.Point(141, 49)
+        Me.CR_Phone_Txt.Location = New System.Drawing.Point(244, 49)
         Me.CR_Phone_Txt.Name = "CR_Phone_Txt"
         Me.CR_Phone_Txt.ReadOnly = True
         Me.CR_Phone_Txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.CR_Phone_Txt.Size = New System.Drawing.Size(357, 23)
+        Me.CR_Phone_Txt.Size = New System.Drawing.Size(254, 23)
         Me.CR_Phone_Txt.TabIndex = 661
         '
         'Treasury_Balance
@@ -406,7 +406,7 @@ Partial Class Receipt
         Me.AG_Cm.Location = New System.Drawing.Point(142, 78)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(469, 33)
+        Me.AG_Cm.Size = New System.Drawing.Size(469, 36)
         Me.AG_Cm.SQL_Column = "AG_NAME"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False
@@ -575,14 +575,14 @@ Partial Class Receipt
         Me.payment_Type_combo.Cursor = System.Windows.Forms.Cursors.Hand
         Me.payment_Type_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.payment_Type_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.payment_Type_combo.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.payment_Type_combo.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.payment_Type_combo.ForeColor = System.Drawing.Color.Black
         Me.payment_Type_combo.FormattingEnabled = True
         Me.payment_Type_combo.Items.AddRange(New Object() {"نقـــــــداً", "شيـــــــك"})
-        Me.payment_Type_combo.Location = New System.Drawing.Point(3, 4)
+        Me.payment_Type_combo.Location = New System.Drawing.Point(3, 5)
         Me.payment_Type_combo.Name = "payment_Type_combo"
         Me.payment_Type_combo.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.payment_Type_combo.Size = New System.Drawing.Size(284, 33)
+        Me.payment_Type_combo.Size = New System.Drawing.Size(284, 29)
         Me.payment_Type_combo.TabIndex = 6
         '
         'Label19
@@ -600,7 +600,7 @@ Partial Class Receipt
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        Me.Label18.Location = New System.Drawing.Point(632, 230)
+        Me.Label18.Location = New System.Drawing.Point(601, 229)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(50, 19)
         Me.Label18.TabIndex = 324
@@ -614,21 +614,21 @@ Partial Class Receipt
         Me.Treasury_ComboBox.DropDownHeight = 200
         Me.Treasury_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Treasury_ComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Treasury_ComboBox.ForeColor = System.Drawing.Color.Black
         Me.Treasury_ComboBox.FormattingEnabled = True
         Me.Treasury_ComboBox.IntegralHeight = False
         Me.Treasury_ComboBox.Location = New System.Drawing.Point(300, 224)
         Me.Treasury_ComboBox.Name = "Treasury_ComboBox"
         Me.Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Treasury_ComboBox.Size = New System.Drawing.Size(297, 33)
+        Me.Treasury_ComboBox.Size = New System.Drawing.Size(297, 29)
         Me.Treasury_ComboBox.TabIndex = 5
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        Me.Label3.Location = New System.Drawing.Point(626, 118)
+        Me.Label3.Location = New System.Drawing.Point(615, 120)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(49, 19)
         Me.Label3.TabIndex = 271
@@ -639,7 +639,7 @@ Partial Class Receipt
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        Me.Label2.Location = New System.Drawing.Point(603, 161)
+        Me.Label2.Location = New System.Drawing.Point(601, 163)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(91, 19)
         Me.Label2.TabIndex = 269
@@ -651,11 +651,11 @@ Partial Class Receipt
         Me.Current_QTY.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Current_QTY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Current_QTY.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Current_QTY.Font = New System.Drawing.Font("Stencil", 13.75!)
+        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Current_QTY.ForeColor = System.Drawing.Color.Black
-        Me.Current_QTY.Location = New System.Drawing.Point(141, 116)
+        Me.Current_QTY.Location = New System.Drawing.Point(5, 78)
         Me.Current_QTY.Name = "Current_QTY"
-        Me.Current_QTY.Size = New System.Drawing.Size(165, 30)
+        Me.Current_QTY.Size = New System.Drawing.Size(131, 36)
         Me.Current_QTY.TabIndex = 249
         Me.Current_QTY.Text = "0"
         Me.Current_QTY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -665,7 +665,7 @@ Partial Class Receipt
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        Me.Label12.Location = New System.Drawing.Point(317, 121)
+        Me.Label12.Location = New System.Drawing.Point(45, 56)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(49, 19)
         Me.Label12.TabIndex = 248
@@ -691,16 +691,16 @@ Partial Class Receipt
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 10.25!)
         Me.Label1.Location = New System.Drawing.Point(614, 86)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(78, 19)
+        Me.Label1.Size = New System.Drawing.Size(59, 19)
         Me.Label1.TabIndex = 231
-        Me.Label1.Text = "اسم العميـل"
+        Me.Label1.Text = "الحســاب"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 10.25!)
-        Me.Label4.Location = New System.Drawing.Point(602, 195)
+        Me.Label4.Location = New System.Drawing.Point(601, 196)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(90, 19)
         Me.Label4.TabIndex = 236
@@ -712,12 +712,12 @@ Partial Class Receipt
         Me.money_num_txtb.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.money_num_txtb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.money_num_txtb.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.money_num_txtb.Font = New System.Drawing.Font("Stencil", 14.75!)
+        Me.money_num_txtb.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.money_num_txtb.ForeColor = System.Drawing.Color.DarkGreen
         Me.money_num_txtb.Location = New System.Drawing.Point(300, 190)
         Me.money_num_txtb.Name = "money_num_txtb"
         Me.money_num_txtb.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.money_num_txtb.Size = New System.Drawing.Size(297, 31)
+        Me.money_num_txtb.Size = New System.Drawing.Size(297, 29)
         Me.money_num_txtb.TabIndex = 4
         Me.money_num_txtb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '

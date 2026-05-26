@@ -1238,7 +1238,7 @@ Partial Class ItemsMenu
         Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label27.Location = New System.Drawing.Point(686, 343)
+        Me.Label27.Location = New System.Drawing.Point(692, 347)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(44, 15)
         Me.Label27.TabIndex = 704
@@ -1251,7 +1251,7 @@ Partial Class ItemsMenu
         Me.Unit_cargo_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Unit_cargo_txt.Font = New System.Drawing.Font("Times New Roman", 12.75!)
         Me.Unit_cargo_txt.ForeColor = System.Drawing.Color.Black
-        Me.Unit_cargo_txt.Location = New System.Drawing.Point(688, 366)
+        Me.Unit_cargo_txt.Location = New System.Drawing.Point(688, 365)
         Me.Unit_cargo_txt.MaxLength = 250
         Me.Unit_cargo_txt.Name = "Unit_cargo_txt"
         Me.Unit_cargo_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1477,13 +1477,13 @@ Partial Class ItemsMenu
         Me.Show_IM_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Show_IM_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Show_IM_btn.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_IM_btn.Location = New System.Drawing.Point(276, 76)
+        Me.Show_IM_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_IM_btn.Location = New System.Drawing.Point(276, 80)
         Me.Show_IM_btn.Margin = New System.Windows.Forms.Padding(4, 2, 4, 2)
         Me.Show_IM_btn.Name = "Show_IM_btn"
-        Me.Show_IM_btn.Size = New System.Drawing.Size(47, 33)
+        Me.Show_IM_btn.Size = New System.Drawing.Size(47, 27)
         Me.Show_IM_btn.TabIndex = 604
-        Me.Show_IM_btn.Text = "⬇️"
+        Me.Show_IM_btn.Text = "▼"
         Me.Show_IM_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Show_IM_btn.UseVisualStyleBackColor = False
         '
@@ -2202,6 +2202,7 @@ Partial Class ItemsMenu
         Me.Recount_Cost_btn.TabIndex = 657
         Me.Recount_Cost_btn.Text = "تدوير التكلفة"
         Me.Recount_Cost_btn.UseVisualStyleBackColor = False
+        Me.Recount_Cost_btn.Visible = False
         '
         'ExitFormButton
         '

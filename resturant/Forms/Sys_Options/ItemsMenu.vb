@@ -739,6 +739,8 @@ Public Class ItemsMenu
     End Sub
 
     Private Sub Confirm_IM()
+        If Not CanSaveItemTypeChange() Then Return
+
         Dim c As New C
 
         With c.Com
@@ -804,6 +806,103 @@ Public Class ItemsMenu
         End If
 
     End Sub
+
+    Private Function CanSaveItemTypeChange() As Boolean
+
+        If IM_ID <= 0 Then Return True
+
+        Dim currentItemType As Integer = GetCurrentItemType(IM_ID)
+        Dim newItemType As Integer = IM_Type_cm.SelectedIndex
+
+        If currentItemType = newItemType Then Return True
+        If Not IsServiceStockTypeChange(currentItemType, newItemType) Then Return True
+        If Not HasInventoryTransactionFlow(IM_ID) Then Return True
+
+        MsgBox(
+            "لا يمكن تغيير نوع الصنف بين خدمة وبضاعة/تصنيع لأن الصنف لديه حركة مخزنية سابقة." & vbCrLf &
+            "يرجى إبقاء نوع الصنف كما هو حتى لا تتأثر حركات المخزون.",
+            MsgBoxStyle.Exclamation,
+            "تنبيه"
+        )
+
+        IM_Type_cm.SelectedIndex = currentItemType
+        IM_Type_cm.Focus()
+
+        Return False
+
+    End Function
+
+    Private Function IsServiceStockTypeChange(currentItemType As Integer, newItemType As Integer) As Boolean
+
+        Dim currentIsService As Boolean = currentItemType = 0
+        Dim newIsService As Boolean = newItemType = 0
+        Dim currentIsStockType As Boolean = currentItemType = 1 OrElse currentItemType = 2
+        Dim newIsStockType As Boolean = newItemType = 1 OrElse newItemType = 2
+
+        Return (currentIsStockType AndAlso newIsService) OrElse
+               (currentIsService AndAlso newIsStockType)
+
+    End Function
+
+    Private Function GetCurrentItemType(itemId As Integer) As Integer
+
+        Dim c As New C
+
+        Try
+
+            c.Str = "SELECT ISNULL(isStore, 0) AS isStore FROM IM_Menu WHERE IM_ID = @IM_ID"
+            c.Com = New SqlClient.SqlCommand(c.Str, c.Con)
+            c.Com.Parameters.AddWithValue("@IM_ID", itemId)
+
+            c.Con.Open()
+
+            Dim result As Object = c.Com.ExecuteScalar()
+
+            If result Is Nothing OrElse result Is DBNull.Value Then Return -1
+
+            Return Convert.ToInt32(result)
+
+        Catch ex As Exception
+
+            MsgBox("تعذر التحقق من نوع الصنف الحالي: " & ex.Message, MsgBoxStyle.Critical, "خطأ")
+            Return -1
+
+        Finally
+
+            If c.Con.State = ConnectionState.Open Then c.Con.Close()
+
+        End Try
+
+    End Function
+
+    Private Function HasInventoryTransactionFlow(itemId As Integer) As Boolean
+
+        Dim c As New C
+
+        Try
+
+            c.Str = "SELECT TOP 1 1 FROM VW_InventoryTransactionFlow WHERE IM_ID = @IM_ID"
+            c.Com = New SqlClient.SqlCommand(c.Str, c.Con)
+            c.Com.Parameters.AddWithValue("@IM_ID", itemId)
+
+            c.Con.Open()
+
+            Dim result As Object = c.Com.ExecuteScalar()
+
+            Return result IsNot Nothing AndAlso result IsNot DBNull.Value
+
+        Catch ex As Exception
+
+            MsgBox("تعذر التحقق من حركة الصنف: " & ex.Message, MsgBoxStyle.Critical, "خطأ")
+            Return True
+
+        Finally
+
+            If c.Con.State = ConnectionState.Open Then c.Con.Close()
+
+        End Try
+
+    End Function
 
     Private Sub IMSaleNameTextBox_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles IMSaleNameTextBox.Validating
         If String.IsNullOrWhiteSpace(IMSaleNameTextBox.Text) Then IMSaleNameTextBox.Text = IM_SH_txt.Text

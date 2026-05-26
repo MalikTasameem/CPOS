@@ -38,7 +38,7 @@ Partial Class Frm_InventoryCostRecountList
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.Help_LB = New System.Windows.Forms.Label()
@@ -85,6 +85,8 @@ Partial Class Frm_InventoryCostRecountList
         '
         'Help_LB
         '
+        Me.Help_LB.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Help_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Help_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.Help_LB.Location = New System.Drawing.Point(32, 47)
@@ -97,6 +99,8 @@ Partial Class Frm_InventoryCostRecountList
         '
         'FiltersTitle_LB
         '
+        Me.FiltersTitle_LB.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FiltersTitle_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.FiltersTitle_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
         Me.FiltersTitle_LB.Location = New System.Drawing.Point(4, 78)
@@ -104,7 +108,7 @@ Partial Class Frm_InventoryCostRecountList
         Me.FiltersTitle_LB.Size = New System.Drawing.Size(1024, 22)
         Me.FiltersTitle_LB.TabIndex = 14
         Me.FiltersTitle_LB.Text = "عوامل التصفية"
-        Me.FiltersTitle_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.FiltersTitle_LB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ResultsTitle_LB
         '
@@ -121,7 +125,7 @@ Partial Class Frm_InventoryCostRecountList
         '
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(245, 115)
+        Me.Label1.Location = New System.Drawing.Point(747, 115)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(85, 24)
         Me.Label1.TabIndex = 0
@@ -132,7 +136,7 @@ Partial Class Frm_InventoryCostRecountList
         '
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(31, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(55, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(18, 113)
+        Me.Label2.Location = New System.Drawing.Point(520, 113)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(60, 24)
         Me.Label2.TabIndex = 1
@@ -166,10 +170,10 @@ Partial Class Frm_InventoryCostRecountList
         Me.Txt_IM_ID.BackColor = System.Drawing.Color.White
         Me.Txt_IM_ID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Txt_IM_ID.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Txt_IM_ID.Location = New System.Drawing.Point(332, 115)
+        Me.Txt_IM_ID.Location = New System.Drawing.Point(834, 115)
         Me.Txt_IM_ID.Name = "Txt_IM_ID"
         Me.Txt_IM_ID.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Txt_IM_ID.Size = New System.Drawing.Size(130, 23)
+        Me.Txt_IM_ID.Size = New System.Drawing.Size(178, 23)
         Me.Txt_IM_ID.TabIndex = 4
         '
         'Cmb_Status
@@ -178,7 +182,7 @@ Partial Class Frm_InventoryCostRecountList
         Me.Cmb_Status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cmb_Status.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Cmb_Status.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Cmb_Status.Location = New System.Drawing.Point(83, 113)
+        Me.Cmb_Status.Location = New System.Drawing.Point(585, 113)
         Me.Cmb_Status.Name = "Cmb_Status"
         Me.Cmb_Status.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Cmb_Status.Size = New System.Drawing.Size(150, 23)
@@ -244,6 +248,7 @@ Partial Class Frm_InventoryCostRecountList
         '
         'Btn_Close
         '
+        Me.Btn_Close.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Btn_Close.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.Btn_Close.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Close.FlatAppearance.BorderSize = 0
@@ -264,17 +269,20 @@ Partial Class Frm_InventoryCostRecountList
         '
         Me.GridBatches.AllowUserToAddRows = False
         Me.GridBatches.AllowUserToDeleteRows = False
+        Me.GridBatches.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GridBatches.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.GridBatches.BackgroundColor = System.Drawing.Color.White
         Me.GridBatches.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.GridBatches.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(85, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.GridBatches.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.GridBatches.ColumnHeadersHeight = 34
         Me.GridBatches.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.GridBatches.EnableHeadersVisualStyles = False
@@ -316,8 +324,7 @@ Partial Class Frm_InventoryCostRecountList
         Me.Controls.Add(Me.Btn_Close)
         Me.Controls.Add(Me.GridBatches)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(1044, 755)
         Me.Name = "Frm_InventoryCostRecountList"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RightToLeftLayout = True

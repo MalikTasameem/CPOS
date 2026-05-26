@@ -5,6 +5,8 @@ Imports System.Data.SqlClient
 
 Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
+
+    Public Property OpenForPreviousBillsReview As Boolean = False
     Dim rs As New Resizer
     Dim FormState As String = ""
     Dim DefaultFormState As String = ""
@@ -64,7 +66,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
         Select Case e.KeyCode
             Case Keys.F1
-                If New_butt.Enabled = True Then ResetNewBill()
+                If New_butt.Enabled = True Then OpenSalesFastDraft()
             Case Keys.F12
                 If Save_butt.Enabled = True Then Save_butt_Click(sender, e)
             Case Keys.F2
@@ -212,7 +214,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         If SQL_SP_EXEC(c.Com) = True Then
             SB_Contents_SELECT_Bill()
             AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
-            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString + " السعر:" + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, _
+            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString + " السعر:" + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString,
                 Bill_ID_Txt.Text, 1, 3)
         End If
     End Sub
@@ -326,7 +328,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             New_butt.Enabled = False
             SBPauseBtn.Enabled = False
         Else
-            If Open_NewBill_When_OpenSale = True Then ResetNewBill()
+            If Open_NewBill_When_OpenSale = True AndAlso OpenForPreviousBillsReview = False Then ResetNewBill()
         End If
 
         'Pay_Method1.Set_Tr_Form()
@@ -1724,7 +1726,13 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
-        ResetNewBill()
+        OpenSalesFastDraft()
+    End Sub
+
+    Private Sub OpenSalesFastDraft()
+        SB_is_Fast = True
+        Sales_Fast_Draft.Show()
+        Sales_Fast_Draft.Activate()
     End Sub
 
     Private Sub Load_PauseBills()

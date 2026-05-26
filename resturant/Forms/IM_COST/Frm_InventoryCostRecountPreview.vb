@@ -84,6 +84,8 @@ Public Class Frm_InventoryCostRecountPreview
                     '========================================
                     If ds.Tables.Count > 1 Then
 
+                        AddStoreNameColumn(ds.Tables(1))
+
                         GridImpact.DataSource =
                             ds.Tables(1)
 
@@ -128,10 +130,12 @@ Public Class Frm_InventoryCostRecountPreview
             col.Visible = False
         Next
 
+        HideColumn(GridImpact, "IM_ID")
+
         ShowColumn(GridImpact, "SourceDate", "التاريخ", 120)
         ShowColumn(GridImpact, "MovementType", "نوع الحركة", 120)
         ShowColumn(GridImpact, "SourceParentId", "رقم المستند", 100)
-        ShowColumn(GridImpact, "StoreId", "المخزن", 80)
+        ShowColumn(GridImpact, "StoreName", "المخزن", 130)
         ShowColumn(GridImpact, "Qty", "الكمية", 90)
         ShowColumn(GridImpact, "OldCost", "التكلفة القديمة", 120)
         ShowColumn(GridImpact, "NewCost", "التكلفة الجديدة", 120)
@@ -145,6 +149,72 @@ Public Class Frm_InventoryCostRecountPreview
 
     End Sub
 
+    Private Sub AddStoreNameColumn(dt As DataTable)
+
+        If dt Is Nothing Then Return
+
+        Dim storeIdColumnName As String = ""
+
+        If dt.Columns.Contains("StoreId") Then
+            storeIdColumnName = "StoreId"
+        ElseIf dt.Columns.Contains("ST_ID") Then
+            storeIdColumnName = "ST_ID"
+        End If
+
+        If storeIdColumnName = "" Then Return
+
+        If Not dt.Columns.Contains("StoreName") Then
+            dt.Columns.Add("StoreName", GetType(String))
+        End If
+
+        Dim storeNames As New Dictionary(Of Long, String)()
+
+        Using cn As New SqlConnection(ConnectionString)
+
+            Dim sql As String = "
+SELECT
+    CAST(ST_ID AS bigint) AS ST_ID,
+    CAST(ST_Name AS nvarchar(2500)) AS ST_Name
+FROM dbo.STORES
+"
+
+            Using cmd As New SqlCommand(sql, cn)
+
+                Dim da As New SqlDataAdapter(cmd)
+                Dim storesTable As New DataTable()
+
+                da.Fill(storesTable)
+
+                For Each row As DataRow In storesTable.Rows
+
+                    If row("ST_ID") Is DBNull.Value Then Continue For
+
+                    Dim storeId As Long = CLng(row("ST_ID"))
+
+                    If storeId > 0 AndAlso Not storeNames.ContainsKey(storeId) Then
+                        storeNames.Add(storeId, row("ST_Name").ToString())
+                    End If
+
+                Next
+
+            End Using
+
+        End Using
+
+        For Each row As DataRow In dt.Rows
+
+            If row(storeIdColumnName) Is DBNull.Value Then Continue For
+
+            Dim storeId As Long = CLng(row(storeIdColumnName))
+
+            If storeNames.ContainsKey(storeId) Then
+                row("StoreName") = storeNames(storeId)
+            End If
+
+        Next
+
+    End Sub
+
     Private Sub FormatJournalGrid()
 
         If GridJournal.Columns.Count = 0 Then Return
@@ -152,6 +222,8 @@ Public Class Frm_InventoryCostRecountPreview
         For Each col As DataGridViewColumn In GridJournal.Columns
             col.Visible = False
         Next
+
+        HideColumn(GridJournal, "IM_ID")
 
         ShowColumn(GridJournal, "AccountEffect", "الحساب المتأثر", 180)
         ShowColumn(GridJournal, "Debit", "مدين", 120)
@@ -178,6 +250,14 @@ Public Class Frm_InventoryCostRecountPreview
             DataGridViewContentAlignment.MiddleCenter
             grid.Columns(columnName).HeaderCell.Style.Alignment =
             DataGridViewContentAlignment.MiddleCenter
+        End If
+
+    End Sub
+
+    Private Sub HideColumn(grid As DataGridView, columnName As String)
+
+        If grid.Columns.Contains(columnName) Then
+            grid.Columns(columnName).Visible = False
         End If
 
     End Sub

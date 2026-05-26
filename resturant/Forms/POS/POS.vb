@@ -3026,6 +3026,8 @@ Public Class POS
             MSG.ShowDialog()
             If MSG.Result = True Then
 
+                If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+
                 Edit_butt.BackColor = Color.GreenYellow
                 On_Update = True
                 'MetroGrid.BackgroundColor = Color.LightYellow
