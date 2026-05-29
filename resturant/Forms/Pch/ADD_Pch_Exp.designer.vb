@@ -39,11 +39,11 @@ Partial Class ADD_Pch_Exp
         '
         Me.CD_Money_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CD_Money_txt.ContextMenuStrip = Me.NoneContextMenuStrip1
-        Me.CD_Money_txt.Font = New System.Drawing.Font("Stencil", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CD_Money_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CD_Money_txt.Location = New System.Drawing.Point(89, 3)
         Me.CD_Money_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.CD_Money_txt.Name = "CD_Money_txt"
-        Me.CD_Money_txt.Size = New System.Drawing.Size(149, 30)
+        Me.CD_Money_txt.Size = New System.Drawing.Size(149, 29)
         Me.CD_Money_txt.TabIndex = 386
         Me.CD_Money_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '

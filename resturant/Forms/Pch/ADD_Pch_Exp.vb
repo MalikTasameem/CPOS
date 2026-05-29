@@ -50,7 +50,7 @@
 
     Private Sub CD_Money_txt_TextChanged(sender As Object, e As EventArgs) Handles CD_Money_txt.TextChanged
         Check_Point_in_FloatNum(sender, e)
-        If CD_Money_txt.Text.Count > 0 Then
+        If CD_Money_txt.Text.Count = 0 Then
             OrderDeliver_btn.Enabled = True
         Else
             OrderDeliver_btn.Enabled = False
