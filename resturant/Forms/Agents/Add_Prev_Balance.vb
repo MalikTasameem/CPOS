@@ -4,11 +4,10 @@
     Public AG_NAME As String = ""
 
     Private Sub Debit_txt_Enter(sender As Object, e As EventArgs) Handles Debit_txt.Enter
-        Credit_txt.Clear()
     End Sub
 
     Private Sub Debit_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Debit_txt.KeyDown
-        If e.KeyCode = Keys.Up Then Credit_txt.Select()
+        If e.KeyCode = Keys.Up Then BalanceType_cm.Select()
     End Sub
 
     Private Sub PriceTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Debit_txt.KeyPress
@@ -33,8 +32,14 @@
 
     Private Sub Exp_Static_INSERT()
 
-        If String.IsNullOrWhiteSpace(Debit_txt.Text) Then Debit_txt.Text = "0"
-        If String.IsNullOrWhiteSpace(Credit_txt.Text) Then Credit_txt.Text = "0"
+        Dim amount As Double = GetEnteredAmount()
+        If amount <= 0 Then
+            MsgBox("أدخل قيمة صحيحة أولا", MsgBoxStyle.Exclamation, "")
+            Debit_txt.Focus()
+            Exit Sub
+        End If
+
+        Dim balanceTypeId As Integer = GetSelectedBalanceTypeId()
 
         Dim C As New C
         With C.Com
@@ -42,25 +47,8 @@
             .CommandText = "[Agents_insert_Prev_Balance]"
             .CommandType = CommandType.StoredProcedure
             .Parameters.AddWithValue("@AG_ID", F_Agent.AG_ID)
-
-
-            If ComboBox1.SelectedIndex = 0 Then
-                If Convert.ToDouble(Debit_txt.Text) > 0 Then
-                    .Parameters.AddWithValue("@Balance", Convert.ToDouble(Debit_txt.Text))
-                    .Parameters.AddWithValue("@Type_ID", 37)
-                ElseIf Convert.ToDouble(Credit_txt.Text) > 0 Then
-                    .Parameters.AddWithValue("@Balance", Convert.ToDouble(Credit_txt.Text))
-                    .Parameters.AddWithValue("@Type_ID", 6)
-                End If
-            Else
-                ' If Convert.ToDouble(Debit_txt.Text) > 0 Then
-                .Parameters.AddWithValue("@Balance", Convert.ToDouble(Debit_txt.Text))
-                .Parameters.AddWithValue("@Type_ID", 5)
-                '    ElseIf Convert.ToDouble(Credit_txt.Text) > 0 Then
-                '    .Parameters.AddWithValue("@Balance", Convert.ToDouble(Credit_txt.Text))
-                '    .Parameters.AddWithValue("@Type_ID", 6)
-                'End If
-            End If
+            .Parameters.AddWithValue("@Balance", amount)
+            .Parameters.AddWithValue("@Type_ID", balanceTypeId)
 
             .Parameters.AddWithValue("@NOTES", Notes_txt.Text)
             .Parameters.AddWithValue("@Date", DateTime.Value)
@@ -70,10 +58,12 @@
         If SQL_SP_EXEC(C.Com) = True Then
             MsgBox("تم الإضافة", MsgBoxStyle.Information, "")
 
-            If Convert.ToDouble(Debit_txt.Text) > 0 Then
-                Network_Edit_Tracker_insert(ComboBox1.Text & " لحساب:" & AG_NAME & " بقيمة : " & Debit_txt.Text & "دائن (عليه)", 0, 37, 1)
-            ElseIf Convert.ToDouble(Credit_txt.Text) > 0 Then
-                Network_Edit_Tracker_insert(ComboBox1.Text & " لحساب:" & AG_NAME & " بقيمة : " & Credit_txt.Text & "مدين (له)", 0, 36, 1)
+            If balanceTypeId = 37 Then
+                Network_Edit_Tracker_insert(ComboBox1.Text & " لحساب:" & AG_NAME & " بقيمة : " & amount.ToString(N_Point_Fter) & " دائن (عليه)", 0, 37, 1)
+            ElseIf balanceTypeId = 6 Then
+                Network_Edit_Tracker_insert(ComboBox1.Text & " لحساب:" & AG_NAME & " بقيمة : " & amount.ToString(N_Point_Fter) & " مدين (له)", 0, 6, 1)
+            Else
+                Network_Edit_Tracker_insert(ComboBox1.Text & " لحساب:" & AG_NAME & " بقيمة : " & amount.ToString(N_Point_Fter), 0, 5, 1)
             End If
 
             F_Agent.AG_BalanceTextBox.Text = Show_AG_T_Balance(F_Agent.AG_ID)
@@ -113,7 +103,7 @@
 
     Private Sub DeleteSButton_Click(sender As Object, e As EventArgs) Handles DeleteSButton.Click
         Beep()
-        If MessageBox.Show("تأكيد إلغاء المعاملة نهائيا", "", MessageBoxButtons.OKCancel, _
+        If MessageBox.Show("تأكيد إلغاء المعاملة نهائيا", "", MessageBoxButtons.OKCancel,
                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
             Exp_Static_DELETE()
         End If
@@ -133,18 +123,14 @@
 
 
             If is_Select = True Then
-                If F_Balances.AGMVMetroGrid.CurrentRow.Cells("AG_MV_Type_ID_CL").Value = 6 Then
+                Dim typeId As Integer = Convert.ToInt32(F_Balances.AGMVMetroGrid.CurrentRow.Cells("AG_MV_Type_ID_CL").Value)
 
-
-                    If Convert.ToDouble(Debit_txt.Text) > 0 Then
-                        Network_Edit_Tracker_insert(" لحساب:" & AG_NAME & " بقيمة : " & Debit_txt.Text & "دائن (عليه)", 0, 6, 2)
-                    ElseIf Convert.ToDouble(Credit_txt.Text) > 0 Then
-                        Network_Edit_Tracker_insert(" لحساب:" & AG_NAME & " بقيمة : " & Credit_txt.Text & "مدين (له)", 0, 6, 2)
-                    End If
-
-
-                ElseIf F_Balances.AGMVMetroGrid.CurrentRow.Cells("AG_MV_Type_ID_CL").Value = 5 Then
-                    Network_Edit_Tracker_insert(" لحساب:" & F_Balances.AGMVMetroGrid.CurrentRow.Cells("AG_Name_CL").Value.ToString & " بقيمة : " & Credit_txt.Text, 0, 5, 2)
+                If typeId = 37 Then
+                    Network_Edit_Tracker_insert(" لحساب:" & AG_NAME & " بقيمة : " & Debit_txt.Text & " دائن (عليه)", 0, 37, 2)
+                ElseIf typeId = 6 Then
+                    Network_Edit_Tracker_insert(" لحساب:" & AG_NAME & " بقيمة : " & Debit_txt.Text & " مدين (له)", 0, 6, 2)
+                ElseIf typeId = 5 Then
+                    Network_Edit_Tracker_insert(" لحساب:" & F_Balances.AGMVMetroGrid.CurrentRow.Cells("AG_Name_CL").Value.ToString & " بقيمة : " & Debit_txt.Text, 0, 5, 2)
                 End If
 
             End If
@@ -157,7 +143,9 @@
 
     Private Sub Exp_Static_Add_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
+        If BalanceType_cm.SelectedIndex < 0 Then BalanceType_cm.SelectedIndex = 0
 
         If is_Select = True Then
 
@@ -175,13 +163,21 @@
                 VoidLb.Visible = False
                 DeleteSButton.Enabled = True
             End If
-            Debit_txt.Text = F_Balances.AGMVMetroGrid.CurrentRow.Cells("Debit_CL").Value
-            Credit_txt.Text = F_Balances.AGMVMetroGrid.CurrentRow.Cells("Credit_CL").Value
+            Dim debitValue As Double = GetGridCellDoubleValue(F_Balances.AGMVMetroGrid.CurrentRow, "Debit_CL")
+            Dim creditValue As Double = GetGridCellDoubleValue(F_Balances.AGMVMetroGrid.CurrentRow, "Credit_CL")
+            Debit_txt.Text = If(debitValue > 0, debitValue, creditValue).ToString(N_Point_Fter)
+            Credit_txt.Text = creditValue.ToString(N_Point_Fter)
+            If F_Balances.AGMVMetroGrid.CurrentRow.Cells("AG_MV_Type_ID_CL").Value = 6 Then
+                BalanceType_cm.SelectedIndex = 1
+            Else
+                BalanceType_cm.SelectedIndex = 0
+            End If
             Notes_txt.Text = F_Balances.AGMVMetroGrid.CurrentRow.Cells("Receipt_Title_CL").Value
             DateTime.Value = F_Balances.AGMVMetroGrid.CurrentRow.Cells("Date_CL").Value
 
             Debit_txt.Enabled = False
             Credit_txt.Enabled = False
+            BalanceType_cm.Enabled = False
             Notes_txt.Enabled = False
             DateTime.Enabled = False
 
@@ -192,7 +188,9 @@
             DeleteSButton.Enabled = False
             Debit_txt.Select()
             ComboBox1.SelectedIndex = 0
+            BalanceType_cm.SelectedIndex = 0
         End If
+        ApplyTransactionTypeState()
 
     End Sub
 
@@ -214,11 +212,51 @@
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        If ComboBox1.SelectedIndex = 1 Then
-            Credit_txt.Clear()
-            Credit_txt.Enabled = False
-        Else
-            Credit_txt.Enabled = True
-        End If
+        ApplyTransactionTypeState()
     End Sub
+
+    Private Function GetEnteredAmount() As Double
+
+        If String.IsNullOrWhiteSpace(Debit_txt.Text) Then Return 0
+
+        Dim amount As Double = 0
+        If Double.TryParse(Debit_txt.Text, amount) Then Return amount
+
+        Return 0
+
+    End Function
+
+    Private Function GetSelectedBalanceTypeId() As Integer
+
+        If ComboBox1.SelectedIndex = 1 Then Return 5
+        If BalanceType_cm.SelectedIndex = 1 Then Return 6
+
+        Return 37
+
+    End Function
+
+    Private Sub ApplyTransactionTypeState()
+
+        If BalanceType_cm Is Nothing Then Exit Sub
+
+        If ComboBox1.SelectedIndex = 1 Then
+            BalanceType_cm.SelectedIndex = 0
+            BalanceType_cm.Enabled = False
+        Else
+            BalanceType_cm.Enabled = Not is_Select
+        End If
+
+    End Sub
+
+    Private Function GetGridCellDoubleValue(row As DataGridViewRow, columnName As String) As Double
+
+        If row Is Nothing OrElse row.DataGridView Is Nothing OrElse row.DataGridView.Columns.Contains(columnName) = False Then Return 0
+        If row.Cells(columnName).Value Is Nothing OrElse row.Cells(columnName).Value Is DBNull.Value Then Return 0
+
+        Dim value As Double = 0
+        If Double.TryParse(row.Cells(columnName).Value.ToString(), value) Then Return value
+
+        Return 0
+
+    End Function
 End Class

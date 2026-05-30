@@ -40,6 +40,8 @@ Partial Class Add_Prev_Balance
         Me.Label5 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.BalanceType_cm = New System.Windows.Forms.ComboBox()
+        Me.BalanceTypeLabel = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Debit_txt
@@ -47,15 +49,16 @@ Partial Class Add_Prev_Balance
         Me.Debit_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Debit_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Debit_txt.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.Debit_txt.Font = New System.Drawing.Font("Stencil", 15.7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Debit_txt.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Debit_txt.Location = New System.Drawing.Point(2, 80)
+        Me.Debit_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 13.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Debit_txt.ForeColor = System.Drawing.Color.DarkBlue
+        Me.Debit_txt.Location = New System.Drawing.Point(24, 116)
         Me.Debit_txt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Debit_txt.MaxLength = 250
         Me.Debit_txt.Name = "Debit_txt"
         Me.Debit_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Debit_txt.Size = New System.Drawing.Size(157, 32)
+        Me.Debit_txt.Size = New System.Drawing.Size(348, 31)
         Me.Debit_txt.TabIndex = 617
+        Me.Debit_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'NULLContextMenuStrip
         '
@@ -65,14 +68,13 @@ Partial Class Add_Prev_Balance
         '
         'Label7
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(162, 82)
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Label7.Location = New System.Drawing.Point(385, 116)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(75, 28)
+        Me.Label7.Size = New System.Drawing.Size(92, 31)
         Me.Label7.TabIndex = 620
-        Me.Label7.Text = "(دائن)له"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.Label7.Text = "القيمة"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'BackButton
         '
@@ -81,32 +83,31 @@ Partial Class Add_Prev_Balance
         Me.BackButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BackButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.BackButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.BackButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.BackButton.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.BackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BackButton.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.BackButton.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BackButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.BackButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BackButton.Location = New System.Drawing.Point(410, 292)
+        Me.BackButton.Location = New System.Drawing.Point(366, 285)
         Me.BackButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.BackButton.Name = "BackButton"
         Me.BackButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.BackButton.Size = New System.Drawing.Size(130, 43)
+        Me.BackButton.Size = New System.Drawing.Size(150, 42)
         Me.BackButton.TabIndex = 636
         Me.BackButton.TabStop = False
-        Me.BackButton.Text = "رجوع"
-        Me.BackButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BackButton.Text = "↩ رجوع"
         Me.BackButton.UseVisualStyleBackColor = False
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label4.Location = New System.Drawing.Point(162, 123)
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Label4.Location = New System.Drawing.Point(385, 152)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(101, 28)
+        Me.Label4.Size = New System.Drawing.Size(71, 19)
         Me.Label4.TabIndex = 689
         Me.Label4.Text = "(مدين)عليه"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.Label4.Visible = False
         '
         'DeleteSButton
         '
@@ -116,19 +117,17 @@ Partial Class Add_Prev_Balance
         Me.DeleteSButton.Enabled = False
         Me.DeleteSButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.DeleteSButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.DeleteSButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DeleteSButton.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.DeleteSButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.DeleteSButton.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.DeleteSButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DeleteSButton.Image = Global.resturant.My.Resources.Resources.if_cancel_46786
         Me.DeleteSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.DeleteSButton.Location = New System.Drawing.Point(2, 292)
+        Me.DeleteSButton.Location = New System.Drawing.Point(24, 285)
         Me.DeleteSButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DeleteSButton.Name = "DeleteSButton"
         Me.DeleteSButton.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.DeleteSButton.Size = New System.Drawing.Size(111, 43)
+        Me.DeleteSButton.Size = New System.Drawing.Size(110, 42)
         Me.DeleteSButton.TabIndex = 692
-        Me.DeleteSButton.Text = "إلغــاء"
-        Me.DeleteSButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.DeleteSButton.Text = "✕ إلغاء"
         Me.DeleteSButton.UseVisualStyleBackColor = False
         '
         'SaveSButton
@@ -138,19 +137,17 @@ Partial Class Add_Prev_Balance
         Me.SaveSButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SaveSButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.SaveSButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.SaveSButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.SaveSButton.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.SaveSButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SaveSButton.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.SaveSButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.SaveSButton.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
         Me.SaveSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.SaveSButton.Location = New System.Drawing.Point(116, 292)
+        Me.SaveSButton.Location = New System.Drawing.Point(140, 285)
         Me.SaveSButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.SaveSButton.Name = "SaveSButton"
         Me.SaveSButton.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.SaveSButton.Size = New System.Drawing.Size(111, 43)
+        Me.SaveSButton.Size = New System.Drawing.Size(110, 42)
         Me.SaveSButton.TabIndex = 690
-        Me.SaveSButton.Text = "حفظ"
-        Me.SaveSButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.SaveSButton.Text = "✓ حفظ"
         Me.SaveSButton.UseVisualStyleBackColor = False
         '
         'Credit_txt
@@ -158,47 +155,48 @@ Partial Class Add_Prev_Balance
         Me.Credit_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Credit_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Credit_txt.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.Credit_txt.Font = New System.Drawing.Font("Stencil", 15.7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Credit_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 13.0!, System.Drawing.FontStyle.Bold)
         Me.Credit_txt.ForeColor = System.Drawing.Color.DarkRed
-        Me.Credit_txt.Location = New System.Drawing.Point(3, 120)
+        Me.Credit_txt.Location = New System.Drawing.Point(24, 151)
         Me.Credit_txt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Credit_txt.MaxLength = 250
         Me.Credit_txt.Name = "Credit_txt"
         Me.Credit_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Credit_txt.Size = New System.Drawing.Size(156, 32)
+        Me.Credit_txt.Size = New System.Drawing.Size(348, 31)
         Me.Credit_txt.TabIndex = 693
+        Me.Credit_txt.Visible = False
         '
         'Label15
         '
-        Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
-        Me.Label15.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label15.Location = New System.Drawing.Point(333, 166)
+        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Label15.Location = New System.Drawing.Point(385, 158)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(67, 28)
+        Me.Label15.Size = New System.Drawing.Size(92, 31)
         Me.Label15.TabIndex = 694
         Me.Label15.Text = "العنوان"
+        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Notes_txt
         '
-        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Notes_txt.Location = New System.Drawing.Point(3, 167)
+        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Notes_txt.Location = New System.Drawing.Point(24, 160)
         Me.Notes_txt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Notes_txt.MaxLength = 350
         Me.Notes_txt.Name = "Notes_txt"
         Me.Notes_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Notes_txt.Size = New System.Drawing.Size(327, 29)
+        Me.Notes_txt.Size = New System.Drawing.Size(348, 26)
         Me.Notes_txt.TabIndex = 695
         '
         'VoidLb
         '
         Me.VoidLb.BackColor = System.Drawing.Color.IndianRed
         Me.VoidLb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.VoidLb.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.VoidLb.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.VoidLb.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.VoidLb.Location = New System.Drawing.Point(399, 2)
+        Me.VoidLb.Location = New System.Drawing.Point(24, 238)
         Me.VoidLb.Name = "VoidLb"
-        Me.VoidLb.Size = New System.Drawing.Size(140, 64)
+        Me.VoidLb.Size = New System.Drawing.Size(492, 35)
         Me.VoidLb.TabIndex = 696
         Me.VoidLb.Text = "معاملة ملغية"
         Me.VoidLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -206,26 +204,25 @@ Partial Class Add_Prev_Balance
         '
         'DateTime
         '
-        Me.DateTime.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTime.CalendarFont = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.DateTime.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DateTime.CustomFormat = "dd/MM/yyyy"
-        Me.DateTime.Font = New System.Drawing.Font("Tahoma", 13.0!)
+        Me.DateTime.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.DateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTime.Location = New System.Drawing.Point(149, 200)
+        Me.DateTime.Location = New System.Drawing.Point(24, 200)
         Me.DateTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DateTime.Name = "DateTime"
         Me.DateTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.DateTime.RightToLeftLayout = True
-        Me.DateTime.Size = New System.Drawing.Size(181, 28)
+        Me.DateTime.Size = New System.Drawing.Size(348, 26)
         Me.DateTime.TabIndex = 697
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.Location = New System.Drawing.Point(334, 199)
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Label5.Location = New System.Drawing.Point(385, 196)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(60, 28)
+        Me.Label5.Size = New System.Drawing.Size(92, 31)
         Me.Label5.TabIndex = 698
         Me.Label5.Text = "التاريخ"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -234,30 +231,55 @@ Partial Class Add_Prev_Balance
         '
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"رصيد سابق", "إثبــات مرتب"})
-        Me.ComboBox1.Location = New System.Drawing.Point(3, 2)
+        Me.ComboBox1.Location = New System.Drawing.Point(24, 28)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(305, 29)
+        Me.ComboBox1.Size = New System.Drawing.Size(348, 27)
         Me.ComboBox1.TabIndex = 699
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(313, 3)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Label1.Location = New System.Drawing.Point(385, 25)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(61, 28)
+        Me.Label1.Size = New System.Drawing.Size(92, 31)
         Me.Label1.TabIndex = 700
         Me.Label1.Text = "النــوع"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'BalanceType_cm
+        '
+        Me.BalanceType_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.BalanceType_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BalanceType_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
+        Me.BalanceType_cm.FormattingEnabled = True
+        Me.BalanceType_cm.Items.AddRange(New Object() {"دائن (له)", "مدين (عليه)"})
+        Me.BalanceType_cm.Location = New System.Drawing.Point(24, 72)
+        Me.BalanceType_cm.Name = "BalanceType_cm"
+        Me.BalanceType_cm.Size = New System.Drawing.Size(348, 27)
+        Me.BalanceType_cm.TabIndex = 701
+        '
+        'BalanceTypeLabel
+        '
+        Me.BalanceTypeLabel.BackColor = System.Drawing.Color.Transparent
+        Me.BalanceTypeLabel.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.BalanceTypeLabel.Location = New System.Drawing.Point(385, 69)
+        Me.BalanceTypeLabel.Name = "BalanceTypeLabel"
+        Me.BalanceTypeLabel.Size = New System.Drawing.Size(92, 31)
+        Me.BalanceTypeLabel.TabIndex = 702
+        Me.BalanceTypeLabel.Text = "نوع الإدخال"
+        Me.BalanceTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Add_Prev_Balance
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 28.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(540, 335)
+        Me.Controls.Add(Me.BalanceTypeLabel)
+        Me.Controls.Add(Me.BalanceType_cm)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.DateTime)
@@ -272,7 +294,7 @@ Partial Class Add_Prev_Balance
         Me.Controls.Add(Me.BackButton)
         Me.Controls.Add(Me.Debit_txt)
         Me.Controls.Add(Me.Label7)
-        Me.Font = New System.Drawing.Font("JF Flat", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
@@ -303,4 +325,6 @@ Partial Class Add_Prev_Balance
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents BalanceType_cm As System.Windows.Forms.ComboBox
+    Friend WithEvents BalanceTypeLabel As System.Windows.Forms.Label
 End Class

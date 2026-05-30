@@ -1073,4 +1073,7 @@
         drag = False
     End Sub
 
+    Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        Me.Close()
+    End Sub
 End Class
