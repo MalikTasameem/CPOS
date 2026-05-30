@@ -27,13 +27,13 @@ Partial Class Pch
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Pch))
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.lblFormState = New System.Windows.Forms.Label()
         Me.Title_Label = New System.Windows.Forms.Label()
@@ -77,10 +77,6 @@ Partial Class Pch
         Me.Cr_CM = New System.Windows.Forms.ComboBox()
         Me.Cr_Equal_TXT = New System.Windows.Forms.TextBox()
         Me.Dist_DV = New System.Windows.Forms.DataGridView()
-        Me.Dist_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Dist_Values_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.isWithBill_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.Dist_TotalWithoutExpenses_txt = New System.Windows.Forms.TextBox()
         Me.Dist_TotalWithBill_txt = New System.Windows.Forms.TextBox()
         Me.Dist_TotalWithoutBill_txt = New System.Windows.Forms.TextBox()
@@ -148,6 +144,10 @@ Partial Class Pch
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.AG_Cm = New resturant.FSearch_Filter()
+        Me.Dist_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Dist_Values_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.isWithBill_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.TitleBar_Panel.SuspendLayout()
         Me.AG_ContextMenuStrip.SuspendLayout()
         CType(Me.ReceiptsMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -651,7 +651,7 @@ Partial Class Pch
         Me.ADD_Dist_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ADD_Dist_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.ADD_Dist_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADD_Dist_btn.Location = New System.Drawing.Point(333, 1)
+        Me.ADD_Dist_btn.Location = New System.Drawing.Point(346, 1)
         Me.ADD_Dist_btn.Name = "ADD_Dist_btn"
         Me.ADD_Dist_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ADD_Dist_btn.Size = New System.Drawing.Size(40, 70)
@@ -670,7 +670,7 @@ Partial Class Pch
         Me.Remove_Dist_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Remove_Dist_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Remove_Dist_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Remove_Dist_btn.Location = New System.Drawing.Point(333, 73)
+        Me.Remove_Dist_btn.Location = New System.Drawing.Point(346, 73)
         Me.Remove_Dist_btn.Name = "Remove_Dist_btn"
         Me.Remove_Dist_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Remove_Dist_btn.Size = New System.Drawing.Size(40, 32)
@@ -784,44 +784,8 @@ Partial Class Pch
         Me.Dist_DV.RowsDefaultCellStyle = DataGridViewCellStyle10
         Me.Dist_DV.RowTemplate.Height = 24
         Me.Dist_DV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Dist_DV.Size = New System.Drawing.Size(331, 105)
+        Me.Dist_DV.Size = New System.Drawing.Size(339, 105)
         Me.Dist_DV.TabIndex = 679
-        '
-        'Dist_T_ID_CL
-        '
-        Me.Dist_T_ID_CL.DataPropertyName = "T_ID"
-        Me.Dist_T_ID_CL.HeaderText = "رقم الآلي"
-        Me.Dist_T_ID_CL.Name = "Dist_T_ID_CL"
-        Me.Dist_T_ID_CL.ReadOnly = True
-        Me.Dist_T_ID_CL.Visible = False
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.DataPropertyName = "EX_NAME"
-        Me.DataGridViewTextBoxColumn5.FillWeight = 50.0!
-        Me.DataGridViewTextBoxColumn5.HeaderText = "البند"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        '
-        'Dist_Values_CL
-        '
-        Me.Dist_Values_CL.DataPropertyName = "Value"
-        DataGridViewCellStyle7.Format = "N2"
-        Me.Dist_Values_CL.DefaultCellStyle = DataGridViewCellStyle7
-        Me.Dist_Values_CL.FillWeight = 61.42132!
-        Me.Dist_Values_CL.HeaderText = "المبلغ"
-        Me.Dist_Values_CL.Name = "Dist_Values_CL"
-        Me.Dist_Values_CL.ReadOnly = True
-        '
-        'isWithBill_CL
-        '
-        Me.isWithBill_CL.DataPropertyName = "isWithBill"
-        Me.isWithBill_CL.FillWeight = 50.0!
-        Me.isWithBill_CL.HeaderText = "للفاتورة"
-        Me.isWithBill_CL.Name = "isWithBill_CL"
-        Me.isWithBill_CL.ReadOnly = True
-        Me.isWithBill_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.isWithBill_CL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         '
         'Dist_TotalWithoutExpenses_txt
         '
@@ -1660,7 +1624,7 @@ Partial Class Pch
         Me.AG_Cm.Location = New System.Drawing.Point(494, 157)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(467, 31)
+        Me.AG_Cm.Size = New System.Drawing.Size(467, 34)
         Me.AG_Cm.SQL_Column = "AG_NAME"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False
@@ -1673,6 +1637,42 @@ Partial Class Pch
         Me.AG_Cm.TabIndex = 1016
         Me.AG_Cm.TextMaxLength = 250
         Me.AG_Cm.Textt = ""
+        '
+        'Dist_T_ID_CL
+        '
+        Me.Dist_T_ID_CL.DataPropertyName = "T_ID"
+        Me.Dist_T_ID_CL.HeaderText = "رقم الآلي"
+        Me.Dist_T_ID_CL.Name = "Dist_T_ID_CL"
+        Me.Dist_T_ID_CL.ReadOnly = True
+        Me.Dist_T_ID_CL.Visible = False
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.DataPropertyName = "EX_NAME"
+        Me.DataGridViewTextBoxColumn5.FillWeight = 50.0!
+        Me.DataGridViewTextBoxColumn5.HeaderText = "البند"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        '
+        'Dist_Values_CL
+        '
+        Me.Dist_Values_CL.DataPropertyName = "Value"
+        DataGridViewCellStyle7.Format = "N2"
+        Me.Dist_Values_CL.DefaultCellStyle = DataGridViewCellStyle7
+        Me.Dist_Values_CL.FillWeight = 61.42132!
+        Me.Dist_Values_CL.HeaderText = "المبلغ"
+        Me.Dist_Values_CL.Name = "Dist_Values_CL"
+        Me.Dist_Values_CL.ReadOnly = True
+        '
+        'isWithBill_CL
+        '
+        Me.isWithBill_CL.DataPropertyName = "isWithBill"
+        Me.isWithBill_CL.FillWeight = 50.0!
+        Me.isWithBill_CL.HeaderText = "لحساب المورد"
+        Me.isWithBill_CL.Name = "isWithBill_CL"
+        Me.isWithBill_CL.ReadOnly = True
+        Me.isWithBill_CL.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.isWithBill_CL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         '
         'Pch
         '
@@ -1801,10 +1801,6 @@ Partial Class Pch
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Print_btn As System.Windows.Forms.Button
     Friend WithEvents Pch_Exp_Panel As System.Windows.Forms.Panel
-    Friend WithEvents Dist_T_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn5 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Dist_Values_CL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents isWithBill_CL As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents Dist_TotalWithoutExpenses_txt As System.Windows.Forms.TextBox
     Friend WithEvents Dist_TotalWithBill_txt As System.Windows.Forms.TextBox
     Friend WithEvents Dist_TotalWithoutBill_txt As System.Windows.Forms.TextBox
@@ -1848,4 +1844,8 @@ Partial Class Pch
     Friend WithEvents NewSaleByOne_CL As DataGridViewTextBoxColumn
     Friend WithEvents Total_CL As DataGridViewTextBoxColumn
     Friend WithEvents Notes_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Dist_T_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
+    Friend WithEvents Dist_Values_CL As DataGridViewTextBoxColumn
+    Friend WithEvents isWithBill_CL As DataGridViewCheckBoxColumn
 End Class
