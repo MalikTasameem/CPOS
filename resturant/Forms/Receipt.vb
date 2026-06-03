@@ -498,6 +498,9 @@
                             sqlComm.Parameters.AddWithValue("@Tr_ID", Treasury_ComboBox.SelectedValue)
                             sqlComm.Parameters.AddWithValue("@Pay_ID", payment_Type_combo.SelectedValue)
 
+                            sqlComm.Parameters.AddWithValue("@Discount", Convert.ToDouble(Me.Discount_txt.Text))
+
+
                             sqlComm.ExecuteNonQuery()
 
                         End Using

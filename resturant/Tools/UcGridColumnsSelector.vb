@@ -70,6 +70,35 @@ Public Class UcGridColumnsSelector
         Return key
     End Function
 
+    Private Function NormalizeColumnKey(value As String) As String
+        If value Is Nothing Then Return ""
+        Return value.Trim()
+    End Function
+
+    Private Function ColumnMatchesKey(col As DataGridViewColumn, columnKey As String) As Boolean
+        If col Is Nothing Then Return False
+
+        Dim key As String = NormalizeColumnKey(columnKey)
+        If key = "" Then Return False
+
+        If String.Equals(GetColumnKey(col), key, StringComparison.OrdinalIgnoreCase) Then Return True
+        If String.Equals(NormalizeColumnKey(col.Name), key, StringComparison.OrdinalIgnoreCase) Then Return True
+        If String.Equals(NormalizeColumnKey(col.DataPropertyName), key, StringComparison.OrdinalIgnoreCase) Then Return True
+        If String.Equals(NormalizeColumnKey(col.HeaderText), key, StringComparison.OrdinalIgnoreCase) Then Return True
+
+        Return False
+    End Function
+
+    Private Function IsColumnExcluded(col As DataGridViewColumn) As Boolean
+        If col Is Nothing OrElse _excludedColumns Is Nothing Then Return False
+
+        For Each columnKey As String In _excludedColumns
+            If ColumnMatchesKey(col, columnKey) Then Return True
+        Next
+
+        Return False
+    End Function
+
 
 
     '------------------------------------------------------------------------------------------------------------------
@@ -157,6 +186,7 @@ Public Class UcGridColumnsSelector
         CreatePopupIfNeeded()
         LoadColumnsToList()
         LoadSettingsFromFile()
+        ApplyExcludedColumnsVisibility()
 
         HidePopup()
     End Sub
@@ -274,7 +304,7 @@ Public Class UcGridColumnsSelector
         _checkedList.Items.Clear()
 
         For Each col As DataGridViewColumn In _grid.Columns
-            If Not _excludedColumns.Contains(col.Name) Then
+            If Not IsColumnExcluded(col) Then
 
                 Dim header As String = col.HeaderText
                 If String.IsNullOrWhiteSpace(header) Then
@@ -310,10 +340,33 @@ Public Class UcGridColumnsSelector
         If _grid Is Nothing Then Exit Sub
 
         For Each col As DataGridViewColumn In _grid.Columns
-            If String.Equals(GetColumnKey(col), columnKey, StringComparison.OrdinalIgnoreCase) Then
-                col.Visible = isVisible
+            If ColumnMatchesKey(col, columnKey) Then
+                If col.Visible <> isVisible Then col.Visible = isVisible
                 Exit For
             End If
+        Next
+    End Sub
+
+    Private Sub ApplyExcludedColumnsVisibility()
+        If _grid Is Nothing Then Exit Sub
+
+        For Each col As DataGridViewColumn In _grid.Columns
+            If IsColumnExcluded(col) AndAlso col.Visible Then
+                col.Visible = False
+            End If
+        Next
+    End Sub
+
+    Private Sub ApplySavedSettingsToGrid(settings As Dictionary(Of String, Boolean))
+        If _grid Is Nothing OrElse settings Is Nothing Then Exit Sub
+
+        For Each col As DataGridViewColumn In _grid.Columns
+            For Each item As KeyValuePair(Of String, Boolean) In settings
+                If ColumnMatchesKey(col, item.Key) Then
+                    If col.Visible <> item.Value Then col.Visible = item.Value
+                    Exit For
+                End If
+            Next
         Next
     End Sub
 
@@ -384,6 +437,8 @@ Public Class UcGridColumnsSelector
                 If String.IsNullOrWhiteSpace(line) Then Continue For
 
                 Dim parts() As String = line.Split({vbTab}, StringSplitOptions.None)
+                If parts.Length < 2 Then parts = line.Split({"="c}, 2, StringSplitOptions.None)
+
                 If parts.Length >= 2 Then
                     Dim key As String = parts(0).Trim()
                     Dim val As Boolean = False
@@ -404,6 +459,9 @@ Public Class UcGridColumnsSelector
                     End If
                 End If
             Next
+
+            ApplySavedSettingsToGrid(dic)
+            ApplyExcludedColumnsVisibility()
 
         Catch ex As Exception
             MessageBox.Show("خطأ أثناء تحميل إعدادات الأعمدة: " & ex.Message, "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -452,6 +510,7 @@ Public Class UcGridColumnsSelector
     Public Sub RefreshColumns()
         LoadColumnsToList()
         LoadSettingsFromFile()
+        ApplyExcludedColumnsVisibility()
     End Sub
 
     Private Sub ShowPopup()
@@ -535,7 +594,7 @@ Public Class UcGridColumnsSelector
         For i As Integer = 0 To _checkedList.Items.Count - 1
             _checkedList.SetItemChecked(i, True)
             Dim item As ColumnItem = TryCast(_checkedList.Items(i), ColumnItem)
-            If item IsNot Nothing Then ApplyColumnVisibility(item.ColumnName, True)
+            If item IsNot Nothing Then ApplyColumnVisibility(item.ColumnKey, True)
         Next
         _isLoading = False
 
@@ -549,7 +608,7 @@ Public Class UcGridColumnsSelector
         For i As Integer = 0 To _checkedList.Items.Count - 1
             _checkedList.SetItemChecked(i, False)
             Dim item As ColumnItem = TryCast(_checkedList.Items(i), ColumnItem)
-            If item IsNot Nothing Then ApplyColumnVisibility(item.ColumnName, False)
+            If item IsNot Nothing Then ApplyColumnVisibility(item.ColumnKey, False)
         Next
         _isLoading = False
 

@@ -340,11 +340,26 @@ Public Class STORES_Explorer
             'Next
 
 
-            UcGridColumnsSelector1.BindGrid(
+
+            If U_SB_Show_IM_COST Then
+
+
+                UcGridColumnsSelector1.BindGrid(
 gridv,
 New List(Of String) From {""},
 Me.Name.ToString
  )
+
+            Else
+
+                UcGridColumnsSelector1.BindGrid(
+gridv,
+New List(Of String) From {"      التكلفة", "      أخر شراء", "      إجمالي التكلفة"},
+Me.Name.ToString
+ )
+
+            End If
+
 
             'If U_SB_Show_IM_COST = False Then
             '    gridv.Columns("      التكلفة").Visible = False
