@@ -586,12 +586,12 @@ WHERE Status = @Status;
 
             btnPostAll.Enabled = False
             btnPostSelected.Enabled = False
-            lblStatusMessage.Text = "جاري الترحيل الجماعي..."
+            lblStatusMessage.Text = "جاري الترحيل الجماعي حسب التاريخ الأقدم..."
             Application.DoEvents()
 
-            For Each row As DataGridViewRow In dgvPosting.Rows
-                If row.IsNewRow Then Continue For
+            Dim postingRows As List(Of DataGridViewRow) = GetPostingRowsOrderedByOldestDate()
 
+            For Each row As DataGridViewRow In postingRows
 
                 Dim postingAction As String = Convert.ToString(row.Cells("PostingAction").Value)
 
@@ -647,6 +647,68 @@ WHERE Status = @Status;
             End If
         End Try
     End Sub
+
+    Private Function GetPostingRowsOrderedByOldestDate() As List(Of DataGridViewRow)
+
+        Dim rows As New List(Of DataGridViewRow)
+
+        For Each row As DataGridViewRow In dgvPosting.Rows
+            If row IsNot Nothing AndAlso Not row.IsNewRow Then
+                rows.Add(row)
+            End If
+        Next
+
+        rows.Sort(
+            Function(firstRow As DataGridViewRow, secondRow As DataGridViewRow) As Integer
+                Dim firstDate As DateTime = GetPostingRowDate(firstRow)
+                Dim secondDate As DateTime = GetPostingRowDate(secondRow)
+
+                Dim dateCompare As Integer = DateTime.Compare(firstDate, secondDate)
+                If dateCompare <> 0 Then Return dateCompare
+
+                Dim firstId As Integer = GetPostingRowIntegerValue(firstRow, "T_ID")
+                Dim secondId As Integer = GetPostingRowIntegerValue(secondRow, "T_ID")
+
+                Return firstId.CompareTo(secondId)
+            End Function
+        )
+
+        Return rows
+
+    End Function
+
+    Private Function GetPostingRowDate(row As DataGridViewRow) As DateTime
+
+        If row Is Nothing Then Return DateTime.MaxValue
+        If Not row.DataGridView.Columns.Contains("Date") Then Return DateTime.MaxValue
+
+        Dim value As Object = row.Cells("Date").Value
+        If value Is Nothing OrElse value Is DBNull.Value Then Return DateTime.MaxValue
+
+        If TypeOf value Is DateTime Then Return DirectCast(value, DateTime)
+
+        Dim parsedDate As DateTime
+        If DateTime.TryParse(value.ToString(), parsedDate) Then Return parsedDate
+
+        Return DateTime.MaxValue
+
+    End Function
+
+    Private Function GetPostingRowIntegerValue(row As DataGridViewRow, columnName As String) As Integer
+
+        If row Is Nothing Then Return Integer.MaxValue
+        If String.IsNullOrWhiteSpace(columnName) Then Return Integer.MaxValue
+        If Not row.DataGridView.Columns.Contains(columnName) Then Return Integer.MaxValue
+
+        Dim value As Object = row.Cells(columnName).Value
+        If value Is Nothing OrElse value Is DBNull.Value Then Return Integer.MaxValue
+
+        Dim parsedValue As Integer
+        If Integer.TryParse(value.ToString(), parsedValue) Then Return parsedValue
+
+        Return Integer.MaxValue
+
+    End Function
 
     Private Sub btnViewJournal_Click(sender As Object, e As EventArgs)
         LoadSelectedJournalDetails()
@@ -882,6 +944,10 @@ ORDER BY b.T_ID;
 
         UpdateInventoryRecountDraftCount()
         LoadPostingMonitor()
+    End Sub
+
+    Private Sub btnPostAll_Click_1(sender As Object, e As EventArgs) Handles btnPostAll.Click
+
     End Sub
 
 

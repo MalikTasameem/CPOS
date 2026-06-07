@@ -132,6 +132,8 @@ Public Class MainForm
 
 
                 U_Balance = c.Dr("Balance")
+                Me.Balances_btn.Enabled = c.Dr("Balance")
+
                 'If c.Dr("Balance") = False Then
                 '    Me.Balances_btn.Enabled = False
                 '    Agents_btn.Enabled = False
@@ -3111,5 +3113,9 @@ Public Class MainForm
     Private Sub متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Click
         Dim F As New FrmAccountingRepostMonitor(MY_Settings.SqlConStr, USER_ID)
         F.Show()
+    End Sub
+
+    Private Sub Main_Workspace_Panel_Paint(sender As Object, e As PaintEventArgs) Handles Main_Workspace_Panel.Paint
+
     End Sub
 End Class
