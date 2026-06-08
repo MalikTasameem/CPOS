@@ -307,14 +307,14 @@ Partial Class Sales_Fast
         Me.Discount_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Discount_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Discount_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Discount_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
+        Me.Discount_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Discount_txt.ForeColor = System.Drawing.Color.Black
         Me.Discount_txt.Location = New System.Drawing.Point(5, 78)
         Me.Discount_txt.MaxLength = 200
         Me.Discount_txt.Name = "Discount_txt"
         Me.Discount_txt.ReadOnly = True
         Me.Discount_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Discount_txt.Size = New System.Drawing.Size(159, 26)
+        Me.Discount_txt.Size = New System.Drawing.Size(159, 27)
         Me.Discount_txt.TabIndex = 617
         '
         'Label13
@@ -334,14 +334,14 @@ Partial Class Sales_Fast
         Me.Total_TextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Total_TextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Total_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Total_TextBox.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Total_TextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Total_TextBox.ForeColor = System.Drawing.Color.Black
         Me.Total_TextBox.Location = New System.Drawing.Point(4, 27)
         Me.Total_TextBox.MaxLength = 200
         Me.Total_TextBox.Name = "Total_TextBox"
         Me.Total_TextBox.ReadOnly = True
         Me.Total_TextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Total_TextBox.Size = New System.Drawing.Size(159, 26)
+        Me.Total_TextBox.Size = New System.Drawing.Size(159, 27)
         Me.Total_TextBox.TabIndex = 289
         '
         'Label6
@@ -360,14 +360,14 @@ Partial Class Sales_Fast
         '
         Me.Pure_txt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Pure_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Pure_txt.Font = New System.Drawing.Font("Stencil", 22.0!)
+        Me.Pure_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 18.0!, System.Drawing.FontStyle.Bold)
         Me.Pure_txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Pure_txt.Location = New System.Drawing.Point(2, 32)
         Me.Pure_txt.MaxLength = 200
         Me.Pure_txt.Name = "Pure_txt"
         Me.Pure_txt.ReadOnly = True
         Me.Pure_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Pure_txt.Size = New System.Drawing.Size(163, 42)
+        Me.Pure_txt.Size = New System.Drawing.Size(163, 39)
         Me.Pure_txt.TabIndex = 619
         Me.Pure_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '

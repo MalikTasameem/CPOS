@@ -32,7 +32,7 @@
                 d.CustomerName,
                 d.Date,
                 d.Total,
-                d.Items.Count,
+                GetDraftItemsCount(d),
                 d.UpdatedAt
             )
         Next
@@ -144,6 +144,53 @@
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         LoadDraftsList()
+    End Sub
+
+    Private Function GetDraftItemsCount(draft As SaleDraftHeader) As Integer
+
+        If draft Is Nothing Then Return 0
+        If draft.Items Is Nothing Then Return 0
+
+        Return draft.Items.Count
+
+    End Function
+
+    Private Sub btnDeleteEmptyDrafts_Click(sender As Object, e As EventArgs) Handles btnDeleteEmptyDrafts.Click
+
+        Dim drafts = Sales_Fast_Draft.DraftManager.GetAllDrafts()
+        Dim emptyDrafts = drafts.Where(Function(d) GetDraftItemsCount(d) = 0).ToList()
+
+        If emptyDrafts.Count = 0 Then
+            MessageBox.Show("لا توجد مسودات فارغة للحذف.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Dim result = MessageBox.Show(
+            "سيتم حذف عدد " & emptyDrafts.Count.ToString("N0") & " من المسودات التي لا تحتوي على أصناف. هل تريد المتابعة؟",
+            "تأكيد حذف المسودات الفارغة",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question
+        )
+
+        If result <> DialogResult.Yes Then Return
+
+        Try
+            For Each d As SaleDraftHeader In emptyDrafts
+                If d IsNot Nothing AndAlso String.IsNullOrWhiteSpace(d.DraftId) = False Then
+                    Sales_Fast_Draft.DraftManager.DeleteDraft(d.DraftId)
+                End If
+            Next
+
+            LoadDraftsList()
+
+            MessageBox.Show("تم حذف المسودات الفارغة بنجاح.", "تم", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء حذف المسودات الفارغة:" & Environment.NewLine & ex.Message,
+                            "خطأ",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+        End Try
+
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click

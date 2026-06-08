@@ -28,6 +28,7 @@ Partial Class Sales_Drafts_Menu
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnOpenDraft = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
+        Me.btnDeleteEmptyDrafts = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.lblSearch = New System.Windows.Forms.Label()
         Me.pnlStats = New System.Windows.Forms.Panel()
@@ -85,6 +86,7 @@ Partial Class Sales_Drafts_Menu
         Me.pnlTopTools.Controls.Add(Me.btnDelete)
         Me.pnlTopTools.Controls.Add(Me.btnOpenDraft)
         Me.pnlTopTools.Controls.Add(Me.btnRefresh)
+        Me.pnlTopTools.Controls.Add(Me.btnDeleteEmptyDrafts)
         Me.pnlTopTools.Controls.Add(Me.txtSearch)
         Me.pnlTopTools.Controls.Add(Me.lblSearch)
         Me.pnlTopTools.Dock = System.Windows.Forms.DockStyle.Top
@@ -154,16 +156,31 @@ Partial Class Sales_Drafts_Menu
         Me.btnRefresh.Text = "تحديث"
         Me.btnRefresh.UseVisualStyleBackColor = False
         '
+        'btnDeleteEmptyDrafts
+        '
+        Me.btnDeleteEmptyDrafts.BackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(108, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnDeleteEmptyDrafts.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnDeleteEmptyDrafts.FlatAppearance.BorderSize = 0
+        Me.btnDeleteEmptyDrafts.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDeleteEmptyDrafts.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnDeleteEmptyDrafts.ForeColor = System.Drawing.Color.White
+        Me.btnDeleteEmptyDrafts.Location = New System.Drawing.Point(446, 13)
+        Me.btnDeleteEmptyDrafts.Name = "btnDeleteEmptyDrafts"
+        Me.btnDeleteEmptyDrafts.Size = New System.Drawing.Size(116, 36)
+        Me.btnDeleteEmptyDrafts.TabIndex = 6
+        Me.btnDeleteEmptyDrafts.Text = "حذف الفارغة"
+        Me.btnDeleteEmptyDrafts.UseVisualStyleBackColor = False
+        '
         'txtSearch
         '
         Me.txtSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSearch.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.txtSearch.Location = New System.Drawing.Point(462, 18)
+        Me.txtSearch.Location = New System.Drawing.Point(572, 18)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtSearch.Size = New System.Drawing.Size(348, 24)
+        Me.txtSearch.Size = New System.Drawing.Size(238, 24)
         Me.txtSearch.TabIndex = 1
         '
         'lblSearch
@@ -304,6 +321,7 @@ Partial Class Sales_Drafts_Menu
     Friend WithEvents lblSearch As System.Windows.Forms.Label
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents btnRefresh As System.Windows.Forms.Button
+    Friend WithEvents btnDeleteEmptyDrafts As System.Windows.Forms.Button
     Friend WithEvents btnOpenDraft As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button
     Friend WithEvents btnClose As System.Windows.Forms.Button

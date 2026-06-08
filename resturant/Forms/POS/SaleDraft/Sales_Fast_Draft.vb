@@ -53,8 +53,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public QtyTextBox As Double = 0
     Public IM_Price As Double
     Public IM_Cost As Double
-    Private ReadOnly RefreshButtonDefaultBackColor As Color = Color.White
-    Private Const RefreshButtonDefaultText As String = "تحديث الأصناف"
+    Private ReadOnly RefreshButtonDefaultBackColor As Color = Color.FromArgb(14, 116, 144)
+    Private ReadOnly RefreshButtonDefaultText As String = "🔄" & Environment.NewLine & "تحديث الأصناف"
     Private DraftButtonDefaultText As String = ""
     Private DraftButtonDefaultBackColor As Color
     Private DraftButtonDefaultForeColor As Color
@@ -394,7 +394,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Dim draftsCount As Integer = CountOpenDraftsWithTotal()
 
         If draftsCount > 0 Then
-            Draft_Btn.Text = "مسودات" & Environment.NewLine & draftsCount.ToString("N0")
+            Draft_Btn.Text = "📝 مسودات" & Environment.NewLine & draftsCount.ToString("N0")
             Draft_Btn.BackColor = Color.FromArgb(255, 193, 7)
             Draft_Btn.ForeColor = Color.FromArgb(83, 53, 10)
             Draft_Btn.FlatAppearance.BorderColor = Color.FromArgb(180, 83, 9)
@@ -411,12 +411,152 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
+    Private Sub ApplyTopButtonsStyle()
+
+        StyleTopButton(New_butt,
+                       "➕" & Environment.NewLine & "جديد F1",
+                       Color.FromArgb(22, 163, 74),
+                       Color.White,
+                       Color.FromArgb(21, 128, 61),
+                       "إنشاء فاتورة جديدة")
+
+        StyleTopButton(Save_butt,
+                       "💾" & Environment.NewLine & "حفظ F12",
+                       Color.FromArgb(37, 99, 235),
+                       Color.White,
+                       Color.FromArgb(29, 78, 216),
+                       "حفظ وترحيل الفاتورة")
+
+        StyleTopButton(Print_btn,
+                       "🖨" & Environment.NewLine & "طباعة F2",
+                       Color.FromArgb(71, 85, 105),
+                       Color.White,
+                       Color.FromArgb(51, 65, 85),
+                       "طباعة الفاتورة الحالية")
+
+        StyleTopButton(PreviousBillsButton,
+                       "📋 مراجعة" & Environment.NewLine & "الفواتير",
+                       Color.FromArgb(79, 70, 229),
+                       Color.White,
+                       Color.FromArgb(67, 56, 202),
+                       "مراجعة الفواتير السابقة")
+
+        StyleTopButton(Refresh_IM_Btn,
+                       RefreshButtonDefaultText,
+                       RefreshButtonDefaultBackColor,
+                       Color.White,
+                       Color.FromArgb(21, 94, 117),
+                       "تحديث قائمة الأصناف والوحدات")
+
+        StyleTopButton(Draft_Btn,
+                       "📝" & Environment.NewLine & "المسودة",
+                       Color.FromArgb(245, 158, 11),
+                       Color.FromArgb(69, 26, 3),
+                       Color.FromArgb(180, 83, 9),
+                       "استعراض مسودات فواتير المبيعات")
+
+        StyleTopButton(SBPauseBtn,
+                       "⏸" & Environment.NewLine & "تعليق F7",
+                       Color.FromArgb(217, 119, 6),
+                       Color.White,
+                       Color.FromArgb(180, 83, 9),
+                       "تعليق الفاتورة الحالية")
+
+        StyleIconButton(DGV_Control_btn,
+                        "⚙",
+                        Color.FromArgb(15, 23, 42),
+                        Color.White,
+                        "عرض بيانات الجدول")
+
+        StyleIconButton(Show_Cash_btn,
+                        "💵",
+                        Color.FromArgb(5, 150, 105),
+                        Color.White,
+                        "عرض المقبوض")
+
+        StyleIconButton(OpenCahDR_Btn,
+                        "▣",
+                        Color.FromArgb(180, 83, 9),
+                        Color.White,
+                        "فتح صندوق النقود")
+
+        StyleIconButton(CALC_Btn,
+                        "∑",
+                        Color.FromArgb(30, 64, 175),
+                        Color.White,
+                        "فتح الآلة الحاسبة")
+
+        'StyleIconButton(Down_Bill_btn,
+        '                "▼",
+        '                Color.FromArgb(100, 116, 139),
+        '                Color.White,
+        '                "الفاتورة السابقة")
+
+        'StyleIconButton(Up_Bill_btn,
+        '                "▲",
+        '                Color.FromArgb(100, 116, 139),
+        '                Color.White,
+        '                "الفاتورة التالية")
+
+        IsDraftButtonDefaultStyleCaptured = False
+
+    End Sub
+
+    Private Sub StyleTopButton(targetButton As Button,
+                               buttonText As String,
+                               backColor As Color,
+                               foreColor As Color,
+                               borderColor As Color,
+                               toolTipText As String)
+
+        targetButton.Text = buttonText
+        targetButton.BackColor = backColor
+        targetButton.ForeColor = foreColor
+        targetButton.FlatStyle = FlatStyle.Flat
+        targetButton.FlatAppearance.BorderSize = 1
+        targetButton.FlatAppearance.BorderColor = borderColor
+        targetButton.FlatAppearance.MouseOverBackColor = ControlPaint.Light(backColor)
+        targetButton.FlatAppearance.MouseDownBackColor = ControlPaint.Dark(backColor)
+        targetButton.Font = New Font("Segoe UI Semibold", 8.5!, FontStyle.Bold)
+        targetButton.TextAlign = ContentAlignment.MiddleCenter
+        targetButton.ImageAlign = ContentAlignment.MiddleCenter
+        targetButton.RightToLeft = Windows.Forms.RightToLeft.Yes
+        targetButton.UseVisualStyleBackColor = False
+        targetButton.Padding = New Padding(1, 0, 1, 0)
+        MetroToolTip1.SetToolTip(targetButton, toolTipText)
+
+    End Sub
+
+    Private Sub StyleIconButton(targetButton As Button,
+                                buttonText As String,
+                                backColor As Color,
+                                foreColor As Color,
+                                toolTipText As String)
+
+        targetButton.Text = buttonText
+        targetButton.BackColor = backColor
+        targetButton.ForeColor = foreColor
+        targetButton.FlatStyle = FlatStyle.Flat
+        targetButton.FlatAppearance.BorderSize = 1
+        targetButton.FlatAppearance.BorderColor = ControlPaint.Dark(backColor)
+        targetButton.FlatAppearance.MouseOverBackColor = ControlPaint.Light(backColor)
+        targetButton.FlatAppearance.MouseDownBackColor = ControlPaint.Dark(backColor)
+        targetButton.Font = New Font("Segoe UI Semibold", 13.0!, FontStyle.Bold)
+        targetButton.TextAlign = ContentAlignment.MiddleCenter
+        targetButton.ImageAlign = ContentAlignment.MiddleCenter
+        targetButton.RightToLeft = Windows.Forms.RightToLeft.Yes
+        targetButton.UseVisualStyleBackColor = False
+        targetButton.Padding = New Padding(0)
+        MetroToolTip1.SetToolTip(targetButton, toolTipText)
+
+    End Sub
+
 
     Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
 
         Select Case e.KeyCode
             Case Keys.F1
-                If New_butt.Enabled = True Then ResetNewBill()
+                If New_butt.Enabled = True Then New_butt_Click(sender, e)
             Case Keys.F12
                 If Save_butt.Enabled = True Then Save_butt_Click(sender, e)
             Case Keys.F2
@@ -876,6 +1016,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Async Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ThemeManager.ApplyThemeToForm(Me)
+        ApplyTopButtonsStyle()
 
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         FormType = 1
@@ -2759,13 +2900,116 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
+
+        If CanOpenNewDraftBill() = False Then Exit Sub
+
         ResetNewBill()
+
     End Sub
 
+    Private Function CanOpenNewDraftBill() As Boolean
+
+        If HasItemsInSalesGrid() = False Then Return True
+
+        If ShowSendCurrentBillToDraftDialog() = False Then Return False
+
+        Try
+            dgvSales.EndEdit()
+
+            If CurrentDraft IsNot Nothing Then
+                DraftCalculator.RecalculateDraft(CurrentDraft)
+                DraftManager.SaveDraft(CurrentDraft)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("تعذر حفظ الفاتورة الحالية كمسودة:" & Environment.NewLine & ex.Message,
+                            "تنبيه",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning)
+            Return False
+        End Try
+
+        Return True
+
+    End Function
+
+    Private Function HasItemsInSalesGrid() As Boolean
+
+        For Each row As DataGridViewRow In dgvSales.Rows
+            If row.IsNewRow = False Then Return True
+        Next
+
+        Return False
+
+    End Function
+
+    Private Function ShowSendCurrentBillToDraftDialog() As Boolean
+
+        Using frm As New Form()
+            frm.Text = "فتح فاتورة جديدة"
+            frm.StartPosition = FormStartPosition.CenterParent
+            frm.FormBorderStyle = FormBorderStyle.FixedDialog
+            frm.MaximizeBox = False
+            frm.MinimizeBox = False
+            frm.ShowInTaskbar = False
+            frm.RightToLeft = Windows.Forms.RightToLeft.Yes
+            frm.RightToLeftLayout = True
+            frm.ClientSize = New Size(540, 230)
+            frm.BackColor = Color.White
+
+            Dim titleLabel As New Label()
+            titleLabel.Text = "الفاتورة الحالية تحتوي على أصناف"
+            titleLabel.Font = New Font("Segoe UI Semibold", 14.0!, FontStyle.Bold)
+            titleLabel.ForeColor = Color.FromArgb(30, 64, 175)
+            titleLabel.TextAlign = ContentAlignment.MiddleRight
+            titleLabel.Location = New Point(20, 18)
+            titleLabel.Size = New Size(500, 36)
+
+            Dim messageLabel As New Label()
+            messageLabel.Text = "هل تريد إرسال الفاتورة الحالية إلى المسودة وفتح فاتورة جديدة؟"
+            messageLabel.Font = New Font("Segoe UI Semibold", 11.0!, FontStyle.Bold)
+            messageLabel.ForeColor = Color.FromArgb(51, 65, 85)
+            messageLabel.TextAlign = ContentAlignment.MiddleRight
+            messageLabel.Location = New Point(20, 66)
+            messageLabel.Size = New Size(500, 52)
+
+            Dim yesButton As New Button()
+            yesButton.Text = "📝 إرسال للمسودة" & Environment.NewLine & "وفتح جديد"
+            yesButton.Font = New Font("Segoe UI Semibold", 10.5!, FontStyle.Bold)
+            yesButton.BackColor = Color.FromArgb(37, 99, 235)
+            yesButton.ForeColor = Color.White
+            yesButton.FlatStyle = FlatStyle.Flat
+            yesButton.FlatAppearance.BorderSize = 0
+            yesButton.Size = New Size(230, 64)
+            yesButton.Location = New Point(286, 140)
+            yesButton.DialogResult = DialogResult.Yes
+            yesButton.UseVisualStyleBackColor = False
+
+            Dim noButton As New Button()
+            noButton.Text = "البقاء على" & Environment.NewLine & "الفاتورة الحالية"
+            noButton.Font = New Font("Segoe UI Semibold", 10.5!, FontStyle.Bold)
+            noButton.BackColor = Color.FromArgb(100, 116, 139)
+            noButton.ForeColor = Color.White
+            noButton.FlatStyle = FlatStyle.Flat
+            noButton.FlatAppearance.BorderSize = 0
+            noButton.Size = New Size(230, 64)
+            noButton.Location = New Point(24, 140)
+            noButton.DialogResult = DialogResult.No
+            noButton.UseVisualStyleBackColor = False
+
+            frm.Controls.Add(titleLabel)
+            frm.Controls.Add(messageLabel)
+            frm.Controls.Add(yesButton)
+            frm.Controls.Add(noButton)
+            frm.AcceptButton = yesButton
+            frm.CancelButton = noButton
+
+            Return frm.ShowDialog(Me) = DialogResult.Yes
+        End Using
+
+    End Function
+
     Private Sub PreviousBillsButton_Click(sender As Object, e As EventArgs) Handles PreviousBillsButton.Click
-        Sales_Fast.OpenForPreviousBillsReview = True
-        Sales_Fast.Show()
-        Sales_Fast.Activate()
+        Sales_Fast.OpenPreviousBillsReviewMode()
     End Sub
 
 
@@ -3002,7 +3246,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Bill_ID_Txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Bill_ID_Txt.MouseDoubleClick
-        SearchByBarcode.ShowDialog()
+
     End Sub
 
     Private Sub Discount_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Discount_txt.MouseDoubleClick

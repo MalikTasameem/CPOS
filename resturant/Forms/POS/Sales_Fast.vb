@@ -348,7 +348,17 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         New_butt.Enabled = True
         New_butt.Text = "فاتورة جديدة"
         Me.Text = "مراجعة فواتير المبيعات"
+        LoadLastDependedBillForReview()
         Bill_ID_Txt.Focus()
+
+    End Sub
+
+    Public Sub OpenPreviousBillsReviewMode()
+
+        OpenForPreviousBillsReview = True
+        Show()
+        PreparePreviousBillsReviewMode()
+        Activate()
 
     End Sub
 
@@ -1537,6 +1547,36 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         Fill_Bill_Info()
         SB_Contents_SELECT_Bill()
         SelectStateBt()
+    End Sub
+
+    Private Sub LoadLastDependedBillForReview()
+
+        Dim C As New C
+        Dim S As String = "Select TOP 1 T_ID From Agents_Balance_MV Where BsType_ID = 1 and isDepended = 1 AND USER_ID = @USER_ID ORDER BY SB_ID DESC"
+
+        C.Com = New SqlClient.SqlCommand(S, C.Con)
+        C.Com.Parameters.AddWithValue("@USER_ID", USER_ID)
+
+        Try
+            C.Con.Open()
+            C.Dr = C.Com.ExecuteReader
+
+            If C.Dr.HasRows Then
+                C.Dr.Read()
+                ClearFields()
+                T_ID = C.Dr("T_ID")
+                Move_To_SELECT_Bill()
+            Else
+                Bill_ID_Txt.Clear()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            If C.Dr IsNot Nothing AndAlso C.Dr.IsClosed = False Then C.Dr.Close()
+            If C.Con.State = ConnectionState.Open Then C.Con.Close()
+        End Try
+
     End Sub
 
     Public Sub Get_T_ID(S_T_ID As Integer, F As Char)
