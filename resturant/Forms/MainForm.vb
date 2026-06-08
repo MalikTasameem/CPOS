@@ -423,7 +423,7 @@ Public Class MainForm
         ALERT_DGV.Refresh()
         Application.DoEvents()
         Fill_ALL_ALERT()
-        Set_Data_Alert()
+        Set_Data_Alert()Activation
         ConfigureValidTimer()
         ModernLoader.CloseLoader()
         'If System_Start_Normal = False Then

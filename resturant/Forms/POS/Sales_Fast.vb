@@ -1936,7 +1936,19 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub IM_Search_btn_Click(sender As Object, e As EventArgs) Handles IM_Search_btn.Click
-        IM_Keyboard.ShowDialog()
+        'IM_Keyboard.ShowDialog()
+
+        Dim f As Items_Search = Items_Search.GetInstance()
+
+        f.ShowDialog()
+        f.BringToFront()
+        f.WindowState = FormWindowState.Normal
+
+        If GLOBAL_IM_ID > 0 Then
+            IM_ID = GLOBAL_IM_ID
+            Load_IM_By_ID()
+            'SelectItemById(GLOBAL_IM_ID) 
+        End If
     End Sub
 
 

@@ -115,17 +115,17 @@ Partial Class Sales_Fast
         'MoveToBill_Btn
         '
         Me.MoveToBill_Btn.BackColor = System.Drawing.SystemColors.Control
-        Me.MoveToBill_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_ok_173061
         Me.MoveToBill_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.MoveToBill_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MoveToBill_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MoveToBill_Btn.ForeColor = System.Drawing.Color.DarkRed
-        Me.MoveToBill_Btn.Location = New System.Drawing.Point(447, 123)
+        Me.MoveToBill_Btn.Font = New System.Drawing.Font("Tahoma", 9.75!)
+        Me.MoveToBill_Btn.ForeColor = System.Drawing.Color.Black
+        Me.MoveToBill_Btn.Location = New System.Drawing.Point(448, 123)
         Me.MoveToBill_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MoveToBill_Btn.Name = "MoveToBill_Btn"
         Me.MoveToBill_Btn.Size = New System.Drawing.Size(29, 23)
         Me.MoveToBill_Btn.TabIndex = 633
+        Me.MoveToBill_Btn.Text = "..."
         Me.MetroToolTip1.SetToolTip(Me.MoveToBill_Btn, "فتح الفاتورة المعلقة")
         Me.MoveToBill_Btn.UseVisualStyleBackColor = False
         '
@@ -1033,6 +1033,7 @@ Partial Class Sales_Fast
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
+        Me.BackColor = System.Drawing.SystemColors.Info
         Me.ClientSize = New System.Drawing.Size(1004, 695)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Refresh_IM_Btn)

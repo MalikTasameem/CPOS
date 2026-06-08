@@ -49,7 +49,6 @@ Partial Class Sales_Fast_Draft
         Me.Label17 = New System.Windows.Forms.Label()
         Me.IM_Unit_cm = New System.Windows.Forms.ComboBox()
         Me.Bill_ID_Txt = New System.Windows.Forms.TextBox()
-        Me.VoidLb = New System.Windows.Forms.Label()
         Me.DateTimeEx = New System.Windows.Forms.DateTimePicker()
         Me.IM_Qty_LB = New System.Windows.Forms.Label()
         Me.IMPanel = New System.Windows.Forms.Panel()
@@ -82,8 +81,6 @@ Partial Class Sales_Fast_Draft
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Valid_cm = New System.Windows.Forms.ComboBox()
-        Me.Sells_Bill_GB = New System.Windows.Forms.GroupBox()
-        Me.Sales_Bill_Page_cm = New System.Windows.Forms.ComboBox()
         Me.Barcode_SH_txt = New System.Windows.Forms.TextBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Draft_Btn = New System.Windows.Forms.Button()
@@ -93,15 +90,11 @@ Partial Class Sales_Fast_Draft
         Me.Refresh_IM_Btn = New System.Windows.Forms.Button()
         Me.RefreshStatus_LB = New System.Windows.Forms.Label()
         Me.IM_Search_btn = New System.Windows.Forms.Button()
-        Me.IM_Profet_btn = New System.Windows.Forms.Button()
-        Me.DeliveryingButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
-        Me.Edit_butt = New System.Windows.Forms.Button()
         Me.Print_btn = New System.Windows.Forms.Button()
         Me.SBPauseBtn = New System.Windows.Forms.Button()
         Me.New_butt = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
-        Me.Delete_butt = New System.Windows.Forms.Button()
         Me.DiscountPanel.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.AG_Panel.SuspendLayout()
@@ -109,7 +102,6 @@ Partial Class Sales_Fast_Draft
         CType(Me.dgvSales, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.Sells_Bill_GB.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -262,13 +254,13 @@ Partial Class Sales_Fast_Draft
         Me.PreviousBillsButton.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PreviousBillsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.PreviousBillsButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.PreviousBillsButton.Location = New System.Drawing.Point(624, 4)
+        Me.PreviousBillsButton.Location = New System.Drawing.Point(659, 4)
         Me.PreviousBillsButton.Name = "PreviousBillsButton"
         Me.PreviousBillsButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.PreviousBillsButton.Size = New System.Drawing.Size(75, 40)
+        Me.PreviousBillsButton.Size = New System.Drawing.Size(110, 40)
         Me.PreviousBillsButton.TabIndex = 718
         Me.PreviousBillsButton.TabStop = False
-        Me.PreviousBillsButton.Text = "مراجعة" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "الفواتير"
+        Me.PreviousBillsButton.Text = "مراجعة الفواتير"
         Me.MetroToolTip1.SetToolTip(Me.PreviousBillsButton, "مراجعة الفواتير السابقة")
         Me.PreviousBillsButton.UseVisualStyleBackColor = False
         '
@@ -436,19 +428,6 @@ Partial Class Sales_Fast_Draft
         Me.Bill_ID_Txt.TabIndex = 625
         Me.Bill_ID_Txt.Text = "---"
         Me.Bill_ID_Txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'VoidLb
-        '
-        Me.VoidLb.BackColor = System.Drawing.Color.IndianRed
-        Me.VoidLb.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.VoidLb.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.VoidLb.Location = New System.Drawing.Point(351, 62)
-        Me.VoidLb.Name = "VoidLb"
-        Me.VoidLb.Size = New System.Drawing.Size(255, 36)
-        Me.VoidLb.TabIndex = 402
-        Me.VoidLb.Text = "فاتورة ملغية"
-        Me.VoidLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.VoidLb.Visible = False
         '
         'DateTimeEx
         '
@@ -791,30 +770,6 @@ Partial Class Sales_Fast_Draft
         Me.Valid_cm.TabIndex = 711
         Me.Valid_cm.Visible = False
         '
-        'Sells_Bill_GB
-        '
-        Me.Sells_Bill_GB.Controls.Add(Me.Sales_Bill_Page_cm)
-        Me.Sells_Bill_GB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Sells_Bill_GB.Location = New System.Drawing.Point(2, 104)
-        Me.Sells_Bill_GB.Name = "Sells_Bill_GB"
-        Me.Sells_Bill_GB.Size = New System.Drawing.Size(225, 44)
-        Me.Sells_Bill_GB.TabIndex = 712
-        Me.Sells_Bill_GB.TabStop = False
-        Me.Sells_Bill_GB.Text = "نوع فاتورة المبيعات"
-        '
-        'Sales_Bill_Page_cm
-        '
-        Me.Sales_Bill_Page_cm.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Sales_Bill_Page_cm.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Sales_Bill_Page_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Sales_Bill_Page_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Sales_Bill_Page_cm.Font = New System.Drawing.Font("Arial", 10.25!)
-        Me.Sales_Bill_Page_cm.FormattingEnabled = True
-        Me.Sales_Bill_Page_cm.Location = New System.Drawing.Point(3, 21)
-        Me.Sales_Bill_Page_cm.Name = "Sales_Bill_Page_cm"
-        Me.Sales_Bill_Page_cm.Size = New System.Drawing.Size(219, 24)
-        Me.Sales_Bill_Page_cm.TabIndex = 259
-        '
         'Barcode_SH_txt
         '
         Me.Barcode_SH_txt.BackColor = System.Drawing.SystemColors.InactiveBorder
@@ -847,10 +802,10 @@ Partial Class Sales_Fast_Draft
         Me.Draft_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Draft_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Draft_Btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Draft_Btn.Location = New System.Drawing.Point(229, 4)
+        Me.Draft_Btn.Location = New System.Drawing.Point(389, 4)
         Me.Draft_Btn.Name = "Draft_Btn"
         Me.Draft_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Draft_Btn.Size = New System.Drawing.Size(65, 40)
+        Me.Draft_Btn.Size = New System.Drawing.Size(70, 40)
         Me.Draft_Btn.TabIndex = 715
         Me.Draft_Btn.TabStop = False
         Me.Draft_Btn.Text = "المسودة"
@@ -915,10 +870,10 @@ Partial Class Sales_Fast_Draft
         Me.Refresh_IM_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Refresh_IM_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Refresh_IM_Btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Refresh_IM_Btn.Location = New System.Drawing.Point(296, 4)
+        Me.Refresh_IM_Btn.Location = New System.Drawing.Point(540, 4)
         Me.Refresh_IM_Btn.Name = "Refresh_IM_Btn"
         Me.Refresh_IM_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Refresh_IM_Btn.Size = New System.Drawing.Size(99, 40)
+        Me.Refresh_IM_Btn.Size = New System.Drawing.Size(116, 40)
         Me.Refresh_IM_Btn.TabIndex = 713
         Me.Refresh_IM_Btn.TabStop = False
         Me.Refresh_IM_Btn.Text = "تحديث الأصناف"
@@ -929,7 +884,7 @@ Partial Class Sales_Fast_Draft
         Me.RefreshStatus_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.RefreshStatus_LB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RefreshStatus_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(61, Byte), Integer))
-        Me.RefreshStatus_LB.Location = New System.Drawing.Point(612, 63)
+        Me.RefreshStatus_LB.Location = New System.Drawing.Point(612, 64)
         Me.RefreshStatus_LB.Name = "RefreshStatus_LB"
         Me.RefreshStatus_LB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RefreshStatus_LB.Size = New System.Drawing.Size(189, 34)
@@ -952,46 +907,6 @@ Partial Class Sales_Fast_Draft
         Me.IM_Search_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.IM_Search_btn.UseVisualStyleBackColor = True
         '
-        'IM_Profet_btn
-        '
-        Me.IM_Profet_btn.BackColor = System.Drawing.Color.White
-        Me.IM_Profet_btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.IM_Profet_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.IM_Profet_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.IM_Profet_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Profet_btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IM_Profet_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.IM_Profet_btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.IM_Profet_btn.Location = New System.Drawing.Point(396, 4)
-        Me.IM_Profet_btn.Name = "IM_Profet_btn"
-        Me.IM_Profet_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_Profet_btn.Size = New System.Drawing.Size(75, 40)
-        Me.IM_Profet_btn.TabIndex = 706
-        Me.IM_Profet_btn.TabStop = False
-        Me.IM_Profet_btn.Text = "الربح"
-        Me.IM_Profet_btn.UseVisualStyleBackColor = False
-        Me.IM_Profet_btn.Visible = False
-        '
-        'DeliveryingButton
-        '
-        Me.DeliveryingButton.BackColor = System.Drawing.Color.White
-        Me.DeliveryingButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.DeliveryingButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.DeliveryingButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.DeliveryingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DeliveryingButton.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DeliveryingButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DeliveryingButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.DeliveryingButton.Location = New System.Drawing.Point(472, 4)
-        Me.DeliveryingButton.Name = "DeliveryingButton"
-        Me.DeliveryingButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.DeliveryingButton.Size = New System.Drawing.Size(75, 40)
-        Me.DeliveryingButton.TabIndex = 703
-        Me.DeliveryingButton.TabStop = False
-        Me.DeliveryingButton.Text = "دفع"
-        Me.DeliveryingButton.UseVisualStyleBackColor = False
-        Me.DeliveryingButton.Visible = False
-        '
         'ExitFormButton
         '
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
@@ -1008,26 +923,6 @@ Partial Class Sales_Fast_Draft
         Me.ExitFormButton.Text = "خروج"
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
-        'Edit_butt
-        '
-        Me.Edit_butt.BackColor = System.Drawing.Color.White
-        Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Edit_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Edit_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Edit_butt.Location = New System.Drawing.Point(700, 4)
-        Me.Edit_butt.Name = "Edit_butt"
-        Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(75, 40)
-        Me.Edit_butt.TabIndex = 647
-        Me.Edit_butt.TabStop = False
-        Me.Edit_butt.Text = "تعديـل F3"
-        Me.Edit_butt.UseVisualStyleBackColor = False
-        Me.Edit_butt.Visible = False
-        '
         'Print_btn
         '
         Me.Print_btn.BackColor = System.Drawing.Color.White
@@ -1038,7 +933,7 @@ Partial Class Sales_Fast_Draft
         Me.Print_btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Print_btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Print_btn.Location = New System.Drawing.Point(776, 4)
+        Me.Print_btn.Location = New System.Drawing.Point(772, 4)
         Me.Print_btn.Name = "Print_btn"
         Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Print_btn.Size = New System.Drawing.Size(75, 40)
@@ -1057,7 +952,7 @@ Partial Class Sales_Fast_Draft
         Me.SBPauseBtn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SBPauseBtn.ForeColor = System.Drawing.Color.Black
         Me.SBPauseBtn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.SBPauseBtn.Location = New System.Drawing.Point(548, 4)
+        Me.SBPauseBtn.Location = New System.Drawing.Point(462, 4)
         Me.SBPauseBtn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.SBPauseBtn.Name = "SBPauseBtn"
         Me.SBPauseBtn.Size = New System.Drawing.Size(75, 40)
@@ -1096,7 +991,7 @@ Partial Class Sales_Fast_Draft
         Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Save_butt.Location = New System.Drawing.Point(852, 4)
+        Me.Save_butt.Location = New System.Drawing.Point(850, 4)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Save_butt.Size = New System.Drawing.Size(75, 40)
@@ -1105,27 +1000,6 @@ Partial Class Sales_Fast_Draft
         Me.Save_butt.Tag = "SAVE"
         Me.Save_butt.Text = "حفظ F12"
         Me.Save_butt.UseVisualStyleBackColor = False
-        '
-        'Delete_butt
-        '
-        Me.Delete_butt.BackColor = System.Drawing.Color.White
-        Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Delete_butt.Enabled = False
-        Me.Delete_butt.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Delete_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Delete_butt.Location = New System.Drawing.Point(624, 4)
-        Me.Delete_butt.Name = "Delete_butt"
-        Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Delete_butt.Size = New System.Drawing.Size(75, 40)
-        Me.Delete_butt.TabIndex = 296
-        Me.Delete_butt.Tag = "DELETE"
-        Me.Delete_butt.Text = " إلغاء F4"
-        Me.Delete_butt.UseVisualStyleBackColor = False
-        Me.Delete_butt.Visible = False
         '
         'Sales_Fast_Draft
         '
@@ -1141,20 +1015,15 @@ Partial Class Sales_Fast_Draft
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.RefreshStatus_LB)
         Me.Controls.Add(Me.Refresh_IM_Btn)
-        Me.Controls.Add(Me.Sells_Bill_GB)
         Me.Controls.Add(Me.Valid_cm)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.IM_Search_btn)
-        Me.Controls.Add(Me.IM_Profet_btn)
-        Me.Controls.Add(Me.DeliveryingButton)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.VoidLb)
         Me.Controls.Add(Me.AG_Panel)
         Me.Controls.Add(Me.RemoveCatButton)
         Me.Controls.Add(Me.IMPanel)
         Me.Controls.Add(Me.ExitFormButton)
-        Me.Controls.Add(Me.Edit_butt)
         Me.Controls.Add(Me.IM_Qty_LB)
         Me.Controls.Add(Me.IM_Count_LB)
         Me.Controls.Add(Me.User_Name_lb)
@@ -1164,7 +1033,6 @@ Partial Class Sales_Fast_Draft
         Me.Controls.Add(Me.PreviousBillsButton)
         Me.Controls.Add(Me.New_butt)
         Me.Controls.Add(Me.Save_butt)
-        Me.Controls.Add(Me.Delete_butt)
         Me.Controls.Add(Me.Barcode_SH_txt)
         Me.Controls.Add(Me.IM_Unit_cm)
         Me.Controls.Add(Me.Label27)
@@ -1191,7 +1059,6 @@ Partial Class Sales_Fast_Draft
         Me.Panel2.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        Me.Sells_Bill_GB.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1200,12 +1067,10 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents MetroToolTip1 As MetroFramework.Components.MetroToolTip
     Friend WithEvents New_butt As System.Windows.Forms.Button
     Friend WithEvents Save_butt As System.Windows.Forms.Button
-    Friend WithEvents Delete_butt As System.Windows.Forms.Button
     Friend WithEvents Total_TextBox As System.Windows.Forms.TextBox
     Friend WithEvents DateTimeEx As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents RemoveCatButton As System.Windows.Forms.Button
-    Friend WithEvents VoidLb As System.Windows.Forms.Label
     Friend WithEvents IM_Count_LB As System.Windows.Forms.Label
     Friend WithEvents IM_Unit_cm As System.Windows.Forms.ComboBox
     Friend WithEvents Pure_txt As System.Windows.Forms.TextBox
@@ -1221,7 +1086,6 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents DiscountPanel As System.Windows.Forms.Panel
     Friend WithEvents Discount_txt As System.Windows.Forms.TextBox
     Friend WithEvents IM_Qty_LB As System.Windows.Forms.Label
-    Friend WithEvents Edit_butt As System.Windows.Forms.Button
     Friend WithEvents DGV_Control_btn As System.Windows.Forms.Button
     Friend WithEvents OpenCahDR_Btn As System.Windows.Forms.Button
     Friend WithEvents Show_Cash_btn As System.Windows.Forms.Button
@@ -1232,17 +1096,13 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents AG_Panel As System.Windows.Forms.Panel
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents dgvSales As System.Windows.Forms.DataGridView
-    Friend WithEvents DeliveryingButton As System.Windows.Forms.Button
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents txtNotes As System.Windows.Forms.TextBox
-    Friend WithEvents IM_Profet_btn As System.Windows.Forms.Button
     Friend WithEvents IM_Search_btn As System.Windows.Forms.Button
     Friend WithEvents CALC_Btn As System.Windows.Forms.Button
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents Panel3 As System.Windows.Forms.Panel
     Friend WithEvents Valid_cm As System.Windows.Forms.ComboBox
-    Friend WithEvents Sells_Bill_GB As System.Windows.Forms.GroupBox
-    Friend WithEvents Sales_Bill_Page_cm As System.Windows.Forms.ComboBox
     Friend WithEvents Barcode_SH_txt As TextBox
     Friend WithEvents Refresh_IM_Btn As Button
     Friend WithEvents RefreshStatus_LB As Label

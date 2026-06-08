@@ -89,8 +89,9 @@ Public Class Pay_Method
 
         Try
             Dim sql As String = "select PaymentMethodID as P_ID , PAYMENT_NAME 
-                                 from PaymentMethodDefaultAccounts
-                                 join PAYMENT_METHOD ON P_ID = PaymentMethodID WHERE IsActive = 1"
+                                 from PaymentMethodDefaultAccounts p INNER JOIN PAYMENT_METHOD m ON p.PaymentMethodID = m.P_ID
+                                        INNER JOIN TreasuryCard a ON p.AccountID = a.Tr_ID
+                                         WHERE IsActive = 1"
 
             C.Da = New SqlDataAdapter(sql, C.Con)
             C.Da.Fill(C.Dt)

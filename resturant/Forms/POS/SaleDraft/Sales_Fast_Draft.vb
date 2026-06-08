@@ -55,6 +55,12 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public IM_Cost As Double
     Private ReadOnly RefreshButtonDefaultBackColor As Color = Color.White
     Private Const RefreshButtonDefaultText As String = "تحديث الأصناف"
+    Private DraftButtonDefaultText As String = ""
+    Private DraftButtonDefaultBackColor As Color
+    Private DraftButtonDefaultForeColor As Color
+    Private DraftButtonDefaultBorderColor As Color
+    Private DraftButtonDefaultFont As Font
+    Private IsDraftButtonDefaultStyleCaptured As Boolean = False
     '--------------------------------------------------------------------------------------------------------------
     Private Sub LoadPrintSettings()
         Dim db As New C()
@@ -345,12 +351,63 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Sub UpdateDraftTotalsOnScreen()
 
+        UpdateDraftButtonIndicator()
+
         If CurrentDraft Is Nothing Then Exit Sub
 
         Total_TextBox.Text = CurrentDraft.Total.ToString("0.000")
         Discount_txt.Text = CurrentDraft.Discount.ToString("0.000")
         Pure_txt.Text = CurrentDraft.Pure.ToString("0.000")
         IM_Count_LB.Text = " المواد: " & CurrentDraft.Items.Count.ToString()
+
+    End Sub
+
+    Private Sub CaptureDraftButtonDefaultStyle()
+
+        If IsDraftButtonDefaultStyleCaptured = True Then Exit Sub
+
+        DraftButtonDefaultText = Draft_Btn.Text
+        DraftButtonDefaultBackColor = Draft_Btn.BackColor
+        DraftButtonDefaultForeColor = Draft_Btn.ForeColor
+        DraftButtonDefaultBorderColor = Draft_Btn.FlatAppearance.BorderColor
+        DraftButtonDefaultFont = Draft_Btn.Font
+        IsDraftButtonDefaultStyleCaptured = True
+
+    End Sub
+
+    Private Function CountOpenDraftsWithTotal() As Integer
+
+        Dim draftsCount As Integer = 0
+
+        For Each d As SaleDraftHeader In DraftManager.GetAllDrafts()
+            If d IsNot Nothing AndAlso d.Total > 0D Then draftsCount += 1
+        Next
+
+        Return draftsCount
+
+    End Function
+
+    Private Sub UpdateDraftButtonIndicator()
+
+        CaptureDraftButtonDefaultStyle()
+
+        Dim draftsCount As Integer = CountOpenDraftsWithTotal()
+
+        If draftsCount > 0 Then
+            Draft_Btn.Text = "مسودات" & Environment.NewLine & draftsCount.ToString("N0")
+            Draft_Btn.BackColor = Color.FromArgb(255, 193, 7)
+            Draft_Btn.ForeColor = Color.FromArgb(83, 53, 10)
+            Draft_Btn.FlatAppearance.BorderColor = Color.FromArgb(180, 83, 9)
+            Draft_Btn.Font = DraftButtonDefaultFont
+            MetroToolTip1.SetToolTip(Draft_Btn, "لديك عدد " & draftsCount.ToString("N0") & " من الفواتير بالمسودة لم ترحل")
+        Else
+            Draft_Btn.Text = DraftButtonDefaultText
+            Draft_Btn.BackColor = DraftButtonDefaultBackColor
+            Draft_Btn.ForeColor = DraftButtonDefaultForeColor
+            Draft_Btn.FlatAppearance.BorderColor = DraftButtonDefaultBorderColor
+            Draft_Btn.Font = DraftButtonDefaultFont
+            MetroToolTip1.SetToolTip(Draft_Btn, "استعراض مسودات فواتير المبيعات")
+        End If
 
     End Sub
 
@@ -364,8 +421,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 If Save_butt.Enabled = True Then Save_butt_Click(sender, e)
             Case Keys.F2
                 If Print_btn.Enabled = True Then Print_btn_Click(sender, e)
-            Case Keys.F3
-                If Edit_butt.Enabled = True And Edit_butt.Visible = True Then Edit_butt_Click(sender, e)
+            'Case Keys.F3
+            '    If Edit_butt.Enabled = True And Edit_butt.Visible = True Then Edit_butt_Click(sender, e)
             'Case Keys.F4
             '    If Delete_butt.Enabled = True And Delete_butt.Visible = True Then Delete_butt_Click(sender, e)
 
@@ -825,14 +882,15 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Check_View_Control()
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
-        EditState = Edit_butt.Text
+        '   EditState = Edit_butt.Text
         loadShortCut_IM()
-        GET_Printer_Type()
+        'GET_Printer_Type()
         LoadPrintSettings()
 
         AG_ID = Default_AG_ID
 
         Await Load_ALL_IM()
+        UpdateDraftButtonIndicator()
 
         'If isShowing_Trans = True Then
         '    T_ID = T_ID_Trans
@@ -875,16 +933,16 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
 
 
-    Private Sub GET_Printer_Type()
-        Dim c2 As New C
-        c2.Str = "select ID,Type from Sales_Bill_Page"
-        c2.Da = New SqlClient.SqlDataAdapter(c2.Str, c2.Con)
-        c2.Da.Fill(c2.Dt)
-        Sales_Bill_Page_cm.DataSource = c2.Dt
-        Sales_Bill_Page_cm.DisplayMember = "Type"
-        Sales_Bill_Page_cm.ValueMember = "ID"
-        Sales_Bill_Page_cm.SelectedValue = Sales_Page_ID
-    End Sub
+    'Private Sub GET_Printer_Type()
+    '    Dim c2 As New C
+    '    c2.Str = "select ID,Type from Sales_Bill_Page"
+    '    c2.Da = New SqlClient.SqlDataAdapter(c2.Str, c2.Con)
+    '    c2.Da.Fill(c2.Dt)
+    '    Sales_Bill_Page_cm.DataSource = c2.Dt
+    '    Sales_Bill_Page_cm.DisplayMember = "Type"
+    '    Sales_Bill_Page_cm.ValueMember = "ID"
+    '    Sales_Bill_Page_cm.SelectedValue = Sales_Page_ID
+    'End Sub
 
 
     Public Sub Check_View_Control()
@@ -901,13 +959,13 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         dgvSales.Columns("IM_Discount_CL").Visible = MY_Settings.S_IM_Discount_CL
 
 
-        Delete_butt.Visible = U_SalesVoid
+        ' Delete_butt.Visible = U_SalesVoid
         If U_SalesDis = True And isDiscount = True Then
             DiscountPanel.Visible = True
         Else
             DiscountPanel.Visible = False
         End If
-        Edit_butt.Visible = U_SB_Update
+        '  Edit_butt.Visible = U_SB_Update
         Show_Cash_btn.Visible = U_SB_Show_Cash
         'If U_SB_IM_Update = True Then
         '    IM_Price.ReadOnly = False
@@ -915,7 +973,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         '    IM_Price.ReadOnly = True
         'End If
         Show_Cash_btn.Visible = S_Pr
-        IM_Profet_btn.Visible = U_Show_Bill_Profet
+        'IM_Profet_btn.Visible = U_Show_Bill_Profet
     End Sub
 
     Public Sub SB_Contents_SELECT_Bill()
@@ -1044,74 +1102,74 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Sub DeleteOrUpdateStateBt()
         Disable_Fields()
         Save_butt.Enabled = False
-        Delete_butt.Enabled = False
+        ' Delete_butt.Enabled = False
         Me.Text = DefaultFormState
     End Sub
 
     Private Sub SavedStateBt()
         Disable_Fields()
         Save_butt.Enabled = False
-        Delete_butt.Enabled = False
+        '  Delete_butt.Enabled = False
         Me.Text = DefaultFormState
     End Sub
 
-    Public Sub SelectStateBt()
-        Edit_butt.Text = EditState
-        If isVoid = True Then
-            VoidLb.Visible = True
-            Disable_Fields()
-            Save_butt.Enabled = False
-            Edit_butt.Enabled = False
-            Delete_butt.Enabled = False
-            dgvSales.Enabled = True
-            dgvSales.BackgroundColor = Color.IndianRed
-            dgvSales.RowsDefaultCellStyle.BackColor = Color.IndianRed
-            Print_btn.Enabled = False
-            DiscountPanel.Enabled = False
-            DeliveryingButton.Enabled = False
+    'Public Sub SelectStateBt()
+    '    Edit_butt.Text = EditState
+    '    If isVoid = True Then
+    '        VoidLb.Visible = True
+    '        Disable_Fields()
+    '        Save_butt.Enabled = False
+    '        Edit_butt.Enabled = False
+    '        Delete_butt.Enabled = False
+    '        dgvSales.Enabled = True
+    '        dgvSales.BackgroundColor = Color.IndianRed
+    '        dgvSales.RowsDefaultCellStyle.BackColor = Color.IndianRed
+    '        Print_btn.Enabled = False
+    '        DiscountPanel.Enabled = False
+    '        DeliveryingButton.Enabled = False
 
-        Else
+    '    Else
 
-            If isDepended = False Then
-                Save_butt.Enabled = True
-                Edit_butt.Enabled = False
-                Print_btn.Enabled = False
-                dgvSales.BackgroundColor = Color.LightYellow
-                dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow
-                Enable_Fields()
-                DiscountPanel.Enabled = True
+    '        If isDepended = False Then
+    '            Save_butt.Enabled = True
+    '            Edit_butt.Enabled = False
+    '            Print_btn.Enabled = False
+    '            dgvSales.BackgroundColor = Color.LightYellow
+    '            dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow
+    '            Enable_Fields()
+    '            DiscountPanel.Enabled = True
 
-            Else
-                Save_butt.Enabled = False
-                Edit_butt.Enabled = True
-                Print_btn.Enabled = True
-                dgvSales.BackgroundColor = Color.LightGreen
-                dgvSales.RowsDefaultCellStyle.BackColor = Color.LightGreen
-                Disable_Fields()
-                DiscountPanel.Enabled = False
-                DeliveryingButton.Enabled = True
-            End If
+    '        Else
+    '            Save_butt.Enabled = False
+    '            Edit_butt.Enabled = True
+    '            Print_btn.Enabled = True
+    '            dgvSales.BackgroundColor = Color.LightGreen
+    '            dgvSales.RowsDefaultCellStyle.BackColor = Color.LightGreen
+    '            Disable_Fields()
+    '            DiscountPanel.Enabled = False
+    '            DeliveryingButton.Enabled = True
+    '        End If
 
-            VoidLb.Visible = False
-            Delete_butt.Enabled = True
+    '        VoidLb.Visible = False
+    '        Delete_butt.Enabled = True
 
-            If U_Save_otherBill = False And BillUser_ID <> USER_ID Then
+    '        If U_Save_otherBill = False And BillUser_ID <> USER_ID Then
 
-                If Edit_butt.Enabled = True Then Edit_butt.Enabled = False
-                If Save_butt.Enabled = True Then Save_butt.Enabled = False
-                If Delete_butt.Enabled = True Then Delete_butt.Enabled = False
-                'Barcode_SH_txt.Enabled = False
-                'RemoveCatButton.Enabled = False
-                'If IM_Search_btn.Enabled = True Then IM_Search_btn.Enabled = False
-                If dgvSales.Enabled = True Then dgvSales.Enabled = False
-                Disable_CatFields()
-                Disable_Fields()
-            End If
+    '            If Edit_butt.Enabled = True Then Edit_butt.Enabled = False
+    '            If Save_butt.Enabled = True Then Save_butt.Enabled = False
+    '            If Delete_butt.Enabled = True Then Delete_butt.Enabled = False
+    '            'Barcode_SH_txt.Enabled = False
+    '            'RemoveCatButton.Enabled = False
+    '            'If IM_Search_btn.Enabled = True Then IM_Search_btn.Enabled = False
+    '            If dgvSales.Enabled = True Then dgvSales.Enabled = False
+    '            Disable_CatFields()
+    '            Disable_Fields()
+    '        End If
 
-        End If
+    '    End If
 
-        Me.Text = "عرض بيانات فاتورة"
-    End Sub
+    '    Me.Text = "عرض بيانات فاتورة"
+    'End Sub
 
 
     Private Sub ClearFields()
@@ -1119,15 +1177,15 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         IM_Price = 0
         Total_TextBox.Clear()
         DateTimeEx.Text = Date.Now
-        VoidLb.Visible = False
+        'VoidLb.Visible = False
         isVoid = False
         isDepended = False
         ClearCatFields()
         Discount_txt.Clear()
         Disc = 0
         Me.Text = FormState
-        Edit_butt.BackColor = Color.WhiteSmoke
-        Edit_butt.Text = EditState
+        '   Edit_butt.BackColor = Color.WhiteSmoke
+        '   Edit_butt.Text = EditState
         On_Update = False
         SB_ID = 0
         AG_ID = 1
@@ -2490,7 +2548,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public Sub Move_To_SELECT_Bill()
         'Fill_Bill_Info()
         SB_Contents_SELECT_Bill()
-        SelectStateBt()
+        'SelectStateBt()
     End Sub
 
     'Public Sub Get_T_ID(S_T_ID As Integer, F As Char)
@@ -2654,23 +2712,23 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Sub SBPauseBtn_Click(sender As Object, e As EventArgs) Handles SBPauseBtn.Click
 
-        If isPause = True Then
-            If isDepended = True Then
-                Beep()
-                If MessageBox.Show(" إلغاء تعليق الفاتورة " + Bill_ID_Txt.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) _
-                 = Windows.Forms.DialogResult.OK Then
-                    SB_Cancel_PauseBill()
-                End If
-            Else
-                MsgBox("لا يمكن إلغاء تعليق فاتورة غير محفوظة", MsgBoxStyle.Exclamation, "")
-            End If
-        Else
-            Beep()
-            If MessageBox.Show(" تعليق الفاتورة " + Bill_ID_Txt.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) _
-                 = Windows.Forms.DialogResult.OK Then
-                SB_PauseBill()
-            End If
-        End If
+        'If isPause = True Then
+        '    If isDepended = True Then
+        '        Beep()
+        '        If MessageBox.Show(" إلغاء تعليق الفاتورة " + Bill_ID_Txt.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) _
+        '         = Windows.Forms.DialogResult.OK Then
+        '            SB_Cancel_PauseBill()
+        '        End If
+        '    Else
+        '        MsgBox("لا يمكن إلغاء تعليق فاتورة غير محفوظة", MsgBoxStyle.Exclamation, "")
+        '    End If
+        'Else
+        '    Beep()
+        '    If MessageBox.Show(" تعليق الفاتورة " + Bill_ID_Txt.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) _
+        '         = Windows.Forms.DialogResult.OK Then
+        '        SB_PauseBill()
+        '    End If
+        'End If
 
     End Sub
 
@@ -2891,38 +2949,38 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     '    End If
     'End Sub
 
-    Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
-        If T_ID > 0 Then
-            If On_Update = False Then
+    'Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
+    '    'If T_ID > 0 Then
+    '    '    If On_Update = False Then
 
-                Beep()
-                If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
-                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-                    Edit_butt.BackColor = Color.GreenYellow
-                    On_Update = True
-                    dgvSales.BackgroundColor = Color.LightYellow
-                    dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow
-                    RemoveCatButton.Enabled = True
-                    DateTimeEx.Enabled = True
-                    DiscountPanel.Enabled = True
-                    Ebable_CatFields()
-                    Edit_butt.Text = "إيقاف التعديل"
-                    'Network_Edit_Tracker_insert("تعديل فاتورة مبيعات (الشاشة السريعة) / رقم آلي : " + Bill_ID_Txt.Text + "  / المدخل :  " + User_Name_lb.Text, Pure_txt.Text, 0, 0)
-                End If
+    '    '        Beep()
+    '    '        If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
+    '    '                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+    '    '            Edit_butt.BackColor = Color.GreenYellow
+    '    '            On_Update = True
+    '    '            dgvSales.BackgroundColor = Color.LightYellow
+    '    '            dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow
+    '    '            RemoveCatButton.Enabled = True
+    '    '            DateTimeEx.Enabled = True
+    '    '            DiscountPanel.Enabled = True
+    '    '            Ebable_CatFields()
+    '    '            Edit_butt.Text = "إيقاف التعديل"
+    '    '            'Network_Edit_Tracker_insert("تعديل فاتورة مبيعات (الشاشة السريعة) / رقم آلي : " + Bill_ID_Txt.Text + "  / المدخل :  " + User_Name_lb.Text, Pure_txt.Text, 0, 0)
+    '    '        End If
 
-            Else
-                Save_Date(T_ID, DateTimeEx)
-                Save_Total(T_ID, TOTAL, Disc)
-                On_Update = False
-                Edit_butt.Text = EditState
-                Edit_butt.BackColor = Color.White
-                DateTimeEx.Enabled = False
-                DiscountPanel.Enabled = False
-                SelectStateBt()
+    '    '    Else
+    '    '        Save_Date(T_ID, DateTimeEx)
+    '    '        Save_Total(T_ID, TOTAL, Disc)
+    '    '        On_Update = False
+    '    '        Edit_butt.Text = EditState
+    '    '        Edit_butt.BackColor = Color.White
+    '    '        DateTimeEx.Enabled = False
+    '    '        DiscountPanel.Enabled = False
+    '    '        SelectStateBt()
 
-            End If
-        End If
-    End Sub
+    '    '    End If
+    '    'End If
+    'End Sub
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles DGV_Control_btn.Click
@@ -2994,36 +3052,36 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub DeliveryingButton_Click(sender As Object, e As EventArgs) Handles DeliveryingButton.Click
-        If isDepended = True Then
-            FormType = 1
-            AG_Type = 3
-            F_Receipt = New Receipt
-            Receipt_Tran_ID = T_ID
+    'Private Sub DeliveryingButton_Click(sender As Object, e As EventArgs) Handles DeliveryingButton.Click
+    '    If isDepended = True Then
+    '        FormType = 1
+    '        AG_Type = 3
+    '        F_Receipt = New Receipt
+    '        Receipt_Tran_ID = T_ID
 
-            With F_Receipt
-                Rct_Tr_ID = SB_TR_ID
-                .ClearFields()
-                .Fields_Panel.Enabled = True
-                .AG_Cm.Enabled = False
-                .Barcode_SH_txt.Enabled = False
-                .Receipt_Title_combobox.Text = "فاتورة مبيعات : " + Bill_ID_Txt.Text
-                .AG_Cm.Set_IM_By_ID(AG_ID)
-                '.IM_SH_txt.Text = AG_SH_txt.Text
-                '.AG_ID = AG_ID
-                '.GET_AG()
-                '.IM_SH_txt.BackColor = Color.LightGoldenrodYellow
-                '.Current_QTY.Text = Show_AG_T_Balance(AG_ID)
-                '.Fetch_AG_Currency()
-                .money_num_txtb.Text = Pure
-            End With
+    '        With F_Receipt
+    '            Rct_Tr_ID = SB_TR_ID
+    '            .ClearFields()
+    '            .Fields_Panel.Enabled = True
+    '            .AG_Cm.Enabled = False
+    '            .Barcode_SH_txt.Enabled = False
+    '            .Receipt_Title_combobox.Text = "فاتورة مبيعات : " + Bill_ID_Txt.Text
+    '            .AG_Cm.Set_IM_By_ID(AG_ID)
+    '            '.IM_SH_txt.Text = AG_SH_txt.Text
+    '            '.AG_ID = AG_ID
+    '            '.GET_AG()
+    '            '.IM_SH_txt.BackColor = Color.LightGoldenrodYellow
+    '            '.Current_QTY.Text = Show_AG_T_Balance(AG_ID)
+    '            '.Fetch_AG_Currency()
+    '            .money_num_txtb.Text = Pure
+    '        End With
 
-            F_Receipt.ShowDialog()
+    '        F_Receipt.ShowDialog()
 
-        Else
-            MsgBox("يجب إعتماد الفاتورة أولا", MsgBoxStyle.Exclamation, "")
-        End If
-    End Sub
+    '    Else
+    '        MsgBox("يجب إعتماد الفاتورة أولا", MsgBoxStyle.Exclamation, "")
+    '    End If
+    'End Sub
 
     Private Sub Notes_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles txtNotes.MouseDoubleClick
         F_BillNotes = New BillNotes
@@ -3034,7 +3092,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
 
-    Private Sub IM_Profet_btn_Click(sender As Object, e As EventArgs) Handles IM_Profet_btn.Click
+    Private Sub IM_Profet_btn_Click(sender As Object, e As EventArgs)
         Bill_Perfet_Select_For_Bill(T_ID)
     End Sub
 
@@ -3091,29 +3149,29 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
 
-    Private Sub Sales_Bill_Page_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles Sales_Bill_Page_cm.SelectedValueChanged
-        If TypeName(Sales_Bill_Page_cm.SelectedValue) = "Integer" Then SELECT_Rpt_Path()
-    End Sub
+    'Private Sub Sales_Bill_Page_cm_SelectedValueChanged(sender As Object, e As EventArgs)
+    '    If TypeName(Sales_Bill_Page_cm.SelectedValue) = "Integer" Then SELECT_Rpt_Path()
+    'End Sub
 
-    Private Sub SELECT_Rpt_Path()
+    'Private Sub SELECT_Rpt_Path()
 
-        Dim c As New C
+    '    Dim c As New C
 
-        Try
-            Dim s As String
-            s = "select AG_Bill from Sales_Bill_Page  WHERE ID = " & Sales_Bill_Page_cm.SelectedValue
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                Sales_BillPage_Bill_Track_FAST = c.Dr("AG_Bill")
-                Sales_Page_ID_FAST = Sales_Bill_Page_cm.SelectedValue
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
+    '    Try
+    '        Dim s As String
+    '        s = "select AG_Bill from Sales_Bill_Page  WHERE ID = " & Sales_Bill_Page_cm.SelectedValue
+    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
+    '        c.Con.Open()
+    '        c.Dr = c.Com.ExecuteReader
+    '        If c.Dr.HasRows Then
+    '            c.Dr.Read()
+    '            Sales_BillPage_Bill_Track_FAST = c.Dr("AG_Bill")
+    '            Sales_Page_ID_FAST = Sales_Bill_Page_cm.SelectedValue
+    '        End If
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+    'End Sub
 
     Private Async Sub Refresh_IM_Btn_Click(sender As Object, e As EventArgs) Handles Refresh_IM_Btn.Click
         Refresh_IM_Btn.Enabled = False
@@ -3209,7 +3267,11 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Draft_Btn.Click
-        Sales_Drafts_Menu.ShowDialog()
+        Try
+            Sales_Drafts_Menu.ShowDialog()
+        Finally
+            UpdateDraftButtonIndicator()
+        End Try
     End Sub
 
     Private Sub ChangeDraftCustomer(agId As Integer, agName As String)
@@ -3354,4 +3416,5 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         SetDraftDiscount(discountValue)
 
     End Sub
+
 End Class

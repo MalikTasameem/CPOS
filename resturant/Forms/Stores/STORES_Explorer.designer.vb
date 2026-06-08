@@ -51,8 +51,8 @@ Partial Class STORES_Explorer
         Me.Print_type_Cmb = New System.Windows.Forms.ComboBox()
         Me.Show_only_Zero_CB = New System.Windows.Forms.CheckBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TitleBar_Panel.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.gridv, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -266,14 +266,14 @@ Partial Class STORES_Explorer
         Me.Recount_Cost_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Recount_Cost_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Recount_Cost_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Recount_Cost_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 9.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Recount_Cost_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Recount_Cost_btn.ForeColor = System.Drawing.Color.Black
         Me.Recount_Cost_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Recount_Cost_btn.Location = New System.Drawing.Point(5, 71)
         Me.Recount_Cost_btn.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Recount_Cost_btn.Name = "Recount_Cost_btn"
         Me.Recount_Cost_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Recount_Cost_btn.Size = New System.Drawing.Size(100, 37)
+        Me.Recount_Cost_btn.Size = New System.Drawing.Size(150, 37)
         Me.Recount_Cost_btn.TabIndex = 688
         Me.Recount_Cost_btn.Text = "تدوير متوسط التكلفة"
         Me.Recount_Cost_btn.UseVisualStyleBackColor = False
@@ -287,10 +287,10 @@ Partial Class STORES_Explorer
         Me.Up_Update_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Up_Update_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Up_Update_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Up_Update_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Up_Update_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Up_Update_btn.ForeColor = System.Drawing.Color.Black
         Me.Up_Update_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Up_Update_btn.Location = New System.Drawing.Point(205, 71)
+        Me.Up_Update_btn.Location = New System.Drawing.Point(236, 21)
         Me.Up_Update_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Up_Update_btn.Name = "Up_Update_btn"
         Me.Up_Update_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -331,14 +331,14 @@ Partial Class STORES_Explorer
         Me.IM_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.IM_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.IM_btn.ForeColor = System.Drawing.Color.Black
         Me.IM_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.IM_btn.Location = New System.Drawing.Point(106, 71)
+        Me.IM_btn.Location = New System.Drawing.Point(156, 71)
         Me.IM_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.IM_btn.Name = "IM_btn"
         Me.IM_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_btn.Size = New System.Drawing.Size(97, 37)
+        Me.IM_btn.Size = New System.Drawing.Size(138, 37)
         Me.IM_btn.TabIndex = 389
         Me.IM_btn.Text = "الأصناف"
         Me.IM_btn.UseVisualStyleBackColor = False
@@ -500,6 +500,19 @@ Partial Class STORES_Explorer
         Me.Panel3.Size = New System.Drawing.Size(1012, 38)
         Me.Panel3.TabIndex = 912
         '
+        'UcGridColumnsSelector1
+        '
+        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(890, 6)
+        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
+        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
+        Me.UcGridColumnsSelector1.PopupMinHeight = 120
+        Me.UcGridColumnsSelector1.PopupWidth = 260
+        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
+    "ColumnsSettings"
+        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(111, 27)
+        Me.UcGridColumnsSelector1.TabIndex = 914
+        '
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.TOTAL_Grid)
@@ -513,19 +526,6 @@ Partial Class STORES_Explorer
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1012, 109)
         Me.Panel1.TabIndex = 911
-        '
-        'UcGridColumnsSelector1
-        '
-        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(890, 6)
-        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
-        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
-        Me.UcGridColumnsSelector1.PopupMinHeight = 120
-        Me.UcGridColumnsSelector1.PopupWidth = 260
-        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
-    "ColumnsSettings"
-        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(111, 27)
-        Me.UcGridColumnsSelector1.TabIndex = 914
         '
         'STORES_Explorer
         '

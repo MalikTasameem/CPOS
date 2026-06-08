@@ -958,7 +958,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
 
-    Private Sub Calc_Total()
+    Public Sub Calc_Total()
         TOTAL = 0
         TOTAL_NO_EXP = 0
         PchExpWithBillTotal = 0
