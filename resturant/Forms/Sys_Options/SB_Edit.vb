@@ -717,7 +717,7 @@ Public Class SB_Edit
             ' Use_Order_cb.Visible = True
         End If
 
-        If SScreenDefault_Cmb.SelectedIndex = 2 Then
+        If SScreenDefault_Cmb.SelectedIndex = 2 OrElse SScreenDefault_Cmb.SelectedIndex = 3 Then
             Notif_If_SB_Has_No_SB_Price_CB.Visible = True
         Else
             Notif_If_SB_Has_No_SB_Price_CB.Visible = False

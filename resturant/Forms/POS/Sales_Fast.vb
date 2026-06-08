@@ -66,7 +66,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
         Select Case e.KeyCode
             Case Keys.F1
-                If New_butt.Enabled = True Then OpenSalesFastDraft()
+                If New_butt.Enabled = True Then New_butt_Click(sender, e)
             Case Keys.F12
                 If Save_butt.Enabled = True Then Save_butt_Click(sender, e)
             Case Keys.F2
@@ -327,12 +327,28 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             SelectStateBt()
             New_butt.Enabled = False
             SBPauseBtn.Enabled = False
+        ElseIf OpenForPreviousBillsReview = True Then
+            PreparePreviousBillsReviewMode()
         Else
             If Open_NewBill_When_OpenSale = True AndAlso OpenForPreviousBillsReview = False Then ResetNewBill()
         End If
 
         'Pay_Method1.Set_Tr_Form()
         'Pay_Method1.Load_Tr()
+
+    End Sub
+
+    Private Sub PreparePreviousBillsReviewMode()
+
+        ClearFields()
+        DeleteOrUpdateStateBt()
+        Save_butt.Enabled = False
+        Print_btn.Enabled = False
+        SBPauseBtn.Enabled = False
+        New_butt.Enabled = True
+        New_butt.Text = "فاتورة جديدة"
+        Me.Text = "مراجعة فواتير المبيعات"
+        Bill_ID_Txt.Focus()
 
     End Sub
 
@@ -1726,7 +1742,11 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
-        OpenSalesFastDraft()
+        If OpenForPreviousBillsReview = True OrElse SScreenDefault = 3 Then
+            OpenSalesFastDraft()
+        Else
+            ResetNewBill()
+        End If
     End Sub
 
     Private Sub OpenSalesFastDraft()

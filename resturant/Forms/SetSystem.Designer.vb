@@ -229,7 +229,7 @@ Partial Class SetSystem
         Me.SScreenDefault_Cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SScreenDefault_Cmb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.SScreenDefault_Cmb.FormattingEnabled = True
-        Me.SScreenDefault_Cmb.Items.AddRange(New Object() {"شاشة عادية", "شاشة لمس", "الشاشة السريعة"})
+        Me.SScreenDefault_Cmb.Items.AddRange(New Object() {"شاشة عادية", "شاشة لمس", "الشاشة السريعة", "الشاشة السريعة بالمسودات"})
         Me.SScreenDefault_Cmb.Location = New System.Drawing.Point(3, 25)
         Me.SScreenDefault_Cmb.Name = "SScreenDefault_Cmb"
         Me.SScreenDefault_Cmb.Size = New System.Drawing.Size(176, 29)

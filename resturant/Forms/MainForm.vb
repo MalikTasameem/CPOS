@@ -423,7 +423,7 @@ Public Class MainForm
         ALERT_DGV.Refresh()
         Application.DoEvents()
         Fill_ALL_ALERT()
-        Set_Data_Alert()Activation
+        Set_Data_Alert()
         ConfigureValidTimer()
         ModernLoader.CloseLoader()
         'If System_Start_Normal = False Then
@@ -1284,10 +1284,9 @@ Public Class MainForm
                     End If
                     Me.Cursor = Cursors.Default
 
-                Case 2
+                Case 2, 3
                     If isPr_Open = True Then
-                        SB_is_Fast = True
-                        Sales_Fast_Draft.Show()
+                        OpenFastSalesByDefault()
                     Else
                         MsgBox("يجب عليك فتــح وردية عمل أولا", MsgBoxStyle.Exclamation)
                     End If
@@ -1311,13 +1310,39 @@ Public Class MainForm
                     F_POS.Show()
                     Me.Cursor = Cursors.Default
 
-                Case 2
-                    SB_is_Fast = True
-                    Sales_Fast_Draft.Show()
+                Case 2, 3
+                    OpenFastSalesByDefault()
 
             End Select
 
         End If
+    End Sub
+
+    Private Sub OpenFastSalesByDefault()
+
+        SB_is_Fast = True
+
+        If SScreenDefault = 3 Then
+            OpenSalesFastDraftScreen()
+        Else
+            OpenSalesFastScreen()
+        End If
+
+    End Sub
+
+    Private Sub OpenSalesFastScreen()
+
+        Sales_Fast.OpenForPreviousBillsReview = False
+        Sales_Fast.Show()
+        Sales_Fast.Activate()
+
+    End Sub
+
+    Private Sub OpenSalesFastDraftScreen()
+
+        Sales_Fast_Draft.Show()
+        Sales_Fast_Draft.Activate()
+
     End Sub
 
     Private Sub Check_Printers()
