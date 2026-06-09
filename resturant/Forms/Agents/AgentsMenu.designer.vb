@@ -211,7 +211,7 @@ Partial Class AgentsMenu
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Label12.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Label12.Location = New System.Drawing.Point(308, 167)
+        Me.Label12.Location = New System.Drawing.Point(308, 172)
         Me.Label12.Name = "Label12"
         Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label12.Size = New System.Drawing.Size(51, 20)
@@ -224,11 +224,11 @@ Partial Class AgentsMenu
         Me.Current_QTY.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Current_QTY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Current_QTY.Enabled = False
-        Me.Current_QTY.Font = New System.Drawing.Font("Stencil", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Current_QTY.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Current_QTY.ForeColor = System.Drawing.Color.Black
-        Me.Current_QTY.Location = New System.Drawing.Point(167, 161)
+        Me.Current_QTY.Location = New System.Drawing.Point(167, 166)
         Me.Current_QTY.Name = "Current_QTY"
-        Me.Current_QTY.Size = New System.Drawing.Size(137, 32)
+        Me.Current_QTY.Size = New System.Drawing.Size(137, 29)
         Me.Current_QTY.TabIndex = 614
         Me.Current_QTY.Text = "00"
         Me.Current_QTY.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -274,7 +274,7 @@ Partial Class AgentsMenu
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(374, 132)
+        Me.Label7.Location = New System.Drawing.Point(372, 139)
         Me.Label7.Name = "Label7"
         Me.Label7.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label7.Size = New System.Drawing.Size(85, 20)
@@ -289,12 +289,12 @@ Partial Class AgentsMenu
         Me.AG_Type_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.AG_Type_cm.Enabled = False
         Me.AG_Type_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AG_Type_cm.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AG_Type_cm.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AG_Type_cm.FormattingEnabled = True
-        Me.AG_Type_cm.Location = New System.Drawing.Point(167, 128)
+        Me.AG_Type_cm.Location = New System.Drawing.Point(167, 134)
         Me.AG_Type_cm.Name = "AG_Type_cm"
         Me.AG_Type_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Type_cm.Size = New System.Drawing.Size(201, 30)
+        Me.AG_Type_cm.Size = New System.Drawing.Size(201, 29)
         Me.AG_Type_cm.TabIndex = 617
         '
         'Note_Lb
@@ -334,7 +334,7 @@ Partial Class AgentsMenu
         '
         Me.is_By_PhoneCB.AutoSize = True
         Me.is_By_PhoneCB.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.is_By_PhoneCB.Location = New System.Drawing.Point(152, 48)
+        Me.is_By_PhoneCB.Location = New System.Drawing.Point(180, 54)
         Me.is_By_PhoneCB.Name = "is_By_PhoneCB"
         Me.is_By_PhoneCB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.is_By_PhoneCB.Size = New System.Drawing.Size(118, 21)
@@ -356,7 +356,7 @@ Partial Class AgentsMenu
         Me.AG_Cm.Location = New System.Drawing.Point(4, 87)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(454, 35)
+        Me.AG_Cm.Size = New System.Drawing.Size(454, 38)
         Me.AG_Cm.SQL_Column = "AG_NAME"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False

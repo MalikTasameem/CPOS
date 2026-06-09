@@ -287,20 +287,45 @@ Public Class AgentsMenu
 
     Private Sub Cash_AG_btn_Click(sender As Object, e As EventArgs) Handles Cash_AG_btn.Click
 
-        If Application.OpenForms().OfType(Of Sales).Any Then
-            Switch_Sales_Agent(F_Sales.T_ID, Default_AG_ID, F_Sales.On_Update)
-            Exit Sub
+        AG_ID = Default_AG_ID
+        AG_NAME = "نقدي"
+
+        If is_By_Draft = False Then
+
+            If Application.OpenForms().OfType(Of Sales).Any Then
+                Switch_Sales_Agent(F_Sales.T_ID, Default_AG_ID, F_Sales.On_Update)
+                Exit Sub
+            End If
+
+            If SB_is_Fast = False Then
+                If Home_Panel = "POS" Then
+                    AG_Balance_Update_AG(Default_AG_ID)
+                Else
+                    TB_ButOnAG(Default_AG_ID)
+                End If
+            Else
+                Switch_Fast_Sales_Agent(Sales_Fast.T_ID, 1, Sales_Fast.On_Update)
+            End If
+
+        Else
+
+            'If U_AG_Skip_Max = False Then
+            '    If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
+            '        MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك فتح فاتورة جديدة له", MsgBoxStyle.Critical, "خطأ فالإدراج")
+            '    Else
+            '        is_OK = True
+            '        Me.Close()
+            '    End If
+            'Else
+            'If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then MsgBox("هذا الزبون قد تخطى سقف الدين الخاص به", MsgBoxStyle.Exclamation, "تنويه ")
+
+            is_OK = True
+            Me.Close()
         End If
 
-        If SB_is_Fast = False Then
-            If Home_Panel = "POS" Then
-                AG_Balance_Update_AG(Default_AG_ID)
-            Else
-                TB_ButOnAG(Default_AG_ID)
-            End If
-        Else
-            Switch_Fast_Sales_Agent(Sales_Fast.T_ID, 1, Sales_Fast.On_Update)
-        End If
+
+        'End If
+
 
     End Sub
 
@@ -574,5 +599,9 @@ Public Class AgentsMenu
 
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
         Fetch_ItemToList(AG_Cm.TXT_ID.Text)
+    End Sub
+
+    Private Sub Back_Btn_Click(sender As Object, e As EventArgs) Handles Back_Btn.Click
+        Me.Close()
     End Sub
 End Class

@@ -61,6 +61,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private DraftButtonDefaultBorderColor As Color
     Private DraftButtonDefaultFont As Font
     Private IsDraftButtonDefaultStyleCaptured As Boolean = False
+    Private ShortcutGroupPanel As Panel = Nothing
+    Private ShortcutItemsPanel As Panel = Nothing
+    Private ShortcutItemsDt As DataTable = Nothing
+    Private ShortcutSelectedGroupID As Integer = -1
     '--------------------------------------------------------------------------------------------------------------
     Private Sub LoadPrintSettings()
         Dim db As New C()
@@ -455,18 +459,18 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                        Color.FromArgb(180, 83, 9),
                        "استعراض مسودات فواتير المبيعات")
 
-        StyleTopButton(SBPauseBtn,
-                       "⏸" & Environment.NewLine & "تعليق F7",
-                       Color.FromArgb(217, 119, 6),
-                       Color.White,
-                       Color.FromArgb(180, 83, 9),
-                       "تعليق الفاتورة الحالية")
+        'StyleTopButton(SBPauseBtn,
+        '               "⏸" & Environment.NewLine & "تعليق F7",
+        '               Color.FromArgb(217, 119, 6),
+        '               Color.White,
+        '               Color.FromArgb(180, 83, 9),
+        '               "تعليق الفاتورة الحالية")
 
-        StyleIconButton(DGV_Control_btn,
-                        "⚙",
-                        Color.FromArgb(15, 23, 42),
-                        Color.White,
-                        "عرض بيانات الجدول")
+        'StyleIconButton(DGV_Control_btn,
+        '                "⚙",
+        '                Color.FromArgb(15, 23, 42),
+        '                Color.White,
+        '                "عرض بيانات الجدول")
 
         StyleIconButton(Show_Cash_btn,
                         "💵",
@@ -929,63 +933,228 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     'End Sub
 
     Private Sub loadShortCut_IM()
-        IMPanel.Controls.Clear()
 
+        EnsureShortcutPanels()
+        LoadShortcutItems()
+        RenderShortcutGroupButtons()
+        RenderShortcutItemsByGroup()
 
-        Dim c As New C
-        Dim x = 2.5
-        Dim y = 2.5
-        Dim counter = 1
-        Dim IMName As String
+    End Sub
 
-        Dim s As String = ""
+    Private Sub EnsureShortcutPanels()
 
-        s = "select IM_ID,item_name,Photo,BK_R,BK_G,BK_B,FK_R,FK_G,FK_B from IM_Menu WHERE is_Shortcut = 1  order by item_name ASC"
-        c.Com = New SqlClient.SqlCommand(s, c.Con)
-        c.Con.Open()
-        c.Dr = c.Com.ExecuteReader
-        If c.Dr.HasRows Then
-            While c.Dr.Read()
-                counter += 1
-                Dim IMbtn As New Button
-                IMbtn.Name = ("IMbtn" + c.Dr("IM_ID").ToString)
-                IMbtn.Tag = c.Dr("IM_ID")
-                IMbtn.TextAlign = ContentAlignment.MiddleLeft
-                IMbtn.AutoSize = False
-                IMbtn.Cursor = Cursors.Hand
-                IMbtn.FlatStyle = FlatStyle.Popup
-                IMbtn.Location = New System.Drawing.Point(x, y)
-                IMbtn.Size = New System.Drawing.Size(IMPanel.Size.Width / 8.3, IMPanel.Size.Height / 5.5)
-                IMbtn.RightToLeft = Windows.Forms.RightToLeft.Yes
-                IMName = c.Dr("item_name")
-                IMbtn.Font = New System.Drawing.Font("Arial", 11, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CType(0, Byte))
-                IMbtn.Text = c.Dr("item_name")
-                Controls.Add(IMbtn)
-                IMbtn.Parent = IMPanel
-                AddHandler IMbtn.Click, AddressOf IMbtn_Click
-                IMbtn.BackColor = System.Drawing.SystemColors.Window
-                If IsDBNull(c.Dr("BK_R")) Then
-                    IMbtn.BackColor = System.Drawing.SystemColors.Window
-                Else
-                    IMbtn.BackColor = Color.FromArgb(c.Dr("BK_R"), c.Dr("BK_G"), c.Dr("BK_B"))
-                End If
+        If ShortcutGroupPanel Is Nothing OrElse ShortcutItemsPanel Is Nothing Then
+            IMPanel.Controls.Clear()
+            IMPanel.AutoScroll = False
 
-                If IsDBNull(c.Dr("FK_R")) = False Then
-                    IMbtn.ForeColor = Color.FromArgb(c.Dr("FK_R"), c.Dr("FK_G"), c.Dr("FK_B"))
-                End If
+            ShortcutItemsPanel = New Panel()
+            ShortcutItemsPanel.Name = "ShortcutItemsPanel"
+            ShortcutItemsPanel.AutoScroll = True
+            ShortcutItemsPanel.BackColor = Color.Transparent
+            ShortcutItemsPanel.RightToLeft = Windows.Forms.RightToLeft.No
 
-                If counter = 9 Then
-                    counter = 1
-                    x = 2.5
-                    y += IMPanel.Size.Height / 5.5
-                Else
-                    x += IMPanel.Size.Width / 8.3
-                End If
+            ShortcutGroupPanel = New Panel()
+            ShortcutGroupPanel.Name = "ShortcutGroupPanel"
+            ShortcutGroupPanel.AutoScroll = True
+            ShortcutGroupPanel.BackColor = Color.FromArgb(245, 247, 250)
+            ShortcutGroupPanel.RightToLeft = Windows.Forms.RightToLeft.Yes
 
-            End While
+            IMPanel.Controls.Add(ShortcutItemsPanel)
+            IMPanel.Controls.Add(ShortcutGroupPanel)
         End If
 
-        c.Con.Close()
+        LayoutShortcutPanels()
+
+    End Sub
+
+    Private Sub LayoutShortcutPanels()
+
+        If ShortcutGroupPanel Is Nothing OrElse ShortcutItemsPanel Is Nothing Then Exit Sub
+
+        Dim paddingValue As Integer = 4
+        Dim groupWidth As Integer = CInt(IMPanel.Width * 0.23)
+        If groupWidth < 135 Then groupWidth = 135
+        If groupWidth > 180 Then groupWidth = 180
+
+        ShortcutGroupPanel.Location = New Point(IMPanel.Width - groupWidth - paddingValue, paddingValue)
+        ShortcutGroupPanel.Size = New Size(groupWidth, IMPanel.Height - (paddingValue * 2))
+
+        ShortcutItemsPanel.Location = New Point(paddingValue, paddingValue)
+        ShortcutItemsPanel.Size = New Size(IMPanel.Width - groupWidth - (paddingValue * 3), IMPanel.Height - (paddingValue * 2))
+
+    End Sub
+
+    Private Sub LoadShortcutItems()
+
+        Dim c As New C
+        ShortcutItemsDt = New DataTable()
+
+        Try
+            Dim s As String = "select IM_ID,ISNULL(GM_ID,0) AS GM_ID,ISNULL(NULLIF(GM_NAME,''),N'بدون مجموعة') AS GM_NAME,item_name,Photo,BK_R,BK_G,BK_B,FK_R,FK_G,FK_B from IM_Menu_V WHERE is_Shortcut = 1 order by GM_NAME ASC,item_name ASC"
+            c.Com = New SqlClient.SqlCommand(s, c.Con)
+            c.Da = New SqlClient.SqlDataAdapter(c.Com)
+            c.Da.Fill(ShortcutItemsDt)
+        Catch ex As Exception
+            MsgBox("تعذر تحميل اختصارات الأصناف: " & ex.Message, MsgBoxStyle.Exclamation, "اختصارات الأصناف")
+        Finally
+            If c.Con.State = ConnectionState.Open Then c.Con.Close()
+        End Try
+
+    End Sub
+
+    Private Sub RenderShortcutGroupButtons()
+
+        If ShortcutGroupPanel Is Nothing Then Exit Sub
+        ShortcutGroupPanel.Controls.Clear()
+        ShortcutGroupPanel.AutoScrollMinSize = New Size(0, 0)
+
+        If ShortcutItemsDt Is Nothing OrElse ShortcutItemsDt.Rows.Count = 0 Then
+            ShortcutSelectedGroupID = -1
+            Exit Sub
+        End If
+
+        Dim groupsDt As DataTable = ShortcutItemsDt.DefaultView.ToTable(True, "GM_ID", "GM_NAME")
+        Dim groupsView As New DataView(groupsDt)
+        groupsView.Sort = "GM_NAME ASC"
+
+        Dim selectedExists As Boolean = False
+        Dim firstGroupID As Integer = -1
+
+        For Each rowView As DataRowView In groupsView
+            Dim groupID As Integer = CInt(rowView("GM_ID"))
+            If firstGroupID = -1 Then firstGroupID = groupID
+            If groupID = ShortcutSelectedGroupID Then selectedExists = True
+        Next
+
+        If selectedExists = False Then ShortcutSelectedGroupID = firstGroupID
+
+        Dim y As Integer = 4
+        For Each rowView As DataRowView In groupsView
+            Dim groupID As Integer = CInt(rowView("GM_ID"))
+            Dim groupButton As New Button()
+
+            groupButton.Name = "ShortcutGroupBtn" & groupID.ToString()
+            groupButton.Tag = groupID
+            groupButton.Text = rowView("GM_NAME").ToString()
+            groupButton.Cursor = Cursors.Hand
+            groupButton.FlatStyle = FlatStyle.Flat
+            groupButton.Font = New Font("Segoe UI Semibold", 9.25!, FontStyle.Bold)
+            groupButton.TextAlign = ContentAlignment.MiddleCenter
+            groupButton.RightToLeft = Windows.Forms.RightToLeft.Yes
+            groupButton.Size = New Size(ShortcutGroupPanel.ClientSize.Width - 10, 42)
+            groupButton.Location = New Point(4, y)
+            groupButton.UseVisualStyleBackColor = False
+
+            ApplyShortcutGroupButtonStyle(groupButton, groupID = ShortcutSelectedGroupID)
+            AddHandler groupButton.Click, AddressOf ShortcutGroupButton_Click
+
+            ShortcutGroupPanel.Controls.Add(groupButton)
+            y += groupButton.Height + 5
+        Next
+
+        ShortcutGroupPanel.AutoScrollMinSize = New Size(0, y + 4)
+
+    End Sub
+
+    Private Sub ApplyShortcutGroupButtonStyle(groupButton As Button, isSelected As Boolean)
+
+        If isSelected Then
+            groupButton.BackColor = Color.FromArgb(37, 99, 235)
+            groupButton.ForeColor = Color.White
+            groupButton.FlatAppearance.BorderColor = Color.FromArgb(30, 64, 175)
+        Else
+            groupButton.BackColor = Color.White
+            groupButton.ForeColor = Color.FromArgb(30, 41, 59)
+            groupButton.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225)
+        End If
+
+        groupButton.FlatAppearance.BorderSize = 1
+
+    End Sub
+
+    Private Sub ShortcutGroupButton_Click(sender As Object, e As EventArgs)
+
+        Dim groupButton As Button = DirectCast(sender, Button)
+        ShortcutSelectedGroupID = CInt(groupButton.Tag)
+
+        RenderShortcutGroupButtons()
+        RenderShortcutItemsByGroup()
+
+    End Sub
+
+    Private Sub RenderShortcutItemsByGroup()
+
+        If ShortcutItemsPanel Is Nothing Then Exit Sub
+        ShortcutItemsPanel.Controls.Clear()
+
+        If ShortcutItemsDt Is Nothing OrElse ShortcutItemsDt.Rows.Count = 0 OrElse ShortcutSelectedGroupID = -1 Then
+            ShowNoShortcutItemsLabel("لا توجد أصناف مختصرة")
+            Exit Sub
+        End If
+
+        Dim rows() As DataRow = ShortcutItemsDt.Select("GM_ID = " & ShortcutSelectedGroupID.ToString(), "item_name ASC")
+        If rows.Length = 0 Then
+            ShowNoShortcutItemsLabel("لا توجد أصناف لهذه المجموعة")
+            Exit Sub
+        End If
+
+        Dim spacing As Integer = 5
+        Dim columns As Integer = 5
+        If ShortcutItemsPanel.ClientSize.Width < 520 Then columns = 4
+        If ShortcutItemsPanel.ClientSize.Width > 760 Then columns = 6
+
+        Dim buttonWidth As Integer = CInt((ShortcutItemsPanel.ClientSize.Width - ((columns + 1) * spacing)) / columns)
+        If buttonWidth < 92 Then buttonWidth = 92
+
+        Dim buttonHeight As Integer = CInt((ShortcutItemsPanel.ClientSize.Height - (spacing * 5)) / 4)
+        If buttonHeight < 45 Then buttonHeight = 45
+        If buttonHeight > 58 Then buttonHeight = 58
+
+        Dim index As Integer = 0
+        For Each row As DataRow In rows
+            Dim col As Integer = index Mod columns
+            Dim rowIndex As Integer = index \ columns
+            Dim IMbtn As New Button()
+
+            IMbtn.Name = "IMbtn" & row("IM_ID").ToString()
+            IMbtn.Tag = row("IM_ID")
+            IMbtn.TextAlign = ContentAlignment.MiddleCenter
+            IMbtn.AutoSize = False
+            IMbtn.Cursor = Cursors.Hand
+            IMbtn.FlatStyle = FlatStyle.Popup
+            IMbtn.Location = New Point(spacing + (col * (buttonWidth + spacing)), spacing + (rowIndex * (buttonHeight + spacing)))
+            IMbtn.Size = New Size(buttonWidth, buttonHeight)
+            IMbtn.RightToLeft = Windows.Forms.RightToLeft.Yes
+            IMbtn.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold, GraphicsUnit.Point, CType(0, Byte))
+            IMbtn.Text = row("item_name").ToString()
+            IMbtn.BackColor = SystemColors.Window
+
+            If IsDBNull(row("BK_R")) = False Then
+                IMbtn.BackColor = Color.FromArgb(CInt(row("BK_R")), CInt(row("BK_G")), CInt(row("BK_B")))
+            End If
+
+            If IsDBNull(row("FK_R")) = False Then
+                IMbtn.ForeColor = Color.FromArgb(CInt(row("FK_R")), CInt(row("FK_G")), CInt(row("FK_B")))
+            End If
+
+            AddHandler IMbtn.Click, AddressOf IMbtn_Click
+            ShortcutItemsPanel.Controls.Add(IMbtn)
+            index += 1
+        Next
+
+    End Sub
+
+    Private Sub ShowNoShortcutItemsLabel(messageText As String)
+
+        If ShortcutItemsPanel Is Nothing Then Exit Sub
+
+        Dim emptyLabel As New Label()
+        emptyLabel.Text = messageText
+        emptyLabel.Font = New Font("Segoe UI Semibold", 11.0!, FontStyle.Bold)
+        emptyLabel.ForeColor = Color.FromArgb(100, 116, 139)
+        emptyLabel.TextAlign = ContentAlignment.MiddleCenter
+        emptyLabel.Dock = DockStyle.Fill
+        ShortcutItemsPanel.Controls.Add(emptyLabel)
 
     End Sub
 
@@ -1389,6 +1558,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Async Sub Refresh_IM_MENU()
         Await Load_ALL_IM()
+        loadShortCut_IM()
     End Sub
 
 
@@ -1797,6 +1967,11 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         rs.ResizeAllControls(Me)
+        If ShortcutGroupPanel IsNot Nothing AndAlso ShortcutItemsPanel IsNot Nothing Then
+            LayoutShortcutPanels()
+            RenderShortcutGroupButtons()
+            RenderShortcutItemsByGroup()
+        End If
     End Sub
 
     Private Sub Tr_BankNum_TextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Total_TextBox.KeyPress
@@ -2100,7 +2275,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         '            ClearCatFields()
         '            Exit Sub
         '        End If
-
         '    End If
         'End If
 
@@ -2851,7 +3025,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         ''------------------------------------------------------------------------
     End Sub
 
-    Private Sub SBPauseBtn_Click(sender As Object, e As EventArgs) Handles SBPauseBtn.Click
+    Private Sub SBPauseBtn_Click(sender As Object, e As EventArgs)
 
         'If isPause = True Then
         '    If isDepended = True Then
@@ -3065,33 +3239,17 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         FormatSalesGrid()
 
+        UcGridColumnsSelector1.BindGrid(
+dgvSales,
+New List(Of String) From {"DraftLineId", "IM_ID", "U_ID", "ST_ID", "Date_", "D_Valid_CL", "Serial_Code_CL", "Notes_CL", "Cost", "U_Cargo", "ST_QTY", "D_Vaild", "Compons"},
+Me.Name.ToString
+ )
+
         If dgvSales.Rows.Count > 0 Then
             Dim lastRowIndex As Integer
             lastRowIndex = dgvSales.Rows.Count - 1
             dgvSales.CurrentCell = dgvSales.Rows(lastRowIndex).Cells("Item_Name")
         End If
-
-
-        '-----------------------------------------------------
-        'Dim dt As New DataTable()
-
-        'dt.Columns.Add("ItemName")
-        'dt.Columns.Add("QTY", GetType(Decimal))
-        'dt.Columns.Add("Price", GetType(Decimal))
-        'dt.Columns.Add("Total", GetType(Decimal))
-        'dt.Columns.Add("DraftLineId")
-
-        'For Each item In CurrentDraft.Items
-        '    dt.Rows.Add(
-        '    item.ItemName,
-        '    item.QTY,
-        '    item.Price,
-        '    item.T_Price,
-        '    item.DraftLineId
-        ')
-        'Next
-
-        'AGMetroGrid.DataSource = dt
 
     End Sub
 
@@ -3227,7 +3385,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     'End Sub
 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles DGV_Control_btn.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         FormType = 1
         Switch_To_DV_Show()
     End Sub
@@ -3273,13 +3431,20 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub AG_SH_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AG_SH_txt.MouseDoubleClick
-        'If dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
+        SelectDraftCustomer()
+    End Sub
+
+    Private Sub ChangeCustomerButton_Click(sender As Object, e As EventArgs) Handles ChangeCustomerButton.Click
+        SelectDraftCustomer()
+    End Sub
+
+    Private Sub SelectDraftCustomer()
 
         Dim f As New AgentsMenu
         f.is_By_Draft = True
         f.ShowDialog()
         If f.is_OK = True Then ChangeDraftCustomer(f.AG_ID, f.AG_NAME)
-        'End If
+
     End Sub
 
     Private Sub AGMetroGrid_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSales.KeyDown
@@ -3428,8 +3593,9 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             Dim isLoaded As Boolean = Await Load_ALL_IM()
 
             If isLoaded Then
+                loadShortCut_IM()
                 SetRefreshStatus(
-                    "تم التحديث: " & IM_Units_Dt.Rows.Count.ToString("N0") & " وحدة متاحة",
+                    "تم التحديث: " & IM_Units_Dt.Rows.Count.ToString("N0") & " وحدة متاحة، و" & ShortcutItemsDt.Rows.Count.ToString("N0") & " اختصار",
                     Color.FromArgb(21, 128, 61)
                 )
             Else

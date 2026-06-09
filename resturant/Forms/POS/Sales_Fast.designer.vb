@@ -52,6 +52,7 @@ Partial Class Sales_Fast
         Me.IM_Qty_LB = New System.Windows.Forms.Label()
         Me.IMPanel = New System.Windows.Forms.Panel()
         Me.AG_SH_txt = New System.Windows.Forms.TextBox()
+        Me.ChangeCustomerButton = New System.Windows.Forms.Button()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.AG_Panel = New System.Windows.Forms.Panel()
         Me.PauseCmb = New System.Windows.Forms.ComboBox()
@@ -473,9 +474,29 @@ Partial Class Sales_Fast
         Me.AG_SH_txt.Name = "AG_SH_txt"
         Me.AG_SH_txt.ReadOnly = True
         Me.AG_SH_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.AG_SH_txt.Size = New System.Drawing.Size(218, 23)
+        Me.AG_SH_txt.Size = New System.Drawing.Size(180, 23)
         Me.AG_SH_txt.TabIndex = 660
         Me.AG_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'ChangeCustomerButton
+        '
+        Me.ChangeCustomerButton.BackColor = System.Drawing.Color.White
+        Me.ChangeCustomerButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ChangeCustomerButton.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.ChangeCustomerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.ChangeCustomerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ChangeCustomerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ChangeCustomerButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChangeCustomerButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
+        Me.ChangeCustomerButton.Location = New System.Drawing.Point(184, 1)
+        Me.ChangeCustomerButton.Name = "ChangeCustomerButton"
+        Me.ChangeCustomerButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChangeCustomerButton.Size = New System.Drawing.Size(36, 23)
+        Me.ChangeCustomerButton.TabIndex = 719
+        Me.ChangeCustomerButton.TabStop = False
+        Me.ChangeCustomerButton.Text = "👤"
+        Me.MetroToolTip1.SetToolTip(Me.ChangeCustomerButton, "تغيير العميل")
+        Me.ChangeCustomerButton.UseVisualStyleBackColor = False
         '
         'Label16
         '
@@ -495,6 +516,7 @@ Partial Class Sales_Fast
         '
         Me.AG_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.AG_Panel.Controls.Add(Me.DateTimeEx)
+        Me.AG_Panel.Controls.Add(Me.ChangeCustomerButton)
         Me.AG_Panel.Controls.Add(Me.AG_SH_txt)
         Me.AG_Panel.Location = New System.Drawing.Point(2, 1)
         Me.AG_Panel.Name = "AG_Panel"
@@ -1124,6 +1146,7 @@ Partial Class Sales_Fast
     Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents IMPanel As System.Windows.Forms.Panel
     Friend WithEvents AG_SH_txt As System.Windows.Forms.TextBox
+    Friend WithEvents ChangeCustomerButton As System.Windows.Forms.Button
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents AG_Panel As System.Windows.Forms.Panel
     Friend WithEvents PauseCmb As System.Windows.Forms.ComboBox
