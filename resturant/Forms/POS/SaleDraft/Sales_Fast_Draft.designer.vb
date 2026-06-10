@@ -186,7 +186,7 @@ Partial Class Sales_Fast_Draft
         Me.PreviousBillsButton.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PreviousBillsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.PreviousBillsButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.PreviousBillsButton.Location = New System.Drawing.Point(675, 4)
+        Me.PreviousBillsButton.Location = New System.Drawing.Point(678, 4)
         Me.PreviousBillsButton.Name = "PreviousBillsButton"
         Me.PreviousBillsButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.PreviousBillsButton.Size = New System.Drawing.Size(110, 40)
@@ -837,10 +837,10 @@ Partial Class Sales_Fast_Draft
         Me.RefreshStatus_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.RefreshStatus_LB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RefreshStatus_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(61, Byte), Integer))
-        Me.RefreshStatus_LB.Location = New System.Drawing.Point(687, 47)
+        Me.RefreshStatus_LB.Location = New System.Drawing.Point(678, 47)
         Me.RefreshStatus_LB.Name = "RefreshStatus_LB"
         Me.RefreshStatus_LB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RefreshStatus_LB.Size = New System.Drawing.Size(189, 30)
+        Me.RefreshStatus_LB.Size = New System.Drawing.Size(198, 30)
         Me.RefreshStatus_LB.TabIndex = 719
         Me.RefreshStatus_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.RefreshStatus_LB.Visible = False
@@ -871,7 +871,7 @@ Partial Class Sales_Fast_Draft
         Me.Print_btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Print_btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Print_btn.Location = New System.Drawing.Point(788, 4)
+        Me.Print_btn.Location = New System.Drawing.Point(791, 4)
         Me.Print_btn.Name = "Print_btn"
         Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Print_btn.Size = New System.Drawing.Size(75, 40)
@@ -893,7 +893,7 @@ Partial Class Sales_Fast_Draft
         Me.New_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.New_butt.ForeColor = System.Drawing.Color.Black
         Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.New_butt.Location = New System.Drawing.Point(944, 4)
+        Me.New_butt.Location = New System.Drawing.Point(947, 4)
         Me.New_butt.Name = "New_butt"
         Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.New_butt.Size = New System.Drawing.Size(75, 40)
@@ -911,7 +911,7 @@ Partial Class Sales_Fast_Draft
         Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Save_butt.Location = New System.Drawing.Point(866, 4)
+        Me.Save_butt.Location = New System.Drawing.Point(869, 4)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Save_butt.Size = New System.Drawing.Size(75, 40)

@@ -730,6 +730,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         DraftCalculator.RecalculateDraft(CurrentDraft)
         DraftManager.SaveDraft(CurrentDraft)
         LoadDraftToGrid()
+        SelectDraftLine(draftLineId)
         UpdateDraftTotalsOnScreen()
 
     End Sub
@@ -769,6 +770,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         For Each row As DataGridViewRow In dgvSales.Rows
             If Convert.ToString(row.Cells("DraftLineId").Value) = draftLineId Then
                 Dim cellName As String = GetFirstExistingGridColumnName("QTY_CL", "QTY", "Item_Name", "ItemName", "Barcode_CL")
+                dgvSales.ClearSelection()
                 dgvSales.CurrentCell = row.Cells(cellName)
                 row.Selected = True
                 Exit For
@@ -3296,20 +3298,39 @@ Me.Name.ToString
             If .Columns.Contains("QTY") Then
                 .Columns("QTY").HeaderText = "الكمية"
                 .Columns("QTY").Width = 80
-                .Columns("QTY").DefaultCellStyle.Format = "0.###"
+                .Columns("QTY").DefaultCellStyle.Format = "#,##0.###"
+            End If
+
+            If .Columns.Contains("QTY_CL") Then
+                .Columns("QTY_CL").HeaderText = "الكمية"
+                .Columns("QTY_CL").Width = 80
+                .Columns("QTY_CL").DefaultCellStyle.Format = "#,##0.###"
             End If
 
             If .Columns.Contains("Price") Then
                 .Columns("Price").HeaderText = "السعر"
                 .Columns("Price").Width = 90
-                .Columns("Price").DefaultCellStyle.Format = "0.000"
+                .Columns("Price").DefaultCellStyle.Format = "#,##0.###"
+            End If
+
+            If .Columns.Contains("Price_CL") Then
+                .Columns("Price_CL").HeaderText = "السعر"
+                .Columns("Price_CL").Width = 90
+                .Columns("Price_CL").DefaultCellStyle.Format = "#,##0.###"
             End If
 
             If .Columns.Contains("T_Price") Then
                 .Columns("T_Price").HeaderText = "الإجمالي"
                 .Columns("T_Price").Width = 100
-                .Columns("T_Price").DefaultCellStyle.Format = "0.000"
+                .Columns("T_Price").DefaultCellStyle.Format = "#,##0.###"
                 .Columns("T_Price").ReadOnly = True
+            End If
+
+            If .Columns.Contains("Total_CL") Then
+                .Columns("Total_CL").HeaderText = "الإجمالي"
+                .Columns("Total_CL").Width = 100
+                .Columns("Total_CL").DefaultCellStyle.Format = "#,##0.###"
+                .Columns("Total_CL").ReadOnly = True
             End If
 
         End With
