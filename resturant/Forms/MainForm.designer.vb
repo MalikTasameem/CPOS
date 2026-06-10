@@ -105,6 +105,7 @@ Partial Class MainForm
         Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ActiveStatusButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.DB_Name_Tool = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -160,7 +161,6 @@ Partial Class MainForm
         Me.Lb_Title2 = New System.Windows.Forms.Label()
         Me.Panel_Shortcuts_Bottom = New System.Windows.Forms.Panel()
         Me.Table_Bill_Screen_btn = New System.Windows.Forms.Button()
-        Me.ActiveLinkLa = New System.Windows.Forms.LinkLabel()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Panel_Right = New System.Windows.Forms.Panel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -605,20 +605,22 @@ Partial Class MainForm
         'سحــبToolStripMenuItem
         '
         Me.سحــبToolStripMenuItem.Name = "سحــبToolStripMenuItem"
-        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
+        Me.سحــبToolStripMenuItem.Size = New System.Drawing.Size(224, 24)
         Me.سحــبToolStripMenuItem.Text = "سحب"
+        Me.سحــبToolStripMenuItem.Visible = False
         '
         'إيداعToolStripMenuItem
         '
         Me.إيداعToolStripMenuItem.Name = "إيداعToolStripMenuItem"
-        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(113, 24)
+        Me.إيداعToolStripMenuItem.Size = New System.Drawing.Size(224, 24)
         Me.إيداعToolStripMenuItem.Text = "إيداع"
+        Me.إيداعToolStripMenuItem.Visible = False
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(113, 24)
-        Me.ToolStripMenuItem3.Text = "تحويل"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(224, 24)
+        Me.ToolStripMenuItem3.Text = "تحويل بين الخزائن/البنوك"
         '
         'تحويلبينالحساباتToolStripMenuItem
         '
@@ -690,13 +692,29 @@ Partial Class MainForm
         Me.StatusStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.StatusStrip1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.StatusStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.DB_Name_Tool, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3, Me.U_Name_Tool, Me.ToolStripStatusLabel6, Me.ServeConnect_LB, Me.ToolStripDropDownButton1, Me.ToolStripStatusLabel5})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ActiveStatusButton, Me.ToolStripStatusLabel1, Me.DB_Name_Tool, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3, Me.U_Name_Tool, Me.ToolStripStatusLabel6, Me.ServeConnect_LB, Me.ToolStripDropDownButton1, Me.ToolStripStatusLabel5})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 0)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StatusStrip1.Size = New System.Drawing.Size(1200, 35)
         Me.StatusStrip1.TabIndex = 0
         Me.StatusStrip1.Tag = "HEADER"
+        '
+        'ActiveStatusButton
+        '
+        Me.ActiveStatusButton.AutoSize = False
+        Me.ActiveStatusButton.AutoToolTip = False
+        Me.ActiveStatusButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(9, Byte), Integer))
+        Me.ActiveStatusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ActiveStatusButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ActiveStatusButton.ForeColor = System.Drawing.Color.White
+        Me.ActiveStatusButton.Margin = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.ActiveStatusButton.Name = "ActiveStatusButton"
+        Me.ActiveStatusButton.Size = New System.Drawing.Size(165, 31)
+        Me.ActiveStatusButton.Tag = "IGNORE"
+        Me.ActiveStatusButton.Text = "⚠ منتج غير مفعل"
+        Me.ActiveStatusButton.ToolTipText = "اضغط لتفعيل النظام"
+        Me.ActiveStatusButton.Visible = False
         '
         'ToolStripStatusLabel1
         '
@@ -1182,7 +1200,6 @@ Partial Class MainForm
         '
         Me.Panel_Shortcuts_Bottom.BackColor = System.Drawing.Color.Transparent
         Me.Panel_Shortcuts_Bottom.Controls.Add(Me.Table_Bill_Screen_btn)
-        Me.Panel_Shortcuts_Bottom.Controls.Add(Me.ActiveLinkLa)
         Me.Panel_Shortcuts_Bottom.Controls.Add(Me.ExitFormButton)
         Me.Panel_Shortcuts_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel_Shortcuts_Bottom.Location = New System.Drawing.Point(0, 385)
@@ -1195,7 +1212,7 @@ Partial Class MainForm
         Me.Table_Bill_Screen_btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.Table_Bill_Screen_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Table_Bill_Screen_btn.FlatAppearance.BorderSize = 0
-        Me.Table_Bill_Screen_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Table_Bill_Screen_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Table_Bill_Screen_btn.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Table_Bill_Screen_btn.ForeColor = System.Drawing.Color.Black
         Me.Table_Bill_Screen_btn.Location = New System.Drawing.Point(20, 20)
@@ -1204,22 +1221,6 @@ Partial Class MainForm
         Me.Table_Bill_Screen_btn.TabIndex = 0
         Me.Table_Bill_Screen_btn.Text = "طلبيات داخلية"
         Me.Table_Bill_Screen_btn.UseVisualStyleBackColor = False
-        '
-        'ActiveLinkLa
-        '
-        Me.ActiveLinkLa.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(76, Byte), Integer), CType(CType(60, Byte), Integer))
-        Me.ActiveLinkLa.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.ActiveLinkLa.ForeColor = System.Drawing.Color.White
-        Me.ActiveLinkLa.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.ActiveLinkLa.LinkColor = System.Drawing.Color.White
-        Me.ActiveLinkLa.Location = New System.Drawing.Point(150, 20)
-        Me.ActiveLinkLa.Name = "ActiveLinkLa"
-        Me.ActiveLinkLa.Size = New System.Drawing.Size(120, 45)
-        Me.ActiveLinkLa.TabIndex = 1
-        Me.ActiveLinkLa.TabStop = True
-        Me.ActiveLinkLa.Tag = "DELETE"
-        Me.ActiveLinkLa.Text = "منتج غير مفعل"
-        Me.ActiveLinkLa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'ExitFormButton
         '
@@ -1689,7 +1690,7 @@ Partial Class MainForm
     Friend WithEvents Btn_QuickOffers As System.Windows.Forms.Button
 
     Friend WithEvents Table_Bill_Screen_btn As System.Windows.Forms.Button
-    Friend WithEvents ActiveLinkLa As System.Windows.Forms.LinkLabel
+    Friend WithEvents ActiveStatusButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents ExitFormButton As System.Windows.Forms.Button
 
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog

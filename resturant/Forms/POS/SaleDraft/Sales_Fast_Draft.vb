@@ -277,18 +277,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Return Nothing ' اتركه Nothing إذا لم تكن تمتلك مكتبة حالياً
     End Function
 
-
-
-
-
     '--------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         FormType = 0
         'F_MainForm.Fill_ALL_IM()
@@ -570,8 +559,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             'Case Keys.F4
             '    If Delete_butt.Enabled = True And Delete_butt.Visible = True Then Delete_butt_Click(sender, e)
 
-            Case Keys.F7
-                SBPauseBtn_Click(sender, e)
+            'Case Keys.F7
+            '    SBPauseBtn_Click(sender, e)
 
             'Case Keys.PageUp
             '    Up_Bill_btn_Click(sender, e)
@@ -1288,76 +1277,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         'IM_Profet_btn.Visible = U_Show_Bill_Profet
     End Sub
 
-    Public Sub SB_Contents_SELECT_Bill()
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "SB_Contents_SELECT_Bill_2"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@SB_T_ID", Me.T_ID)
-        End With
-        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-        C.Da.Fill(C.Dt)
-        dgvSales.DataSource = C.Dt
-        If dgvSales.Rows.Count > 0 Then dgvSales.CurrentCell = dgvSales.Rows(dgvSales.Rows.Count - 1).Cells("EX_Name_CL")
-        'Calc_Total()
-    End Sub
-
-    'Public Sub Fill_Bill_Info()
-
-    '    Dim C As New C
-
-    '    With C.Com
-    '        .Connection = C.Con
-    '        .CommandText = "SB_Info_V_SELECT_Bill"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@T_ID", Me.T_ID)
-    '    End With
-    '    C.Con.Open()
-    '    C.Dr = C.Com.ExecuteReader
-    '    If C.Dr.HasRows Then
-    '        C.Dr.Read()
-
-    '        AG_ID = C.Dr("AG_ID")
-    '        AG_SH_txt.Text = C.Dr("AG_Name")
-
-    '        DateTimeEx.Text = C.Dr("Date")
-    '        Barcode = C.Dr("Barcode")
-    '        If C.Dr("isPied") = 1 Then
-    '            Save_butt.Enabled = False
-    '        Else
-    '            Save_butt.Enabled = True
-    '        End If
-    '        Bill_ID_Txt.Text = C.Dr("SB_ID")
-    '        SB_ID = C.Dr("SB_ID")
-    '        If C.Dr("Discount") > 0 Then
-    '            Discount_txt.Text = C.Dr("Discount")
-    '            Disc = C.Dr("Discount")
-    '            If Discount_Distribute = False Then Pure_txt.Text = C.Dr("Total") - C.Dr("Discount")
-    '        End If
-    '        isVoid = C.Dr("isVoid")
-    '        isDepended = C.Dr("isDepended")
-
-    '        'isPied = C.Dr("isPied")
-
-    '        User_Name_lb.Text = C.Dr("U_Name") + " - " + C.Dr("Date").ToString
-    '        BillUser_ID = C.Dr("User_ID")
-    '        isPause = C.Dr("isPause")
-    '        If isPause = False Then
-    '            SBPauseBtn.Text = "تعليق F7"
-    '        Else
-    '            SBPauseBtn.Text = "إلغاء التعليق"
-    '        End If
-
-    '        txtNotes.Text = C.Dr("About")
-
-    '    Else
-    '        AG_ID = Default_AG_ID
-    '        VoidLb.Enabled = False
-    '    End If
-    '    C.Con.Close()
-    'End Sub
-
 
     Private Sub Enable_Fields()
         DateTimeEx.Enabled = True
@@ -1371,8 +1290,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Sub Disable_CatFields()
         Barcode_SH_txt.Enabled = False
-        '  QtyTextBox.Enabled = False
-        ' IM_Price = 0
         RemoveCatButton.Enabled = False
         IMPanel.Enabled = False
         txtNotes.Enabled = False
@@ -1381,8 +1298,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Sub Ebable_CatFields()
         Barcode_SH_txt.Enabled = True
-        ' QtyTextBox.Enabled = True
-        '  IM_Price.Enabled = True
         RemoveCatButton.Enabled = True
         IMPanel.Enabled = True
         txtNotes.Enabled = True
@@ -1425,65 +1340,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Me.Text = DefaultFormState
     End Sub
 
-    'Public Sub SelectStateBt()
-    '    Edit_butt.Text = EditState
-    '    If isVoid = True Then
-    '        VoidLb.Visible = True
-    '        Disable_Fields()
-    '        Save_butt.Enabled = False
-    '        Edit_butt.Enabled = False
-    '        Delete_butt.Enabled = False
-    '        dgvSales.Enabled = True
-    '        dgvSales.BackgroundColor = Color.IndianRed
-    '        dgvSales.RowsDefaultCellStyle.BackColor = Color.IndianRed
-    '        Print_btn.Enabled = False
-    '        DiscountPanel.Enabled = False
-    '        DeliveryingButton.Enabled = False
-
-    '    Else
-
-    '        If isDepended = False Then
-    '            Save_butt.Enabled = True
-    '            Edit_butt.Enabled = False
-    '            Print_btn.Enabled = False
-    '            dgvSales.BackgroundColor = Color.LightYellow
-    '            dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow
-    '            Enable_Fields()
-    '            DiscountPanel.Enabled = True
-
-    '        Else
-    '            Save_butt.Enabled = False
-    '            Edit_butt.Enabled = True
-    '            Print_btn.Enabled = True
-    '            dgvSales.BackgroundColor = Color.LightGreen
-    '            dgvSales.RowsDefaultCellStyle.BackColor = Color.LightGreen
-    '            Disable_Fields()
-    '            DiscountPanel.Enabled = False
-    '            DeliveryingButton.Enabled = True
-    '        End If
-
-    '        VoidLb.Visible = False
-    '        Delete_butt.Enabled = True
-
-    '        If U_Save_otherBill = False And BillUser_ID <> USER_ID Then
-
-    '            If Edit_butt.Enabled = True Then Edit_butt.Enabled = False
-    '            If Save_butt.Enabled = True Then Save_butt.Enabled = False
-    '            If Delete_butt.Enabled = True Then Delete_butt.Enabled = False
-    '            'Barcode_SH_txt.Enabled = False
-    '            'RemoveCatButton.Enabled = False
-    '            'If IM_Search_btn.Enabled = True Then IM_Search_btn.Enabled = False
-    '            If dgvSales.Enabled = True Then dgvSales.Enabled = False
-    '            Disable_CatFields()
-    '            Disable_Fields()
-    '        End If
-
-    '    End If
-
-    '    Me.Text = "عرض بيانات فاتورة"
-    'End Sub
-
-
     Private Sub ClearFields()
         'T_ID = 0
         IM_Price = 0
@@ -1524,40 +1380,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         NewStateBt()
     End Sub
 
-
-    'Private Sub Call_New_Bill(Insert_New)
-    '    Dim C As New C
-
-    '    With C.Com
-    '        .Connection = C.Con
-    '        .CommandText = "Call_New_SalesBill"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@T_ID", 0)
-    '        .Parameters.AddWithValue("@AG_ID", SB_Default_AG)
-    '        .Parameters.AddWithValue("@Bill_Num", 0)
-    '        .Parameters.AddWithValue("@SB_ID", 0)
-    '        .Parameters.AddWithValue("@isNew", 0)
-    '        '.Parameters.AddWithValue("@SB_Type", SB_DefaultStatus)
-    '        .Parameters.AddWithValue("@Pr_ID", Pr_ID)
-    '        .Parameters.AddWithValue("@isPied", 0)
-    '        .Parameters.AddWithValue("@User_ID", USER_ID)
-    '        .Parameters.AddWithValue("@Insert_New", Insert_New)
-
-    '        .Parameters("@T_ID").Direction = ParameterDirection.Output
-    '        .Parameters("@Bill_Num").Direction = ParameterDirection.Output
-    '        .Parameters("@isNew").Direction = ParameterDirection.Output
-    '        .Parameters("@SB_ID").Direction = ParameterDirection.Output
-    '    End With
-    '    If SQL_SP_EXEC(C.Com) = True Then
-    '        Me.T_ID = C.Com.Parameters("@T_ID").Value
-    '        Bill_ID_Txt.Text = C.Com.Parameters("@SB_ID").Value.ToString()
-    '        SB_Contents_SELECT_Bill()
-    '        Fill_Bill_Info()
-    '        SelectStateBt()
-    '        Refresh_IM_MENU()
-    '    End If
-    'End Sub
-
     Private Async Sub Refresh_IM_MENU()
         Await Load_ALL_IM()
         loadShortCut_IM()
@@ -1565,46 +1387,21 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
 
     Private Sub Save_butt_Click(sender As Object, e As EventArgs) Handles Save_butt.Click
-        'If dgvSales.Rows.Count > 0 Then
-        '    'Save_Date(T_ID, DateTimeEx)
-        '    'ConfermBill()
-        '    PushCurrentDraftToDatabase()
-        'End If
+
 
         If CurrentDraft Is Nothing Then
             MessageBox.Show("لا توجد فاتورة حالية.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
-        'Dim result = MessageBox.Show(
-        '    "هل تريد اعتماد الفاتورة وحفظها نهائيًا؟",
-        '    "تأكيد",
-        '    MessageBoxButtons.YesNo,
-        '    MessageBoxIcon.Question)
-
-        'If result <> DialogResult.Yes Then Exit Sub
-
-
         Me.Cursor = Cursors.WaitCursor
-        'BtnPushFinal.Enabled = False
-
         Try
             Dim ok As Boolean = PushCurrentDraftToDatabase()
 
             If ok Then
                 DraftManager.ArchiveDraft(CurrentDraft)
                 PrintCurrentBill()
-                '  CashPrint()
-                'MessageBox.Show(
-                '    "تم حفظ الفاتورة بنجاح." & Environment.NewLine &
-                '    "T_ID = " & If(CurrentDraft.Final_T_ID.HasValue, CurrentDraft.Final_T_ID.Value.ToString(), "") & Environment.NewLine &
-                '    "SB_ID = " & If(CurrentDraft.Final_SB_ID.HasValue, CurrentDraft.Final_SB_ID.Value.ToString(), ""),
-                '    "نجاح",
-                '    MessageBoxButtons.OK,
-                '    MessageBoxIcon.Information)
                 ResetNewBill()
-                'Disable_Fields()
-                'ClearCatFields()
             End If
 
         Finally
@@ -1801,171 +1598,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Next
         Return False
     End Function
-
-
-    'Public Function PushDraftToDatabase(draft As SaleDraftHeader, con As SqlConnection) As Boolean
-    '    Try
-    '        Using cmd As New SqlCommand("dbo.PushSalesDraft", con)
-    '            cmd.CommandType = CommandType.StoredProcedure
-
-    '            cmd.Parameters.AddWithValue("@AG_ID", draft.AG_ID)
-
-    '            If draft.S_Bill_Pr_ID.HasValue Then
-    '                cmd.Parameters.AddWithValue("@S_Bill_Pr_ID", draft.S_Bill_Pr_ID.Value)
-    '            Else
-    '                cmd.Parameters.AddWithValue("@S_Bill_Pr_ID", DBNull.Value)
-    '            End If
-
-    '            If draft.Table_ID.HasValue Then
-    '                cmd.Parameters.AddWithValue("@Table_ID", draft.Table_ID.Value)
-    '            Else
-    '                cmd.Parameters.AddWithValue("@Table_ID", DBNull.Value)
-    '            End If
-
-    '            cmd.Parameters.AddWithValue("@Date", draft.Date)
-    '            cmd.Parameters.AddWithValue("@Discount", draft.Discount)
-    '            cmd.Parameters.AddWithValue("@About", If(draft.About, CType(DBNull.Value, Object)))
-    '            cmd.Parameters.AddWithValue("@BsType_ID", draft.BsType_ID)
-    '            cmd.Parameters.AddWithValue("@isVoid", draft.isVoid)
-
-    '            If draft.isPied.HasValue Then
-    '                cmd.Parameters.AddWithValue("@isPied", draft.isPied.Value)
-    '            Else
-    '                cmd.Parameters.AddWithValue("@isPied", DBNull.Value)
-    '            End If
-
-    '            cmd.Parameters.AddWithValue("@User_ID", draft.User_ID)
-
-    '            If draft.Markter_ID.HasValue Then
-    '                cmd.Parameters.AddWithValue("@Markter_ID", draft.Markter_ID.Value)
-    '            Else
-    '                cmd.Parameters.AddWithValue("@Markter_ID", DBNull.Value)
-    '            End If
-
-    '            Dim detailsTable As DataTable = BuildDetailsTable(draft.Items)
-
-    '            Dim p As New SqlParameter("@Details", SqlDbType.Structured)
-    '            p.TypeName = "dbo.SB_Contents_DraftType"
-    '            p.Value = detailsTable
-    '            cmd.Parameters.Add(p)
-
-    '            If con.State <> ConnectionState.Open Then
-    '                con.Open()
-    '            End If
-
-    '            Using dr = cmd.ExecuteReader()
-    '                If dr.Read() Then
-    '                    Dim isSuccess As Boolean = Convert.ToBoolean(dr("IsSuccess"))
-
-    '                    If isSuccess Then
-    '                        If Not IsDBNull(dr("Header_T_ID")) Then
-    '                            draft.Final_T_ID = Convert.ToInt32(dr("Header_T_ID"))
-    '                        End If
-
-    '                        If Not IsDBNull(dr("SB_ID")) Then
-    '                            draft.Final_SB_ID = Convert.ToInt32(dr("SB_ID"))
-    '                        End If
-
-    '                        draft.PushedAt = DateTime.Now
-    '                        Return True
-    '                    Else
-    '                        Dim msg As String = dr("ErrorMessage").ToString()
-    '                        MessageBox.Show(msg, "خطأ في ترحيل الفاتورة", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '                        Return False
-    '                    End If
-    '                End If
-    '            End Using
-    '        End Using
-
-    '        Return False
-
-    '    Catch ex As Exception
-    '        MessageBox.Show(ex.Message, "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Return False
-    '    End Try
-    'End Function
-
-
-
-    'Public Sub ConfermBill()
-
-    '    Dim F As New Pay_Main_Form
-    '    F.MONEY_VALUE = Pure
-    '    F.Temp_Tr_ID = SB_TR_ID
-    '    F.AG_ID = AG_ID
-    '    F.ShowDialog()
-
-    '    If F.is_OK = True Then
-    '        Dim Tr_ID, Pay_ID As Integer
-    '        Tr_ID = F.Tr_ID
-    '        Pay_ID = F.Pay_ID
-
-    '        Dim c As New C
-    '        With c.Com
-    '            .Connection = c.Con
-    '            .CommandText = "SB_ConfermBill"
-    '            .CommandType = CommandType.StoredProcedure
-    '            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-
-    '            '.Parameters.AddWithValue("@TOTAL", TOTAL)
-    '            '.Parameters.AddWithValue("@Discount", Disc)
-    '            '.Parameters.AddWithValue("@Pure", Pure)
-    '            .Parameters.AddWithValue("@TOTAL", Total_TextBox.Text)
-    '            .Parameters.AddWithValue("@Discount", Discount_txt.Text)
-    '            .Parameters.AddWithValue("@Pure", Pure_txt.Text)
-
-    '            .Parameters.AddWithValue("@AGType_ID", 1)
-    '            .Parameters.AddWithValue("@Tr_ID", Tr_ID) 'SB_TR_ID
-    '            .Parameters.AddWithValue("@Pr_ID", Pr_ID)
-    '            .Parameters.AddWithValue("@User_ID", USER_ID)
-    '            .Parameters.AddWithValue("@Pay_ID", Pay_ID)
-
-    '        End With
-    '        If SQL_SP_EXEC(c.Com) = True Then
-    '            Switch_Dependcy(1)
-    '            If SB_AutoOpenDrawer = True Then Open_Cash_Drawer()
-    '            If SB_AutoPrint = True Then
-    '                Me.Cursor = Cursors.AppStarting
-    '                CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
-    '                Me.Cursor = Cursors.Default
-    '            End If
-    '            SelectStateBt()
-
-    '            If MY_Settings.S_OpenNextBill = True Then
-    '                ClearFields()
-    '                Call_New_Bill(0)
-    '            End If
-
-    '        End If
-
-    '    End If
-
-    'End Sub
-
-    'Private Sub Delete_butt_Click(sender As Object, e As EventArgs) Handles Delete_butt.Click
-
-    '    Beep()
-    '    If MessageBox.Show(" سيتم إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "إلغــاء فاتورة", MessageBoxButtons.OKCancel,
-    '           MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
-    '        Cancel_Bill()
-    '    End If
-    'End Sub
-
-    'Private Sub Cancel_Bill()
-
-    '    Dim sqlComm As New SqlClient.SqlCommand
-    '    sqlComm.CommandText = "AG_Balance_Void_Row"
-    '    sqlComm.CommandType = CommandType.StoredProcedure
-    '    sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-    '    If SQL_SP_EXEC(sqlComm) = True Then
-    '        MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
-    '        Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 1, 3)
-    '        isVoid = True
-    '        SelectStateBt()
-    '    End If
-
-    'End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         rs.ResizeAllControls(Me)
@@ -2295,21 +1927,21 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         End If
 
-        If SB_IM_Alert_When_Repetition = True Then
-            For i = 0 To dgvSales.Rows.Count - 1
-                If dgvSales.Rows(i).Cells("Bill_IMID_CL").Value = IM_ID Then
-                    System.Media.SystemSounds.Hand.Play()
-                    '  My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
-                    If MessageBox.Show(" هذا الصنف تم إدراجه بالفاتورة ... هل تريد الإستمرار ؟ ", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
-                        ClearCatFields()
-                        Exit Sub
-                    Else
-                        Add_ItemToBill(IM_ID)
-                        Exit Sub
-                    End If
-                End If
-            Next
-        End If
+        'If SB_IM_Alert_When_Repetition = True Then
+        '    For i = 0 To dgvSales.Rows.Count - 1
+        '        If dgvSales.Rows(i).Cells("Bill_IMID_CL").Value = IM_ID Then
+        '            System.Media.SystemSounds.Hand.Play()
+        '            '  My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
+        '            If MessageBox.Show(" هذا الصنف تم إدراجه بالفاتورة ... هل تريد الإستمرار ؟ ", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
+        '                ClearCatFields()
+        '                Exit Sub
+        '            Else
+        '                Add_ItemToBill(IM_ID)
+        '                Exit Sub
+        '            End If
+        '        End If
+        '    Next
+        'End If
 
         Beep()
         If Notif_If_SB_Has_No_SB_Price = True Then
@@ -2452,67 +2084,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Valid_TXT = ""
     End Sub
 
-
-    Public Sub Add_ItemToBill(IM_ID As String)
-        If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_U_ID)
-
-        If Bercent_Price > 0 Then IM_Price =
-    IM_Price + IM_Price * (IM_Price / 100).ToString("00.00")
-
-        'Dim Row_Index As Integer = 0
-        'If AGMetroGrid.Rows.Count > 0 Then Row_Index = AGMetroGrid.CurrentCell.RowIndex + 1
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "SB_Contents_INSERT_2"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@SB_T_ID", Me.T_ID)
-            .Parameters.AddWithValue("@IM_ID", IM_ID)
-            .Parameters.AddWithValue("@ST_ID", SB_ST_ID)
-            .Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox))
-            .Parameters.AddWithValue("@U_ID", IM_U_ID)
-            .Parameters.AddWithValue("@Price", IM_Price)
-            .Parameters.AddWithValue("@On_Update", On_Update)
-            .Parameters.AddWithValue("@Barcode", Barcode_IM)
-            If is_Valid = True Then .Parameters.AddWithValue("@D_Vaild", Valid_TXT)
-            If Bercent_Price > 0 Then .Parameters.AddWithValue("@Notes", Bercent_Price.ToString & " % ")
-            .Parameters.AddWithValue("@SB_IM_NEW_ROW", SB_IM_NEW_ROW)
-        End With
-
-        If SQL_SP_EXEC(C.Com) = True Then
-            If On_Update = True Then DependingUpdatedBill(T_ID)
-
-            Network_Edit_Tracker_insert(" الصنف:" + IM_Name + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.ToString() + " السعر:" + IM_Price.ToString(), Bill_ID_Txt.Text, 1, 1)
-
-            SB_Contents_SELECT_Bill()
-            ClearCatFields()
-            'If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
-        End If
-
-    End Sub
-
-    'Private Sub SB_Contents_Delete_IM(T_ID_CL As Integer)
-    '    Dim Row_Index As Integer = dgvSales.CurrentCell.RowIndex
-    '    Dim c As New C
-    '    With c.Com
-    '        .Connection = c.Con
-    '        .CommandText = "SB_Contents_Delete_IM"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@T_ID", T_ID_CL)
-    '        .Parameters.AddWithValue("@On_Update", On_Update)
-    '    End With
-    '    If SQL_SP_EXEC(c.Com) = True Then
-    '        'Network_Edit_Tracker_insert("حذف صنف لفاتورة مبيعات/ رقم آلي : " + Bill_ID_Txt.Text + " / الصنف :  " + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " /العدد :  " + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString + " /السعر :  " + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Pure_txt.Text, 0, 0)
-
-    '        Network_Edit_Tracker_insert(" الصنف:" + dgvSales.CurrentRow.Cells("EX_Name_CL").Value.ToString + " الوحدة:" + dgvSales.CurrentRow.Cells("IMUnit_CL").Value.ToString + " العدد:" + dgvSales.CurrentRow.Cells("QTY_CL").Value.ToString _
-    '                                    + " السعر:" + dgvSales.CurrentRow.Cells("Price_CL").Value.ToString, Bill_ID_Txt.Text, 1, 2)
-
-    '        SB_Contents_SELECT_Bill()
-    '        If Row_Index > 0 Then dgvSales.CurrentCell = dgvSales.Rows(Row_Index - 1).Cells("EX_Name_CL")
-    '    End If
-    'End Sub
-
-
     Private Sub RemoveCatButton_Click(sender As Object, e As EventArgs) Handles RemoveCatButton.Click
         'If dgvSales.Rows.Count > 0 Then
         '    SB_Contents_Delete_IM(dgvSales.CurrentRow.Cells("T_ID_CL").Value)
@@ -2643,57 +2214,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 Clear_Barcode()
             End If
 
-
         End If
 
-        'End Sub
-
-        '--------------------------------------------------------------------------
-        'Dim c As New C
-        'IM_Dt.Clear()
-        'Try
-        '    Dim s As String = "select U_IM_ID,U_ID,IM_ID,item_name,Barcode,isValid from IM_units_Search_V WHERE IM_ID = '" & IM_ID & "' AND is_Default = 1"
-
-        '    c.Com = New SqlClient.SqlCommand(s, c.Con)
-        '    c.Con.Open()
-
-        '    c.Dr = c.Com.ExecuteReader
-        '    If c.Dr.HasRows Then
-        '        c.Dr.Read()
-        '        IM_ID = c.Dr("IM_ID")
-        '        IM_Name = c.Dr("item_name")
-        '        Barcode_IM = c.Dr("Barcode")
-        '        Barcode_SH_txt.Text = c.Dr("Barcode")
-        '        IM_U_ID = c.Dr("U_ID")
-        '        U_IM_ID = c.Dr("U_IM_ID")
-        '        Get_Unit = False
-        '        '  Load_IM_ST_QTY_ST_INT(IM_ID, SB_ST_ID, IM_QTY)
-        '        'IMDataGridViewX.Visible = False
-        '        'Load_IM_Change_Price()
-
-        '        If c.Dr("isValid") = 1 Then
-        '            is_Valid = True
-        '            'Fetch_IM_Valids(Valid_Dt, Valid_cm, IM_ID, ST_cm)
-        '            POS_D_Valid.ST_ID = SB_ST_ID
-        '            POS_D_Valid.IM_ID = IM_ID
-        '            POS_D_Valid.ShowDialog()
-        '            If Valid_Allow_IM = False Then Exit Sub
-        '        End If
-
-        '        Fetch_IM_Units_By_Bar()
-        '        Barcode_SH_txt.Clear()
-        '        ADD_IM()
-        '    Else
-
-        '        '   My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
-        '        MsgBox("لم يتم التعرف على الإدخال")
-        '        Barcode_SH_txt.Clear()
-        '        Barcode_IM = ""
-        '    End If
-
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
     End Sub
 
     Private Sub Fetch_IM_Units_By_Bar()
@@ -2833,92 +2355,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
-
-    'Private Sub Down_Bill_btn_Click(sender As Object, e As EventArgs) Handles Down_Bill_btn.Click
-    '    Bill_ID_Txt.Text = Convert.ToInt64(Bill_ID_Txt.Text)
-    '    Get_T_ID(Convert.ToInt64(Bill_ID_Txt.Text), "-")
-    'End Sub
-
-    Public Sub Get_T_ID_By_Barcode(Num As String)
-        Dim C As New C
-        Dim S As String = "Select T_ID From Agents_Balance_MV Where Barcode = '" & Num & "'"
-        C.Com = New SqlClient.SqlCommand(S, C.Con)
-        C.Con.Open()
-        Try
-            C.Dr = C.Com.ExecuteReader
-            If C.Dr.HasRows Then
-                C.Dr.Read()
-                ClearFields()
-                T_ID = C.Dr("T_ID")
-                Move_To_SELECT_Bill()
-            Else
-                MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
-                Bill_ID_Txt.Text = SB_ID
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        C.Con.Close()
-    End Sub
-
-    Public Sub Move_To_SELECT_Bill()
-        'Fill_Bill_Info()
-        SB_Contents_SELECT_Bill()
-        'SelectStateBt()
-    End Sub
-
-    'Public Sub Get_T_ID(S_T_ID As Integer, F As Char)
-
-    '    Dim C As New C
-    '    Dim S As String = ""
-    '    Select Case F
-    '        Case ""
-    '            S = "Select TOP 1 T_ID From Agents_Balance_MV Where SB_ID = '" & S_T_ID & "'"
-    '        Case "+"
-    '            S = "Select TOP 1 T_ID From Agents_Balance_MV Where SB_ID > '" & S_T_ID & "' AND USER_ID = " & USER_ID & " ORDER BY SB_ID ASC "
-    '        Case "-"
-    '            S = "Select TOP 1 T_ID From Agents_Balance_MV Where SB_ID < '" & S_T_ID & "' AND USER_ID = " & USER_ID & " ORDER BY SB_ID DESC "
-    '    End Select
-
-
-    '    C.Com = New SqlClient.SqlCommand(S, C.Con)
-    '    C.Con.Open()
-    '    Try
-    '        C.Dr = C.Com.ExecuteReader
-    '        If C.Dr.HasRows Then
-    '            C.Dr.Read()
-    '            ClearFields()
-    '            T_ID = C.Dr("T_ID")
-    '            Fill_Bill_Info()
-    '            SB_Contents_SELECT_Bill()
-    '            SelectStateBt()
-    '        Else
-    '            MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
-    '            'Bill_ID_Txt.Text = SB_ID
-    '        End If
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    '    C.Con.Close()
-
-    'End Sub
-
-    'Private Sub Up_Bill_btn_Click(sender As Object, e As EventArgs) Handles Up_Bill_btn.Click
-    '    If Not String.IsNullOrWhiteSpace(Bill_ID_Txt.Text) Then
-    '        Bill_ID_Txt.Text = Convert.ToInt64(Bill_ID_Txt.Text)
-    '        Get_T_ID(Convert.ToInt64(Bill_ID_Txt.Text), "+")
-    '    End If
-    'End Sub
-
-
-    'Private Sub Bill_ID_Txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Bill_ID_Txt.KeyDown
-    '    If e.KeyCode = Keys.Return Then Get_T_ID(Convert.ToInt64(Bill_ID_Txt.Text), "")
-    '    If e.KeyCode = Keys.Up Then Up_Bill_btn_Click(sender, e)
-    '    If e.KeyCode = Keys.Down Then Down_Bill_btn_Click(sender, e)
-    'End Sub
-
     Private Sub Bill_ID_Txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Bill_ID_Txt.KeyPress
         Check_Only_Int(sender, e)
     End Sub
@@ -2958,122 +2394,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-    Public Sub CashPrint()
-
-        'Dim pp As New ReportConnection
-        'pp.rp.Load(Application.StartupPath & Sales_BillPage_Bill_Track_FAST)
-        'pp.LoadTables()
-        'With pp
-
-        '    Select Case Sales_Page_ID_FAST
-        '        Case 9
-
-        '            .rp.SetParameterValue(0, "")
-        '            .rp.SetParameterValue(1, USER_NAME)
-        '            .rp.SetParameterValue(2, Pure_txt.Text)
-        '            .rp.SetParameterValue(3, "")
-        '            .rp.SetParameterValue(4, Me.T_ID)
-        '            .rp.SetParameterValue(5, SBill_Title_1)
-        '            .rp.SetParameterValue(6, SBill_Title_2)
-        '            .rp.SetParameterValue(7, SBill_Footer)
-        '            .rp.SetParameterValue(8, "*" + Barcode + "*")
-
-        '        Case Else
-
-        '            .rp.SetParameterValue(0, Me.T_ID)
-        '            .rp.SetParameterValue(1, SBill_Title_1)
-        '            .rp.SetParameterValue(2, SBill_Title_2)
-        '            .rp.SetParameterValue(3, SBill_Footer)
-        '            .rp.SetParameterValue(4, IM_Qty_LB.Text)
-        '            .rp.SetParameterValue(5, IM_Count_LB.Text)
-        '            If Sales_Page_ID_FAST = 2 Or Sales_Page_ID_FAST = 8 Then
-
-        '                .rp.SetParameterValue(6, "*" + Barcode + "*")
-        '                .rp.SetParameterValue(7, SB_ID)
-        '                .rp.SetParameterValue(8, Pure)
-        '                .rp.SetParameterValue(9, "")
-
-        '            Else
-
-        '                .rp.SetParameterValue(6, HANY(Val(Pure), "EGYPT"))
-        '                .rp.SetParameterValue(7, "*" + Barcode + "*")
-        '                .rp.SetParameterValue(8, txtNotes.Text)
-        '                .rp.SetParameterValue(9, "")
-        '                .rp.SetParameterValue(10, "")
-        '                .rp.SetParameterValue(11, "0")
-        '                .rp.SetParameterValue(12, Pure)
-        '                .rp.SetParameterValue(13, "")
-
-        '            End If
-
-        '    End Select
 
 
-        'End With
-
-        'If Sales_Page_ID_FAST <> 2 And Sales_Page_ID_FAST <> 8 And Sales_Page_ID_FAST <> 6 Then
-        '    If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_A4))
-        '    pp.rp.PrintOptions.PrinterName = Default_Printer_A4
-        'Else
-        '    If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_80))
-        '    pp.rp.PrintOptions.PrinterName = Default_Printer_80
-        'End If
-        'pp.rp.PrintToPrinter(1, False, 0, 0)
-        'pp.rp.Dispose()
-
-        ''Dim p As New print
-        ''p.CrystalReportViewer1.ReportSource = pp.rp
-        ''p.Show()
-        ''------------------------------------------------------------------------
-    End Sub
-
-    Private Sub SBPauseBtn_Click(sender As Object, e As EventArgs)
-
-        'If isPause = True Then
-        '    If isDepended = True Then
-        '        Beep()
-        '        If MessageBox.Show(" إلغاء تعليق الفاتورة " + Bill_ID_Txt.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) _
-        '         = Windows.Forms.DialogResult.OK Then
-        '            SB_Cancel_PauseBill()
-        '        End If
-        '    Else
-        '        MsgBox("لا يمكن إلغاء تعليق فاتورة غير محفوظة", MsgBoxStyle.Exclamation, "")
-        '    End If
-        'Else
-        '    Beep()
-        '    If MessageBox.Show(" تعليق الفاتورة " + Bill_ID_Txt.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) _
-        '         = Windows.Forms.DialogResult.OK Then
-        '        SB_PauseBill()
-        '    End If
-        'End If
-
-    End Sub
-
-    Private Sub SB_Cancel_PauseBill()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "SB_Cancel_PauseBill"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            ResetNewBill()
-        End If
-    End Sub
-
-    Private Sub SB_PauseBill()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "SB_PauseBill"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            ResetNewBill()
-        End If
-    End Sub
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
 
@@ -3337,81 +2659,6 @@ Me.Name.ToString
 
     End Sub
 
-    'Private Sub Load_PauseBills()
-    '    Dim C As New C
-    '    With (C.Com)
-    '        .Connection = C.Con
-    '        .CommandText = "SB_PauseBill_SelectList_2"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@Pr_ID", Pr_ID)
-    '    End With
-    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '    C.Da.Fill(C.Dt)
-    '    Me.PauseCmb.DataSource = C.Dt
-    '    Me.PauseCmb.ValueMember = "T_ID"
-    '    Me.PauseCmb.DisplayMember = "Bill_Num"
-    '    PauseCmb.SelectedIndex = -1
-
-    '    If C.Dt.Rows.Count > 0 Then
-    '        MoveToBill_Btn.Enabled = True
-    '    Else
-    '        MoveToBill_Btn.Enabled = False
-    '    End If
-
-    'End Sub
-
-    'Private Sub MoveToBill_Btn_Click(sender As Object, e As EventArgs)
-    '    If PauseCmb.SelectedIndex > -1 Then
-    '        Me.Enabled = False
-    '        ClearFields()
-    '        T_ID = PauseCmb.SelectedValue
-    '        SB_Contents_SELECT_Bill()
-    '        'Fill_Bill_Info()
-    '        SelectStateBt()
-    '        Me.Enabled = True
-    '    End If
-    'End Sub
-
-    'Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
-    '    'If T_ID > 0 Then
-    '    '    If On_Update = False Then
-
-    '    '        Beep()
-    '    '        If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
-    '    '                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-    '    '            Edit_butt.BackColor = Color.GreenYellow
-    '    '            On_Update = True
-    '    '            dgvSales.BackgroundColor = Color.LightYellow
-    '    '            dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow
-    '    '            RemoveCatButton.Enabled = True
-    '    '            DateTimeEx.Enabled = True
-    '    '            DiscountPanel.Enabled = True
-    '    '            Ebable_CatFields()
-    '    '            Edit_butt.Text = "إيقاف التعديل"
-    '    '            'Network_Edit_Tracker_insert("تعديل فاتورة مبيعات (الشاشة السريعة) / رقم آلي : " + Bill_ID_Txt.Text + "  / المدخل :  " + User_Name_lb.Text, Pure_txt.Text, 0, 0)
-    '    '        End If
-
-    '    '    Else
-    '    '        Save_Date(T_ID, DateTimeEx)
-    '    '        Save_Total(T_ID, TOTAL, Disc)
-    '    '        On_Update = False
-    '    '        Edit_butt.Text = EditState
-    '    '        Edit_butt.BackColor = Color.White
-    '    '        DateTimeEx.Enabled = False
-    '    '        DiscountPanel.Enabled = False
-    '    '        SelectStateBt()
-
-    '    '    End If
-    '    'End If
-    'End Sub
-
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs)
-        FormType = 1
-        Switch_To_DV_Show()
-    End Sub
-
-
     Private Sub OpenCahDR_Btn_Click(sender As Object, e As EventArgs) Handles OpenCahDR_Btn.Click
         Open_Cash_Drawer()
     End Sub
@@ -3482,37 +2729,6 @@ Me.Name.ToString
 
     End Sub
 
-    'Private Sub DeliveryingButton_Click(sender As Object, e As EventArgs) Handles DeliveryingButton.Click
-    '    If isDepended = True Then
-    '        FormType = 1
-    '        AG_Type = 3
-    '        F_Receipt = New Receipt
-    '        Receipt_Tran_ID = T_ID
-
-    '        With F_Receipt
-    '            Rct_Tr_ID = SB_TR_ID
-    '            .ClearFields()
-    '            .Fields_Panel.Enabled = True
-    '            .AG_Cm.Enabled = False
-    '            .Barcode_SH_txt.Enabled = False
-    '            .Receipt_Title_combobox.Text = "فاتورة مبيعات : " + Bill_ID_Txt.Text
-    '            .AG_Cm.Set_IM_By_ID(AG_ID)
-    '            '.IM_SH_txt.Text = AG_SH_txt.Text
-    '            '.AG_ID = AG_ID
-    '            '.GET_AG()
-    '            '.IM_SH_txt.BackColor = Color.LightGoldenrodYellow
-    '            '.Current_QTY.Text = Show_AG_T_Balance(AG_ID)
-    '            '.Fetch_AG_Currency()
-    '            .money_num_txtb.Text = Pure
-    '        End With
-
-    '        F_Receipt.ShowDialog()
-
-    '    Else
-    '        MsgBox("يجب إعتماد الفاتورة أولا", MsgBoxStyle.Exclamation, "")
-    '    End If
-    'End Sub
-
     Private Sub Notes_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles txtNotes.MouseDoubleClick
         F_BillNotes = New BillNotes
         F_BillNotes.T_ID = T_ID
@@ -3527,14 +2743,6 @@ Me.Name.ToString
     End Sub
 
     Private Sub IM_Search_btn_Click(sender As Object, e As EventArgs) Handles IM_Search_btn.Click
-        'IM_Keyboard.ShowDialog()
-
-        'Items_Search.ShowDialog()
-        'If GLOBAL_IM_ID > 0 Then
-        '    IM_ID = GLOBAL_IM_ID
-        '    Load_IM_By_ID()
-        '    'SelectItemById(GLOBAL_IM_ID)
-        'End If
 
         Dim f As Items_Search = Items_Search.GetInstance()
 
@@ -3555,20 +2763,6 @@ Me.Name.ToString
         Shell("calc.exe")
     End Sub
 
-    'Private Sub VoidLb_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles VoidLb.MouseDoubleClick
-
-    '    If U_SalesVoid = True Then
-
-    '        Beep()
-    '        If MessageBox.Show(" سيتم تراجع عن إلغاء الفاتورة رقم " + Bill_ID_Txt.Text + " وكل المعاملات الخاصة بها ... متأكد ", "تاكيد العملية", MessageBoxButtons.OKCancel,
-    '               MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
-    '            AG_Balance_UN_Void_Row(T_ID, SB_ID, 1)
-    '            Get_T_ID(SB_ID, "")
-    '        End If
-
-    '    End If
-    'End Sub
-
 
     Private Sub Pure_txt_TextChanged(sender As Object, e As EventArgs) Handles Pure_txt.TextChanged
         If is_Use_Total_Port = True Then Show_Total_Port(Pure)
@@ -3577,31 +2771,6 @@ Me.Name.ToString
     Private Sub AGMetroGrid_DataSourceChanged(sender As Object, e As EventArgs) Handles dgvSales.DataSourceChanged
         Calc_Total()
     End Sub
-
-
-    'Private Sub Sales_Bill_Page_cm_SelectedValueChanged(sender As Object, e As EventArgs)
-    '    If TypeName(Sales_Bill_Page_cm.SelectedValue) = "Integer" Then SELECT_Rpt_Path()
-    'End Sub
-
-    'Private Sub SELECT_Rpt_Path()
-
-    '    Dim c As New C
-
-    '    Try
-    '        Dim s As String
-    '        s = "select AG_Bill from Sales_Bill_Page  WHERE ID = " & Sales_Bill_Page_cm.SelectedValue
-    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
-    '        c.Con.Open()
-    '        c.Dr = c.Com.ExecuteReader
-    '        If c.Dr.HasRows Then
-    '            c.Dr.Read()
-    '            Sales_BillPage_Bill_Track_FAST = c.Dr("AG_Bill")
-    '            Sales_Page_ID_FAST = Sales_Bill_Page_cm.SelectedValue
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
 
     Private Async Sub Refresh_IM_Btn_Click(sender As Object, e As EventArgs) Handles Refresh_IM_Btn.Click
         Refresh_IM_Btn.Enabled = False
@@ -3756,6 +2925,9 @@ Me.Name.ToString
     End Sub
 
     Private Sub Units_btn_Click(sender As Object, e As EventArgs) Handles Units_btn.Click
+
+
+        If dgvSales.Rows.Count = 0 Then Exit Sub
 
         Dim currentIM_ID As Integer = CInt(dgvSales.CurrentRow.Cells("Bill_IMID_CL").Value)
         Dim currentU_ID As Integer = CInt(dgvSales.CurrentRow.Cells("U_ID").Value)

@@ -362,7 +362,7 @@ Public Class MainForm
         If Serv_Label IsNot Nothing Then Serv_Label.Tag = "TITLE_TRANSPARENT"
         ' 2. أزرار الكنترول العلوية (تندمج مع الهيدر)
         ExitFormButton.Tag = "DELETE"
-        ActiveLinkLa.Tag = "DELETE"
+        ActiveStatusButton.Tag = "IGNORE"
         ' 3. الخط البرتقالي التزييني 
         If Panel3 IsNot Nothing Then Panel3.Tag = "ACCENT"
 
@@ -392,6 +392,7 @@ Public Class MainForm
             ThemeManager.ApplyThemeToForm(Me)
         Catch ex As Exception
         End Try
+        ApplyActiveStatusButtonStyle()
 
 
         Load_Form()
@@ -566,9 +567,10 @@ Public Class MainForm
 
         If Activation.isActive = False Then
             Count_AG_BalanceRows()
-            ActiveLinkLa.Visible = True
+            ApplyActiveStatusButtonStyle()
+            ActiveStatusButton.Visible = True
         Else
-            ActiveLinkLa.Visible = False
+            ActiveStatusButton.Visible = False
         End If
         ' =====================================================================
 
@@ -1005,8 +1007,22 @@ Public Class MainForm
         C.Con.Close()
     End Sub
 
-    Private Sub ActiveLinkLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ActiveLinkLa.LinkClicked
+    Private Sub ActiveStatusButton_Click(sender As Object, e As EventArgs) Handles ActiveStatusButton.Click
         Activation.ShowDialog()
+    End Sub
+
+    Private Sub ApplyActiveStatusButtonStyle()
+
+        If ActiveStatusButton Is Nothing Then Exit Sub
+
+        ActiveStatusButton.BackColor = Color.FromArgb(180, 83, 9)
+        ActiveStatusButton.ForeColor = Color.White
+        ActiveStatusButton.Font = New Font("Segoe UI Semibold", 10.0!, FontStyle.Bold)
+        ActiveStatusButton.Text = "⚠ منتج غير مفعل"
+        ActiveStatusButton.ToolTipText = "اضغط لتفعيل النظام"
+        ActiveStatusButton.AutoSize = False
+        ActiveStatusButton.Size = New Size(165, 31)
+
     End Sub
 
     Public Sub Backup_Data()

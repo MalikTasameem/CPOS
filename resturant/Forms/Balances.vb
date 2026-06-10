@@ -1961,6 +1961,7 @@
             y += 30
 
             Dim columnNames As String() = {
+                "AGisVoid_CL",
                 "Date_CL",
                 "Type_Name_CL",
                 "ReferNum_CL",
@@ -1972,6 +1973,7 @@
             }
 
             Dim headers As String() = {
+                "الحالة",
                 "التاريخ",
                 "المعاملة",
                 "ر.إشاري",
@@ -1982,7 +1984,7 @@
                 "المدخل"
             }
 
-            Dim weights As Integer() = {90, 100, 75, 245, 90, 90, 95, 90}
+            Dim weights As Integer() = {65, 90, 100, 75, 230, 90, 90, 95, 85}
             Dim totalWeight As Integer = 0
             For Each weight As Integer In weights
                 totalWeight += weight
@@ -2020,22 +2022,41 @@
                 End If
 
                 Dim row As DataGridViewRow = AGMVMetroGrid.Rows(_agMvPrintRowIndex)
+                Dim isVoidRow As Boolean = GetBooleanCellValue(row, "AGisVoid_CL")
                 x = bounds.Right
 
                 For i As Integer = 0 To columnNames.Length - 1
                     x -= widths(i)
                     Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+                    Dim isVoidStatusCell As Boolean = isVoidRow AndAlso columnNames(i) = "AGisVoid_CL"
+                    Dim cellBackColor As Color
 
-                    If _agMvPrintRowIndex Mod 2 = 0 Then
-                        e.Graphics.FillRectangle(Brushes.White, rect)
+                    If isVoidStatusCell Then
+                        cellBackColor = Color.FromArgb(185, 28, 28)
+                    ElseIf isVoidRow Then
+                        cellBackColor = Color.FromArgb(255, 241, 242)
+                    ElseIf _agMvPrintRowIndex Mod 2 = 0 Then
+                        cellBackColor = Color.White
                     Else
-                        Using altBrush As New SolidBrush(Color.FromArgb(248, 250, 252))
-                            e.Graphics.FillRectangle(altBrush, rect)
-                        End Using
+                        cellBackColor = Color.FromArgb(248, 250, 252)
                     End If
 
-                    e.Graphics.DrawRectangle(Pens.LightGray, rect)
-                    e.Graphics.DrawString(GetAgMvPrintCellText(row, columnNames(i)), rowFont, Brushes.Black, rect, centerFormat)
+                    Using cellBrush As New SolidBrush(cellBackColor)
+                        e.Graphics.FillRectangle(cellBrush, rect)
+                    End Using
+
+                    Dim cellBrushText As Brush = If(isVoidStatusCell, Brushes.White, If(isVoidRow, Brushes.Firebrick, Brushes.Black))
+                    Dim cellFont As Font = If(isVoidStatusCell, headerFont, rowFont)
+
+                    If isVoidRow Then
+                        Using borderPen As New Pen(Color.FromArgb(248, 113, 113))
+                            e.Graphics.DrawRectangle(borderPen, rect)
+                        End Using
+                    Else
+                        e.Graphics.DrawRectangle(Pens.LightGray, rect)
+                    End If
+
+                    e.Graphics.DrawString(GetAgMvPrintCellText(row, columnNames(i)), cellFont, cellBrushText, rect, centerFormat)
                 Next
 
                 y += rowHeight
@@ -2071,6 +2092,10 @@
         Dim value As Object = row.Cells(columnName).Value
 
         If value Is Nothing OrElse value Is DBNull.Value Then Return ""
+
+        If columnName = "AGisVoid_CL" Then
+            Return If(GetBooleanCellValue(row, columnName), "ملغية", "")
+        End If
 
         If columnName = "Date_CL" Then
             Dim dateValue As Date
@@ -2171,6 +2196,7 @@
             y += 30
 
             Dim columnNames As String() = {
+                "TrisVoid_CL",
                 "TRMV_Date_CL",
                 "TRMV_Type_CL",
                 "TR_MV_Title_move_CL",
@@ -2182,6 +2208,7 @@
             }
 
             Dim headers As String() = {
+                "الحالة",
                 "التاريخ",
                 "المعاملة",
                 "العنوان",
@@ -2192,7 +2219,7 @@
                 "المدخل"
             }
 
-            Dim weights As Integer() = {90, 100, 260, 130, 90, 90, 95, 90}
+            Dim weights As Integer() = {65, 90, 100, 250, 120, 90, 90, 95, 85}
             Dim totalWeight As Integer = 0
             For Each weight As Integer In weights
                 totalWeight += weight
@@ -2230,22 +2257,41 @@
                 End If
 
                 Dim row As DataGridViewRow = Tr_MV_MetroGrid.Rows(_trMvPrintRowIndex)
+                Dim isVoidRow As Boolean = GetBooleanCellValue(row, "TrisVoid_CL")
                 x = bounds.Right
 
                 For i As Integer = 0 To columnNames.Length - 1
                     x -= widths(i)
                     Dim rect As New Rectangle(x, y, widths(i), rowHeight)
+                    Dim isVoidStatusCell As Boolean = isVoidRow AndAlso columnNames(i) = "TrisVoid_CL"
+                    Dim cellBackColor As Color
 
-                    If _trMvPrintRowIndex Mod 2 = 0 Then
-                        e.Graphics.FillRectangle(Brushes.White, rect)
+                    If isVoidStatusCell Then
+                        cellBackColor = Color.FromArgb(185, 28, 28)
+                    ElseIf isVoidRow Then
+                        cellBackColor = Color.FromArgb(255, 241, 242)
+                    ElseIf _trMvPrintRowIndex Mod 2 = 0 Then
+                        cellBackColor = Color.White
                     Else
-                        Using altBrush As New SolidBrush(Color.FromArgb(248, 250, 252))
-                            e.Graphics.FillRectangle(altBrush, rect)
-                        End Using
+                        cellBackColor = Color.FromArgb(248, 250, 252)
                     End If
 
-                    e.Graphics.DrawRectangle(Pens.LightGray, rect)
-                    e.Graphics.DrawString(GetTrMvPrintCellText(row, columnNames(i)), rowFont, Brushes.Black, rect, centerFormat)
+                    Using cellBrush As New SolidBrush(cellBackColor)
+                        e.Graphics.FillRectangle(cellBrush, rect)
+                    End Using
+
+                    Dim cellBrushText As Brush = If(isVoidStatusCell, Brushes.White, If(isVoidRow, Brushes.Firebrick, Brushes.Black))
+                    Dim cellFont As Font = If(isVoidStatusCell, headerFont, rowFont)
+
+                    If isVoidRow Then
+                        Using borderPen As New Pen(Color.FromArgb(248, 113, 113))
+                            e.Graphics.DrawRectangle(borderPen, rect)
+                        End Using
+                    Else
+                        e.Graphics.DrawRectangle(Pens.LightGray, rect)
+                    End If
+
+                    e.Graphics.DrawString(GetTrMvPrintCellText(row, columnNames(i)), cellFont, cellBrushText, rect, centerFormat)
                 Next
 
                 y += rowHeight
@@ -2280,6 +2326,10 @@
 
         If value Is Nothing OrElse value Is DBNull.Value Then Return ""
 
+        If columnName = "TrisVoid_CL" Then
+            Return If(GetBooleanCellValue(row, columnName), "ملغية", "")
+        End If
+
         If columnName = "TRMV_Date_CL" Then
             Dim dateValue As Date
             If Date.TryParse(value.ToString(), dateValue) Then Return dateValue.ToString("yyyy/MM/dd")
@@ -2294,6 +2344,32 @@
         End If
 
         Return value.ToString()
+
+    End Function
+
+    Private Function GetBooleanCellValue(row As DataGridViewRow, columnName As String) As Boolean
+
+        If row Is Nothing OrElse row.DataGridView Is Nothing Then Return False
+        If Not row.DataGridView.Columns.Contains(columnName) Then Return False
+
+        Dim value As Object = row.Cells(columnName).Value
+
+        If value Is Nothing OrElse value Is DBNull.Value Then Return False
+
+        If TypeOf value Is Boolean Then Return CBool(value)
+
+        Dim textValue As String = value.ToString().Trim()
+
+        If textValue = "1" Then Return True
+        If textValue = "0" Then Return False
+
+        Dim boolValue As Boolean
+        If Boolean.TryParse(textValue, boolValue) Then Return boolValue
+
+        Dim intValue As Integer
+        If Integer.TryParse(textValue, intValue) Then Return intValue <> 0
+
+        Return False
 
     End Function
 
