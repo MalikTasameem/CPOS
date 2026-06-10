@@ -173,44 +173,6 @@ WHERE [Date] >= @FromDate
 ORDER BY [Date] DESC, T_ID DESC;
 "
 
-            '"
-            'SELECT
-            '    SourceTable,
-            '    T_ID,
-            '    [Date],
-            '    BsType_ID,
-            '    Type_Name,
-            '    AG_NAME,
-            '    Tr_NAME,
-            '    Total,
-            '    Discount,
-            '    Pure,
-            '    isDepended,
-            '    isVoid,
-            '    JournalId,
-            '    PostedAt,
-            '    PostedBy,
-            '    PostingStatus,
-            '    Receipt_Title,
-            '    About
-            'FROM dbo.V_AccountingPostingMonitor
-            'WHERE [Date] >= @FromDate
-            '  AND [Date] < DATEADD(DAY, 1, @ToDate)
-            '  AND (@SourceTable IS NULL OR SourceTable = @SourceTable)
-            '  AND (@BsType_ID IS NULL OR BsType_ID = @BsType_ID)
-            '  AND (@PostingStatus IS NULL OR PostingStatus = @PostingStatus)
-            '  AND ISNULL(isVoid, 0) = 0  and isDepended = 1
-            '  AND
-            '  (
-            '      @SearchText IS NULL
-            '      OR CAST(T_ID AS NVARCHAR(50)) LIKE '%' + @SearchText + '%'
-            '      OR ISNULL(Type_Name, '') LIKE '%' + @SearchText + '%'
-            '      OR ISNULL(Receipt_Title, '') LIKE '%' + @SearchText + '%'
-            '      OR ISNULL(About, '') LIKE '%' + @SearchText + '%'
-            '      OR CAST(ISNULL(JournalId, 0) AS NVARCHAR(50)) LIKE '%' + @SearchText + '%'
-            '  )
-            'ORDER BY [Date] DESC, T_ID DESC;
-            '"
 
             Dim dt As New DataTable()
 

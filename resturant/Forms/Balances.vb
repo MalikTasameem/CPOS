@@ -2373,6 +2373,26 @@
 
     End Function
 
+    Private Function GetDecimalCellValue(row As DataGridViewRow, columnName As String, Optional replaceEmptyWithZero As Boolean = False) As Decimal
+
+        If row Is Nothing OrElse row.DataGridView Is Nothing Then Return 0D
+        If Not row.DataGridView.Columns.Contains(columnName) Then Return 0D
+
+        Dim value As Object = row.Cells(columnName).Value
+
+        If value Is Nothing OrElse value Is DBNull.Value OrElse String.IsNullOrWhiteSpace(value.ToString()) Then
+            If replaceEmptyWithZero Then row.Cells(columnName).Value = 0D
+            Return 0D
+        End If
+
+        Dim numberValue As Decimal
+        If Decimal.TryParse(value.ToString(), numberValue) Then Return numberValue
+
+        If replaceEmptyWithZero Then row.Cells(columnName).Value = 0D
+        Return 0D
+
+    End Function
+
 
     Private Sub Tr_MV_MetroGrid_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Tr_MV_MetroGrid.MouseDoubleClick
         Me.Cursor = Cursors.AppStarting
@@ -2394,18 +2414,22 @@
     End Sub
 
     Private Sub Calc_Balance()
-        Dim Sum_D As Double = 0
-        Dim Sum_C As Double = 0
-        Dim Sum_B As Double = 0
+        Dim Sum_D As Decimal = 0D
+        Dim Sum_C As Decimal = 0D
+        Dim Sum_B As Decimal = 0D
         Dim N_D = 0, N_C = 0
 
         For i = 0 To AGMVMetroGrid.Rows.Count - 1
-            Sum_D = Sum_D + AGMVMetroGrid.Rows(i).Cells("Debit_CL").Value
-            Sum_C = Sum_C + AGMVMetroGrid.Rows(i).Cells("Credit_CL").Value
-            If AGMVMetroGrid.Rows(i).Cells("Debit_CL").Value <> 0 Then N_D += 1
-            If AGMVMetroGrid.Rows(i).Cells("Credit_CL").Value <> 0 Then N_C += 1
+            Dim debitValue As Decimal = GetDecimalCellValue(AGMVMetroGrid.Rows(i), "Debit_CL", True)
+            Dim creditValue As Decimal = GetDecimalCellValue(AGMVMetroGrid.Rows(i), "Credit_CL", True)
 
-            Sum_B = AGMVMetroGrid.Rows(i).Cells("Balance_CL").Value
+            Sum_D += debitValue
+            Sum_C += creditValue
+
+            If debitValue <> 0D Then N_D += 1
+            If creditValue <> 0D Then N_C += 1
+
+            Sum_B = GetDecimalCellValue(AGMVMetroGrid.Rows(i), "Balance_CL", True)
         Next
 
         ' Sum_B = Sum_D - Sum_C
@@ -2438,13 +2462,13 @@
 
 
     Private Sub Tr_Calc_Balance()
-        Dim Sum_D As Double = 0
-        Dim Sum_C As Double = 0
-        Dim Sum_B As Double = 0
+        Dim Sum_D As Decimal = 0D
+        Dim Sum_C As Decimal = 0D
+        Dim Sum_B As Decimal = 0D
 
         For i = 0 To Tr_MV_MetroGrid.Rows.Count - 1
-            Sum_D = Sum_D + Tr_MV_MetroGrid.Rows(i).Cells("Tr_Debit_CL").Value
-            Sum_C = Sum_C + Tr_MV_MetroGrid.Rows(i).Cells("Tr_Credit_CL").Value
+            Sum_D += GetDecimalCellValue(Tr_MV_MetroGrid.Rows(i), "Tr_Debit_CL", True)
+            Sum_C += GetDecimalCellValue(Tr_MV_MetroGrid.Rows(i), "Tr_Credit_CL", True)
         Next
 
         Sum_B = Sum_C - Sum_D

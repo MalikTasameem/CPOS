@@ -611,12 +611,6 @@
     <Compile Include="Forms\Stores\Stores_Trans_IM_card.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ACCOUNTS_BALANCES\FrmAccountingPostingSettings.Designer.vb">
-      <DependentUpon>FrmAccountingPostingSettings.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ACCOUNTS_BALANCES\FrmAccountingPostingSettings.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Sys_Options\Frm_ItemLedger.Designer.vb">
       <DependentUpon>Frm_ItemLedger.vb</DependentUpon>
     </Compile>
@@ -1843,9 +1837,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Stores\Stores_Trans_IM_card.resx">
       <DependentUpon>Stores_Trans_IM_card.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ACCOUNTS_BALANCES\FrmAccountingPostingSettings.resx">
-      <DependentUpon>FrmAccountingPostingSettings.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sys_Options\Frm_ItemLedger.resx">
       <DependentUpon>Frm_ItemLedger.vb</DependentUpon>
