@@ -45,6 +45,7 @@ Public Class SysOptions
             TableButton.Tag = "GENERAL"
             Button1.Tag = "GENERAL"
             SalesDraftLogsButton.Tag = "GENERAL"
+            SalesPrintLayoutButton.Tag = "GENERAL"
 
             ' 2. تطبيق الثيم
             ThemeManager.ApplyThemeToForm(Me)
@@ -233,5 +234,11 @@ Public Class SysOptions
     Private Sub SalesDraftLogsButton_Click(sender As Object, e As EventArgs) Handles SalesDraftLogsButton.Click
         Dim frm As New FrmSalesDraftActionLogMonitor(MY_Settings.SqlConStr)
         frm.ShowDialog()
+    End Sub
+
+    Private Sub SalesPrintLayoutButton_Click(sender As Object, e As EventArgs) Handles SalesPrintLayoutButton.Click
+        Using frm As New FrmSalesPrintLayoutManager(Nothing, SalesPrintRepository.UsageSales)
+            frm.ShowDialog(Me)
+        End Using
     End Sub
 End Class

@@ -1,5 +1,6 @@
 ﻿Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
+Imports System.Drawing.Printing
 
 Public Class Sales : Inherits System.Windows.Forms.Form
 
@@ -52,6 +53,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Private drag As Boolean
     Private mouseX As Integer
     Private mouseY As Integer
+    Private DynamicSalesPrintMenuItem As ToolStripMenuItem = Nothing
+    Private DynamicSalesProfilesMenuItem As ToolStripMenuItem = Nothing
 
     Dim is_Select_Mode = False
 
@@ -265,6 +268,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
             '''    تطبيق الثيم الإجباري باستخدام محرك الثيمات
             ThemeManager.ApplyThemeToForm(Me)
+            SetupDynamicSalesPrintMenu()
             ModernLoader.ShowLoader()
 
             FormType = 1
@@ -316,6 +320,107 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
         is_Select_Mode = False
 
+    End Sub
+
+    Private Sub SetupDynamicSalesPrintMenu()
+        If Print_ContextMenuStrip Is Nothing Then Return
+
+        If DynamicSalesPrintMenuItem Is Nothing Then
+            DynamicSalesProfilesMenuItem = New ToolStripMenuItem("طباعة بقالب محفوظ")
+            DynamicSalesProfilesMenuItem.Font = New Font("Arial", 11.25!, FontStyle.Bold)
+            AddHandler DynamicSalesProfilesMenuItem.DropDownOpening, AddressOf DynamicSalesProfilesMenuItem_DropDownOpening
+
+            DynamicSalesPrintMenuItem = New ToolStripMenuItem("إدارة قوالب الطباعة")
+            DynamicSalesPrintMenuItem.Font = New Font("Arial", 11.25!)
+            AddHandler DynamicSalesPrintMenuItem.Click, AddressOf DynamicSalesPrintMenuItem_Click
+
+            Print_ContextMenuStrip.Items.Add(New ToolStripSeparator())
+            Print_ContextMenuStrip.Items.Add(DynamicSalesProfilesMenuItem)
+            Print_ContextMenuStrip.Items.Add(DynamicSalesPrintMenuItem)
+        End If
+    End Sub
+
+    Private Sub DynamicSalesPrintMenuItem_Click(sender As Object, e As EventArgs)
+        Dim printData As SalesPrintData = Nothing
+        If AGMetroGrid.Rows.Count > 0 Then printData = SalesPrintData.FromSalesForm(Me)
+
+        Using frm As New FrmSalesPrintLayoutManager(printData, SalesPrintRepository.UsageSales)
+            frm.ShowDialog(Me)
+        End Using
+    End Sub
+
+    Private Sub DynamicSalesProfilesMenuItem_DropDownOpening(sender As Object, e As EventArgs)
+        BuildDynamicSalesProfilesMenu()
+    End Sub
+
+    Private Sub BuildDynamicSalesProfilesMenu()
+        If DynamicSalesProfilesMenuItem Is Nothing Then Return
+
+        DynamicSalesProfilesMenuItem.DropDownItems.Clear()
+
+        Try
+            Dim repository As New SalesPrintRepository(MY_Settings.SqlConStr)
+            Dim profiles As DataTable = repository.LoadProfilesTable(SalesPrintRepository.UsageSales)
+            Dim currentPaperKind As String = GetDefaultDynamicSalesPaperKind()
+
+            If profiles.Rows.Count = 0 Then
+                Dim emptyItem As New ToolStripMenuItem("لا توجد قوالب محفوظة")
+                emptyItem.Enabled = False
+                DynamicSalesProfilesMenuItem.DropDownItems.Add(emptyItem)
+                Return
+            End If
+
+            For Each row As DataRow In profiles.Rows
+                Dim profileId As Integer = Convert.ToInt32(row("ProfileID"))
+                Dim profileName As String = row("ProfileName").ToString()
+                Dim paperKind As String = row("PaperKind").ToString()
+                Dim isDefault As Boolean = Convert.ToBoolean(row("IsDefault"))
+                Dim isCurrentDefault As Boolean = isDefault AndAlso paperKind.Equals(currentPaperKind, StringComparison.OrdinalIgnoreCase)
+
+                Dim itemText As String = "[" & paperKind & "] " & profileName
+                If isCurrentDefault Then
+                    itemText = "✓ " & itemText & "  - الافتراضي الحالي"
+                ElseIf isDefault Then
+                    itemText = "★ " & itemText & "  - افتراضي"
+                End If
+
+                Dim item As New ToolStripMenuItem(itemText)
+                item.Tag = profileId
+                item.Font = New Font("Arial", 11.25!, If(isDefault, FontStyle.Bold, FontStyle.Regular))
+
+                If isCurrentDefault Then
+                    item.BackColor = Color.FromArgb(220, 252, 231)
+                    item.ForeColor = Color.FromArgb(22, 101, 52)
+                    item.Checked = True
+                ElseIf isDefault Then
+                    item.BackColor = Color.FromArgb(255, 243, 205)
+                    item.ForeColor = Color.FromArgb(102, 77, 3)
+                    item.Checked = True
+                End If
+
+                AddHandler item.Click, AddressOf DynamicSalesProfileMenuItem_Click
+                DynamicSalesProfilesMenuItem.DropDownItems.Add(item)
+            Next
+        Catch ex As Exception
+            Dim errorItem As New ToolStripMenuItem("تعذر تحميل القوالب")
+            errorItem.Enabled = False
+            DynamicSalesProfilesMenuItem.DropDownItems.Add(errorItem)
+        End Try
+    End Sub
+
+    Private Sub DynamicSalesProfileMenuItem_Click(sender As Object, e As EventArgs)
+        If AGMetroGrid.Rows.Count = 0 Then
+            MsgBox("لا توجد أصناف في الفاتورة للطباعة.", MsgBoxStyle.Exclamation, "طباعة المبيعات")
+            Return
+        End If
+
+        Dim item As ToolStripMenuItem = TryCast(sender, ToolStripMenuItem)
+        If item Is Nothing OrElse item.Tag Is Nothing Then Return
+
+        Dim profileId As Integer = 0
+        If Integer.TryParse(item.Tag.ToString(), profileId) = False OrElse profileId <= 0 Then Return
+
+        PrintSelectedDynamicSalesProfile(profileId)
     End Sub
 
     Public Sub Check_View_Control()
@@ -847,7 +952,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                     If SB_AutoOpenDrawer = True Then Open_Cash_Drawer()
                     If SB_AutoPrint = True Then
                         Me.Cursor = Cursors.AppStarting
-                        CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
+                        PrintDefaultDynamicSalesProfile()
                         Me.Cursor = Cursors.Default
                     End If
                     SelectStateBt()
@@ -1190,11 +1295,71 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Private Sub Print_btn_Click(sender As Object, e As EventArgs) Handles Print_btn.Click
         If AGMetroGrid.Rows.Count > 0 Then
             Me.Cursor = Cursors.AppStarting
-            CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
+            PrintDefaultDynamicSalesProfile()
             Me.Cursor = Cursors.Default
         End If
 
     End Sub
+
+    Private Sub PrintDefaultDynamicSalesProfile()
+        Try
+            Dim repository As New SalesPrintRepository(MY_Settings.SqlConStr)
+            Dim paperKind As String = GetDefaultDynamicSalesPaperKind()
+            Dim profile As SalesPrintProfile = repository.LoadDefaultProfile(SalesPrintRepository.UsageSales, paperKind)
+            PrintDynamicSalesProfile(profile)
+        Catch ex As Exception
+            MsgBox("تعذر طباعة القالب الافتراضي المرتبط بشاشة المبيعات." & vbNewLine & ex.Message, MsgBoxStyle.Exclamation, "طباعة المبيعات")
+        End Try
+    End Sub
+
+    Private Sub PrintSelectedDynamicSalesProfile(profileId As Integer)
+        Try
+            Dim repository As New SalesPrintRepository(MY_Settings.SqlConStr)
+            Dim profile As SalesPrintProfile = repository.LoadProfile(profileId)
+            PrintDynamicSalesProfile(profile)
+        Catch ex As Exception
+            MsgBox("تعذر طباعة القالب المحدد." & vbNewLine & ex.Message, MsgBoxStyle.Exclamation, "طباعة المبيعات")
+        End Try
+    End Sub
+
+    Private Sub PrintDynamicSalesProfile(profile As SalesPrintProfile)
+        Dim printData As SalesPrintData = Nothing
+
+        Try
+            If profile Is Nothing Then Return
+            printData = SalesPrintData.FromSalesForm(Me)
+
+            Using doc As PrintDocument = New SalesPrintDocumentRenderer(printData, profile).CreatePrintDocument()
+                If Show_Bill_CB.Checked Then
+                    Using preview As New PrintPreviewDialog()
+                        preview.Document = doc
+                        preview.WindowState = FormWindowState.Maximized
+                        preview.Text = "معاينة طباعة فاتورة المبيعات"
+                        preview.ShowDialog(Me)
+                    End Using
+                Else
+                    doc.PrintController = New StandardPrintController()
+                    doc.Print()
+                End If
+            End Using
+        Finally
+            If printData IsNot Nothing AndAlso printData.LogoImage IsNot Nothing Then
+                printData.LogoImage.Dispose()
+                printData.LogoImage = Nothing
+            End If
+        End Try
+    End Sub
+
+    Private Function GetDefaultDynamicSalesPaperKind() As String
+        Select Case Sales_Page_ID
+            Case 2, 8
+                Return "RECEIPT"
+            Case 3, 18
+                Return "A5"
+            Case Else
+                Return "A4"
+        End Select
+    End Function
 
     Public Function CashPrint(Sales_BillPage_Bill_Track As String, Sales_Page_ID As Integer)
         Dim Balance_Notes As String = ""

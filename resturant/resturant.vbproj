@@ -823,6 +823,12 @@
     <Compile Include="Forms\POS\Sales.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\POS\FrmSalesPrintLayoutManager.Designer.vb">
+      <DependentUpon>FrmSalesPrintLayoutManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\POS\FrmSalesPrintLayoutManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\POS\SearchAgentBill.designer.vb">
       <DependentUpon>SearchAgentBill.vb</DependentUpon>
     </Compile>
@@ -1483,6 +1489,10 @@
     </Compile>
     <Compile Include="Modules\MY_Settings.vb" />
     <Compile Include="Classes\Print_PDF.vb" />
+    <Compile Include="Classes\Printing\SalesPrintData.vb" />
+    <Compile Include="Classes\Printing\SalesPrintDocumentRenderer.vb" />
+    <Compile Include="Classes\Printing\SalesPrintProfile.vb" />
+    <Compile Include="Classes\Printing\SalesPrintRepository.vb" />
     <Compile Include="Modules\FAST_REPORT\Printer.vb" />
     <Compile Include="Modules\FAST_REPORT\PrintingFormat.vb" />
     <Compile Include="SingleChoiceDialog.Designer.vb">

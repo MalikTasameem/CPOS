@@ -22,6 +22,7 @@ Partial Class SysOptions
         Me.MaxFormButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.F_Panel = New System.Windows.Forms.Panel()
+        Me.SalesPrintLayoutButton = New System.Windows.Forms.Button()
         Me.SalesDraftLogsButton = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button12 = New System.Windows.Forms.Button()
@@ -104,6 +105,7 @@ Partial Class SysOptions
         '
         'F_Panel
         '
+        Me.F_Panel.Controls.Add(Me.SalesPrintLayoutButton)
         Me.F_Panel.Controls.Add(Me.SalesDraftLogsButton)
         Me.F_Panel.Controls.Add(Me.Button2)
         Me.F_Panel.Controls.Add(Me.Button12)
@@ -131,6 +133,18 @@ Partial Class SysOptions
         Me.F_Panel.Size = New System.Drawing.Size(1107, 558)
         Me.F_Panel.TabIndex = 1
         Me.F_Panel.Tag = "TRANSPARENT"
+        '
+        'SalesPrintLayoutButton
+        '
+        Me.SalesPrintLayoutButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SalesPrintLayoutButton.FlatAppearance.BorderSize = 0
+        Me.SalesPrintLayoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.SalesPrintLayoutButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.SalesPrintLayoutButton.Location = New System.Drawing.Point(253, 429)
+        Me.SalesPrintLayoutButton.Name = "SalesPrintLayoutButton"
+        Me.SalesPrintLayoutButton.Size = New System.Drawing.Size(183, 79)
+        Me.SalesPrintLayoutButton.TabIndex = 21
+        Me.SalesPrintLayoutButton.Text = "🖨️" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "قوالب طباعة المبيعات"
         '
         'SalesDraftLogsButton
         '
@@ -430,4 +444,5 @@ Partial Class SysOptions
     Friend WithEvents Network_Wacher_btn As System.Windows.Forms.Button
     Friend WithEvents Button2 As Button
     Friend WithEvents SalesDraftLogsButton As Button
+    Friend WithEvents SalesPrintLayoutButton As Button
 End Class
