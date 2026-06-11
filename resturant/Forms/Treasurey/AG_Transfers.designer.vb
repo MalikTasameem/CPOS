@@ -152,6 +152,7 @@ Partial Class AG_Transfers
         Me.Cancel_Btn.Tag = "DELETE"
         Me.Cancel_Btn.Text = "إلغاء"
         Me.Cancel_Btn.UseVisualStyleBackColor = False
+        Me.Cancel_Btn.Visible = False
         '
         'ReceiptNum_Txt
         '
@@ -272,7 +273,7 @@ Partial Class AG_Transfers
         Me.T_Treasury_ComboBox.Location = New System.Drawing.Point(254, 143)
         Me.T_Treasury_ComboBox.Name = "T_Treasury_ComboBox"
         Me.T_Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.T_Treasury_ComboBox.Size = New System.Drawing.Size(479, 35)
+        Me.T_Treasury_ComboBox.Size = New System.Drawing.Size(479, 38)
         Me.T_Treasury_ComboBox.SQL_Column = "AG_NAME"
         Me.T_Treasury_ComboBox.SQL_ID = "AG_ID"
         Me.T_Treasury_ComboBox.SQL_IsNumericSearchField = False
@@ -293,7 +294,7 @@ Partial Class AG_Transfers
         Me.F_Treasury_ComboBox.Location = New System.Drawing.Point(254, 67)
         Me.F_Treasury_ComboBox.Name = "F_Treasury_ComboBox"
         Me.F_Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.F_Treasury_ComboBox.Size = New System.Drawing.Size(479, 35)
+        Me.F_Treasury_ComboBox.Size = New System.Drawing.Size(479, 38)
         Me.F_Treasury_ComboBox.SQL_Column = "AG_NAME"
         Me.F_Treasury_ComboBox.SQL_ID = "AG_ID"
         Me.F_Treasury_ComboBox.SQL_IsNumericSearchField = False

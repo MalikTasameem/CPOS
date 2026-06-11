@@ -2152,10 +2152,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                             "Save_butt",
                             CurrentDraft.DraftId,
                             If(CurrentDraft.Final_SB_ID.HasValue, CurrentDraft.Final_SB_ID.Value.ToString(), ""))
-                AddDraftLog("طباعة", "طباعة الفاتورة بعد الحفظ", "PrintCurrentBill")
+                'AddDraftLog("طباعة", "طباعة الفاتورة بعد الحفظ", "PrintCurrentBill")
                 PushDraftLogsToDatabase(HasLoadedPendingDraftLogs)
                 DraftManager.ArchiveDraft(CurrentDraft)
-                PrintCurrentBill()
+                Prepare_to_print()
                 ResetNewBill()
             Else
                 AddDraftLog("حفظ", "لم يتم حفظ المسودة أو تم إلغاء العملية", "Save_butt", "", CurrentDraft.DraftId)
@@ -3165,6 +3165,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
 
     Private Sub Print_btn_Click(sender As Object, e As EventArgs) Handles Print_btn.Click
+        Prepare_to_print()
+    End Sub
+
+    Private Sub Prepare_to_print()
         If dgvSales.Rows.Count > 0 Then
             Try
                 Me.Cursor = Cursors.AppStarting

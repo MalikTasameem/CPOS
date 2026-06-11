@@ -293,13 +293,13 @@
 
                 Tran_ID = C.Dr("Tran_ID")
                 DateTimeReceipt.Value = C.Dr("date")
-                F_Treasury_ComboBox.SelectedValue = C.Dr("Tr_ID")
-                money_num_txtb.Text = C.Dr("Debit")
+                F_Treasury_ComboBox.SelectedValue = C.Dr("Tr_ID_From")
+                money_num_txtb.Text = C.Dr("Debit_FROM")
                 ReDescription_txtb.Text = C.Dr("notice_move")
                 User_Name = C.Dr("UserName")
 
-                C.Dr.Read()
-                T_Treasury_ComboBox.SelectedValue = C.Dr("Tr_ID")
+                'C.Dr.Read()
+                T_Treasury_ComboBox.SelectedValue = C.Dr("Tr_ID_TO")
                 Fields_Panel.Enabled = False
 
                 If C.Dr("isVoid") = True Then

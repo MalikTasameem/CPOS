@@ -714,6 +714,7 @@ Partial Class Tr_Transfers
         Me.Cancel_Btn.Tag = "DELETE"
         Me.Cancel_Btn.Text = "إلغاء"
         Me.Cancel_Btn.UseVisualStyleBackColor = False
+        Me.Cancel_Btn.Visible = False
         '
         'ReceiptNum_Txt
         '
@@ -817,7 +818,8 @@ Partial Class Tr_Transfers
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(187, 34)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(188, 33)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(93, 21)
         Me.Label2.TabIndex = 372
@@ -843,7 +845,8 @@ Partial Class Tr_Transfers
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(678, 34)
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(681, 34)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(54, 21)
         Me.Label5.TabIndex = 324
@@ -881,7 +884,8 @@ Partial Class Tr_Transfers
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(189, 34)
+        Me.Label19.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(188, 33)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(93, 21)
         Me.Label19.TabIndex = 372
@@ -907,7 +911,8 @@ Partial Class Tr_Transfers
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(681, 34)
+        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(683, 34)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(54, 21)
         Me.Label18.TabIndex = 324
@@ -917,6 +922,7 @@ Partial Class Tr_Transfers
         'Label3
         '
         Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(665, 8)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(59, 21)
@@ -938,7 +944,8 @@ Partial Class Tr_Transfers
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(614, 188)
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(614, 193)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(96, 21)
         Me.Label4.TabIndex = 236
@@ -951,7 +958,7 @@ Partial Class Tr_Transfers
         Me.money_num_txtb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.money_num_txtb.ContextMenuStrip = Me.NULLContextMenuStrip
         Me.money_num_txtb.ForeColor = System.Drawing.Color.DarkGreen
-        Me.money_num_txtb.Location = New System.Drawing.Point(426, 181)
+        Me.money_num_txtb.Location = New System.Drawing.Point(426, 189)
         Me.money_num_txtb.Name = "money_num_txtb"
         Me.money_num_txtb.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.money_num_txtb.Size = New System.Drawing.Size(185, 29)
@@ -971,7 +978,8 @@ Partial Class Tr_Transfers
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(614, 282)
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(614, 284)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(104, 21)
         Me.Label6.TabIndex = 240
@@ -981,7 +989,8 @@ Partial Class Tr_Transfers
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(614, 225)
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(614, 223)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(53, 21)
         Me.Label9.TabIndex = 243

@@ -42,7 +42,6 @@ Partial Class MainForm
         Me.إعدادطلبيةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.إدارةالطلبياتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.لوائحالأسعـــارToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.مراقبةحركاتالمبيعاتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.فواتيرمبيعاتمتعارضهمعالإيصالاتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.Pch_btn = New System.Windows.Forms.ToolStripDropDownButton()
@@ -104,6 +103,7 @@ Partial Class MainForm
         Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
         Me.Sys_Setting_btn = New System.Windows.Forms.ToolStripDropDownButton()
         Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
+        Me.مراقبةحركاتالمبيعاتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ActiveStatusButton = New System.Windows.Forms.ToolStripButton()
@@ -304,12 +304,6 @@ Partial Class MainForm
         Me.لوائحالأسعـــارToolStripMenuItem.Name = "لوائحالأسعـــارToolStripMenuItem"
         Me.لوائحالأسعـــارToolStripMenuItem.Size = New System.Drawing.Size(179, 24)
         Me.لوائحالأسعـــارToolStripMenuItem.Text = "لوائح الأسعـــار"
-        '
-        'مراقبةحركاتالمبيعاتToolStripMenuItem
-        '
-        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Name = "مراقبةحركاتالمبيعاتToolStripMenuItem"
-        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Size = New System.Drawing.Size(205, 24)
-        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Text = "مراقبة حركات المبيعات"
         '
         'فواتيرمبيعاتمتعارضهمعالإيصالاتToolStripMenuItem
         '
@@ -607,7 +601,7 @@ Partial Class MainForm
         Me.الخزينــةToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.سحــبToolStripMenuItem, Me.إيداعToolStripMenuItem, Me.ToolStripMenuItem3})
         Me.الخزينــةToolStripMenuItem.Name = "الخزينــةToolStripMenuItem"
         Me.الخزينــةToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
-        Me.الخزينــةToolStripMenuItem.Text = "الخزينة"
+        Me.الخزينــةToolStripMenuItem.Text = "الخزائن/البنوك"
         '
         'سحــبToolStripMenuItem
         '
@@ -688,6 +682,12 @@ Partial Class MainForm
         '
         Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
         Me.ToolStripSeparator10.Size = New System.Drawing.Size(6, 26)
+        '
+        'مراقبةحركاتالمبيعاتToolStripMenuItem
+        '
+        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Name = "مراقبةحركاتالمبيعاتToolStripMenuItem"
+        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Size = New System.Drawing.Size(205, 24)
+        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Text = "مراقبة حركات المبيعات"
         '
         'ToolStripSeparator11
         '
