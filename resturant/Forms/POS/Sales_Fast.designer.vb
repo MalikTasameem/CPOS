@@ -23,6 +23,7 @@ Partial Class Sales_Fast
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -36,6 +37,7 @@ Partial Class Sales_Fast
         Me.Down_Bill_btn = New System.Windows.Forms.Button()
         Me.Up_Bill_btn = New System.Windows.Forms.Button()
         Me.RemoveCatButton = New System.Windows.Forms.Button()
+        Me.ChangeCustomerButton = New System.Windows.Forms.Button()
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
@@ -52,7 +54,6 @@ Partial Class Sales_Fast
         Me.IM_Qty_LB = New System.Windows.Forms.Label()
         Me.IMPanel = New System.Windows.Forms.Panel()
         Me.AG_SH_txt = New System.Windows.Forms.TextBox()
-        Me.ChangeCustomerButton = New System.Windows.Forms.Button()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.AG_Panel = New System.Windows.Forms.Panel()
         Me.PauseCmb = New System.Windows.Forms.ComboBox()
@@ -264,6 +265,26 @@ Partial Class Sales_Fast
         Me.RemoveCatButton.Text = "F8"
         Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف الحدد")
         Me.RemoveCatButton.UseVisualStyleBackColor = False
+        '
+        'ChangeCustomerButton
+        '
+        Me.ChangeCustomerButton.BackColor = System.Drawing.Color.White
+        Me.ChangeCustomerButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ChangeCustomerButton.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.ChangeCustomerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
+        Me.ChangeCustomerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ChangeCustomerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ChangeCustomerButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChangeCustomerButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
+        Me.ChangeCustomerButton.Location = New System.Drawing.Point(184, 1)
+        Me.ChangeCustomerButton.Name = "ChangeCustomerButton"
+        Me.ChangeCustomerButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChangeCustomerButton.Size = New System.Drawing.Size(36, 23)
+        Me.ChangeCustomerButton.TabIndex = 719
+        Me.ChangeCustomerButton.TabStop = False
+        Me.ChangeCustomerButton.Text = "👤"
+        Me.MetroToolTip1.SetToolTip(Me.ChangeCustomerButton, "تغيير العميل")
+        Me.ChangeCustomerButton.UseVisualStyleBackColor = False
         '
         'IM_Count_LB
         '
@@ -478,26 +499,6 @@ Partial Class Sales_Fast
         Me.AG_SH_txt.TabIndex = 660
         Me.AG_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'ChangeCustomerButton
-        '
-        Me.ChangeCustomerButton.BackColor = System.Drawing.Color.White
-        Me.ChangeCustomerButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ChangeCustomerButton.FlatAppearance.BorderColor = System.Drawing.Color.Silver
-        Me.ChangeCustomerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
-        Me.ChangeCustomerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ChangeCustomerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ChangeCustomerButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChangeCustomerButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
-        Me.ChangeCustomerButton.Location = New System.Drawing.Point(184, 1)
-        Me.ChangeCustomerButton.Name = "ChangeCustomerButton"
-        Me.ChangeCustomerButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChangeCustomerButton.Size = New System.Drawing.Size(36, 23)
-        Me.ChangeCustomerButton.TabIndex = 719
-        Me.ChangeCustomerButton.TabStop = False
-        Me.ChangeCustomerButton.Text = "👤"
-        Me.MetroToolTip1.SetToolTip(Me.ChangeCustomerButton, "تغيير العميل")
-        Me.ChangeCustomerButton.UseVisualStyleBackColor = False
-        '
         'Label16
         '
         Me.Label16.BackColor = System.Drawing.SystemColors.Control
@@ -567,6 +568,14 @@ Partial Class Sales_Fast
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Bill_IMID_CL, Me.is_Check_CL, Me.Barcode_CL, Me.Serial_Code_CL, Me.U_ID_CL, Me.Date_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.IM_Discount_CL, Me.Total_CL, Me.Notes_CL, Me.T_ID_CL, Me.ST_ID_CL, Me.IM_NOTE_CL})
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle5
         Me.AGMetroGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AGMetroGrid.Location = New System.Drawing.Point(0, 0)
         Me.AGMetroGrid.MultiSelect = False
@@ -1055,7 +1064,7 @@ Partial Class Sales_Fast
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
-        Me.BackColor = System.Drawing.SystemColors.Info
+        Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(1004, 695)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Refresh_IM_Btn)

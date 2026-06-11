@@ -204,14 +204,21 @@ Public Class Printer
 
     End Sub
 
-    Public Shared Sub NewPrint()
+    Public Shared Sub NewPrint(Optional PrinterName As String = "")
         PrintDatalist = New PrintDatalist
         _myfont = New Font("Courier New", 8, FontStyle.Regular, GraphicsUnit.Point) 'Default
         prn = New Printing.PrintDocument
+        If String.IsNullOrWhiteSpace(PrinterName) = False Then prn.PrinterSettings.PrinterName = PrinterName
+        prn.PrintController = New StandardPrintController()
         row = 0
         Dim PS1 As New System.Drawing.Printing.PageSettings
         With PS1
-            .PaperSize = (From s As PaperSize In prn.PrinterSettings.PaperSizes.Cast(Of PaperSize)()).FirstOrDefault
+            Dim DefaultPaper As PaperSize = (From s As PaperSize In prn.PrinterSettings.PaperSizes.Cast(Of PaperSize)()).FirstOrDefault
+            If DefaultPaper IsNot Nothing Then
+                .PaperSize = DefaultPaper
+            Else
+                .PaperSize = New PaperSize("Thermal80mm", 280, 1200)
+            End If
             .Margins.Left = 0
             .Margins.Right = 0
             .Margins.Top = 0
@@ -250,7 +257,8 @@ Public Class Printer
         PrintDatalist = PrintDatalist.AddItemToDataList(PrintDatalist, PrintDatalist.Count, img, Width, Height)
     End Sub
 
-    Public Shared Sub DoPrint()
+    Public Shared Sub DoPrint(Optional PrinterName As String = "")
+        If String.IsNullOrWhiteSpace(PrinterName) = False Then prn.PrinterSettings.PrinterName = PrinterName
         prn.Print()
     End Sub
 

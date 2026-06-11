@@ -24,14 +24,14 @@ Partial Class POS
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(POS))
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.MaxFormButton = New System.Windows.Forms.Button()
@@ -253,16 +253,16 @@ Partial Class POS
         '
         Me.SMButtonDown.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.SMButtonDown.BackColor = System.Drawing.SystemColors.Info
-        Me.SMButtonDown.BackgroundImage = CType(resources.GetObject("SMButtonDown.BackgroundImage"), System.Drawing.Image)
         Me.SMButtonDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.SMButtonDown.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SMButtonDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SMButtonDown.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SMButtonDown.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!)
         Me.SMButtonDown.Location = New System.Drawing.Point(902, 532)
         Me.SMButtonDown.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.SMButtonDown.Name = "SMButtonDown"
         Me.SMButtonDown.Size = New System.Drawing.Size(52, 40)
         Me.SMButtonDown.TabIndex = 550
+        Me.SMButtonDown.Text = "▼"
         Me.SMButtonDown.UseVisualStyleBackColor = False
         '
         'Panel1
@@ -567,25 +567,25 @@ Partial Class POS
         Me.MetroGrid.CausesValidation = False
         Me.MetroGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.MetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.MetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.MetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.MetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.MetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IM_T_ID, Me.IM_ID_CL, Me.QTY_CL, Me.IM_NameCL, Me.Unit_CL, Me.Unit_Price_CL, Me.Total_CL, Me.Ptr_ID})
         Me.MetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
-        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.MetroGrid.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.MetroGrid.DefaultCellStyle = DataGridViewCellStyle6
         Me.MetroGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.MetroGrid.EnableHeadersVisualStyles = False
         Me.MetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
@@ -596,14 +596,14 @@ Partial Class POS
         Me.MetroGrid.ReadOnly = True
         Me.MetroGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.MetroGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Segoe UI", 14.25!)
-        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.MetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Segoe UI", 14.25!)
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.MetroGrid.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.MetroGrid.RowHeadersVisible = False
         Me.MetroGrid.RowHeadersWidth = 100
         Me.MetroGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
@@ -632,8 +632,8 @@ Partial Class POS
         'QTY_CL
         '
         Me.QTY_CL.DataPropertyName = "QTY"
-        DataGridViewCellStyle9.Format = "N2"
-        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle2.Format = "N2"
+        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle2
         Me.QTY_CL.FillWeight = 79.91894!
         Me.QTY_CL.HeaderText = "-"
         Me.QTY_CL.Name = "QTY_CL"
@@ -650,8 +650,8 @@ Partial Class POS
         'Unit_CL
         '
         Me.Unit_CL.DataPropertyName = "Unit_Name"
-        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.Gray
-        Me.Unit_CL.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Gray
+        Me.Unit_CL.DefaultCellStyle = DataGridViewCellStyle3
         Me.Unit_CL.HeaderText = "الوحدة"
         Me.Unit_CL.Name = "Unit_CL"
         Me.Unit_CL.ReadOnly = True
@@ -660,8 +660,8 @@ Partial Class POS
         'Unit_Price_CL
         '
         Me.Unit_Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle11.Format = "N2"
-        Me.Unit_Price_CL.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle4.Format = "N2"
+        Me.Unit_Price_CL.DefaultCellStyle = DataGridViewCellStyle4
         Me.Unit_Price_CL.HeaderText = "السعر"
         Me.Unit_Price_CL.Name = "Unit_Price_CL"
         Me.Unit_Price_CL.ReadOnly = True
@@ -670,9 +670,9 @@ Partial Class POS
         'Total_CL
         '
         Me.Total_CL.DataPropertyName = "T_Price"
-        DataGridViewCellStyle12.Format = "N2"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle5.Format = "N2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle5
         Me.Total_CL.FillWeight = 90.91894!
         Me.Total_CL.HeaderText = "الإجمالي"
         Me.Total_CL.Name = "Total_CL"
@@ -998,16 +998,16 @@ Partial Class POS
         '
         Me.SMButtonUP.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.SMButtonUP.BackColor = System.Drawing.SystemColors.Info
-        Me.SMButtonUP.BackgroundImage = CType(resources.GetObject("SMButtonUP.BackgroundImage"), System.Drawing.Image)
         Me.SMButtonUP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.SMButtonUP.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SMButtonUP.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SMButtonUP.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SMButtonUP.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SMButtonUP.Location = New System.Drawing.Point(959, 532)
         Me.SMButtonUP.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.SMButtonUP.Name = "SMButtonUP"
         Me.SMButtonUP.Size = New System.Drawing.Size(51, 40)
         Me.SMButtonUP.TabIndex = 549
+        Me.SMButtonUP.Text = "▲"
         Me.SMButtonUP.UseVisualStyleBackColor = False
         '
         'SMPanel
@@ -1478,7 +1478,7 @@ Partial Class POS
         Me.ExitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ExitButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ExitButton.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ExitButton.Font = New System.Drawing.Font("Segoe UI", 13.75!, System.Drawing.FontStyle.Bold)
         Me.ExitButton.ForeColor = System.Drawing.Color.Black
         Me.ExitButton.Location = New System.Drawing.Point(4, 151)
         Me.ExitButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
@@ -1560,7 +1560,7 @@ Partial Class POS
         Me.PureLabel.BackColor = System.Drawing.Color.Transparent
         Me.PureLabel.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PureLabel.ForeColor = System.Drawing.Color.DarkRed
-        Me.PureLabel.Location = New System.Drawing.Point(354, 11)
+        Me.PureLabel.Location = New System.Drawing.Point(354, 7)
         Me.PureLabel.Name = "PureLabel"
         Me.PureLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.PureLabel.Size = New System.Drawing.Size(64, 23)
@@ -1573,13 +1573,13 @@ Partial Class POS
         Me.PureTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.PureTextBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.PureTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PureTextBox.Font = New System.Drawing.Font("Stencil", 19.0!)
+        Me.PureTextBox.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PureTextBox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.PureTextBox.Location = New System.Drawing.Point(6, 2)
         Me.PureTextBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PureTextBox.Name = "PureTextBox"
         Me.PureTextBox.ReadOnly = True
-        Me.PureTextBox.Size = New System.Drawing.Size(344, 38)
+        Me.PureTextBox.Size = New System.Drawing.Size(344, 35)
         Me.PureTextBox.TabIndex = 456
         Me.PureTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1616,12 +1616,12 @@ Partial Class POS
         Me.TotalTextBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.TotalTextBox.BackColor = System.Drawing.SystemColors.Window
         Me.TotalTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TotalTextBox.Font = New System.Drawing.Font("Stencil", 12.0!)
+        Me.TotalTextBox.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TotalTextBox.Location = New System.Drawing.Point(188, 3)
         Me.TotalTextBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TotalTextBox.Name = "TotalTextBox"
         Me.TotalTextBox.ReadOnly = True
-        Me.TotalTextBox.Size = New System.Drawing.Size(161, 26)
+        Me.TotalTextBox.Size = New System.Drawing.Size(161, 25)
         Me.TotalTextBox.TabIndex = 451
         Me.TotalTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1644,12 +1644,12 @@ Partial Class POS
         '
         Me.DiscountTextBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.DiscountTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DiscountTextBox.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DiscountTextBox.Location = New System.Drawing.Point(6, 2)
+        Me.DiscountTextBox.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.DiscountTextBox.Location = New System.Drawing.Point(6, 3)
         Me.DiscountTextBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DiscountTextBox.Name = "DiscountTextBox"
         Me.DiscountTextBox.ReadOnly = True
-        Me.DiscountTextBox.Size = New System.Drawing.Size(108, 26)
+        Me.DiscountTextBox.Size = New System.Drawing.Size(108, 25)
         Me.DiscountTextBox.TabIndex = 453
         Me.DiscountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '

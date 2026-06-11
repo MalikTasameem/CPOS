@@ -1744,7 +1744,7 @@ Public Class POS
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
 
-        Print_Form.Show()
+        ' Print_Form.Show()
         Try
 
             Me.Enabled = False
@@ -1817,7 +1817,7 @@ Public Class POS
             'Me.Enabled = True
         End Try
 
-        Print_Form.Hide()
+        'Print_Form.Hide()
     End Sub
 
     Private Sub switch_Bill_To_Current_User()
@@ -2174,81 +2174,78 @@ Public Class POS
     End Sub
 
     Private Sub Fast_Report()
-        'Shell(String.Format("rundll32 printui.dll, PrintUIEntry / y / n ""{0}""", Default_Printer_80))
-
-
-        Set_Default_Printer(Default_Printer_80)
-
-
-        query("UPDATE Agents_Balance_MV Set Prt_Counter  = Prt_Counter + 1 WHERE T_ID = " & T_ID)
-        Dim RTP_C = GET_RTP_COUNT()
+        Dim RTP_C As Integer = IncrementAndGetPrintCounter()
 
         Data_Load(IM_Dt, Bill_Date_Str, SB_ID, BillNumTxt.Text, BillTypeCmb.Text, "", Cr_Phone, RTP_C, TB_Name_Lb.Text, Barcode)
 
-        PRINT_REPORT()
+        PRINT_REPORT(Default_Printer_80)
 
     End Sub
 
+    Private Function IncrementAndGetPrintCounter() As Integer
+        Dim N As Integer = 0
+
+        Try
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                Using cmd As New SqlClient.SqlCommand("UPDATE Agents_Balance_MV SET Prt_Counter = ISNULL(Prt_Counter, 0) + 1 OUTPUT INSERTED.Prt_Counter WHERE T_ID = @T_ID", cn)
+                    cmd.Parameters.Add("@T_ID", System.Data.SqlDbType.Int).Value = T_ID
+                    cn.Open()
+                    Dim Result As Object = cmd.ExecuteScalar()
+                    If Result IsNot Nothing AndAlso Result IsNot DBNull.Value Then N = Convert.ToInt32(Result)
+                End Using
+            End Using
+        Catch ex As Exception
+            Try
+                query("UPDATE Agents_Balance_MV Set Prt_Counter  = ISNULL(Prt_Counter, 0) + 1 WHERE T_ID = " & T_ID)
+                N = GET_RTP_COUNT()
+            Catch
+                N = 0
+            End Try
+        End Try
+
+        Return N
+    End Function
+
     Private Sub FAST_REPORT_SB_Ksh()
-        'Dim C2 As New C
-        'C2.Str = " Select IM_Name, QTY, Printer_ID  From GM_PRINTER_IM_V WHERE B_T_ID = " & T_ID
-        ''C2.Com = New SqlClient.SqlCommand(C2.Str, C2.Con)
-        'C2.Da = New SqlClient.SqlDataAdapter(C2.Str, C2.Con)
-        'C2.Da.Fill(C2.Dt)
+        Dim PrinterItems As New System.Collections.Generic.Dictionary(Of Integer, DataTable)
+        Dim PrinterPaths As New System.Collections.Generic.Dictionary(Of Integer, String)
+        Dim PrinterOrder As New System.Collections.Generic.List(Of Integer)
 
-        '------------------------------------------------------------------------------------------------------------------
-        'Dim watch = Stopwatch.StartNew()
+        Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+            Using cmd As New SqlClient.SqlCommand("SELECT Printer_ID, Printer_Path, IM_Name, QTY FROM GM_PRINTER_IM_V WHERE B_T_ID = @T_ID ORDER BY Printer_ID, IM_Name", cn)
+                cmd.Parameters.Add("@T_ID", System.Data.SqlDbType.Int).Value = T_ID
+                cn.Open()
 
-        Dim C, C2 As New C
-        Dim Tmp_Dt As New DataTable
-        Dim ItemRow As DataRow
+                Using dr As SqlClient.SqlDataReader = cmd.ExecuteReader()
+                    While dr.Read()
+                        If IsDBNull(dr("Printer_ID")) OrElse IsDBNull(dr("Printer_Path")) Then Continue While
 
-        With Tmp_Dt.Columns
-            .Add("IM_Name", Type.GetType("System.String"))
-            .Add("qty", Type.GetType("System.String"))
-        End With
+                        Dim PrinterID As Integer = Convert.ToInt32(dr("Printer_ID"))
+                        If PrinterItems.ContainsKey(PrinterID) = False Then
+                            Dim Tmp_Dt As New DataTable
+                            With Tmp_Dt.Columns
+                                .Add("IM_Name", Type.GetType("System.String"))
+                                .Add("qty", Type.GetType("System.String"))
+                            End With
 
-        Data_Load(Tmp_Dt, Bill_Date_Str, SB_ID, BillNumTxt.Text, BillTypeCmb.Text, Bill_Note, Cr_Phone, 0, TB_Name_Lb.Text, Barcode)
+                            PrinterItems.Add(PrinterID, Tmp_Dt)
+                            PrinterPaths.Add(PrinterID, dr("Printer_Path").ToString())
+                            PrinterOrder.Add(PrinterID)
+                        End If
 
-        '---------------------------------------------------------------------------------
-
-        C.Str = " Select DISTINCT Printer_ID, Printer_Path  From GM_PRINTER_IM_V WHERE B_T_ID = " & T_ID
-        C.Com = New SqlClient.SqlCommand(C.Str, C.Con)
-        C.Con.Open()
-
-        C.Dr = C.Com.ExecuteReader
-        If C.Dr.HasRows = True Then
-            While C.Dr.Read()
-                Tmp_Dt.Clear()
-
-                '-------------------------------------------------------------------
-                C2.Str = " Select IM_Name, QTY  From GM_PRINTER_IM_V WHERE B_T_ID = " & T_ID & " And Printer_ID = " & C.Dr("Printer_ID")
-                C2.Com = New SqlClient.SqlCommand(C2.Str, C2.Con)
-                C2.Con.Open()
-                C2.Dr = C2.Com.ExecuteReader
-                If C2.Dr.HasRows = True Then
-                    While C2.Dr.Read()
-
-                        ItemRow = Tmp_Dt.NewRow()
-                        ItemRow("IM_Name") = C2.Dr("IM_Name")
-                        ItemRow("qty") = C2.Dr("QTY")
-                        Tmp_Dt.Rows.Add(ItemRow)
-
+                        Dim ItemRow As DataRow = PrinterItems(PrinterID).NewRow()
+                        ItemRow("IM_Name") = If(IsDBNull(dr("IM_Name")), "", dr("IM_Name").ToString())
+                        ItemRow("qty") = If(IsDBNull(dr("QTY")), "0", dr("QTY").ToString())
+                        PrinterItems(PrinterID).Rows.Add(ItemRow)
                     End While
-                End If
-                C2.Con.Close()
+                End Using
+            End Using
+        End Using
 
-                Set_Default_Printer(C.Dr("Printer_Path"))  'Shell(String.Format("rundll32 printui.dll, PrintUIEntry / y / n ""{0}""", C.Dr("Printer_Path")))
-
-                PRINT_REPORT_KSH()
-                    End While
-
-                End If
-                C.Con.Close()
-                ' ----------------------------------------------------------------------------------
-
-                'watch.Stop()
-                'MsgBox(watch.Elapsed.ToString)
+        For Each PrinterID As Integer In PrinterOrder
+            Data_Load(PrinterItems(PrinterID), Bill_Date_Str, SB_ID, BillNumTxt.Text, BillTypeCmb.Text, Bill_Note, Cr_Phone, 0, TB_Name_Lb.Text, Barcode, False)
+            PRINT_REPORT_KSH(PrinterPaths(PrinterID))
+        Next
 
     End Sub
 

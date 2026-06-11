@@ -27,18 +27,18 @@ Module FREPORT
     Dim is_photo As Boolean = True
     Dim Bill_Note As String = ""
     Dim Bill_Barcode As String = ""
-    Public Sub Data_Load(IM_Dt As DataTable, Bill_Date As String, SB_ID As String, Bill_Num As String, Bill_Type As String, Notes As String, Cr_Phone As String, RTP_C As String, TB_NAME As String, Barcode As String)
+    Private ReceiptLogoImage As Image = Nothing
+    Private ReceiptLogoChecked As Boolean = False
 
-        'Dim filePath As String = 
+    Public Sub Data_Load(IM_Dt As DataTable, Bill_Date As String, SB_ID As String, Bill_Num As String, Bill_Type As String, Notes As String, Cr_Phone As String, RTP_C As String, TB_NAME As String, Barcode As String, Optional LoadLogo As Boolean = True)
 
-        If File.Exists(Application.StartupPath() & "\logo\logo.jpg") Then
-            is_photo = True
-            Img = Image.FromFile(Application.StartupPath() & "\logo\logo.jpg")
+        If LoadLogo = True Then
+            Img = GetReceiptLogo()
+            is_photo = (Img IsNot Nothing)
         Else
+            Img = Nothing
             is_photo = False
         End If
-
-
 
         If String.IsNullOrWhiteSpace(TB_NAME) Then
             TransType = "الطلب:  (   " & Bill_Num & "   ) - " & Bill_Type
@@ -59,12 +59,33 @@ Module FREPORT
         Bill_Barcode = Barcode
     End Sub
 
+    Private Function GetReceiptLogo() As Image
+        If ReceiptLogoChecked = True Then Return ReceiptLogoImage
 
-    Public Sub PRINT_REPORT()
+        ReceiptLogoChecked = True
+        Try
+            Dim LogoPath As String = Path.Combine(Application.StartupPath(), "logo\logo.jpg")
+            If File.Exists(LogoPath) = True Then
+                Dim LogoBytes As Byte() = File.ReadAllBytes(LogoPath)
+                Using MS As New MemoryStream(LogoBytes)
+                    Using LogoSource As Image = Image.FromStream(MS)
+                        ReceiptLogoImage = New Bitmap(LogoSource)
+                    End Using
+                End Using
+            End If
+        Catch ex As Exception
+            If ReceiptLogoImage IsNot Nothing Then ReceiptLogoImage.Dispose()
+            ReceiptLogoImage = Nothing
+        End Try
+
+        Return ReceiptLogoImage
+    End Function
+
+    Public Sub PRINT_REPORT(Optional PrinterName As String = "")
 
 
 
-        Printer.NewPrint()
+        Printer.NewPrint(PrinterName)
 
         If is_photo = True Then Printer.Print(Img, 200, 100)
 
@@ -169,15 +190,15 @@ Module FREPORT
         End If
 
 
-            'Release the job for actual printing
-            Printer.DoPrint()
+        'Release the job for actual printing
+        Printer.DoPrint(PrinterName)
 
     End Sub
     '------------------------------------------------------------------------------------------------------------
-    Public Sub PRINT_REPORT_KSH()
+    Public Sub PRINT_REPORT_KSH(Optional PrinterName As String = "")
 
 
-        Printer.NewPrint()
+        Printer.NewPrint(PrinterName)
 
         'Printer.Print(Img, 200, 100)
 
@@ -267,7 +288,7 @@ Module FREPORT
         Printer.Print(Date.Now & "  -  " & USER_NAME)
         'Release the job for actual printing
 
-        Printer.DoPrint()
+        Printer.DoPrint(PrinterName)
 
 
 
