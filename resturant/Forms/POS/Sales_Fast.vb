@@ -2,6 +2,7 @@
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 Imports System.Data.SqlClient
+Imports System.Drawing.Printing
 
 Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
@@ -57,11 +58,19 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Private ShortcutItemsPanel As Panel = Nothing
     Private ShortcutItemsDt As DataTable = Nothing
     Private ShortcutSelectedGroupID As Integer = -1
+    Dim Print_CompName As String = ""
+    Dim Print_BillNotes As String = ""
+    Private Print_LogoImage As Image = Nothing
+    Dim Print_Y As Integer = 0
 
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         FormType = 0
         'F_MainForm.Fill_ALL_IM()
         'If AGMetroGrid.Rows.Count = 0 And isDepended = False Then Delete_Last_Empty_Bill(T_ID)
+        If Print_LogoImage IsNot Nothing Then
+            Print_LogoImage.Dispose()
+            Print_LogoImage = Nothing
+        End If
         Me.Dispose()
     End Sub
 
@@ -493,6 +502,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         EditState = Edit_butt.Text
         loadShortCut_IM()
         GET_Printer_Type()
+        If SScreenDefault = 3 Then LoadPrintSettings()
 
         Await Load_ALL_IM()
 
@@ -1837,12 +1847,212 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         F_Balances.ShowDialog()
     End Sub
 
+    Private Sub LoadPrintSettings()
+        Dim db As New C()
+        Try
+            db.Str = "SELECT TOP 1 CompName, BillNotes, LOGO FROM SysSetting"
+            db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
+            db.Con.Open()
+            db.Dr = db.Com.ExecuteReader()
+            If db.Dr.Read() Then
+                Print_CompName = db.Dr("CompName").ToString()
+                Print_BillNotes = db.Dr("BillNotes").ToString()
+                If Not IsDBNull(db.Dr("LOGO")) Then
+                    Dim Data As Byte() = DirectCast(db.Dr("LOGO"), Byte())
+                    Using MS As New IO.MemoryStream(Data)
+                        Using LogoSource As Image = Image.FromStream(MS)
+                            Print_LogoImage = New Bitmap(LogoSource)
+                        End Using
+                    End Using
+                Else
+                    Print_LogoImage = Nothing
+                End If
+            End If
+        Catch ex As Exception
+        Finally
+            If db.Dr IsNot Nothing AndAlso db.Dr.IsClosed = False Then db.Dr.Close()
+            If db.Con.State = ConnectionState.Open Then db.Con.Close()
+        End Try
+    End Sub
+
+    Public Sub PrintCurrentBill()
+
+        Dim EstimatedHeight As Integer = 450 + (AGMetroGrid.Rows.Count * 30)
+
+        If String.IsNullOrWhiteSpace(Default_Printer_80) Then
+            MsgBox("لم يتم تحديد طابعة البيع السريع الإفتراضية", MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
+            Exit Sub
+        End If
+
+        If IsPrinterInstalled(Default_Printer_80) = False Then
+            MsgBox("الطابعة المحددة غير موجودة: " & Default_Printer_80, MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
+            Exit Sub
+        End If
+
+        Dim pd As New PrintDocument()
+        pd.PrinterSettings.PrinterName = Default_Printer_80
+        pd.PrintController = New StandardPrintController()
+        pd.DefaultPageSettings.PaperSize = New System.Drawing.Printing.PaperSize("Thermal80mm", 280, EstimatedHeight)
+        pd.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(0, 0, 0, 0)
+
+        AddHandler pd.PrintPage, AddressOf PrintReceiptPage
+
+        pd.Print()
+
+    End Sub
+
+    Private Function IsPrinterInstalled(printerName As String) As Boolean
+
+        For Each installedPrinter As String In PrinterSettings.InstalledPrinters
+            If String.Equals(installedPrinter, printerName, StringComparison.OrdinalIgnoreCase) Then Return True
+        Next
+
+        Return False
+
+    End Function
+
+    Private Sub PrintReceiptPage(sender As Object, e As PrintPageEventArgs)
+        Dim g As Graphics = e.Graphics
+        Print_Y = 10
+        Dim PaperWidth As Integer = 280
+
+        Dim fontTitle As New Font("Segoe UI", 12, FontStyle.Bold)
+        Dim fontSmallBold As New Font("Segoe UI", 8, FontStyle.Bold)
+        Dim fontBody As New Font("Segoe UI", 9, FontStyle.Regular)
+        Dim fontBodyBold As New Font("Segoe UI", 9, FontStyle.Bold)
+        Dim fontItem As New Font("Segoe UI", 8, FontStyle.Regular)
+        Dim fontItemBold As New Font("Segoe UI", 8, FontStyle.Bold)
+
+        Dim fmtCenter As New StringFormat() With {.Alignment = StringAlignment.Center}
+        Dim fmtArabic As New StringFormat() With {
+            .Alignment = StringAlignment.Near,
+            .FormatFlags = StringFormatFlags.DirectionRightToLeft
+        }
+
+        Dim logoImg As Image = Print_LogoImage
+        If logoImg IsNot Nothing Then
+            g.DrawImage(logoImg, 5, Print_Y, 50, 50)
+            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(60, Print_Y + 10, 220, 50), fmtArabic)
+            Print_Y += 65
+        Else
+            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 30), fmtCenter)
+            Print_Y += 35
+        End If
+
+        DrawThreeParts(g, "Invoice", "", "فاتورة مبيعات", Print_Y, fontBodyBold)
+        Print_Y += 20
+        DrawThreeParts(g, "Inv. No", Bill_ID_Txt.Text, "رقم الفاتورة", Print_Y, fontBodyBold)
+        Print_Y += 18
+        DrawThreeParts(g, "Date", DateTimeEx.Text, "تاريخ الفاتورة", Print_Y, fontBodyBold)
+        Print_Y += 25
+
+        DrawDashedLine(g, Print_Y, PaperWidth)
+        Print_Y += 10
+
+        g.DrawString("ت", fontSmallBold, Brushes.Black, New Rectangle(260, Print_Y, 20, 30), fmtCenter)
+        g.DrawString("Item" & vbCrLf & "الصنف", fontSmallBold, Brushes.Black, New Rectangle(150, Print_Y, 110, 30), fmtArabic)
+        g.DrawString("Qty" & vbCrLf & "كمية", fontSmallBold, Brushes.Black, New Rectangle(115, Print_Y, 35, 30), fmtCenter)
+        g.DrawString("Price" & vbCrLf & "السعر", fontSmallBold, Brushes.Black, New Rectangle(65, Print_Y, 50, 30), fmtCenter)
+        g.DrawString("Total" & vbCrLf & "الإجمالي", fontSmallBold, Brushes.Black, New Rectangle(5, Print_Y, 60, 30), fmtCenter)
+        Print_Y += 30
+
+        DrawDashedLine(g, Print_Y, PaperWidth)
+        Print_Y += 6
+
+        Dim rowCounter As Integer = 1
+        For Each row As DataGridViewRow In AGMetroGrid.Rows
+            If row.IsNewRow Then Continue For
+
+            Dim itemName As String = GetFastPrintCellText(row, "EX_Name_CL")
+            Dim qty As String = GetFastPrintCellText(row, "QTY_CL")
+            Dim price As String = GetFastPrintDecimalText(row, "Price_CL", "N2")
+            Dim total As String = GetFastPrintDecimalText(row, "Total_CL", "N2")
+
+            Dim itemSizeF As SizeF = g.MeasureString(itemName, fontItem, 110, fmtArabic)
+            Dim rowHeight As Integer = Math.Max(16, CInt(itemSizeF.Height) + 2)
+
+            g.DrawString(rowCounter.ToString(), fontItem, Brushes.Black, New Rectangle(260, Print_Y, 20, rowHeight), fmtCenter)
+            g.DrawString(itemName, fontItem, Brushes.Black, New Rectangle(150, Print_Y, 110, rowHeight), fmtArabic)
+            g.DrawString(qty, fontItem, Brushes.Black, New Rectangle(115, Print_Y, 35, rowHeight), fmtCenter)
+            g.DrawString(price, fontItem, Brushes.Black, New Rectangle(65, Print_Y, 50, rowHeight), fmtCenter)
+            g.DrawString(total, fontItemBold, Brushes.Black, New Rectangle(5, Print_Y, 60, rowHeight), fmtCenter)
+
+            Print_Y += rowHeight
+            rowCounter += 1
+        Next
+
+        Print_Y += 4
+        DrawDashedLine(g, Print_Y, PaperWidth)
+        Print_Y += 10
+
+        DrawThreeParts(g, "Gross Total", Total_TextBox.Text, "الإجمالي", Print_Y, fontBodyBold)
+        Print_Y += 22
+        If Val(Discount_txt.Text) > 0 Then
+            DrawThreeParts(g, "Discount", Discount_txt.Text, "الخصم", Print_Y, fontBody)
+            Print_Y += 20
+        End If
+        DrawThreeParts(g, "Net Total", Pure_txt.Text, "الصافي", Print_Y, fontTitle)
+        Print_Y += 40
+
+        DrawDashedLine(g, Print_Y, PaperWidth)
+        Print_Y += 12
+
+        DrawThreeParts(g, "Cashier", USER_NAME, "الكاشير", Print_Y, fontBody)
+        Print_Y += 30
+
+        g.DrawString("طُبعت في: " & Now.ToString("yyyy-MM-dd HH:mm:ss"), fontSmallBold, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 15), fmtCenter)
+        Print_Y += 25
+
+        g.DrawString(Print_BillNotes, fontBodyBold, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 40), fmtCenter)
+
+        e.HasMorePages = False
+    End Sub
+
+    Private Function GetFastPrintCellText(row As DataGridViewRow, columnName As String) As String
+        If row Is Nothing OrElse AGMetroGrid.Columns.Contains(columnName) = False Then Return ""
+        If row.Cells(columnName).Value Is Nothing OrElse row.Cells(columnName).Value Is DBNull.Value Then Return ""
+
+        Return row.Cells(columnName).Value.ToString()
+    End Function
+
+    Private Function GetFastPrintDecimalText(row As DataGridViewRow, columnName As String, numberFormat As String) As String
+        Dim cellText As String = GetFastPrintCellText(row, columnName)
+        Dim value As Decimal
+
+        If Decimal.TryParse(cellText, value) Then Return value.ToString(numberFormat)
+
+        Return cellText
+    End Function
+
+    Private Sub DrawThreeParts(g As Graphics, engText As String, value As String, araText As String, y As Integer, font As Font)
+        Dim fLeft As New StringFormat() With {.Alignment = StringAlignment.Near}
+        Dim fCenter As New StringFormat() With {.Alignment = StringAlignment.Center}
+        Dim fRight As New StringFormat() With {.Alignment = StringAlignment.Far}
+
+        g.DrawString(engText, font, Brushes.Black, New Rectangle(5, y, 80, 25), fLeft)
+        g.DrawString(value, font, Brushes.Black, New Rectangle(85, y, 95, 25), fCenter)
+        g.DrawString(araText, font, Brushes.Black, New Rectangle(180, y, 85, 25), fRight)
+    End Sub
+
+    Private Sub DrawDashedLine(g As Graphics, y As Integer, width As Integer)
+        Dim p As New Pen(Color.Black, 1)
+        p.DashStyle = Drawing2D.DashStyle.Dash
+        g.DrawLine(p, 5, y, width, y)
+    End Sub
+
 
     Private Sub Print_btn_Click(sender As Object, e As EventArgs) Handles Print_btn.Click
         If AGMetroGrid.Rows.Count > 0 Then
             Me.Cursor = Cursors.AppStarting
-            CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
-            Me.Cursor = Cursors.Default
+            Try
+                If SScreenDefault = 3 Then
+                    PrintCurrentBill()
+                Else
+                    CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
+                End If
+            Finally
+                Me.Cursor = Cursors.Default
+            End Try
         End If
     End Sub
 
