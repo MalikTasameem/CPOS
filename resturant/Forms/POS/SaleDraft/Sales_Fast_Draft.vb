@@ -434,12 +434,12 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                        Color.FromArgb(67, 56, 202),
                        "مراجعة الفواتير السابقة")
 
-        StyleTopButton(Refresh_IM_Btn,
-                       RefreshButtonDefaultText,
-                       RefreshButtonDefaultBackColor,
-                       Color.White,
-                       Color.FromArgb(21, 94, 117),
-                       "تحديث قائمة الأصناف والوحدات")
+        'StyleTopButton(Refresh_IM_Btn,
+        '               RefreshButtonDefaultText,
+        '               RefreshButtonDefaultBackColor,
+        '               Color.White,
+        '               Color.FromArgb(21, 94, 117),
+        '               "تحديث قائمة الأصناف والوحدات")
 
         StyleTopButton(Draft_Btn,
                        "📝" & Environment.NewLine & "المسودة",
@@ -461,23 +461,23 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         '                Color.White,
         '                "عرض بيانات الجدول")
 
-        StyleIconButton(Show_Cash_btn,
-                        "💵",
-                        Color.FromArgb(5, 150, 105),
-                        Color.White,
-                        "عرض المقبوض")
+        'StyleIconButton(Show_Cash_btn,
+        '                "💵",
+        '                Color.FromArgb(5, 150, 105),
+        '                Color.White,
+        '                "عرض المقبوض")
 
-        StyleIconButton(OpenCahDR_Btn,
-                        "▣",
-                        Color.FromArgb(180, 83, 9),
-                        Color.White,
-                        "فتح صندوق النقود")
+        'StyleIconButton(OpenCahDR_Btn,
+        '                "▣",
+        '                Color.FromArgb(180, 83, 9),
+        '                Color.White,
+        '                "فتح صندوق النقود")
 
-        StyleIconButton(CALC_Btn,
-                        "∑",
-                        Color.FromArgb(30, 64, 175),
-                        Color.White,
-                        "فتح الآلة الحاسبة")
+        'StyleIconButton(CALC_Btn,
+        '                "∑",
+        '                Color.FromArgb(30, 64, 175),
+        '                Color.White,
+        '                "فتح الآلة الحاسبة")
 
         'StyleIconButton(Down_Bill_btn,
         '                "▼",
@@ -510,7 +510,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         targetButton.FlatAppearance.BorderColor = borderColor
         targetButton.FlatAppearance.MouseOverBackColor = ControlPaint.Light(backColor)
         targetButton.FlatAppearance.MouseDownBackColor = ControlPaint.Dark(backColor)
-        targetButton.Font = New Font("Segoe UI Semibold", 8.5!, FontStyle.Bold)
+        targetButton.Font = New Font("Segoe UI Semibold", 10.5!, FontStyle.Bold)
         targetButton.TextAlign = ContentAlignment.MiddleCenter
         targetButton.ImageAlign = ContentAlignment.MiddleCenter
         targetButton.RightToLeft = Windows.Forms.RightToLeft.Yes
@@ -947,7 +947,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             ShortcutGroupPanel = New Panel()
             ShortcutGroupPanel.Name = "ShortcutGroupPanel"
             ShortcutGroupPanel.AutoScroll = True
-            ShortcutGroupPanel.BackColor = Color.FromArgb(245, 247, 250)
+            ShortcutGroupPanel.BackColor = Color.FromArgb(226, 232, 240)
             ShortcutGroupPanel.RightToLeft = Windows.Forms.RightToLeft.Yes
 
             IMPanel.Controls.Add(ShortcutItemsPanel)
@@ -1029,7 +1029,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             groupButton.Text = rowView("GM_NAME").ToString()
             groupButton.Cursor = Cursors.Hand
             groupButton.FlatStyle = FlatStyle.Flat
-            groupButton.Font = New Font("Segoe UI Semibold", 9.25!, FontStyle.Bold)
+            groupButton.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold)
             groupButton.TextAlign = ContentAlignment.MiddleCenter
             groupButton.RightToLeft = Windows.Forms.RightToLeft.Yes
             groupButton.Size = New Size(ShortcutGroupPanel.ClientSize.Width - 10, 42)
@@ -1050,13 +1050,17 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Sub ApplyShortcutGroupButtonStyle(groupButton As Button, isSelected As Boolean)
 
         If isSelected Then
-            groupButton.BackColor = Color.FromArgb(37, 99, 235)
+            groupButton.BackColor = Color.FromArgb(14, 116, 144)
             groupButton.ForeColor = Color.White
-            groupButton.FlatAppearance.BorderColor = Color.FromArgb(30, 64, 175)
+            groupButton.FlatAppearance.BorderColor = Color.FromArgb(8, 145, 178)
+            groupButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(8, 145, 178)
+            groupButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(21, 94, 117)
         Else
-            groupButton.BackColor = Color.White
-            groupButton.ForeColor = Color.FromArgb(30, 41, 59)
+            groupButton.BackColor = Color.FromArgb(248, 250, 252)
+            groupButton.ForeColor = Color.FromArgb(15, 23, 42)
             groupButton.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225)
+            groupButton.FlatAppearance.MouseOverBackColor = Color.White
+            groupButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(224, 242, 254)
         End If
 
         groupButton.FlatAppearance.BorderSize = 1
@@ -1363,7 +1367,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public Sub ResetNewBill()
 
 
-        CurrentDraft = DraftManager.CreateNewDraft(USER_ID)
+        CurrentDraft = CreateOrReuseEmptyDraftForNewBill()
 
         BindDraftHeaderToForm()
         LoadDraftToGrid()
@@ -1376,9 +1380,22 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         If dgvSales.Rows.Count > 0 And isDepended = False Then Insert_New = 1
         'Load_PauseBills()
         ClearFields()
+        DateTimeEx.Value = CurrentDraft.Date
         'Call_New_Bill(Insert_New)
         NewStateBt()
     End Sub
+
+    Private Function CreateOrReuseEmptyDraftForNewBill() As SaleDraftHeader
+
+        Dim draft As SaleDraftHeader = DraftManager.GetEmptyDraftForNewBill(USER_ID)
+
+        If draft Is Nothing Then
+            draft = DraftManager.CreateNewDraft(USER_ID)
+        End If
+
+        Return draft
+
+    End Function
 
     Private Async Sub Refresh_IM_MENU()
         Await Load_ALL_IM()
@@ -2105,7 +2122,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Sub EnsureDraftExists()
 
         If CurrentDraft Is Nothing Then
-            CurrentDraft = DraftManager.CreateNewDraft(USER_ID)
+            CurrentDraft = CreateOrReuseEmptyDraftForNewBill()
             BindDraftHeaderToForm()
             LoadDraftToGrid()
             UpdateDraftTotalsOnScreen()

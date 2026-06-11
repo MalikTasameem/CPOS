@@ -42,6 +42,47 @@ Public Class DraftSalesManager
 
     End Function
 
+    Public Function GetEmptyDraftForNewBill(userId As Integer) As SaleDraftHeader
+
+        Dim emptyDraft As SaleDraftHeader =
+            GetAllDrafts().
+            Where(Function(x) x.User_ID = userId AndAlso
+                              x.Final_T_ID.HasValue = False AndAlso
+                              (x.Items Is Nothing OrElse x.Items.Count = 0)).
+            FirstOrDefault()
+
+        If emptyDraft Is Nothing Then Return Nothing
+
+        PrepareEmptyDraftForNewBill(emptyDraft, userId)
+        SaveDraft(emptyDraft)
+
+        Return emptyDraft
+
+    End Function
+
+    Private Sub PrepareEmptyDraftForNewBill(draft As SaleDraftHeader, userId As Integer)
+
+        If draft.Items Is Nothing Then draft.Items = New List(Of SaleDraftItem)()
+
+        draft.DraftName = "مسودة جديدة"
+        draft.Date = DateTime.Now
+        draft.User_ID = userId
+        draft.AG_ID = 1
+        draft.AG_NAME = ""
+        draft.CustomerName = ""
+        draft.Total = 0D
+        draft.Discount = 0D
+        draft.Pure = 0D
+        draft.About = ""
+        draft.S_Bill_Pr_ID = Pr_ID
+        draft.Table_ID = Nothing
+        draft.TableName = ""
+        draft.Final_T_ID = Nothing
+        draft.Final_SB_ID = Nothing
+        draft.PushedAt = Nothing
+
+    End Sub
+
     ' حفظ
     Public Sub SaveDraft(draft As SaleDraftHeader)
 

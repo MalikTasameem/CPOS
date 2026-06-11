@@ -127,29 +127,29 @@ Partial Class Sales_Fast_Draft
         '
         'CALC_Btn
         '
-        Me.CALC_Btn.BackColor = System.Drawing.SystemColors.Menu
+        Me.CALC_Btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
         Me.CALC_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.CALC_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CALC_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CALC_Btn.Font = New System.Drawing.Font("Arial", 18.0!)
-        Me.CALC_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.CALC_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.CALC_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.CALC_Btn.Location = New System.Drawing.Point(760, 607)
         Me.CALC_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.CALC_Btn.Name = "CALC_Btn"
         Me.CALC_Btn.Size = New System.Drawing.Size(130, 55)
         Me.CALC_Btn.TabIndex = 708
-        Me.CALC_Btn.Text = "🔢"
+        Me.CALC_Btn.Text = "الحاسبة 🔢"
         Me.MetroToolTip1.SetToolTip(Me.CALC_Btn, "فتح الألة الحاسبة")
         Me.CALC_Btn.UseVisualStyleBackColor = False
         '
         'OpenCahDR_Btn
         '
-        Me.OpenCahDR_Btn.BackColor = System.Drawing.SystemColors.Menu
+        Me.OpenCahDR_Btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(9, Byte), Integer))
         Me.OpenCahDR_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.OpenCahDR_Btn.Location = New System.Drawing.Point(760, 551)
         Me.OpenCahDR_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
@@ -161,12 +161,12 @@ Partial Class Sales_Fast_Draft
         '
         'Show_Cash_btn
         '
-        Me.Show_Cash_btn.BackColor = System.Drawing.SystemColors.Menu
+        Me.Show_Cash_btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(105, Byte), Integer))
         Me.Show_Cash_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Show_Cash_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Show_Cash_btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Show_Cash_btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Show_Cash_btn.Location = New System.Drawing.Point(629, 551)
         Me.Show_Cash_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Show_Cash_btn.Name = "Show_Cash_btn"
@@ -186,7 +186,7 @@ Partial Class Sales_Fast_Draft
         Me.PreviousBillsButton.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PreviousBillsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.PreviousBillsButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.PreviousBillsButton.Location = New System.Drawing.Point(678, 4)
+        Me.PreviousBillsButton.Location = New System.Drawing.Point(759, 4)
         Me.PreviousBillsButton.Name = "PreviousBillsButton"
         Me.PreviousBillsButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.PreviousBillsButton.Size = New System.Drawing.Size(110, 40)
@@ -229,7 +229,7 @@ Partial Class Sales_Fast_Draft
         Me.IM_Search_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Search_btn.ForeColor = System.Drawing.Color.White
         Me.IM_Search_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.IM_Search_btn.Location = New System.Drawing.Point(892, 495)
+        Me.IM_Search_btn.Location = New System.Drawing.Point(629, 607)
         Me.IM_Search_btn.Name = "IM_Search_btn"
         Me.IM_Search_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.IM_Search_btn.Size = New System.Drawing.Size(130, 55)
@@ -755,7 +755,7 @@ Partial Class Sales_Fast_Draft
         Me.Draft_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Draft_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Draft_Btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Draft_Btn.Location = New System.Drawing.Point(629, 495)
+        Me.Draft_Btn.Location = New System.Drawing.Point(368, 608)
         Me.Draft_Btn.Name = "Draft_Btn"
         Me.Draft_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Draft_Btn.Size = New System.Drawing.Size(130, 55)
@@ -815,15 +815,15 @@ Partial Class Sales_Fast_Draft
         '
         'Refresh_IM_Btn
         '
-        Me.Refresh_IM_Btn.BackColor = System.Drawing.Color.White
+        Me.Refresh_IM_Btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(94, Byte), Integer), CType(CType(117, Byte), Integer))
         Me.Refresh_IM_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Refresh_IM_Btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Refresh_IM_Btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.Refresh_IM_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Refresh_IM_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Refresh_IM_Btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Refresh_IM_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Refresh_IM_Btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Refresh_IM_Btn.Location = New System.Drawing.Point(760, 495)
+        Me.Refresh_IM_Btn.Location = New System.Drawing.Point(499, 608)
         Me.Refresh_IM_Btn.Name = "Refresh_IM_Btn"
         Me.Refresh_IM_Btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Refresh_IM_Btn.Size = New System.Drawing.Size(130, 55)
@@ -871,7 +871,7 @@ Partial Class Sales_Fast_Draft
         Me.Print_btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Print_btn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Print_btn.Location = New System.Drawing.Point(791, 4)
+        Me.Print_btn.Location = New System.Drawing.Point(870, 4)
         Me.Print_btn.Name = "Print_btn"
         Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Print_btn.Size = New System.Drawing.Size(75, 40)
@@ -908,13 +908,13 @@ Partial Class Sales_Fast_Draft
         Me.Save_butt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.Save_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Save_butt.Font = New System.Drawing.Font("Segoe UI", 13.75!, System.Drawing.FontStyle.Bold)
         Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Save_butt.Location = New System.Drawing.Point(869, 4)
+        Me.Save_butt.Location = New System.Drawing.Point(629, 495)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Save_butt.Size = New System.Drawing.Size(75, 40)
+        Me.Save_butt.Size = New System.Drawing.Size(394, 55)
         Me.Save_butt.TabIndex = 293
         Me.Save_butt.TabStop = False
         Me.Save_butt.Tag = "SAVE"

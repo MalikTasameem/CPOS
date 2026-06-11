@@ -247,7 +247,7 @@ Public Class Pay_Method
                 TR_ID = CInt(Treasury_ComboBox.SelectedValue)
 
 
-                Treasury_ComboBox.Enabled = c.Dr("is_Lock")
+                Treasury_ComboBox.Enabled = Not c.Dr("is_Lock")
                 'If c.Dr("is_Lock") = False Then
                 '    Treasury_ComboBox.Enabled = False
                 'Else

@@ -247,7 +247,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             ShortcutGroupPanel = New Panel()
             ShortcutGroupPanel.Name = "ShortcutGroupPanel"
             ShortcutGroupPanel.AutoScroll = True
-            ShortcutGroupPanel.BackColor = Color.FromArgb(245, 247, 250)
+            ShortcutGroupPanel.BackColor = Color.FromArgb(226, 232, 240)
             ShortcutGroupPanel.RightToLeft = Windows.Forms.RightToLeft.Yes
 
             IMPanel.Controls.Add(ShortcutItemsPanel)
@@ -332,7 +332,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             groupButton.Text = rowView("GM_NAME").ToString()
             groupButton.Cursor = Cursors.Hand
             groupButton.FlatStyle = FlatStyle.Flat
-            groupButton.Font = New Font("Segoe UI Semibold", 9.25!, FontStyle.Bold)
+            groupButton.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold)
             groupButton.TextAlign = ContentAlignment.MiddleCenter
             groupButton.RightToLeft = Windows.Forms.RightToLeft.Yes
             groupButton.Size = New Size(groupButtonWidth, 42)
@@ -353,13 +353,17 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Private Sub ApplyShortcutGroupButtonStyle(groupButton As Button, isSelected As Boolean)
 
         If isSelected Then
-            groupButton.BackColor = Color.FromArgb(37, 99, 235)
+            groupButton.BackColor = Color.FromArgb(14, 116, 144)
             groupButton.ForeColor = Color.White
-            groupButton.FlatAppearance.BorderColor = Color.FromArgb(30, 64, 175)
+            groupButton.FlatAppearance.BorderColor = Color.FromArgb(8, 145, 178)
+            groupButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(8, 145, 178)
+            groupButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(21, 94, 117)
         Else
-            groupButton.BackColor = Color.White
-            groupButton.ForeColor = Color.FromArgb(30, 41, 59)
+            groupButton.BackColor = Color.FromArgb(248, 250, 252)
+            groupButton.ForeColor = Color.FromArgb(15, 23, 42)
             groupButton.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225)
+            groupButton.FlatAppearance.MouseOverBackColor = Color.White
+            groupButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(224, 242, 254)
         End If
 
         groupButton.FlatAppearance.BorderSize = 1
