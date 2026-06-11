@@ -22,6 +22,7 @@ Partial Class SysOptions
         Me.MaxFormButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.F_Panel = New System.Windows.Forms.Panel()
+        Me.SalesDraftLogsButton = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button12 = New System.Windows.Forms.Button()
         Me.Button13 = New System.Windows.Forms.Button()
@@ -103,6 +104,7 @@ Partial Class SysOptions
         '
         'F_Panel
         '
+        Me.F_Panel.Controls.Add(Me.SalesDraftLogsButton)
         Me.F_Panel.Controls.Add(Me.Button2)
         Me.F_Panel.Controls.Add(Me.Button12)
         Me.F_Panel.Controls.Add(Me.Button13)
@@ -126,17 +128,29 @@ Partial Class SysOptions
         Me.F_Panel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.F_Panel.Location = New System.Drawing.Point(0, 35)
         Me.F_Panel.Name = "F_Panel"
-        Me.F_Panel.Size = New System.Drawing.Size(1107, 570)
+        Me.F_Panel.Size = New System.Drawing.Size(1107, 558)
         Me.F_Panel.TabIndex = 1
         Me.F_Panel.Tag = "TRANSPARENT"
+        '
+        'SalesDraftLogsButton
+        '
+        Me.SalesDraftLogsButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SalesDraftLogsButton.FlatAppearance.BorderSize = 0
+        Me.SalesDraftLogsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.SalesDraftLogsButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.SalesDraftLogsButton.Location = New System.Drawing.Point(707, 222)
+        Me.SalesDraftLogsButton.Name = "SalesDraftLogsButton"
+        Me.SalesDraftLogsButton.Size = New System.Drawing.Size(183, 79)
+        Me.SalesDraftLogsButton.TabIndex = 20
+        Me.SalesDraftLogsButton.Text = "📋" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "سجل حركات المبيعات"
         '
         'Button2
         '
         Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button2.FlatAppearance.BorderSize = 0
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button2.Location = New System.Drawing.Point(40, 424)
+        Me.Button2.Location = New System.Drawing.Point(40, 120)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(183, 79)
         Me.Button2.TabIndex = 19
@@ -146,9 +160,9 @@ Partial Class SysOptions
         '
         Me.Button12.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button12.FlatAppearance.BorderSize = 0
-        Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button12.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button12.Location = New System.Drawing.Point(707, 30)
+        Me.Button12.Location = New System.Drawing.Point(707, 15)
         Me.Button12.Name = "Button12"
         Me.Button12.Size = New System.Drawing.Size(183, 79)
         Me.Button12.TabIndex = 0
@@ -158,9 +172,9 @@ Partial Class SysOptions
         '
         Me.Button13.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button13.FlatAppearance.BorderSize = 0
-        Me.Button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button13.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button13.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button13.Location = New System.Drawing.Point(481, 30)
+        Me.Button13.Location = New System.Drawing.Point(481, 15)
         Me.Button13.Name = "Button13"
         Me.Button13.Size = New System.Drawing.Size(183, 79)
         Me.Button13.TabIndex = 1
@@ -170,9 +184,9 @@ Partial Class SysOptions
         '
         Me.Button14.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button14.FlatAppearance.BorderSize = 0
-        Me.Button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button14.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button14.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button14.Location = New System.Drawing.Point(253, 30)
+        Me.Button14.Location = New System.Drawing.Point(40, 222)
         Me.Button14.Name = "Button14"
         Me.Button14.Size = New System.Drawing.Size(183, 79)
         Me.Button14.TabIndex = 2
@@ -182,9 +196,9 @@ Partial Class SysOptions
         '
         Me.Button15.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button15.FlatAppearance.BorderSize = 0
-        Me.Button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button15.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button15.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button15.Location = New System.Drawing.Point(40, 30)
+        Me.Button15.Location = New System.Drawing.Point(40, 15)
         Me.Button15.Name = "Button15"
         Me.Button15.Size = New System.Drawing.Size(183, 79)
         Me.Button15.TabIndex = 3
@@ -194,9 +208,9 @@ Partial Class SysOptions
         '
         Me.Button17.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button17.FlatAppearance.BorderSize = 0
-        Me.Button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button17.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button17.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button17.Location = New System.Drawing.Point(707, 170)
+        Me.Button17.Location = New System.Drawing.Point(40, 327)
         Me.Button17.Name = "Button17"
         Me.Button17.Size = New System.Drawing.Size(183, 79)
         Me.Button17.TabIndex = 4
@@ -206,9 +220,9 @@ Partial Class SysOptions
         '
         Me.Button18.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button18.FlatAppearance.BorderSize = 0
-        Me.Button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button18.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button18.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button18.Location = New System.Drawing.Point(481, 170)
+        Me.Button18.Location = New System.Drawing.Point(481, 222)
         Me.Button18.Name = "Button18"
         Me.Button18.Size = New System.Drawing.Size(183, 79)
         Me.Button18.TabIndex = 5
@@ -218,9 +232,9 @@ Partial Class SysOptions
         '
         Me.Tree_AG_Button.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tree_AG_Button.FlatAppearance.BorderSize = 0
-        Me.Tree_AG_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Tree_AG_Button.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Tree_AG_Button.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Tree_AG_Button.Location = New System.Drawing.Point(270, 170)
+        Me.Tree_AG_Button.Location = New System.Drawing.Point(253, 120)
         Me.Tree_AG_Button.Name = "Tree_AG_Button"
         Me.Tree_AG_Button.Size = New System.Drawing.Size(183, 79)
         Me.Tree_AG_Button.TabIndex = 6
@@ -230,9 +244,9 @@ Partial Class SysOptions
         '
         Me.ST_Button.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ST_Button.FlatAppearance.BorderSize = 0
-        Me.ST_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ST_Button.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ST_Button.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.ST_Button.Location = New System.Drawing.Point(40, 170)
+        Me.ST_Button.Location = New System.Drawing.Point(253, 15)
         Me.ST_Button.Name = "ST_Button"
         Me.ST_Button.Size = New System.Drawing.Size(183, 79)
         Me.ST_Button.TabIndex = 7
@@ -242,9 +256,9 @@ Partial Class SysOptions
         '
         Me.Pch_Exp_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Pch_Exp_Btn.FlatAppearance.BorderSize = 0
-        Me.Pch_Exp_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Pch_Exp_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Pch_Exp_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Pch_Exp_Btn.Location = New System.Drawing.Point(912, 170)
+        Me.Pch_Exp_Btn.Location = New System.Drawing.Point(40, 429)
         Me.Pch_Exp_Btn.Name = "Pch_Exp_Btn"
         Me.Pch_Exp_Btn.Size = New System.Drawing.Size(183, 79)
         Me.Pch_Exp_Btn.TabIndex = 8
@@ -254,9 +268,9 @@ Partial Class SysOptions
         '
         Me.Cities_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Cities_btn.FlatAppearance.BorderSize = 0
-        Me.Cities_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Cities_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Cities_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Cities_btn.Location = New System.Drawing.Point(707, 300)
+        Me.Cities_btn.Location = New System.Drawing.Point(481, 327)
         Me.Cities_btn.Name = "Cities_btn"
         Me.Cities_btn.Size = New System.Drawing.Size(183, 79)
         Me.Cities_btn.TabIndex = 9
@@ -266,9 +280,9 @@ Partial Class SysOptions
         '
         Me.MK_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MK_Btn.FlatAppearance.BorderSize = 0
-        Me.MK_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.MK_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.MK_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.MK_Btn.Location = New System.Drawing.Point(481, 300)
+        Me.MK_Btn.Location = New System.Drawing.Point(908, 327)
         Me.MK_Btn.Name = "MK_Btn"
         Me.MK_Btn.Size = New System.Drawing.Size(183, 79)
         Me.MK_Btn.TabIndex = 10
@@ -278,9 +292,9 @@ Partial Class SysOptions
         '
         Me.Network_Wacher_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Network_Wacher_btn.FlatAppearance.BorderSize = 0
-        Me.Network_Wacher_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Network_Wacher_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Network_Wacher_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Network_Wacher_btn.Location = New System.Drawing.Point(253, 300)
+        Me.Network_Wacher_btn.Location = New System.Drawing.Point(908, 222)
         Me.Network_Wacher_btn.Name = "Network_Wacher_btn"
         Me.Network_Wacher_btn.Size = New System.Drawing.Size(183, 79)
         Me.Network_Wacher_btn.TabIndex = 11
@@ -290,9 +304,9 @@ Partial Class SysOptions
         '
         Me.Button4.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button4.FlatAppearance.BorderSize = 0
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button4.Location = New System.Drawing.Point(912, 30)
+        Me.Button4.Location = New System.Drawing.Point(912, 15)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(183, 79)
         Me.Button4.TabIndex = 12
@@ -302,9 +316,9 @@ Partial Class SysOptions
         '
         Me.SubPrinterButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SubPrinterButton.FlatAppearance.BorderSize = 0
-        Me.SubPrinterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SubPrinterButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.SubPrinterButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.SubPrinterButton.Location = New System.Drawing.Point(912, 300)
+        Me.SubPrinterButton.Location = New System.Drawing.Point(707, 120)
         Me.SubPrinterButton.Name = "SubPrinterButton"
         Me.SubPrinterButton.Size = New System.Drawing.Size(183, 79)
         Me.SubPrinterButton.TabIndex = 13
@@ -314,9 +328,9 @@ Partial Class SysOptions
         '
         Me.CardAgent_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CardAgent_Btn.FlatAppearance.BorderSize = 0
-        Me.CardAgent_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CardAgent_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.CardAgent_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.CardAgent_Btn.Location = New System.Drawing.Point(912, 424)
+        Me.CardAgent_Btn.Location = New System.Drawing.Point(703, 327)
         Me.CardAgent_Btn.Name = "CardAgent_Btn"
         Me.CardAgent_Btn.Size = New System.Drawing.Size(183, 79)
         Me.CardAgent_Btn.TabIndex = 14
@@ -326,9 +340,9 @@ Partial Class SysOptions
         '
         Me.Button8.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button8.FlatAppearance.BorderSize = 0
-        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button8.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button8.Location = New System.Drawing.Point(40, 300)
+        Me.Button8.Location = New System.Drawing.Point(253, 222)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(183, 79)
         Me.Button8.TabIndex = 15
@@ -338,9 +352,9 @@ Partial Class SysOptions
         '
         Me.Shurtcut_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Shurtcut_Btn.FlatAppearance.BorderSize = 0
-        Me.Shurtcut_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Shurtcut_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Shurtcut_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Shurtcut_Btn.Location = New System.Drawing.Point(707, 424)
+        Me.Shurtcut_Btn.Location = New System.Drawing.Point(253, 327)
         Me.Shurtcut_Btn.Name = "Shurtcut_Btn"
         Me.Shurtcut_Btn.Size = New System.Drawing.Size(183, 79)
         Me.Shurtcut_Btn.TabIndex = 16
@@ -350,9 +364,9 @@ Partial Class SysOptions
         '
         Me.TableButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TableButton.FlatAppearance.BorderSize = 0
-        Me.TableButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.TableButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.TableButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.TableButton.Location = New System.Drawing.Point(481, 424)
+        Me.TableButton.Location = New System.Drawing.Point(908, 120)
         Me.TableButton.Name = "TableButton"
         Me.TableButton.Size = New System.Drawing.Size(183, 79)
         Me.TableButton.TabIndex = 17
@@ -362,9 +376,9 @@ Partial Class SysOptions
         '
         Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button1.Location = New System.Drawing.Point(253, 424)
+        Me.Button1.Location = New System.Drawing.Point(481, 120)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(183, 79)
         Me.Button1.TabIndex = 18
@@ -374,7 +388,7 @@ Partial Class SysOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1107, 605)
+        Me.ClientSize = New System.Drawing.Size(1107, 593)
         Me.Controls.Add(Me.F_Panel)
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -415,4 +429,5 @@ Partial Class SysOptions
     Friend WithEvents Pch_Exp_Btn As System.Windows.Forms.Button
     Friend WithEvents Network_Wacher_btn As System.Windows.Forms.Button
     Friend WithEvents Button2 As Button
+    Friend WithEvents SalesDraftLogsButton As Button
 End Class

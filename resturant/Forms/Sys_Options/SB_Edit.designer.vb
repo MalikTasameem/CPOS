@@ -72,6 +72,8 @@ Partial Class SB_Edit
         Me.Discount_Distribute_CB = New System.Windows.Forms.CheckBox()
         Me.SB_IM_Alert_When_Repetition_CB = New System.Windows.Forms.CheckBox()
         Me.TabPage7 = New System.Windows.Forms.TabPage()
+        Me.GroupBox21 = New System.Windows.Forms.GroupBox()
+        Me.IM_Search_Default_Cm = New System.Windows.Forms.ComboBox()
         Me.SERVER_IMG_PATH_txt = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.QTY_ALERT_SOUND_CB = New System.Windows.Forms.CheckBox()
@@ -183,9 +185,6 @@ Partial Class SB_Edit
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.Help_LB = New System.Windows.Forms.Label()
-        Me.GroupBox21 = New System.Windows.Forms.GroupBox()
-        Me.IM_Search_Default_Cm = New System.Windows.Forms.ComboBox()
-        Me.TitleBar_Panel.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.CustPageTypeGroupBox.SuspendLayout()
         Me.DiscountGroupBox.SuspendLayout()
@@ -201,6 +200,7 @@ Partial Class SB_Edit
         Me.GroupBox11.SuspendLayout()
         Me.GroupBox18.SuspendLayout()
         Me.TabPage7.SuspendLayout()
+        Me.GroupBox21.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
         Me.GroupBox14.SuspendLayout()
         Me.TabPage4.SuspendLayout()
@@ -226,7 +226,7 @@ Partial Class SB_Edit
         Me.GroupBox20.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.GroupBox21.SuspendLayout()
+        Me.TitleBar_Panel.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox2
@@ -246,11 +246,12 @@ Partial Class SB_Edit
         Me.SScreenDefault_Cmb.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SScreenDefault_Cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SScreenDefault_Cmb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SScreenDefault_Cmb.Font = New System.Drawing.Font("Segoe UI", 11.0!)
         Me.SScreenDefault_Cmb.FormattingEnabled = True
         Me.SScreenDefault_Cmb.Items.AddRange(New Object() {"شاشة عادية", "شاشة لمس", "الشاشة السريعة", "الشاشة السريعة بالمسودات"})
         Me.SScreenDefault_Cmb.Location = New System.Drawing.Point(3, 25)
         Me.SScreenDefault_Cmb.Name = "SScreenDefault_Cmb"
-        Me.SScreenDefault_Cmb.Size = New System.Drawing.Size(176, 29)
+        Me.SScreenDefault_Cmb.Size = New System.Drawing.Size(176, 28)
         Me.SScreenDefault_Cmb.TabIndex = 262
         Me.SScreenDefault_Cmb.Tag = ""
         '
@@ -729,10 +730,10 @@ Partial Class SB_Edit
         Me.TabPage1.Controls.Add(Me.isDiscountCheckBox)
         Me.TabPage1.Controls.Add(Me.isCostmerScreen_CB)
         Me.TabPage1.Controls.Add(Me.CustPageTypeGroupBox)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 26)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(686, 554)
+        Me.TabPage1.Size = New System.Drawing.Size(686, 558)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "شاشة البيع"
         '
@@ -926,12 +927,37 @@ Partial Class SB_Edit
         Me.TabPage7.Controls.Add(Me.Notif_IM_Sell_Less_Than_Cost_CB)
         Me.TabPage7.Controls.Add(Me.GroupBox5)
         Me.TabPage7.Controls.Add(Me.IM_Min_Qty_cb)
-        Me.TabPage7.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage7.Location = New System.Drawing.Point(4, 26)
         Me.TabPage7.Name = "TabPage7"
         Me.TabPage7.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage7.Size = New System.Drawing.Size(686, 554)
+        Me.TabPage7.Size = New System.Drawing.Size(686, 558)
         Me.TabPage7.TabIndex = 6
         Me.TabPage7.Text = "الأصناف"
+        '
+        'GroupBox21
+        '
+        Me.GroupBox21.Controls.Add(Me.IM_Search_Default_Cm)
+        Me.GroupBox21.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox21.Location = New System.Drawing.Point(33, 6)
+        Me.GroupBox21.Name = "GroupBox21"
+        Me.GroupBox21.Size = New System.Drawing.Size(205, 58)
+        Me.GroupBox21.TabIndex = 637
+        Me.GroupBox21.TabStop = False
+        Me.GroupBox21.Text = "بحث الصنف الإفتراضي"
+        '
+        'IM_Search_Default_Cm
+        '
+        Me.IM_Search_Default_Cm.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.IM_Search_Default_Cm.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.IM_Search_Default_Cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.IM_Search_Default_Cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IM_Search_Default_Cm.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.IM_Search_Default_Cm.FormattingEnabled = True
+        Me.IM_Search_Default_Cm.Items.AddRange(New Object() {"رقم الصنف", "إسم الصنف", "باركود الصنف"})
+        Me.IM_Search_Default_Cm.Location = New System.Drawing.Point(3, 25)
+        Me.IM_Search_Default_Cm.Name = "IM_Search_Default_Cm"
+        Me.IM_Search_Default_Cm.Size = New System.Drawing.Size(199, 29)
+        Me.IM_Search_Default_Cm.TabIndex = 616
         '
         'SERVER_IMG_PATH_txt
         '
@@ -1094,10 +1120,10 @@ Partial Class SB_Edit
         Me.TabPage4.Controls.Add(Me.Label1)
         Me.TabPage4.Controls.Add(Me.GroupBox8)
         Me.TabPage4.Controls.Add(Me.Label2)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 26)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(686, 554)
+        Me.TabPage4.Size = New System.Drawing.Size(686, 558)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "فاتورة البيع"
         '
@@ -1237,10 +1263,10 @@ Partial Class SB_Edit
         Me.TabPage6.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
         Me.TabPage6.Controls.Add(Me.GroupBox9)
         Me.TabPage6.Controls.Add(Me.GroupBox10)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 26)
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage6.Size = New System.Drawing.Size(686, 554)
+        Me.TabPage6.Size = New System.Drawing.Size(686, 558)
         Me.TabPage6.TabIndex = 5
         Me.TabPage6.Text = "المخازن"
         '
@@ -1279,7 +1305,7 @@ Partial Class SB_Edit
         Me.PcshStoreComboBox.FormattingEnabled = True
         Me.PcshStoreComboBox.Location = New System.Drawing.Point(213, 28)
         Me.PcshStoreComboBox.Name = "PcshStoreComboBox"
-        Me.PcshStoreComboBox.Size = New System.Drawing.Size(354, 29)
+        Me.PcshStoreComboBox.Size = New System.Drawing.Size(354, 25)
         Me.PcshStoreComboBox.TabIndex = 0
         '
         'GroupBox10
@@ -1301,7 +1327,7 @@ Partial Class SB_Edit
         Me.SalesStoreComboBox.FormattingEnabled = True
         Me.SalesStoreComboBox.Location = New System.Drawing.Point(213, 28)
         Me.SalesStoreComboBox.Name = "SalesStoreComboBox"
-        Me.SalesStoreComboBox.Size = New System.Drawing.Size(354, 29)
+        Me.SalesStoreComboBox.Size = New System.Drawing.Size(354, 25)
         Me.SalesStoreComboBox.TabIndex = 0
         '
         'SBST_CanChange_cm
@@ -1327,10 +1353,10 @@ Partial Class SB_Edit
         Me.TabPage3.Controls.Add(Me.GroupBox12)
         Me.TabPage3.Controls.Add(Me.GroupBox16)
         Me.TabPage3.Controls.Add(Me.GroupBox15)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 26)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(686, 554)
+        Me.TabPage3.Size = New System.Drawing.Size(686, 558)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "الخزينة"
         '
@@ -1351,9 +1377,9 @@ Partial Class SB_Edit
         Me.ExpTrComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ExpTrComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ExpTrComboBox.FormattingEnabled = True
-        Me.ExpTrComboBox.Location = New System.Drawing.Point(3, 25)
+        Me.ExpTrComboBox.Location = New System.Drawing.Point(3, 21)
         Me.ExpTrComboBox.Name = "ExpTrComboBox"
-        Me.ExpTrComboBox.Size = New System.Drawing.Size(388, 29)
+        Me.ExpTrComboBox.Size = New System.Drawing.Size(388, 25)
         Me.ExpTrComboBox.TabIndex = 0
         '
         'GroupBox12
@@ -1392,7 +1418,7 @@ Partial Class SB_Edit
         Me.Reciept_Tr_cmb.FormattingEnabled = True
         Me.Reciept_Tr_cmb.Location = New System.Drawing.Point(171, 26)
         Me.Reciept_Tr_cmb.Name = "Reciept_Tr_cmb"
-        Me.Reciept_Tr_cmb.Size = New System.Drawing.Size(313, 29)
+        Me.Reciept_Tr_cmb.Size = New System.Drawing.Size(313, 25)
         Me.Reciept_Tr_cmb.TabIndex = 0
         '
         'GroupBox16
@@ -1412,9 +1438,9 @@ Partial Class SB_Edit
         Me.PcshTrComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.PcshTrComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.PcshTrComboBox.FormattingEnabled = True
-        Me.PcshTrComboBox.Location = New System.Drawing.Point(3, 25)
+        Me.PcshTrComboBox.Location = New System.Drawing.Point(3, 21)
         Me.PcshTrComboBox.Name = "PcshTrComboBox"
-        Me.PcshTrComboBox.Size = New System.Drawing.Size(388, 29)
+        Me.PcshTrComboBox.Size = New System.Drawing.Size(388, 25)
         Me.PcshTrComboBox.TabIndex = 0
         '
         'GroupBox15
@@ -1434,9 +1460,9 @@ Partial Class SB_Edit
         Me.SalesTrComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SalesTrComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.SalesTrComboBox.FormattingEnabled = True
-        Me.SalesTrComboBox.Location = New System.Drawing.Point(3, 25)
+        Me.SalesTrComboBox.Location = New System.Drawing.Point(3, 21)
         Me.SalesTrComboBox.Name = "SalesTrComboBox"
-        Me.SalesTrComboBox.Size = New System.Drawing.Size(388, 29)
+        Me.SalesTrComboBox.Size = New System.Drawing.Size(388, 25)
         Me.SalesTrComboBox.TabIndex = 0
         '
         'TabPage2
@@ -1464,10 +1490,10 @@ Partial Class SB_Edit
         Me.TabPage2.Controls.Add(Me.Label5)
         Me.TabPage2.Controls.Add(Me.Label11)
         Me.TabPage2.Controls.Add(Me.A4Printer_Cmb)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 26)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(686, 554)
+        Me.TabPage2.Size = New System.Drawing.Size(686, 558)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "الطابعات"
         '
@@ -1800,10 +1826,10 @@ Partial Class SB_Edit
         Me.TabPage5.Controls.Add(Me.E_mail_txt)
         Me.TabPage5.Controls.Add(Me.E_mail_Pass_txt)
         Me.TabPage5.Controls.Add(Me.ShowPassButton)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 26)
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(686, 554)
+        Me.TabPage5.Size = New System.Drawing.Size(686, 558)
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "البريد الإلكتروني المصدر"
         '
@@ -1834,7 +1860,7 @@ Partial Class SB_Edit
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Location = New System.Drawing.Point(289, 374)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(356, 21)
+        Me.LinkLabel1.Size = New System.Drawing.Size(321, 19)
         Me.LinkLabel1.TabIndex = 265
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "https://myaccount.google.com/lesssecureapps"
@@ -1951,10 +1977,10 @@ Partial Class SB_Edit
         Me.TabPage8.Controls.Add(Me.isUseAsPhone_Crawler_CB)
         Me.TabPage8.Controls.Add(Me.GroupBox4)
         Me.TabPage8.Controls.Add(Me.Panel1)
-        Me.TabPage8.Location = New System.Drawing.Point(4, 30)
+        Me.TabPage8.Location = New System.Drawing.Point(4, 26)
         Me.TabPage8.Name = "TabPage8"
         Me.TabPage8.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage8.Size = New System.Drawing.Size(686, 554)
+        Me.TabPage8.Size = New System.Drawing.Size(686, 558)
         Me.TabPage8.TabIndex = 7
         Me.TabPage8.Text = "أخرى"
         '
@@ -2163,7 +2189,7 @@ Partial Class SB_Edit
         Me.Price_Rd.AutoSize = True
         Me.Price_Rd.Location = New System.Drawing.Point(159, 119)
         Me.Price_Rd.Name = "Price_Rd"
-        Me.Price_Rd.Size = New System.Drawing.Size(148, 25)
+        Me.Price_Rd.Size = New System.Drawing.Size(139, 23)
         Me.Price_Rd.TabIndex = 632
         Me.Price_Rd.Text = "الصف الثاني(سعر)"
         Me.Price_Rd.UseVisualStyleBackColor = True
@@ -2174,7 +2200,7 @@ Partial Class SB_Edit
         Me.Balance_Rd.Checked = True
         Me.Balance_Rd.Location = New System.Drawing.Point(393, 119)
         Me.Balance_Rd.Name = "Balance_Rd"
-        Me.Balance_Rd.Size = New System.Drawing.Size(154, 25)
+        Me.Balance_Rd.Size = New System.Drawing.Size(144, 23)
         Me.Balance_Rd.TabIndex = 631
         Me.Balance_Rd.TabStop = True
         Me.Balance_Rd.Text = "الصف الثاني(ميزان)"
@@ -2366,31 +2392,6 @@ Partial Class SB_Edit
         Me.Help_LB.Text = "اختر التبويب المطلوب وعدّل الإعدادات، ثم اضغط حفظ التعديلات."
         Me.Help_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'GroupBox21
-        '
-        Me.GroupBox21.Controls.Add(Me.IM_Search_Default_Cm)
-        Me.GroupBox21.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox21.Location = New System.Drawing.Point(33, 6)
-        Me.GroupBox21.Name = "GroupBox21"
-        Me.GroupBox21.Size = New System.Drawing.Size(205, 58)
-        Me.GroupBox21.TabIndex = 637
-        Me.GroupBox21.TabStop = False
-        Me.GroupBox21.Text = "بحث الصنف الإفتراضي"
-        '
-        'IM_Search_Default_Cm
-        '
-        Me.IM_Search_Default_Cm.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.IM_Search_Default_Cm.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.IM_Search_Default_Cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.IM_Search_Default_Cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Search_Default_Cm.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.IM_Search_Default_Cm.FormattingEnabled = True
-        Me.IM_Search_Default_Cm.Items.AddRange(New Object() {"رقم الصنف", "إسم الصنف", "باركود الصنف"})
-        Me.IM_Search_Default_Cm.Location = New System.Drawing.Point(3, 25)
-        Me.IM_Search_Default_Cm.Name = "IM_Search_Default_Cm"
-        Me.IM_Search_Default_Cm.Size = New System.Drawing.Size(199, 29)
-        Me.IM_Search_Default_Cm.TabIndex = 616
-        '
         'SB_Edit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
@@ -2410,7 +2411,6 @@ Partial Class SB_Edit
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "إعدادات عامة"
-        Me.TitleBar_Panel.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.CustPageTypeGroupBox.ResumeLayout(False)
         Me.DiscountGroupBox.ResumeLayout(False)
@@ -2430,6 +2430,7 @@ Partial Class SB_Edit
         Me.GroupBox18.ResumeLayout(False)
         Me.TabPage7.ResumeLayout(False)
         Me.TabPage7.PerformLayout()
+        Me.GroupBox21.ResumeLayout(False)
         Me.GroupBox17.ResumeLayout(False)
         Me.GroupBox14.ResumeLayout(False)
         Me.TabPage4.ResumeLayout(False)
@@ -2469,7 +2470,7 @@ Partial Class SB_Edit
         Me.GroupBox4.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.GroupBox21.ResumeLayout(False)
+        Me.TitleBar_Panel.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

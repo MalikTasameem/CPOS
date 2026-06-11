@@ -44,6 +44,7 @@ Public Class SysOptions
             Shurtcut_Btn.Tag = "GENERAL"
             TableButton.Tag = "GENERAL"
             Button1.Tag = "GENERAL"
+            SalesDraftLogsButton.Tag = "GENERAL"
 
             ' 2. تطبيق الثيم
             ThemeManager.ApplyThemeToForm(Me)
@@ -69,6 +70,7 @@ Public Class SysOptions
         Cities_btn.Visible = S_Out_Travel
         Pch_Exp_Btn.Visible = S_Exp_Pch
         CardAgent_Btn.Visible = S_AgentCard
+        SalesDraftLogsButton.Visible = (SScreenDefault = 3)
     End Sub
 
     Private Sub SysOptions_Test_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -226,5 +228,10 @@ Public Class SysOptions
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim f As New frmPaymentDefaultAccount
         f.ShowDialog()
+    End Sub
+
+    Private Sub SalesDraftLogsButton_Click(sender As Object, e As EventArgs) Handles SalesDraftLogsButton.Click
+        Dim frm As New FrmSalesDraftActionLogMonitor(MY_Settings.SqlConStr)
+        frm.ShowDialog()
     End Sub
 End Class

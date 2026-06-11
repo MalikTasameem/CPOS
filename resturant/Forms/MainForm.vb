@@ -2839,6 +2839,11 @@ Public Class MainForm
         Me.Cursor = Cursors.Default
     End Sub
 
+    Private Sub مراقبةحركاتالمبيعاتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles مراقبةحركاتالمبيعاتToolStripMenuItem.Click
+        Dim frm As New FrmSalesDraftActionLogMonitor(MY_Settings.SqlConStr)
+        frm.ShowDialog()
+    End Sub
+
     Private Sub Get_Rct_Not_With_Bills()
         RCT_NOT_WITH_SB_DT.Clear()
         Dim C = New C

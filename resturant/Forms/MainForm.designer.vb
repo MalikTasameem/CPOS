@@ -42,6 +42,7 @@ Partial Class MainForm
         Me.إعدادطلبيةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.إدارةالطلبياتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.لوائحالأسعـــارToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.مراقبةحركاتالمبيعاتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.فواتيرمبيعاتمتعارضهمعالإيصالاتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.Pch_btn = New System.Windows.Forms.ToolStripDropDownButton()
@@ -303,6 +304,12 @@ Partial Class MainForm
         Me.لوائحالأسعـــارToolStripMenuItem.Name = "لوائحالأسعـــارToolStripMenuItem"
         Me.لوائحالأسعـــارToolStripMenuItem.Size = New System.Drawing.Size(179, 24)
         Me.لوائحالأسعـــارToolStripMenuItem.Text = "لوائح الأسعـــار"
+        '
+        'مراقبةحركاتالمبيعاتToolStripMenuItem
+        '
+        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Name = "مراقبةحركاتالمبيعاتToolStripMenuItem"
+        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Size = New System.Drawing.Size(205, 24)
+        Me.مراقبةحركاتالمبيعاتToolStripMenuItem.Text = "مراقبة حركات المبيعات"
         '
         'فواتيرمبيعاتمتعارضهمعالإيصالاتToolStripMenuItem
         '
@@ -1600,6 +1607,7 @@ Partial Class MainForm
     Friend WithEvents إعدادطلبيةToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents إدارةالطلبياتToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents لوائحالأسعـــارToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents مراقبةحركاتالمبيعاتToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents فواتيرمبيعاتمتعارضهمعالإيصالاتToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Pch_LB As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Pch_Rtn_LB As System.Windows.Forms.ToolStripMenuItem

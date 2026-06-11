@@ -65,6 +65,18 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private ShortcutItemsPanel As Panel = Nothing
     Private ShortcutItemsDt As DataTable = Nothing
     Private ShortcutSelectedGroupID As Integer = -1
+    Private DraftLogsDt As DataTable = Nothing
+    Private DraftLogsBindingSource As BindingSource = Nothing
+    Private DraftLogsPanel As Panel = Nothing
+    Private DraftLogsGrid As DataGridView = Nothing
+    Private DraftLogsToggleButton As Button = Nothing
+    Private DraftLogsCountLabel As Label = Nothing
+    Private DraftLogsCounter As Integer = 0
+    Private LastLoggedNotesText As String = ""
+    Private HasLoadedPendingDraftLogs As Boolean = False
+    Private Const DraftLogsPushThreshold As Integer = 600
+    Private ReadOnly DraftLogsQueueFolder As String = IO.Path.Combine(Application.StartupPath, "DraftSales\LogsQueue")
+    Private ReadOnly DraftLogsQueueFilePath As String = IO.Path.Combine(Application.StartupPath, "DraftSales\LogsQueue\SalesDraftActionLogs.xml")
     '--------------------------------------------------------------------------------------------------------------
     Private Sub LoadPrintSettings()
         Dim db As New C()
@@ -279,6 +291,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     '--------------------------------------------------------------------------------------------------------------
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        AddDraftLog("إغلاق", "تم إغلاق شاشة المبيعات المسودة", "Sales_Fast_Draft")
+        PushDraftLogsToDatabase(True)
         FormType = 0
         'F_MainForm.Fill_ALL_IM()
         'If AGMetroGrid.Rows.Count = 0 And isDepended = False Then Delete_Last_Empty_Bill(T_ID)
@@ -310,6 +324,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         BindDraftHeaderToForm()
         LoadDraftToGrid()
         UpdateDraftTotalsOnScreen()
+        AddDraftLog("فتح", "تم فتح مسودة مبيعات", "OpenDraft", "", draftId)
 
     End Sub
 
@@ -326,6 +341,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         ' الملاحظات
         txtNotes.Text = CurrentDraft.About
+        LastLoggedNotesText = txtNotes.Text
 
         ' الخصم
         Discount_txt.Text = CurrentDraft.Discount.ToString("0.000")
@@ -545,6 +561,694 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
 
+    Private Sub InitializeDraftLogs()
+
+        If DraftLogsDt Is Nothing Then
+            DraftLogsDt = New DataTable()
+            DraftLogsDt.Columns.Add("LogId", GetType(Integer))
+            DraftLogsDt.Columns.Add("DraftId", GetType(String))
+            DraftLogsDt.Columns.Add("User_ID", GetType(Integer))
+            DraftLogsDt.Columns.Add("UserName", GetType(String))
+            DraftLogsDt.Columns.Add("MachineName", GetType(String))
+            DraftLogsDt.Columns.Add("ActionDateTime", GetType(DateTime))
+            DraftLogsDt.Columns.Add("ScreenName", GetType(String))
+            DraftLogsDt.Columns.Add("ActionType", GetType(String))
+            DraftLogsDt.Columns.Add("ActionDescription", GetType(String))
+            DraftLogsDt.Columns.Add("ControlName", GetType(String))
+            DraftLogsDt.Columns.Add("OldValue", GetType(String))
+            DraftLogsDt.Columns.Add("NewValue", GetType(String))
+            DraftLogsDt.Columns.Add("ItemName", GetType(String))
+            DraftLogsDt.Columns.Add("IM_ID", GetType(Integer))
+            DraftLogsDt.Columns.Add("Qty", GetType(Decimal))
+            DraftLogsDt.Columns.Add("Total", GetType(Decimal))
+            DraftLogsDt.Columns.Add("Final_T_ID", GetType(Integer))
+            DraftLogsDt.Columns.Add("Final_SB_ID", GetType(Integer))
+            DraftLogsDt.Columns.Add("IsSynced", GetType(Boolean))
+            LoadDraftLogsQueue()
+        End If
+
+        If DraftLogsBindingSource Is Nothing Then
+            DraftLogsBindingSource = New BindingSource()
+            DraftLogsBindingSource.DataSource = DraftLogsDt
+        End If
+
+        If DraftLogsToggleButton IsNot Nothing Then
+            RemoveHandler DraftLogsToggleButton.Click, AddressOf DraftLogsToggleButton_Click
+            Me.Controls.Remove(DraftLogsToggleButton)
+            DraftLogsToggleButton.Dispose()
+            DraftLogsToggleButton = Nothing
+        End If
+
+        If DraftLogsPanel Is Nothing Then
+            DraftLogsPanel = New Panel()
+            DraftLogsPanel.Name = "DraftLogsPanel"
+            DraftLogsPanel.BackColor = Color.White
+            DraftLogsPanel.BorderStyle = BorderStyle.FixedSingle
+            DraftLogsPanel.Visible = False
+            DraftLogsPanel.RightToLeft = Windows.Forms.RightToLeft.Yes
+
+            Dim headerPanel As New Panel()
+            headerPanel.Name = "DraftLogsHeaderPanel"
+            headerPanel.Dock = DockStyle.Top
+            headerPanel.Height = 38
+            headerPanel.BackColor = Color.FromArgb(15, 23, 42)
+
+            Dim titleLabel As New Label()
+            titleLabel.Text = "سجل حركات شاشة المبيعات المسودة"
+            titleLabel.Font = New Font("Segoe UI Semibold", 10.0!, FontStyle.Bold)
+            titleLabel.ForeColor = Color.White
+            titleLabel.Dock = DockStyle.Fill
+            titleLabel.TextAlign = ContentAlignment.MiddleRight
+            titleLabel.Padding = New Padding(0, 0, 12, 0)
+
+            DraftLogsCountLabel = New Label()
+            DraftLogsCountLabel.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
+            DraftLogsCountLabel.ForeColor = Color.FromArgb(226, 232, 240)
+            DraftLogsCountLabel.TextAlign = ContentAlignment.MiddleCenter
+            DraftLogsCountLabel.Dock = DockStyle.Left
+            DraftLogsCountLabel.Width = 120
+
+            Dim closeButton As New Button()
+            closeButton.Name = "DraftLogsCloseButton"
+            closeButton.Text = "×"
+            closeButton.Font = New Font("Segoe UI", 13.0!, FontStyle.Bold)
+            closeButton.Dock = DockStyle.Left
+            closeButton.Width = 38
+            closeButton.FlatStyle = FlatStyle.Flat
+            closeButton.FlatAppearance.BorderSize = 0
+            closeButton.BackColor = Color.FromArgb(185, 28, 28)
+            closeButton.ForeColor = Color.White
+            closeButton.Cursor = Cursors.Hand
+            closeButton.UseVisualStyleBackColor = False
+            AddHandler closeButton.Click,
+                Sub()
+                    DraftLogsPanel.Visible = False
+                End Sub
+
+            headerPanel.Controls.Add(closeButton)
+            headerPanel.Controls.Add(DraftLogsCountLabel)
+            headerPanel.Controls.Add(titleLabel)
+
+            DraftLogsGrid = New DataGridView()
+            DraftLogsGrid.Name = "DraftLogsGrid"
+            DraftLogsGrid.Dock = DockStyle.Fill
+            DraftLogsGrid.DataSource = DraftLogsBindingSource
+            DraftLogsGrid.AllowUserToAddRows = False
+            DraftLogsGrid.AllowUserToDeleteRows = False
+            DraftLogsGrid.ReadOnly = True
+            DraftLogsGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            DraftLogsGrid.MultiSelect = False
+            DraftLogsGrid.RowHeadersVisible = False
+            DraftLogsGrid.BackgroundColor = Color.White
+            DraftLogsGrid.BorderStyle = BorderStyle.None
+            DraftLogsGrid.EnableHeadersVisualStyles = False
+            DraftLogsGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(30, 41, 59)
+            DraftLogsGrid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+            DraftLogsGrid.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 9.0!, FontStyle.Bold)
+            DraftLogsGrid.DefaultCellStyle.Font = New Font("Segoe UI Semibold", 8.75!, FontStyle.Bold)
+            DraftLogsGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252)
+            DraftLogsGrid.RightToLeft = Windows.Forms.RightToLeft.Yes
+            AddHandler DraftLogsGrid.CellFormatting, AddressOf DraftLogsGrid_CellFormatting
+
+            DraftLogsPanel.Controls.Add(DraftLogsGrid)
+            DraftLogsPanel.Controls.Add(headerPanel)
+            Me.Controls.Add(DraftLogsPanel)
+
+            ConfigureDraftLogsGrid()
+            LayoutDraftLogsPanel()
+            DraftLogsPanel.BringToFront()
+        End If
+
+        UpdateDraftLogsCount()
+
+    End Sub
+
+    Private Sub ConfigureDraftLogsGrid()
+
+        If DraftLogsGrid Is Nothing Then Exit Sub
+
+        Dim headers As New Dictionary(Of String, String) From {
+            {"LogId", "م"},
+            {"DraftId", "المسودة"},
+            {"User_ID", "رقم المستخدم"},
+            {"UserName", "المستخدم"},
+            {"MachineName", "الجهاز"},
+            {"ActionDateTime", "الوقت والتاريخ"},
+            {"ScreenName", "الشاشة"},
+            {"ActionType", "نوع الحركة"},
+            {"ActionDescription", "الوصف"},
+            {"ControlName", "الأداة"},
+            {"OldValue", "القيمة السابقة"},
+            {"NewValue", "القيمة الجديدة"},
+            {"ItemName", "الصنف"},
+            {"IM_ID", "رقم الصنف"},
+            {"Qty", "الكمية"},
+            {"Total", "الإجمالي"},
+            {"Final_T_ID", "رقم الحركة"},
+            {"Final_SB_ID", "رقم الفاتورة"},
+            {"IsSynced", "مرحل"}
+        }
+
+        For Each column As DataGridViewColumn In DraftLogsGrid.Columns
+            If headers.ContainsKey(column.Name) Then column.HeaderText = headers(column.Name)
+        Next
+
+        If DraftLogsGrid.Columns.Contains("LogId") Then DraftLogsGrid.Columns("LogId").Width = 45
+        If DraftLogsGrid.Columns.Contains("ActionDateTime") Then
+            DraftLogsGrid.Columns("ActionDateTime").Width = 145
+            DraftLogsGrid.Columns("ActionDateTime").DefaultCellStyle.Format = "yyyy/MM/dd HH:mm:ss"
+        End If
+        If DraftLogsGrid.Columns.Contains("ActionType") Then DraftLogsGrid.Columns("ActionType").Width = 105
+        If DraftLogsGrid.Columns.Contains("ActionDescription") Then DraftLogsGrid.Columns("ActionDescription").Width = 280
+        If DraftLogsGrid.Columns.Contains("UserName") Then DraftLogsGrid.Columns("UserName").Width = 120
+        If DraftLogsGrid.Columns.Contains("MachineName") Then DraftLogsGrid.Columns("MachineName").Width = 110
+        If DraftLogsGrid.Columns.Contains("ItemName") Then DraftLogsGrid.Columns("ItemName").Width = 145
+        If DraftLogsGrid.Columns.Contains("OldValue") Then DraftLogsGrid.Columns("OldValue").Width = 120
+        If DraftLogsGrid.Columns.Contains("NewValue") Then DraftLogsGrid.Columns("NewValue").Width = 120
+        If DraftLogsGrid.Columns.Contains("Final_SB_ID") Then DraftLogsGrid.Columns("Final_SB_ID").Width = 90
+
+        If DraftLogsGrid.Columns.Contains("DraftId") Then DraftLogsGrid.Columns("DraftId").Visible = False
+        If DraftLogsGrid.Columns.Contains("User_ID") Then DraftLogsGrid.Columns("User_ID").Visible = False
+        If DraftLogsGrid.Columns.Contains("ScreenName") Then DraftLogsGrid.Columns("ScreenName").Visible = False
+        If DraftLogsGrid.Columns.Contains("ControlName") Then DraftLogsGrid.Columns("ControlName").Visible = False
+        If DraftLogsGrid.Columns.Contains("IM_ID") Then DraftLogsGrid.Columns("IM_ID").Visible = False
+        If DraftLogsGrid.Columns.Contains("Final_T_ID") Then DraftLogsGrid.Columns("Final_T_ID").Visible = False
+        If DraftLogsGrid.Columns.Contains("IsSynced") Then DraftLogsGrid.Columns("IsSynced").Visible = False
+
+    End Sub
+
+    Private Sub LayoutDraftLogsPanel()
+
+        If DraftLogsPanel Is Nothing Then Exit Sub
+
+        Dim panelWidth As Integer = Math.Min(Me.ClientSize.Width - 24, 960)
+        If panelWidth < 640 Then panelWidth = Math.Max(320, Me.ClientSize.Width - 24)
+
+        Dim panelHeight As Integer = 260
+        If Me.ClientSize.Height < 620 Then panelHeight = 220
+
+        DraftLogsPanel.Size = New Size(panelWidth, panelHeight)
+        DraftLogsPanel.Location = New Point(12, Math.Max(80, Me.ClientSize.Height - panelHeight - 46))
+
+        If DraftLogsToggleButton IsNot Nothing Then DraftLogsToggleButton.BringToFront()
+        If DraftLogsPanel.Visible Then DraftLogsPanel.BringToFront()
+
+    End Sub
+
+    Private Sub DraftLogsToggleButton_Click(sender As Object, e As EventArgs)
+
+        If DraftLogsPanel Is Nothing Then Exit Sub
+
+        DraftLogsPanel.Visible = Not DraftLogsPanel.Visible
+
+        If DraftLogsPanel.Visible Then
+            LayoutDraftLogsPanel()
+            DraftLogsPanel.BringToFront()
+        End If
+
+    End Sub
+
+    Private Sub DraftLogsGrid_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs)
+
+        If DraftLogsGrid Is Nothing OrElse e.RowIndex < 0 Then Exit Sub
+        If Not DraftLogsGrid.Columns.Contains("ActionType") Then Exit Sub
+
+        Dim actionType As String = Convert.ToString(DraftLogsGrid.Rows(e.RowIndex).Cells("ActionType").Value)
+        Dim rowBackColor As Color = Color.White
+        Dim rowForeColor As Color = Color.FromArgb(15, 23, 42)
+
+        Select Case actionType
+            Case "إضافة"
+                rowBackColor = Color.FromArgb(220, 252, 231)
+                rowForeColor = Color.FromArgb(22, 101, 52)
+            Case "حذف"
+                rowBackColor = Color.FromArgb(254, 226, 226)
+                rowForeColor = Color.FromArgb(153, 27, 27)
+            Case "تعديل", "كمية", "وحدة", "خصم", "عميل"
+                rowBackColor = Color.FromArgb(219, 234, 254)
+                rowForeColor = Color.FromArgb(30, 64, 175)
+            Case "حفظ", "طباعة"
+                rowBackColor = Color.FromArgb(254, 249, 195)
+                rowForeColor = Color.FromArgb(133, 77, 14)
+            Case "فتح", "زر"
+                rowBackColor = Color.FromArgb(241, 245, 249)
+                rowForeColor = Color.FromArgb(51, 65, 85)
+            Case "إغلاق"
+                rowBackColor = Color.FromArgb(243, 232, 255)
+                rowForeColor = Color.FromArgb(88, 28, 135)
+        End Select
+
+        Dim selectionBackColor As Color = ControlPaint.Dark(rowBackColor)
+
+        DraftLogsGrid.Rows(e.RowIndex).DefaultCellStyle.BackColor = rowBackColor
+        DraftLogsGrid.Rows(e.RowIndex).DefaultCellStyle.ForeColor = rowForeColor
+        DraftLogsGrid.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = selectionBackColor
+        DraftLogsGrid.Rows(e.RowIndex).DefaultCellStyle.SelectionForeColor = GetReadableDraftLogSelectionForeColor(selectionBackColor)
+
+    End Sub
+
+    Private Function GetReadableDraftLogSelectionForeColor(backColor As Color) As Color
+        Dim brightness As Double = (backColor.R * 0.299) + (backColor.G * 0.587) + (backColor.B * 0.114)
+
+        If brightness < 145 Then Return Color.White
+
+        Return Color.FromArgb(15, 23, 42)
+    End Function
+
+    Private Sub AddDraftLog(actionType As String,
+                            actionDescription As String,
+                            Optional controlName As String = "",
+                            Optional oldValue As String = "",
+                            Optional newValue As String = "",
+                            Optional itemName As String = "",
+                            Optional itemId As Integer = 0,
+                            Optional qty As Decimal = 0D,
+                            Optional total As Decimal = 0D)
+
+        If DraftLogsDt Is Nothing Then InitializeDraftLogs()
+
+        DraftLogsCounter += 1
+
+        Dim draftId As String = ""
+        If CurrentDraft IsNot Nothing AndAlso String.IsNullOrWhiteSpace(CurrentDraft.DraftId) = False Then
+            draftId = CurrentDraft.DraftId
+        End If
+
+        Dim finalTId As Integer = 0
+        Dim finalSbId As Integer = 0
+
+        If CurrentDraft IsNot Nothing Then
+            If CurrentDraft.Final_T_ID.HasValue Then finalTId = CurrentDraft.Final_T_ID.Value
+            If CurrentDraft.Final_SB_ID.HasValue Then finalSbId = CurrentDraft.Final_SB_ID.Value
+        End If
+
+        DraftLogsDt.Rows.Add(
+            DraftLogsCounter,
+            draftId,
+            USER_ID,
+            GetCurrentDraftLogUserName(),
+            Environment.MachineName,
+            DateTime.Now,
+            "شاشة المبيعات المسودة",
+            actionType,
+            actionDescription,
+            controlName,
+            oldValue,
+            newValue,
+            itemName,
+            itemId,
+            qty,
+            total,
+            finalTId,
+            finalSbId,
+            False
+        )
+
+        UpdateDraftLogsCount()
+        PersistDraftLogsQueue()
+
+        If DraftLogsGrid IsNot Nothing AndAlso DraftLogsGrid.Rows.Count > 0 Then
+            Dim lastRowIndex As Integer = DraftLogsGrid.Rows.Count - 1
+            DraftLogsGrid.ClearSelection()
+            DraftLogsGrid.Rows(lastRowIndex).Selected = True
+
+            If DraftLogsPanel IsNot Nothing AndAlso DraftLogsPanel.Visible Then
+                DraftLogsGrid.FirstDisplayedScrollingRowIndex = lastRowIndex
+            End If
+        End If
+
+    End Sub
+
+    Private Function GetCurrentDraftLogUserName() As String
+
+        'If User_Name_lb IsNot Nothing AndAlso String.IsNullOrWhiteSpace(User_Name_lb.Text) = False Then
+        '    Return User_Name_lb.Text
+        'End If
+
+        Return USER_NAME.ToString()
+
+    End Function
+
+    Private Sub UpdateDraftLogsCount()
+
+        If DraftLogsCountLabel IsNot Nothing Then
+            DraftLogsCountLabel.Text = "عدد الحركات: " & If(DraftLogsDt Is Nothing, 0, DraftLogsDt.Rows.Count).ToString("N0")
+        End If
+
+        If DraftLogsToggleButton IsNot Nothing Then
+            DraftLogsToggleButton.Text = "🧾 سجل الحركة" & Environment.NewLine & If(DraftLogsDt Is Nothing, 0, DraftLogsDt.Rows.Count).ToString("N0")
+        End If
+
+    End Sub
+
+    Public Function GetDraftLogsTableCopy() As DataTable
+
+        If DraftLogsDt Is Nothing Then InitializeDraftLogs()
+
+        Return DraftLogsDt.Copy()
+
+    End Function
+
+    Private Sub LoadDraftLogsQueue()
+
+        If DraftLogsDt Is Nothing Then Exit Sub
+
+        If LoadDraftLogsQueueFromFile(DraftLogsQueueFilePath & ".tmp") Then Exit Sub
+        If LoadDraftLogsQueueFromFile(DraftLogsQueueFilePath) Then Exit Sub
+        LoadDraftLogsQueueFromFile(DraftLogsQueueFilePath & ".bak")
+
+    End Sub
+
+    Private Function LoadDraftLogsQueueFromFile(filePath As String) As Boolean
+
+        Try
+            If IO.File.Exists(filePath) = False Then Return False
+
+            Dim queueDt As New DataTable("SalesDraftActionLogsQueue")
+            queueDt.ReadXml(filePath)
+            Dim loadedRowsCount As Integer = 0
+
+            For Each logRow As DataRow In queueDt.Rows
+                If GetLogBooleanValue(logRow, "IsSynced") Then Continue For
+
+                Dim logId As Integer = GetLogIntegerValue(logRow, "LogId")
+                If logId > DraftLogsCounter Then DraftLogsCounter = logId
+
+                DraftLogsDt.Rows.Add(
+                    logId,
+                    GetLogStringValue(logRow, "DraftId"),
+                    GetLogIntegerValue(logRow, "User_ID"),
+                    GetLogStringValue(logRow, "UserName"),
+                    GetLogStringValue(logRow, "MachineName"),
+                    GetLogDateValue(logRow, "ActionDateTime"),
+                    GetLogStringValue(logRow, "ScreenName"),
+                    GetLogStringValue(logRow, "ActionType"),
+                    GetLogStringValue(logRow, "ActionDescription"),
+                    GetLogStringValue(logRow, "ControlName"),
+                    GetLogStringValue(logRow, "OldValue"),
+                    GetLogStringValue(logRow, "NewValue"),
+                    GetLogStringValue(logRow, "ItemName"),
+                    GetLogIntegerValue(logRow, "IM_ID"),
+                    GetLogDecimalValue(logRow, "Qty"),
+                    GetLogDecimalValue(logRow, "Total"),
+                    GetLogIntegerValue(logRow, "Final_T_ID"),
+                    GetLogIntegerValue(logRow, "Final_SB_ID"),
+                    False
+                )
+                loadedRowsCount += 1
+            Next
+
+            If loadedRowsCount > 0 Then HasLoadedPendingDraftLogs = True
+
+            Return loadedRowsCount > 0
+
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Function
+
+    Private Sub PersistDraftLogsQueue()
+
+        If DraftLogsDt Is Nothing Then Exit Sub
+
+        Try
+            Dim queueDt As DataTable = DraftLogsDt.Clone()
+            queueDt.TableName = "SalesDraftActionLogsQueue"
+
+            For Each logRow As DataRow In GetUnsyncedDraftLogRows()
+                queueDt.ImportRow(logRow)
+            Next
+
+            PersistDraftLogsQueueTable(queueDt)
+
+        Catch ex As Exception
+        End Try
+
+    End Sub
+
+    Private Sub PersistDraftLogsQueueTable(queueDt As DataTable)
+
+        Try
+            IO.Directory.CreateDirectory(DraftLogsQueueFolder)
+
+            Dim tempFilePath As String = DraftLogsQueueFilePath & ".tmp"
+            Dim backupFilePath As String = DraftLogsQueueFilePath & ".bak"
+
+            If queueDt Is Nothing OrElse queueDt.Rows.Count = 0 Then
+                If IO.File.Exists(DraftLogsQueueFilePath) Then IO.File.Delete(DraftLogsQueueFilePath)
+                If IO.File.Exists(tempFilePath) Then IO.File.Delete(tempFilePath)
+                If IO.File.Exists(backupFilePath) Then IO.File.Delete(backupFilePath)
+                Exit Sub
+            End If
+
+            Using fs As New IO.FileStream(tempFilePath,
+                                         IO.FileMode.Create,
+                                         IO.FileAccess.Write,
+                                         IO.FileShare.None,
+                                         4096,
+                                         IO.FileOptions.WriteThrough)
+                queueDt.WriteXml(fs, XmlWriteMode.WriteSchema)
+                fs.Flush(True)
+            End Using
+
+            If IO.File.Exists(DraftLogsQueueFilePath) Then
+                IO.File.Replace(tempFilePath, DraftLogsQueueFilePath, backupFilePath, True)
+            Else
+                IO.File.Move(tempFilePath, DraftLogsQueueFilePath)
+            End If
+
+        Catch ex As Exception
+        End Try
+
+    End Sub
+
+    Private Function GetUnsyncedDraftLogRows() As List(Of DataRow)
+
+        Dim rows As New List(Of DataRow)()
+        If DraftLogsDt Is Nothing Then Return rows
+
+        For Each logRow As DataRow In DraftLogsDt.Rows
+            If logRow.RowState = DataRowState.Deleted Then Continue For
+            If GetLogBooleanValue(logRow, "IsSynced") = False Then rows.Add(logRow)
+        Next
+
+        Return rows
+
+    End Function
+
+    Private Sub SetCurrentDraftLogsFinalIds()
+
+        If CurrentDraft Is Nothing OrElse DraftLogsDt Is Nothing Then Exit Sub
+        If String.IsNullOrWhiteSpace(CurrentDraft.DraftId) Then Exit Sub
+
+        Dim finalTId As Integer = If(CurrentDraft.Final_T_ID.HasValue, CurrentDraft.Final_T_ID.Value, 0)
+        Dim finalSbId As Integer = If(CurrentDraft.Final_SB_ID.HasValue, CurrentDraft.Final_SB_ID.Value, 0)
+
+        For Each logRow As DataRow In DraftLogsDt.Rows
+            If logRow.RowState = DataRowState.Deleted Then Continue For
+            If GetLogBooleanValue(logRow, "IsSynced") Then Continue For
+            If GetLogStringValue(logRow, "DraftId").ToString() <> CurrentDraft.DraftId Then Continue For
+
+            logRow("Final_T_ID") = finalTId
+            logRow("Final_SB_ID") = finalSbId
+        Next
+
+        PersistDraftLogsQueue()
+
+    End Sub
+
+    Private Function BuildDraftLogsSqlTable(logRows As List(Of DataRow)) As DataTable
+
+        Dim sqlLogsDt As New DataTable()
+        sqlLogsDt.Columns.Add("DraftLogId", GetType(Integer))
+        sqlLogsDt.Columns.Add("DraftId", GetType(String))
+        sqlLogsDt.Columns.Add("User_ID", GetType(Integer))
+        sqlLogsDt.Columns.Add("UserName", GetType(String))
+        sqlLogsDt.Columns.Add("MachineName", GetType(String))
+        sqlLogsDt.Columns.Add("ActionDateTime", GetType(DateTime))
+        sqlLogsDt.Columns.Add("ScreenName", GetType(String))
+        sqlLogsDt.Columns.Add("ActionType", GetType(String))
+        sqlLogsDt.Columns.Add("ActionDescription", GetType(String))
+        sqlLogsDt.Columns.Add("ControlName", GetType(String))
+        sqlLogsDt.Columns.Add("OldValue", GetType(String))
+        sqlLogsDt.Columns.Add("NewValue", GetType(String))
+        sqlLogsDt.Columns.Add("ItemName", GetType(String))
+        sqlLogsDt.Columns.Add("IM_ID", GetType(Integer))
+        sqlLogsDt.Columns.Add("Qty", GetType(Decimal))
+        sqlLogsDt.Columns.Add("Total", GetType(Decimal))
+
+        If logRows Is Nothing Then Return sqlLogsDt
+
+        For Each logRow As DataRow In logRows
+            sqlLogsDt.Rows.Add(
+                GetLogIntegerValue(logRow, "LogId"),
+                GetLogStringValue(logRow, "DraftId"),
+                GetLogIntegerValue(logRow, "User_ID"),
+                GetLogStringValue(logRow, "UserName"),
+                GetLogStringValue(logRow, "MachineName"),
+                GetLogDateValue(logRow, "ActionDateTime"),
+                GetLogStringValue(logRow, "ScreenName"),
+                GetLogStringValue(logRow, "ActionType"),
+                GetLogStringValue(logRow, "ActionDescription"),
+                GetLogStringValue(logRow, "ControlName"),
+                GetLogStringValue(logRow, "OldValue"),
+                GetLogStringValue(logRow, "NewValue"),
+                GetLogStringValue(logRow, "ItemName"),
+                GetLogIntegerValue(logRow, "IM_ID"),
+                GetLogDecimalValue(logRow, "Qty"),
+                GetLogDecimalValue(logRow, "Total")
+            )
+        Next
+
+        Return sqlLogsDt
+
+    End Function
+
+    Private Function GetLogBooleanValue(logRow As DataRow, columnName As String) As Boolean
+
+        If logRow Is Nothing OrElse logRow.Table.Columns.Contains(columnName) = False Then Return False
+        If logRow(columnName) Is DBNull.Value Then Return False
+
+        Dim boolValue As Boolean
+        If Boolean.TryParse(logRow(columnName).ToString(), boolValue) Then Return boolValue
+
+        Return False
+
+    End Function
+
+    Private Function GetLogStringValue(logRow As DataRow, columnName As String) As Object
+
+        If logRow Is Nothing OrElse logRow.Table.Columns.Contains(columnName) = False Then Return DBNull.Value
+        If logRow(columnName) Is DBNull.Value Then Return DBNull.Value
+
+        Dim textValue As String = logRow(columnName).ToString()
+        If String.IsNullOrWhiteSpace(textValue) Then Return DBNull.Value
+
+        Return textValue
+
+    End Function
+
+    Private Function GetLogIntegerValue(logRow As DataRow, columnName As String) As Integer
+
+        If logRow Is Nothing OrElse logRow.Table.Columns.Contains(columnName) = False Then Return 0
+        If logRow(columnName) Is DBNull.Value Then Return 0
+
+        Dim intValue As Integer
+        If Integer.TryParse(logRow(columnName).ToString(), intValue) Then Return intValue
+
+        Return 0
+
+    End Function
+
+    Private Function GetLogDecimalValue(logRow As DataRow, columnName As String) As Decimal
+
+        If logRow Is Nothing OrElse logRow.Table.Columns.Contains(columnName) = False Then Return 0D
+        If logRow(columnName) Is DBNull.Value Then Return 0D
+
+        Dim decimalValue As Decimal
+        If Decimal.TryParse(logRow(columnName).ToString(), decimalValue) Then Return decimalValue
+
+        Return 0D
+
+    End Function
+
+    Private Function GetLogDateValue(logRow As DataRow, columnName As String) As DateTime
+
+        If logRow Is Nothing OrElse logRow.Table.Columns.Contains(columnName) = False Then Return DateTime.Now
+        If logRow(columnName) Is DBNull.Value Then Return DateTime.Now
+
+        Dim dateValue As DateTime
+        If DateTime.TryParse(logRow(columnName).ToString(), dateValue) Then Return dateValue
+
+        Return DateTime.Now
+
+    End Function
+
+    Private Sub PushDraftLogsToDatabase(Optional forcePush As Boolean = True)
+
+        If DraftLogsDt Is Nothing OrElse DraftLogsDt.Rows.Count = 0 Then Exit Sub
+
+        Dim pendingRows As List(Of DataRow) = GetUnsyncedDraftLogRows()
+        If pendingRows.Count = 0 Then Exit Sub
+        If forcePush = False AndAlso pendingRows.Count < DraftLogsPushThreshold Then Exit Sub
+
+        AddDraftLog("حفظ", "بدء ترحيل سجل حركات المسودة إلى قاعدة البيانات", "SalesDraft_ActionLogs_InsertBatch")
+        pendingRows = GetUnsyncedDraftLogRows()
+
+        Try
+            Dim groupedRows As New Dictionary(Of String, List(Of DataRow))()
+
+            For Each logRow As DataRow In pendingRows
+                Dim finalTId As Integer = GetLogIntegerValue(logRow, "Final_T_ID")
+                Dim finalSbId As Integer = GetLogIntegerValue(logRow, "Final_SB_ID")
+                Dim groupKey As String = finalTId.ToString() & "|" & finalSbId.ToString()
+
+                If groupedRows.ContainsKey(groupKey) = False Then groupedRows.Add(groupKey, New List(Of DataRow)())
+                groupedRows(groupKey).Add(logRow)
+            Next
+
+            Using con As New SqlConnection(MY_Settings.SqlConStr)
+                con.Open()
+
+                For Each groupItem As KeyValuePair(Of String, List(Of DataRow)) In groupedRows
+                    Dim groupRows As List(Of DataRow) = groupItem.Value
+                    Dim sqlLogsDt As DataTable = BuildDraftLogsSqlTable(groupRows)
+                    If sqlLogsDt.Rows.Count = 0 Then Continue For
+
+                    Using cmd As New SqlCommand("dbo.SalesDraft_ActionLogs_InsertBatch", con)
+                        cmd.CommandType = CommandType.StoredProcedure
+                        cmd.CommandTimeout = 120
+
+                        Dim finalTId As Integer = GetLogIntegerValue(groupRows(0), "Final_T_ID")
+                        Dim finalSbId As Integer = GetLogIntegerValue(groupRows(0), "Final_SB_ID")
+
+                        If finalTId > 0 Then
+                            cmd.Parameters.Add("@Final_T_ID", SqlDbType.Int).Value = finalTId
+                        Else
+                            cmd.Parameters.Add("@Final_T_ID", SqlDbType.Int).Value = DBNull.Value
+                        End If
+
+                        If finalSbId > 0 Then
+                            cmd.Parameters.Add("@Final_SB_ID", SqlDbType.Int).Value = finalSbId
+                        Else
+                            cmd.Parameters.Add("@Final_SB_ID", SqlDbType.Int).Value = DBNull.Value
+                        End If
+
+                        Dim logsParameter As New SqlParameter("@Logs", SqlDbType.Structured)
+                        logsParameter.TypeName = "dbo.SalesDraft_ActionLogType"
+                        logsParameter.Value = sqlLogsDt
+                        cmd.Parameters.Add(logsParameter)
+
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    MarkDraftLogsAsSynced(groupRows)
+                    PersistDraftLogsQueue()
+                Next
+            End Using
+
+            If GetUnsyncedDraftLogRows().Count = 0 Then HasLoadedPendingDraftLogs = False
+
+        Catch ex As Exception
+            AddDraftLog("حفظ", "تعذر ترحيل سجل الحركات: " & ex.Message, "SalesDraft_ActionLogs_InsertBatch")
+        End Try
+
+    End Sub
+
+    Private Sub MarkDraftLogsAsSynced(logRows As List(Of DataRow))
+
+        If DraftLogsDt Is Nothing OrElse DraftLogsDt.Columns.Contains("IsSynced") = False Then Exit Sub
+        If logRows Is Nothing Then Exit Sub
+
+        For Each logRow As DataRow In logRows
+            If logRow.RowState = DataRowState.Deleted Then Continue For
+            logRow("IsSynced") = True
+        Next
+
+    End Sub
+
+
     Private Sub Expenses_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
 
         Select Case e.KeyCode
@@ -721,6 +1425,15 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         LoadDraftToGrid()
         SelectDraftLine(draftLineId)
         UpdateDraftTotalsOnScreen()
+        AddDraftLog("كمية",
+                    "تم تعديل كمية الصنف",
+                    "IMIncreaseButton/IMDicreaseButton",
+                    (newQty - deltaQty).ToString("0.###"),
+                    newQty.ToString("0.###"),
+                    item.ItemName,
+                    item.IM_ID,
+                    item.QTY,
+                    item.T_Price)
 
     End Sub
 
@@ -741,6 +1454,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         If item Is Nothing Then Exit Sub
 
+        Dim oldQty As Decimal = item.QTY
         item.QTY = newQty
 
         DraftCalculator.RecalculateDraft(CurrentDraft)
@@ -748,6 +1462,15 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         LoadDraftToGrid()
         SelectDraftLine(draftLineId)
         UpdateDraftTotalsOnScreen()
+        AddDraftLog("كمية",
+                    "تم تحديد كمية الصنف يدويًا",
+                    "dgvSales",
+                    oldQty.ToString("0.###"),
+                    newQty.ToString("0.###"),
+                    item.ItemName,
+                    item.IM_ID,
+                    item.QTY,
+                    item.T_Price)
 
     End Sub
 
@@ -1071,6 +1794,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         Dim groupButton As Button = DirectCast(sender, Button)
         ShortcutSelectedGroupID = CInt(groupButton.Tag)
+        AddDraftLog("زر", "تم اختيار مجموعة الأصناف: " & groupButton.Text, "ShortcutGroupButton")
 
         RenderShortcutGroupButtons()
         RenderShortcutItemsByGroup()
@@ -1156,6 +1880,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Sub IMbtn_Click(ByVal sender As Object, ByVal e As EventArgs)
         IM_Name = sender.Text.ToString
         IM_ID = sender.Tag
+        AddDraftLog("زر", "اختيار صنف من اختصارات البيع", "IMPanel", "", IM_Name, IM_Name, IM_ID)
         Load_IM_By_ID()
     End Sub
 
@@ -1186,6 +1911,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         FormType = 1
         Check_View_Control()
         rs.FindAllControls(Me)
+        InitializeDraftLogs()
         Me.WindowState = FormWindowState.Maximized
         '   EditState = Edit_butt.Text
         loadShortCut_IM()
@@ -1193,6 +1919,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         LoadPrintSettings()
 
         AG_ID = Default_AG_ID
+        AddDraftLog("فتح", "تم فتح شاشة المبيعات المسودة", "Sales_Fast_Draft")
 
         Await Load_ALL_IM()
         UpdateDraftButtonIndicator()
@@ -1383,6 +2110,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         DateTimeEx.Value = CurrentDraft.Date
         'Call_New_Bill(Insert_New)
         NewStateBt()
+        AddDraftLog("فتح", "تم تجهيز فاتورة مسودة جديدة", "ResetNewBill", "", CurrentDraft.DraftId)
     End Sub
 
     Private Function CreateOrReuseEmptyDraftForNewBill() As SaleDraftHeader
@@ -1411,14 +2139,26 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             Exit Sub
         End If
 
+        AddDraftLog("حفظ", "بدء حفظ وترحيل المسودة", "Save_butt", "", CurrentDraft.DraftId)
+
         Me.Cursor = Cursors.WaitCursor
         Try
             Dim ok As Boolean = PushCurrentDraftToDatabase()
 
             If ok Then
+                SetCurrentDraftLogsFinalIds()
+                AddDraftLog("حفظ",
+                            "تم حفظ المسودة وترحيلها بنجاح",
+                            "Save_butt",
+                            CurrentDraft.DraftId,
+                            If(CurrentDraft.Final_SB_ID.HasValue, CurrentDraft.Final_SB_ID.Value.ToString(), ""))
+                AddDraftLog("طباعة", "طباعة الفاتورة بعد الحفظ", "PrintCurrentBill")
+                PushDraftLogsToDatabase(HasLoadedPendingDraftLogs)
                 DraftManager.ArchiveDraft(CurrentDraft)
                 PrintCurrentBill()
                 ResetNewBill()
+            Else
+                AddDraftLog("حفظ", "لم يتم حفظ المسودة أو تم إلغاء العملية", "Save_butt", "", CurrentDraft.DraftId)
             End If
 
         Finally
@@ -1623,6 +2363,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             RenderShortcutGroupButtons()
             RenderShortcutItemsByGroup()
         End If
+        LayoutDraftLogsPanel()
     End Sub
 
     Private Sub Tr_BankNum_TextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Total_TextBox.KeyPress
@@ -2019,6 +2760,15 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         DraftManager.SaveDraft(CurrentDraft)
         LoadDraftToGrid()
         UpdateDraftTotalsOnScreen()
+        AddDraftLog("إضافة",
+                    "تمت إضافة صنف إلى المسودة",
+                    "ADD_IM",
+                    "",
+                    item.ItemName,
+                    item.ItemName,
+                    item.IM_ID,
+                    item.QTY,
+                    item.T_Price)
 
     End Sub
 
@@ -2111,12 +2861,28 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         If dgvSales.CurrentRow Is Nothing Then Exit Sub
 
         Dim draftLineId As String = dgvSales.CurrentRow.Cells("DraftLineId").Value.ToString()
+        Dim item As SaleDraftItem =
+            CurrentDraft.Items.FirstOrDefault(Function(x) x.DraftLineId = draftLineId)
 
         DraftItemService.RemoveItem(CurrentDraft, draftLineId)
 
         DraftManager.SaveDraft(CurrentDraft)
         LoadDraftToGrid()
         UpdateDraftTotalsOnScreen()
+
+        If item IsNot Nothing Then
+            AddDraftLog("حذف",
+                        "تم حذف صنف من المسودة",
+                        "RemoveCatButton",
+                        item.ItemName,
+                        "",
+                        item.ItemName,
+                        item.IM_ID,
+                        item.QTY,
+                        item.T_Price)
+        Else
+            AddDraftLog("حذف", "تم حذف سطر من المسودة", "RemoveCatButton")
+        End If
     End Sub
 
     Private Sub EnsureDraftExists()
@@ -2402,12 +3168,17 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         If dgvSales.Rows.Count > 0 Then
             Try
                 Me.Cursor = Cursors.AppStarting
+                AddDraftLog("طباعة", "بدء طباعة الفاتورة الحالية", "Print_btn")
                 PrintCurrentBill()
+                AddDraftLog("طباعة", "تم إرسال الفاتورة الحالية للطابعة", "Print_btn")
             Catch ex As Exception
+                AddDraftLog("طباعة", "فشل طباعة الفاتورة: " & ex.Message, "Print_btn")
                 MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في الطباعة")
             Finally
                 Me.Cursor = Cursors.Default
             End Try
+        Else
+            AddDraftLog("طباعة", "محاولة طباعة بدون أصناف", "Print_btn")
         End If
     End Sub
 
@@ -2415,6 +3186,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
 
     Private Sub New_butt_Click(sender As Object, e As EventArgs) Handles New_butt.Click
+
+        AddDraftLog("فتح", "طلب فتح فاتورة مسودة جديدة", "New_butt")
 
         If CanOpenNewDraftBill() = False Then Exit Sub
 
@@ -2426,7 +3199,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         If HasItemsInSalesGrid() = False Then Return True
 
-        If ShowSendCurrentBillToDraftDialog() = False Then Return False
+        If ShowSendCurrentBillToDraftDialog() = False Then
+            AddDraftLog("فتح", "تم إلغاء فتح فاتورة جديدة والبقاء على الحالية", "New_butt")
+            Return False
+        End If
 
         Try
             dgvSales.EndEdit()
@@ -2434,8 +3210,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             If CurrentDraft IsNot Nothing Then
                 DraftCalculator.RecalculateDraft(CurrentDraft)
                 DraftManager.SaveDraft(CurrentDraft)
+                AddDraftLog("حفظ", "تم حفظ الفاتورة الحالية كمسودة قبل فتح جديد", "New_butt", "", CurrentDraft.DraftId)
             End If
         Catch ex As Exception
+            AddDraftLog("حفظ", "تعذر حفظ الفاتورة الحالية كمسودة: " & ex.Message, "New_butt")
             MessageBox.Show("تعذر حفظ الفاتورة الحالية كمسودة:" & Environment.NewLine & ex.Message,
                             "تنبيه",
                             MessageBoxButtons.OK,
@@ -2524,6 +3302,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Function
 
     Private Sub PreviousBillsButton_Click(sender As Object, e As EventArgs) Handles PreviousBillsButton.Click
+        AddDraftLog("زر", "فتح شاشة مراجعة الفواتير السابقة", "PreviousBillsButton")
         Sales_Fast.OpenPreviousBillsReviewMode()
     End Sub
 
@@ -2677,14 +3456,17 @@ Me.Name.ToString
     End Sub
 
     Private Sub OpenCahDR_Btn_Click(sender As Object, e As EventArgs) Handles OpenCahDR_Btn.Click
+        AddDraftLog("زر", "فتح درج النقد", "OpenCahDR_Btn")
         Open_Cash_Drawer()
     End Sub
 
     Private Sub Show_Cash_btn_Click(sender As Object, e As EventArgs) Handles Show_Cash_btn.Click
+        AddDraftLog("زر", "عرض المقبوض", "Show_Cash_btn")
         Fetch_Pr_Details_()
     End Sub
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
+        AddDraftLog("إغلاق", "طلب إغلاق شاشة المبيعات المسودة", "ExitFormButton")
         Me.Close()
     End Sub
 
@@ -2693,6 +3475,7 @@ Me.Name.ToString
     End Sub
 
     Private Sub Discount_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Discount_txt.MouseDoubleClick
+        AddDraftLog("زر", "فتح تعديل الخصم من حقل الخصم", "Discount_txt")
         Make_Discount()
     End Sub
 
@@ -2716,10 +3499,12 @@ Me.Name.ToString
     End Sub
 
     Private Sub AG_SH_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles AG_SH_txt.MouseDoubleClick
+        AddDraftLog("زر", "فتح اختيار العميل من حقل العميل", "AG_SH_txt")
         SelectDraftCustomer()
     End Sub
 
     Private Sub ChangeCustomerButton_Click(sender As Object, e As EventArgs) Handles ChangeCustomerButton.Click
+        AddDraftLog("زر", "فتح اختيار العميل", "ChangeCustomerButton")
         SelectDraftCustomer()
     End Sub
 
@@ -2761,6 +3546,8 @@ Me.Name.ToString
 
     Private Sub IM_Search_btn_Click(sender As Object, e As EventArgs) Handles IM_Search_btn.Click
 
+        AddDraftLog("زر", "فتح شاشة بحث الأصناف", "IM_Search_btn")
+
         Dim f As Items_Search = Items_Search.GetInstance()
 
         f.ShowDialog()
@@ -2770,6 +3557,7 @@ Me.Name.ToString
         If GLOBAL_IM_ID > 0 Then
             IM_ID = GLOBAL_IM_ID
             Load_IM_By_ID()
+            AddDraftLog("زر", "تم اختيار صنف من شاشة البحث", "IM_Search_btn", "", GLOBAL_IM_ID.ToString())
             'SelectItemById(GLOBAL_IM_ID) 
         End If
 
@@ -2777,6 +3565,7 @@ Me.Name.ToString
 
 
     Private Sub CALC_Btn_Click(sender As Object, e As EventArgs) Handles CALC_Btn.Click
+        AddDraftLog("زر", "فتح الحاسبة", "CALC_Btn")
         Shell("calc.exe")
     End Sub
 
@@ -2790,6 +3579,7 @@ Me.Name.ToString
     End Sub
 
     Private Async Sub Refresh_IM_Btn_Click(sender As Object, e As EventArgs) Handles Refresh_IM_Btn.Click
+        AddDraftLog("زر", "بدء تحديث الأصناف والاختصارات", "Refresh_IM_Btn")
         Refresh_IM_Btn.Enabled = False
         Refresh_IM_Btn.Text = "جاري التحديث..."
         Refresh_IM_Btn.BackColor = Color.FromArgb(255, 243, 205)
@@ -2801,11 +3591,17 @@ Me.Name.ToString
 
             If isLoaded Then
                 loadShortCut_IM()
+                AddDraftLog("زر",
+                            "تم تحديث الأصناف والاختصارات",
+                            "Refresh_IM_Btn",
+                            "",
+                            IM_Units_Dt.Rows.Count.ToString("N0") & " وحدة / " & ShortcutItemsDt.Rows.Count.ToString("N0") & " اختصار")
                 SetRefreshStatus(
                     "تم التحديث: " & IM_Units_Dt.Rows.Count.ToString("N0") & " وحدة متاحة، و" & ShortcutItemsDt.Rows.Count.ToString("N0") & " اختصار",
                     Color.FromArgb(21, 128, 61)
                 )
             Else
+                AddDraftLog("زر", "تعذر تحديث الأصناف والاختصارات", "Refresh_IM_Btn")
                 SetRefreshStatus("تعذر تحديث الأصناف. راجع رسالة الخطأ.", Color.FromArgb(185, 28, 28))
             End If
         Finally
@@ -2832,6 +3628,21 @@ Me.Name.ToString
         DraftManager.SaveDraft(CurrentDraft)
     End Sub
 
+    Private Sub Notes_txt_Leave(sender As Object, e As EventArgs) Handles txtNotes.Leave
+
+        If CurrentDraft Is Nothing Then Exit Sub
+
+        If String.Equals(LastLoggedNotesText, txtNotes.Text, StringComparison.Ordinal) = False Then
+            AddDraftLog("تعديل",
+                        "تم تعديل ملاحظات المسودة",
+                        "txtNotes",
+                        LastLoggedNotesText,
+                        txtNotes.Text)
+            LastLoggedNotesText = txtNotes.Text
+        End If
+
+    End Sub
+
 
     Private Sub txtDiscount_Leave(sender As Object, e As EventArgs) Handles Discount_txt.Leave
         If CurrentDraft Is Nothing Then Exit Sub
@@ -2839,11 +3650,20 @@ Me.Name.ToString
         Dim disc As Decimal = 0D
         Decimal.TryParse(Discount_txt.Text, disc)
 
+        Dim oldDiscount As Decimal = CurrentDraft.Discount
         CurrentDraft.Discount = disc
         DraftCalculator.RecalculateDraft(CurrentDraft)
 
         DraftManager.SaveDraft(CurrentDraft)
         UpdateDraftTotalsOnScreen()
+
+        If oldDiscount <> disc Then
+            AddDraftLog("خصم",
+                        "تم تعديل خصم المسودة عند مغادرة الحقل",
+                        "Discount_txt",
+                        oldDiscount.ToString("0.###"),
+                        disc.ToString("0.###"))
+        End If
     End Sub
 
     Private Sub AG_SH_txt_TextChanged(sender As Object, e As EventArgs) Handles AG_SH_txt.TextChanged
@@ -2870,6 +3690,8 @@ Me.Name.ToString
         Dim item = CurrentDraft.Items.FirstOrDefault(Function(x) x.DraftLineId = draftLineId)
         If item Is Nothing Then Exit Sub
 
+        Dim oldQty As Decimal = item.QTY
+        Dim oldPrice As Decimal = item.Price
         item.QTY = Convert.ToDecimal(row.Cells("QTY").Value)
         item.Price = Convert.ToDecimal(row.Cells("Price").Value)
         item.Compons = If(row.Cells("Compons").Value, "").ToString()
@@ -2880,10 +3702,20 @@ Me.Name.ToString
 
         LoadDraftToGrid()
         UpdateDraftTotalsOnScreen()
+        AddDraftLog("تعديل",
+                    "تم تعديل بيانات سطر الصنف",
+                    "dgvSales",
+                    "كمية: " & oldQty.ToString("0.###") & " / سعر: " & oldPrice.ToString("0.###"),
+                    "كمية: " & item.QTY.ToString("0.###") & " / سعر: " & item.Price.ToString("0.###"),
+                    item.ItemName,
+                    item.IM_ID,
+                    item.QTY,
+                    item.T_Price)
 
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Draft_Btn.Click
+        AddDraftLog("زر", "فتح قائمة المسودات", "Draft_Btn")
         Try
             Sales_Drafts_Menu.ShowDialog()
         Finally
@@ -2895,6 +3727,7 @@ Me.Name.ToString
 
         EnsureDraftExists()
 
+        Dim oldCustomerName As String = CurrentDraft.CustomerName
         CurrentDraft.AG_ID = agId
         CurrentDraft.AG_NAME = agName
         CurrentDraft.UpdatedAt = DateTime.Now
@@ -2904,6 +3737,11 @@ Me.Name.ToString
         AG_SH_txt.Text = agName
 
         DraftManager.SaveDraft(CurrentDraft)
+        AddDraftLog("عميل",
+                    "تم تغيير عميل المسودة",
+                    "ChangeCustomerButton",
+                    oldCustomerName,
+                    agName)
 
     End Sub
 
@@ -2921,6 +3759,7 @@ Me.Name.ToString
             Exit Sub
         End If
 
+        Dim oldDiscount As Decimal = CurrentDraft.Discount
         CurrentDraft.Discount = discountValue
         Discount_txt.Text = discountValue
 
@@ -2928,21 +3767,29 @@ Me.Name.ToString
         DraftManager.SaveDraft(CurrentDraft)
 
         UpdateDraftTotalsOnScreen()
+        AddDraftLog("خصم",
+                    "تم تعديل خصم المسودة",
+                    "Discount_txt",
+                    oldDiscount.ToString("0.###"),
+                    discountValue.ToString("0.###"))
 
     End Sub
 
     Private Sub IMIncreaseButton_Click(sender As Object, e As EventArgs) Handles IMIncreaseButton.Click
+        AddDraftLog("زر", "طلب زيادة كمية الصنف المحدد", "IMIncreaseButton")
         Dim Def As Double = 1
         ChangeQtyByInput(Def, False)
     End Sub
 
     Private Sub IMDicreaseButton_Click(sender As Object, e As EventArgs) Handles IMDicreaseButton.Click
+        AddDraftLog("زر", "طلب إنقاص كمية الصنف المحدد", "IMDicreaseButton")
         Dim Def As Double = -1
         ChangeQtyByInput(Def, False)
     End Sub
 
     Private Sub Units_btn_Click(sender As Object, e As EventArgs) Handles Units_btn.Click
 
+        AddDraftLog("زر", "فتح شاشة تغيير وحدة الصنف", "Units_btn")
 
         If dgvSales.Rows.Count = 0 Then Exit Sub
 
@@ -2990,6 +3837,9 @@ Me.Name.ToString
 
         If item Is Nothing Then Exit Sub
 
+        Dim oldUnitName As String = item.UnitName
+        Dim oldPrice As Decimal = item.Price
+
         ' تعديل بيانات الوحدة
         item.U_ID = newUnitId
         item.UnitName = newUnitName
@@ -3010,11 +3860,21 @@ Me.Name.ToString
         ' تحديث الشاشة
         LoadDraftToGrid()
         UpdateDraftTotalsOnScreen()
+        AddDraftLog("وحدة",
+                    "تم تغيير وحدة الصنف",
+                    "Units_btn",
+                    oldUnitName & " / " & oldPrice.ToString("0.###"),
+                    newUnitName & " / " & newPrice.ToString("0.###"),
+                    item.ItemName,
+                    item.IM_ID,
+                    item.QTY,
+                    item.T_Price)
 
     End Sub
 
     Private Sub Calc_Dicount_Btn_Click(sender As Object, e As EventArgs) Handles Calc_Dicount_Btn.Click
         'Make_Discount()
+        AddDraftLog("زر", "فتح إدخال الخصم", "Calc_Dicount_Btn")
         ChangeDiscountByInput()
     End Sub
 
