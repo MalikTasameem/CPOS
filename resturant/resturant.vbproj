@@ -1492,6 +1492,7 @@
     <Compile Include="Classes\Printing\SalesPrintData.vb" />
     <Compile Include="Classes\Printing\SalesPrintDocumentRenderer.vb" />
     <Compile Include="Classes\Printing\SalesPrintProfile.vb" />
+    <Compile Include="Classes\Printing\SalesPrintPrinterResolver.vb" />
     <Compile Include="Classes\Printing\SalesPrintRepository.vb" />
     <Compile Include="Modules\FAST_REPORT\Printer.vb" />
     <Compile Include="Modules\FAST_REPORT\PrintingFormat.vb" />

@@ -34,6 +34,7 @@ Public Class FrmSalesPrintLayoutManager
         Try
             SetupGrids()
             LoadPrinters()
+            cmbPrinter.Enabled = False
             LoadInstalledFonts()
             LoadTemporaryTemplates()
             UpdatePrintActionsState()
@@ -258,12 +259,13 @@ Public Class FrmSalesPrintLayoutManager
         cmbPaperKind.SelectedItem = If(String.IsNullOrWhiteSpace(profile.PaperKind), "A4", profile.PaperKind)
         EnsureFontInList(profile.FontFamily)
         cmbFontFamily.SelectedItem = profile.FontFamily
-        EnsurePrinterInList(profile.PrinterName)
-        cmbPrinter.SelectedItem = profile.PrinterName
+        UpdateLocalPrinterSelection(profile.PaperKind)
         numMarginLeft.Value = ClampMargin(profile.MarginLeft)
         numMarginRight.Value = ClampMargin(profile.MarginRight)
         numMarginTop.Value = ClampMargin(profile.MarginTop)
         numMarginBottom.Value = ClampMargin(profile.MarginBottom)
+        numLogoWidth.Value = ClampLogoDimension(profile.LogoWidth)
+        numLogoHeight.Value = ClampLogoDimension(profile.LogoHeight)
         chkLandscape.Checked = profile.Landscape
 
         dgvSections.DataSource = ComponentsToTable(profile.Components.Where(Function(c) c.ComponentScope = "SECTION").OrderBy(Function(c) c.SortOrder).ToList())
@@ -280,9 +282,21 @@ Public Class FrmSalesPrintLayoutManager
         Return value
     End Function
 
+    Private Function ClampLogoDimension(value As Integer) As Decimal
+        If value < 20 Then Return 20
+        If value > 300 Then Return 300
+        Return value
+    End Function
+
     Private Sub EnsurePrinterInList(printerName As String)
         If String.IsNullOrWhiteSpace(printerName) Then Return
         If cmbPrinter.Items.Contains(printerName) = False Then cmbPrinter.Items.Add(printerName)
+    End Sub
+
+    Private Sub UpdateLocalPrinterSelection(paperKind As String)
+        Dim localPrinter As String = SalesPrintPrinterResolver.GetLocalPrinterName(paperKind)
+        EnsurePrinterInList(localPrinter)
+        cmbPrinter.SelectedItem = If(String.IsNullOrWhiteSpace(localPrinter), "", localPrinter)
     End Sub
 
     Private Function ComponentsToTable(components As List(Of SalesPrintComponent)) As DataTable
@@ -356,11 +370,13 @@ Public Class FrmSalesPrintLayoutManager
         If String.IsNullOrWhiteSpace(profile.ProfileName) Then profile.ProfileName = "تصميم فاتورة المبيعات"
         profile.UsageKey = CurrentUsageKey
         profile.PaperKind = If(cmbPaperKind.SelectedItem Is Nothing, "A4", cmbPaperKind.SelectedItem.ToString())
-        profile.PrinterName = If(cmbPrinter.SelectedItem Is Nothing, "", cmbPrinter.SelectedItem.ToString())
+        profile.PrinterName = ""
         profile.MarginLeft = Convert.ToInt32(numMarginLeft.Value)
         profile.MarginRight = Convert.ToInt32(numMarginRight.Value)
         profile.MarginTop = Convert.ToInt32(numMarginTop.Value)
         profile.MarginBottom = Convert.ToInt32(numMarginBottom.Value)
+        profile.LogoWidth = Convert.ToInt32(numLogoWidth.Value)
+        profile.LogoHeight = Convert.ToInt32(numLogoHeight.Value)
         profile.Landscape = chkLandscape.Checked
         profile.FontFamily = If(cmbFontFamily.SelectedItem Is Nothing, "Segoe UI", cmbFontFamily.SelectedItem.ToString())
         profile.Components.Clear()
@@ -485,11 +501,8 @@ Public Class FrmSalesPrintLayoutManager
     Private Sub cmbPaperKind_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPaperKind.SelectedIndexChanged
         If IsLoading Then Return
         If cmbPaperKind.SelectedItem Is Nothing Then Return
-        If cmbPrinter.SelectedItem IsNot Nothing AndAlso String.IsNullOrWhiteSpace(cmbPrinter.SelectedItem.ToString()) = False Then Return
 
-        Dim defaultPrinter As String = If(cmbPaperKind.SelectedItem.ToString() = "RECEIPT", Default_Printer_80, Default_Printer_A4)
-        EnsurePrinterInList(defaultPrinter)
-        cmbPrinter.SelectedItem = defaultPrinter
+        UpdateLocalPrinterSelection(cmbPaperKind.SelectedItem.ToString())
     End Sub
 
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
@@ -540,6 +553,7 @@ Public Class FrmSalesPrintLayoutManager
         Try
             EndGridEdit()
             Dim profile As SalesPrintProfile = BuildProfileFromControls()
+            SalesPrintPrinterResolver.ApplyLocalPrinter(profile)
             Using doc As PrintDocument = New SalesPrintDocumentRenderer(CurrentPrintData, profile).CreatePrintDocument()
                 Using preview As New PrintPreviewDialog()
                     preview.Document = doc
@@ -562,6 +576,7 @@ Public Class FrmSalesPrintLayoutManager
         Try
             EndGridEdit()
             Dim profile As SalesPrintProfile = BuildProfileFromControls()
+            SalesPrintPrinterResolver.ApplyLocalPrinter(profile)
             Using doc As PrintDocument = New SalesPrintDocumentRenderer(CurrentPrintData, profile).CreatePrintDocument()
                 doc.PrintController = New StandardPrintController()
                 doc.Print()

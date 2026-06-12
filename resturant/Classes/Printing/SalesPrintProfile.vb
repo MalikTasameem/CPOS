@@ -13,6 +13,8 @@ Public Class SalesPrintProfile
     Public Property MarginRight As Integer = 35
     Public Property MarginTop As Integer = 40
     Public Property MarginBottom As Integer = 45
+    Public Property LogoWidth As Integer = 72
+    Public Property LogoHeight As Integer = 72
     Public Property FontFamily As String = "Segoe UI"
     Public Property TitleFontSize As Decimal = 15D
     Public Property SubTitleFontSize As Decimal = 10D
@@ -48,6 +50,8 @@ Public Class SalesPrintProfile
         p.MarginRight = MarginRight
         p.MarginTop = MarginTop
         p.MarginBottom = MarginBottom
+        p.LogoWidth = LogoWidth
+        p.LogoHeight = LogoHeight
         p.FontFamily = FontFamily
         p.TitleFontSize = TitleFontSize
         p.SubTitleFontSize = SubTitleFontSize

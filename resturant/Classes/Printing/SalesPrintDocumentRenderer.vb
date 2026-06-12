@@ -90,10 +90,12 @@ Public Class SalesPrintDocumentRenderer
 
     Private Sub DrawHeader(g As Graphics, bounds As Rectangle, ByRef y As Integer, titleFont As Font, subTitleFont As Font, infoFont As Font, centerFormat As StringFormat, rightFormat As StringFormat)
         If IsSectionVisible("Logo") AndAlso PrintData.LogoImage IsNot Nothing Then
-            Dim logoSize As Integer = If(Profile.PaperKind.ToUpperInvariant() = "RECEIPT", 48, 72)
-            Dim logoX As Integer = bounds.Left + ((bounds.Width - logoSize) \ 2)
-            g.DrawImage(PrintData.LogoImage, logoX, y, logoSize, logoSize)
-            y += logoSize + 4
+            Dim defaultLogoSize As Integer = If(Profile.PaperKind.ToUpperInvariant() = "RECEIPT", 48, 72)
+            Dim logoWidth As Integer = ClampLogoDimension(Profile.LogoWidth, defaultLogoSize)
+            Dim logoHeight As Integer = ClampLogoDimension(Profile.LogoHeight, defaultLogoSize)
+            Dim logoX As Integer = bounds.Left + ((bounds.Width - logoWidth) \ 2)
+            g.DrawImage(PrintData.LogoImage, logoX, y, logoWidth, logoHeight)
+            y += logoHeight + 4
         End If
 
         If IsSectionVisible("StoreTitle") AndAlso String.IsNullOrWhiteSpace(PrintData.StoreTitle) = False Then
@@ -371,6 +373,13 @@ Public Class SalesPrintDocumentRenderer
         Catch
             Return Color.Black
         End Try
+    End Function
+
+    Private Function ClampLogoDimension(value As Integer, defaultValue As Integer) As Integer
+        If value <= 0 Then Return defaultValue
+        If value < 20 Then Return 20
+        If value > 300 Then Return 300
+        Return value
     End Function
 
     Private Sub DrawCellBorder(g As Graphics, rect As Rectangle)

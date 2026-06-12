@@ -22,6 +22,7 @@ Partial Class SysOptions
         Me.MaxFormButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.F_Panel = New System.Windows.Forms.Panel()
+        Me.SalesFastPrintLayoutButton = New System.Windows.Forms.Button()
         Me.SalesPrintLayoutButton = New System.Windows.Forms.Button()
         Me.SalesDraftLogsButton = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -105,6 +106,7 @@ Partial Class SysOptions
         '
         'F_Panel
         '
+        Me.F_Panel.Controls.Add(Me.SalesFastPrintLayoutButton)
         Me.F_Panel.Controls.Add(Me.SalesPrintLayoutButton)
         Me.F_Panel.Controls.Add(Me.SalesDraftLogsButton)
         Me.F_Panel.Controls.Add(Me.Button2)
@@ -133,6 +135,18 @@ Partial Class SysOptions
         Me.F_Panel.Size = New System.Drawing.Size(1107, 558)
         Me.F_Panel.TabIndex = 1
         Me.F_Panel.Tag = "TRANSPARENT"
+        '
+        'SalesFastPrintLayoutButton
+        '
+        Me.SalesFastPrintLayoutButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SalesFastPrintLayoutButton.FlatAppearance.BorderSize = 0
+        Me.SalesFastPrintLayoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.SalesFastPrintLayoutButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.SalesFastPrintLayoutButton.Location = New System.Drawing.Point(481, 429)
+        Me.SalesFastPrintLayoutButton.Name = "SalesFastPrintLayoutButton"
+        Me.SalesFastPrintLayoutButton.Size = New System.Drawing.Size(183, 79)
+        Me.SalesFastPrintLayoutButton.TabIndex = 22
+        Me.SalesFastPrintLayoutButton.Text = "🧾" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "قوالب طباعة المبيعات السريعة"
         '
         'SalesPrintLayoutButton
         '
@@ -445,4 +459,5 @@ Partial Class SysOptions
     Friend WithEvents Button2 As Button
     Friend WithEvents SalesDraftLogsButton As Button
     Friend WithEvents SalesPrintLayoutButton As Button
+    Friend WithEvents SalesFastPrintLayoutButton As Button
 End Class

@@ -235,7 +235,7 @@ Partial Class SB_Edit
         Me.GroupBox2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(460, 4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(182, 58)
+        Me.GroupBox2.Size = New System.Drawing.Size(223, 58)
         Me.GroupBox2.TabIndex = 274
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "شاشة البيع الإفتراضية"
@@ -246,12 +246,12 @@ Partial Class SB_Edit
         Me.SScreenDefault_Cmb.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SScreenDefault_Cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SScreenDefault_Cmb.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SScreenDefault_Cmb.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.SScreenDefault_Cmb.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.SScreenDefault_Cmb.FormattingEnabled = True
         Me.SScreenDefault_Cmb.Items.AddRange(New Object() {"شاشة عادية", "شاشة لمس", "الشاشة السريعة", "الشاشة السريعة بالمسودات"})
         Me.SScreenDefault_Cmb.Location = New System.Drawing.Point(3, 25)
         Me.SScreenDefault_Cmb.Name = "SScreenDefault_Cmb"
-        Me.SScreenDefault_Cmb.Size = New System.Drawing.Size(176, 28)
+        Me.SScreenDefault_Cmb.Size = New System.Drawing.Size(217, 25)
         Me.SScreenDefault_Cmb.TabIndex = 262
         Me.SScreenDefault_Cmb.Tag = ""
         '
@@ -413,10 +413,11 @@ Partial Class SB_Edit
         Me.Orders_PageTypeCm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Orders_PageTypeCm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Orders_PageTypeCm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Orders_PageTypeCm.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.Orders_PageTypeCm.FormattingEnabled = True
         Me.Orders_PageTypeCm.Location = New System.Drawing.Point(3, 25)
         Me.Orders_PageTypeCm.Name = "Orders_PageTypeCm"
-        Me.Orders_PageTypeCm.Size = New System.Drawing.Size(147, 29)
+        Me.Orders_PageTypeCm.Size = New System.Drawing.Size(147, 25)
         Me.Orders_PageTypeCm.TabIndex = 259
         '
         'Label5
@@ -458,10 +459,11 @@ Partial Class SB_Edit
         'MinimumDiscountTextBox
         '
         Me.MinimumDiscountTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.MinimumDiscountTextBox.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MinimumDiscountTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MinimumDiscountTextBox.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.MinimumDiscountTextBox.Location = New System.Drawing.Point(48, 23)
         Me.MinimumDiscountTextBox.Name = "MinimumDiscountTextBox"
-        Me.MinimumDiscountTextBox.Size = New System.Drawing.Size(104, 29)
+        Me.MinimumDiscountTextBox.Size = New System.Drawing.Size(104, 25)
         Me.MinimumDiscountTextBox.TabIndex = 252
         Me.MinimumDiscountTextBox.Text = "0"
         Me.MinimumDiscountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -483,11 +485,12 @@ Partial Class SB_Edit
         Me.BillDefaultStateCm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BillDefaultStateCm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.BillDefaultStateCm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BillDefaultStateCm.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.BillDefaultStateCm.FormattingEnabled = True
         Me.BillDefaultStateCm.Items.AddRange(New Object() {"داخلية", "خارجية", "طلبية"})
         Me.BillDefaultStateCm.Location = New System.Drawing.Point(3, 25)
         Me.BillDefaultStateCm.Name = "BillDefaultStateCm"
-        Me.BillDefaultStateCm.Size = New System.Drawing.Size(224, 29)
+        Me.BillDefaultStateCm.Size = New System.Drawing.Size(224, 25)
         Me.BillDefaultStateCm.TabIndex = 262
         '
         'isDiscountCheckBox
@@ -522,10 +525,11 @@ Partial Class SB_Edit
         Me.Receipts_PageTypeCm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Receipts_PageTypeCm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Receipts_PageTypeCm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Receipts_PageTypeCm.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.Receipts_PageTypeCm.FormattingEnabled = True
         Me.Receipts_PageTypeCm.Location = New System.Drawing.Point(3, 25)
         Me.Receipts_PageTypeCm.Name = "Receipts_PageTypeCm"
-        Me.Receipts_PageTypeCm.Size = New System.Drawing.Size(181, 29)
+        Me.Receipts_PageTypeCm.Size = New System.Drawing.Size(181, 25)
         Me.Receipts_PageTypeCm.TabIndex = 259
         '
         'GroupBox3
@@ -546,10 +550,11 @@ Partial Class SB_Edit
         Me.Default_AG_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Default_AG_cm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Default_AG_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Default_AG_cm.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.Default_AG_cm.FormattingEnabled = True
         Me.Default_AG_cm.Location = New System.Drawing.Point(3, 25)
         Me.Default_AG_cm.Name = "Default_AG_cm"
-        Me.Default_AG_cm.Size = New System.Drawing.Size(243, 29)
+        Me.Default_AG_cm.Size = New System.Drawing.Size(243, 25)
         Me.Default_AG_cm.TabIndex = 262
         '
         'isCostmerScreen_CB
@@ -584,10 +589,11 @@ Partial Class SB_Edit
         Me.AGBillType.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AGBillType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.AGBillType.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AGBillType.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.AGBillType.FormattingEnabled = True
         Me.AGBillType.Location = New System.Drawing.Point(3, 25)
         Me.AGBillType.Name = "AGBillType"
-        Me.AGBillType.Size = New System.Drawing.Size(200, 29)
+        Me.AGBillType.Size = New System.Drawing.Size(200, 25)
         Me.AGBillType.TabIndex = 259
         '
         'GroupBox5
@@ -659,10 +665,11 @@ Partial Class SB_Edit
         Me.Sales_Bill_Page_cm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Sales_Bill_Page_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Sales_Bill_Page_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Sales_Bill_Page_cm.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.Sales_Bill_Page_cm.FormattingEnabled = True
         Me.Sales_Bill_Page_cm.Location = New System.Drawing.Point(3, 25)
         Me.Sales_Bill_Page_cm.Name = "Sales_Bill_Page_cm"
-        Me.Sales_Bill_Page_cm.Size = New System.Drawing.Size(368, 29)
+        Me.Sales_Bill_Page_cm.Size = New System.Drawing.Size(368, 25)
         Me.Sales_Bill_Page_cm.TabIndex = 259
         '
         'GroupBox7
@@ -754,11 +761,12 @@ Partial Class SB_Edit
         Me.POS_BARCODE_TYPE_CM.Dock = System.Windows.Forms.DockStyle.Fill
         Me.POS_BARCODE_TYPE_CM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.POS_BARCODE_TYPE_CM.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.POS_BARCODE_TYPE_CM.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.POS_BARCODE_TYPE_CM.FormattingEnabled = True
         Me.POS_BARCODE_TYPE_CM.Items.AddRange(New Object() {"بلا", "CODE_128", "QR CODE"})
         Me.POS_BARCODE_TYPE_CM.Location = New System.Drawing.Point(3, 25)
         Me.POS_BARCODE_TYPE_CM.Name = "POS_BARCODE_TYPE_CM"
-        Me.POS_BARCODE_TYPE_CM.Size = New System.Drawing.Size(200, 29)
+        Me.POS_BARCODE_TYPE_CM.Size = New System.Drawing.Size(200, 25)
         Me.POS_BARCODE_TYPE_CM.TabIndex = 259
         '
         'SB_IM_NEW_ROW_CB
@@ -871,10 +879,11 @@ Partial Class SB_Edit
         Me.Total_Port_cm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Total_Port_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Total_Port_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Total_Port_cm.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.Total_Port_cm.FormattingEnabled = True
         Me.Total_Port_cm.Location = New System.Drawing.Point(3, 25)
         Me.Total_Port_cm.Name = "Total_Port_cm"
-        Me.Total_Port_cm.Size = New System.Drawing.Size(181, 29)
+        Me.Total_Port_cm.Size = New System.Drawing.Size(181, 25)
         Me.Total_Port_cm.TabIndex = 259
         '
         'Discount_Distribute_CB
@@ -1129,19 +1138,21 @@ Partial Class SB_Edit
         '
         'CMPNameTextBox
         '
-        Me.CMPNameTextBox.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CMPNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CMPNameTextBox.Font = New System.Drawing.Font("Segoe UI", 13.25!)
         Me.CMPNameTextBox.Location = New System.Drawing.Point(52, 44)
         Me.CMPNameTextBox.Name = "CMPNameTextBox"
-        Me.CMPNameTextBox.Size = New System.Drawing.Size(539, 33)
+        Me.CMPNameTextBox.Size = New System.Drawing.Size(539, 31)
         Me.CMPNameTextBox.TabIndex = 253
         Me.CMPNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'CmpEnglishNameTextBox
         '
-        Me.CmpEnglishNameTextBox.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CmpEnglishNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CmpEnglishNameTextBox.Font = New System.Drawing.Font("Segoe UI", 13.25!)
         Me.CmpEnglishNameTextBox.Location = New System.Drawing.Point(52, 105)
         Me.CmpEnglishNameTextBox.Name = "CmpEnglishNameTextBox"
-        Me.CmpEnglishNameTextBox.Size = New System.Drawing.Size(539, 33)
+        Me.CmpEnglishNameTextBox.Size = New System.Drawing.Size(539, 31)
         Me.CmpEnglishNameTextBox.TabIndex = 256
         Me.CmpEnglishNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1159,6 +1170,7 @@ Partial Class SB_Edit
         '
         'NotesTextBox
         '
+        Me.NotesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.NotesTextBox.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NotesTextBox.Location = New System.Drawing.Point(52, 394)
         Me.NotesTextBox.Multiline = True

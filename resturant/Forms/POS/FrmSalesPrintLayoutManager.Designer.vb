@@ -29,6 +29,10 @@ Partial Class FrmSalesPrintLayoutManager
         Me.dgvStyles = New System.Windows.Forms.DataGridView()
         Me.dgvSections = New System.Windows.Forms.DataGridView()
         Me.grpOptions = New System.Windows.Forms.GroupBox()
+        Me.numLogoHeight = New System.Windows.Forms.NumericUpDown()
+        Me.numLogoWidth = New System.Windows.Forms.NumericUpDown()
+        Me.lblLogoHeight = New System.Windows.Forms.Label()
+        Me.lblLogoWidth = New System.Windows.Forms.Label()
         Me.cmbFontFamily = New System.Windows.Forms.ComboBox()
         Me.lblFontFamily = New System.Windows.Forms.Label()
         Me.chkLandscape = New System.Windows.Forms.CheckBox()
@@ -64,6 +68,8 @@ Partial Class FrmSalesPrintLayoutManager
         CType(Me.dgvStyles, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvSections, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpOptions.SuspendLayout()
+        CType(Me.numLogoHeight, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numLogoWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMarginBottom, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMarginTop, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMarginRight, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -231,6 +237,10 @@ Partial Class FrmSalesPrintLayoutManager
         '
         Me.grpOptions.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right) _
             Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
+        Me.grpOptions.Controls.Add(Me.numLogoHeight)
+        Me.grpOptions.Controls.Add(Me.numLogoWidth)
+        Me.grpOptions.Controls.Add(Me.lblLogoHeight)
+        Me.grpOptions.Controls.Add(Me.lblLogoWidth)
         Me.grpOptions.Controls.Add(Me.cmbFontFamily)
         Me.grpOptions.Controls.Add(Me.lblFontFamily)
         Me.grpOptions.Controls.Add(Me.chkLandscape)
@@ -259,6 +269,48 @@ Partial Class FrmSalesPrintLayoutManager
         Me.grpOptions.TabStop = False
         Me.grpOptions.Text = "الإعدادات العامة"
         '
+        'numLogoHeight
+        '
+        Me.numLogoHeight.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.numLogoHeight.Location = New System.Drawing.Point(20, 218)
+        Me.numLogoHeight.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
+        Me.numLogoHeight.Minimum = New Decimal(New Integer() {20, 0, 0, 0})
+        Me.numLogoHeight.Name = "numLogoHeight"
+        Me.numLogoHeight.Size = New System.Drawing.Size(120, 25)
+        Me.numLogoHeight.TabIndex = 22
+        Me.numLogoHeight.Value = New Decimal(New Integer() {72, 0, 0, 0})
+        '
+        'numLogoWidth
+        '
+        Me.numLogoWidth.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.numLogoWidth.Location = New System.Drawing.Point(20, 181)
+        Me.numLogoWidth.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
+        Me.numLogoWidth.Minimum = New Decimal(New Integer() {20, 0, 0, 0})
+        Me.numLogoWidth.Name = "numLogoWidth"
+        Me.numLogoWidth.Size = New System.Drawing.Size(120, 25)
+        Me.numLogoWidth.TabIndex = 20
+        Me.numLogoWidth.Value = New Decimal(New Integer() {72, 0, 0, 0})
+        '
+        'lblLogoHeight
+        '
+        Me.lblLogoHeight.Font = New System.Drawing.Font("Segoe UI", 9.5!)
+        Me.lblLogoHeight.Location = New System.Drawing.Point(146, 216)
+        Me.lblLogoHeight.Name = "lblLogoHeight"
+        Me.lblLogoHeight.Size = New System.Drawing.Size(220, 26)
+        Me.lblLogoHeight.TabIndex = 21
+        Me.lblLogoHeight.Text = "طول الشعار"
+        Me.lblLogoHeight.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblLogoWidth
+        '
+        Me.lblLogoWidth.Font = New System.Drawing.Font("Segoe UI", 9.5!)
+        Me.lblLogoWidth.Location = New System.Drawing.Point(146, 179)
+        Me.lblLogoWidth.Name = "lblLogoWidth"
+        Me.lblLogoWidth.Size = New System.Drawing.Size(220, 26)
+        Me.lblLogoWidth.TabIndex = 19
+        Me.lblLogoWidth.Text = "عرض الشعار"
+        Me.lblLogoWidth.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'cmbFontFamily
         '
         Me.cmbFontFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -283,7 +335,7 @@ Partial Class FrmSalesPrintLayoutManager
         '
         Me.chkLandscape.AutoSize = True
         Me.chkLandscape.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.chkLandscape.Location = New System.Drawing.Point(224, 338)
+        Me.chkLandscape.Location = New System.Drawing.Point(224, 412)
         Me.chkLandscape.Name = "chkLandscape"
         Me.chkLandscape.Size = New System.Drawing.Size(142, 23)
         Me.chkLandscape.TabIndex = 16
@@ -293,7 +345,7 @@ Partial Class FrmSalesPrintLayoutManager
         'numMarginBottom
         '
         Me.numMarginBottom.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.numMarginBottom.Location = New System.Drawing.Point(20, 292)
+        Me.numMarginBottom.Location = New System.Drawing.Point(20, 366)
         Me.numMarginBottom.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numMarginBottom.Name = "numMarginBottom"
         Me.numMarginBottom.Size = New System.Drawing.Size(120, 25)
@@ -302,7 +354,7 @@ Partial Class FrmSalesPrintLayoutManager
         'numMarginTop
         '
         Me.numMarginTop.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.numMarginTop.Location = New System.Drawing.Point(20, 255)
+        Me.numMarginTop.Location = New System.Drawing.Point(20, 329)
         Me.numMarginTop.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numMarginTop.Name = "numMarginTop"
         Me.numMarginTop.Size = New System.Drawing.Size(120, 25)
@@ -311,7 +363,7 @@ Partial Class FrmSalesPrintLayoutManager
         'numMarginRight
         '
         Me.numMarginRight.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.numMarginRight.Location = New System.Drawing.Point(20, 218)
+        Me.numMarginRight.Location = New System.Drawing.Point(20, 292)
         Me.numMarginRight.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numMarginRight.Name = "numMarginRight"
         Me.numMarginRight.Size = New System.Drawing.Size(120, 25)
@@ -320,7 +372,7 @@ Partial Class FrmSalesPrintLayoutManager
         'numMarginLeft
         '
         Me.numMarginLeft.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.numMarginLeft.Location = New System.Drawing.Point(20, 181)
+        Me.numMarginLeft.Location = New System.Drawing.Point(20, 255)
         Me.numMarginLeft.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numMarginLeft.Name = "numMarginLeft"
         Me.numMarginLeft.Size = New System.Drawing.Size(120, 25)
@@ -329,7 +381,7 @@ Partial Class FrmSalesPrintLayoutManager
         'lblMarginBottom
         '
         Me.lblMarginBottom.Font = New System.Drawing.Font("Segoe UI", 9.5!)
-        Me.lblMarginBottom.Location = New System.Drawing.Point(146, 290)
+        Me.lblMarginBottom.Location = New System.Drawing.Point(146, 364)
         Me.lblMarginBottom.Name = "lblMarginBottom"
         Me.lblMarginBottom.Size = New System.Drawing.Size(220, 26)
         Me.lblMarginBottom.TabIndex = 14
@@ -339,7 +391,7 @@ Partial Class FrmSalesPrintLayoutManager
         'lblMarginTop
         '
         Me.lblMarginTop.Font = New System.Drawing.Font("Segoe UI", 9.5!)
-        Me.lblMarginTop.Location = New System.Drawing.Point(146, 253)
+        Me.lblMarginTop.Location = New System.Drawing.Point(146, 327)
         Me.lblMarginTop.Name = "lblMarginTop"
         Me.lblMarginTop.Size = New System.Drawing.Size(220, 26)
         Me.lblMarginTop.TabIndex = 12
@@ -349,7 +401,7 @@ Partial Class FrmSalesPrintLayoutManager
         'lblMarginRight
         '
         Me.lblMarginRight.Font = New System.Drawing.Font("Segoe UI", 9.5!)
-        Me.lblMarginRight.Location = New System.Drawing.Point(146, 216)
+        Me.lblMarginRight.Location = New System.Drawing.Point(146, 290)
         Me.lblMarginRight.Name = "lblMarginRight"
         Me.lblMarginRight.Size = New System.Drawing.Size(220, 26)
         Me.lblMarginRight.TabIndex = 10
@@ -359,7 +411,7 @@ Partial Class FrmSalesPrintLayoutManager
         'lblMarginLeft
         '
         Me.lblMarginLeft.Font = New System.Drawing.Font("Segoe UI", 9.5!)
-        Me.lblMarginLeft.Location = New System.Drawing.Point(146, 179)
+        Me.lblMarginLeft.Location = New System.Drawing.Point(146, 253)
         Me.lblMarginLeft.Name = "lblMarginLeft"
         Me.lblMarginLeft.Size = New System.Drawing.Size(220, 26)
         Me.lblMarginLeft.TabIndex = 8
@@ -430,7 +482,7 @@ Partial Class FrmSalesPrintLayoutManager
         Me.cmbProfiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProfiles.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.cmbProfiles.FormattingEnabled = True
-        Me.cmbProfiles.Location = New System.Drawing.Point(20, 359)
+        Me.cmbProfiles.Location = New System.Drawing.Point(20, 454)
         Me.cmbProfiles.Name = "cmbProfiles"
         Me.cmbProfiles.Size = New System.Drawing.Size(220, 25)
         Me.cmbProfiles.TabIndex = 1
@@ -438,7 +490,7 @@ Partial Class FrmSalesPrintLayoutManager
         'lblProfiles
         '
         Me.lblProfiles.Font = New System.Drawing.Font("Segoe UI", 9.5!)
-        Me.lblProfiles.Location = New System.Drawing.Point(246, 357)
+        Me.lblProfiles.Location = New System.Drawing.Point(246, 452)
         Me.lblProfiles.Name = "lblProfiles"
         Me.lblProfiles.Size = New System.Drawing.Size(120, 26)
         Me.lblProfiles.TabIndex = 0
@@ -578,6 +630,8 @@ Partial Class FrmSalesPrintLayoutManager
         CType(Me.dgvSections, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpOptions.ResumeLayout(False)
         Me.grpOptions.PerformLayout()
+        CType(Me.numLogoHeight, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numLogoWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMarginBottom, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMarginTop, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMarginRight, System.ComponentModel.ISupportInitialize).EndInit()
@@ -599,6 +653,10 @@ Partial Class FrmSalesPrintLayoutManager
     Friend WithEvents dgvStyles As DataGridView
     Friend WithEvents dgvSections As DataGridView
     Friend WithEvents grpOptions As GroupBox
+    Friend WithEvents numLogoHeight As NumericUpDown
+    Friend WithEvents numLogoWidth As NumericUpDown
+    Friend WithEvents lblLogoHeight As Label
+    Friend WithEvents lblLogoWidth As Label
     Friend WithEvents cmbFontFamily As ComboBox
     Friend WithEvents lblFontFamily As Label
     Friend WithEvents chkLandscape As CheckBox

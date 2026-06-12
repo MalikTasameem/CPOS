@@ -1327,6 +1327,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
         Try
             If profile Is Nothing Then Return
+            SalesPrintPrinterResolver.ApplyLocalPrinter(profile)
             printData = SalesPrintData.FromSalesForm(Me)
 
             Using doc As PrintDocument = New SalesPrintDocumentRenderer(printData, profile).CreatePrintDocument()

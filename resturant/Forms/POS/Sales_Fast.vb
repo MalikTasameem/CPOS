@@ -62,6 +62,9 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Dim Print_BillNotes As String = ""
     Private Print_LogoImage As Image = Nothing
     Dim Print_Y As Integer = 0
+    Private DynamicSalesFastPrintContextMenu As ContextMenuStrip = Nothing
+    Private DynamicSalesFastProfilesMenuItem As ToolStripMenuItem = Nothing
+    Private DynamicSalesFastPrintMenuItem As ToolStripMenuItem = Nothing
 
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         FormType = 0
@@ -502,6 +505,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         EditState = Edit_butt.Text
         loadShortCut_IM()
         GET_Printer_Type()
+        SetupDynamicSalesFastPrintMenu()
         If SScreenDefault = 3 Then LoadPrintSettings()
 
         Await Load_ALL_IM()
@@ -927,7 +931,11 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
                 If SB_AutoOpenDrawer = True Then Open_Cash_Drawer()
                 If SB_AutoPrint = True Then
                     Me.Cursor = Cursors.AppStarting
-                    CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
+                    If SScreenDefault = 3 Then
+                        PrintCurrentBill()
+                    Else
+                        PrintDefaultDynamicSalesFastProfile()
+                    End If
                     Me.Cursor = Cursors.Default
                 End If
                 SelectStateBt()
@@ -2048,13 +2056,177 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
                 If SScreenDefault = 3 Then
                     PrintCurrentBill()
                 Else
-                    CashPrint(Sales_BillPage_Bill_Track, Sales_Page_ID)
+                    PrintDefaultDynamicSalesFastProfile()
                 End If
             Finally
                 Me.Cursor = Cursors.Default
             End Try
         End If
     End Sub
+
+    Private Sub SetupDynamicSalesFastPrintMenu()
+        If Print_btn Is Nothing Then Return
+
+        If SScreenDefault = 3 Then
+            Print_btn.ContextMenuStrip = Nothing
+            Return
+        End If
+
+        If DynamicSalesFastPrintContextMenu Is Nothing Then
+            DynamicSalesFastPrintContextMenu = New ContextMenuStrip()
+            DynamicSalesFastPrintContextMenu.RightToLeft = RightToLeft.Yes
+            DynamicSalesFastPrintContextMenu.Font = New Font("Arial", 11.25!)
+
+            DynamicSalesFastProfilesMenuItem = New ToolStripMenuItem("طباعة بقالب محفوظ")
+            DynamicSalesFastProfilesMenuItem.Font = New Font("Arial", 11.25!, FontStyle.Bold)
+            AddHandler DynamicSalesFastProfilesMenuItem.DropDownOpening, AddressOf DynamicSalesFastProfilesMenuItem_DropDownOpening
+
+            DynamicSalesFastPrintMenuItem = New ToolStripMenuItem("إدارة قوالب طباعة الشاشة السريعة")
+            DynamicSalesFastPrintMenuItem.Font = New Font("Arial", 11.25!)
+            AddHandler DynamicSalesFastPrintMenuItem.Click, AddressOf DynamicSalesFastPrintMenuItem_Click
+
+            DynamicSalesFastPrintContextMenu.Items.Add(DynamicSalesFastProfilesMenuItem)
+            DynamicSalesFastPrintContextMenu.Items.Add(New ToolStripSeparator())
+            DynamicSalesFastPrintContextMenu.Items.Add(DynamicSalesFastPrintMenuItem)
+        End If
+
+        Print_btn.ContextMenuStrip = DynamicSalesFastPrintContextMenu
+    End Sub
+
+    Private Sub DynamicSalesFastPrintMenuItem_Click(sender As Object, e As EventArgs)
+        Dim printData As SalesPrintData = Nothing
+        If AGMetroGrid.Rows.Count > 0 Then printData = SalesPrintData.FromSalesFastForm(Me)
+
+        Using frm As New FrmSalesPrintLayoutManager(printData, SalesPrintRepository.UsageSalesFast)
+            frm.ShowDialog(Me)
+        End Using
+    End Sub
+
+    Private Sub DynamicSalesFastProfilesMenuItem_DropDownOpening(sender As Object, e As EventArgs)
+        BuildDynamicSalesFastProfilesMenu()
+    End Sub
+
+    Private Sub BuildDynamicSalesFastProfilesMenu()
+        If DynamicSalesFastProfilesMenuItem Is Nothing Then Return
+
+        DynamicSalesFastProfilesMenuItem.DropDownItems.Clear()
+
+        Try
+            Dim repository As New SalesPrintRepository(MY_Settings.SqlConStr)
+            Dim profiles As DataTable = repository.LoadProfilesTable(SalesPrintRepository.UsageSalesFast)
+            Dim currentPaperKind As String = GetDefaultDynamicSalesFastPaperKind()
+
+            If profiles.Rows.Count = 0 Then
+                Dim emptyItem As New ToolStripMenuItem("لا توجد قوالب محفوظة")
+                emptyItem.Enabled = False
+                DynamicSalesFastProfilesMenuItem.DropDownItems.Add(emptyItem)
+                Return
+            End If
+
+            For Each row As DataRow In profiles.Rows
+                Dim profileId As Integer = Convert.ToInt32(row("ProfileID"))
+                Dim profileName As String = row("ProfileName").ToString()
+                Dim paperKind As String = row("PaperKind").ToString()
+                Dim isDefault As Boolean = Convert.ToBoolean(row("IsDefault"))
+                Dim isCurrentDefault As Boolean = isDefault AndAlso paperKind.Equals(currentPaperKind, StringComparison.OrdinalIgnoreCase)
+
+                Dim itemText As String = "[" & paperKind & "] " & profileName
+                If isCurrentDefault Then
+                    itemText = "✓ " & itemText & "  - الافتراضي الحالي"
+                ElseIf isDefault Then
+                    itemText = "★ " & itemText & "  - افتراضي"
+                End If
+
+                Dim item As New ToolStripMenuItem(itemText)
+                item.Tag = profileId
+                item.Font = New Font("Arial", 11.25!, If(isDefault, FontStyle.Bold, FontStyle.Regular))
+
+                If isCurrentDefault Then
+                    item.BackColor = Color.FromArgb(220, 252, 231)
+                    item.ForeColor = Color.FromArgb(22, 101, 52)
+                    item.Checked = True
+                ElseIf isDefault Then
+                    item.BackColor = Color.FromArgb(255, 243, 205)
+                    item.ForeColor = Color.FromArgb(102, 77, 3)
+                    item.Checked = True
+                End If
+
+                AddHandler item.Click, AddressOf DynamicSalesFastProfileMenuItem_Click
+                DynamicSalesFastProfilesMenuItem.DropDownItems.Add(item)
+            Next
+        Catch ex As Exception
+            Dim errorItem As New ToolStripMenuItem("تعذر تحميل القوالب")
+            errorItem.Enabled = False
+            DynamicSalesFastProfilesMenuItem.DropDownItems.Add(errorItem)
+        End Try
+    End Sub
+
+    Private Sub DynamicSalesFastProfileMenuItem_Click(sender As Object, e As EventArgs)
+        If AGMetroGrid.Rows.Count = 0 Then
+            MsgBox("لا توجد أصناف في الفاتورة للطباعة.", MsgBoxStyle.Exclamation, "طباعة المبيعات السريعة")
+            Return
+        End If
+
+        Dim item As ToolStripMenuItem = TryCast(sender, ToolStripMenuItem)
+        If item Is Nothing OrElse item.Tag Is Nothing Then Return
+
+        Dim profileId As Integer = 0
+        If Integer.TryParse(item.Tag.ToString(), profileId) = False OrElse profileId <= 0 Then Return
+
+        PrintSelectedDynamicSalesFastProfile(profileId)
+    End Sub
+
+    Private Sub PrintDefaultDynamicSalesFastProfile()
+        Try
+            Dim repository As New SalesPrintRepository(MY_Settings.SqlConStr)
+            Dim paperKind As String = GetDefaultDynamicSalesFastPaperKind()
+            Dim profile As SalesPrintProfile = repository.LoadDefaultProfile(SalesPrintRepository.UsageSalesFast, paperKind)
+            PrintDynamicSalesFastProfile(profile)
+        Catch ex As Exception
+            MsgBox("تعذر طباعة القالب الافتراضي المرتبط بشاشة المبيعات السريعة." & vbNewLine & ex.Message, MsgBoxStyle.Exclamation, "طباعة المبيعات السريعة")
+        End Try
+    End Sub
+
+    Private Sub PrintSelectedDynamicSalesFastProfile(profileId As Integer)
+        Try
+            Dim repository As New SalesPrintRepository(MY_Settings.SqlConStr)
+            Dim profile As SalesPrintProfile = repository.LoadProfile(profileId)
+            PrintDynamicSalesFastProfile(profile)
+        Catch ex As Exception
+            MsgBox("تعذر طباعة القالب المحدد." & vbNewLine & ex.Message, MsgBoxStyle.Exclamation, "طباعة المبيعات السريعة")
+        End Try
+    End Sub
+
+    Private Sub PrintDynamicSalesFastProfile(profile As SalesPrintProfile)
+        Dim printData As SalesPrintData = Nothing
+
+        Try
+            If profile Is Nothing Then Return
+            SalesPrintPrinterResolver.ApplyLocalPrinter(profile)
+            printData = SalesPrintData.FromSalesFastForm(Me)
+
+            Using doc As PrintDocument = New SalesPrintDocumentRenderer(printData, profile).CreatePrintDocument()
+                doc.PrintController = New StandardPrintController()
+                doc.Print()
+            End Using
+        Finally
+            If printData IsNot Nothing AndAlso printData.LogoImage IsNot Nothing Then
+                printData.LogoImage.Dispose()
+                printData.LogoImage = Nothing
+            End If
+        End Try
+    End Sub
+
+    Private Function GetDefaultDynamicSalesFastPaperKind() As String
+        Select Case Sales_Page_ID_FAST
+            Case 2, 8
+                Return "RECEIPT"
+            Case 3, 18
+                Return "A5"
+            Case Else
+                Return "A4"
+        End Select
+    End Function
 
     Public Sub CashPrint(Sales_BillPage_Bill_Track As String, Sales_Page_ID As Integer)
 

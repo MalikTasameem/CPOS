@@ -55,6 +55,34 @@ Public Class SalesPrintData
         Return data
     End Function
 
+    Public Shared Function FromSalesFastForm(form As Sales_Fast) As SalesPrintData
+        Dim data As New SalesPrintData()
+
+        data.StoreTitle = SBill_Title_1
+        data.StoreAddress = SBill_Title_2
+        data.Footer = SBill_Footer
+        data.TID = form.T_ID
+        data.BillNo = SafeText(form.Bill_ID_Txt)
+        data.BillID = SafeText(form.Bill_ID_Txt)
+        data.BillDate = If(form.DateTimeEx Is Nothing, Date.Now.ToString("yyyy/MM/dd HH:mm"), form.DateTimeEx.Value.ToString("yyyy/MM/dd HH:mm"))
+        data.CustomerName = If(form.AG_SH_txt Is Nothing, "", form.AG_SH_txt.Text)
+        data.ProjectName = ""
+        data.UserName = USER_NAME
+        data.Notes = SafeText(form.Notes_txt)
+        data.TotalText = SafeText(form.Total_TextBox)
+        data.DiscountText = SafeText(form.Discount_txt)
+        data.PureText = SafeText(form.Pure_txt)
+        data.PaidText = data.PureText
+        data.RestText = "0"
+        data.QtyText = If(form.IM_Qty_LB Is Nothing, "", form.IM_Qty_LB.Text)
+        data.CountText = If(form.IM_Count_LB Is Nothing, "", form.IM_Count_LB.Text)
+        data.Barcode = form.Barcode
+        data.LogoImage = LoadLogoImage()
+        data.Items = BuildItemsTable(form.AGMetroGrid)
+
+        Return data
+    End Function
+
     Private Shared Function BuildItemsTable(grid As DataGridView) As DataTable
         Dim dt As New DataTable()
         If grid Is Nothing Then Return dt

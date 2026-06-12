@@ -5,6 +5,7 @@ Imports System.Linq
 Public Class SalesPrintRepository
 
     Public Const UsageSales As String = "SALES"
+    Public Const UsageSalesFast As String = "SALES_FAST"
     Private ReadOnly ConnectionString As String
 
     Public Sub New(connectionString As String)
@@ -92,6 +93,8 @@ Public Class SalesPrintRepository
                         profile.MarginRight = Convert.ToInt32(dr("MarginRight"))
                         profile.MarginTop = Convert.ToInt32(dr("MarginTop"))
                         profile.MarginBottom = Convert.ToInt32(dr("MarginBottom"))
+                        profile.LogoWidth = Convert.ToInt32(dr("LogoWidth"))
+                        profile.LogoHeight = Convert.ToInt32(dr("LogoHeight"))
                         profile.FontFamily = dr("FontFamily").ToString()
                         profile.TitleFontSize = Convert.ToDecimal(dr("TitleFontSize"))
                         profile.SubTitleFontSize = Convert.ToDecimal(dr("SubTitleFontSize"))
@@ -164,12 +167,12 @@ Public Class SalesPrintRepository
                     End If
 
                     If profile.ProfileID <= 0 Then
-                        Using cmd As New SqlCommand("INSERT INTO dbo.Sales_Print_Profile(ProfileName, UsageKey, PaperKind, PrinterName, IsDefault, Landscape, MarginLeft, MarginRight, MarginTop, MarginBottom, FontFamily, TitleFontSize, SubTitleFontSize, InfoFontSize, HeaderFontSize, RowFontSize, TotalFontSize, FooterFontSize, TitleForeColorArgb, TextForeColorArgb, HeaderBackColorArgb, HeaderForeColorArgb, RowBackColorArgb, AlternateRowBackColorArgb, BorderColorArgb, TotalBackColorArgb, TotalForeColorArgb, FooterForeColorArgb, UseAlternatingRows, DrawGridLines, CreatedAt, UpdatedAt) OUTPUT INSERTED.ProfileID VALUES(@ProfileName, @UsageKey, @PaperKind, @PrinterName, @IsDefault, @Landscape, @MarginLeft, @MarginRight, @MarginTop, @MarginBottom, @FontFamily, @TitleFontSize, @SubTitleFontSize, @InfoFontSize, @HeaderFontSize, @RowFontSize, @TotalFontSize, @FooterFontSize, @TitleForeColorArgb, @TextForeColorArgb, @HeaderBackColorArgb, @HeaderForeColorArgb, @RowBackColorArgb, @AlternateRowBackColorArgb, @BorderColorArgb, @TotalBackColorArgb, @TotalForeColorArgb, @FooterForeColorArgb, @UseAlternatingRows, @DrawGridLines, GETDATE(), GETDATE())", cn, tr)
+                        Using cmd As New SqlCommand("INSERT INTO dbo.Sales_Print_Profile(ProfileName, UsageKey, PaperKind, PrinterName, IsDefault, Landscape, MarginLeft, MarginRight, MarginTop, MarginBottom, LogoWidth, LogoHeight, FontFamily, TitleFontSize, SubTitleFontSize, InfoFontSize, HeaderFontSize, RowFontSize, TotalFontSize, FooterFontSize, TitleForeColorArgb, TextForeColorArgb, HeaderBackColorArgb, HeaderForeColorArgb, RowBackColorArgb, AlternateRowBackColorArgb, BorderColorArgb, TotalBackColorArgb, TotalForeColorArgb, FooterForeColorArgb, UseAlternatingRows, DrawGridLines, CreatedAt, UpdatedAt) OUTPUT INSERTED.ProfileID VALUES(@ProfileName, @UsageKey, @PaperKind, @PrinterName, @IsDefault, @Landscape, @MarginLeft, @MarginRight, @MarginTop, @MarginBottom, @LogoWidth, @LogoHeight, @FontFamily, @TitleFontSize, @SubTitleFontSize, @InfoFontSize, @HeaderFontSize, @RowFontSize, @TotalFontSize, @FooterFontSize, @TitleForeColorArgb, @TextForeColorArgb, @HeaderBackColorArgb, @HeaderForeColorArgb, @RowBackColorArgb, @AlternateRowBackColorArgb, @BorderColorArgb, @TotalBackColorArgb, @TotalForeColorArgb, @FooterForeColorArgb, @UseAlternatingRows, @DrawGridLines, GETDATE(), GETDATE())", cn, tr)
                             AddProfileParameters(cmd, profile)
                             profile.ProfileID = Convert.ToInt32(cmd.ExecuteScalar())
                         End Using
                     Else
-                        Using cmd As New SqlCommand("UPDATE dbo.Sales_Print_Profile SET ProfileName=@ProfileName, UsageKey=@UsageKey, PaperKind=@PaperKind, PrinterName=@PrinterName, IsDefault=@IsDefault, Landscape=@Landscape, MarginLeft=@MarginLeft, MarginRight=@MarginRight, MarginTop=@MarginTop, MarginBottom=@MarginBottom, FontFamily=@FontFamily, TitleFontSize=@TitleFontSize, SubTitleFontSize=@SubTitleFontSize, InfoFontSize=@InfoFontSize, HeaderFontSize=@HeaderFontSize, RowFontSize=@RowFontSize, TotalFontSize=@TotalFontSize, FooterFontSize=@FooterFontSize, TitleForeColorArgb=@TitleForeColorArgb, TextForeColorArgb=@TextForeColorArgb, HeaderBackColorArgb=@HeaderBackColorArgb, HeaderForeColorArgb=@HeaderForeColorArgb, RowBackColorArgb=@RowBackColorArgb, AlternateRowBackColorArgb=@AlternateRowBackColorArgb, BorderColorArgb=@BorderColorArgb, TotalBackColorArgb=@TotalBackColorArgb, TotalForeColorArgb=@TotalForeColorArgb, FooterForeColorArgb=@FooterForeColorArgb, UseAlternatingRows=@UseAlternatingRows, DrawGridLines=@DrawGridLines, UpdatedAt=GETDATE() WHERE ProfileID=@ProfileID", cn, tr)
+                        Using cmd As New SqlCommand("UPDATE dbo.Sales_Print_Profile SET ProfileName=@ProfileName, UsageKey=@UsageKey, PaperKind=@PaperKind, PrinterName=@PrinterName, IsDefault=@IsDefault, Landscape=@Landscape, MarginLeft=@MarginLeft, MarginRight=@MarginRight, MarginTop=@MarginTop, MarginBottom=@MarginBottom, LogoWidth=@LogoWidth, LogoHeight=@LogoHeight, FontFamily=@FontFamily, TitleFontSize=@TitleFontSize, SubTitleFontSize=@SubTitleFontSize, InfoFontSize=@InfoFontSize, HeaderFontSize=@HeaderFontSize, RowFontSize=@RowFontSize, TotalFontSize=@TotalFontSize, FooterFontSize=@FooterFontSize, TitleForeColorArgb=@TitleForeColorArgb, TextForeColorArgb=@TextForeColorArgb, HeaderBackColorArgb=@HeaderBackColorArgb, HeaderForeColorArgb=@HeaderForeColorArgb, RowBackColorArgb=@RowBackColorArgb, AlternateRowBackColorArgb=@AlternateRowBackColorArgb, BorderColorArgb=@BorderColorArgb, TotalBackColorArgb=@TotalBackColorArgb, TotalForeColorArgb=@TotalForeColorArgb, FooterForeColorArgb=@FooterForeColorArgb, UseAlternatingRows=@UseAlternatingRows, DrawGridLines=@DrawGridLines, UpdatedAt=GETDATE() WHERE ProfileID=@ProfileID", cn, tr)
                             AddProfileParameters(cmd, profile)
                             cmd.Parameters.Add("@ProfileID", SqlDbType.Int).Value = profile.ProfileID
                             cmd.ExecuteNonQuery()
@@ -211,13 +214,20 @@ Public Class SalesPrintRepository
         p.ProfileName = "تصميم فاتورة المبيعات الافتراضي"
         p.UsageKey = NormalizeUsageKey(usageKey)
         p.PaperKind = If(String.IsNullOrWhiteSpace(paperKind), "A4", paperKind)
-        p.PrinterName = If(String.IsNullOrWhiteSpace(Default_Printer_A4), "", Default_Printer_A4)
+        p.PrinterName = ""
         p.IsDefault = True
         p.Landscape = False
         p.MarginLeft = 35
         p.MarginRight = 35
         p.MarginTop = 40
         p.MarginBottom = 45
+        If p.PaperKind.Equals("RECEIPT", StringComparison.OrdinalIgnoreCase) Then
+            p.LogoWidth = 48
+            p.LogoHeight = 48
+        Else
+            p.LogoWidth = 72
+            p.LogoHeight = 72
+        End If
         p.Components = GetDefaultComponents()
         Return p
     End Function
@@ -233,6 +243,8 @@ Public Class SalesPrintRepository
         cmd.Parameters.Add("@MarginRight", SqlDbType.Int).Value = profile.MarginRight
         cmd.Parameters.Add("@MarginTop", SqlDbType.Int).Value = profile.MarginTop
         cmd.Parameters.Add("@MarginBottom", SqlDbType.Int).Value = profile.MarginBottom
+        cmd.Parameters.Add("@LogoWidth", SqlDbType.Int).Value = profile.LogoWidth
+        cmd.Parameters.Add("@LogoHeight", SqlDbType.Int).Value = profile.LogoHeight
         cmd.Parameters.Add("@FontFamily", SqlDbType.NVarChar, 100).Value = profile.FontFamily
         cmd.Parameters.Add("@TitleFontSize", SqlDbType.Decimal).Value = profile.TitleFontSize
         cmd.Parameters.Add("@SubTitleFontSize", SqlDbType.Decimal).Value = profile.SubTitleFontSize
@@ -316,6 +328,10 @@ Public Class SalesPrintRepository
     Private Sub EnsureProfileStyleColumns(cn As SqlConnection)
         Dim scripts As String() = {
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'UsageKey') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD UsageKey NVARCHAR(50) NOT NULL CONSTRAINT DF_Sales_Print_Profile_UsageKey DEFAULT(N'SALES')",
+            "IF COL_LENGTH('dbo.Sales_Print_Profile', 'LogoWidth') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD LogoWidth INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_LogoWidth DEFAULT(72)",
+            "IF COL_LENGTH('dbo.Sales_Print_Profile', 'LogoHeight') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD LogoHeight INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_LogoHeight DEFAULT(72)",
+            "IF COL_LENGTH('dbo.Sales_Print_Profile', 'LogoWidth') IS NOT NULL EXEC(N'UPDATE dbo.Sales_Print_Profile SET LogoWidth = 48 WHERE PaperKind = N''RECEIPT'' AND LogoWidth = 72')",
+            "IF COL_LENGTH('dbo.Sales_Print_Profile', 'LogoHeight') IS NOT NULL EXEC(N'UPDATE dbo.Sales_Print_Profile SET LogoHeight = 48 WHERE PaperKind = N''RECEIPT'' AND LogoHeight = 72')",
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'FontFamily') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD FontFamily NVARCHAR(100) NOT NULL CONSTRAINT DF_Sales_Print_Profile_FontFamily DEFAULT(N'Segoe UI')",
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'TitleFontSize') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD TitleFontSize DECIMAL(6,2) NOT NULL CONSTRAINT DF_Sales_Print_Profile_TitleFontSize DEFAULT(15)",
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'SubTitleFontSize') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD SubTitleFontSize DECIMAL(6,2) NOT NULL CONSTRAINT DF_Sales_Print_Profile_SubTitleFontSize DEFAULT(10)",
@@ -362,6 +378,8 @@ BEGIN
         MarginRight INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_MarginRight DEFAULT(35),
         MarginTop INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_MarginTop DEFAULT(40),
         MarginBottom INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_MarginBottom DEFAULT(45),
+        LogoWidth INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_LogoWidth DEFAULT(72),
+        LogoHeight INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_LogoHeight DEFAULT(72),
         CreatedAt DATETIME NOT NULL CONSTRAINT DF_Sales_Print_Profile_CreatedAt DEFAULT(GETDATE()),
         UpdatedAt DATETIME NOT NULL CONSTRAINT DF_Sales_Print_Profile_UpdatedAt DEFAULT(GETDATE())
     )
