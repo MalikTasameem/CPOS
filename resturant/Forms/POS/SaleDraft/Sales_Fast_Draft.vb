@@ -1437,7 +1437,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub SetSelectedDraftItemQty(newQty As Decimal)
+    Private Sub SetSelectedDraftItemQty(newQty As Decimal, Optional sourceControl As String = "dgvSales")
 
         If CurrentDraft Is Nothing Then Exit Sub
         If dgvSales.CurrentRow Is Nothing Then Exit Sub
@@ -1464,7 +1464,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         UpdateDraftTotalsOnScreen()
         AddDraftLog("كمية",
                     "تم تحديد كمية الصنف يدويًا",
-                    "dgvSales",
+                    sourceControl,
                     oldQty.ToString("0.###"),
                     newQty.ToString("0.###"),
                     item.ItemName,
@@ -1994,8 +1994,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         ' Delete_butt.Visible = U_SalesVoid
         If U_SalesDis = True And isDiscount = True Then
             DiscountPanel.Visible = True
+            Calc_Dicount_Btn.Visible = True
         Else
             DiscountPanel.Visible = False
+            Calc_Dicount_Btn.Visible = False
         End If
         '  Edit_butt.Visible = U_SB_Update
         Show_Cash_btn.Visible = U_SB_Show_Cash
@@ -2378,19 +2380,32 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Sub dgvSales_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSales.CellClick
 
         If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Exit Sub
-        If CurrentDraft Is Nothing Then Exit Sub
-
-        Dim column As DataGridViewColumn = dgvSales.Columns(e.ColumnIndex)
-        If Not IsQuantityColumn(column) Then Exit Sub
 
         dgvSales.CurrentCell = dgvSales.Rows(e.RowIndex).Cells(e.ColumnIndex)
 
+    End Sub
+
+    Private Sub EditSelectedDraftItemQtyByButton()
+
+        If CurrentDraft Is Nothing Then Exit Sub
+        If dgvSales.Rows.Count = 0 OrElse dgvSales.CurrentRow Is Nothing Then Exit Sub
+
+        Dim qtyColumnName As String = ""
+        If dgvSales.Columns.Contains("QTY_CL") Then
+            qtyColumnName = "QTY_CL"
+        ElseIf dgvSales.Columns.Contains("QTY") Then
+            qtyColumnName = "QTY"
+        Else
+            MsgBox("لم يتم العثور على عمود الكمية", MsgBoxStyle.Exclamation, "تنبيه")
+            Exit Sub
+        End If
+
         Dim currentQty As Decimal = 1D
-        Decimal.TryParse(Convert.ToString(dgvSales.Rows(e.RowIndex).Cells(e.ColumnIndex).Value), currentQty)
+        Decimal.TryParse(Convert.ToString(dgvSales.CurrentRow.Cells(qtyColumnName).Value), currentQty)
 
         Dim selectedQty As Decimal
         If ShowTouchQuantityDialog(currentQty, selectedQty) = DialogResult.OK Then
-            SetSelectedDraftItemQty(selectedQty)
+            SetSelectedDraftItemQty(selectedQty, "QTY_Btn")
         End If
 
     End Sub
@@ -3535,18 +3550,18 @@ Me.Name.ToString
 
     End Sub
 
-    Private Sub Notes_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles txtNotes.MouseDoubleClick
-        F_BillNotes = New BillNotes
-        F_BillNotes.T_ID = T_ID
-        F_BillNotes.ShowDialog()
+    'Private Sub Notes_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles txtNotes.MouseDoubleClick
+    '    F_BillNotes = New BillNotes
+    '    F_BillNotes.T_ID = T_ID
+    '    F_BillNotes.ShowDialog()
 
-        'Notes_txt.Text = F_BillNotes.Notes_txt.Text
-    End Sub
+    '    'Notes_txt.Text = F_BillNotes.Notes_txt.Text
+    'End Sub
 
 
-    Private Sub IM_Profet_btn_Click(sender As Object, e As EventArgs)
-        Bill_Perfet_Select_For_Bill(T_ID)
-    End Sub
+    'Private Sub IM_Profet_btn_Click(sender As Object, e As EventArgs)
+    '    Bill_Perfet_Select_For_Bill(T_ID)
+    'End Sub
 
     Private Sub IM_Search_btn_Click(sender As Object, e As EventArgs) Handles IM_Search_btn.Click
 
@@ -3791,6 +3806,11 @@ Me.Name.ToString
         ChangeQtyByInput(Def, False)
     End Sub
 
+    Private Sub QTY_Btn_Click(sender As Object, e As EventArgs) Handles QTY_Btn.Click
+        AddDraftLog("زر", "فتح تعديل كمية الصنف المحدد", "QTY_Btn")
+        EditSelectedDraftItemQtyByButton()
+    End Sub
+
     Private Sub Units_btn_Click(sender As Object, e As EventArgs) Handles Units_btn.Click
 
         AddDraftLog("زر", "فتح شاشة تغيير وحدة الصنف", "Units_btn")
@@ -3901,4 +3921,9 @@ Me.Name.ToString
 
     End Sub
 
+    Private Sub note_Btn_Click(sender As Object, e As EventArgs) Handles note_Btn.Click
+        F_BillNotes = New BillNotes
+        F_BillNotes.T_ID = T_ID
+        F_BillNotes.ShowDialog()
+    End Sub
 End Class

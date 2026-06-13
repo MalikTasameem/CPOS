@@ -548,29 +548,262 @@
     End Sub
 
     Public Sub Order_SB_Ksh()
+        Dim Items As DataTable = BuildInternalItemsFromOrderGrid()
+        If Items.Rows.Count = 0 Then Return
 
-        Dim pp As New ReportConnection
-        pp.rp.Load(Application.StartupPath & OrderBill_IN_Bill_Track)
-        pp.LoadTables()
-        With pp
-            .rp.SetParameterValue(0, Order_T_ID)
-            .rp.SetParameterValue(1, "*" + Barcode_txt.Text + "*")
-        End With
+        PrintInternalOrderDocument(Items, GetInternalOrderPrinterName())
+    End Sub
+
+    Private Function GetInternalOrderPrinterName() As String
+        If OrderPage_ID = 1 Then Return Default_Printer_80
+        Return Default_Printer_A4
+    End Function
+
+    Private Function CreateInternalItemsTable() As DataTable
+        Dim dt As New DataTable
+        dt.Columns.Add("IM_Name", GetType(String))
+        dt.Columns.Add("QTY", GetType(String))
+        dt.Columns.Add("Unit_Name", GetType(String))
+        Return dt
+    End Function
+
+    Private Function BuildInternalItemsFromOrderGrid() As DataTable
+        Dim Items As DataTable = CreateInternalItemsTable()
+
+        For Each row As DataGridViewRow In MetroGrid.Rows
+            If row.IsNewRow Then Continue For
+            AddInternalItemRow(Items,
+                               GetGridCellText(row, "QTY_CL"),
+                               GetGridCellText(row, "IM_NameCL"),
+                               GetGridCellText(row, "Unit_CL"))
+        Next
+
+        Return Items
+    End Function
+
+    Private Sub AddInternalItemRow(Items As DataTable, Qty As String, ItemName As String, UnitName As String)
+        If String.IsNullOrWhiteSpace(ItemName) Then Return
+
+        Dim row As DataRow = Items.NewRow()
+        row("IM_Name") = ItemName
+        row("QTY") = FormatInternalNumber(Qty)
+        row("Unit_Name") = UnitName
+        Items.Rows.Add(row)
+    End Sub
+
+    Private Function GetDataRowText(row As DataRow, columnName As String) As String
+        If row Is Nothing OrElse row.Table Is Nothing OrElse row.Table.Columns.Contains(columnName) = False Then Return ""
+        If row(columnName) Is Nothing OrElse row(columnName) Is DBNull.Value Then Return ""
+        Return row(columnName).ToString()
+    End Function
+
+    Private Function GetGridCellText(row As DataGridViewRow, columnName As String) As String
+        If row Is Nothing OrElse row.DataGridView Is Nothing OrElse row.DataGridView.Columns.Contains(columnName) = False Then Return ""
+        Dim value As Object = row.Cells(columnName).Value
+        If value Is Nothing OrElse value Is DBNull.Value Then Return ""
+        Return value.ToString()
+    End Function
+
+    Private Function FormatInternalNumber(value As Object) As String
+        If value Is Nothing OrElse value Is DBNull.Value Then Return "0"
+
+        Dim number As Decimal
+        If Decimal.TryParse(value.ToString(), number) Then
+            If number = Decimal.Truncate(number) Then Return number.ToString("0")
+            Return number.ToString("0.###")
+        End If
+
+        Return value.ToString()
+    End Function
+
+    Private Sub PrintInternalOrderDocument(Items As DataTable, PrinterName As String)
+        Using doc As New System.Drawing.Printing.PrintDocument()
+            If String.IsNullOrWhiteSpace(PrinterName) = False Then doc.PrinterSettings.PrinterName = PrinterName
+            doc.PrintController = New System.Drawing.Printing.StandardPrintController()
+            doc.DefaultPageSettings = CreateInternalOrderPageSettings(Items.Rows.Count)
+
+            Dim RowIndex As Integer = 0
+            AddHandler doc.PrintPage,
+                Sub(sender As Object, e As System.Drawing.Printing.PrintPageEventArgs)
+                    DrawInternalOrderPage(e, Items, RowIndex)
+                End Sub
+
+            If String.IsNullOrWhiteSpace(PrinterName) = False AndAlso Def_Befor_Print = 1 Then Set_Default_Printer(PrinterName)
+            doc.Print()
+        End Using
+    End Sub
+
+    Private Function CreateInternalOrderPageSettings(itemCount As Integer) As System.Drawing.Printing.PageSettings
+        Dim settings As New System.Drawing.Printing.PageSettings()
+        settings.Margins = New System.Drawing.Printing.Margins(4, 4, 4, 4)
 
         If OrderPage_ID = 1 Then
-            If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_80))
-            pp.rp.PrintOptions.PrinterName = Default_Printer_80
+            Dim paperHeight As Integer = Math.Max(650, 220 + (Math.Max(itemCount, 1) * 110))
+            settings.PaperSize = New System.Drawing.Printing.PaperSize("InternalOrder80", 300, paperHeight)
         Else
-            If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_A4))
-            pp.rp.PrintOptions.PrinterName = Default_Printer_A4
+            settings.Margins = New System.Drawing.Printing.Margins(30, 30, 30, 30)
+            settings.PaperSize = New System.Drawing.Printing.PaperSize("A4", 827, 1169)
         End If
-        pp.rp.PrintToPrinter(1, False, 0, 0)
-        pp.rp.Dispose()
 
-        'Dim p As New print
-        'p.CrystalReportViewer1.ReportSource = pp.rp
-        'p.Show()
+        Return settings
+    End Function
 
+    Private Sub DrawInternalOrderPage(e As System.Drawing.Printing.PrintPageEventArgs, Items As DataTable, ByRef RowIndex As Integer)
+        e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
+
+        Using HeaderFont As New Font("Arial", 16.0!, FontStyle.Bold),
+              ItemFont As New Font("Arial", 13.5!, FontStyle.Bold),
+              MetaFont As New Font("Arial", 9.0!, FontStyle.Regular),
+              BorderPen As New Pen(Color.Black, 1.2!),
+              SeparatorPen As New Pen(Color.FromArgb(90, 90, 90), 0.8!)
+
+            Using CenterFormat As New StringFormat(),
+                  RightFormat As New StringFormat(),
+                  LeftFormat As New StringFormat(),
+                  LineRightFormat As New StringFormat()
+
+                CenterFormat.Alignment = StringAlignment.Center
+                CenterFormat.LineAlignment = StringAlignment.Center
+                CenterFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+                RightFormat.Alignment = StringAlignment.Far
+                RightFormat.LineAlignment = StringAlignment.Center
+                RightFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft
+
+                LineRightFormat.Alignment = StringAlignment.Far
+                LineRightFormat.LineAlignment = StringAlignment.Center
+                LineRightFormat.FormatFlags = StringFormatFlags.DirectionRightToLeft Or StringFormatFlags.NoWrap
+
+                LeftFormat.Alignment = StringAlignment.Near
+                LeftFormat.LineAlignment = StringAlignment.Center
+
+                Dim bounds As Rectangle = e.MarginBounds
+                Dim receiptWidth As Integer = If(OrderPage_ID = 1, Math.Min(300, e.PageBounds.Width - 8), Math.Min(360, bounds.Width))
+                receiptWidth = Math.Max(260, receiptWidth)
+
+                Dim left As Integer = bounds.Left + CInt((bounds.Width - receiptWidth) / 2)
+                If left < 4 Then left = 4
+
+                Dim y As Integer = bounds.Top + 4
+                Dim headerHeight As Integer = 42
+                Dim gap As Integer = 6
+                Dim halfWidth As Integer = CInt((receiptWidth - gap) / 2)
+                Dim leftHeaderRect As New Rectangle(left, y, halfWidth, headerHeight)
+                Dim rightHeaderRect As New Rectangle(left + halfWidth + gap, y, receiptWidth - halfWidth - gap, headerHeight)
+
+                e.Graphics.DrawRectangle(BorderPen, leftHeaderRect)
+                e.Graphics.DrawRectangle(BorderPen, rightHeaderRect)
+                e.Graphics.DrawString("داخلية", HeaderFont, Brushes.Black, leftHeaderRect, CenterFormat)
+                e.Graphics.DrawString(SB_day_Bill_txt.Text, HeaderFont, Brushes.Black, rightHeaderRect, CenterFormat)
+
+                y += headerHeight + 12
+
+                While RowIndex < Items.Rows.Count
+                    Dim row As DataRow = Items.Rows(RowIndex)
+                    Dim qty As String = GetDataRowText(row, "QTY")
+                    Dim itemName As String = GetDataRowText(row, "IM_Name")
+                    Dim unitName As String = GetDataRowText(row, "Unit_Name")
+                    Dim itemText As String = itemName
+                    If String.IsNullOrWhiteSpace(unitName) = False Then itemText &= " " & unitName
+
+                    Dim qtyWidth As Integer = 48
+                    Dim itemRect As New Rectangle(left + qtyWidth + 4, y, receiptWidth - qtyWidth - 4, 54)
+                    Dim itemLines As System.Collections.Generic.List(Of String) = WrapInternalOrderText(e.Graphics, itemText, ItemFont, itemRect.Width - 4)
+                    Dim lineHeight As Integer = CInt(Math.Ceiling(ItemFont.GetHeight(e.Graphics))) + 4
+                    Dim rowHeight As Integer = Math.Max(42, (itemLines.Count * lineHeight) + 8)
+
+                    If y + rowHeight + 45 > bounds.Bottom Then
+                        e.HasMorePages = True
+                        Return
+                    End If
+
+                    Dim qtyRect As New Rectangle(left, y, qtyWidth, rowHeight)
+                    itemRect.Height = rowHeight
+
+                    e.Graphics.DrawString(qty, ItemFont, Brushes.Black, qtyRect, LeftFormat)
+                    DrawInternalOrderItemLines(e.Graphics, itemLines, ItemFont, Brushes.Black, itemRect, lineHeight, LineRightFormat)
+
+                    y += rowHeight
+                    e.Graphics.DrawLine(SeparatorPen, left + 4, y, left + receiptWidth - 4, y)
+                    y += 8
+                    RowIndex += 1
+                End While
+
+                y += 14
+                e.Graphics.DrawString(Date.Now.ToString("yyyy/MM/dd"), MetaFont, Brushes.Black, New Rectangle(left, y, 78, 24), LeftFormat)
+                e.Graphics.DrawString(Date.Now.ToString("HH:mm:ss"), MetaFont, Brushes.Black, New Rectangle(left + 85, y, 80, 24), LeftFormat)
+                e.Graphics.DrawString("إعداد : " & USER_NAME, MetaFont, Brushes.Black, New Rectangle(left + 165, y, receiptWidth - 165, 24), RightFormat)
+            End Using
+        End Using
+
+        e.HasMorePages = False
+    End Sub
+
+    Private Function WrapInternalOrderText(g As Graphics, text As String, font As Font, maxWidth As Integer) As System.Collections.Generic.List(Of String)
+        Dim lines As New System.Collections.Generic.List(Of String)()
+        text = If(text, "").Trim()
+        If String.IsNullOrWhiteSpace(text) Then
+            lines.Add("")
+            Return lines
+        End If
+
+        Dim current As String = ""
+        Dim parts As String() = text.Split(New Char() {" "c}, StringSplitOptions.RemoveEmptyEntries)
+
+        For Each part As String In parts
+            Dim candidate As String = If(String.IsNullOrWhiteSpace(current), part, current & " " & part)
+            If FitsInternalOrderLine(g, candidate, font, maxWidth) Then
+                current = candidate
+            Else
+                If String.IsNullOrWhiteSpace(current) = False Then lines.Add(current)
+
+                If FitsInternalOrderLine(g, part, font, maxWidth) Then
+                    current = part
+                Else
+                    Dim tokenLines As System.Collections.Generic.List(Of String) = SplitInternalOrderLongToken(g, part, font, maxWidth)
+                    For i As Integer = 0 To tokenLines.Count - 2
+                        lines.Add(tokenLines(i))
+                    Next
+                    current = If(tokenLines.Count = 0, "", tokenLines(tokenLines.Count - 1))
+                End If
+            End If
+        Next
+
+        If String.IsNullOrWhiteSpace(current) = False Then lines.Add(current)
+        If lines.Count = 0 Then lines.Add(text)
+        Return lines
+    End Function
+
+    Private Function SplitInternalOrderLongToken(g As Graphics, token As String, font As Font, maxWidth As Integer) As System.Collections.Generic.List(Of String)
+        Dim lines As New System.Collections.Generic.List(Of String)()
+        Dim current As String = ""
+
+        For Each ch As Char In token
+            Dim candidate As String = current & ch
+            If String.IsNullOrEmpty(current) OrElse FitsInternalOrderLine(g, candidate, font, maxWidth) Then
+                current = candidate
+            Else
+                lines.Add(current)
+                current = ch.ToString()
+            End If
+        Next
+
+        If String.IsNullOrEmpty(current) = False Then lines.Add(current)
+        Return lines
+    End Function
+
+    Private Function FitsInternalOrderLine(g As Graphics, text As String, font As Font, maxWidth As Integer) As Boolean
+        If String.IsNullOrEmpty(text) Then Return True
+        Return g.MeasureString(text, font).Width <= Math.Max(20, maxWidth)
+    End Function
+
+    Private Sub DrawInternalOrderItemLines(g As Graphics, lines As System.Collections.Generic.List(Of String), font As Font, brush As Brush, rect As Rectangle, lineHeight As Integer, format As StringFormat)
+        Dim lineY As Integer = rect.Top + 4
+        For Each line As String In lines
+            Dim lineRect As New Rectangle(rect.Left, lineY, rect.Width, lineHeight)
+            g.DrawString(line, font, brush, lineRect, format)
+            lineY += lineHeight
+        Next
     End Sub
 
     Private Sub VoidBillBtn_Click(sender As Object, e As EventArgs) Handles VoidBill_Btn.Click

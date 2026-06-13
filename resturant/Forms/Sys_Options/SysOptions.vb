@@ -47,6 +47,7 @@ Public Class SysOptions
             SalesDraftLogsButton.Tag = "GENERAL"
             SalesPrintLayoutButton.Tag = "GENERAL"
             SalesFastPrintLayoutButton.Tag = "GENERAL"
+            PosPrintLayoutButton.Tag = "GENERAL"
 
             ' 2. تطبيق الثيم
             ThemeManager.ApplyThemeToForm(Me)
@@ -73,7 +74,9 @@ Public Class SysOptions
         Pch_Exp_Btn.Visible = S_Exp_Pch
         CardAgent_Btn.Visible = S_AgentCard
         SalesDraftLogsButton.Visible = (SScreenDefault = 3)
-        SalesFastPrintLayoutButton.Visible = (SScreenDefault <> 3)
+        SalesPrintLayoutButton.Visible = (SScreenDefault = 0)
+        SalesFastPrintLayoutButton.Visible = (SScreenDefault = 2)
+        PosPrintLayoutButton.Visible = (SScreenDefault = 1)
     End Sub
 
     Private Sub SysOptions_Test_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -246,6 +249,12 @@ Public Class SysOptions
 
     Private Sub SalesFastPrintLayoutButton_Click(sender As Object, e As EventArgs) Handles SalesFastPrintLayoutButton.Click
         Using frm As New FrmSalesPrintLayoutManager(Nothing, SalesPrintRepository.UsageSalesFast)
+            frm.ShowDialog(Me)
+        End Using
+    End Sub
+
+    Private Sub PosPrintLayoutButton_Click(sender As Object, e As EventArgs) Handles PosPrintLayoutButton.Click
+        Using frm As New FrmSalesPrintLayoutManager(Nothing, SalesPrintRepository.UsagePos)
             frm.ShowDialog(Me)
         End Using
     End Sub

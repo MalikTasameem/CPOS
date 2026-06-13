@@ -52,6 +52,8 @@ Partial Class FrmSalesPrintLayoutManager
         Me.lblProfileName = New System.Windows.Forms.Label()
         Me.cmbProfiles = New System.Windows.Forms.ComboBox()
         Me.lblProfiles = New System.Windows.Forms.Label()
+        Me.cmbUsageKind = New System.Windows.Forms.ComboBox()
+        Me.lblUsageKind = New System.Windows.Forms.Label()
         Me.lblSections = New System.Windows.Forms.Label()
         Me.lblStyles = New System.Windows.Forms.Label()
         Me.lblColumns = New System.Windows.Forms.Label()
@@ -260,6 +262,8 @@ Partial Class FrmSalesPrintLayoutManager
         Me.grpOptions.Controls.Add(Me.lblProfileName)
         Me.grpOptions.Controls.Add(Me.cmbProfiles)
         Me.grpOptions.Controls.Add(Me.lblProfiles)
+        Me.grpOptions.Controls.Add(Me.cmbUsageKind)
+        Me.grpOptions.Controls.Add(Me.lblUsageKind)
         Me.grpOptions.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.grpOptions.Location = New System.Drawing.Point(866, 15)
         Me.grpOptions.Name = "grpOptions"
@@ -497,6 +501,29 @@ Partial Class FrmSalesPrintLayoutManager
         Me.lblProfiles.Text = "التصاميم"
         Me.lblProfiles.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'cmbUsageKind
+        '
+        Me.cmbUsageKind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbUsageKind.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.cmbUsageKind.FormattingEnabled = True
+        Me.cmbUsageKind.Items.AddRange(New Object() {"فواتير POS العادية", "فاتورة طلبية للعميل"})
+        Me.cmbUsageKind.Location = New System.Drawing.Point(20, 491)
+        Me.cmbUsageKind.Name = "cmbUsageKind"
+        Me.cmbUsageKind.Size = New System.Drawing.Size(220, 25)
+        Me.cmbUsageKind.TabIndex = 24
+        Me.cmbUsageKind.Visible = False
+        '
+        'lblUsageKind
+        '
+        Me.lblUsageKind.Font = New System.Drawing.Font("Segoe UI", 9.5!)
+        Me.lblUsageKind.Location = New System.Drawing.Point(246, 489)
+        Me.lblUsageKind.Name = "lblUsageKind"
+        Me.lblUsageKind.Size = New System.Drawing.Size(120, 26)
+        Me.lblUsageKind.TabIndex = 23
+        Me.lblUsageKind.Text = "نوع قالب POS"
+        Me.lblUsageKind.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblUsageKind.Visible = False
+        '
         'lblSections
         '
         Me.lblSections.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -676,6 +703,8 @@ Partial Class FrmSalesPrintLayoutManager
     Friend WithEvents lblProfileName As Label
     Friend WithEvents cmbProfiles As ComboBox
     Friend WithEvents lblProfiles As Label
+    Friend WithEvents cmbUsageKind As ComboBox
+    Friend WithEvents lblUsageKind As Label
     Friend WithEvents lblSections As Label
     Friend WithEvents lblStyles As Label
     Friend WithEvents lblColumns As Label

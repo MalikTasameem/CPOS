@@ -1514,7 +1514,7 @@ Partial Class POS
         Me.Button23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Button23.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button23.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Button23.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button23.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button23.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button23.ForeColor = System.Drawing.Color.DarkRed
         Me.Button23.Location = New System.Drawing.Point(4, 3)

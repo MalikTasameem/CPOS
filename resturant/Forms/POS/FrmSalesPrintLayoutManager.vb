@@ -37,6 +37,7 @@ Public Class FrmSalesPrintLayoutManager
             cmbPrinter.Enabled = False
             LoadInstalledFonts()
             LoadTemporaryTemplates()
+            SetupUsageKindSelector()
             UpdatePrintActionsState()
             Repository.EnsureSchema()
             LoadProfiles()
@@ -208,6 +209,34 @@ Public Class FrmSalesPrintLayoutManager
         btnPreview.Enabled = hasPrintData
         btnPrint.Enabled = hasPrintData
     End Sub
+
+    Private Sub SetupUsageKindSelector()
+        Dim showUsageSelector As Boolean = IsPosUsageKey(CurrentUsageKey)
+        lblUsageKind.Visible = showUsageSelector
+        cmbUsageKind.Visible = showUsageSelector
+
+        If showUsageSelector = False Then Return
+
+        IsLoading = True
+        If CurrentUsageKey = SalesPrintRepository.UsagePosOrder Then
+            cmbUsageKind.SelectedIndex = 1
+        Else
+            cmbUsageKind.SelectedIndex = 0
+            CurrentUsageKey = SalesPrintRepository.UsagePos
+        End If
+        IsLoading = False
+    End Sub
+
+    Private Function IsPosUsageKey(usageKey As String) As Boolean
+        If String.IsNullOrWhiteSpace(usageKey) Then Return False
+        usageKey = usageKey.Trim().ToUpperInvariant()
+        Return usageKey = SalesPrintRepository.UsagePos OrElse usageKey = SalesPrintRepository.UsagePosOrder
+    End Function
+
+    Private Function GetSelectedPosUsageKey() As String
+        If cmbUsageKind.SelectedIndex = 1 Then Return SalesPrintRepository.UsagePosOrder
+        Return SalesPrintRepository.UsagePos
+    End Function
 
     Private Sub LoadPrinters()
         cmbPrinter.Items.Clear()
@@ -503,6 +532,17 @@ Public Class FrmSalesPrintLayoutManager
         If cmbPaperKind.SelectedItem Is Nothing Then Return
 
         UpdateLocalPrinterSelection(cmbPaperKind.SelectedItem.ToString())
+    End Sub
+
+    Private Sub cmbUsageKind_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUsageKind.SelectedIndexChanged
+        If IsLoading Then Return
+        If cmbUsageKind.Visible = False Then Return
+
+        Dim selectedUsageKey As String = GetSelectedPosUsageKey()
+        If CurrentUsageKey = selectedUsageKey Then Return
+
+        CurrentUsageKey = selectedUsageKey
+        LoadProfiles()
     End Sub
 
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click

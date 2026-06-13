@@ -83,6 +83,34 @@ Public Class SalesPrintData
         Return data
     End Function
 
+    Public Shared Function FromPosForm(form As POS) As SalesPrintData
+        Dim data As New SalesPrintData()
+
+        data.StoreTitle = SBill_Title_1
+        data.StoreAddress = SBill_Title_2
+        data.Footer = SBill_Footer
+        data.TID = form.T_ID
+        data.BillNo = SafeText(form.BillNumTxt)
+        data.BillID = SafeText(form.SB_ID_Txt)
+        data.BillDate = Date.Now.ToString("yyyy/MM/dd HH:mm")
+        data.CustomerName = If(String.IsNullOrWhiteSpace(form.AG_Name), "", form.AG_Name)
+        data.ProjectName = If(form.TB_ID > 0 AndAlso form.TB_Name_Lb IsNot Nothing, form.TB_Name_Lb.Text, "")
+        data.UserName = USER_NAME
+        data.Notes = If(form.BillTypeCmb Is Nothing, "", form.BillTypeCmb.Text)
+        data.TotalText = SafeText(form.TotalTextBox)
+        data.DiscountText = SafeText(form.DiscountTextBox)
+        data.PureText = SafeText(form.PureTextBox)
+        data.PaidText = ""
+        data.RestText = ""
+        data.QtyText = CalculateGridQtyText(form.MetroGrid, "QTY_CL")
+        data.CountText = If(form.MetroGrid Is Nothing, "", form.MetroGrid.Rows.Count.ToString())
+        data.Barcode = form.Barcode
+        data.LogoImage = LoadLogoImage()
+        data.Items = BuildPosItemsTable(form.MetroGrid)
+
+        Return data
+    End Function
+
     Private Shared Function BuildItemsTable(grid As DataGridView) As DataTable
         Dim dt As New DataTable()
         If grid Is Nothing Then Return dt
@@ -103,6 +131,72 @@ Public Class SalesPrintData
         Next
 
         Return dt
+    End Function
+
+    Private Shared Function BuildPosItemsTable(grid As DataGridView) As DataTable
+        Dim dt As New DataTable()
+        AddPrintColumn(dt, "IMNUM_CL")
+        AddPrintColumn(dt, "Barcode_CL")
+        AddPrintColumn(dt, "EX_Name_CL")
+        AddPrintColumn(dt, "IMUnit_CL")
+        AddPrintColumn(dt, "QTY_CL")
+        AddPrintColumn(dt, "Price_CL")
+        AddPrintColumn(dt, "IM_Discount_CL")
+        AddPrintColumn(dt, "Total_CL")
+        AddPrintColumn(dt, "Notes_CL")
+        AddPrintColumn(dt, "ST_Name_CL")
+        AddPrintColumn(dt, "D_Valid_CL")
+
+        If grid Is Nothing Then Return dt
+
+        Dim rowCounter As Integer = 1
+        For Each row As DataGridViewRow In grid.Rows
+            If row.IsNewRow Then Continue For
+
+            Dim newRow As DataRow = dt.NewRow()
+            newRow("IMNUM_CL") = rowCounter.ToString()
+            newRow("Barcode_CL") = ""
+            newRow("EX_Name_CL") = GetGridCellText(grid, row, "IM_NameCL")
+            newRow("IMUnit_CL") = GetGridCellText(grid, row, "Unit_CL")
+            newRow("QTY_CL") = GetGridCellText(grid, row, "QTY_CL")
+            newRow("Price_CL") = GetGridCellText(grid, row, "Unit_Price_CL")
+            newRow("IM_Discount_CL") = ""
+            newRow("Total_CL") = GetGridCellText(grid, row, "Total_CL")
+            newRow("Notes_CL") = ""
+            newRow("ST_Name_CL") = ""
+            newRow("D_Valid_CL") = ""
+            dt.Rows.Add(newRow)
+
+            rowCounter += 1
+        Next
+
+        Return dt
+    End Function
+
+    Private Shared Sub AddPrintColumn(dt As DataTable, columnName As String)
+        If dt.Columns.Contains(columnName) = False Then dt.Columns.Add(columnName, GetType(String))
+    End Sub
+
+    Private Shared Function GetGridCellText(grid As DataGridView, row As DataGridViewRow, columnName As String) As String
+        If grid Is Nothing OrElse row Is Nothing OrElse grid.Columns.Contains(columnName) = False Then Return ""
+        Dim value As Object = row.Cells(columnName).Value
+        If value Is Nothing OrElse value Is DBNull.Value Then Return ""
+        Return value.ToString()
+    End Function
+
+    Private Shared Function CalculateGridQtyText(grid As DataGridView, columnName As String) As String
+        If grid Is Nothing OrElse grid.Columns.Contains(columnName) = False Then Return ""
+
+        Dim totalQty As Decimal = 0D
+        For Each row As DataGridViewRow In grid.Rows
+            If row.IsNewRow Then Continue For
+
+            Dim value As Decimal = 0D
+            Decimal.TryParse(GetGridCellText(grid, row, columnName), value)
+            totalQty += value
+        Next
+
+        Return totalQty.ToString(N_Point_Fter)
     End Function
 
     Private Shared Function SafeText(txt As TextBox) As String

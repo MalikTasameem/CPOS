@@ -113,11 +113,18 @@ Public Class SalesPrintDocumentRenderer
         End If
 
         If IsSectionVisible("BillInfo") Then
-            Dim billText As String = "رقم الفاتورة: " & PrintData.BillNo & "    التاريخ: " & PrintData.BillDate
-            Using textBrush As New SolidBrush(GetProfileColor(Profile.TextForeColorArgb))
-                g.DrawString(billText, infoFont, textBrush, New Rectangle(bounds.Left, y, bounds.Width, 24), rightFormat)
-            End Using
-            y += 24
+            Dim billText As String = "التاريخ: " & PrintData.BillDate
+            If IsSectionVisible("BillNoDaily") = False AndAlso String.IsNullOrWhiteSpace(PrintData.BillNo) = False Then billText = "رقم الفاتورة: " & PrintData.BillNo & "    " & billText
+            If IsPosUsageProfile() AndAlso IsSectionVisible("BillNoAuto") = False AndAlso String.IsNullOrWhiteSpace(PrintData.BillID) = False AndAlso PrintData.BillID <> PrintData.BillNo Then billText = "رقم آلي: " & PrintData.BillID & "    " & billText
+            DrawInfoLine(g, bounds, y, billText, infoFont, rightFormat)
+        End If
+
+        If IsSectionVisible("BillNoDaily") AndAlso String.IsNullOrWhiteSpace(PrintData.BillNo) = False Then
+            DrawInfoLine(g, bounds, y, "رقم يومي: " & PrintData.BillNo, infoFont, rightFormat)
+        End If
+
+        If IsSectionVisible("BillNoAuto") AndAlso String.IsNullOrWhiteSpace(PrintData.BillID) = False Then
+            DrawInfoLine(g, bounds, y, "رقم آلي: " & PrintData.BillID, infoFont, rightFormat)
         End If
 
         If IsSectionVisible("Customer") AndAlso String.IsNullOrWhiteSpace(PrintData.CustomerName) = False Then
@@ -142,6 +149,13 @@ Public Class SalesPrintDocumentRenderer
         End If
 
         y += 6
+    End Sub
+
+    Private Sub DrawInfoLine(g As Graphics, bounds As Rectangle, ByRef y As Integer, text As String, infoFont As Font, rightFormat As StringFormat)
+        Using textBrush As New SolidBrush(GetProfileColor(Profile.TextForeColorArgb))
+            g.DrawString(text, infoFont, textBrush, New Rectangle(bounds.Left, y, bounds.Width, 24), rightFormat)
+        End Using
+        y += 24
     End Sub
 
     Private Sub DrawItemsTable(e As PrintPageEventArgs, bounds As Rectangle, ByRef y As Integer, columns As List(Of SalesPrintComponent), headerFont As Font, rowFont As Font, centerFormat As StringFormat, rightFormat As StringFormat)
@@ -329,6 +343,12 @@ Public Class SalesPrintDocumentRenderer
     Private Function IsSectionVisible(code As String) As Boolean
         Dim section As SalesPrintComponent = Profile.Components.FirstOrDefault(Function(c) c.ComponentScope = "SECTION" AndAlso c.ComponentCode = code)
         Return section IsNot Nothing AndAlso section.IsVisible
+    End Function
+
+    Private Function IsPosUsageProfile() As Boolean
+        If Profile Is Nothing OrElse String.IsNullOrWhiteSpace(Profile.UsageKey) Then Return False
+        Dim usageKey As String = Profile.UsageKey.Trim().ToUpperInvariant()
+        Return usageKey = SalesPrintRepository.UsagePos OrElse usageKey = SalesPrintRepository.UsagePosOrder
     End Function
 
     Private Function GetRowValue(row As DataRow, columnName As String) As String

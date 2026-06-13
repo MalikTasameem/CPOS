@@ -6,6 +6,8 @@ Public Class SalesPrintRepository
 
     Public Const UsageSales As String = "SALES"
     Public Const UsageSalesFast As String = "SALES_FAST"
+    Public Const UsagePos As String = "POS"
+    Public Const UsagePosOrder As String = "POS_ORDER"
     Private ReadOnly ConnectionString As String
 
     Public Sub New(connectionString As String)
@@ -228,7 +230,7 @@ Public Class SalesPrintRepository
             p.LogoWidth = 72
             p.LogoHeight = 72
         End If
-        p.Components = GetDefaultComponents()
+        p.Components = GetDefaultComponents(p.UsageKey)
         Return p
     End Function
 
@@ -270,15 +272,21 @@ Public Class SalesPrintRepository
     Public Sub MergeMissingDefaults(profile As SalesPrintProfile)
         If profile Is Nothing Then Return
 
-        Dim defaults As List(Of SalesPrintComponent) = GetDefaultComponents()
+        Dim defaults As List(Of SalesPrintComponent) = GetDefaultComponents(profile.UsageKey)
         For Each def As SalesPrintComponent In defaults
             Dim exists As Boolean = profile.Components.Any(Function(c) c.ComponentScope = def.ComponentScope AndAlso c.ComponentCode = def.ComponentCode)
             If exists = False Then profile.Components.Add(def.CloneComponent())
         Next
     End Sub
 
-    Public Function GetDefaultComponents() As List(Of SalesPrintComponent)
+    Public Function GetDefaultComponents(Optional usageKey As String = UsageSales) As List(Of SalesPrintComponent)
         Dim list As New List(Of SalesPrintComponent)()
+        Dim normalizedUsageKey As String = NormalizeUsageKey(usageKey)
+        Dim isPosUsage As Boolean = normalizedUsageKey = UsagePos OrElse normalizedUsageKey = UsagePosOrder
+        If isPosUsage Then
+            AddComponent(list, "SECTION", "BillNoDaily", "رقم الفاتورة اليومي", False, 41, 100, "Right")
+            AddComponent(list, "SECTION", "BillNoAuto", "رقم الفاتورة الآلي", False, 42, 100, "Right")
+        End If
 
         AddComponent(list, "SECTION", "Logo", "الشعار", True, 10, 70, "Center")
         AddComponent(list, "SECTION", "StoreTitle", "اسم المحل", True, 20, 100, "Center")

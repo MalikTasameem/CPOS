@@ -638,63 +638,6 @@ Public Class MainForm
 
 
 
-
-
-    '----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    'Private Sub Tracking_TB_Print_Log()
-    '    Try
-    '        Dim c As New C
-    '        Using c.Con
-    '            c.Con.Open()
-    '            Dim cmd As New SqlCommand("SELECT [T_ID],[ERROR_TITLE],[ERROR_LOG] FROM [dbo].[TB_AutoPrint_Log]  ", c.Con)
-    '            Dim dependencyATT As New SqlDependency(cmd)
-    '            AddHandler dependencyATT.OnChange, AddressOf OnDBChangeATT
-    '            cmd.ExecuteReader()
-    '        End Using
-    '    Catch ex As Exception
-    '        MessageBox.Show(ex.Message)
-    '    End Try
-    'End Sub
-
-    'Private Sub OnDBChangeATT(ByVal sender As Object, ByVal e As SqlNotificationEventArgs)
-    '    If e.Type = SqlNotificationType.Change Then Select_TB_Print_Log()
-    'End Sub
-
-    'Public Sub StartListening()
-    '    Dim c As New C
-    '    SqlDependency.Stop(MY_Settings.SqlConStr)
-    '    SqlDependency.Start(MY_Settings.SqlConStr)
-    '    Tracking_TB_Print_Log()
-    'End Sub
-
-
-    'Public Sub Select_TB_Print_Log()
-
-    '    Dim c As New C
-    '    Dim str As String = "Select TOP 1 [T_ID],[ERROR_TITLE],[ERROR_LOG] FROM [dbo].[TB_AutoPrint_Log] ORDER BY T_ID DESC "
-    '    c.Com = New SqlClient.SqlCommand(str, c.Con)
-
-    '    c.Con.Open()
-    '    Try
-    '        c.Dr = c.Com.ExecuteReader
-    '        c.Dr.Read()
-
-    '        If c.Dr.HasRows = True Then
-    '            Dim notification3 As New NotificationForm(c.Dr("ERROR_TITLE"), c.Dr("ERROR_LOG"), "bottom")
-    '            notification3.ShowNotification()
-    '        End If
-
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    '    c.Con.Close()
-
-    'End Sub
-    '----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
         If S_Pr = True Then
             If isPr_Open = True Then

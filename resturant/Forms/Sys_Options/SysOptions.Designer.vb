@@ -22,6 +22,7 @@ Partial Class SysOptions
         Me.MaxFormButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.F_Panel = New System.Windows.Forms.Panel()
+        Me.PosPrintLayoutButton = New System.Windows.Forms.Button()
         Me.SalesFastPrintLayoutButton = New System.Windows.Forms.Button()
         Me.SalesPrintLayoutButton = New System.Windows.Forms.Button()
         Me.SalesDraftLogsButton = New System.Windows.Forms.Button()
@@ -106,6 +107,7 @@ Partial Class SysOptions
         '
         'F_Panel
         '
+        Me.F_Panel.Controls.Add(Me.PosPrintLayoutButton)
         Me.F_Panel.Controls.Add(Me.SalesFastPrintLayoutButton)
         Me.F_Panel.Controls.Add(Me.SalesPrintLayoutButton)
         Me.F_Panel.Controls.Add(Me.SalesDraftLogsButton)
@@ -135,6 +137,18 @@ Partial Class SysOptions
         Me.F_Panel.Size = New System.Drawing.Size(1107, 558)
         Me.F_Panel.TabIndex = 1
         Me.F_Panel.Tag = "TRANSPARENT"
+        '
+        'PosPrintLayoutButton
+        '
+        Me.PosPrintLayoutButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PosPrintLayoutButton.FlatAppearance.BorderSize = 0
+        Me.PosPrintLayoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.PosPrintLayoutButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.PosPrintLayoutButton.Location = New System.Drawing.Point(707, 429)
+        Me.PosPrintLayoutButton.Name = "PosPrintLayoutButton"
+        Me.PosPrintLayoutButton.Size = New System.Drawing.Size(183, 79)
+        Me.PosPrintLayoutButton.TabIndex = 23
+        Me.PosPrintLayoutButton.Text = "🖨️" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "قوالب طباعة POS"
         '
         'SalesFastPrintLayoutButton
         '
@@ -460,4 +474,5 @@ Partial Class SysOptions
     Friend WithEvents SalesDraftLogsButton As Button
     Friend WithEvents SalesPrintLayoutButton As Button
     Friend WithEvents SalesFastPrintLayoutButton As Button
+    Friend WithEvents PosPrintLayoutButton As Button
 End Class
