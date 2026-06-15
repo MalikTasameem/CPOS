@@ -96,6 +96,7 @@ Partial Class MainForm
         Me.تحويلبينالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ترحيلمحاسبيToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.بوابةالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
         Me.Reports_btn = New System.Windows.Forms.ToolStripDropDownButton()
         Me.General_Report_LB = New System.Windows.Forms.ToolStripMenuItem()
@@ -585,7 +586,7 @@ Partial Class MainForm
         'Balances_btn
         '
         Me.Balances_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Balances_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.شاشةالحساباتToolStripMenuItem, Me.الخزينــةToolStripMenuItem, Me.تحويلبينالحساباتToolStripMenuItem, Me.ترحيلمحاسبيToolStripMenuItem, Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem})
+        Me.Balances_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.شاشةالحساباتToolStripMenuItem, Me.الخزينــةToolStripMenuItem, Me.تحويلبينالحساباتToolStripMenuItem, Me.ترحيلمحاسبيToolStripMenuItem, Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem, Me.بوابةالحساباتToolStripMenuItem})
         Me.Balances_btn.Name = "Balances_btn"
         Me.Balances_btn.Size = New System.Drawing.Size(77, 23)
         Me.Balances_btn.Text = "الحسابات"
@@ -640,6 +641,12 @@ Partial Class MainForm
         Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Name = "متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem"
         Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
         Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Text = "متابعة تعديلات وإعادة تقييد القيود المحاسبية"
+        '
+        'بوابةالحساباتToolStripMenuItem
+        '
+        Me.بوابةالحساباتToolStripMenuItem.Name = "بوابةالحساباتToolStripMenuItem"
+        Me.بوابةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
+        Me.بوابةالحساباتToolStripMenuItem.Text = "بوابة الحسابات"
         '
         'ToolStripSeparator8
         '
@@ -975,7 +982,6 @@ Partial Class MainForm
         Me.TitleBar_Panel.Controls.Add(Me.MinBtn)
         Me.TitleBar_Panel.Controls.Add(Me.MaxBtn)
         Me.TitleBar_Panel.Controls.Add(Me.CloseBtn)
-        Me.TitleBar_Panel.Cursor = System.Windows.Forms.Cursors.Hand
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
@@ -1078,7 +1084,6 @@ Partial Class MainForm
         'Btn_QuickSales
         '
         Me.Btn_QuickSales.BackColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(173, Byte), Integer))
-        Me.Btn_QuickSales.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_QuickSales.FlatAppearance.BorderSize = 0
         Me.Btn_QuickSales.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Btn_QuickSales.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
@@ -1093,7 +1098,6 @@ Partial Class MainForm
         'Btn_QuickPch
         '
         Me.Btn_QuickPch.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.Btn_QuickPch.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_QuickPch.FlatAppearance.BorderSize = 0
         Me.Btn_QuickPch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Btn_QuickPch.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
@@ -1108,7 +1112,6 @@ Partial Class MainForm
         'Btn_QuickOffers
         '
         Me.Btn_QuickOffers.BackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Btn_QuickOffers.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_QuickOffers.FlatAppearance.BorderSize = 0
         Me.Btn_QuickOffers.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Btn_QuickOffers.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
@@ -1217,7 +1220,6 @@ Partial Class MainForm
         'Table_Bill_Screen_btn
         '
         Me.Table_Bill_Screen_btn.BackColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
-        Me.Table_Bill_Screen_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Table_Bill_Screen_btn.FlatAppearance.BorderSize = 0
         Me.Table_Bill_Screen_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Table_Bill_Screen_btn.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
@@ -1232,7 +1234,6 @@ Partial Class MainForm
         'ExitFormButton
         '
         Me.ExitFormButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(43, Byte), Integer))
-        Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatAppearance.BorderSize = 0
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
@@ -1374,7 +1375,6 @@ Partial Class MainForm
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button1.FlatAppearance.BorderSize = 0
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.ForeColor = System.Drawing.Color.White
@@ -1478,7 +1478,6 @@ Partial Class MainForm
         'Save_butt
         '
         Me.Save_butt.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
-        Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Save_butt.FlatAppearance.BorderSize = 0
         Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Save_butt.ForeColor = System.Drawing.Color.White
@@ -1719,4 +1718,5 @@ Partial Class MainForm
     Friend WithEvents ترحيلمحاسبيToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents تسويةمخزنToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents بوابةالحساباتToolStripMenuItem As ToolStripMenuItem
 End Class

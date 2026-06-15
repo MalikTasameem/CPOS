@@ -561,8 +561,11 @@ Public Class MainForm
 
 
         'Setting_GroupBox.Enabled = is_Home_Mange_Printers
+
+
         Activation.isFor_Check_Sys_Active = True
-        Dim hiddenHandle As IntPtr = Activation.Handle
+        'Dim hiddenHandle As IntPtr = Activation.Handle
+        Activation.ShowDialog()
         Activation.isFor_Check_Sys_Active = False
 
         If Activation.isActive = False Then
@@ -3104,7 +3107,12 @@ Public Class MainForm
         F.Show()
     End Sub
 
-    Private Sub Main_Workspace_Panel_Paint(sender As Object, e As PaintEventArgs) Handles Main_Workspace_Panel.Paint
 
+
+    Private Sub بوابةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles بوابةالحساباتToolStripMenuItem.Click
+        Accounting.System_Startup()
+
+        Dim F As New Accounting.login
+        F.ShowDialog()
     End Sub
 End Class
