@@ -3110,9 +3110,9 @@ Public Class MainForm
 
 
     Private Sub بوابةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles بوابةالحساباتToolStripMenuItem.Click
-        Accounting.System_Startup()
+        'Accounting.System_Startup()
 
-        Dim F As New Accounting.login
-        F.ShowDialog()
+        'Dim F As New Accounting.login
+        'F.ShowDialog()
     End Sub
 End Class
