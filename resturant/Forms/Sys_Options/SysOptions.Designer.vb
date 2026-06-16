@@ -59,7 +59,7 @@ Partial Class SysOptions
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
-        Me.TitleBar_Panel.Size = New System.Drawing.Size(1107, 35)
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(990, 35)
         Me.TitleBar_Panel.TabIndex = 0
         Me.TitleBar_Panel.Tag = "HEADER"
         '
@@ -68,7 +68,7 @@ Partial Class SysOptions
         Me.Title_Label.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Title_Label.AutoSize = True
         Me.Title_Label.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Title_Label.Location = New System.Drawing.Point(935, 10)
+        Me.Title_Label.Location = New System.Drawing.Point(818, 10)
         Me.Title_Label.Name = "Title_Label"
         Me.Title_Label.Size = New System.Drawing.Size(160, 21)
         Me.Title_Label.TabIndex = 1
@@ -134,7 +134,7 @@ Partial Class SysOptions
         Me.F_Panel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.F_Panel.Location = New System.Drawing.Point(0, 35)
         Me.F_Panel.Name = "F_Panel"
-        Me.F_Panel.Size = New System.Drawing.Size(1107, 558)
+        Me.F_Panel.Size = New System.Drawing.Size(990, 470)
         Me.F_Panel.TabIndex = 1
         Me.F_Panel.Tag = "TRANSPARENT"
         '
@@ -144,9 +144,9 @@ Partial Class SysOptions
         Me.PosPrintLayoutButton.FlatAppearance.BorderSize = 0
         Me.PosPrintLayoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.PosPrintLayoutButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.PosPrintLayoutButton.Location = New System.Drawing.Point(707, 429)
+        Me.PosPrintLayoutButton.Location = New System.Drawing.Point(582, 356)
         Me.PosPrintLayoutButton.Name = "PosPrintLayoutButton"
-        Me.PosPrintLayoutButton.Size = New System.Drawing.Size(183, 79)
+        Me.PosPrintLayoutButton.Size = New System.Drawing.Size(180, 80)
         Me.PosPrintLayoutButton.TabIndex = 23
         Me.PosPrintLayoutButton.Text = "🖨️" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "قوالب طباعة POS"
         '
@@ -156,9 +156,9 @@ Partial Class SysOptions
         Me.SalesFastPrintLayoutButton.FlatAppearance.BorderSize = 0
         Me.SalesFastPrintLayoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.SalesFastPrintLayoutButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.SalesFastPrintLayoutButton.Location = New System.Drawing.Point(481, 429)
+        Me.SalesFastPrintLayoutButton.Location = New System.Drawing.Point(392, 356)
         Me.SalesFastPrintLayoutButton.Name = "SalesFastPrintLayoutButton"
-        Me.SalesFastPrintLayoutButton.Size = New System.Drawing.Size(183, 79)
+        Me.SalesFastPrintLayoutButton.Size = New System.Drawing.Size(180, 80)
         Me.SalesFastPrintLayoutButton.TabIndex = 22
         Me.SalesFastPrintLayoutButton.Text = "🧾" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "قوالب طباعة المبيعات السريعة"
         '
@@ -168,9 +168,9 @@ Partial Class SysOptions
         Me.SalesPrintLayoutButton.FlatAppearance.BorderSize = 0
         Me.SalesPrintLayoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.SalesPrintLayoutButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.SalesPrintLayoutButton.Location = New System.Drawing.Point(253, 429)
+        Me.SalesPrintLayoutButton.Location = New System.Drawing.Point(202, 356)
         Me.SalesPrintLayoutButton.Name = "SalesPrintLayoutButton"
-        Me.SalesPrintLayoutButton.Size = New System.Drawing.Size(183, 79)
+        Me.SalesPrintLayoutButton.Size = New System.Drawing.Size(180, 80)
         Me.SalesPrintLayoutButton.TabIndex = 21
         Me.SalesPrintLayoutButton.Text = "🖨️" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "قوالب طباعة المبيعات"
         '
@@ -180,9 +180,9 @@ Partial Class SysOptions
         Me.SalesDraftLogsButton.FlatAppearance.BorderSize = 0
         Me.SalesDraftLogsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.SalesDraftLogsButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.SalesDraftLogsButton.Location = New System.Drawing.Point(707, 222)
+        Me.SalesDraftLogsButton.Location = New System.Drawing.Point(582, 185)
         Me.SalesDraftLogsButton.Name = "SalesDraftLogsButton"
-        Me.SalesDraftLogsButton.Size = New System.Drawing.Size(183, 79)
+        Me.SalesDraftLogsButton.Size = New System.Drawing.Size(180, 80)
         Me.SalesDraftLogsButton.TabIndex = 20
         Me.SalesDraftLogsButton.Text = "📋" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "سجل حركات المبيعات"
         '
@@ -192,9 +192,9 @@ Partial Class SysOptions
         Me.Button2.FlatAppearance.BorderSize = 0
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button2.Location = New System.Drawing.Point(40, 120)
+        Me.Button2.Location = New System.Drawing.Point(13, 100)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(183, 79)
+        Me.Button2.Size = New System.Drawing.Size(180, 80)
         Me.Button2.TabIndex = 19
         Me.Button2.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & "ربط الحسابات العامة"
         '
@@ -204,9 +204,9 @@ Partial Class SysOptions
         Me.Button12.FlatAppearance.BorderSize = 0
         Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button12.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button12.Location = New System.Drawing.Point(707, 15)
+        Me.Button12.Location = New System.Drawing.Point(582, 15)
         Me.Button12.Name = "Button12"
-        Me.Button12.Size = New System.Drawing.Size(183, 79)
+        Me.Button12.Size = New System.Drawing.Size(180, 80)
         Me.Button12.TabIndex = 0
         Me.Button12.Text = "💸" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "بطاقة المصروفات"
         '
@@ -216,9 +216,9 @@ Partial Class SysOptions
         Me.Button13.FlatAppearance.BorderSize = 0
         Me.Button13.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button13.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button13.Location = New System.Drawing.Point(481, 15)
+        Me.Button13.Location = New System.Drawing.Point(392, 15)
         Me.Button13.Name = "Button13"
-        Me.Button13.Size = New System.Drawing.Size(183, 79)
+        Me.Button13.Size = New System.Drawing.Size(180, 80)
         Me.Button13.TabIndex = 1
         Me.Button13.Text = "💰" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "بطاقة الخزينة"
         '
@@ -228,9 +228,9 @@ Partial Class SysOptions
         Me.Button14.FlatAppearance.BorderSize = 0
         Me.Button14.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button14.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button14.Location = New System.Drawing.Point(40, 222)
+        Me.Button14.Location = New System.Drawing.Point(13, 185)
         Me.Button14.Name = "Button14"
-        Me.Button14.Size = New System.Drawing.Size(183, 79)
+        Me.Button14.Size = New System.Drawing.Size(180, 80)
         Me.Button14.TabIndex = 2
         Me.Button14.Text = "💾" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "النسخ الاحتياطي"
         '
@@ -240,9 +240,9 @@ Partial Class SysOptions
         Me.Button15.FlatAppearance.BorderSize = 0
         Me.Button15.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button15.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button15.Location = New System.Drawing.Point(40, 15)
+        Me.Button15.Location = New System.Drawing.Point(13, 15)
         Me.Button15.Name = "Button15"
-        Me.Button15.Size = New System.Drawing.Size(183, 79)
+        Me.Button15.Size = New System.Drawing.Size(180, 80)
         Me.Button15.TabIndex = 3
         Me.Button15.Text = "🖥️" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "إعدادات السيرفر"
         '
@@ -252,9 +252,9 @@ Partial Class SysOptions
         Me.Button17.FlatAppearance.BorderSize = 0
         Me.Button17.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button17.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button17.Location = New System.Drawing.Point(40, 327)
+        Me.Button17.Location = New System.Drawing.Point(13, 270)
         Me.Button17.Name = "Button17"
-        Me.Button17.Size = New System.Drawing.Size(183, 79)
+        Me.Button17.Size = New System.Drawing.Size(180, 80)
         Me.Button17.TabIndex = 4
         Me.Button17.Text = "🗑️" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "مسح السجلات"
         '
@@ -264,9 +264,9 @@ Partial Class SysOptions
         Me.Button18.FlatAppearance.BorderSize = 0
         Me.Button18.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button18.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button18.Location = New System.Drawing.Point(481, 222)
+        Me.Button18.Location = New System.Drawing.Point(392, 185)
         Me.Button18.Name = "Button18"
-        Me.Button18.Size = New System.Drawing.Size(183, 79)
+        Me.Button18.Size = New System.Drawing.Size(180, 80)
         Me.Button18.TabIndex = 5
         Me.Button18.Text = "🔐" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "صلاحيات النظام"
         '
@@ -276,9 +276,9 @@ Partial Class SysOptions
         Me.Tree_AG_Button.FlatAppearance.BorderSize = 0
         Me.Tree_AG_Button.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Tree_AG_Button.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Tree_AG_Button.Location = New System.Drawing.Point(253, 120)
+        Me.Tree_AG_Button.Location = New System.Drawing.Point(202, 100)
         Me.Tree_AG_Button.Name = "Tree_AG_Button"
-        Me.Tree_AG_Button.Size = New System.Drawing.Size(183, 79)
+        Me.Tree_AG_Button.Size = New System.Drawing.Size(180, 80)
         Me.Tree_AG_Button.TabIndex = 6
         Me.Tree_AG_Button.Text = "🌳" & Global.Microsoft.VisualBasic.ChrW(13) & "إدارة الربط المحاسبي"
         '
@@ -288,9 +288,9 @@ Partial Class SysOptions
         Me.ST_Button.FlatAppearance.BorderSize = 0
         Me.ST_Button.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ST_Button.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.ST_Button.Location = New System.Drawing.Point(253, 15)
+        Me.ST_Button.Location = New System.Drawing.Point(202, 15)
         Me.ST_Button.Name = "ST_Button"
-        Me.ST_Button.Size = New System.Drawing.Size(183, 79)
+        Me.ST_Button.Size = New System.Drawing.Size(180, 80)
         Me.ST_Button.TabIndex = 7
         Me.ST_Button.Text = "📦" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "إدارة المخازن"
         '
@@ -300,9 +300,9 @@ Partial Class SysOptions
         Me.Pch_Exp_Btn.FlatAppearance.BorderSize = 0
         Me.Pch_Exp_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Pch_Exp_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Pch_Exp_Btn.Location = New System.Drawing.Point(40, 429)
+        Me.Pch_Exp_Btn.Location = New System.Drawing.Point(13, 356)
         Me.Pch_Exp_Btn.Name = "Pch_Exp_Btn"
-        Me.Pch_Exp_Btn.Size = New System.Drawing.Size(183, 79)
+        Me.Pch_Exp_Btn.Size = New System.Drawing.Size(180, 80)
         Me.Pch_Exp_Btn.TabIndex = 8
         Me.Pch_Exp_Btn.Text = "🧾" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "مصروفات المشتريات"
         '
@@ -312,9 +312,9 @@ Partial Class SysOptions
         Me.Cities_btn.FlatAppearance.BorderSize = 0
         Me.Cities_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Cities_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Cities_btn.Location = New System.Drawing.Point(481, 327)
+        Me.Cities_btn.Location = New System.Drawing.Point(392, 270)
         Me.Cities_btn.Name = "Cities_btn"
-        Me.Cities_btn.Size = New System.Drawing.Size(183, 79)
+        Me.Cities_btn.Size = New System.Drawing.Size(180, 80)
         Me.Cities_btn.TabIndex = 9
         Me.Cities_btn.Text = "🌍" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "مناطق السفر"
         '
@@ -324,9 +324,9 @@ Partial Class SysOptions
         Me.MK_Btn.FlatAppearance.BorderSize = 0
         Me.MK_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.MK_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.MK_Btn.Location = New System.Drawing.Point(908, 327)
+        Me.MK_Btn.Location = New System.Drawing.Point(771, 270)
         Me.MK_Btn.Name = "MK_Btn"
-        Me.MK_Btn.Size = New System.Drawing.Size(183, 79)
+        Me.MK_Btn.Size = New System.Drawing.Size(180, 80)
         Me.MK_Btn.TabIndex = 10
         Me.MK_Btn.Text = "📢" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "إدارة المسوقين"
         '
@@ -336,9 +336,9 @@ Partial Class SysOptions
         Me.Network_Wacher_btn.FlatAppearance.BorderSize = 0
         Me.Network_Wacher_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Network_Wacher_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Network_Wacher_btn.Location = New System.Drawing.Point(908, 222)
+        Me.Network_Wacher_btn.Location = New System.Drawing.Point(771, 185)
         Me.Network_Wacher_btn.Name = "Network_Wacher_btn"
-        Me.Network_Wacher_btn.Size = New System.Drawing.Size(183, 79)
+        Me.Network_Wacher_btn.Size = New System.Drawing.Size(180, 80)
         Me.Network_Wacher_btn.TabIndex = 11
         Me.Network_Wacher_btn.Text = "🌐" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "مراقبة الشبكة"
         '
@@ -348,9 +348,9 @@ Partial Class SysOptions
         Me.Button4.FlatAppearance.BorderSize = 0
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button4.Location = New System.Drawing.Point(912, 15)
+        Me.Button4.Location = New System.Drawing.Point(771, 15)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(183, 79)
+        Me.Button4.Size = New System.Drawing.Size(180, 80)
         Me.Button4.TabIndex = 12
         Me.Button4.Text = "📝" & Global.Microsoft.VisualBasic.ChrW(13) & "الإعدادات العامة"
         '
@@ -360,9 +360,9 @@ Partial Class SysOptions
         Me.SubPrinterButton.FlatAppearance.BorderSize = 0
         Me.SubPrinterButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.SubPrinterButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.SubPrinterButton.Location = New System.Drawing.Point(707, 120)
+        Me.SubPrinterButton.Location = New System.Drawing.Point(582, 100)
         Me.SubPrinterButton.Name = "SubPrinterButton"
-        Me.SubPrinterButton.Size = New System.Drawing.Size(183, 79)
+        Me.SubPrinterButton.Size = New System.Drawing.Size(180, 80)
         Me.SubPrinterButton.TabIndex = 13
         Me.SubPrinterButton.Text = "🖨️" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "طابعات فرعية"
         '
@@ -372,9 +372,9 @@ Partial Class SysOptions
         Me.CardAgent_Btn.FlatAppearance.BorderSize = 0
         Me.CardAgent_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.CardAgent_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.CardAgent_Btn.Location = New System.Drawing.Point(703, 327)
+        Me.CardAgent_Btn.Location = New System.Drawing.Point(582, 270)
         Me.CardAgent_Btn.Name = "CardAgent_Btn"
-        Me.CardAgent_Btn.Size = New System.Drawing.Size(183, 79)
+        Me.CardAgent_Btn.Size = New System.Drawing.Size(180, 80)
         Me.CardAgent_Btn.TabIndex = 14
         Me.CardAgent_Btn.Text = "📇" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "أنواع العملاء"
         '
@@ -384,9 +384,9 @@ Partial Class SysOptions
         Me.Button8.FlatAppearance.BorderSize = 0
         Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button8.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button8.Location = New System.Drawing.Point(253, 222)
+        Me.Button8.Location = New System.Drawing.Point(202, 185)
         Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(183, 79)
+        Me.Button8.Size = New System.Drawing.Size(180, 80)
         Me.Button8.TabIndex = 15
         Me.Button8.Text = "👥" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "إدارة المستخدمين"
         '
@@ -396,9 +396,9 @@ Partial Class SysOptions
         Me.Shurtcut_Btn.FlatAppearance.BorderSize = 0
         Me.Shurtcut_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Shurtcut_Btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Shurtcut_Btn.Location = New System.Drawing.Point(253, 327)
+        Me.Shurtcut_Btn.Location = New System.Drawing.Point(202, 270)
         Me.Shurtcut_Btn.Name = "Shurtcut_Btn"
-        Me.Shurtcut_Btn.Size = New System.Drawing.Size(183, 79)
+        Me.Shurtcut_Btn.Size = New System.Drawing.Size(180, 80)
         Me.Shurtcut_Btn.TabIndex = 16
         Me.Shurtcut_Btn.Text = "⚡" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "اختصارات سريعة"
         '
@@ -408,9 +408,9 @@ Partial Class SysOptions
         Me.TableButton.FlatAppearance.BorderSize = 0
         Me.TableButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.TableButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.TableButton.Location = New System.Drawing.Point(908, 120)
+        Me.TableButton.Location = New System.Drawing.Point(771, 100)
         Me.TableButton.Name = "TableButton"
-        Me.TableButton.Size = New System.Drawing.Size(183, 79)
+        Me.TableButton.Size = New System.Drawing.Size(180, 80)
         Me.TableButton.TabIndex = 17
         Me.TableButton.Text = "🍽️" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "صالة الطاولات"
         '
@@ -420,9 +420,9 @@ Partial Class SysOptions
         Me.Button1.FlatAppearance.BorderSize = 0
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Button1.Location = New System.Drawing.Point(481, 120)
+        Me.Button1.Location = New System.Drawing.Point(392, 100)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(183, 79)
+        Me.Button1.Size = New System.Drawing.Size(180, 80)
         Me.Button1.TabIndex = 18
         Me.Button1.Text = "💳" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "حسابات الدفع الافتراضية"
         '
@@ -430,7 +430,7 @@ Partial Class SysOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1107, 593)
+        Me.ClientSize = New System.Drawing.Size(990, 505)
         Me.Controls.Add(Me.F_Panel)
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None

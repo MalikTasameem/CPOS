@@ -247,6 +247,10 @@ Public Class SysOptions
         End Using
     End Sub
 
+    Private Sub F_Panel_Paint(sender As Object, e As PaintEventArgs) Handles F_Panel.Paint
+
+    End Sub
+
     Private Sub SalesFastPrintLayoutButton_Click(sender As Object, e As EventArgs) Handles SalesFastPrintLayoutButton.Click
         Using frm As New FrmSalesPrintLayoutManager(Nothing, SalesPrintRepository.UsageSalesFast)
             frm.ShowDialog(Me)
