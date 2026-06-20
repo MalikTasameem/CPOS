@@ -2551,6 +2551,12 @@
     <None Include="Resources\white.jpg" />
     <None Include="Resources\Drawer_64.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Accounting\WindowsApplication1\Accounting.vbproj">
+      <Project>{ba094478-925f-40dd-b7ee-4ab84f88bac2}</Project>
+      <Name>Accounting</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

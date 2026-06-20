@@ -14,6 +14,7 @@ Partial Class FrmAccountingRepostMonitor
         _connectionString = connectionString
         _currentUserId = currentUserId
 
+        EnsureHeaderControlsDisplay()
         AddHandlers()
         SetDefaultDates()
         LoadLookups()
@@ -21,6 +22,206 @@ Partial Class FrmAccountingRepostMonitor
     End Sub
 
 #Region "Startup"
+
+    Private Sub EnsureHeaderControlsDisplay()
+        pnlTop.SuspendLayout()
+        pnlActions.SuspendLayout()
+
+        Try
+            pnlTop.Height = 92
+            pnlActions.Height = 48
+            pnlTop.Visible = True
+            pnlActions.Visible = True
+            pnlTop.Enabled = True
+            pnlActions.Enabled = True
+            pnlTop.BackColor = Color.FromArgb(245, 247, 250)
+            pnlActions.BackColor = Color.White
+
+            EnsureDockOrder()
+            EnsureHeaderParenting()
+
+            ApplyHeaderLabelDisplay(Label1)
+            ApplyHeaderLabelDisplay(Label2)
+            ApplyHeaderLabelDisplay(Label3)
+            ApplyHeaderLabelDisplay(Label4)
+            ApplyHeaderLabelDisplay(Label5)
+            ApplyHeaderLabelDisplay(Label6)
+
+            ApplyInputDisplay(txtSearch)
+            ApplyComboDisplay(cmbSource)
+            ApplyComboDisplay(cmbUser)
+            ApplyComboDisplay(cmbType)
+            ApplyDateDisplay(dtpFrom)
+            ApplyDateDisplay(dtpTo)
+
+            ApplyButtonDisplay(btnClose, "إغلاق", Color.FromArgb(192, 57, 43), Color.White)
+            ApplyButtonDisplay(btnRefresh, "تحديث", Color.FromArgb(52, 152, 219), Color.White)
+            ApplyButtonDisplay(btnSearch, "بحث", Color.FromArgb(39, 174, 96), Color.White)
+            ApplyButtonDisplay(btnViewNewJournal, "عرض القيد الجديد", Color.FromArgb(46, 204, 113), Color.White)
+            ApplyButtonDisplay(btnViewReversalJournal, "عرض القيد العكسي", Color.FromArgb(241, 196, 15), Color.Black)
+            ApplyButtonDisplay(btnViewOldJournal, "عرض القيد القديم", Color.FromArgb(149, 165, 166), Color.White)
+
+            ArrangeHeaderControls()
+
+        Finally
+            pnlActions.ResumeLayout(False)
+            pnlTop.ResumeLayout(False)
+            pnlTop.PerformLayout()
+        End Try
+    End Sub
+
+    Private Sub EnsureDockOrder()
+        If Me.Controls.Contains(pnlTop) Then
+            Me.Controls.SetChildIndex(pnlTop, 0)
+        End If
+
+        If Me.Controls.Contains(pnlActions) Then
+            Me.Controls.SetChildIndex(pnlActions, 1)
+        End If
+
+        If Me.Controls.Contains(pnlBottom) Then
+            Me.Controls.SetChildIndex(pnlBottom, 2)
+        End If
+
+        If Me.Controls.Contains(SplitContainer1) Then
+            Me.Controls.SetChildIndex(SplitContainer1, 3)
+        End If
+    End Sub
+
+    Private Sub EnsureHeaderParenting()
+        EnsureControlParent(pnlTop, Label1)
+        EnsureControlParent(pnlTop, dtpFrom)
+        EnsureControlParent(pnlTop, Label2)
+        EnsureControlParent(pnlTop, dtpTo)
+        EnsureControlParent(pnlTop, Label3)
+        EnsureControlParent(pnlTop, cmbSource)
+        EnsureControlParent(pnlTop, Label4)
+        EnsureControlParent(pnlTop, cmbType)
+        EnsureControlParent(pnlTop, Label5)
+        EnsureControlParent(pnlTop, cmbUser)
+        EnsureControlParent(pnlTop, Label6)
+        EnsureControlParent(pnlTop, txtSearch)
+        EnsureControlParent(pnlTop, btnSearch)
+        EnsureControlParent(pnlTop, btnRefresh)
+        EnsureControlParent(pnlTop, btnClose)
+
+        EnsureControlParent(pnlActions, btnViewNewJournal)
+        EnsureControlParent(pnlActions, btnViewReversalJournal)
+        EnsureControlParent(pnlActions, btnViewOldJournal)
+    End Sub
+
+    Private Sub EnsureControlParent(parentControl As Control, childControl As Control)
+        If parentControl Is Nothing OrElse childControl Is Nothing Then Return
+        If childControl.Parent Is parentControl Then Return
+
+        If childControl.Parent IsNot Nothing Then
+            childControl.Parent.Controls.Remove(childControl)
+        End If
+
+        parentControl.Controls.Add(childControl)
+    End Sub
+
+    Private Sub ArrangeHeaderControls()
+        Dim panelWidth As Integer = pnlTop.ClientSize.Width
+        If panelWidth <= 0 Then panelWidth = Me.ClientSize.Width
+        If panelWidth <= 0 Then panelWidth = 1172
+
+        Dim rightX As Integer = panelWidth - 12
+
+        PlaceFromRight(rightX, Label1, 35, 24, 14)
+        PlaceFromRight(rightX, dtpFrom, 140, 24, 14)
+        PlaceFromRight(rightX, Label2, 35, 24, 14)
+        PlaceFromRight(rightX, dtpTo, 140, 24, 14)
+        PlaceFromRight(rightX, Label3, 70, 24, 14)
+        PlaceFromRight(rightX, cmbSource, 180, 24, 14)
+
+        rightX = panelWidth - 12
+        PlaceFromRight(rightX, Label4, 85, 24, 54)
+        PlaceFromRight(rightX, cmbType, 180, 24, 54)
+        PlaceFromRight(rightX, Label5, 80, 24, 54)
+        PlaceFromRight(rightX, cmbUser, 170, 24, 54)
+        PlaceFromRight(rightX, Label6, 45, 24, 54)
+        PlaceFromRight(rightX, txtSearch, 220, 24, 54)
+        PlaceFromRight(rightX, btnSearch, 90, 31, 49)
+        PlaceFromRight(rightX, btnRefresh, 90, 31, 49)
+        PlaceFromRight(rightX, btnClose, 90, 31, 49)
+
+        btnViewNewJournal.SetBounds(12, 8, 150, 31)
+        btnViewReversalJournal.SetBounds(168, 8, 150, 31)
+        btnViewOldJournal.SetBounds(324, 8, 150, 31)
+    End Sub
+
+    Private Sub PlaceFromRight(ByRef rightX As Integer, ctrl As Control, width As Integer, height As Integer, top As Integer)
+        If ctrl Is Nothing Then Return
+
+        rightX -= width
+        If rightX < 10 Then rightX = 10
+
+        ctrl.SetBounds(rightX, top, width, height)
+        ctrl.Visible = True
+        ctrl.Enabled = True
+        ctrl.BringToFront()
+        rightX -= 7
+    End Sub
+
+    Private Sub ApplyHeaderLabelDisplay(lbl As Label)
+        If lbl Is Nothing Then Return
+
+        lbl.Visible = True
+        lbl.Enabled = True
+        lbl.AutoSize = False
+        lbl.BackColor = Color.Transparent
+        lbl.ForeColor = Color.FromArgb(31, 41, 55)
+        lbl.Font = New Font("Segoe UI", 9.5!, FontStyle.Regular)
+        lbl.TextAlign = ContentAlignment.MiddleLeft
+        lbl.BringToFront()
+    End Sub
+
+    Private Sub ApplyInputDisplay(txt As TextBox)
+        If txt Is Nothing Then Return
+
+        txt.Visible = True
+        txt.Enabled = True
+        txt.BackColor = Color.White
+        txt.ForeColor = Color.FromArgb(31, 41, 55)
+        txt.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold)
+        txt.BringToFront()
+    End Sub
+
+    Private Sub ApplyComboDisplay(cmb As ComboBox)
+        If cmb Is Nothing Then Return
+
+        cmb.Visible = True
+        cmb.Enabled = True
+        cmb.BackColor = Color.White
+        cmb.ForeColor = Color.FromArgb(31, 41, 55)
+        cmb.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold)
+        cmb.BringToFront()
+    End Sub
+
+    Private Sub ApplyDateDisplay(dtp As DateTimePicker)
+        If dtp Is Nothing Then Return
+
+        dtp.Visible = True
+        dtp.Enabled = True
+        dtp.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold)
+        dtp.BringToFront()
+    End Sub
+
+    Private Sub ApplyButtonDisplay(btn As Button, text As String, backColor As Color, foreColor As Color)
+        If btn Is Nothing Then Return
+
+        btn.Visible = True
+        btn.Enabled = True
+        btn.Text = text
+        btn.UseVisualStyleBackColor = False
+        btn.FlatStyle = FlatStyle.Flat
+        btn.FlatAppearance.BorderSize = 0
+        btn.BackColor = backColor
+        btn.ForeColor = foreColor
+        btn.Font = New Font("Segoe UI Semibold", 9.5!, FontStyle.Bold)
+        btn.BringToFront()
+    End Sub
 
     Private Sub AddHandlers()
         AddHandler btnSearch.Click, AddressOf btnSearch_Click
@@ -633,8 +834,30 @@ ORDER BY b.T_ID;
     End Sub
 
     Private Sub FrmAccountingRepostMonitor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' تطبيق الثيم الإجباري
-        ThemeManager.ApplyThemeToForm(Me)
+        ' التصميم مثبت داخل ملف الديزاينر لهذه الشاشة.
+        EnsureHeaderControlsDisplay()
+    End Sub
+
+    Private Sub FrmAccountingRepostMonitor_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        If Me.IsDisposed Then Return
+
+        Me.BeginInvoke(New MethodInvoker(AddressOf ApplyHeaderLayoutAfterShown))
+    End Sub
+
+    Private Sub ApplyHeaderLayoutAfterShown()
+        If Me.IsDisposed Then Return
+
+        EnsureHeaderControlsDisplay()
+        Me.PerformLayout()
+        pnlTop.Invalidate()
+        pnlActions.Invalidate()
+    End Sub
+
+    Private Sub FrmAccountingRepostMonitor_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        If pnlTop Is Nothing OrElse pnlActions Is Nothing Then Return
+        If Me.WindowState = FormWindowState.Minimized Then Return
+
+        ArrangeHeaderControls()
     End Sub
 
 #End Region

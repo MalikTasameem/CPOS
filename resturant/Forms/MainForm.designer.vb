@@ -96,8 +96,9 @@ Partial Class MainForm
         Me.تحويلبينالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ترحيلمحاسبيToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.بوابةالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
+        Me.بوابةالحساباتToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparatorAccountingPortal = New System.Windows.Forms.ToolStripSeparator()
         Me.Reports_btn = New System.Windows.Forms.ToolStripDropDownButton()
         Me.General_Report_LB = New System.Windows.Forms.ToolStripMenuItem()
         Me.ALL_Report_LB = New System.Windows.Forms.ToolStripMenuItem()
@@ -217,7 +218,7 @@ Partial Class MainForm
         Me.ToolStrip.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ToolStrip.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Sales_Btn, Me.ToolStripSeparator1, Me.Pch_btn, Me.ToolStripSeparator2, Me.ITEMS_btn, Me.ToolStripSeparator3, Me.ST_Btn, Me.ToolStripSeparator4, Me.IM_Frm_Btn, Me.ToolStripSeparator5_Frm, Me.Exp_Btn, Me.ToolStripSeparator6, Me.Agents_btn, Me.ToolStripSeparator7, Me.Balances_btn, Me.ToolStripSeparator8, Me.Reports_btn, Me.ToolStripSeparator9, Me.Sys_Setting_btn, Me.ToolStripSeparator10})
+        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Sales_Btn, Me.ToolStripSeparator1, Me.Pch_btn, Me.ToolStripSeparator2, Me.ITEMS_btn, Me.ToolStripSeparator3, Me.ST_Btn, Me.ToolStripSeparator4, Me.IM_Frm_Btn, Me.ToolStripSeparator5_Frm, Me.Exp_Btn, Me.ToolStripSeparator6, Me.Agents_btn, Me.ToolStripSeparator7, Me.Balances_btn, Me.ToolStripSeparator8, Me.بوابةالحساباتToolStripMenuItem, Me.ToolStripSeparatorAccountingPortal, Me.Reports_btn, Me.ToolStripSeparator9, Me.Sys_Setting_btn, Me.ToolStripSeparator10})
         Me.ToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.ToolStrip.Location = New System.Drawing.Point(0, 40)
         Me.ToolStrip.Name = "ToolStrip"
@@ -577,7 +578,7 @@ Partial Class MainForm
         'Balances_btn
         '
         Me.Balances_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Balances_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.شاشةالحساباتToolStripMenuItem, Me.الخزينــةToolStripMenuItem, Me.تحويلبينالحساباتToolStripMenuItem, Me.ترحيلمحاسبيToolStripMenuItem, Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem, Me.بوابةالحساباتToolStripMenuItem})
+        Me.Balances_btn.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.شاشةالحساباتToolStripMenuItem, Me.الخزينــةToolStripMenuItem, Me.تحويلبينالحساباتToolStripMenuItem, Me.ترحيلمحاسبيToolStripMenuItem, Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem})
         Me.Balances_btn.Name = "Balances_btn"
         Me.Balances_btn.Size = New System.Drawing.Size(77, 23)
         Me.Balances_btn.Text = "الحسابات"
@@ -633,16 +634,23 @@ Partial Class MainForm
         Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
         Me.متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem.Text = "متابعة تعديلات وإعادة تقييد القيود المحاسبية"
         '
-        'بوابةالحساباتToolStripMenuItem
-        '
-        Me.بوابةالحساباتToolStripMenuItem.Name = "بوابةالحساباتToolStripMenuItem"
-        Me.بوابةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(341, 24)
-        Me.بوابةالحساباتToolStripMenuItem.Text = "بوابة الحسابات"
-        '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
         Me.ToolStripSeparator8.Size = New System.Drawing.Size(6, 26)
+        '
+        'بوابةالحساباتToolStripMenuItem
+        '
+        Me.بوابةالحساباتToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.بوابةالحساباتToolStripMenuItem.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.بوابةالحساباتToolStripMenuItem.Name = "بوابةالحساباتToolStripMenuItem"
+        Me.بوابةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(108, 26)
+        Me.بوابةالحساباتToolStripMenuItem.Text = "بوابة الحسابات"
+        '
+        'ToolStripSeparatorAccountingPortal
+        '
+        Me.ToolStripSeparatorAccountingPortal.Name = "ToolStripSeparatorAccountingPortal"
+        Me.ToolStripSeparatorAccountingPortal.Size = New System.Drawing.Size(6, 26)
         '
         'Reports_btn
         '
@@ -1626,4 +1634,5 @@ Partial Class MainForm
     Friend WithEvents تسويةمخزنToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents متابعةتعديلاتوإعادةتقييدالقيودالمحاسبيةToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents بوابةالحساباتToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparatorAccountingPortal As ToolStripSeparator
 End Class

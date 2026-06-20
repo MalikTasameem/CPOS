@@ -133,6 +133,7 @@ Public Class MainForm
 
                 U_Balance = c.Dr("Balance")
                 Me.Balances_btn.Enabled = c.Dr("Balance")
+                Me.بوابةالحساباتToolStripMenuItem.Enabled = c.Dr("Balance")
 
                 'If c.Dr("Balance") = False Then
                 '    Me.Balances_btn.Enabled = False
@@ -393,6 +394,7 @@ Public Class MainForm
         Catch ex As Exception
         End Try
         ApplyActiveStatusButtonStyle()
+        ApplyAccountingPortalMenuStyle()
 
 
         Load_Form()
@@ -970,6 +972,73 @@ Public Class MainForm
         ActiveStatusButton.Size = New Size(165, 31)
 
     End Sub
+
+    Private Sub ApplyAccountingPortalMenuStyle()
+
+        If بوابةالحساباتToolStripMenuItem Is Nothing Then Exit Sub
+
+        If ToolStrip IsNot Nothing AndAlso Not TypeOf ToolStrip.Renderer Is AccountingPortalToolStripRenderer Then
+            ToolStrip.Renderer = New AccountingPortalToolStripRenderer()
+        End If
+
+        بوابةالحساباتToolStripMenuItem.Text = "بوابة الحسابات"
+        بوابةالحساباتToolStripMenuItem.BackColor = Color.FromArgb(91, 33, 182)
+        بوابةالحساباتToolStripMenuItem.ForeColor = Color.White
+        بوابةالحساباتToolStripMenuItem.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
+        بوابةالحساباتToolStripMenuItem.Padding = New Padding(8, 0, 8, 0)
+        بوابةالحساباتToolStripMenuItem.TextAlign = ContentAlignment.MiddleCenter
+        بوابةالحساباتToolStripMenuItem.ToolTipText = "فتح البوابة المحاسبية"
+        بوابةالحساباتToolStripMenuItem.Invalidate()
+
+    End Sub
+
+    Private Class AccountingPortalToolStripRenderer
+        Inherits ToolStripSystemRenderer
+
+        Private Shared Function IsAccountingPortalItem(item As ToolStripItem) As Boolean
+            Return item IsNot Nothing AndAlso item.Name = "بوابةالحساباتToolStripMenuItem"
+        End Function
+
+        Private Shared Sub DrawAccountingPortalBackground(e As ToolStripItemRenderEventArgs)
+            Dim rect As New Rectangle(Point.Empty, e.Item.Size)
+            Dim backColor As Color = If(e.Item.Selected, Color.FromArgb(109, 40, 217), Color.FromArgb(91, 33, 182))
+
+            Using backBrush As New SolidBrush(backColor)
+                e.Graphics.FillRectangle(backBrush, rect)
+            End Using
+
+            Using borderPen As New Pen(Color.FromArgb(196, 181, 253))
+                e.Graphics.DrawRectangle(borderPen, 0, 0, rect.Width - 1, rect.Height - 1)
+            End Using
+        End Sub
+
+        Protected Overrides Sub OnRenderItemBackground(e As ToolStripItemRenderEventArgs)
+            If IsAccountingPortalItem(e.Item) Then
+                DrawAccountingPortalBackground(e)
+                Exit Sub
+            End If
+
+            MyBase.OnRenderItemBackground(e)
+        End Sub
+
+        Protected Overrides Sub OnRenderMenuItemBackground(e As ToolStripItemRenderEventArgs)
+            If IsAccountingPortalItem(e.Item) Then
+                DrawAccountingPortalBackground(e)
+                Exit Sub
+            End If
+
+            MyBase.OnRenderMenuItemBackground(e)
+        End Sub
+
+        Protected Overrides Sub OnRenderItemText(e As ToolStripItemTextRenderEventArgs)
+            If IsAccountingPortalItem(e.Item) Then
+                e.TextColor = Color.White
+            End If
+
+            MyBase.OnRenderItemText(e)
+        End Sub
+
+    End Class
 
     Public Sub Backup_Data()
 
@@ -3175,9 +3244,9 @@ Public Class MainForm
 
 
     Private Sub بوابةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles بوابةالحساباتToolStripMenuItem.Click
-        'Accounting.System_Startup()
+        Accounting.System_Startup()
 
-        'Dim F As New Accounting.login
-        'F.ShowDialog()
+        Dim F As New Accounting.login
+        F.ShowDialog()
     End Sub
 End Class
