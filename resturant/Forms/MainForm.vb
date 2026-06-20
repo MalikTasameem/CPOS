@@ -368,14 +368,14 @@ Public Class MainForm
 
         ' 4. القائمة الجانبية والكروت (الداشبورد)
         If TableLayoutPanel1 IsNot Nothing Then TableLayoutPanel1.Tag = "SIDEBAR"
-        If Panel_Dash1 IsNot Nothing Then Panel_Dash1.Tag = "CARD"
-        If Panel_Dash2 IsNot Nothing Then Panel_Dash2.Tag = "CARD"
+        'If Panel_Dash1 IsNot Nothing Then Panel_Dash1.Tag = "CARD"
+        'If Panel_Dash2 IsNot Nothing Then Panel_Dash2.Tag = "CARD"
 
         ' 5. الإحصائيات والأرقام داخل الكروت
-        If Lb_Title1 IsNot Nothing Then Lb_Title1.Tag = "SECONDARY_TRANSPARENT"
-        If Lb_Title2 IsNot Nothing Then Lb_Title2.Tag = "SECONDARY_TRANSPARENT"
-        If Lb_Value1 IsNot Nothing Then Lb_Value1.Tag = "ACCENT_TRANSPARENT"
-        If Lb_Value2 IsNot Nothing Then Lb_Value2.Tag = "ACCENT_TRANSPARENT"
+        'If Lb_Title1 IsNot Nothing Then Lb_Title1.Tag = "SECONDARY_TRANSPARENT"
+        'If Lb_Title2 IsNot Nothing Then Lb_Title2.Tag = "SECONDARY_TRANSPARENT"
+        'If Lb_Value1 IsNot Nothing Then Lb_Value1.Tag = "ACCENT_TRANSPARENT"
+        'If Lb_Value2 IsNot Nothing Then Lb_Value2.Tag = "ACCENT_TRANSPARENT"
 
         '' 6. الأزرار في المنتصف
         'Btn_QuickSales.Tag = "SAVE"
@@ -2950,6 +2950,62 @@ Public Class MainForm
         Return True
     End Function
 
+    Private Sub ResizeDashboardButtons(container As FlowLayoutPanel)
+
+        If container Is Nothing Then Exit Sub
+        If container.ClientSize.Width <= 0 Then Exit Sub
+
+        Dim buttonCount As Integer = 0
+        For Each ctrl As Control In container.Controls
+            If TypeOf ctrl Is Button Then buttonCount += 1
+        Next
+        If buttonCount = 0 Then Exit Sub
+
+        Dim buttonMargin As Integer = 5
+        Dim marginWidth As Integer = buttonMargin * 2
+        Dim availableWidth As Integer = container.ClientSize.Width - container.Padding.Left - container.Padding.Right - SystemInformation.VerticalScrollBarWidth - 4
+        Dim availableHeight As Integer = container.ClientSize.Height - container.Padding.Top - container.Padding.Bottom - 4
+        availableWidth = Math.Max(58, availableWidth)
+        availableHeight = Math.Max(45, availableHeight)
+
+        Dim preferredWidth As Integer = 135
+        Dim minWidth As Integer = 56
+        Dim maxColumns As Integer = Math.Min(buttonCount, Math.Max(1, CInt(Math.Floor(availableWidth / CDbl(minWidth + marginWidth)))))
+        Dim columns As Integer = Math.Max(1, CInt(Math.Floor(availableWidth / CDbl(preferredWidth + marginWidth))))
+        columns = Math.Min(maxColumns, columns)
+        columns = Math.Max(1, columns)
+
+        Dim buttonWidth As Integer = preferredWidth
+        Dim buttonHeight As Integer = 82
+
+        For candidateColumns As Integer = columns To maxColumns
+            Dim candidateRows As Integer = CInt(Math.Ceiling(buttonCount / CDbl(candidateColumns)))
+            Dim candidateWidth As Integer = CInt(Math.Floor((availableWidth / CDbl(candidateColumns)) - marginWidth))
+            candidateWidth = Math.Max(minWidth, Math.Min(preferredWidth, candidateWidth))
+
+            Dim candidateHeight As Integer = Math.Max(42, Math.Min(88, CInt(candidateWidth * 0.58)))
+            Dim neededHeight As Integer = candidateRows * (candidateHeight + marginWidth)
+
+            buttonWidth = candidateWidth
+            buttonHeight = candidateHeight
+
+            If neededHeight <= availableHeight OrElse candidateColumns = maxColumns Then Exit For
+        Next
+
+        Dim fontSize As Single = Math.Max(7.5!, Math.Min(13.0!, CSng(buttonWidth / 10.5)))
+
+        For Each ctrl As Control In container.Controls
+            Dim btn As Button = TryCast(ctrl, Button)
+            If btn Is Nothing Then Continue For
+
+            btn.Margin = New Padding(buttonMargin)
+            btn.Size = New Size(buttonWidth, buttonHeight)
+            btn.Font = New Font("Segoe UI", fontSize, FontStyle.Bold)
+            btn.TextAlign = ContentAlignment.MiddleCenter
+        Next
+
+    End Sub
+
     ' =====================================================================
     ' 🚀 نظام توليد أزرار الداشبورد الديناميكية 🚀
     ' =====================================================================
@@ -2961,7 +3017,12 @@ Public Class MainForm
         Dim FLP As New FlowLayoutPanel()
         FLP.Dock = DockStyle.Fill
         FLP.AutoScroll = True
+        FLP.WrapContents = True
+        FLP.Padding = New Padding(5)
         FLP.BackColor = Color.Transparent
+        AddHandler FLP.Resize, Sub(sender As Object, args As EventArgs)
+                                   ResizeDashboardButtons(DirectCast(sender, FlowLayoutPanel))
+                               End Sub
         Panel_QuickButtons.Controls.Add(FLP)
 
         Dim db As New C()
@@ -3019,6 +3080,8 @@ Public Class MainForm
                     ' صمت لتجاوز أي زر به بيانات خاطئة
                 End Try
             Next
+
+            ResizeDashboardButtons(FLP)
 
         Catch ex As Exception
             MsgBox("خطأ عام في جلب بيانات الداشبورد: " & ex.Message)

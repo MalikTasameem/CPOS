@@ -155,12 +155,6 @@ Partial Class MainForm
         Me.Btn_QuickPch = New System.Windows.Forms.Button()
         Me.Btn_QuickOffers = New System.Windows.Forms.Button()
         Me.Panel_DashBoard_Top = New System.Windows.Forms.Panel()
-        Me.Panel_Dash1 = New System.Windows.Forms.Panel()
-        Me.Lb_Value1 = New System.Windows.Forms.Label()
-        Me.Lb_Title1 = New System.Windows.Forms.Label()
-        Me.Panel_Dash2 = New System.Windows.Forms.Panel()
-        Me.Lb_Value2 = New System.Windows.Forms.Label()
-        Me.Lb_Title2 = New System.Windows.Forms.Label()
         Me.Panel_Shortcuts_Bottom = New System.Windows.Forms.Panel()
         Me.Table_Bill_Screen_btn = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
@@ -193,9 +187,6 @@ Partial Class MainForm
         Me.Main_Workspace_Panel.SuspendLayout()
         Me.Panel_Center.SuspendLayout()
         Me.Panel_QuickButtons.SuspendLayout()
-        Me.Panel_DashBoard_Top.SuspendLayout()
-        Me.Panel_Dash1.SuspendLayout()
-        Me.Panel_Dash2.SuspendLayout()
         Me.Panel_Shortcuts_Bottom.SuspendLayout()
         Me.Panel_Right.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -1076,9 +1067,9 @@ Partial Class MainForm
         Me.Panel_QuickButtons.Controls.Add(Me.Btn_QuickPch)
         Me.Panel_QuickButtons.Controls.Add(Me.Btn_QuickOffers)
         Me.Panel_QuickButtons.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel_QuickButtons.Location = New System.Drawing.Point(0, 140)
+        Me.Panel_QuickButtons.Location = New System.Drawing.Point(0, 10)
         Me.Panel_QuickButtons.Name = "Panel_QuickButtons"
-        Me.Panel_QuickButtons.Size = New System.Drawing.Size(460, 245)
+        Me.Panel_QuickButtons.Size = New System.Drawing.Size(460, 375)
         Me.Panel_QuickButtons.TabIndex = 0
         '
         'Btn_QuickSales
@@ -1125,86 +1116,12 @@ Partial Class MainForm
         '
         'Panel_DashBoard_Top
         '
-        Me.Panel_DashBoard_Top.Controls.Add(Me.Panel_Dash1)
-        Me.Panel_DashBoard_Top.Controls.Add(Me.Panel_Dash2)
         Me.Panel_DashBoard_Top.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel_DashBoard_Top.Location = New System.Drawing.Point(0, 0)
         Me.Panel_DashBoard_Top.Name = "Panel_DashBoard_Top"
         Me.Panel_DashBoard_Top.Padding = New System.Windows.Forms.Padding(20)
-        Me.Panel_DashBoard_Top.Size = New System.Drawing.Size(460, 140)
+        Me.Panel_DashBoard_Top.Size = New System.Drawing.Size(460, 10)
         Me.Panel_DashBoard_Top.TabIndex = 1
-        '
-        'Panel_Dash1
-        '
-        Me.Panel_Dash1.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.Panel_Dash1.Controls.Add(Me.Lb_Value1)
-        Me.Panel_Dash1.Controls.Add(Me.Lb_Title1)
-        Me.Panel_Dash1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel_Dash1.Location = New System.Drawing.Point(240, 20)
-        Me.Panel_Dash1.Margin = New System.Windows.Forms.Padding(10)
-        Me.Panel_Dash1.Name = "Panel_Dash1"
-        Me.Panel_Dash1.Size = New System.Drawing.Size(200, 100)
-        Me.Panel_Dash1.TabIndex = 0
-        '
-        'Lb_Value1
-        '
-        Me.Lb_Value1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Lb_Value1.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.Lb_Value1.ForeColor = System.Drawing.Color.White
-        Me.Lb_Value1.Location = New System.Drawing.Point(0, 35)
-        Me.Lb_Value1.Name = "Lb_Value1"
-        Me.Lb_Value1.Size = New System.Drawing.Size(200, 65)
-        Me.Lb_Value1.TabIndex = 0
-        Me.Lb_Value1.Text = "0.00"
-        Me.Lb_Value1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Lb_Title1
-        '
-        Me.Lb_Title1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Lb_Title1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Lb_Title1.ForeColor = System.Drawing.Color.White
-        Me.Lb_Title1.Location = New System.Drawing.Point(0, 0)
-        Me.Lb_Title1.Name = "Lb_Title1"
-        Me.Lb_Title1.Size = New System.Drawing.Size(200, 35)
-        Me.Lb_Title1.TabIndex = 1
-        Me.Lb_Title1.Text = "إجمالي المبيعات"
-        Me.Lb_Title1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Panel_Dash2
-        '
-        Me.Panel_Dash2.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
-        Me.Panel_Dash2.Controls.Add(Me.Lb_Value2)
-        Me.Panel_Dash2.Controls.Add(Me.Lb_Title2)
-        Me.Panel_Dash2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel_Dash2.Location = New System.Drawing.Point(20, 20)
-        Me.Panel_Dash2.Margin = New System.Windows.Forms.Padding(10)
-        Me.Panel_Dash2.Name = "Panel_Dash2"
-        Me.Panel_Dash2.Size = New System.Drawing.Size(200, 100)
-        Me.Panel_Dash2.TabIndex = 1
-        '
-        'Lb_Value2
-        '
-        Me.Lb_Value2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Lb_Value2.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
-        Me.Lb_Value2.ForeColor = System.Drawing.Color.White
-        Me.Lb_Value2.Location = New System.Drawing.Point(0, 35)
-        Me.Lb_Value2.Name = "Lb_Value2"
-        Me.Lb_Value2.Size = New System.Drawing.Size(200, 65)
-        Me.Lb_Value2.TabIndex = 0
-        Me.Lb_Value2.Text = "0"
-        Me.Lb_Value2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Lb_Title2
-        '
-        Me.Lb_Title2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Lb_Title2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Lb_Title2.ForeColor = System.Drawing.Color.White
-        Me.Lb_Title2.Location = New System.Drawing.Point(0, 0)
-        Me.Lb_Title2.Name = "Lb_Title2"
-        Me.Lb_Title2.Size = New System.Drawing.Size(200, 35)
-        Me.Lb_Title2.TabIndex = 1
-        Me.Lb_Title2.Text = "عدد الفواتير"
-        Me.Lb_Title2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Panel_Shortcuts_Bottom
         '
@@ -1525,9 +1442,6 @@ Partial Class MainForm
         Me.Main_Workspace_Panel.ResumeLayout(False)
         Me.Panel_Center.ResumeLayout(False)
         Me.Panel_QuickButtons.ResumeLayout(False)
-        Me.Panel_DashBoard_Top.ResumeLayout(False)
-        Me.Panel_Dash1.ResumeLayout(False)
-        Me.Panel_Dash2.ResumeLayout(False)
         Me.Panel_Shortcuts_Bottom.ResumeLayout(False)
         Me.Panel_Right.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
@@ -1684,13 +1598,6 @@ Partial Class MainForm
     Friend WithEvents Serv_Label As System.Windows.Forms.Label
     Friend WithEvents ClockLabel As System.Windows.Forms.Label
     Friend WithEvents DateLabel As System.Windows.Forms.Label
-
-    Friend WithEvents Panel_Dash1 As System.Windows.Forms.Panel
-    Friend WithEvents Lb_Title1 As System.Windows.Forms.Label
-    Friend WithEvents Lb_Value1 As System.Windows.Forms.Label
-    Friend WithEvents Panel_Dash2 As System.Windows.Forms.Panel
-    Friend WithEvents Lb_Title2 As System.Windows.Forms.Label
-    Friend WithEvents Lb_Value2 As System.Windows.Forms.Label
 
     Friend WithEvents Btn_QuickSales As System.Windows.Forms.Button
     Friend WithEvents Btn_QuickPch As System.Windows.Forms.Button

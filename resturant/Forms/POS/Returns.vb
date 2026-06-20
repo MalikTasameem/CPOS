@@ -39,6 +39,64 @@ Public Class Returns : Inherits System.Windows.Forms.Form
     Public Barcode_IM As String = ""
     Public On_Update As Boolean
 
+    Private Sub ApplySalesGridDesignToReturns()
+
+        ApplySalesGridDesign(BillMetroGrid)
+        ApplySalesGridDesign(MetroGrid1)
+
+    End Sub
+
+    Private Sub ApplySalesGridDesign(grid As DataGridView)
+
+        If grid Is Nothing Then Exit Sub
+
+        grid.AllowUserToAddRows = False
+        grid.AllowUserToDeleteRows = False
+        grid.AllowUserToResizeRows = False
+        grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        grid.BackgroundColor = SystemColors.ButtonFace
+        grid.BorderStyle = BorderStyle.FixedSingle
+        grid.CellBorderStyle = DataGridViewCellBorderStyle.Single
+        grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
+        grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        grid.Cursor = Cursors.Hand
+        grid.EditMode = DataGridViewEditMode.EditProgrammatically
+        grid.EnableHeadersVisualStyles = False
+        grid.GridColor = Color.Gainsboro
+        grid.MultiSelect = False
+        grid.ReadOnly = True
+        grid.RowHeadersVisible = False
+        grid.RowTemplate.Height = 30
+        grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+
+        grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grid.ColumnHeadersDefaultCellStyle.BackColor = SystemColors.Control
+        grid.ColumnHeadersDefaultCellStyle.ForeColor = SystemColors.WindowText
+        grid.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 9.0!, FontStyle.Regular)
+        grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = SystemColors.Highlight
+        grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = SystemColors.HighlightText
+        grid.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True
+
+        grid.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grid.DefaultCellStyle.BackColor = Color.White
+        grid.DefaultCellStyle.ForeColor = Color.Black
+        grid.DefaultCellStyle.Font = New Font("Segoe UI Semibold", 10.0!, FontStyle.Bold)
+        grid.DefaultCellStyle.SelectionBackColor = Color.DeepSkyBlue
+        grid.DefaultCellStyle.SelectionForeColor = Color.Black
+        grid.DefaultCellStyle.WrapMode = DataGridViewTriState.False
+
+        grid.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grid.RowsDefaultCellStyle.ForeColor = Color.Black
+        grid.RowsDefaultCellStyle.SelectionBackColor = Color.DeepSkyBlue
+        grid.RowsDefaultCellStyle.SelectionForeColor = Color.Black
+
+        grid.AlternatingRowsDefaultCellStyle.BackColor = Color.White
+        grid.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black
+        grid.AlternatingRowsDefaultCellStyle.SelectionBackColor = Color.DeepSkyBlue
+        grid.AlternatingRowsDefaultCellStyle.SelectionForeColor = Color.Black
+
+    End Sub
+
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
    If On_Update = True Then Edit_butt_Click(sender, e)
         FormType = 0
@@ -123,6 +181,7 @@ Public Class Returns : Inherits System.Windows.Forms.Form
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         ThemeManager.ApplyThemeToForm(Me)
+        ApplySalesGridDesignToReturns()
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
 

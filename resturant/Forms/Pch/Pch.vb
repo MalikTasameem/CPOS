@@ -123,6 +123,11 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Get_Last_T_ID()
             AG_Cm.SQL_SearchField_WHERE = " AND Type_ID IN ('" & Suply_Type_ID & "','" & General_AG_Type_ID & "')"
 
+            AGMetroGrid.Columns("Main_Price_CL").Visible = Dist_DV.Visible
+            AGMetroGrid.Columns("EXP_VALUE").Visible = Dist_DV.Visible
+            'EXP_TOTAL_Panel.Visible = Dist_DV.Visible
+
+
             If U_Cancel_Pch = False Then Delete_butt.Visible = False
             If isShowing_Trans = True Then
                 Select_ExpBill(T_ID_Trans)
@@ -300,6 +305,27 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Cr_CM.DataSource = C.Dt
             Cr_CM.DisplayMember = "Cr_Name"
             Cr_CM.ValueMember = "Cr_ID"
+
+
+
+            If Cr_CM.SelectedValue = 1 Then
+                AGMetroGrid.Columns("Price_By_Foriegn_Cr_CL").Visible = False
+                AGMetroGrid.Columns("Cr_NAME_CL").Visible = False
+                AGMetroGrid.Columns("Price_By_Equal_CL").Visible = False
+                AGMetroGrid.Columns("Price_CL").HeaderText = "السعر"
+                AGMetroGrid.Columns("NewSale_CL").HeaderText = "البيع"
+                AGMetroGrid.Columns("TOTAL_CL").HeaderText = "الإجمالي"
+            Else
+                AGMetroGrid.Columns("Price_By_Foriegn_Cr_CL").Visible = True
+                AGMetroGrid.Columns("Cr_NAME_CL").Visible = True
+                AGMetroGrid.Columns("Price_By_Equal_CL").Visible = True
+                AGMetroGrid.Columns("Price_CL").HeaderText = "السعر بالعملة المحلية"
+                AGMetroGrid.Columns("NewSale_CL").HeaderText = "البيع بالعملة المحلية"
+                AGMetroGrid.Columns("TOTAL_CL").HeaderText = "الإجمالي بالعملة المحلية"
+            End If
+
+
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -1546,6 +1572,25 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             Else
                 Cr_Equal_TXT.Enabled = True
             End If
+
+
+            If Cr_CM.SelectedValue = 1 Then
+                AGMetroGrid.Columns("Price_By_Foriegn_Cr_CL").Visible = False
+                AGMetroGrid.Columns("Cr_NAME_CL").Visible = False
+                AGMetroGrid.Columns("Price_By_Equal_CL").Visible = False
+                AGMetroGrid.Columns("Price_CL").HeaderText = "السعر"
+                AGMetroGrid.Columns("NewSale_CL").HeaderText = "البيع"
+                AGMetroGrid.Columns("TOTAL_CL").HeaderText = "الإجمالي"
+            Else
+                AGMetroGrid.Columns("Price_By_Foriegn_Cr_CL").Visible = True
+                AGMetroGrid.Columns("Cr_NAME_CL").Visible = True
+                AGMetroGrid.Columns("Price_By_Equal_CL").Visible = True
+                AGMetroGrid.Columns("Price_CL").HeaderText = "السعر بالعملة المحلية"
+                AGMetroGrid.Columns("NewSale_CL").HeaderText = "البيع بالعملة المحلية"
+                AGMetroGrid.Columns("TOTAL_CL").HeaderText = "الإجمالي بالعملة المحلية"
+            End If
+
+
         End If
     End Sub
 
