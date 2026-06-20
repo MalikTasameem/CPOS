@@ -8,7 +8,8 @@ Public Class Frm_InventoryCostRecountList
         sender As Object,
         e As EventArgs
     ) Handles MyBase.Load
-
+        ' تطبيق الثيم الإجباري
+        ThemeManager.ApplyThemeToForm(Me)
         LoadStatus()
         LoadData()
 
@@ -146,8 +147,33 @@ ORDER BY CreatedAt DESC
 
         Try
 
+            GridBatches.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
+            GridBatches.AllowUserToResizeColumns = True
+            GridBatches.ScrollBars = ScrollBars.Both
+            GridBatches.ColumnHeadersHeight = 48
+            GridBatches.ColumnHeadersHeightSizeMode =
+                DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+            GridBatches.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter
+            GridBatches.ColumnHeadersDefaultCellStyle.WrapMode =
+                DataGridViewTriState.True
+            GridBatches.ColumnHeadersDefaultCellStyle.Font =
+                New Font("Segoe UI", 9.0!)
+            GridBatches.DefaultCellStyle.WrapMode =
+                DataGridViewTriState.False
+            GridBatches.DefaultCellStyle.Font =
+                New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
+            GridBatches.RowsDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter
+            GridBatches.RowTemplate.Height = 32
+
             If GridBatches.Columns.Contains("BatchId") Then
-                GridBatches.Columns("BatchId").HeaderText = "Batch ID"
+                ConfigureGridColumn(
+                    "BatchId",
+                    "Batch ID",
+                    145,
+                    DataGridViewContentAlignment.MiddleCenter
+                )
             End If
 
             If GridBatches.Columns.Contains("IM_ID") Then
@@ -155,49 +181,152 @@ ORDER BY CreatedAt DESC
             End If
 
             If GridBatches.Columns.Contains("ItemName") Then
-                GridBatches.Columns("ItemName").HeaderText = "الصنف"
+                ConfigureGridColumn(
+                    "ItemName",
+                    "الصنف",
+                    220,
+                    DataGridViewContentAlignment.MiddleRight
+                )
             End If
 
             If GridBatches.Columns.Contains("FromDate") Then
-                GridBatches.Columns("FromDate").HeaderText = "من تاريخ"
+                ConfigureGridColumn(
+                    "FromDate",
+                    "من تاريخ",
+                    115,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "yyyy/MM/dd"
+                )
+            End If
+
+            If GridBatches.Columns.Contains("OldPurchaseCost") Then
+                ConfigureGridColumn(
+                    "OldPurchaseCost",
+                    "التكلفة القديمة",
+                    110,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "N3"
+                )
+            End If
+
+            If GridBatches.Columns.Contains("NewPurchaseCost") Then
+                ConfigureGridColumn(
+                    "NewPurchaseCost",
+                    "التكلفة الجديدة",
+                    110,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "N3"
+                )
             End If
 
             If GridBatches.Columns.Contains("CostDiff") Then
-                GridBatches.Columns("CostDiff").HeaderText = "فرق التكلفة"
+                ConfigureGridColumn(
+                    "CostDiff",
+                    "فرق التكلفة",
+                    105,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "N3"
+                )
             End If
 
             If GridBatches.Columns.Contains("TotalImpact") Then
-                GridBatches.Columns("TotalImpact").HeaderText = "إجمالي الأثر"
+                ConfigureGridColumn(
+                    "TotalImpact",
+                    "إجمالي الأثر",
+                    110,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "N3"
+                )
             End If
 
             If GridBatches.Columns.Contains("InventoryImpact") Then
-                GridBatches.Columns("InventoryImpact").HeaderText = "أثر المخزون"
+                ConfigureGridColumn(
+                    "InventoryImpact",
+                    "أثر المخزون",
+                    110,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "N3"
+                )
             End If
 
             If GridBatches.Columns.Contains("COGSImpact") Then
-                GridBatches.Columns("COGSImpact").HeaderText = "أثر تكلفة المبيعات"
+                ConfigureGridColumn(
+                    "COGSImpact",
+                    "أثر تكلفة المبيعات",
+                    125,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "N3"
+                )
             End If
 
             If GridBatches.Columns.Contains("ExpenseImpact") Then
-                GridBatches.Columns("ExpenseImpact").HeaderText = "أثر المصروفات"
+                ConfigureGridColumn(
+                    "ExpenseImpact",
+                    "أثر المصروفات",
+                    115,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "N3"
+                )
             End If
 
             If GridBatches.Columns.Contains("Status") Then
-                GridBatches.Columns("Status").HeaderText = "الحالة"
-                GridBatches.Columns("Status").DefaultCellStyle.Alignment =
+                ConfigureGridColumn(
+                    "Status",
+                    "الحالة",
+                    95,
                     DataGridViewContentAlignment.MiddleCenter
+                )
             End If
 
             If GridBatches.Columns.Contains("CreatedAt") Then
-                GridBatches.Columns("CreatedAt").HeaderText = "تاريخ الإنشاء"
+                ConfigureGridColumn(
+                    "CreatedAt",
+                    "تاريخ الإنشاء",
+                    145,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "yyyy/MM/dd HH:mm"
+                )
             End If
 
             If GridBatches.Columns.Contains("PostedAt") Then
-                GridBatches.Columns("PostedAt").HeaderText = "تاريخ الترحيل"
+                ConfigureGridColumn(
+                    "PostedAt",
+                    "تاريخ الترحيل",
+                    145,
+                    DataGridViewContentAlignment.MiddleCenter,
+                    "yyyy/MM/dd HH:mm"
+                )
             End If
 
         Catch
         End Try
+
+    End Sub
+
+    Private Sub ConfigureGridColumn(
+        columnName As String,
+        headerText As String,
+        width As Integer,
+        alignment As DataGridViewContentAlignment,
+        Optional format As String = ""
+    )
+
+        If Not GridBatches.Columns.Contains(columnName) Then
+            Return
+        End If
+
+        Dim column As DataGridViewColumn = GridBatches.Columns(columnName)
+
+        column.HeaderText = headerText
+        column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+        column.MinimumWidth = Math.Max(70, width - 20)
+        column.Width = width
+        column.DefaultCellStyle.Alignment = alignment
+        column.DefaultCellStyle.WrapMode = DataGridViewTriState.False
+
+        If format.Trim() <> "" Then
+            column.DefaultCellStyle.Format = format
+        End If
 
     End Sub
 

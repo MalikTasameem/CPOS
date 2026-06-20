@@ -10,7 +10,8 @@ Public Class Frm_InventoryCostRecountPreview
         sender As Object,
         e As EventArgs
     ) Handles MyBase.Load
-
+        ' تطبيق الثيم الإجباري
+        ThemeManager.ApplyThemeToForm(Me)
         LoadBatch()
 
         FormatImpactGrid()

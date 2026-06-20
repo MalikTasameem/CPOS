@@ -2965,11 +2965,11 @@ Public Class MainForm
         Dim marginWidth As Integer = buttonMargin * 2
         Dim availableWidth As Integer = container.ClientSize.Width - container.Padding.Left - container.Padding.Right - SystemInformation.VerticalScrollBarWidth - 4
         Dim availableHeight As Integer = container.ClientSize.Height - container.Padding.Top - container.Padding.Bottom - 4
-        availableWidth = Math.Max(58, availableWidth)
+        availableWidth = Math.Max(72, availableWidth)
         availableHeight = Math.Max(45, availableHeight)
 
-        Dim preferredWidth As Integer = 135
-        Dim minWidth As Integer = 56
+        Dim preferredWidth As Integer = 165
+        Dim minWidth As Integer = 70
         Dim maxColumns As Integer = Math.Min(buttonCount, Math.Max(1, CInt(Math.Floor(availableWidth / CDbl(minWidth + marginWidth)))))
         Dim columns As Integer = Math.Max(1, CInt(Math.Floor(availableWidth / CDbl(preferredWidth + marginWidth))))
         columns = Math.Min(maxColumns, columns)
@@ -2983,7 +2983,7 @@ Public Class MainForm
             Dim candidateWidth As Integer = CInt(Math.Floor((availableWidth / CDbl(candidateColumns)) - marginWidth))
             candidateWidth = Math.Max(minWidth, Math.Min(preferredWidth, candidateWidth))
 
-            Dim candidateHeight As Integer = Math.Max(42, Math.Min(88, CInt(candidateWidth * 0.58)))
+            Dim candidateHeight As Integer = Math.Max(46, Math.Min(92, CInt(candidateWidth * 0.58)))
             Dim neededHeight As Integer = candidateRows * (candidateHeight + marginWidth)
 
             buttonWidth = candidateWidth
@@ -2992,7 +2992,7 @@ Public Class MainForm
             If neededHeight <= availableHeight OrElse candidateColumns = maxColumns Then Exit For
         Next
 
-        Dim fontSize As Single = Math.Max(7.5!, Math.Min(13.0!, CSng(buttonWidth / 10.5)))
+        Dim fontSize As Single = Math.Max(7.0!, Math.Min(11.2!, CSng(buttonWidth / 14.5)))
 
         For Each ctrl As Control In container.Controls
             Dim btn As Button = TryCast(ctrl, Button)
@@ -3002,6 +3002,8 @@ Public Class MainForm
             btn.Size = New Size(buttonWidth, buttonHeight)
             btn.Font = New Font("Segoe UI", fontSize, FontStyle.Bold)
             btn.TextAlign = ContentAlignment.MiddleCenter
+            btn.AutoEllipsis = False
+            btn.Padding = New Padding(2)
         Next
 
     End Sub
@@ -3039,10 +3041,10 @@ Public Class MainForm
                     Dim btn As New Button()
                     btn.Name = row("Action_Key").ToString()
                     btn.Text = row("Symbol_Char").ToString() & vbCrLf & row("Button_Title").ToString()
-                    btn.Size = New Size(160, 110)
+                    btn.Size = New Size(200, 110)
                     btn.FlatStyle = FlatStyle.Flat
                     btn.FlatAppearance.BorderSize = 0
-                    btn.Font = New Font("Segoe UI", 14, FontStyle.Bold)
+                    btn.Font = New Font("Segoe UI", 12, FontStyle.Bold)
                     btn.Cursor = Cursors.Hand
                     btn.Margin = New Padding(8)
 

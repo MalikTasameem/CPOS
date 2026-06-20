@@ -19,6 +19,10 @@ Public Class FRM_ACC_ENTITY_RULES_MANAGER
 
     Private Sub FRM_ACC_ENTITY_RULES_MANAGER_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            ' تطبيق الثيم الإجباري
+            ThemeManager.ApplyThemeToForm(Me)
+
             _isLoading = True
 
             PrepareGrid()

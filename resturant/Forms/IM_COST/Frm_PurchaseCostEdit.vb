@@ -13,7 +13,8 @@ Public Class Frm_PurchaseCostEdit
         sender As Object,
         e As EventArgs
     ) Handles MyBase.Load
-
+        ' تطبيق الثيم الإجباري
+        ThemeManager.ApplyThemeToForm(Me)
         Txt_Diff.Text = "0.000000"
 
     End Sub

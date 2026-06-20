@@ -13,6 +13,9 @@ Public Class FrmSystemAccountLinksLog
 
     Private Sub FrmSystemAccountLinksLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            ' تطبيق الثيم الإجباري
+            ThemeManager.ApplyThemeToForm(Me)
+
             lblAccountName.Text = If(String.IsNullOrWhiteSpace(AccountNameAr), "كل الحسابات الأساسية", AccountNameAr)
 
             SetupGrid()

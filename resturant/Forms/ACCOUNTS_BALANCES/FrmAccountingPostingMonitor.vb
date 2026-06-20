@@ -896,6 +896,8 @@ ORDER BY b.T_ID;
     End Sub
 
     Private Sub FrmAccountingPostingMonitor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' تطبيق الثيم الإجباري
+        ThemeManager.ApplyThemeToForm(Me)
         UpdateInventoryRecountDraftCount()
     End Sub
 

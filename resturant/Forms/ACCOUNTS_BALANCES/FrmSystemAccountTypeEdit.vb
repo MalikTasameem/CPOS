@@ -15,6 +15,10 @@ Public Class FrmSystemAccountTypeEdit
     Public Property NotesValue As String
 
     Private Sub FrmSystemAccountTypeEdit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        ' تطبيق الثيم الإجباري
+        ThemeManager.ApplyThemeToForm(Me)
+
         lblAccountName.Text = AccountNameAr
 
         chkRequired.Checked = RequiredValue

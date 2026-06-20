@@ -40,6 +40,10 @@ Public Class FRM_SELECT_ACCOUNT
 
     Private Sub FRM_SELECT_ACCOUNT_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+
+            ' تطبيق الثيم الإجباري
+            ThemeManager.ApplyThemeToForm(Me)
+
             PrepareGrid()
 
             If Not String.IsNullOrWhiteSpace(_initialSearch) Then

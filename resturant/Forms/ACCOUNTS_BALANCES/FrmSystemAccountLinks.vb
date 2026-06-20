@@ -11,6 +11,8 @@ Public Class FrmSystemAccountLinks
 
     Private Sub FrmSystemAccountLinks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            ' تطبيق الثيم الإجباري
+            ThemeManager.ApplyThemeToForm(Me)
             SetupGrid()
             SetupFilter()
             LoadLinks()
