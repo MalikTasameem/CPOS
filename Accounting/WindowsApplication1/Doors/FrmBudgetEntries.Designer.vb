@@ -21,6 +21,7 @@ Partial Class FrmBudgetEntries
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.pnlContent = New System.Windows.Forms.Panel()
         Me.cardGrid = New System.Windows.Forms.Panel()
+        Me.UcGridColumnsSelector1 = New Accounting.UcGridColumnsSelector()
         Me.dgvEntries = New System.Windows.Forms.DataGridView()
         Me.pnlGridFilter = New System.Windows.Forms.Panel()
         Me.lblEntriesFilter = New System.Windows.Forms.Label()
@@ -84,7 +85,6 @@ Partial Class FrmBudgetEntries
         Me.btnNew = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.UcGridColumnsSelector1 = New Accounting.UcGridColumnsSelector()
         Me.pnlHeader.SuspendLayout()
         Me.pnlContent.SuspendLayout()
         Me.cardGrid.SuspendLayout()
@@ -181,8 +181,22 @@ Partial Class FrmBudgetEntries
         Me.cardGrid.Font = New System.Drawing.Font("Segoe UI", 8.75!)
         Me.cardGrid.Location = New System.Drawing.Point(15, 216)
         Me.cardGrid.Name = "cardGrid"
-        Me.cardGrid.Size = New System.Drawing.Size(1250, 326)
+        Me.cardGrid.Size = New System.Drawing.Size(1250, 301)
         Me.cardGrid.TabIndex = 0
+        '
+        'UcGridColumnsSelector1
+        '
+        Me.UcGridColumnsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(1211, 35)
+        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
+        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
+        Me.UcGridColumnsSelector1.PopupMinHeight = 120
+        Me.UcGridColumnsSelector1.PopupWidth = 260
+        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\GridColumnsSettin" &
+    "gs"
+        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(36, 27)
+        Me.UcGridColumnsSelector1.TabIndex = 30
         '
         'dgvEntries
         '
@@ -198,7 +212,7 @@ Partial Class FrmBudgetEntries
         Me.dgvEntries.ReadOnly = True
         Me.dgvEntries.RowHeadersVisible = False
         Me.dgvEntries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvEntries.Size = New System.Drawing.Size(1248, 290)
+        Me.dgvEntries.Size = New System.Drawing.Size(1248, 265)
         Me.dgvEntries.TabIndex = 0
         '
         'pnlGridFilter
@@ -243,7 +257,7 @@ Partial Class FrmBudgetEntries
         Me.cardDetails.Controls.Add(Me.txtSelectedDetails)
         Me.cardDetails.Controls.Add(Me.lblDetailsTitle)
         Me.cardDetails.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cardDetails.Location = New System.Drawing.Point(15, 542)
+        Me.cardDetails.Location = New System.Drawing.Point(15, 517)
         Me.cardDetails.Name = "cardDetails"
         Me.cardDetails.Padding = New System.Windows.Forms.Padding(8, 30, 8, 8)
         Me.cardDetails.Size = New System.Drawing.Size(1250, 87)
@@ -548,27 +562,27 @@ Partial Class FrmBudgetEntries
         '
         Me.cmbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbItems.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.cmbItems.Location = New System.Drawing.Point(897, 90)
+        Me.cmbItems.Location = New System.Drawing.Point(898, 90)
         Me.cmbItems.Name = "cmbItems"
-        Me.cmbItems.Size = New System.Drawing.Size(270, 25)
+        Me.cmbItems.Size = New System.Drawing.Size(299, 25)
         Me.cmbItems.TabIndex = 4
         '
         'cmbChapters
         '
         Me.cmbChapters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbChapters.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.cmbChapters.Location = New System.Drawing.Point(897, 62)
+        Me.cmbChapters.Location = New System.Drawing.Point(898, 62)
         Me.cmbChapters.Name = "cmbChapters"
-        Me.cmbChapters.Size = New System.Drawing.Size(270, 25)
+        Me.cmbChapters.Size = New System.Drawing.Size(299, 25)
         Me.cmbChapters.TabIndex = 5
         '
         'cmbDoors
         '
         Me.cmbDoors.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbDoors.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.cmbDoors.Location = New System.Drawing.Point(897, 34)
+        Me.cmbDoors.Location = New System.Drawing.Point(898, 34)
         Me.cmbDoors.Name = "cmbDoors"
-        Me.cmbDoors.Size = New System.Drawing.Size(270, 25)
+        Me.cmbDoors.Size = New System.Drawing.Size(299, 25)
         Me.cmbDoors.TabIndex = 6
         '
         'cmbFiscalYear
@@ -728,7 +742,7 @@ Partial Class FrmBudgetEntries
         '
         Me.lblItem.AutoSize = True
         Me.lblItem.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblItem.Location = New System.Drawing.Point(1171, 93)
+        Me.lblItem.Location = New System.Drawing.Point(1201, 93)
         Me.lblItem.Name = "lblItem"
         Me.lblItem.Size = New System.Drawing.Size(30, 17)
         Me.lblItem.TabIndex = 8
@@ -738,7 +752,7 @@ Partial Class FrmBudgetEntries
         '
         Me.lblChapter.AutoSize = True
         Me.lblChapter.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblChapter.Location = New System.Drawing.Point(1171, 65)
+        Me.lblChapter.Location = New System.Drawing.Point(1201, 65)
         Me.lblChapter.Name = "lblChapter"
         Me.lblChapter.Size = New System.Drawing.Size(44, 17)
         Me.lblChapter.TabIndex = 9
@@ -748,7 +762,7 @@ Partial Class FrmBudgetEntries
         '
         Me.lblDoor.AutoSize = True
         Me.lblDoor.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDoor.Location = New System.Drawing.Point(1171, 37)
+        Me.lblDoor.Location = New System.Drawing.Point(1201, 37)
         Me.lblDoor.Name = "lblDoor"
         Me.lblDoor.Size = New System.Drawing.Size(34, 17)
         Me.lblDoor.TabIndex = 10
@@ -916,20 +930,6 @@ Partial Class FrmBudgetEntries
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(30, 17)
         Me.lblStatus.Text = "جاهز"
-        '
-        'UcGridColumnsSelector1
-        '
-        Me.UcGridColumnsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(1211, 35)
-        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
-        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
-        Me.UcGridColumnsSelector1.PopupMinHeight = 120
-        Me.UcGridColumnsSelector1.PopupWidth = 260
-        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\GridColumnsSettin" &
-    "gs"
-        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(36, 27)
-        Me.UcGridColumnsSelector1.TabIndex = 30
         '
         'FrmBudgetEntries
         '
