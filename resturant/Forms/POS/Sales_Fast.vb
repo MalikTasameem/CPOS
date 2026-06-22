@@ -59,6 +59,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Private ShortcutItemsDt As DataTable = Nothing
     Private ShortcutSelectedGroupID As Integer = -1
     Dim Print_CompName As String = ""
+    Dim Print_EngName As String = ""
     Dim Print_BillNotes As String = ""
     Private Print_LogoImage As Image = Nothing
     Dim Print_Y As Integer = 0
@@ -1867,12 +1868,13 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Private Sub LoadPrintSettings()
         Dim db As New C()
         Try
-            db.Str = "SELECT TOP 1 CompName, BillNotes, LOGO FROM SysSetting"
+            db.Str = "SELECT TOP 1 CompName, englishN, BillNotes, LOGO FROM SysSetting"
             db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
             db.Con.Open()
             db.Dr = db.Com.ExecuteReader()
             If db.Dr.Read() Then
                 Print_CompName = db.Dr("CompName").ToString()
+                Print_EngName = If(IsDBNull(db.Dr("englishN")), "", db.Dr("englishN").ToString())
                 Print_BillNotes = db.Dr("BillNotes").ToString()
                 If Not IsDBNull(db.Dr("LOGO")) Then
                     Dim Data As Byte() = DirectCast(db.Dr("LOGO"), Byte())
@@ -1894,7 +1896,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
     Public Sub PrintCurrentBill()
 
-        Dim EstimatedHeight As Integer = 500 + (AGMetroGrid.Rows.Count * 30)
+        Dim EstimatedHeight As Integer = 520 + (AGMetroGrid.Rows.Count * 30)
 
         If String.IsNullOrWhiteSpace(Default_Printer_80) Then
             MsgBox("لم يتم تحديد طابعة البيع السريع الإفتراضية", MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
@@ -1949,11 +1951,20 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         Dim logoImg As Image = Print_LogoImage
         If logoImg IsNot Nothing Then
             g.DrawImage(logoImg, 5, Print_Y, 50, 50)
-            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(60, Print_Y + 10, 220, 50), fmtArabic)
+            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(60, Print_Y + 4, 220, 28), fmtArabic)
+            If String.IsNullOrWhiteSpace(Print_EngName) = False Then
+                g.DrawString(Print_EngName, fontBodyBold, Brushes.Black, New Rectangle(60, Print_Y + 31, 220, 22), fmtArabic)
+            End If
             Print_Y += 65
         Else
-            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 30), fmtCenter)
-            Print_Y += 35
+            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 28), fmtCenter)
+            Print_Y += 28
+            If String.IsNullOrWhiteSpace(Print_EngName) = False Then
+                g.DrawString(Print_EngName, fontBodyBold, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 22), fmtCenter)
+                Print_Y += 22
+            Else
+                Print_Y += 7
+            End If
         End If
 
         DrawThreeParts(g, "Invoice", "", "فاتورة مبيعات", Print_Y, fontBodyBold)

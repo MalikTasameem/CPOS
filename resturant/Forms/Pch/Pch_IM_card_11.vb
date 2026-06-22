@@ -973,7 +973,10 @@
 
     Private Sub ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ADD_New_IM_btn.Click
         IM_ADD_New.ShowDialog()
-        If is_Add_New_IM = True Then QtyTextBox.Select()
+        If is_Add_New_IM = True Then
+            mySearchControl.Refresh_Data()
+            QtyTextBox.Select()
+        End If
     End Sub
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click

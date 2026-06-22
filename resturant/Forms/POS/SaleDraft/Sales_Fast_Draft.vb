@@ -82,12 +82,13 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Sub LoadPrintSettings()
         Dim db As New C()
         Try
-            db.Str = "SELECT TOP 1 CompName, BillNotes, LOGO FROM SysSetting"
+            db.Str = "SELECT TOP 1 CompName, englishN, BillNotes, LOGO FROM SysSetting"
             db.Com = New SqlClient.SqlCommand(db.Str, db.Con)
             db.Con.Open()
             db.Dr = db.Com.ExecuteReader()
             If db.Dr.Read() Then
                 Print_CompName = db.Dr("CompName").ToString()
+                Print_EngName = If(IsDBNull(db.Dr("englishN")), "", db.Dr("englishN").ToString())
                 Print_BillNotes = db.Dr("BillNotes").ToString()
                 If Not IsDBNull(db.Dr("LOGO")) Then
                     Dim Data As Byte() = DirectCast(db.Dr("LOGO"), Byte())
@@ -109,7 +110,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Public Sub PrintCurrentBill()
 
-        Dim EstimatedHeight As Integer = 500 + (dgvSales.Rows.Count * 30)
+        Dim EstimatedHeight As Integer = 520 + (dgvSales.Rows.Count * 30)
 
         If String.IsNullOrWhiteSpace(Default_Printer_80) Then
             MsgBox("لم يتم تحديد طابعة البيع السريع الإفتراضية", MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
@@ -170,11 +171,20 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Dim logoImg As Image = Print_LogoImage
         If logoImg IsNot Nothing Then
             g.DrawImage(logoImg, 5, Print_Y, 50, 50)
-            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(60, Print_Y + 10, 220, 50), fmtArabic)
+            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(60, Print_Y + 4, 220, 28), fmtArabic)
+            If String.IsNullOrWhiteSpace(Print_EngName) = False Then
+                g.DrawString(Print_EngName, fontBodyBold, Brushes.Black, New Rectangle(60, Print_Y + 31, 220, 22), fmtArabic)
+            End If
             Print_Y += 65
         Else
-            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 30), fmtCenter)
-            Print_Y += 35
+            g.DrawString(Print_CompName, fontTitle, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 28), fmtCenter)
+            Print_Y += 28
+            If String.IsNullOrWhiteSpace(Print_EngName) = False Then
+                g.DrawString(Print_EngName, fontBodyBold, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 22), fmtCenter)
+                Print_Y += 22
+            Else
+                Print_Y += 7
+            End If
         End If
 
         ' 2. تفاصيل الفاتورة
@@ -434,28 +444,28 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Sub ApplyTopButtonsStyle()
 
         StyleTopButton(New_butt,
-                       "➕" & Environment.NewLine & "جديد F1",
+                       " ➕ " & "جديد F1",
                        Color.FromArgb(22, 163, 74),
                        Color.White,
                        Color.FromArgb(21, 128, 61),
                        "إنشاء فاتورة جديدة")
 
         StyleTopButton(Save_butt,
-                       "💾" & Environment.NewLine & "حفظ F12",
+                       " 💾 " & "حفظ F12",
                        Color.FromArgb(37, 99, 235),
                        Color.White,
                        Color.FromArgb(29, 78, 216),
                        "حفظ وترحيل الفاتورة")
 
         StyleTopButton(Print_btn,
-                       "🖨" & Environment.NewLine & "طباعة F2",
+                       " 🖨 " & "طباعة F2",
                        Color.FromArgb(71, 85, 105),
                        Color.White,
                        Color.FromArgb(51, 65, 85),
                        "طباعة الفاتورة الحالية")
 
         StyleTopButton(PreviousBillsButton,
-                       "📋 مراجعة" & Environment.NewLine & "الفواتير",
+                       " 📋 الفواتير" & " السابقة ",
                        Color.FromArgb(79, 70, 229),
                        Color.White,
                        Color.FromArgb(67, 56, 202),
