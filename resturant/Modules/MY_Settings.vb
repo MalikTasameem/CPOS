@@ -99,6 +99,7 @@ Module MY_Settings
     Public AG_Show_Balance_in_Receipt As Boolean = True
     Public is_Use_Multi_Pay As Boolean = False
     Public Show_AllBill_Clmns As Boolean = True
+    Public TableDisplayMode As Integer = 1 '0 = تقليدي، 1 = حديث
     '---------------------------------------------------------------------------------------------------------------------------------
 
     Public Sub ExportButton_Setting_ToFile()
@@ -209,6 +210,7 @@ Module MY_Settings
                 sWriter.WriteLine("AG_Show_Balance_in_Receipt" & ":" & AG_Show_Balance_in_Receipt.ToString())
                 sWriter.WriteLine("is_Use_Multi_Pay" & ":" & is_Use_Multi_Pay.ToString())
                 sWriter.WriteLine("Show_AllBill_Clmns" & ":" & Show_AllBill_Clmns.ToString())
+                sWriter.WriteLine("TableDisplayMode" & ":" & TableDisplayMode.ToString())
                 sWriter.WriteLine("Thread_Time" & ":" & Thread_Time.ToString())
 
 
@@ -915,6 +917,13 @@ Module MY_Settings
                     Show_AllBill_Clmns = Convert.ToBoolean(Setting_Value)
                 Else
                     Show_AllBill_Clmns = Setting_Value
+                End If
+
+            Case "TableDisplayMode"
+                If Setting_Value = "True" Or Setting_Value = "False" Then
+                    TableDisplayMode = If(Convert.ToBoolean(Setting_Value), 1, 0)
+                Else
+                    TableDisplayMode = Convert.ToInt32(Setting_Value)
                 End If
 
             Case "Thread_Time"

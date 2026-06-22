@@ -49,6 +49,8 @@ Public Class SB_Edit
     Private Sub Check_Sys_Featurs()
         PrintTBKsh_CB.Visible = S_Tables
         CP_Bill_Screen_CB.Visible = S_Tables
+        TableDisplayModeLabel.Visible = S_Tables
+        TableDisplayModeComboBox.Visible = S_Tables
         If SScreenDefault_Cmb.SelectedIndex <> 1 Then
             isShowPrint_CB.Visible = False
         Else
@@ -381,6 +383,19 @@ Public Class SB_Edit
         N_Point_Fter_CM.Text = MY_Settings.N_Point_Fter
 
         IM_Search_Default_Cm.SelectedIndex = MY_Settings.S_Default
+        LoadTableDisplayModeOptions()
+    End Sub
+
+    Private Sub LoadTableDisplayModeOptions()
+        TableDisplayModeComboBox.Items.Clear()
+        TableDisplayModeComboBox.Items.Add("تقليدي")
+        TableDisplayModeComboBox.Items.Add("حديث")
+
+        If MY_Settings.TableDisplayMode < 0 OrElse MY_Settings.TableDisplayMode > 1 Then
+            MY_Settings.TableDisplayMode = 1
+        End If
+
+        TableDisplayModeComboBox.SelectedIndex = MY_Settings.TableDisplayMode
     End Sub
 
     Private Sub SHOWphto()
@@ -558,6 +573,7 @@ Public Class SB_Edit
             MY_Settings.N_Point_Fter = N_Point_Fter_CM.Text
 
             MY_Settings.S_Default = IM_Search_Default_Cm.SelectedIndex
+            If TableDisplayModeComboBox.SelectedIndex >= 0 Then MY_Settings.TableDisplayMode = TableDisplayModeComboBox.SelectedIndex
 
             Save_AppSetting()
 

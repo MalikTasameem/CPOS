@@ -1099,6 +1099,23 @@
     <Compile Include="Forms\Tables\SB_TablesMenu.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Tables\RestaurantFloorElement.vb" />
+    <Compile Include="Forms\Tables\RestaurantFloorLayoutRepository.vb" />
+    <Compile Include="Forms\Tables\RestaurantFloorDesignerControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Tables\FrmRestaurantFloorDesigner.Designer.vb">
+      <DependentUpon>FrmRestaurantFloorDesigner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tables\FrmRestaurantFloorDesigner.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Tables\FrmRestaurantFloorSelector.Designer.vb">
+      <DependentUpon>FrmRestaurantFloorSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tables\FrmRestaurantFloorSelector.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Tables\Show_Tables_Aparts.designer.vb">
       <DependentUpon>Show_Tables_Aparts.vb</DependentUpon>
     </Compile>
@@ -2196,6 +2213,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tables\SB_TablesMenu.resx">
       <DependentUpon>SB_TablesMenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Tables\FrmRestaurantFloorDesigner.resx">
+      <DependentUpon>FrmRestaurantFloorDesigner.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Tables\FrmRestaurantFloorSelector.resx">
+      <DependentUpon>FrmRestaurantFloorSelector.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tables\Show_Tables_Aparts.resx">
       <DependentUpon>Show_Tables_Aparts.vb</DependentUpon>

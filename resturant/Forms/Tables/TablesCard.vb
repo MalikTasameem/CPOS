@@ -176,6 +176,16 @@ Public Class TablesCard
         Tables_Flates.ShowDialog()
     End Sub
 
+    Private Sub FloorDesignerButton_Click(sender As Object, e As EventArgs) Handles FloorDesignerButton.Click
+        Dim f As New FrmRestaurantFloorDesigner()
+
+        If Flate_cmb.SelectedValue IsNot Nothing AndAlso TypeOf Flate_cmb.SelectedValue Is DataRowView = False Then
+            f.StartFlateID = Convert.ToInt32(Flate_cmb.SelectedValue)
+        End If
+
+        f.ShowDialog()
+    End Sub
+
     Private Sub TBGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles TBGrid.CellContentClick
         If e.ColumnIndex = 0 Then
             Beep()

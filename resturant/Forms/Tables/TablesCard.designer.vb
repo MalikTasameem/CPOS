@@ -40,6 +40,7 @@ Partial Class TablesCard
         Me.Flate_cmb = New System.Windows.Forms.ComboBox()
         Me.Total_CB = New System.Windows.Forms.CheckBox()
         Me.TBPanel = New System.Windows.Forms.Panel()
+        Me.FloorDesignerButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.TBGrid = New MetroFramework.Controls.MetroGrid()
         Me.TB_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -165,6 +166,7 @@ Partial Class TablesCard
         '
         Me.TBPanel.AutoScroll = True
         Me.TBPanel.BackColor = System.Drawing.Color.Transparent
+        Me.TBPanel.Controls.Add(Me.FloorDesignerButton)
         Me.TBPanel.Controls.Add(Me.ExitFormButton)
         Me.TBPanel.Controls.Add(Me.TBGrid)
         Me.TBPanel.Location = New System.Drawing.Point(4, 68)
@@ -172,6 +174,20 @@ Partial Class TablesCard
         Me.TBPanel.Name = "TBPanel"
         Me.TBPanel.Size = New System.Drawing.Size(714, 358)
         Me.TBPanel.TabIndex = 346
+        '
+        'FloorDesignerButton
+        '
+        Me.FloorDesignerButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(14, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(144, Byte), Integer))
+        Me.FloorDesignerButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.FloorDesignerButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.FloorDesignerButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.FloorDesignerButton.ForeColor = System.Drawing.Color.White
+        Me.FloorDesignerButton.Location = New System.Drawing.Point(3, 319)
+        Me.FloorDesignerButton.Name = "FloorDesignerButton"
+        Me.FloorDesignerButton.Size = New System.Drawing.Size(160, 37)
+        Me.FloorDesignerButton.TabIndex = 582
+        Me.FloorDesignerButton.Text = "تصميم المخطط"
+        Me.FloorDesignerButton.UseVisualStyleBackColor = False
         '
         'ExitFormButton
         '
@@ -343,4 +359,5 @@ Partial Class TablesCard
     Friend WithEvents Flate_Name_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents is_Cash_CL As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents ADD_IM_CL As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents FloorDesignerButton As System.Windows.Forms.Button
 End Class

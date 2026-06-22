@@ -130,6 +130,8 @@ Partial Class SB_Edit
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Barcode_DefPrinter_Cm = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.Table_Panel2 = New System.Windows.Forms.Panel()
+        Me.TableDisplayModeLabel = New System.Windows.Forms.Label()
+        Me.TableDisplayModeComboBox = New System.Windows.Forms.ComboBox()
         Me.SubPrint_Panel = New System.Windows.Forms.Panel()
         Me.Pr_Panel = New System.Windows.Forms.Panel()
         Me.TypeOfPrint_Cmb = New System.Windows.Forms.ComboBox()
@@ -323,7 +325,7 @@ Partial Class SB_Edit
         Me.PrintTBKsh_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PrintTBKsh_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.PrintTBKsh_CB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PrintTBKsh_CB.Location = New System.Drawing.Point(129, 4)
+        Me.PrintTBKsh_CB.Location = New System.Drawing.Point(301, 4)
         Me.PrintTBKsh_CB.Name = "PrintTBKsh_CB"
         Me.PrintTBKsh_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.PrintTBKsh_CB.Size = New System.Drawing.Size(228, 21)
@@ -639,7 +641,7 @@ Partial Class SB_Edit
         Me.CP_Bill_Screen_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CP_Bill_Screen_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.CP_Bill_Screen_CB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CP_Bill_Screen_CB.Location = New System.Drawing.Point(65, 39)
+        Me.CP_Bill_Screen_CB.Location = New System.Drawing.Point(237, 39)
         Me.CP_Bill_Screen_CB.Name = "CP_Bill_Screen_CB"
         Me.CP_Bill_Screen_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.CP_Bill_Screen_CB.Size = New System.Drawing.Size(292, 21)
@@ -1709,13 +1711,40 @@ Partial Class SB_Edit
         '
         'Table_Panel2
         '
+        Me.Table_Panel2.Controls.Add(Me.TableDisplayModeLabel)
+        Me.Table_Panel2.Controls.Add(Me.TableDisplayModeComboBox)
         Me.Table_Panel2.Controls.Add(Me.PrintTBKsh_CB)
         Me.Table_Panel2.Controls.Add(Me.CP_Bill_Screen_CB)
         Me.Table_Panel2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Table_Panel2.Location = New System.Drawing.Point(322, 179)
+        Me.Table_Panel2.Location = New System.Drawing.Point(152, 179)
         Me.Table_Panel2.Name = "Table_Panel2"
-        Me.Table_Panel2.Size = New System.Drawing.Size(361, 63)
+        Me.Table_Panel2.Size = New System.Drawing.Size(532, 63)
         Me.Table_Panel2.TabIndex = 378
+        '
+        'TableDisplayModeLabel
+        '
+        Me.TableDisplayModeLabel.AutoSize = True
+        Me.TableDisplayModeLabel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TableDisplayModeLabel.Location = New System.Drawing.Point(147, 6)
+        Me.TableDisplayModeLabel.Name = "TableDisplayModeLabel"
+        Me.TableDisplayModeLabel.Size = New System.Drawing.Size(115, 17)
+        Me.TableDisplayModeLabel.TabIndex = 304
+        Me.TableDisplayModeLabel.Text = "نمط عرض الطاولات"
+        Me.TableDisplayModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TableDisplayModeComboBox
+        '
+        Me.TableDisplayModeComboBox.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.TableDisplayModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.TableDisplayModeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.TableDisplayModeComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TableDisplayModeComboBox.FormattingEnabled = True
+        Me.TableDisplayModeComboBox.Items.AddRange(New Object() {"تقليدي", "حديث"})
+        Me.TableDisplayModeComboBox.Location = New System.Drawing.Point(4, 3)
+        Me.TableDisplayModeComboBox.Name = "TableDisplayModeComboBox"
+        Me.TableDisplayModeComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.TableDisplayModeComboBox.Size = New System.Drawing.Size(137, 25)
+        Me.TableDisplayModeComboBox.TabIndex = 305
         '
         'SubPrint_Panel
         '
@@ -2589,6 +2618,8 @@ Partial Class SB_Edit
     Friend WithEvents Pr_Panel As System.Windows.Forms.Panel
     Friend WithEvents SB_is_Check_Thankes_CB As System.Windows.Forms.CheckBox
     Friend WithEvents Table_Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents TableDisplayModeLabel As System.Windows.Forms.Label
+    Friend WithEvents TableDisplayModeComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Barcode_DefPrinter_Cm As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents Def_Befor_Print_CB As System.Windows.Forms.CheckBox

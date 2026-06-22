@@ -2,6 +2,8 @@
 
 Public Class TablesBalance
     Dim rs As New Resizer
+    Private ReadOnly FloorRepository As New RestaurantFloorLayoutRepository()
+    Private FloorCanvas As RestaurantFloorDesignerControl
     Public tran_F, tran_T
     Public Bill_T_ID, AG_ID, TB_Num As Integer
     Public Pied_Money As Double
@@ -27,45 +29,51 @@ Public Class TablesBalance
     End Sub
 
     Public Sub loadtables()
-        F_Panel.Controls.Clear()
-
-        Dim c As New C
-        Dim x = 0
-        Dim y = 0
-        Dim counter = 1
-        ' Dim FontSize, StandarMeasure As Double
-        Dim b As Integer = 0
-        Dim s As String = ""
-        Dim IMName As String = ""
-        If U_Flate_ID = 0 Then
-            s = "select * from Tables_Balances_V ORDER BY TB_ID ASC "
-        Else
-            s = "select * from Tables_Balances_V WHERE Flate_ID = '" & U_Flate_ID & "'  ORDER BY TB_ID ASC  "
+        If FloorCanvas IsNot Nothing Then
+            RemoveHandler FloorCanvas.ElementSelected, AddressOf FloorCanvas_ElementSelected
+            FloorCanvas.Dispose()
+            FloorCanvas = Nothing
         End If
 
-        c.Com = New SqlClient.SqlCommand(s, c.Con)
+        F_Panel.Controls.Clear()
 
-        c.Con.Open()
-        c.Dr = c.Com.ExecuteReader
-        If c.Dr.HasRows Then
-            While c.Dr.Read()
+        If MY_Settings.TableDisplayMode = 0 Then
+            LoadTablesTraditional()
+            Return
+        End If
+
+        Try
+            Dim flateId As Integer = GetActiveTablesFlateID()
+            Dim tablesDt As DataTable = FloorRepository.LoadTables(flateId)
+            Dim elements As List(Of RestaurantFloorElement) = FloorRepository.LoadLayout(flateId)
+
+            MergeTablesWithLayout(elements, tablesDt, flateId)
+            ShowTablesLayout(elements)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub LoadTablesTraditional()
+        Try
+            Dim x As Integer = 0
+            Dim y As Integer = 0
+            Dim counter As Integer = 1
+            Dim tablesDt As DataTable = FloorRepository.LoadTables(GetActiveTablesFlateID())
+
+            For Each row As DataRow In tablesDt.Rows
                 Dim IMbtn As New Button
-                IMbtn.Name = ("T_Name" + c.Dr("TB_ID").ToString)
+                IMbtn.Name = ("T_Name" + row("TB_ID").ToString())
                 IMbtn.AutoSize = False
                 IMbtn.Cursor = Cursors.Hand
                 IMbtn.FlatStyle = FlatStyle.Popup
                 IMbtn.Location = New System.Drawing.Point(x, y)
                 IMbtn.Size = New System.Drawing.Size(F_Panel.Size.Width / 6.2, F_Panel.Size.Height / 5.25)
                 IMbtn.RightToLeft = Windows.Forms.RightToLeft.Yes
-                IMName = c.Dr("T_Name")
                 IMbtn.Font = New System.Drawing.Font("Segoe UI", (h + w) / 125, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CType(0, Byte))
-                IMbtn.Text = c.Dr("T_Name")
-                IMbtn.Tag = c.Dr("TB_ID")
-                If c.Dr("isbusy") = True Then
-                    IMbtn.BackColor = Color.IndianRed
-                Else
-                    IMbtn.BackColor = Color.WhiteSmoke
-                End If
+                IMbtn.Text = row("T_Name").ToString()
+                IMbtn.Tag = row("TB_ID")
+                IMbtn.BackColor = If(GetBool(row("isbusy")), Color.IndianRed, Color.WhiteSmoke)
                 Controls.Add(IMbtn)
                 IMbtn.Parent = F_Panel
                 AddHandler IMbtn.Click, AddressOf bt_Click
@@ -78,40 +86,149 @@ Public Class TablesBalance
                     counter += 1
                     x += F_Panel.Size.Width / 6.2
                 End If
+
                 rs.Find_One(IMbtn)
-
-            End While
-        End If
-
-        c.Con.Close()
-
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
+    Private Function GetActiveTablesFlateID() As Integer
+        If U_Flate_ID > 0 Then Return U_Flate_ID
+        If MY_Settings.Tables_Flate_ID > 0 Then Return MY_Settings.Tables_Flate_ID
+        Return 0
+    End Function
+
     Public Sub bt_Click(ByVal sender As Object, ByVal e As EventArgs)
-        TB_Num = sender.tag
+        SelectTable(Convert.ToInt32(sender.tag), sender.Text)
+    End Sub
+
+    Private Sub FloorCanvas_ElementSelected(element As RestaurantFloorElement)
+        If element Is Nothing OrElse element.TB_ID.HasValue = False Then Return
+        SelectTable(element.TB_ID.Value, If(String.IsNullOrWhiteSpace(element.ElementText), element.TB_ID.Value.ToString(), element.ElementText))
+    End Sub
+
+    Private Sub SelectTable(tbId As Integer, tableText As String)
+        TB_Num = tbId
 
         If Me.TB_Types_CMB.SelectedIndex <> 0 Then
 
             If Me.tran_F = 0 Then
-                Me.tran_F = sender.tag
-                Me.TB_F_txt.Text = sender.Text
+                Me.tran_F = tbId
+                Me.TB_F_txt.Text = tableText
                 Exit Sub
             End If
 
             If Me.tran_T = 0 Then
-                Me.tran_T = sender.tag
-                Me.TB_T_txt.Text = sender.Text
+                Me.tran_T = tbId
+                Me.TB_T_txt.Text = tableText
             End If
 
         Else
             ' TablePiedApart.TB_Num = TB_Num
             LoadTableBalanceData(TB_Num)
-            Me.TB_Info.Text = " الطاولة : " + sender.Text
-            Me.Items_btn_Click(sender, e)
+            Me.TB_Info.Text = " الطاولة : " + tableText
+            Me.Items_btn_Click(Items_btn, EventArgs.Empty)
 
 
         End If
     End Sub
+
+    Private Sub MergeTablesWithLayout(elements As List(Of RestaurantFloorElement), tablesDt As DataTable, flateId As Integer)
+        Dim representedTables As New List(Of Integer)()
+
+        For Each element As RestaurantFloorElement In elements
+            If element.TB_ID.HasValue Then representedTables.Add(element.TB_ID.Value)
+        Next
+
+        Dim index As Integer = representedTables.Count
+        For Each row As DataRow In tablesDt.Rows
+            Dim tbId As Integer = Convert.ToInt32(row("TB_ID"))
+            If representedTables.Contains(tbId) Then
+                ApplyTableState(elements, row)
+                Continue For
+            End If
+
+            Dim point As Point = GetDefaultTablePoint(index)
+            Dim element As New RestaurantFloorElement()
+            element.Flate_ID = flateId
+            element.TB_ID = tbId
+            element.ElementType = "Table"
+            element.ElementText = row("T_Name").ToString()
+            element.X_Pos = point.X
+            element.Y_Pos = point.Y
+            element.WidthValue = 115
+            element.HeightValue = 80
+            element.SeatsCount = 4
+            element.BackColorArgb = Color.WhiteSmoke.ToArgb()
+            element.ForeColorArgb = Color.FromArgb(15, 23, 42).ToArgb()
+            element.IsBusy = GetBool(row("isbusy"))
+            element.IsCash = GetBool(row("is_Cash"))
+            element.ZIndex = index
+            elements.Add(element)
+            index += 1
+        Next
+    End Sub
+
+    Private Sub ApplyTableState(elements As List(Of RestaurantFloorElement), row As DataRow)
+        Dim tbId As Integer = Convert.ToInt32(row("TB_ID"))
+
+        For Each element As RestaurantFloorElement In elements
+            If element.TB_ID.HasValue AndAlso element.TB_ID.Value = tbId Then
+                element.ElementText = row("T_Name").ToString()
+                element.IsBusy = GetBool(row("isbusy"))
+                element.IsCash = GetBool(row("is_Cash"))
+                Exit For
+            End If
+        Next
+    End Sub
+
+    Private Sub ShowTablesLayout(elements As List(Of RestaurantFloorElement))
+        FloorCanvas = New RestaurantFloorDesignerControl()
+        FloorCanvas.IsDesignMode = False
+        FloorCanvas.ShowGrid = False
+        FloorCanvas.Location = New Point(0, 0)
+        FloorCanvas.Size = GetFloorCanvasSize(elements)
+        FloorCanvas.Elements = elements
+        AddHandler FloorCanvas.ElementSelected, AddressOf FloorCanvas_ElementSelected
+
+        F_Panel.AutoScroll = True
+        F_Panel.Controls.Add(FloorCanvas)
+    End Sub
+
+    Private Function GetFloorCanvasSize(elements As List(Of RestaurantFloorElement)) As Size
+        Dim maxRight As Integer = F_Panel.ClientSize.Width
+        Dim maxBottom As Integer = F_Panel.ClientSize.Height
+
+        For Each element As RestaurantFloorElement In elements
+            maxRight = Math.Max(maxRight, element.X_Pos + element.WidthValue + 80)
+            maxBottom = Math.Max(maxBottom, element.Y_Pos + element.HeightValue + 80)
+        Next
+
+        Return New Size(Math.Max(1, maxRight), Math.Max(1, maxBottom))
+    End Function
+
+    Private Function GetDefaultTablePoint(index As Integer) As Point
+        Dim columns As Integer = Math.Max(1, CInt(Math.Floor((F_Panel.ClientSize.Width - 30) / 145.0R)))
+        Dim x As Integer = 20 + ((index Mod columns) * 145)
+        Dim y As Integer = 20 + ((index \ columns) * 120)
+        Return New Point(x, y)
+    End Function
+
+    Private Function GetBool(value As Object) As Boolean
+        If value Is Nothing OrElse value Is DBNull.Value Then Return False
+
+        Dim boolValue As Boolean
+        Dim text As String = value.ToString().Trim()
+        If text = "" Then Return False
+        If Boolean.TryParse(text, boolValue) Then Return boolValue
+
+        Dim numberValue As Decimal
+        If Decimal.TryParse(text, numberValue) Then Return numberValue <> 0D
+
+        Return False
+    End Function
 
 
 
@@ -231,7 +348,7 @@ Public Class TablesBalance
         'RightPanelWidth = PanelRight.Width
 
         If IS_SHOW_NUMBER = False Then
-            loadtables()
+            Me.BeginInvoke(New MethodInvoker(Sub() loadtables()))
         Else
             LoadTableBalanceData(TB_ID)
             TB_Info.Text = " الطاولة : " + TB_ID.ToString
@@ -502,14 +619,7 @@ Public Class TablesBalance
     End Sub
 
     Public Sub Refresh_Table()
-        For Each A As Control In F_Panel.Controls
-            If TypeOf A Is Button Then
-                If A.Tag = TB_Num Then
-                    A.BackColor = Color.WhiteSmoke
-                    Exit Sub
-                End If
-            End If
-        Next
+        loadtables()
     End Sub
 
 

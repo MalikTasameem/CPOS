@@ -2714,8 +2714,20 @@ Public Class POS
     End Sub
 
     Private Sub ChangeTbButton_Click(sender As Object, e As EventArgs) Handles ChangeTbButton.Click
-        F_SB_TablesMenu = New SB_TablesMenu
-        F_SB_TablesMenu.ShowDialog()
+        If MY_Settings.TableDisplayMode = 0 Then
+            F_SB_TablesMenu = New SB_TablesMenu
+            F_SB_TablesMenu.ShowDialog()
+            Return
+        End If
+
+        Try
+            Dim f As New FrmRestaurantFloorSelector()
+            f.ShowDialog()
+        Catch ex As Exception
+            MsgBox("تعذر فتح مخطط الطاولات، سيتم فتح القائمة القديمة." & vbCrLf & ex.Message, MsgBoxStyle.Exclamation, "اختيار الطاولة")
+            F_SB_TablesMenu = New SB_TablesMenu
+            F_SB_TablesMenu.ShowDialog()
+        End Try
     End Sub
 
     Private Sub VoidBillBtn_Click(sender As Object, e As EventArgs) Handles VoidBillBtn.Click
