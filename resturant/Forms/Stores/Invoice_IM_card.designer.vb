@@ -954,31 +954,32 @@ Partial Class Invoice_IM_card
         Me.ADD_New_IM_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.ADD_New_IM_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.ADD_New_IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ADD_New_IM_btn.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.ADD_New_IM_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.ADD_New_IM_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADD_New_IM_btn.Image = Global.resturant.My.Resources.Resources.if_Add_27831
-        Me.ADD_New_IM_btn.Location = New System.Drawing.Point(882, 58)
+        Me.ADD_New_IM_btn.Location = New System.Drawing.Point(796, 53)
         Me.ADD_New_IM_btn.Name = "ADD_New_IM_btn"
-        Me.ADD_New_IM_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ADD_New_IM_btn.Size = New System.Drawing.Size(42, 35)
+        Me.ADD_New_IM_btn.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.ADD_New_IM_btn.Size = New System.Drawing.Size(130, 35)
         Me.ADD_New_IM_btn.TabIndex = 1048
         Me.ADD_New_IM_btn.TabStop = False
-        Me.ADD_New_IM_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ADD_New_IM_btn.Tag = "GENERAL"
+        Me.ADD_New_IM_btn.Text = "➕  صنف جديد"
+        Me.ADD_New_IM_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ADD_New_IM_btn.UseVisualStyleBackColor = False
         '
         'mySearchControl
         '
         Me.mySearchControl.BackColor = System.Drawing.Color.WhiteSmoke
         Me.mySearchControl.DefaultSearchField = "إسم الصنف"
-        Me.mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
+        Me.mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.mySearchControl.ItemsTable = Nothing
         Me.mySearchControl.itemsTable_Barcode = Nothing
-        Me.mySearchControl.Location = New System.Drawing.Point(5, 58)
+        Me.mySearchControl.Location = New System.Drawing.Point(2, 54)
         Me.mySearchControl.Margin = New System.Windows.Forms.Padding(0)
         Me.mySearchControl.MarginBetweenSearchAndGrid = 15
         Me.mySearchControl.MaxGridHeight = 400
         Me.mySearchControl.Name = "mySearchControl"
-        Me.mySearchControl.Size = New System.Drawing.Size(870, 35)
+        Me.mySearchControl.Size = New System.Drawing.Size(791, 35)
         Me.mySearchControl.TabIndex = 1047
         '
         'bercent_ADD_txt

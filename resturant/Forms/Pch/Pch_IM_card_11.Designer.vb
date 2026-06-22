@@ -948,14 +948,14 @@ Partial Class Pch_IM_card_11
         Me.ADD_New_IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ADD_New_IM_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.ADD_New_IM_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADD_New_IM_btn.Location = New System.Drawing.Point(752, 58)
+        Me.ADD_New_IM_btn.Location = New System.Drawing.Point(794, 58)
         Me.ADD_New_IM_btn.Name = "ADD_New_IM_btn"
         Me.ADD_New_IM_btn.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ADD_New_IM_btn.Size = New System.Drawing.Size(172, 35)
+        Me.ADD_New_IM_btn.Size = New System.Drawing.Size(130, 35)
         Me.ADD_New_IM_btn.TabIndex = 1048
         Me.ADD_New_IM_btn.TabStop = False
         Me.ADD_New_IM_btn.Tag = "GENERAL"
-        Me.ADD_New_IM_btn.Text = "➕         صنف جديد"
+        Me.ADD_New_IM_btn.Text = "➕  صنف جديد"
         Me.ADD_New_IM_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ADD_New_IM_btn.UseVisualStyleBackColor = False
         '
@@ -966,12 +966,12 @@ Partial Class Pch_IM_card_11
         Me.mySearchControl.Font = New System.Drawing.Font("Segoe UI", 12.25!)
         Me.mySearchControl.ItemsTable = Nothing
         Me.mySearchControl.itemsTable_Barcode = Nothing
-        Me.mySearchControl.Location = New System.Drawing.Point(8, 60)
+        Me.mySearchControl.Location = New System.Drawing.Point(8, 58)
         Me.mySearchControl.Margin = New System.Windows.Forms.Padding(0)
         Me.mySearchControl.MarginBetweenSearchAndGrid = 15
         Me.mySearchControl.MaxGridHeight = 400
         Me.mySearchControl.Name = "mySearchControl"
-        Me.mySearchControl.Size = New System.Drawing.Size(740, 35)
+        Me.mySearchControl.Size = New System.Drawing.Size(783, 35)
         Me.mySearchControl.TabIndex = 1047
         '
         'bercent_ADD_txt

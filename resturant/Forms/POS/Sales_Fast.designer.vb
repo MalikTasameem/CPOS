@@ -23,7 +23,6 @@ Partial Class Sales_Fast
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -155,51 +154,51 @@ Partial Class Sales_Fast
         'CALC_Btn
         '
         Me.CALC_Btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.CALC_Btn.BackgroundImage = Global.resturant.My.Resources.Resources._171352_calculator_icon
         Me.CALC_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.CALC_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CALC_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CALC_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CALC_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.CALC_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.25!)
+        Me.CALC_Btn.ForeColor = System.Drawing.Color.Black
         Me.CALC_Btn.Location = New System.Drawing.Point(114, 1)
         Me.CALC_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.CALC_Btn.Name = "CALC_Btn"
         Me.CALC_Btn.Size = New System.Drawing.Size(36, 33)
         Me.CALC_Btn.TabIndex = 708
+        Me.CALC_Btn.Text = "🔢"
         Me.MetroToolTip1.SetToolTip(Me.CALC_Btn, "فتح صندوق النقود")
         Me.CALC_Btn.UseVisualStyleBackColor = False
         '
         'OpenCahDR_Btn
         '
         Me.OpenCahDR_Btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.OpenCahDR_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.Drawer_64
         Me.OpenCahDR_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.25!)
+        Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.Black
         Me.OpenCahDR_Btn.Location = New System.Drawing.Point(77, 1)
         Me.OpenCahDR_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.OpenCahDR_Btn.Name = "OpenCahDR_Btn"
         Me.OpenCahDR_Btn.Size = New System.Drawing.Size(36, 33)
         Me.OpenCahDR_Btn.TabIndex = 654
+        Me.OpenCahDR_Btn.Text = "🗄️"
         Me.MetroToolTip1.SetToolTip(Me.OpenCahDR_Btn, "فتح صندوق النقود")
         Me.OpenCahDR_Btn.UseVisualStyleBackColor = False
         '
         'Show_Cash_btn
         '
         Me.Show_Cash_btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.Show_Cash_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_money_299107
         Me.Show_Cash_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Show_Cash_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Show_Cash_btn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Show_Cash_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.25!)
+        Me.Show_Cash_btn.ForeColor = System.Drawing.Color.Black
         Me.Show_Cash_btn.Location = New System.Drawing.Point(40, 1)
         Me.Show_Cash_btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Show_Cash_btn.Name = "Show_Cash_btn"
         Me.Show_Cash_btn.Size = New System.Drawing.Size(36, 33)
         Me.Show_Cash_btn.TabIndex = 655
+        Me.Show_Cash_btn.Text = "💵"
         Me.MetroToolTip1.SetToolTip(Me.Show_Cash_btn, "عرض المقبوض")
         Me.Show_Cash_btn.UseVisualStyleBackColor = False
         '
@@ -262,7 +261,7 @@ Partial Class Sales_Fast
         Me.RemoveCatButton.Size = New System.Drawing.Size(55, 254)
         Me.RemoveCatButton.TabIndex = 395
         Me.RemoveCatButton.TabStop = False
-        Me.RemoveCatButton.Text = "F8"
+        Me.RemoveCatButton.Text = "F8" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " ❌"
         Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف الصنف الحدد")
         Me.RemoveCatButton.UseVisualStyleBackColor = False
         '
@@ -389,7 +388,7 @@ Partial Class Sales_Fast
         Me.Pure_txt.Name = "Pure_txt"
         Me.Pure_txt.ReadOnly = True
         Me.Pure_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Pure_txt.Size = New System.Drawing.Size(163, 39)
+        Me.Pure_txt.Size = New System.Drawing.Size(161, 39)
         Me.Pure_txt.TabIndex = 619
         Me.Pure_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -568,14 +567,6 @@ Partial Class Sales_Fast
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Bill_IMID_CL, Me.is_Check_CL, Me.Barcode_CL, Me.Serial_Code_CL, Me.U_ID_CL, Me.Date_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.IM_Discount_CL, Me.Total_CL, Me.Notes_CL, Me.T_ID_CL, Me.ST_ID_CL, Me.IM_NOTE_CL})
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle5
         Me.AGMetroGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AGMetroGrid.Location = New System.Drawing.Point(0, 0)
         Me.AGMetroGrid.MultiSelect = False
@@ -754,7 +745,7 @@ Partial Class Sales_Fast
         '
         Me.Label27.BackColor = System.Drawing.Color.Transparent
         Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(943, 411)
+        Me.Label27.Location = New System.Drawing.Point(943, 410)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(62, 21)
@@ -803,7 +794,7 @@ Partial Class Sales_Fast
         Me.Valid_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Valid_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Valid_cm.FormattingEnabled = True
-        Me.Valid_cm.Location = New System.Drawing.Point(191, 96)
+        Me.Valid_cm.Location = New System.Drawing.Point(289, 122)
         Me.Valid_cm.Name = "Valid_cm"
         Me.Valid_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Valid_cm.Size = New System.Drawing.Size(92, 23)

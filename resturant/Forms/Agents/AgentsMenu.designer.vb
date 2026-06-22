@@ -125,11 +125,11 @@ Partial Class AgentsMenu
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(461, 93)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 10.75!)
+        Me.Label1.Location = New System.Drawing.Point(462, 96)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label1.Size = New System.Drawing.Size(77, 17)
+        Me.Label1.Size = New System.Drawing.Size(84, 20)
         Me.Label1.TabIndex = 549
         Me.Label1.Text = "إسم الزبون :"
         '
@@ -211,7 +211,7 @@ Partial Class AgentsMenu
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Label12.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Label12.Location = New System.Drawing.Point(308, 172)
+        Me.Label12.Location = New System.Drawing.Point(308, 171)
         Me.Label12.Name = "Label12"
         Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label12.Size = New System.Drawing.Size(51, 20)
@@ -237,12 +237,12 @@ Partial Class AgentsMenu
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 10.75!)
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(460, 49)
+        Me.Label2.Location = New System.Drawing.Point(461, 55)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label2.Size = New System.Drawing.Size(84, 20)
+        Me.Label2.Size = New System.Drawing.Size(80, 20)
         Me.Label2.TabIndex = 612
         Me.Label2.Text = "رقم الزبون :"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -274,7 +274,7 @@ Partial Class AgentsMenu
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(372, 139)
+        Me.Label7.Location = New System.Drawing.Point(373, 139)
         Me.Label7.Name = "Label7"
         Me.Label7.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label7.Size = New System.Drawing.Size(85, 20)
@@ -333,11 +333,11 @@ Partial Class AgentsMenu
         'is_By_PhoneCB
         '
         Me.is_By_PhoneCB.AutoSize = True
-        Me.is_By_PhoneCB.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.is_By_PhoneCB.Location = New System.Drawing.Point(180, 54)
+        Me.is_By_PhoneCB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.is_By_PhoneCB.Location = New System.Drawing.Point(177, 54)
         Me.is_By_PhoneCB.Name = "is_By_PhoneCB"
         Me.is_By_PhoneCB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.is_By_PhoneCB.Size = New System.Drawing.Size(118, 21)
+        Me.is_By_PhoneCB.Size = New System.Drawing.Size(116, 21)
         Me.is_By_PhoneCB.TabIndex = 640
         Me.is_By_PhoneCB.Text = "بحث برقم الهاتف"
         Me.is_By_PhoneCB.UseVisualStyleBackColor = True

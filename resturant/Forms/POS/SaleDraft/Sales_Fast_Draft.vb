@@ -10,6 +10,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Dim Print_BillNotes As String = ""
     Private Print_LogoImage As Image = Nothing
     Dim Print_Y As Integer = 0
+    Private Print_PaymentName As String = ""
 
 
 
@@ -108,7 +109,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Public Sub PrintCurrentBill()
 
-        Dim EstimatedHeight As Integer = 450 + (dgvSales.Rows.Count * 30)
+        Dim EstimatedHeight As Integer = 500 + (dgvSales.Rows.Count * 30)
 
         If String.IsNullOrWhiteSpace(Default_Printer_80) Then
             MsgBox("لم يتم تحديد طابعة البيع السريع الإفتراضية", MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
@@ -182,6 +183,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         DrawThreeParts(g, "Inv. No", Bill_ID_Txt.Text, "رقم الفاتورة", Print_Y, fontBodyBold)
         Print_Y += 18
         DrawThreeParts(g, "Date", DateTimeEx.Text, "تاريخ الفاتورة", Print_Y, fontBodyBold)
+        If String.IsNullOrWhiteSpace(AG_SH_txt.Text) = False Then
+            Print_Y += 18
+            DrawThreeParts(g, "Customer", AG_SH_txt.Text.Trim(), "العميل", Print_Y, fontBodyBold)
+        End If
         Print_Y += 25
 
         DrawDashedLine(g, Print_Y, PaperWidth)
@@ -234,7 +239,13 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             Print_Y += 20
         End If
         DrawThreeParts(g, "Net Total", Pure_txt.Text, "الصافي", Print_Y, fontTitle)
-        Print_Y += 40
+        Print_Y += 24
+        If String.IsNullOrWhiteSpace(Print_PaymentName) = False Then
+            DrawThreeParts(g, "Payment", Print_PaymentName, "طريقة الدفع", Print_Y, fontBodyBold)
+            Print_Y += 24
+        Else
+            Print_Y += 16
+        End If
 
         DrawDashedLine(g, Print_Y, PaperWidth)
         Print_Y += 12
@@ -2233,6 +2244,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             Dim Tr_ID, Pay_ID As Integer
             Tr_ID = F.Tr_ID
             Pay_ID = F.Pay_ID
+            Print_PaymentName = F.PaymentName
+            If String.IsNullOrWhiteSpace(Print_PaymentName) Then Print_PaymentName = "نقدا"
 
 
             If Not ValidateDraftBeforePush() Then Return False

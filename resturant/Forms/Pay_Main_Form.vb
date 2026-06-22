@@ -4,11 +4,13 @@
     Public is_OK As Boolean = False
     Public MONEY_VALUE As Decimal = 0
     Public Is_Force_Pay As Boolean = False
+    Public PaymentName As String = "نقدا"
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles OK_Btn.Click
         Tr_ID = Pay_Method1.TR_ID
         Pay_ID = Pay_Method1.Pay_ID
+        PaymentName = Pay_Method1.SelectedPaymentName
         is_OK = True
         Me.Close()
     End Sub
@@ -30,6 +32,7 @@
             If Is_Force_Pay = False Then
                 Tr_ID = Temp_Tr_ID
                 Pay_ID = 1
+                PaymentName = Pay_Method1.SelectedPaymentName
                 is_OK = True
                 Me.Close()
             End If

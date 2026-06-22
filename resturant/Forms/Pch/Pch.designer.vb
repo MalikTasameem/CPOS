@@ -305,7 +305,7 @@ Partial Class Pch
         Me.AG_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.عرضرصيدالعميلToolStripMenuItem, Me.كشفحسابالعميلToolStripMenuItem, Me.إضافةكعميلجديدToolStripMenuItem})
         Me.AG_ContextMenuStrip.Name = "AG_ContextMenuStrip"
         Me.AG_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_ContextMenuStrip.Size = New System.Drawing.Size(184, 76)
+        Me.AG_ContextMenuStrip.Size = New System.Drawing.Size(184, 98)
         '
         'عرضرصيدالعميلToolStripMenuItem
         '

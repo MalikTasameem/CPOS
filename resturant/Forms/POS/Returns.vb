@@ -594,7 +594,7 @@ Public Class Returns : Inherits System.Windows.Forms.Form
         isDepended = False
         ClearCatFields()
         Me.Text = FormState
-        Edit_butt.BackColor = Color.WhiteSmoke
+        'Edit_butt.BackColor = Color.WhiteSmoke
         Edit_butt.Text = EditState
     End Sub
 

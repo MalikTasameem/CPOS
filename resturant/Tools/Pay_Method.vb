@@ -15,6 +15,14 @@ Public Class Pay_Method
         End Get
     End Property
 
+    Public ReadOnly Property SelectedPaymentName As String
+        Get
+            If SelectedButton Is Nothing Then Return "نقدا"
+            If String.IsNullOrWhiteSpace(SelectedButton.Text) Then Return "نقدا"
+            Return SelectedButton.Text.Trim()
+        End Get
+    End Property
+
     Private SelectedButton As Button = Nothing
 
     Private Sub Pay_Method_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -268,6 +268,10 @@ Public Class SalesPrintDocumentRenderer
             y += 24
             DrawSummaryRow(g, "الصافي", PrintData.PureText, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat)
             y += 24
+            If String.IsNullOrWhiteSpace(PrintData.PaymentName) = False Then
+                DrawSummaryRow(g, "طريقة الدفع", PrintData.PaymentName, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat)
+                y += 24
+            End If
             DrawSummaryRow(g, "المدفوع", PrintData.PaidText, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat)
             y += 24
             DrawSummaryRow(g, "المتبقي", PrintData.RestText, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat)

@@ -1302,6 +1302,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         sqlComm.Parameters.AddWithValue("@Ag_name", AG_Cm.Textt)
         sqlComm.Parameters.AddWithValue("@Barcode", "")
         sqlComm.Parameters.AddWithValue("@Type_ID", Suply_Type_ID)
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
         sqlComm.Parameters("@AG_ID").Direction = ParameterDirection.Output
         sqlComm.Parameters.AddWithValue("@E_mail", "")
         If SQL_SP_EXEC(sqlComm) = True Then

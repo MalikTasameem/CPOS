@@ -877,6 +877,13 @@
         C.Da.Fill(Bill_DT)
         AGMetroGrid.DataSource = Bill_DT
         If AGMetroGrid.Rows.Count > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(AGMetroGrid.Rows.Count - 1).Cells("EX_Name_CL")
+
+        UcGridColumnsSelector1.BindGrid(
+AGMetroGrid,
+New List(Of String) From {""},
+Me.Name.ToString
+)
+
     End Sub
 
 

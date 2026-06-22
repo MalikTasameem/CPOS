@@ -93,6 +93,7 @@ Partial Class Invoice
         Me.عرضربحالفاتورةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.تعديلصلاحياتالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.علاضبطاقةالصنفToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         Me.TitleBar_Panel.SuspendLayout()
         Me.ActionBar_Panel.SuspendLayout()
         Me.Header_Panel.SuspendLayout()
@@ -265,6 +266,7 @@ Partial Class Invoice
         Me.Header_Panel.Controls.Add(Me.Panel3)
         Me.Header_Panel.Controls.Add(Me.Panel13)
         Me.Header_Panel.Controls.Add(Me.Panel1)
+        Me.Header_Panel.Controls.Add(Me.DGV_Control_btn)
         Me.Header_Panel.Controls.Add(Me.Panel2)
         Me.Header_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.Header_Panel.Location = New System.Drawing.Point(0, 86)
@@ -442,11 +444,11 @@ Partial Class Invoice
         '
         'GridTools_Panel
         '
+        Me.GridTools_Panel.Controls.Add(Me.UcGridColumnsSelector1)
         Me.GridTools_Panel.Controls.Add(Me.ADDCatButton)
         Me.GridTools_Panel.Controls.Add(Me.RemoveCatButton)
         Me.GridTools_Panel.Controls.Add(Me.IM_btn)
         Me.GridTools_Panel.Controls.Add(Me.MakeBarcode_btn)
-        Me.GridTools_Panel.Controls.Add(Me.DGV_Control_btn)
         Me.GridTools_Panel.Dock = System.Windows.Forms.DockStyle.Right
         Me.GridTools_Panel.Location = New System.Drawing.Point(1140, 186)
         Me.GridTools_Panel.Name = "GridTools_Panel"
@@ -507,7 +509,7 @@ Partial Class Invoice
         Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.DGV_Control_btn.Location = New System.Drawing.Point(6, 12)
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(3, 3)
         Me.DGV_Control_btn.Name = "DGV_Control_btn"
         Me.DGV_Control_btn.Size = New System.Drawing.Size(50, 50)
         Me.DGV_Control_btn.TabIndex = 4
@@ -818,6 +820,22 @@ Partial Class Invoice
         Me.علاضبطاقةالصنفToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.علاضبطاقةالصنفToolStripMenuItem.Text = "عرض بطاقة الصنف"
         '
+        'UcGridColumnsSelector1
+        '
+        Me.UcGridColumnsSelector1.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
+        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.UcGridColumnsSelector1.ForeColor = System.Drawing.Color.Black
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(3, 2)
+        Me.UcGridColumnsSelector1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
+        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
+        Me.UcGridColumnsSelector1.PopupMinHeight = 120
+        Me.UcGridColumnsSelector1.PopupWidth = 260
+        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
+    "ColumnsSettings"
+        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(42, 39)
+        Me.UcGridColumnsSelector1.TabIndex = 916
+        '
         'Invoice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
@@ -934,4 +952,5 @@ Partial Class Invoice
     Friend WithEvents NewSaleByOne_CL As DataGridViewTextBoxColumn
     Friend WithEvents Total_CL As DataGridViewTextBoxColumn
     Friend WithEvents Notes_CL As DataGridViewTextBoxColumn
+    Friend WithEvents UcGridColumnsSelector1 As UcGridColumnsSelector
 End Class

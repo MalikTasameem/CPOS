@@ -40,6 +40,7 @@
             .Parameters.AddWithValue("@Address", Address_txt.Text)
             .Parameters.AddWithValue("@isDefaultAG", 1)
             .Parameters.AddWithValue("@Type_ID", Cr_Type_ID)
+            .Parameters.AddWithValue("@USER_ID", USER_ID)
             .Parameters("@Ag_ID").Direction = ParameterDirection.Output
             .Parameters.AddWithValue("@E_mail", "")
         End With

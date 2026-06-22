@@ -21,6 +21,7 @@ Public Class SalesPrintData
     Public Property PureText As String = ""
     Public Property PaidText As String = ""
     Public Property RestText As String = ""
+    Public Property PaymentName As String = ""
     Public Property QtyText As String = ""
     Public Property CountText As String = ""
     Public Property Barcode As String = ""
@@ -74,6 +75,7 @@ Public Class SalesPrintData
         data.PureText = SafeText(form.Pure_txt)
         data.PaidText = data.PureText
         data.RestText = "0"
+        data.PaymentName = form.CurrentPaymentName
         data.QtyText = If(form.IM_Qty_LB Is Nothing, "", form.IM_Qty_LB.Text)
         data.CountText = If(form.IM_Count_LB Is Nothing, "", form.IM_Count_LB.Text)
         data.Barcode = form.Barcode
