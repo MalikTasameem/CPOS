@@ -2428,12 +2428,36 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Function ShowTouchQuantityDialog(currentQty As Decimal, ByRef selectedQty As Decimal) As DialogResult
 
-        selectedQty = currentQty
+        Return ShowTouchNumberDialog("إدخال الكمية",
+                                     currentQty,
+                                     selectedQty,
+                                     False,
+                                     "الكمية المدخلة غير صحيحة")
+
+    End Function
+
+    Private Function ShowTouchDiscountDialog(currentDiscount As Decimal, ByRef selectedDiscount As Decimal) As DialogResult
+
+        Return ShowTouchNumberDialog("إدخال التخفيض",
+                                     currentDiscount,
+                                     selectedDiscount,
+                                     True,
+                                     "قيمة التخفيض غير صحيحة")
+
+    End Function
+
+    Private Function ShowTouchNumberDialog(title As String,
+                                           currentValue As Decimal,
+                                           ByRef selectedValue As Decimal,
+                                           allowZero As Boolean,
+                                           invalidMessage As String) As DialogResult
+
+        selectedValue = currentValue
 
         Using frm As New Form()
-            Dim resultQty As Decimal = currentQty
+            Dim resultValue As Decimal = currentValue
 
-            frm.Text = "إدخال الكمية"
+            frm.Text = title
             frm.StartPosition = FormStartPosition.CenterParent
             frm.FormBorderStyle = FormBorderStyle.FixedDialog
             frm.MaximizeBox = False
@@ -2461,7 +2485,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             display.ReadOnly = True
             display.TextAlign = HorizontalAlignment.Center
             display.Font = New Font("Segoe UI", 26.0!, FontStyle.Bold)
-            display.Text = currentQty.ToString("0.###")
+            display.Text = currentValue.ToString("0.###")
             display.Tag = True
             display.Dock = DockStyle.Fill
             display.Margin = New Padding(0, 0, 0, 8)
@@ -2527,13 +2551,13 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                         Sub()
                             Select Case text
                                 Case "تأكيد"
-                                    Dim parsedQty As Decimal
-                                    If TryParseTouchQuantity(display.Text, parsedQty) = False OrElse parsedQty <= 0D Then
-                                        MsgBox("الكمية المدخلة غير صحيحة", MsgBoxStyle.Exclamation, "تنبيه")
+                                    Dim parsedValue As Decimal
+                                    If TryParseTouchNumber(display.Text, parsedValue) = False OrElse parsedValue < 0D OrElse (allowZero = False AndAlso parsedValue <= 0D) Then
+                                        MsgBox(invalidMessage, MsgBoxStyle.Exclamation, "تنبيه")
                                         Exit Sub
                                     End If
 
-                                    resultQty = parsedQty
+                                    resultValue = parsedValue
                                     frm.DialogResult = DialogResult.OK
                                     frm.Close()
 
@@ -2591,7 +2615,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 End Sub
 
             Dim result As DialogResult = frm.ShowDialog(Me)
-            If result = DialogResult.OK Then selectedQty = resultQty
+            If result = DialogResult.OK Then selectedValue = resultValue
 
             Return result
         End Using
@@ -2600,12 +2624,18 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Function TryParseTouchQuantity(value As String, ByRef quantity As Decimal) As Boolean
 
+        Return TryParseTouchNumber(value, quantity)
+
+    End Function
+
+    Private Function TryParseTouchNumber(value As String, ByRef numberValue As Decimal) As Boolean
+
         value = If(value, "").Trim().Replace("٫", ".").Replace(",", ".")
 
         If String.IsNullOrWhiteSpace(value) Then Return False
 
-        Return Decimal.TryParse(value, Globalization.NumberStyles.Number, Globalization.CultureInfo.InvariantCulture, quantity) OrElse
-               Decimal.TryParse(value, quantity)
+        Return Decimal.TryParse(value, Globalization.NumberStyles.Number, Globalization.CultureInfo.InvariantCulture, numberValue) OrElse
+               Decimal.TryParse(value, numberValue)
 
     End Function
 
@@ -3906,18 +3936,10 @@ Me.Name.ToString
 
         If CurrentDraft Is Nothing Then Exit Sub
 
-        Dim inp As String = InputBox("أدخل قيمة التخفيض", "تخفيض الفاتورة", CurrentDraft.Discount.ToString("0.000"))
-
-        If inp.Trim() = "" Then Exit Sub
-
         Dim discountValue As Decimal
-
-        If Not Decimal.TryParse(inp, discountValue) Then
-            MessageBox.Show("قيمة التخفيض غير صحيحة.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+        If ShowTouchDiscountDialog(CurrentDraft.Discount, discountValue) = DialogResult.OK Then
+            SetDraftDiscount(discountValue)
         End If
-
-        SetDraftDiscount(discountValue)
 
     End Sub
 

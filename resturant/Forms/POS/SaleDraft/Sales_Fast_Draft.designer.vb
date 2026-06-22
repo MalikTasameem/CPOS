@@ -309,9 +309,9 @@ Partial Class Sales_Fast_Draft
         Me.Label13.Location = New System.Drawing.Point(150, 37)
         Me.Label13.Name = "Label13"
         Me.Label13.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label13.Size = New System.Drawing.Size(83, 17)
+        Me.Label13.Size = New System.Drawing.Size(63, 17)
         Me.Label13.TabIndex = 618
-        Me.Label13.Text = "F11 التخفيــض"
+        Me.Label13.Text = " التخفيــض"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Total_TextBox
@@ -964,9 +964,9 @@ Partial Class Sales_Fast_Draft
         'UcGridColumnsSelector1
         '
         Me.UcGridColumnsSelector1.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
-        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
         Me.UcGridColumnsSelector1.ForeColor = System.Drawing.Color.Black
-        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(893, 608)
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(913, 608)
         Me.UcGridColumnsSelector1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
         Me.UcGridColumnsSelector1.PopupMaxHeight = 320
@@ -974,7 +974,7 @@ Partial Class Sales_Fast_Draft
         Me.UcGridColumnsSelector1.PopupWidth = 260
         Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
     "ColumnsSettings"
-        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(129, 55)
+        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(109, 55)
         Me.UcGridColumnsSelector1.TabIndex = 915
         '
         'Sales_Fast_Draft
