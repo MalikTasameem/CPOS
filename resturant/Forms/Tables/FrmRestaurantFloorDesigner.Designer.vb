@@ -26,6 +26,12 @@ Partial Class FrmRestaurantFloorDesigner
         Me.cmbFlates = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlTools = New System.Windows.Forms.Panel()
+        Me.FloorShapeComboBox = New System.Windows.Forms.ComboBox()
+        Me.FloorShapeLabel = New System.Windows.Forms.Label()
+        Me.FloorHeightNum = New System.Windows.Forms.NumericUpDown()
+        Me.FloorHeightLabel = New System.Windows.Forms.Label()
+        Me.FloorWidthNum = New System.Windows.Forms.NumericUpDown()
+        Me.FloorWidthLabel = New System.Windows.Forms.Label()
         Me.btnDeleteSelected = New System.Windows.Forms.Button()
         Me.txtElementText = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -35,6 +41,8 @@ Partial Class FrmRestaurantFloorDesigner
         Me.Label3 = New System.Windows.Forms.Label()
         Me.numSeats = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.TableShapeComboBox = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.btnCounter = New System.Windows.Forms.Button()
         Me.btnDoor = New System.Windows.Forms.Button()
         Me.btnWall = New System.Windows.Forms.Button()
@@ -43,6 +51,8 @@ Partial Class FrmRestaurantFloorDesigner
         Me.FloorCanvas = New Global.resturant.RestaurantFloorDesignerControl()
         Me.pnlTop.SuspendLayout()
         Me.pnlTools.SuspendLayout()
+        CType(Me.FloorHeightNum, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FloorWidthNum, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSeats, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -161,6 +171,12 @@ Partial Class FrmRestaurantFloorDesigner
         'pnlTools
         '
         Me.pnlTools.BackColor = System.Drawing.Color.White
+        Me.pnlTools.Controls.Add(Me.FloorShapeComboBox)
+        Me.pnlTools.Controls.Add(Me.FloorShapeLabel)
+        Me.pnlTools.Controls.Add(Me.FloorHeightNum)
+        Me.pnlTools.Controls.Add(Me.FloorHeightLabel)
+        Me.pnlTools.Controls.Add(Me.FloorWidthNum)
+        Me.pnlTools.Controls.Add(Me.FloorWidthLabel)
         Me.pnlTools.Controls.Add(Me.btnDeleteSelected)
         Me.pnlTools.Controls.Add(Me.txtElementText)
         Me.pnlTools.Controls.Add(Me.Label5)
@@ -168,6 +184,8 @@ Partial Class FrmRestaurantFloorDesigner
         Me.pnlTools.Controls.Add(Me.Label4)
         Me.pnlTools.Controls.Add(Me.numWidth)
         Me.pnlTools.Controls.Add(Me.Label3)
+        Me.pnlTools.Controls.Add(Me.TableShapeComboBox)
+        Me.pnlTools.Controls.Add(Me.Label6)
         Me.pnlTools.Controls.Add(Me.numSeats)
         Me.pnlTools.Controls.Add(Me.Label2)
         Me.pnlTools.Controls.Add(Me.btnCounter)
@@ -181,6 +199,70 @@ Partial Class FrmRestaurantFloorDesigner
         Me.pnlTools.Size = New System.Drawing.Size(250, 611)
         Me.pnlTools.TabIndex = 1
         '
+        'FloorShapeComboBox
+        '
+        Me.FloorShapeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.FloorShapeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.FloorShapeComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.FloorShapeComboBox.FormattingEnabled = True
+        Me.FloorShapeComboBox.Items.AddRange(New Object() {"مستطيل", "مربع", "بيضاوي", "مخصص"})
+        Me.FloorShapeComboBox.Location = New System.Drawing.Point(18, 86)
+        Me.FloorShapeComboBox.Name = "FloorShapeComboBox"
+        Me.FloorShapeComboBox.Size = New System.Drawing.Size(104, 25)
+        Me.FloorShapeComboBox.TabIndex = 20
+        '
+        'FloorShapeLabel
+        '
+        Me.FloorShapeLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.FloorShapeLabel.Location = New System.Drawing.Point(128, 86)
+        Me.FloorShapeLabel.Name = "FloorShapeLabel"
+        Me.FloorShapeLabel.Size = New System.Drawing.Size(104, 25)
+        Me.FloorShapeLabel.TabIndex = 19
+        Me.FloorShapeLabel.Text = "شكل الدور"
+        Me.FloorShapeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'FloorHeightNum
+        '
+        Me.FloorHeightNum.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.FloorHeightNum.Location = New System.Drawing.Point(18, 154)
+        Me.FloorHeightNum.Maximum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.FloorHeightNum.Minimum = New Decimal(New Integer() {120, 0, 0, 0})
+        Me.FloorHeightNum.Name = "FloorHeightNum"
+        Me.FloorHeightNum.Size = New System.Drawing.Size(104, 25)
+        Me.FloorHeightNum.TabIndex = 18
+        Me.FloorHeightNum.Value = New Decimal(New Integer() {520, 0, 0, 0})
+        '
+        'FloorHeightLabel
+        '
+        Me.FloorHeightLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.FloorHeightLabel.Location = New System.Drawing.Point(128, 154)
+        Me.FloorHeightLabel.Name = "FloorHeightLabel"
+        Me.FloorHeightLabel.Size = New System.Drawing.Size(104, 25)
+        Me.FloorHeightLabel.TabIndex = 17
+        Me.FloorHeightLabel.Text = "ارتفاع الدور"
+        Me.FloorHeightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'FloorWidthNum
+        '
+        Me.FloorWidthNum.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.FloorWidthNum.Location = New System.Drawing.Point(18, 120)
+        Me.FloorWidthNum.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
+        Me.FloorWidthNum.Minimum = New Decimal(New Integer() {160, 0, 0, 0})
+        Me.FloorWidthNum.Name = "FloorWidthNum"
+        Me.FloorWidthNum.Size = New System.Drawing.Size(104, 25)
+        Me.FloorWidthNum.TabIndex = 16
+        Me.FloorWidthNum.Value = New Decimal(New Integer() {760, 0, 0, 0})
+        '
+        'FloorWidthLabel
+        '
+        Me.FloorWidthLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.FloorWidthLabel.Location = New System.Drawing.Point(128, 120)
+        Me.FloorWidthLabel.Name = "FloorWidthLabel"
+        Me.FloorWidthLabel.Size = New System.Drawing.Size(104, 25)
+        Me.FloorWidthLabel.TabIndex = 15
+        Me.FloorWidthLabel.Text = "عرض الدور"
+        Me.FloorWidthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'btnDeleteSelected
         '
         Me.btnDeleteSelected.BackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer))
@@ -189,7 +271,7 @@ Partial Class FrmRestaurantFloorDesigner
         Me.btnDeleteSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDeleteSelected.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnDeleteSelected.ForeColor = System.Drawing.Color.White
-        Me.btnDeleteSelected.Location = New System.Drawing.Point(18, 333)
+        Me.btnDeleteSelected.Location = New System.Drawing.Point(18, 457)
         Me.btnDeleteSelected.Name = "btnDeleteSelected"
         Me.btnDeleteSelected.Size = New System.Drawing.Size(214, 38)
         Me.btnDeleteSelected.TabIndex = 12
@@ -200,7 +282,7 @@ Partial Class FrmRestaurantFloorDesigner
         '
         Me.txtElementText.Enabled = False
         Me.txtElementText.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.txtElementText.Location = New System.Drawing.Point(18, 288)
+        Me.txtElementText.Location = New System.Drawing.Point(18, 412)
         Me.txtElementText.Name = "txtElementText"
         Me.txtElementText.Size = New System.Drawing.Size(214, 25)
         Me.txtElementText.TabIndex = 11
@@ -208,7 +290,7 @@ Partial Class FrmRestaurantFloorDesigner
         'Label5
         '
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Label5.Location = New System.Drawing.Point(18, 262)
+        Me.Label5.Location = New System.Drawing.Point(18, 386)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(214, 23)
         Me.Label5.TabIndex = 10
@@ -219,7 +301,7 @@ Partial Class FrmRestaurantFloorDesigner
         '
         Me.numHeight.Enabled = False
         Me.numHeight.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.numHeight.Location = New System.Drawing.Point(18, 226)
+        Me.numHeight.Location = New System.Drawing.Point(18, 350)
         Me.numHeight.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
         Me.numHeight.Minimum = New Decimal(New Integer() {20, 0, 0, 0})
         Me.numHeight.Name = "numHeight"
@@ -230,7 +312,7 @@ Partial Class FrmRestaurantFloorDesigner
         'Label4
         '
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Label4.Location = New System.Drawing.Point(128, 226)
+        Me.Label4.Location = New System.Drawing.Point(128, 350)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(104, 25)
         Me.Label4.TabIndex = 8
@@ -241,7 +323,7 @@ Partial Class FrmRestaurantFloorDesigner
         '
         Me.numWidth.Enabled = False
         Me.numWidth.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.numWidth.Location = New System.Drawing.Point(18, 190)
+        Me.numWidth.Location = New System.Drawing.Point(18, 314)
         Me.numWidth.Maximum = New Decimal(New Integer() {2000, 0, 0, 0})
         Me.numWidth.Minimum = New Decimal(New Integer() {30, 0, 0, 0})
         Me.numWidth.Name = "numWidth"
@@ -252,7 +334,7 @@ Partial Class FrmRestaurantFloorDesigner
         'Label3
         '
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Label3.Location = New System.Drawing.Point(128, 190)
+        Me.Label3.Location = New System.Drawing.Point(128, 314)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(104, 25)
         Me.Label3.TabIndex = 6
@@ -263,7 +345,7 @@ Partial Class FrmRestaurantFloorDesigner
         '
         Me.numSeats.Enabled = False
         Me.numSeats.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.numSeats.Location = New System.Drawing.Point(18, 154)
+        Me.numSeats.Location = New System.Drawing.Point(18, 278)
         Me.numSeats.Maximum = New Decimal(New Integer() {16, 0, 0, 0})
         Me.numSeats.Name = "numSeats"
         Me.numSeats.Size = New System.Drawing.Size(104, 25)
@@ -273,12 +355,35 @@ Partial Class FrmRestaurantFloorDesigner
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Label2.Location = New System.Drawing.Point(128, 154)
+        Me.Label2.Location = New System.Drawing.Point(128, 278)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(104, 25)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "عدد الكراسي"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TableShapeComboBox
+        '
+        Me.TableShapeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.TableShapeComboBox.Enabled = False
+        Me.TableShapeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.TableShapeComboBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.TableShapeComboBox.FormattingEnabled = True
+        Me.TableShapeComboBox.Items.AddRange(New Object() {"عادية", "مستطيلة", "دائرية", "مربعة"})
+        Me.TableShapeComboBox.Location = New System.Drawing.Point(18, 242)
+        Me.TableShapeComboBox.Name = "TableShapeComboBox"
+        Me.TableShapeComboBox.Size = New System.Drawing.Size(104, 25)
+        Me.TableShapeComboBox.TabIndex = 14
+        '
+        'Label6
+        '
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Label6.Location = New System.Drawing.Point(128, 242)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(104, 25)
+        Me.Label6.TabIndex = 13
+        Me.Label6.Text = "شكل الطاولة"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnCounter
         '
@@ -287,7 +392,7 @@ Partial Class FrmRestaurantFloorDesigner
         Me.btnCounter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCounter.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnCounter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(42, Byte), Integer))
-        Me.btnCounter.Location = New System.Drawing.Point(18, 100)
+        Me.btnCounter.Location = New System.Drawing.Point(18, 188)
         Me.btnCounter.Name = "btnCounter"
         Me.btnCounter.Size = New System.Drawing.Size(66, 36)
         Me.btnCounter.TabIndex = 3
@@ -301,7 +406,7 @@ Partial Class FrmRestaurantFloorDesigner
         Me.btnDoor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDoor.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnDoor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(42, Byte), Integer))
-        Me.btnDoor.Location = New System.Drawing.Point(92, 100)
+        Me.btnDoor.Location = New System.Drawing.Point(92, 188)
         Me.btnDoor.Name = "btnDoor"
         Me.btnDoor.Size = New System.Drawing.Size(66, 36)
         Me.btnDoor.TabIndex = 2
@@ -315,7 +420,7 @@ Partial Class FrmRestaurantFloorDesigner
         Me.btnWall.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnWall.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnWall.ForeColor = System.Drawing.Color.White
-        Me.btnWall.Location = New System.Drawing.Point(166, 100)
+        Me.btnWall.Location = New System.Drawing.Point(166, 188)
         Me.btnWall.Name = "btnWall"
         Me.btnWall.Size = New System.Drawing.Size(66, 36)
         Me.btnWall.TabIndex = 1
@@ -373,6 +478,8 @@ Partial Class FrmRestaurantFloorDesigner
         Me.pnlTop.ResumeLayout(False)
         Me.pnlTools.ResumeLayout(False)
         Me.pnlTools.PerformLayout()
+        CType(Me.FloorHeightNum, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FloorWidthNum, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numSeats, System.ComponentModel.ISupportInitialize).EndInit()
@@ -389,6 +496,12 @@ Partial Class FrmRestaurantFloorDesigner
     Friend WithEvents cmbFlates As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents pnlTools As Panel
+    Friend WithEvents FloorShapeComboBox As ComboBox
+    Friend WithEvents FloorShapeLabel As Label
+    Friend WithEvents FloorHeightNum As NumericUpDown
+    Friend WithEvents FloorHeightLabel As Label
+    Friend WithEvents FloorWidthNum As NumericUpDown
+    Friend WithEvents FloorWidthLabel As Label
     Friend WithEvents FloorCanvas As RestaurantFloorDesignerControl
     Friend WithEvents lblStatus As Label
     Friend WithEvents lblSelected As Label
@@ -397,6 +510,8 @@ Partial Class FrmRestaurantFloorDesigner
     Friend WithEvents btnWall As Button
     Friend WithEvents numSeats As NumericUpDown
     Friend WithEvents Label2 As Label
+    Friend WithEvents TableShapeComboBox As ComboBox
+    Friend WithEvents Label6 As Label
     Friend WithEvents numHeight As NumericUpDown
     Friend WithEvents Label4 As Label
     Friend WithEvents numWidth As NumericUpDown

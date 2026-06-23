@@ -3184,6 +3184,10 @@ Public Class MainForm
                 ' Table_Bill_Screen_btn.PerformClick() (أنت حذفته من الديزاينر فاستخدم الحدث المباشر:)
                 Table_Bill_Screen.ShowDialog()
 
+            Case "FRM_PERIODS"
+                F_Periods = New Periods
+                F_Periods.ShowDialog()
+
             Case "FRM_RECEIPT"
                 If CashLB.Enabled = False Then MsgBox("ليس لديك صلاحية لإيصالات القبض والصرف!", MsgBoxStyle.Critical) : Exit Sub
                 CashLB.PerformClick()

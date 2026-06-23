@@ -41,8 +41,9 @@ Public Class Frm_DashboardButtons
     Private Sub Frm_DashboardButtons_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ThemeManager.ApplyThemeToForm(Me)
         'تعبئة قائمة الرموز بأيقونات رائعة
-        Dim Symbols() As String = {"🛒", "📦", "🏷️", "🍽️", "💰", "📊", "↩️", "📤", "🏢", "📈", "⚙️", "👥", "📝", "🚚", "🔐", "⭐"}
+        Dim Symbols() As String = {"🛒", "📦", "🏷️", "🍽️", "💰", "📊", "↩️", "📤", "🏢", "📈", "⚙️", "👥", "📝", "🚚", "🔐", "⭐", "⏱"}
         cmbSymbolChar.Items.AddRange(Symbols)
+        EnsurePeriodsDashboardButton()
         Load_Buttons()
     End Sub
     Protected Overrides ReadOnly Property CreateParams As CreateParams
@@ -83,6 +84,29 @@ Public Class Frm_DashboardButtons
     ' =========================================================
     ' جلب البيانات
     ' =========================================================
+    Private Sub EnsurePeriodsDashboardButton()
+        Try
+            Dim db As New C()
+            db.Con.Open()
+            db.Str = "IF NOT EXISTS (SELECT 1 FROM Sys_Dashboard_Buttons_List WHERE Action_Key = @ActionKey) " &
+                     "BEGIN " &
+                     "INSERT INTO Sys_Dashboard_Buttons_List (Button_Title, Action_Key, Symbol_Char, Req_Permission, Default_Image, Button_BackColor, Is_Global_Active, Default_Sort_Order) " &
+                     "VALUES (@Title, @ActionKey, @Symbol, @Permission, @Image, @BackColor, 1, ISNULL((SELECT MAX(Default_Sort_Order) FROM Sys_Dashboard_Buttons_List), 0) + 1) " &
+                     "END"
+            db.Com = New SqlCommand(db.Str, db.Con)
+            db.Com.Parameters.AddWithValue("@Title", "الورديات")
+            db.Com.Parameters.AddWithValue("@ActionKey", "FRM_PERIODS")
+            db.Com.Parameters.AddWithValue("@Symbol", "⏱")
+            db.Com.Parameters.AddWithValue("@Permission", "")
+            db.Com.Parameters.AddWithValue("@Image", "")
+            db.Com.Parameters.AddWithValue("@BackColor", ColorToStorageValue(Color.FromArgb(6, 182, 212)))
+            db.Com.ExecuteNonQuery()
+            db.Con.Close()
+        Catch ex As Exception
+            MsgBox("خطأ في تجهيز اختصار الورديات: " & ex.Message)
+        End Try
+    End Sub
+
     Private Sub Load_Buttons()
         Try
             Dim db As New C()

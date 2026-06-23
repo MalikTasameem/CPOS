@@ -216,7 +216,7 @@ Partial Class MainForm
         'ToolStrip
         '
         Me.ToolStrip.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ToolStrip.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ToolStrip.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Sales_Btn, Me.ToolStripSeparator1, Me.Pch_btn, Me.ToolStripSeparator2, Me.ITEMS_btn, Me.ToolStripSeparator3, Me.ST_Btn, Me.ToolStripSeparator4, Me.IM_Frm_Btn, Me.ToolStripSeparator5_Frm, Me.Exp_Btn, Me.ToolStripSeparator6, Me.Agents_btn, Me.ToolStripSeparator7, Me.Balances_btn, Me.ToolStripSeparator8, Me.بوابةالحساباتToolStripMenuItem, Me.ToolStripSeparatorAccountingPortal, Me.Reports_btn, Me.ToolStripSeparator9, Me.Sys_Setting_btn, Me.ToolStripSeparator10})
         Me.ToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
@@ -928,11 +928,11 @@ Partial Class MainForm
         '
         Me.Serv_Label.BackColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(18, Byte), Integer))
         Me.Serv_Label.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Serv_Label.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
+        Me.Serv_Label.Font = New System.Drawing.Font("Cairo", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Serv_Label.ForeColor = System.Drawing.Color.White
-        Me.Serv_Label.Location = New System.Drawing.Point(865, 0)
+        Me.Serv_Label.Location = New System.Drawing.Point(759, 0)
         Me.Serv_Label.Name = "Serv_Label"
-        Me.Serv_Label.Size = New System.Drawing.Size(335, 100)
+        Me.Serv_Label.Size = New System.Drawing.Size(441, 100)
         Me.Serv_Label.TabIndex = 2
         Me.Serv_Label.Tag = ""
         Me.Serv_Label.Text = "إسم الشركة"
@@ -941,7 +941,7 @@ Partial Class MainForm
         'CompPictureBox
         '
         Me.CompPictureBox.Image = Global.resturant.My.Resources.Resources.Gemini_Generated_Image_96itaz96itaz96it_removebg_preview
-        Me.CompPictureBox.Location = New System.Drawing.Point(580, 0)
+        Me.CompPictureBox.Location = New System.Drawing.Point(465, 1)
         Me.CompPictureBox.Name = "CompPictureBox"
         Me.CompPictureBox.Size = New System.Drawing.Size(288, 99)
         Me.CompPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -1187,7 +1187,7 @@ Partial Class MainForm
         Me.GroupBox2.Controls.Add(Me.ALERT_DGV)
         Me.GroupBox2.Controls.Add(Me.Panel_NotifControls)
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.GroupBox2.Font = New System.Drawing.Font("Cairo", 9.749999!, System.Drawing.FontStyle.Bold)
         Me.GroupBox2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(18, Byte), Integer))
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
@@ -1209,7 +1209,7 @@ Partial Class MainForm
         Me.ALERT_DGV.ColumnHeadersVisible = False
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Cairo", 9.749999!, System.Drawing.FontStyle.Bold)
         DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(18, Byte), Integer))
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -1217,13 +1217,13 @@ Partial Class MainForm
         Me.ALERT_DGV.DefaultCellStyle = DataGridViewCellStyle2
         Me.ALERT_DGV.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ALERT_DGV.GridColor = System.Drawing.Color.Silver
-        Me.ALERT_DGV.Location = New System.Drawing.Point(3, 70)
+        Me.ALERT_DGV.Location = New System.Drawing.Point(3, 73)
         Me.ALERT_DGV.Name = "ALERT_DGV"
         Me.ALERT_DGV.ReadOnly = True
         Me.ALERT_DGV.RowHeadersVisible = False
         Me.ALERT_DGV.RowTemplate.Height = 40
         Me.ALERT_DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ALERT_DGV.Size = New System.Drawing.Size(344, 392)
+        Me.ALERT_DGV.Size = New System.Drawing.Size(344, 389)
         Me.ALERT_DGV.TabIndex = 0
         '
         'Panel_NotifControls
@@ -1232,7 +1232,7 @@ Partial Class MainForm
         Me.Panel_NotifControls.Controls.Add(Me.NotifFilter_Cmb)
         Me.Panel_NotifControls.Controls.Add(Me.MuteAlerts_Btn)
         Me.Panel_NotifControls.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel_NotifControls.Location = New System.Drawing.Point(3, 25)
+        Me.Panel_NotifControls.Location = New System.Drawing.Point(3, 28)
         Me.Panel_NotifControls.Name = "Panel_NotifControls"
         Me.Panel_NotifControls.Size = New System.Drawing.Size(344, 45)
         Me.Panel_NotifControls.TabIndex = 1
@@ -1288,7 +1288,7 @@ Partial Class MainForm
         Me.Setting_GroupBox.Controls.Add(Me.check_print_Btn3)
         Me.Setting_GroupBox.Controls.Add(Me.Save_butt)
         Me.Setting_GroupBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Setting_GroupBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Setting_GroupBox.Font = New System.Drawing.Font("Cairo", 9.749999!, System.Drawing.FontStyle.Bold)
         Me.Setting_GroupBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
         Me.Setting_GroupBox.Location = New System.Drawing.Point(10, 0)
         Me.Setting_GroupBox.Name = "Setting_GroupBox"

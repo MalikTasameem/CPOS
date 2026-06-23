@@ -101,7 +101,7 @@ Partial Class TablesBalance
         Me.F_Panel.Location = New System.Drawing.Point(2, 42)
         Me.F_Panel.Name = "F_Panel"
         Me.F_Panel.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.F_Panel.Size = New System.Drawing.Size(458, 436)
+        Me.F_Panel.Size = New System.Drawing.Size(481, 436)
         Me.F_Panel.TabIndex = 0
         '
         'IMGrid
@@ -702,11 +702,11 @@ Partial Class TablesBalance
         Me.Button51.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Button51.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button51.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button51.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!)
-        Me.Button51.Location = New System.Drawing.Point(461, 354)
+        Me.Button51.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!)
+        Me.Button51.Location = New System.Drawing.Point(483, 354)
         Me.Button51.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Button51.Name = "Button51"
-        Me.Button51.Size = New System.Drawing.Size(62, 66)
+        Me.Button51.Size = New System.Drawing.Size(41, 66)
         Me.Button51.TabIndex = 581
         Me.Button51.Text = "🔽"
         Me.Button51.UseVisualStyleBackColor = False
@@ -717,11 +717,11 @@ Partial Class TablesBalance
         Me.Button50.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Button50.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button50.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button50.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button50.Location = New System.Drawing.Point(461, 122)
+        Me.Button50.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!)
+        Me.Button50.Location = New System.Drawing.Point(483, 122)
         Me.Button50.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Button50.Name = "Button50"
-        Me.Button50.Size = New System.Drawing.Size(62, 66)
+        Me.Button50.Size = New System.Drawing.Size(41, 66)
         Me.Button50.TabIndex = 580
         Me.Button50.Text = "🔼"
         Me.Button50.UseVisualStyleBackColor = False

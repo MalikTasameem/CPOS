@@ -37,7 +37,7 @@ Partial Class GeneralMenu
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.SMPrinterComboBox = New System.Windows.Forms.ComboBox()
         Me.PrinterLabel = New System.Windows.Forms.Label()
-        Me.SMDataGridViewX = New DataGridView()
+        Me.SMDataGridViewX = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Rank_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -130,7 +130,7 @@ Partial Class GeneralMenu
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label1.Location = New System.Drawing.Point(340, 8)
+        Me.Label1.Location = New System.Drawing.Point(328, 10)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(83, 21)
@@ -319,13 +319,14 @@ Partial Class GeneralMenu
         'SMNameTextBox
         '
         Me.SMNameTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.SMNameTextBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SMNameTextBox.Location = New System.Drawing.Point(33, 3)
+        Me.SMNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.SMNameTextBox.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.SMNameTextBox.Location = New System.Drawing.Point(33, 8)
         Me.SMNameTextBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.SMNameTextBox.MaxLength = 200
         Me.SMNameTextBox.Name = "SMNameTextBox"
         Me.SMNameTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SMNameTextBox.Size = New System.Drawing.Size(291, 29)
+        Me.SMNameTextBox.Size = New System.Drawing.Size(291, 25)
         Me.SMNameTextBox.TabIndex = 402
         '
         'PrinterErrorProvider
@@ -483,22 +484,23 @@ Partial Class GeneralMenu
         '
         'Button2
         '
-        Me.Button2.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(33, 42)
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Button2.Location = New System.Drawing.Point(36, 37)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(38, 32)
+        Me.Button2.Size = New System.Drawing.Size(38, 29)
         Me.Button2.TabIndex = 713
         Me.Button2.Text = "..."
         Me.Button2.UseVisualStyleBackColor = True
-        Me.Button2.Visible = False
         '
         'IM_CAT_SF
         '
         Me.IM_CAT_SF.CancelSearchImage = CType(resources.GetObject("IM_CAT_SF.CancelSearchImage"), System.Drawing.Image)
-        Me.IM_CAT_SF.Location = New System.Drawing.Point(77, 40)
+        Me.IM_CAT_SF.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.IM_CAT_SF.Location = New System.Drawing.Point(77, 36)
         Me.IM_CAT_SF.Name = "IM_CAT_SF"
         Me.IM_CAT_SF.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.IM_CAT_SF.Size = New System.Drawing.Size(247, 34)
+        Me.IM_CAT_SF.Size = New System.Drawing.Size(247, 30)
         Me.IM_CAT_SF.SQL_Column = "NAME"
         Me.IM_CAT_SF.SQL_ID = "ID"
         Me.IM_CAT_SF.SQL_IsNumericSearchField = False
@@ -511,21 +513,19 @@ Partial Class GeneralMenu
         Me.IM_CAT_SF.TabIndex = 712
         Me.IM_CAT_SF.TextMaxLength = 250
         Me.IM_CAT_SF.Textt = ""
-        Me.IM_CAT_SF.Visible = False
         '
         'Label29
         '
         Me.Label29.AutoSize = True
         Me.Label29.BackColor = System.Drawing.Color.Transparent
         Me.Label29.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Label29.Location = New System.Drawing.Point(339, 48)
+        Me.Label29.Location = New System.Drawing.Point(328, 41)
         Me.Label29.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(40, 21)
         Me.Label29.TabIndex = 711
         Me.Label29.Text = "الفئه"
         Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Label29.Visible = False
         '
         'Touch_Screen_Panel
         '

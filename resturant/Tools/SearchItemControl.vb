@@ -585,6 +585,71 @@
         Me.Height = txtSearch.Height + 10
     End Sub
 
+    '-------------------------------------------------------------------
+    ' دالة لاختيار صنف بناءً على اسم الصنف
+    '-------------------------------------------------------------------
+
+    Public Sub SelectItemByName(ByVal itemName As String)
+        If _itemsTable Is Nothing OrElse _itemsTable.Rows.Count = 0 Then
+            MessageBox.Show("جدول الأصناف فارغ.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        If String.IsNullOrWhiteSpace(itemName) Then
+            MessageBox.Show("يرجى إدخال اسم الصنف.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        Dim selectedRow As DataRow = Nothing
+        Dim searchName As String = itemName.Trim()
+
+        For Each row As DataRow In _itemsTable.Rows
+            If row.Table.Columns.Contains("ItemName") AndAlso Not IsDBNull(row("ItemName")) Then
+                If String.Equals(row("ItemName").ToString().Trim(), searchName, StringComparison.CurrentCultureIgnoreCase) Then
+                    selectedRow = row
+                    Exit For
+                End If
+            End If
+        Next
+
+        If selectedRow Is Nothing Then
+            Dim filterText As String = EscapeLikeValue(searchName)
+            Dim foundRows() As DataRow = _itemsTable.Select(IM_Serach_Filter(filterText, "ItemName"))
+
+            If foundRows.Length > 0 Then
+                selectedRow = foundRows(0)
+            End If
+        End If
+
+        If selectedRow Is Nothing Then
+            MessageBox.Show("لم يتم العثور على الصنف المطلوب.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        Dim dtFiltered As DataTable = _itemsTable.Clone()
+        dtFiltered.ImportRow(selectedRow)
+        dgvResults.DataSource = dtFiltered
+        dgvResults.Visible = True
+
+        SetupGridColumns()
+        dgvResults.CurrentCell = dgvResults.Rows(0).Cells(1)
+
+        Dim selectedItemId As Integer = CInt(selectedRow("ItemID"))
+        current_im_id = selectedItemId
+        Dim selectedItemName As String = selectedRow("ItemName").ToString()
+        Dim isValid As String = selectedRow("isValid").ToString()
+        Dim isStore As Integer = GetItemIsStoreValue(selectedRow("isStore"))
+
+        txtSearch.Text = selectedItemName
+        txtSearch.BackColor = SystemColors.Info
+        UpdateServiceItemLabel(isStore)
+
+        RaiseEvent ItemSelected(selectedItemId, isValid, isStore)
+
+        dgvResults.Visible = False
+        Me.Height = txtSearch.Height + 10
+    End Sub
+
     'Public Sub SelectItemById(ByVal itemId As Integer)
     '    ' تحقق من أن البيانات موجودة
     '    If _itemsTable Is Nothing OrElse _itemsTable.Rows.Count = 0 Then

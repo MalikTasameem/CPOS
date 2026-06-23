@@ -39,7 +39,6 @@ Partial Class TablesCard
         Me.CP_Bill_Screen_GroupBox = New System.Windows.Forms.GroupBox()
         Me.Flate_cmb = New System.Windows.Forms.ComboBox()
         Me.Total_CB = New System.Windows.Forms.CheckBox()
-        Me.TBPanel = New System.Windows.Forms.Panel()
         Me.FloorDesignerButton = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.TBGrid = New MetroFramework.Controls.MetroGrid()
@@ -49,10 +48,13 @@ Partial Class TablesCard
         Me.Flate_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.is_Cash_CL = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.ADD_IM_CL = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.OptiontPanel.SuspendLayout()
         Me.CP_Bill_Screen_GroupBox.SuspendLayout()
-        Me.TBPanel.SuspendLayout()
         CType(Me.TBGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TablesNumButton
@@ -64,14 +66,14 @@ Partial Class TablesCard
         Me.TablesNumButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.TablesNumButton.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.TablesNumButton.ForeColor = System.Drawing.Color.Black
-        Me.TablesNumButton.Image = Global.resturant.My.Resources.Resources.iconfinder_plus_1282963
         Me.TablesNumButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.TablesNumButton.Location = New System.Drawing.Point(4, 19)
         Me.TablesNumButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.TablesNumButton.Name = "TablesNumButton"
+        Me.TablesNumButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.TablesNumButton.Size = New System.Drawing.Size(131, 33)
         Me.TablesNumButton.TabIndex = 350
-        Me.TablesNumButton.Text = "أضف الطاولة"
+        Me.TablesNumButton.Text = "أضف الطاولة ➕"
         Me.TablesNumButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ToolTip1.SetToolTip(Me.TablesNumButton, "إضافة الطاولات")
         Me.TablesNumButton.UseVisualStyleBackColor = False
@@ -82,12 +84,12 @@ Partial Class TablesCard
         Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Button1.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Font = New System.Drawing.Font("Times New Roman", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Location = New System.Drawing.Point(137, 20)
+        Me.Button1.Location = New System.Drawing.Point(233, 22)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(38, 33)
+        Me.Button1.Size = New System.Drawing.Size(34, 29)
         Me.Button1.TabIndex = 499
         Me.Button1.Text = "...."
         Me.ToolTip1.SetToolTip(Me.Button1, "إضافة الطاولات")
@@ -97,7 +99,7 @@ Partial Class TablesCard
         '
         Me.TableNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TableNameTxt.Font = New System.Drawing.Font("Times New Roman", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TableNameTxt.Location = New System.Drawing.Point(499, 18)
+        Me.TableNameTxt.Location = New System.Drawing.Point(599, 18)
         Me.TableNameTxt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableNameTxt.Name = "TableNameTxt"
         Me.TableNameTxt.Size = New System.Drawing.Size(105, 29)
@@ -112,16 +114,17 @@ Partial Class TablesCard
         Me.OptiontPanel.Controls.Add(Me.Total_CB)
         Me.OptiontPanel.Controls.Add(Me.TablesNumButton)
         Me.OptiontPanel.Controls.Add(Me.TableNameTxt)
-        Me.OptiontPanel.Location = New System.Drawing.Point(4, 1)
+        Me.OptiontPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.OptiontPanel.Location = New System.Drawing.Point(3, 3)
         Me.OptiontPanel.Name = "OptiontPanel"
-        Me.OptiontPanel.Size = New System.Drawing.Size(714, 62)
+        Me.OptiontPanel.Size = New System.Drawing.Size(816, 65)
         Me.OptiontPanel.TabIndex = 348
         '
         'is_Auto_Pied_CB
         '
         Me.is_Auto_Pied_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.is_Auto_Pied_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
-        Me.is_Auto_Pied_CB.Location = New System.Drawing.Point(391, 14)
+        Me.is_Auto_Pied_CB.Location = New System.Drawing.Point(491, 13)
         Me.is_Auto_Pied_CB.Name = "is_Auto_Pied_CB"
         Me.is_Auto_Pied_CB.Size = New System.Drawing.Size(102, 37)
         Me.is_Auto_Pied_CB.TabIndex = 500
@@ -132,7 +135,7 @@ Partial Class TablesCard
         '
         Me.CP_Bill_Screen_GroupBox.Controls.Add(Me.Flate_cmb)
         Me.CP_Bill_Screen_GroupBox.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CP_Bill_Screen_GroupBox.Location = New System.Drawing.Point(179, 2)
+        Me.CP_Bill_Screen_GroupBox.Location = New System.Drawing.Point(270, 3)
         Me.CP_Bill_Screen_GroupBox.Name = "CP_Bill_Screen_GroupBox"
         Me.CP_Bill_Screen_GroupBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.CP_Bill_Screen_GroupBox.Size = New System.Drawing.Size(204, 53)
@@ -155,36 +158,24 @@ Partial Class TablesCard
         '
         Me.Total_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Total_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Total_CB.Location = New System.Drawing.Point(608, 15)
+        Me.Total_CB.Location = New System.Drawing.Point(708, 16)
         Me.Total_CB.Name = "Total_CB"
         Me.Total_CB.Size = New System.Drawing.Size(102, 37)
         Me.Total_CB.TabIndex = 0
         Me.Total_CB.Text = "قائمة كاملة"
         Me.Total_CB.UseVisualStyleBackColor = True
         '
-        'TBPanel
-        '
-        Me.TBPanel.AutoScroll = True
-        Me.TBPanel.BackColor = System.Drawing.Color.Transparent
-        Me.TBPanel.Controls.Add(Me.FloorDesignerButton)
-        Me.TBPanel.Controls.Add(Me.ExitFormButton)
-        Me.TBPanel.Controls.Add(Me.TBGrid)
-        Me.TBPanel.Location = New System.Drawing.Point(4, 68)
-        Me.TBPanel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TBPanel.Name = "TBPanel"
-        Me.TBPanel.Size = New System.Drawing.Size(714, 358)
-        Me.TBPanel.TabIndex = 346
-        '
         'FloorDesignerButton
         '
         Me.FloorDesignerButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(14, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(144, Byte), Integer))
         Me.FloorDesignerButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.FloorDesignerButton.Dock = System.Windows.Forms.DockStyle.Left
         Me.FloorDesignerButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.FloorDesignerButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.FloorDesignerButton.ForeColor = System.Drawing.Color.White
-        Me.FloorDesignerButton.Location = New System.Drawing.Point(3, 319)
+        Me.FloorDesignerButton.Location = New System.Drawing.Point(0, 0)
         Me.FloorDesignerButton.Name = "FloorDesignerButton"
-        Me.FloorDesignerButton.Size = New System.Drawing.Size(160, 37)
+        Me.FloorDesignerButton.Size = New System.Drawing.Size(176, 45)
         Me.FloorDesignerButton.TabIndex = 582
         Me.FloorDesignerButton.Text = "تصميم المخطط"
         Me.FloorDesignerButton.UseVisualStyleBackColor = False
@@ -193,14 +184,15 @@ Partial Class TablesCard
         '
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ExitFormButton.Dock = System.Windows.Forms.DockStyle.Right
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
         Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ExitFormButton.Location = New System.Drawing.Point(611, 319)
+        Me.ExitFormButton.Location = New System.Drawing.Point(680, 0)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(101, 37)
+        Me.ExitFormButton.Size = New System.Drawing.Size(136, 45)
         Me.ExitFormButton.TabIndex = 581
         Me.ExitFormButton.Text = "خروج"
         Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -237,11 +229,12 @@ Partial Class TablesCard
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.TBGrid.DefaultCellStyle = DataGridViewCellStyle3
+        Me.TBGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TBGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.TBGrid.EnableHeadersVisualStyles = False
         Me.TBGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         Me.TBGrid.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TBGrid.Location = New System.Drawing.Point(4, 3)
+        Me.TBGrid.Location = New System.Drawing.Point(3, 74)
         Me.TBGrid.MultiSelect = False
         Me.TBGrid.Name = "TBGrid"
         Me.TBGrid.ReadOnly = True
@@ -264,7 +257,7 @@ Partial Class TablesCard
         Me.TBGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.TBGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TBGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.TBGrid.Size = New System.Drawing.Size(706, 314)
+        Me.TBGrid.Size = New System.Drawing.Size(816, 488)
         Me.TBGrid.TabIndex = 580
         Me.TBGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
@@ -318,14 +311,40 @@ Partial Class TablesCard
         Me.ADD_IM_CL.Text = "حذف"
         Me.ADD_IM_CL.UseColumnTextForButtonValue = True
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 1
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.OptiontPanel, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel1, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.TBGrid, 0, 1)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 3
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.57036!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 87.42964!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(822, 616)
+        Me.TableLayoutPanel1.TabIndex = 581
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.FloorDesignerButton)
+        Me.Panel1.Controls.Add(Me.ExitFormButton)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(3, 568)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(816, 45)
+        Me.Panel1.TabIndex = 0
+        '
         'TablesCard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(722, 426)
+        Me.ClientSize = New System.Drawing.Size(822, 616)
         Me.ControlBox = False
-        Me.Controls.Add(Me.OptiontPanel)
-        Me.Controls.Add(Me.TBPanel)
+        Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -335,8 +354,9 @@ Partial Class TablesCard
         Me.OptiontPanel.ResumeLayout(False)
         Me.OptiontPanel.PerformLayout()
         Me.CP_Bill_Screen_GroupBox.ResumeLayout(False)
-        Me.TBPanel.ResumeLayout(False)
         CType(Me.TBGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -345,7 +365,6 @@ Partial Class TablesCard
     Friend WithEvents TablesNumButton As System.Windows.Forms.Button
     Friend WithEvents TableNameTxt As System.Windows.Forms.TextBox
     Friend WithEvents OptiontPanel As System.Windows.Forms.Panel
-    Friend WithEvents TBPanel As System.Windows.Forms.Panel
     Friend WithEvents Total_CB As System.Windows.Forms.CheckBox
     Friend WithEvents CP_Bill_Screen_GroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents Flate_cmb As System.Windows.Forms.ComboBox
@@ -360,4 +379,6 @@ Partial Class TablesCard
     Friend WithEvents is_Cash_CL As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents ADD_IM_CL As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents FloorDesignerButton As System.Windows.Forms.Button
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents Panel1 As Panel
 End Class

@@ -23,11 +23,12 @@
     End Sub
 
     Private Sub POS_D_Valid_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ThemeManager.ApplyThemeToForm(Me)
         is_Add_New_IM = False
         Load_GM()
         Insert_IM()
         Load_Units(IM_Unit_cm)
-        Call_IM_After_Insert_CB.Checked = My_Settings.Call_IM_After_Insert_CB
+        Call_IM_After_Insert_CB.Checked = MY_Settings.Call_IM_After_Insert_CB
         IM_SH_txt.Select()
         isValid_CB.Visible = S_IM_Valid
         GM_Serach.SelectedValue = MY_Settings.GM_ID_Selected

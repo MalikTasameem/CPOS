@@ -18,8 +18,8 @@ Partial Class Invoice
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.lblFormState = New System.Windows.Forms.Label()
         Me.Title_Label = New System.Windows.Forms.Label()
@@ -46,6 +46,7 @@ Partial Class Invoice
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Title_txt = New System.Windows.Forms.TextBox()
+        Me.DGV_Control_btn = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.ClearSearch_btn = New System.Windows.Forms.Button()
         Me.Barcode_Search_txt = New System.Windows.Forms.TextBox()
@@ -55,7 +56,6 @@ Partial Class Invoice
         Me.RemoveCatButton = New System.Windows.Forms.Button()
         Me.IM_btn = New System.Windows.Forms.Button()
         Me.MakeBarcode_btn = New System.Windows.Forms.Button()
-        Me.DGV_Control_btn = New System.Windows.Forms.Button()
         Me.Footer_Panel = New System.Windows.Forms.Panel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Total_TextBox = New System.Windows.Forms.TextBox()
@@ -128,7 +128,7 @@ Partial Class Invoice
         Me.lblFormState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.lblFormState.Location = New System.Drawing.Point(45, 0)
         Me.lblFormState.Name = "lblFormState"
-        Me.lblFormState.Size = New System.Drawing.Size(570, 36)
+        Me.lblFormState.Size = New System.Drawing.Size(455, 36)
         Me.lblFormState.TabIndex = 692
         Me.lblFormState.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -403,6 +403,19 @@ Partial Class Invoice
         Me.Title_txt.Size = New System.Drawing.Size(276, 27)
         Me.Title_txt.TabIndex = 1
         '
+        'DGV_Control_btn
+        '
+        Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(3, 3)
+        Me.DGV_Control_btn.Name = "DGV_Control_btn"
+        Me.DGV_Control_btn.Size = New System.Drawing.Size(50, 38)
+        Me.DGV_Control_btn.TabIndex = 4
+        Me.DGV_Control_btn.Tag = "GENERAL"
+        Me.DGV_Control_btn.Text = "⚙️"
+        Me.DGV_Control_btn.Visible = False
+        '
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -461,9 +474,9 @@ Partial Class Invoice
         Me.ADDCatButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.ADDCatButton.Location = New System.Drawing.Point(5, 65)
+        Me.ADDCatButton.Location = New System.Drawing.Point(5, 42)
         Me.ADDCatButton.Name = "ADDCatButton"
-        Me.ADDCatButton.Size = New System.Drawing.Size(50, 202)
+        Me.ADDCatButton.Size = New System.Drawing.Size(50, 169)
         Me.ADDCatButton.TabIndex = 0
         Me.ADDCatButton.Tag = "GENERAL"
         Me.ADDCatButton.Text = "➕"
@@ -472,20 +485,20 @@ Partial Class Invoice
         '
         Me.RemoveCatButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.RemoveCatButton.Location = New System.Drawing.Point(5, 273)
+        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(5, 212)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.Size = New System.Drawing.Size(50, 50)
         Me.RemoveCatButton.TabIndex = 1
         Me.RemoveCatButton.Tag = "DELETE"
-        Me.RemoveCatButton.Text = "🗑️"
+        Me.RemoveCatButton.Text = "❌"
         '
         'IM_btn
         '
         Me.IM_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.IM_btn.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.IM_btn.Location = New System.Drawing.Point(5, 332)
+        Me.IM_btn.Location = New System.Drawing.Point(5, 314)
         Me.IM_btn.Name = "IM_btn"
         Me.IM_btn.Size = New System.Drawing.Size(50, 50)
         Me.IM_btn.TabIndex = 2
@@ -497,24 +510,12 @@ Partial Class Invoice
         Me.MakeBarcode_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MakeBarcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MakeBarcode_btn.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
-        Me.MakeBarcode_btn.Location = New System.Drawing.Point(5, 392)
+        Me.MakeBarcode_btn.Location = New System.Drawing.Point(5, 263)
         Me.MakeBarcode_btn.Name = "MakeBarcode_btn"
         Me.MakeBarcode_btn.Size = New System.Drawing.Size(50, 50)
         Me.MakeBarcode_btn.TabIndex = 3
         Me.MakeBarcode_btn.Tag = "GENERAL"
         Me.MakeBarcode_btn.Text = "||||"
-        '
-        'DGV_Control_btn
-        '
-        Me.DGV_Control_btn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.DGV_Control_btn.Location = New System.Drawing.Point(3, 3)
-        Me.DGV_Control_btn.Name = "DGV_Control_btn"
-        Me.DGV_Control_btn.Size = New System.Drawing.Size(50, 50)
-        Me.DGV_Control_btn.TabIndex = 4
-        Me.DGV_Control_btn.Tag = "GENERAL"
-        Me.DGV_Control_btn.Text = "⚙️"
         '
         'Footer_Panel
         '
@@ -536,7 +537,7 @@ Partial Class Invoice
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(238, 23)
+        Me.Label6.Location = New System.Drawing.Point(232, 12)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(54, 18)
         Me.Label6.TabIndex = 0
@@ -544,18 +545,19 @@ Partial Class Invoice
         '
         'Total_TextBox
         '
-        Me.Total_TextBox.Font = New System.Drawing.Font("Arial", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.Total_TextBox.Location = New System.Drawing.Point(10, 15)
+        Me.Total_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Total_TextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 14.75!, System.Drawing.FontStyle.Bold)
+        Me.Total_TextBox.Location = New System.Drawing.Point(4, 3)
         Me.Total_TextBox.Name = "Total_TextBox"
         Me.Total_TextBox.ReadOnly = True
-        Me.Total_TextBox.Size = New System.Drawing.Size(224, 32)
+        Me.Total_TextBox.Size = New System.Drawing.Size(224, 34)
         Me.Total_TextBox.TabIndex = 1
         Me.Total_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(1140, 23)
+        Me.Label9.Location = New System.Drawing.Point(1144, 11)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(48, 18)
         Me.Label9.TabIndex = 2
@@ -563,16 +565,17 @@ Partial Class Invoice
         '
         'Notes_txt
         '
-        Me.Notes_txt.Location = New System.Drawing.Point(300, 15)
+        Me.Notes_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Notes_txt.Location = New System.Drawing.Point(300, 3)
         Me.Notes_txt.Multiline = True
         Me.Notes_txt.Name = "Notes_txt"
-        Me.Notes_txt.Size = New System.Drawing.Size(840, 35)
+        Me.Notes_txt.Size = New System.Drawing.Size(840, 71)
         Me.Notes_txt.TabIndex = 3
         '
         'User_Name_lb
         '
         Me.User_Name_lb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.User_Name_lb.Location = New System.Drawing.Point(10, 65)
+        Me.User_Name_lb.Location = New System.Drawing.Point(10, 77)
         Me.User_Name_lb.Name = "User_Name_lb"
         Me.User_Name_lb.Size = New System.Drawing.Size(300, 30)
         Me.User_Name_lb.TabIndex = 4
@@ -581,7 +584,7 @@ Partial Class Invoice
         'IM_Qty_LB
         '
         Me.IM_Qty_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Qty_LB.Location = New System.Drawing.Point(320, 65)
+        Me.IM_Qty_LB.Location = New System.Drawing.Point(312, 77)
         Me.IM_Qty_LB.Name = "IM_Qty_LB"
         Me.IM_Qty_LB.Size = New System.Drawing.Size(125, 30)
         Me.IM_Qty_LB.TabIndex = 5
@@ -590,7 +593,7 @@ Partial Class Invoice
         'IM_Count_LB
         '
         Me.IM_Count_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Count_LB.Location = New System.Drawing.Point(453, 65)
+        Me.IM_Count_LB.Location = New System.Drawing.Point(438, 77)
         Me.IM_Count_LB.Name = "IM_Count_LB"
         Me.IM_Count_LB.Size = New System.Drawing.Size(125, 30)
         Me.IM_Count_LB.TabIndex = 6
@@ -631,25 +634,25 @@ Partial Class Invoice
         '
         Me.AGMetroGrid.AllowUserToAddRows = False
         Me.AGMetroGrid.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
-        Me.AGMetroGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
+        Me.AGMetroGrid.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.AGMetroGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.AGMetroGrid.BackgroundColor = System.Drawing.Color.WhiteSmoke
         Me.AGMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AGMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.T_ID_CL, Me.ST_ID_CL, Me.EX_ID_CL, Me.U_ID_CL, Me.DATE_CL, Me.Barcode_CL, Me.ST_Name_CL, Me.IMNUM_CL, Me.EX_Name_CL, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.NewSale_CL, Me.NewSaleByOne_CL, Me.Total_CL, Me.Notes_CL})
         Me.AGMetroGrid.ContextMenuStrip = Me.IM_ContextMenuStrip
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AGMetroGrid.DefaultCellStyle = DataGridViewCellStyle4
         Me.AGMetroGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AGMetroGrid.Location = New System.Drawing.Point(0, 186)
         Me.AGMetroGrid.Name = "AGMetroGrid"
@@ -825,7 +828,7 @@ Partial Class Invoice
         Me.UcGridColumnsSelector1.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
         Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
         Me.UcGridColumnsSelector1.ForeColor = System.Drawing.Color.Black
-        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(3, 2)
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(5, 2)
         Me.UcGridColumnsSelector1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
         Me.UcGridColumnsSelector1.PopupMaxHeight = 320

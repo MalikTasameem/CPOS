@@ -5,6 +5,8 @@ Public Class FrmRestaurantFloorDesigner
 
     Private ReadOnly Repository As New RestaurantFloorLayoutRepository()
     Private CurrentFlateID As Integer = 0
+    Private IsUpdatingSelectedElement As Boolean = False
+    Private IsUpdatingFloorControls As Boolean = False
     Public Property StartFlateID As Integer = 0
 
     Private Sub FrmRestaurantFloorDesigner_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -30,8 +32,10 @@ Public Class FrmRestaurantFloorDesigner
         Dim tablesDt As DataTable = Repository.LoadTables(CurrentFlateID)
         Dim elements As List(Of RestaurantFloorElement) = Repository.LoadLayout(CurrentFlateID)
         MergeTablesWithLayout(elements, tablesDt)
+        EnsureFloorElement(elements)
 
         FloorCanvas.Elements = elements
+        LoadFloorControls()
         lblStatus.Text = "عدد العناصر: " & elements.Count.ToString()
     End Sub
 
@@ -69,6 +73,139 @@ Public Class FrmRestaurantFloorDesigner
             elements.Add(element)
             index += 1
         Next
+    End Sub
+
+    Private Sub EnsureFloorElement(elements As List(Of RestaurantFloorElement))
+        If elements Is Nothing Then Return
+
+        Dim floorElement As RestaurantFloorElement = GetFloorElement(elements)
+        If floorElement Is Nothing Then
+            floorElement = New RestaurantFloorElement()
+            floorElement.Flate_ID = CurrentFlateID
+            floorElement.ElementType = "FloorRect"
+            floorElement.ElementText = "الدور"
+            floorElement.X_Pos = 20
+            floorElement.Y_Pos = 20
+            floorElement.WidthValue = Math.Max(760, FloorCanvas.Width - 120)
+            floorElement.HeightValue = Math.Max(520, FloorCanvas.Height - 100)
+            floorElement.SeatsCount = 0
+            floorElement.BackColorArgb = Color.FromArgb(248, 250, 252).ToArgb()
+            floorElement.ForeColorArgb = Color.FromArgb(15, 23, 42).ToArgb()
+            floorElement.ZIndex = -10000
+            elements.Insert(0, floorElement)
+        Else
+            floorElement.Flate_ID = CurrentFlateID
+            floorElement.ZIndex = -10000
+            If floorElement.WidthValue < 160 Then floorElement.WidthValue = 760
+            If floorElement.HeightValue < 120 Then floorElement.HeightValue = 520
+        End If
+    End Sub
+
+    Private Function GetFloorElement(elements As List(Of RestaurantFloorElement)) As RestaurantFloorElement
+        If elements Is Nothing Then Return Nothing
+
+        For Each element As RestaurantFloorElement In elements
+            If IsFloorElement(element) Then Return element
+        Next
+
+        Return Nothing
+    End Function
+
+    Private Function IsFloorElement(element As RestaurantFloorElement) As Boolean
+        If element Is Nothing Then Return False
+
+        Select Case element.ElementType
+            Case "FloorRect", "FloorSquare", "FloorOval", "FloorCustom"
+                Return True
+            Case Else
+                Return False
+        End Select
+    End Function
+
+    Private Sub LoadFloorControls()
+        Dim floorElement As RestaurantFloorElement = GetFloorElement(FloorCanvas.Elements)
+        If floorElement Is Nothing Then Return
+
+        IsUpdatingFloorControls = True
+        FloorShapeComboBox.SelectedIndex = GetFloorShapeIndex(floorElement.ElementType)
+        FloorWidthNum.Value = ClampFloorValue(floorElement.WidthValue, FloorWidthNum.Minimum, FloorWidthNum.Maximum)
+        FloorHeightNum.Value = ClampFloorValue(floorElement.HeightValue, FloorHeightNum.Minimum, FloorHeightNum.Maximum)
+        IsUpdatingFloorControls = False
+    End Sub
+
+    Private Function ClampFloorValue(value As Integer, minValue As Decimal, maxValue As Decimal) As Decimal
+        Dim result As Decimal = CDec(value)
+        If result < minValue Then result = minValue
+        If result > maxValue Then result = maxValue
+        Return result
+    End Function
+
+    Private Function GetFloorShapeIndex(elementType As String) As Integer
+        Select Case elementType
+            Case "FloorSquare"
+                Return 1
+            Case "FloorOval"
+                Return 2
+            Case "FloorCustom"
+                Return 3
+            Case Else
+                Return 0
+        End Select
+    End Function
+
+    Private Function GetFloorElementType() As String
+        Select Case FloorShapeComboBox.SelectedIndex
+            Case 1
+                Return "FloorSquare"
+            Case 2
+                Return "FloorOval"
+            Case 3
+                Return "FloorCustom"
+            Case Else
+                Return "FloorRect"
+        End Select
+    End Function
+
+    Private Sub ApplyFloorControls(Optional sourceName As String = "")
+        If IsUpdatingFloorControls Then Return
+
+        Dim floorElement As RestaurantFloorElement = GetFloorElement(FloorCanvas.Elements)
+        If floorElement Is Nothing Then
+            EnsureFloorElement(FloorCanvas.Elements)
+            floorElement = GetFloorElement(FloorCanvas.Elements)
+        End If
+        If floorElement Is Nothing Then Return
+
+        floorElement.ElementType = GetFloorElementType()
+
+        If floorElement.ElementType = "FloorSquare" Then
+            IsUpdatingFloorControls = True
+            If sourceName = "Height" Then
+                FloorWidthNum.Value = FloorHeightNum.Value
+            Else
+                FloorHeightNum.Value = FloorWidthNum.Value
+            End If
+            IsUpdatingFloorControls = False
+        End If
+
+        floorElement.WidthValue = Convert.ToInt32(FloorWidthNum.Value)
+        floorElement.HeightValue = Convert.ToInt32(FloorHeightNum.Value)
+        floorElement.SeatsCount = 0
+        floorElement.ZIndex = -10000
+
+        FloorCanvas.Invalidate()
+    End Sub
+
+    Private Sub FloorShapeComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FloorShapeComboBox.SelectedIndexChanged
+        ApplyFloorControls("Shape")
+    End Sub
+
+    Private Sub FloorWidthNum_ValueChanged(sender As Object, e As EventArgs) Handles FloorWidthNum.ValueChanged
+        ApplyFloorControls("Width")
+    End Sub
+
+    Private Sub FloorHeightNum_ValueChanged(sender As Object, e As EventArgs) Handles FloorHeightNum.ValueChanged
+        ApplyFloorControls("Height")
     End Sub
 
     Private Sub ApplyTableState(elements As List(Of RestaurantFloorElement), row As DataRow)
@@ -172,48 +309,138 @@ Public Class FrmRestaurantFloorDesigner
     Private Sub FloorCanvas_ElementSelected(element As RestaurantFloorElement) Handles FloorCanvas.ElementSelected
         If element Is Nothing Then
             lblSelected.Text = "العنصر المحدد: لا يوجد"
+            IsUpdatingSelectedElement = True
             numSeats.Enabled = False
             numWidth.Enabled = False
             numHeight.Enabled = False
+            TableShapeComboBox.Enabled = False
+            TableShapeComboBox.SelectedIndex = -1
             txtElementText.Enabled = False
             btnDeleteSelected.Enabled = False
+            IsUpdatingSelectedElement = False
             Return
         End If
 
+        IsUpdatingSelectedElement = True
+        Dim isFloor As Boolean = IsFloorElement(element)
         lblSelected.Text = "العنصر المحدد: " & If(String.IsNullOrWhiteSpace(element.ElementText), element.ElementType, element.ElementText)
         numSeats.Enabled = element.TB_ID.HasValue
-        numWidth.Enabled = True
-        numHeight.Enabled = True
-        txtElementText.Enabled = element.TB_ID.HasValue = False
-        btnDeleteSelected.Enabled = element.TB_ID.HasValue = False
+        numWidth.Enabled = Not isFloor
+        numHeight.Enabled = Not isFloor
+        TableShapeComboBox.Enabled = element.TB_ID.HasValue
+        TableShapeComboBox.SelectedIndex = If(element.TB_ID.HasValue, GetTableShapeIndex(element), -1)
+        txtElementText.Enabled = element.TB_ID.HasValue = False AndAlso Not isFloor
+        btnDeleteSelected.Enabled = element.TB_ID.HasValue = False AndAlso Not isFloor
 
         numSeats.Value = Math.Max(numSeats.Minimum, Math.Min(numSeats.Maximum, element.SeatsCount))
         numWidth.Value = Math.Max(numWidth.Minimum, Math.Min(numWidth.Maximum, element.WidthValue))
         numHeight.Value = Math.Max(numHeight.Minimum, Math.Min(numHeight.Maximum, element.HeightValue))
         txtElementText.Text = element.ElementText
+        IsUpdatingSelectedElement = False
+    End Sub
+
+    Private Function GetTableShapeIndex(element As RestaurantFloorElement) As Integer
+        If element Is Nothing Then Return 0
+
+        Select Case element.ElementType
+            Case "RectTable"
+                Return 1
+            Case "RoundTable"
+                Return 2
+            Case "SquareTable"
+                Return 3
+            Case Else
+                Return 0
+        End Select
+    End Function
+
+    Private Function IsEqualSizeTable(element As RestaurantFloorElement) As Boolean
+        If element Is Nothing Then Return False
+        Return element.ElementType = "RoundTable" OrElse element.ElementType = "SquareTable"
+    End Function
+
+    Private Sub ApplySelectedTableShape()
+        If FloorCanvas.SelectedElement Is Nothing Then Return
+        If FloorCanvas.SelectedElement.TB_ID.HasValue = False Then Return
+        If TableShapeComboBox.SelectedIndex < 0 Then Return
+
+        Dim element As RestaurantFloorElement = FloorCanvas.SelectedElement
+
+        Select Case TableShapeComboBox.SelectedIndex
+            Case 1
+                element.ElementType = "RectTable"
+                If element.WidthValue <= element.HeightValue Then element.WidthValue = Math.Max(140, element.HeightValue + 40)
+            Case 2
+                element.ElementType = "RoundTable"
+                MakeSelectedTableEqualSize(element)
+            Case 3
+                element.ElementType = "SquareTable"
+                MakeSelectedTableEqualSize(element)
+            Case Else
+                element.ElementType = "Table"
+        End Select
+
+        RefreshSelectedSizeControls(element)
+        FloorCanvas.Invalidate()
+    End Sub
+
+    Private Sub MakeSelectedTableEqualSize(element As RestaurantFloorElement)
+        Dim sizeValue As Integer = Math.Max(element.WidthValue, element.HeightValue)
+        If sizeValue < 80 Then sizeValue = 80
+        element.WidthValue = sizeValue
+        element.HeightValue = sizeValue
+    End Sub
+
+    Private Sub RefreshSelectedSizeControls(element As RestaurantFloorElement)
+        If element Is Nothing Then Return
+
+        IsUpdatingSelectedElement = True
+        numWidth.Value = Math.Max(numWidth.Minimum, Math.Min(numWidth.Maximum, element.WidthValue))
+        numHeight.Value = Math.Max(numHeight.Minimum, Math.Min(numHeight.Maximum, element.HeightValue))
+        IsUpdatingSelectedElement = False
     End Sub
 
     Private Sub numSeats_ValueChanged(sender As Object, e As EventArgs) Handles numSeats.ValueChanged
+        If IsUpdatingSelectedElement Then Return
         If FloorCanvas.SelectedElement Is Nothing Then Return
         FloorCanvas.SelectedElement.SeatsCount = Convert.ToInt32(numSeats.Value)
         FloorCanvas.Invalidate()
     End Sub
 
     Private Sub numWidth_ValueChanged(sender As Object, e As EventArgs) Handles numWidth.ValueChanged
+        If IsUpdatingSelectedElement Then Return
         If FloorCanvas.SelectedElement Is Nothing Then Return
-        FloorCanvas.SelectedElement.WidthValue = Convert.ToInt32(numWidth.Value)
+        Dim element As RestaurantFloorElement = FloorCanvas.SelectedElement
+        element.WidthValue = Convert.ToInt32(numWidth.Value)
+        If IsEqualSizeTable(element) Then
+            element.HeightValue = element.WidthValue
+            RefreshSelectedSizeControls(element)
+        End If
         FloorCanvas.Invalidate()
     End Sub
 
     Private Sub numHeight_ValueChanged(sender As Object, e As EventArgs) Handles numHeight.ValueChanged
+        If IsUpdatingSelectedElement Then Return
         If FloorCanvas.SelectedElement Is Nothing Then Return
-        FloorCanvas.SelectedElement.HeightValue = Convert.ToInt32(numHeight.Value)
+        Dim element As RestaurantFloorElement = FloorCanvas.SelectedElement
+        element.HeightValue = Convert.ToInt32(numHeight.Value)
+        If IsEqualSizeTable(element) Then
+            element.WidthValue = element.HeightValue
+            RefreshSelectedSizeControls(element)
+        End If
+        FloorCanvas.Invalidate()
+    End Sub
+
+    Private Sub TableShapeComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TableShapeComboBox.SelectedIndexChanged
+        If IsUpdatingSelectedElement Then Return
+        ApplySelectedTableShape()
         FloorCanvas.Invalidate()
     End Sub
 
     Private Sub txtElementText_TextChanged(sender As Object, e As EventArgs) Handles txtElementText.TextChanged
         If FloorCanvas.SelectedElement Is Nothing Then Return
         If FloorCanvas.SelectedElement.TB_ID.HasValue Then Return
+        If IsFloorElement(FloorCanvas.SelectedElement) Then Return
         FloorCanvas.SelectedElement.ElementText = txtElementText.Text
         FloorCanvas.Invalidate()
     End Sub
@@ -221,6 +448,7 @@ Public Class FrmRestaurantFloorDesigner
     Private Sub btnDeleteSelected_Click(sender As Object, e As EventArgs) Handles btnDeleteSelected.Click
         If FloorCanvas.SelectedElement Is Nothing Then Return
         If FloorCanvas.SelectedElement.TB_ID.HasValue Then Return
+        If IsFloorElement(FloorCanvas.SelectedElement) Then Return
 
         FloorCanvas.Elements.Remove(FloorCanvas.SelectedElement)
         FloorCanvas.SelectElement(Nothing)

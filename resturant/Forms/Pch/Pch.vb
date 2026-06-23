@@ -1693,6 +1693,12 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
+    Private Sub MakeBarcode_btn_Click(sender As Object, e As EventArgs) Handles MakeBarcode_btn.Click
+        printbarcode.Auto_Print = True
+        printbarcode.ShowDialog()
+        printbarcode.Auto_Print = False
+    End Sub
+
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
         If AG_Cm.TXT_ID.Text > 0 Then
             AG_ID = AG_Cm.TXT_ID.Text

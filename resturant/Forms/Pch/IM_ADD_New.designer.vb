@@ -53,16 +53,15 @@ Partial Class IM_ADD_New
         Me.ConfermButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ConfermButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ConfermButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ConfermButton.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ConfermButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.ConfermButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ConfermButton.Image = Global.resturant.My.Resources.Resources.if_ok_173061
         Me.ConfermButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ConfermButton.Location = New System.Drawing.Point(343, 308)
         Me.ConfermButton.Margin = New System.Windows.Forms.Padding(5, 7, 5, 7)
         Me.ConfermButton.Name = "ConfermButton"
         Me.ConfermButton.Size = New System.Drawing.Size(131, 41)
         Me.ConfermButton.TabIndex = 443
-        Me.ConfermButton.Text = "حفظ F12"
+        Me.ConfermButton.Text = "حفظ F12    ✔️"
         Me.ConfermButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ConfermButton.UseVisualStyleBackColor = False
         '
@@ -95,7 +94,6 @@ Partial Class IM_ADD_New
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ExitFormButton.Location = New System.Drawing.Point(2, 306)
         Me.ExitFormButton.Name = "ExitFormButton"
@@ -103,7 +101,7 @@ Partial Class IM_ADD_New
         Me.ExitFormButton.Size = New System.Drawing.Size(120, 41)
         Me.ExitFormButton.TabIndex = 670
         Me.ExitFormButton.TabStop = False
-        Me.ExitFormButton.Text = "خروج"
+        Me.ExitFormButton.Text = "خروج   ❌"
         Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
@@ -189,16 +187,16 @@ Partial Class IM_ADD_New
         'Random_Barcode_btn
         '
         Me.Random_Barcode_btn.BackColor = System.Drawing.Color.White
-        Me.Random_Barcode_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_refresh_1608809
         Me.Random_Barcode_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Random_Barcode_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Random_Barcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Random_Barcode_btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Random_Barcode_btn.Font = New System.Drawing.Font("Tahoma", 13.75!, System.Drawing.FontStyle.Bold)
         Me.Random_Barcode_btn.Location = New System.Drawing.Point(431, 98)
         Me.Random_Barcode_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Random_Barcode_btn.Name = "Random_Barcode_btn"
         Me.Random_Barcode_btn.Size = New System.Drawing.Size(41, 29)
         Me.Random_Barcode_btn.TabIndex = 689
+        Me.Random_Barcode_btn.Text = "🔄"
         Me.Random_Barcode_btn.UseVisualStyleBackColor = False
         '
         'IM_Num_txt
@@ -227,7 +225,6 @@ Partial Class IM_ADD_New
         '
         'KeyBoard_Btn
         '
-        Me.KeyBoard_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Keyboard_100061
         Me.KeyBoard_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.KeyBoard_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.KeyBoard_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
@@ -235,6 +232,7 @@ Partial Class IM_ADD_New
         Me.KeyBoard_Btn.Name = "KeyBoard_Btn"
         Me.KeyBoard_Btn.Size = New System.Drawing.Size(43, 41)
         Me.KeyBoard_Btn.TabIndex = 693
+        Me.KeyBoard_Btn.Text = "⌨"
         Me.KeyBoard_Btn.UseVisualStyleBackColor = True
         '
         'IM_SH_txt
@@ -279,16 +277,16 @@ Partial Class IM_ADD_New
         'ADD_NewGM_Btn
         '
         Me.ADD_NewGM_Btn.BackColor = System.Drawing.Color.White
-        Me.ADD_NewGM_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.ADD_NewGM_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ADD_NewGM_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ADD_NewGM_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ADD_NewGM_Btn.Font = New System.Drawing.Font("JF Flat", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ADD_NewGM_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
         Me.ADD_NewGM_Btn.Location = New System.Drawing.Point(436, 4)
         Me.ADD_NewGM_Btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ADD_NewGM_Btn.Name = "ADD_NewGM_Btn"
         Me.ADD_NewGM_Btn.Size = New System.Drawing.Size(34, 29)
         Me.ADD_NewGM_Btn.TabIndex = 699
+        Me.ADD_NewGM_Btn.Text = "➕"
         Me.ADD_NewGM_Btn.UseVisualStyleBackColor = False
         '
         'Label2

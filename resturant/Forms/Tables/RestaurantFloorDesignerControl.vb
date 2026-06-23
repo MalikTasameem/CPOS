@@ -82,6 +82,8 @@ Public Class RestaurantFloorDesignerControl
 
     Private Sub DrawElement(g As Graphics, element As RestaurantFloorElement)
         Select Case element.ElementType
+            Case "FloorRect", "FloorSquare", "FloorOval", "FloorCustom"
+                DrawFloor(g, element)
             Case "Wall"
                 DrawWall(g, element)
             Case "Door"
@@ -91,6 +93,23 @@ Public Class RestaurantFloorDesignerControl
             Case Else
                 DrawTable(g, element)
         End Select
+    End Sub
+
+    Private Sub DrawFloor(g As Graphics, element As RestaurantFloorElement)
+        Dim rect As Rectangle = element.Bounds
+
+        Using borderPen As New Pen(Color.FromArgb(59, 130, 246), 2)
+            If element.ElementType = "FloorCustom" Then borderPen.DashStyle = DashStyle.Dash
+
+            Select Case element.ElementType
+                Case "FloorOval"
+                    g.DrawEllipse(borderPen, rect)
+                Case Else
+                    g.DrawRectangle(borderPen, rect)
+            End Select
+        End Using
+
+        DrawSelection(g, element)
     End Sub
 
     Private Sub DrawTable(g As Graphics, element As RestaurantFloorElement)
@@ -104,15 +123,19 @@ Public Class RestaurantFloorDesignerControl
         Using fillBrush As New SolidBrush(fillColor),
               borderPen As New Pen(borderColor, If(element Is _selectedElement, 3.0!, 1.4!))
 
-            If String.Equals(GetShapeName(element), "Round", StringComparison.OrdinalIgnoreCase) Then
-                g.FillEllipse(fillBrush, rect)
-                g.DrawEllipse(borderPen, rect)
-            Else
-                Using path As GraphicsPath = CreateRoundRectangle(rect, 10)
-                    g.FillPath(fillBrush, path)
-                    g.DrawPath(borderPen, path)
-                End Using
-            End If
+            Select Case GetShapeName(element)
+                Case "Round"
+                    g.FillEllipse(fillBrush, rect)
+                    g.DrawEllipse(borderPen, rect)
+                Case "Square"
+                    g.FillRectangle(fillBrush, rect)
+                    g.DrawRectangle(borderPen, rect)
+                Case Else
+                    Using path As GraphicsPath = CreateRoundRectangle(rect, 10)
+                        g.FillPath(fillBrush, path)
+                        g.DrawPath(borderPen, path)
+                    End Using
+            End Select
         End Using
 
         Dim text As String = If(String.IsNullOrWhiteSpace(element.ElementText), "طاولة", element.ElementText)
@@ -253,6 +276,7 @@ Public Class RestaurantFloorDesignerControl
     Private Function GetShapeName(element As RestaurantFloorElement) As String
         If element Is Nothing OrElse String.IsNullOrWhiteSpace(element.ElementType) Then Return "Rectangle"
         If element.ElementType = "RoundTable" Then Return "Round"
+        If element.ElementType = "SquareTable" Then Return "Square"
         Return "Rectangle"
     End Function
 

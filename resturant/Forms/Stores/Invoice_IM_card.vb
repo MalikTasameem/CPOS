@@ -954,6 +954,7 @@
         IM_ADD_New.ShowDialog()
         If is_Add_New_IM = True Then
             mySearchControl.Refresh_Data()
+            mySearchControl.SelectItemByName(mySearchControl.txtSearch.Text)
             QtyTextBox.Select()
         End If
     End Sub

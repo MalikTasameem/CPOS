@@ -1,13 +1,17 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class TablesCard
-    Dim rs As New Resizer
+    ' Dim rs As New Resizer
 
     Private Sub control_tables_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
     End Sub
     Private Sub TablesCard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        rs.FindAllControls(Me)
+        'rs.FindAllControls(Me)
+
+        ' تطبيق الثيم الإجباري
+        ThemeManager.ApplyThemeToForm(Me)
+
         Me.WindowState = FormWindowState.Maximized
         Load_Flates()
         Load_Tables()
@@ -22,7 +26,7 @@ Public Class TablesCard
     End Sub
 
     Private Sub control_tables_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        rs.ResizeAllControls_POS(Me)
+        'rs.ResizeAllControls_POS(Me)
     End Sub
 
     Public Sub Load_Flates()

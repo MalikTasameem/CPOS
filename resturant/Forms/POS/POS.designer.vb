@@ -1460,7 +1460,7 @@ Partial Class POS
         Me.OpenCahDR_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.OpenCahDR_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.OpenCahDR_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OpenCahDR_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.OpenCahDR_Btn.ForeColor = System.Drawing.Color.Black
         Me.OpenCahDR_Btn.Location = New System.Drawing.Point(4, 77)
         Me.OpenCahDR_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
@@ -1478,7 +1478,7 @@ Partial Class POS
         Me.ExitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ExitButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ExitButton.Font = New System.Drawing.Font("Segoe UI", 13.75!, System.Drawing.FontStyle.Bold)
+        Me.ExitButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitButton.ForeColor = System.Drawing.Color.Black
         Me.ExitButton.Location = New System.Drawing.Point(4, 151)
         Me.ExitButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
@@ -1496,7 +1496,7 @@ Partial Class POS
         Me.UnLockButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.UnLockButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.UnLockButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.UnLockButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UnLockButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UnLockButton.ForeColor = System.Drawing.Color.Black
         Me.UnLockButton.Location = New System.Drawing.Point(4, 114)
         Me.UnLockButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
@@ -1515,7 +1515,7 @@ Partial Class POS
         Me.Button23.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Button23.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Button23.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Button23.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button23.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button23.ForeColor = System.Drawing.Color.DarkRed
         Me.Button23.Location = New System.Drawing.Point(4, 3)
         Me.Button23.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
@@ -1533,7 +1533,7 @@ Partial Class POS
         Me.BillsMenu_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.BillsMenu_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BillsMenu_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BillsMenu_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BillsMenu_Btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BillsMenu_Btn.Location = New System.Drawing.Point(4, 40)
         Me.BillsMenu_Btn.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.BillsMenu_Btn.Name = "BillsMenu_Btn"

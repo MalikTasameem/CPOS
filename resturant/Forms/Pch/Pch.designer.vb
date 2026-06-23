@@ -147,6 +147,7 @@ Partial Class Pch
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Panel7 = New System.Windows.Forms.Panel()
         Me.AG_Cm = New resturant.FSearch_Filter()
         Me.TitleBar_Panel.SuspendLayout()
         Me.AG_ContextMenuStrip.SuspendLayout()
@@ -165,6 +166,7 @@ Partial Class Pch
         Me.Panel4.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
+        Me.Panel7.SuspendLayout()
         Me.SuspendLayout()
         '
         'TitleBar_Panel
@@ -305,7 +307,7 @@ Partial Class Pch
         Me.AG_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.عرضرصيدالعميلToolStripMenuItem, Me.كشفحسابالعميلToolStripMenuItem, Me.إضافةكعميلجديدToolStripMenuItem})
         Me.AG_ContextMenuStrip.Name = "AG_ContextMenuStrip"
         Me.AG_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_ContextMenuStrip.Size = New System.Drawing.Size(184, 98)
+        Me.AG_ContextMenuStrip.Size = New System.Drawing.Size(184, 76)
         '
         'عرضرصيدالعميلToolStripMenuItem
         '
@@ -688,7 +690,7 @@ Partial Class Pch
         Me.DGV_Control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DGV_Control_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DGV_Control_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DGV_Control_btn.Location = New System.Drawing.Point(1013, 192)
+        Me.DGV_Control_btn.Location = New System.Drawing.Point(3, 1)
         Me.DGV_Control_btn.Name = "DGV_Control_btn"
         Me.DGV_Control_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.DGV_Control_btn.Size = New System.Drawing.Size(50, 31)
@@ -1450,12 +1452,12 @@ Partial Class Pch
         Me.MakeBarcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MakeBarcode_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.MakeBarcode_btn.ForeColor = System.Drawing.Color.Black
-        Me.MakeBarcode_btn.Location = New System.Drawing.Point(1013, 432)
+        Me.MakeBarcode_btn.Location = New System.Drawing.Point(3, 241)
         Me.MakeBarcode_btn.Name = "MakeBarcode_btn"
         Me.MakeBarcode_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.MakeBarcode_btn.Size = New System.Drawing.Size(50, 35)
         Me.MakeBarcode_btn.TabIndex = 307
-        Me.MakeBarcode_btn.Text = "║▌║"
+        Me.MakeBarcode_btn.Text = "||||"
         Me.MakeBarcode_btn.UseVisualStyleBackColor = False
         '
         'SearchButton
@@ -1575,7 +1577,7 @@ Partial Class Pch
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 18.0!, System.Drawing.FontStyle.Bold)
         Me.ADDCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ADDCatButton.Location = New System.Drawing.Point(1013, 224)
+        Me.ADDCatButton.Location = New System.Drawing.Point(3, 33)
         Me.ADDCatButton.Name = "ADDCatButton"
         Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ADDCatButton.Size = New System.Drawing.Size(50, 137)
@@ -1596,7 +1598,7 @@ Partial Class Pch
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.RemoveCatButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.RemoveCatButton.Location = New System.Drawing.Point(1013, 362)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(3, 171)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RemoveCatButton.Size = New System.Drawing.Size(50, 69)
@@ -1649,6 +1651,18 @@ Partial Class Pch
         Me.Panel6.Size = New System.Drawing.Size(1076, 52)
         Me.Panel6.TabIndex = 1015
         '
+        'Panel7
+        '
+        Me.Panel7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel7.Controls.Add(Me.DGV_Control_btn)
+        Me.Panel7.Controls.Add(Me.RemoveCatButton)
+        Me.Panel7.Controls.Add(Me.ADDCatButton)
+        Me.Panel7.Controls.Add(Me.MakeBarcode_btn)
+        Me.Panel7.Location = New System.Drawing.Point(1011, 192)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(61, 280)
+        Me.Panel7.TabIndex = 1017
+        '
         'AG_Cm
         '
         Me.AG_Cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1678,6 +1692,7 @@ Partial Class Pch
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1078, 716)
+        Me.Controls.Add(Me.Panel7)
         Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.AG_Cm)
@@ -1687,10 +1702,6 @@ Partial Class Pch
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.AGMetroGrid)
         Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.DGV_Control_btn)
-        Me.Controls.Add(Me.MakeBarcode_btn)
-        Me.Controls.Add(Me.ADDCatButton)
-        Me.Controls.Add(Me.RemoveCatButton)
         Me.Controls.Add(Me.Notes_txt)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -1726,6 +1737,7 @@ Partial Class Pch
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         Me.Panel6.ResumeLayout(False)
+        Me.Panel7.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1846,4 +1858,5 @@ Partial Class Pch
     Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
     Friend WithEvents Dist_Values_CL As DataGridViewTextBoxColumn
     Friend WithEvents isWithBill_CL As DataGridViewCheckBoxColumn
+    Friend WithEvents Panel7 As Panel
 End Class
