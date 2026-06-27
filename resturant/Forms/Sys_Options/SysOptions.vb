@@ -77,6 +77,8 @@ Public Class SysOptions
         SalesPrintLayoutButton.Visible = (SScreenDefault = 0)
         SalesFastPrintLayoutButton.Visible = (SScreenDefault = 2)
         PosPrintLayoutButton.Visible = (SScreenDefault = 1)
+        Button2.Visible = S_Use_AccountingPortal
+        Tree_AG_Button.Visible = S_Use_AccountingPortal
     End Sub
 
     Private Sub SysOptions_Test_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -222,11 +224,15 @@ Public Class SysOptions
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If Not S_Use_AccountingPortal Then Exit Sub
+
         Dim frm As New FrmSystemAccountLinks   'FrmAccountingPostingSettings(MY_Settings.SqlConStr, USER_ID)
         frm.ShowDialog()
     End Sub
 
     Private Sub Tree_AG_Button_Click(sender As Object, e As EventArgs) Handles Tree_AG_Button.Click
+        If Not S_Use_AccountingPortal Then Exit Sub
+
         Dim f As New FRM_ACC_ENTITY_LINKS_MANAGER
         f.ShowDialog()
     End Sub

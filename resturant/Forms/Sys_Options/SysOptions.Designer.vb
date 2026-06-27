@@ -59,7 +59,7 @@ Partial Class SysOptions
         Me.TitleBar_Panel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitleBar_Panel.Location = New System.Drawing.Point(0, 0)
         Me.TitleBar_Panel.Name = "TitleBar_Panel"
-        Me.TitleBar_Panel.Size = New System.Drawing.Size(990, 35)
+        Me.TitleBar_Panel.Size = New System.Drawing.Size(961, 35)
         Me.TitleBar_Panel.TabIndex = 0
         Me.TitleBar_Panel.Tag = "HEADER"
         '
@@ -68,7 +68,7 @@ Partial Class SysOptions
         Me.Title_Label.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Title_Label.AutoSize = True
         Me.Title_Label.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Title_Label.Location = New System.Drawing.Point(818, 10)
+        Me.Title_Label.Location = New System.Drawing.Point(789, 10)
         Me.Title_Label.Name = "Title_Label"
         Me.Title_Label.Size = New System.Drawing.Size(160, 21)
         Me.Title_Label.TabIndex = 1
@@ -134,7 +134,7 @@ Partial Class SysOptions
         Me.F_Panel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.F_Panel.Location = New System.Drawing.Point(0, 35)
         Me.F_Panel.Name = "F_Panel"
-        Me.F_Panel.Size = New System.Drawing.Size(990, 470)
+        Me.F_Panel.Size = New System.Drawing.Size(961, 470)
         Me.F_Panel.TabIndex = 1
         Me.F_Panel.Tag = "TRANSPARENT"
         '
@@ -430,7 +430,7 @@ Partial Class SysOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(990, 505)
+        Me.ClientSize = New System.Drawing.Size(961, 505)
         Me.Controls.Add(Me.F_Panel)
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None

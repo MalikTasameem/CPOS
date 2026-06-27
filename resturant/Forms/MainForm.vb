@@ -133,7 +133,7 @@ Public Class MainForm
 
                 U_Balance = c.Dr("Balance")
                 Me.Balances_btn.Enabled = c.Dr("Balance")
-                Me.بوابةالحساباتToolStripMenuItem.Enabled = c.Dr("Balance")
+                RefreshAccountingPortalAccess()
 
                 'If c.Dr("Balance") = False Then
                 '    Me.Balances_btn.Enabled = False
@@ -989,7 +989,23 @@ Public Class MainForm
         بوابةالحساباتToolStripMenuItem.TextAlign = ContentAlignment.MiddleCenter
         بوابةالحساباتToolStripMenuItem.ToolTipText = "فتح البوابة المحاسبية"
         بوابةالحساباتToolStripMenuItem.Invalidate()
+        RefreshAccountingPortalAccess()
 
+    End Sub
+
+    Private Function CanUseAccountingPortal() As Boolean
+        Return S_Use_AccountingPortal AndAlso (User_isAdmin OrElse U_Balance)
+    End Function
+
+    Private Sub RefreshAccountingPortalAccess()
+        If بوابةالحساباتToolStripMenuItem Is Nothing Then Exit Sub
+
+        بوابةالحساباتToolStripMenuItem.Visible = S_Use_AccountingPortal
+        بوابةالحساباتToolStripMenuItem.Enabled = CanUseAccountingPortal()
+
+        If ToolStripSeparatorAccountingPortal IsNot Nothing Then
+            ToolStripSeparatorAccountingPortal.Visible = S_Use_AccountingPortal
+        End If
     End Sub
 
     Private Class AccountingPortalToolStripRenderer
@@ -2110,6 +2126,11 @@ Public Class MainForm
             Case "IM_OTHER_STORE_V_SELECT"
                 Dim F As New IM_OTHER_STORE
                 F.ShowDialog()
+            Case "AccountingPostingMonitor"
+                If Not CanUseAccountingPortal() Then Return
+
+                Dim frm As New FrmAccountingPostingMonitor(MY_Settings.SqlConStr, USER_ID)
+                frm.ShowDialog()
 
         End Select
     End Sub
@@ -2415,46 +2436,80 @@ Public Class MainForm
             N = CountRowsFast(cmd)
             If N > 0 Then alertTable.Rows.Add("Open_Bills", Open_AGMV & " (" & N & ")")
 
-            ' 7. مبيعات أقل من التكلفة
+            ' 7. تنبيهات الترحيل المحاسبي
+            If CanUseAccountingPortal() Then
+                Try
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = "
+SELECT
+    ISNULL(SUM(CASE WHEN PostingAction = N'POST_FIRST_TIME' THEN 1 ELSE 0 END), 0) AS PostFirstCount,
+    ISNULL(SUM(CASE WHEN PostingAction = N'REPOST' THEN 1 ELSE 0 END), 0) AS RepostCount
+FROM dbo.V_AccountingPostingMonitor
+WHERE isDepended = 1
+  AND ISNULL(NeedsAccountingAction, 0) = 1"
+                    cmd.Parameters.Clear()
+
+                    Dim postFirstCount As Integer = 0
+                    Dim repostCount As Integer = 0
+                    Dim drAccounting As SqlClient.SqlDataReader = cmd.ExecuteReader()
+                    If drAccounting.Read() Then
+                        postFirstCount = Convert.ToInt32(drAccounting("PostFirstCount"))
+                        repostCount = Convert.ToInt32(drAccounting("RepostCount"))
+                    End If
+                    drAccounting.Close()
+
+                    If postFirstCount > 0 OrElse repostCount > 0 Then
+                        alertTable.Rows.Add("AccountingPostingMonitor", "ترحيل محاسبي: تقييد أول مرة (" & postFirstCount & ") - إعادة تقييد (" & repostCount & ")")
+                    End If
+                Catch
+                End Try
+            End If
+
+            ' 8. مبيعات أقل من التكلفة
             If Notif_IM_Sell_Less_Than_Cost = True And U_SB_Show_Cash = True Then
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "[Items_Prices_V_SELECT_ALL_Less_Then_Cost]"
                 cmd.Parameters.Clear()
                 N = CountRowsFast(cmd)
                 If N > 0 Then alertTable.Rows.Add("Items_Prices_V_SELECT_ALL_Less_Then_Cost", IM_SELL_LESS_THAN_COST & " (" & N & ")")
             End If
 
-            ' 8. أصناف بكميات سالبة
+            ' 9. أصناف بكميات سالبة
             If Notif_IM_Negitane_QTY = True Then
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "[Items_Prices_V_SELECT_ALL_Negitave_QTY]"
                 cmd.Parameters.Clear()
                 N = CountRowsFast(cmd)
                 If N > 0 Then alertTable.Rows.Add("Items_Prices_V_SELECT_ALL_Negitave_QTY", IM_Neg_QTY & " (" & N & ")")
             End If
 
-            ' 9. قائمة ملاحظات صلاحية الأصناف
+            ' 10. قائمة ملاحظات صلاحية الأصناف
+            cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandText = "[IM_Notes_Valid_V_SELECT]"
             cmd.Parameters.Clear()
             cmd.Parameters.AddWithValue("@END_Date_Valid", IM_Day_Valid)
             N = CountRowsFast(cmd)
             If N > 0 Then alertTable.Rows.Add("IM_Notes_Valid_V_SELECT", IM_Notes_Valid & " (" & N & ")")
 
-            ' 10. أصناف مستأجرة
+            ' 11. أصناف مستأجرة
             Try
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "RSV_IM_V_SELECT"
                 cmd.Parameters.Clear()
                 N = CountRowsFast(cmd)
                 If N > 0 Then alertTable.Rows.Add("RSV_IM_V_SELECT", RSV_IM & " (" & N & ")")
             Catch : End Try
 
-            ' 11. بضاعة قادمة
+            ' 12. بضاعة قادمة
             Try
+                cmd.CommandType = CommandType.StoredProcedure
                 cmd.CommandText = "ORDER_IM_V_SELECT"
                 cmd.Parameters.Clear()
                 N = CountRowsFast(cmd)
                 If N > 0 Then alertTable.Rows.Add("ORDER_IM_V_SELECT", ORDER_IM & " (" & N & ")")
             Catch : End Try
 
-            ' 12. أخر تزامن (قراءة يدوية بدون Using نهائياً 🚫)
+            ' 13. أخر تزامن (قراءة يدوية بدون Using نهائياً 🚫)
             Try
                 cmd.CommandText = "SELECT top 1 [SyncEnd],[SyncState] FROM [dbo].[SynchroLog] order by id desc"
                 cmd.CommandType = CommandType.Text
@@ -2468,7 +2523,7 @@ Public Class MainForm
                 drSync.Close() ' إغلاق القارئ يدوياً
             Catch : End Try
 
-            ' 13. بضاعة المخازن الأخرى
+            ' 14. بضاعة المخازن الأخرى
             Try
                 cmd.CommandText = "IM_OTHER_STORE_V_SELECT"
                 cmd.CommandType = CommandType.StoredProcedure
@@ -3248,6 +3303,11 @@ Public Class MainForm
 
 
     Private Sub بوابةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles بوابةالحساباتToolStripMenuItem.Click
+        If Not CanUseAccountingPortal() Then
+            MsgBox("بوابة الحسابات غير مفعلة أو لا تملك صلاحية استخدامها.", MsgBoxStyle.Exclamation)
+            Exit Sub
+        End If
+
         Accounting.System_Startup()
 
         Dim F As New Accounting.login

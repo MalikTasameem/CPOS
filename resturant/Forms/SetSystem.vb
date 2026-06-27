@@ -80,11 +80,35 @@
         End With
 
         If SQL_SP_EXEC(c.Com) = True Then
+            UpdateAccountingPortalFeature()
             MsgBox("تم الحفظ", MsgBoxStyle.Information)
             Sys_Switch()
         End If
 
 
+    End Sub
+
+    Private Sub UpdateAccountingPortalFeature()
+        Dim c As New C
+
+        Try
+            c.Str = "
+IF COL_LENGTH('dbo.Sys_Features', 'Use_AccountingPortal') IS NOT NULL
+BEGIN
+    UPDATE Sys_Features
+    SET Use_AccountingPortal = @Use_AccountingPortal
+    WHERE T_ID = @T_ID
+END"
+            c.Com = New SqlClient.SqlCommand(c.Str, c.Con)
+            c.Com.Parameters.AddWithValue("@Use_AccountingPortal", If(Use_AccountingPortal_CB.Checked, 1, 0))
+            c.Com.Parameters.AddWithValue("@T_ID", Sys_Type_cm.SelectedValue)
+            c.Con.Open()
+            c.Com.ExecuteNonQuery()
+            c.Con.Close()
+        Catch ex As Exception
+            If c.Con.State = ConnectionState.Open Then c.Con.Close()
+            MsgBox("تم حفظ الخصائص الأساسية، لكن تعذر حفظ خاصية بوابة الحسابات: " & ex.Message, MsgBoxStyle.Exclamation)
+        End Try
     End Sub
 
     Private Sub Select_Sys()
@@ -117,6 +141,14 @@
                 is_Pch_Discount_Distribute_CB.Checked = C.Dr("is_Pch_Discount_Distribute")
                 is_Auto_Recive_ST_Tran_CB.Checked = C.Dr("is_Auto_Recive_ST_Tran")
                 IM_Valid_CB.Checked = C.Dr("IM_Valid")
+
+                Dim hasAccountingPortalFeature As Boolean = DataReaderHasColumn(C.Dr, "Use_AccountingPortal")
+                'Use_AccountingPortal_CB.Enabled = hasAccountingPortalFeature
+                If hasAccountingPortalFeature AndAlso Not IsDBNull(C.Dr("Use_AccountingPortal")) Then
+                    Use_AccountingPortal_CB.Checked = Convert.ToInt32(C.Dr("Use_AccountingPortal")) <> 0
+                Else
+                    Use_AccountingPortal_CB.Checked = False
+                End If
             End If
             C.Con.Close()
         Catch ex As Exception
@@ -224,6 +256,10 @@
     End Sub
 
     Private Sub IM_Valid_CB_CheckedChanged(sender As Object, e As EventArgs) Handles IM_Valid_CB.CheckedChanged
+        CB_CHecked(sender)
+    End Sub
+
+    Private Sub Use_AccountingPortal_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Use_AccountingPortal_CB.CheckedChanged
         CB_CHecked(sender)
     End Sub
 

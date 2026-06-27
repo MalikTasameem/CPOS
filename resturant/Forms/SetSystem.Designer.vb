@@ -58,6 +58,7 @@ Partial Class SetSystem
         Me.NumOfBillsTest_txt = New resturant.F3NumericTextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TB_Auto_Print_CB = New System.Windows.Forms.CheckBox()
+        Me.Use_AccountingPortal_CB = New System.Windows.Forms.CheckBox()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox14.SuspendLayout()
@@ -573,11 +574,27 @@ Partial Class SetSystem
         Me.TB_Auto_Print_CB.UseVisualStyleBackColor = True
         Me.TB_Auto_Print_CB.Visible = False
         '
+        'Use_AccountingPortal_CB
+        '
+        Me.Use_AccountingPortal_CB.AutoSize = True
+        Me.Use_AccountingPortal_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Use_AccountingPortal_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Use_AccountingPortal_CB.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Use_AccountingPortal_CB.Location = New System.Drawing.Point(724, 453)
+        Me.Use_AccountingPortal_CB.Name = "Use_AccountingPortal_CB"
+        Me.Use_AccountingPortal_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Use_AccountingPortal_CB.Size = New System.Drawing.Size(176, 25)
+        Me.Use_AccountingPortal_CB.TabIndex = 627
+        Me.Use_AccountingPortal_CB.Text = "استخدام بوابة الحسابات"
+        Me.Use_AccountingPortal_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Use_AccountingPortal_CB.UseVisualStyleBackColor = True
+        '
         'SetSystem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(994, 587)
+        Me.Controls.Add(Me.Use_AccountingPortal_CB)
         Me.Controls.Add(Me.TB_Auto_Print_CB)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Panel1)
@@ -664,4 +681,5 @@ Partial Class SetSystem
     Friend WithEvents Panel1 As Panel
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents TB_Auto_Print_CB As CheckBox
+    Friend WithEvents Use_AccountingPortal_CB As CheckBox
 End Class
