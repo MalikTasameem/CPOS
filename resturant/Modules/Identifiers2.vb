@@ -113,6 +113,7 @@
     Public S_Pr As Boolean = False
     Public S_SubPrints As Boolean = False
     Public S_TB_Auto_Print As Boolean = False
+    Public S_Use_AccountingPortal As Boolean = False
 
     Public S_Notes As Boolean = False
     Public S_Orders As Boolean = False

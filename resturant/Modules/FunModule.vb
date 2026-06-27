@@ -180,6 +180,11 @@ Module FunModule
                 S_Auto_Recive_ST_Tran = C.Dr("is_Auto_Recive_ST_Tran")
                 S_IM_Valid = C.Dr("IM_Valid")
                 S_TB_Auto_Print = C.Dr("TB_Auto_Print")
+                If DataReaderHasColumn(C.Dr, "Use_AccountingPortal") AndAlso Not IsDBNull(C.Dr("Use_AccountingPortal")) Then
+                    S_Use_AccountingPortal = Convert.ToInt32(C.Dr("Use_AccountingPortal")) <> 0
+                Else
+                    S_Use_AccountingPortal = False
+                End If
                 'is_Pch_Discount_Distribute = C.Dr("is_Pch_Discount_Distribute")
             End If
 
@@ -663,6 +668,16 @@ Module FunModule
             sender.ForeColor = Color.Black
         End If
     End Sub
+
+    Public Function DataReaderHasColumn(reader As SqlClient.SqlDataReader, columnName As String) As Boolean
+        If reader Is Nothing OrElse String.IsNullOrWhiteSpace(columnName) Then Return False
+
+        For i As Integer = 0 To reader.FieldCount - 1
+            If String.Equals(reader.GetName(i), columnName, StringComparison.OrdinalIgnoreCase) Then Return True
+        Next
+
+        Return False
+    End Function
 
     Public Function SQL_SP_EXEC(sqlComm As SqlClient.SqlCommand)
         Dim isDone = True

@@ -4,6 +4,7 @@ Public Class Tree_MainForm
     Private Const TrialEntriesLimit As Integer = 200
     Private TrialDataReset_Btn As Button
     Private IsTrialLimitExceeded As Boolean = False
+    Public Property OpenedFromCPOS As Boolean = False
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         F_ACC_B = New ACC_B
@@ -802,6 +803,11 @@ Public Class Tree_MainForm
     End Sub
 
     Private Sub login_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        If OpenedFromCPOS Then
+            OpenedFromCPOS = False
+            Exit Sub
+        End If
+
         Application.ExitThread()
         Application.Exit()
         Kill_All_Processes()

@@ -7,6 +7,8 @@ Imports System.Data.Sql
 
 Public Class login
     Dim aa As Integer
+    Public Property OpenedFromCPOS As Boolean = False
+    Public Property HostUserId As Integer = 0
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -109,92 +111,12 @@ Public Class login
             C.Dr.Read()
             If C.Dr.HasRows = True Then
                 passTxt.Clear()
-                USER_ID = C.Dr("user_id")
-                'Home.User_Lb.Text = C.Dr("UserName")
-                USER_NAME = C.Dr("UserName")
-
-                If C.Dr("is_Allow") = 0 Then
-                    MsgBox("المعذرة .. أنت غير مسموح لك بالدخول للنظام", MsgBoxStyle.Exclamation)
+                If ApplyAuthenticatedUser(C.Dr) = False Then
+                    C.Con.Close()
                     Exit Sub
                 End If
 
-
-                'F_MainForm = New MainForm
-                'Tree_MainForm.ShowDialog()
-
-                If C.Dr("isAdmin") = True Then
-                    User_isAdmin = True
-                    'F_MainForm.Sys_Setting_btn.Enabled = True
-                    U_SalesVoid = True
-                    U_SalesDis = True
-                    U_StExplore = True
-                    U_Balance = True
-                    U_Cancel_Pch = True
-                    U_Update_IM_QTY = True
-                    U_Add_Draw_St = True
-                    U_ExpVoid = True
-                    U_SB_Update = True
-                    U_Pch_Update = True
-                    U_SB_Rtn = True
-                    U_Pch_Rtn = True
-                    U_End_Table = True
-                    U_SB_IM_Update = True
-                    U_SB_Sell_Under_Cost = True
-                    U_SB_Show_Price_Info = True
-                    U_SB_Show_Cash = True
-                    U_Sell_Under_Min_SP = True
-                    U_SB_Show_IM_COST = True
-                    U_Update_Receipt = True
-                    U_Cancel_Receipt = True
-                    U_ExpEdit = True
-                    U_Sell_Under_Min_SP_2 = True
-                    U_AG_Skip_Max = True
-                    U_Show_Bill_Profet = True
-                    U_Transfer_Table = True
-                    U_Save_otherBill = True
-                    U_Tr_Widraw = True
-                    U_Tr_Deposit = True
-                    U_Tr_Convert = True
-                    U_Hide_Unrelated_Tr = False
-
-                Else
-                    'F_MainForm.Sys_Setting_btn.Enabled = False
-                    User_isAdmin = False
-                End If
-
-
-
-                If Not IsDBNull(C.Dr("AG_ID")) Then U_AG_ID = C.Dr("AG_ID")
-
-                If C.Dr("Tr_ID") > 0 Then
-                    PCH_TR_ID = C.Dr("Tr_ID")
-                    SB_TR_ID = C.Dr("Tr_ID")
-                    Rct_Tr_ID = C.Dr("Tr_ID")
-                    EXP_TR_ID = C.Dr("Tr_ID")
-                Else
-                    PCH_TR_ID = Org_PCH_TR_ID
-                    SB_TR_ID = Org_SB_TR_ID
-                    Rct_Tr_ID = Org_Rct_Tr_ID
-                    EXP_TR_ID = Org_EXP_TR_ID
-                End If
-
-                'If C.Dr("isCostmerScreen") = True Then
-                '    'Me.Hide()
-                '    Costmer_Screen.ShowDialog()
-                'Else
-
-
-                'If IsIdInRange(USER_ID) = False Then
-                '    MsgBox("هذا المستخدم لا يتبع الفرع", MsgBoxStyle.Critical, "")
-                '    Exit Sub
-                'End If
-
-
-                Me.Hide()
-
-                'F_MainForm = New MainForm
-                'F_MainForm.ShowDialog()
-                Tree_MainForm.ShowDialog()
+                OpenTreeMainForm()
 
                 C.Con.Close()
 
@@ -210,6 +132,128 @@ Public Class login
             MsgBox(ex.Message)
         End Try
 
+    End Sub
+
+    Private Sub CheckPassByUserId(ByVal userId As Integer)
+        Try
+            If userId <= 0 Then
+                MsgBox("تعذر تحديد المستخدم الحالي لفتح بوابة الحسابات.", MsgBoxStyle.Exclamation)
+                Me.Close()
+                Exit Sub
+            End If
+
+            Dim C As New C
+            C.Str = "Select *  From Users Where user_id = @USER_ID"
+            C.Com = New SqlCommand(C.Str, C.Con)
+            C.Com.Parameters.AddWithValue("@USER_ID", userId)
+            C.Con.Open()
+
+            C.Dr = C.Com.ExecuteReader
+            C.Dr.Read()
+            If C.Dr.HasRows = True Then
+                If ApplyAuthenticatedUser(C.Dr) = False Then
+                    C.Con.Close()
+                    Me.Close()
+                    Exit Sub
+                End If
+
+                OpenTreeMainForm()
+                C.Con.Close()
+            Else
+                MsgBox("لم يتم العثور على المستخدم الحالي في نظام الحسابات.", MsgBoxStyle.Exclamation)
+                C.Con.Close()
+                Me.Close()
+            End If
+
+            C.Con.Close()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Me.Close()
+        End Try
+    End Sub
+
+    Private Function ApplyAuthenticatedUser(ByVal userReader As SqlDataReader) As Boolean
+        USER_ID = userReader("user_id")
+        'Home.User_Lb.Text = C.Dr("UserName")
+        USER_NAME = userReader("UserName")
+
+        If userReader("is_Allow") = 0 Then
+            MsgBox("المعذرة .. أنت غير مسموح لك بالدخول للنظام", MsgBoxStyle.Exclamation)
+            Return False
+        End If
+
+        'F_MainForm = New MainForm
+        'Tree_MainForm.ShowDialog()
+
+        If userReader("isAdmin") = True Then
+            User_isAdmin = True
+            'F_MainForm.Sys_Setting_btn.Enabled = True
+            U_SalesVoid = True
+            U_SalesDis = True
+            U_StExplore = True
+            U_Balance = True
+            U_Cancel_Pch = True
+            U_Update_IM_QTY = True
+            U_Add_Draw_St = True
+            U_ExpVoid = True
+            U_SB_Update = True
+            U_Pch_Update = True
+            U_SB_Rtn = True
+            U_Pch_Rtn = True
+            U_End_Table = True
+            U_SB_IM_Update = True
+            U_SB_Sell_Under_Cost = True
+            U_SB_Show_Price_Info = True
+            U_SB_Show_Cash = True
+            U_Sell_Under_Min_SP = True
+            U_SB_Show_IM_COST = True
+            U_Update_Receipt = True
+            U_Cancel_Receipt = True
+            U_ExpEdit = True
+            U_Sell_Under_Min_SP_2 = True
+            U_AG_Skip_Max = True
+            U_Show_Bill_Profet = True
+            U_Transfer_Table = True
+            U_Save_otherBill = True
+            U_Tr_Widraw = True
+            U_Tr_Deposit = True
+            U_Tr_Convert = True
+            U_Hide_Unrelated_Tr = False
+
+        Else
+            'F_MainForm.Sys_Setting_btn.Enabled = False
+            User_isAdmin = False
+        End If
+
+        If Not IsDBNull(userReader("AG_ID")) Then U_AG_ID = userReader("AG_ID")
+
+        Dim trId As Integer = 0
+        If Not IsDBNull(userReader("Tr_ID")) Then trId = Convert.ToInt32(userReader("Tr_ID"))
+
+        If trId > 0 Then
+            PCH_TR_ID = trId
+            SB_TR_ID = trId
+            Rct_Tr_ID = trId
+            EXP_TR_ID = trId
+        Else
+            PCH_TR_ID = Org_PCH_TR_ID
+            SB_TR_ID = Org_SB_TR_ID
+            Rct_Tr_ID = Org_Rct_Tr_ID
+            EXP_TR_ID = Org_EXP_TR_ID
+        End If
+
+        Return True
+    End Function
+
+    Private Sub OpenTreeMainForm()
+        Me.Hide()
+        Tree_MainForm.OpenedFromCPOS = OpenedFromCPOS
+        Tree_MainForm.ShowDialog()
+
+        If OpenedFromCPOS Then
+            Me.Close()
+        End If
     End Sub
 
     Private Sub ShowPassButton_MouseHover(sender As Object, e As EventArgs) Handles ShowPassButton.MouseHover
@@ -238,6 +282,7 @@ Public Class login
     Private Sub login_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         'Application.ExitThread()
         'Application.Exit()
+        If OpenedFromCPOS Then Exit Sub
         Kill_All_Processes()
     End Sub
 
@@ -305,6 +350,14 @@ Public Class login
             Button23.Visible = False
         End If
 
+        If OpenedFromCPOS Then
+            Me.BeginInvoke(New MethodInvoker(AddressOf LoginFromCPOS))
+        End If
+
+    End Sub
+
+    Private Sub LoginFromCPOS()
+        CheckPassByUserId(HostUserId)
     End Sub
 
     Public Sub Client_Check_Connection()

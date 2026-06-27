@@ -3251,6 +3251,12 @@ Public Class MainForm
         Accounting.System_Startup()
 
         Dim F As New Accounting.login
-        F.ShowDialog()
+        F.OpenedFromCPOS = True
+        F.HostUserId = USER_ID
+        F.ShowDialog(Me)
+    End Sub
+
+    Private Sub TitleBar_Panel_Paint(sender As Object, e As PaintEventArgs) Handles TitleBar_Panel.Paint
+
     End Sub
 End Class
