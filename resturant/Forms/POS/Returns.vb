@@ -837,7 +837,12 @@ Public Class Returns : Inherits System.Windows.Forms.Form
             .Parameters.AddWithValue("@F", 0)
             .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
             .Parameters.AddWithValue("@IM_ID", IM_ID)
-            .Parameters.AddWithValue("@D_Vaild", MetroGrid1.CurrentRow.Cells("D_Valid_CL").Value)
+            If Valid_Panel.Visible = True Then
+                .Parameters.AddWithValue("@D_Vaild", MetroGrid1.CurrentRow.Cells("D_Valid_CL").Value)
+            Else
+                .Parameters.AddWithValue("@D_Vaild", "")
+            End If
+
             .Parameters.AddWithValue("@Enterd_Qty", QtyTextBox.Text)
             .Parameters.AddWithValue("@Cargo", U_Cargo)
 
