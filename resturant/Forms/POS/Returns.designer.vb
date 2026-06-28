@@ -279,7 +279,6 @@ Partial Class Returns
         Me.PriceTextBox.Location = New System.Drawing.Point(581, 8)
         Me.PriceTextBox.MaxLength = 250
         Me.PriceTextBox.Name = "PriceTextBox"
-        Me.PriceTextBox.ReadOnly = True
         Me.PriceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.PriceTextBox.Size = New System.Drawing.Size(79, 26)
         Me.PriceTextBox.TabIndex = 292

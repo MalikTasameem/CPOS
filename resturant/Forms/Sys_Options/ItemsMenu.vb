@@ -243,7 +243,7 @@ Public Class ItemsMenu
         End If
 
         If SScreenDefault = 0 Then TabControl1.TabPages.Remove(TouchTabPage)
-        Markter_Panel.Visible = S_Marketers
+        'Markter_Panel.Visible = S_Marketers
         isValid_CB.Visible = S_IM_Valid
 
 
@@ -317,7 +317,7 @@ Public Class ItemsMenu
         Me.IM_Photo.Image = Nothing
         Me.IM_Photo.BackColor = System.Drawing.SystemColors.ButtonFace
         Notes_txt.Clear()
-        Markter_Val_txt.Clear()
+        '   Markter_Val_txt.Clear()
     End Sub
 
     Private Sub ChoasePicureButton_Click(sender As Object, e As EventArgs) Handles ChoasePicureButton.Click
@@ -645,7 +645,7 @@ Public Class ItemsMenu
                 ToolStripStatusLabel4.Text = c.Dr("UserName")
                 ID_ToolStripLabel.Text = c.Dr("IM_ID")
                 GM_Group_CM.SelectedValue = c.Dr("Grp_ID")
-                Markter_Val_txt.Text = c.Dr("Markter_Val")
+                '   Markter_Val_txt.Text = c.Dr("Markter_Val")
                 ToolStripStatusLabel9.Text = c.Dr("Date")
                 IMDataGridViewX.Visible = False
 
@@ -778,7 +778,7 @@ Public Class ItemsMenu
             If Me.IM_Photo.Image IsNot Nothing Then .Parameters.AddWithValue("@IM_Full_Photo", IM_PH_PATH)
             .Parameters.AddWithValue("@Notes", Me.Notes_txt.Text)
             .Parameters.AddWithValue("@Def_U_ID", Def_U_ID)
-            .Parameters.AddWithValue("@Markter_Val", Markter_Val_txt.Text)
+            ' .Parameters.AddWithValue("@Markter_Val", Markter_Val_txt.Text)
 
         End With
 
@@ -788,10 +788,10 @@ Public Class ItemsMenu
 
             If is_New_IM = True Then
                 Network_Edit_Tracker_insert(" إسم الصنف:" & IM_SH_txt.Text & " النوع:" & IM_Type_cm.Text & " التصنيف:" & GM_Serach.Text & " الرقم:" & IM_Num_txt.Text & " الصلاحية:" _
-                           & Valid_St & " إضافة للإختصارات:" & isShort_St & " تكلفة القطعة:" & IM_Cost_txt.Text & " عمولة المسوق:" & Markter_Val_txt.Text, IM_ID, 20, 1)
+                           & Valid_St & " إضافة للإختصارات:" & isShort_St & " تكلفة القطعة:" & IM_Cost_txt.Text, IM_ID, 20, 1)
             Else
                 Network_Edit_Tracker_insert(" الإسم السابق:" & IM_Name_ToolStrip.Text & " إسم الصنف:" & IM_SH_txt.Text & " النوع:" & IM_Type_cm.Text & " التصنيف:" & GM_Serach.Text & " الرقم:" & IM_Num_txt.Text & " الصلاحية:" _
-                               & Valid_St & " إضافة للإختصارات:" & isShort_St & " تكلفة القطعة:" & IM_Cost_txt.Text & " عمولة المسوق:" & Markter_Val_txt.Text, IM_ID, 20, 3)
+                               & Valid_St & " إضافة للإختصارات:" & isShort_St & " تكلفة القطعة:" & IM_Cost_txt.Text, IM_ID, 20, 3)
             End If
 
 
@@ -1781,11 +1781,11 @@ Public Class ItemsMenu
     '    End Try
     'End Sub
 
-    Private Sub Markter_Val_txt_TextChanged(sender As Object, e As EventArgs) Handles Markter_Val_txt.TextChanged
+    Private Sub Markter_Val_txt_TextChanged(sender As Object, e As EventArgs)
         Check_Point_in_FloatNum(sender, e)
     End Sub
 
-    Private Sub Markter_Val_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Markter_Val_txt.KeyPress
+    Private Sub Markter_Val_txt_KeyPress(sender As Object, e As KeyPressEventArgs)
         Check_Only_Float(sender, e)
     End Sub
 
@@ -1819,14 +1819,14 @@ Public Class ItemsMenu
     End Sub
 
     Private Sub IM_BoxCost_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_BoxCost_txt.KeyDown
-        If e.KeyCode = Keys.Return Then
-            If Markter_Val_txt.Enabled = True Then
-                Markter_Val_txt.Select()
-                'Else
-                '    Barcode_SH_txt.Select()
-            End If
+        'If e.KeyCode = Keys.Return Then
+        '    If Markter_Val_txt.Enabled = True Then
+        '        Markter_Val_txt.Select()
+        '        'Else
+        '        '    Barcode_SH_txt.Select()
+        '    End If
 
-        End If
+        'End If
     End Sub
 
     Private Sub Open_Camera_btn_Click(sender As Object, e As EventArgs) Handles Open_Camera_btn.Click

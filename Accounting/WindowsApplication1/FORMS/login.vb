@@ -249,7 +249,7 @@ Public Class login
     Private Sub OpenTreeMainForm()
         Me.Hide()
         Tree_MainForm.OpenedFromCPOS = OpenedFromCPOS
-        Tree_MainForm.ShowDialog()
+        Tree_MainForm.Show()
 
         If OpenedFromCPOS Then
             Me.Close()

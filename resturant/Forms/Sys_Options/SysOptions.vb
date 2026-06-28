@@ -227,14 +227,14 @@ Public Class SysOptions
         If Not S_Use_AccountingPortal Then Exit Sub
 
         Dim frm As New FrmSystemAccountLinks   'FrmAccountingPostingSettings(MY_Settings.SqlConStr, USER_ID)
-        frm.ShowDialog()
+        frm.Show()
     End Sub
 
     Private Sub Tree_AG_Button_Click(sender As Object, e As EventArgs) Handles Tree_AG_Button.Click
         If Not S_Use_AccountingPortal Then Exit Sub
 
         Dim f As New FRM_ACC_ENTITY_LINKS_MANAGER
-        f.ShowDialog()
+        f.Show()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click

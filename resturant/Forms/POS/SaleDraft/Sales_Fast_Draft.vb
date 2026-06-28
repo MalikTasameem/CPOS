@@ -110,7 +110,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Public Sub PrintCurrentBill()
 
-        Dim EstimatedHeight As Integer = 520 + (dgvSales.Rows.Count * 30)
+        Dim EstimatedHeight As Integer = 520 + (dgvSales.Rows.Count * 30) + Math.Max(0, EstimateReceiptBillNotesHeight(Print_BillNotes) - 40)
 
         If String.IsNullOrWhiteSpace(Default_Printer_80) Then
             MsgBox("لم يتم تحديد طابعة البيع السريع الإفتراضية", MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
@@ -267,9 +267,38 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         g.DrawString("طُبعت في: " & Now.ToString("yyyy-MM-dd HH:mm:ss"), fontSmallBold, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 15), fmtCenter)
         Print_Y += 25
 
-        g.DrawString(Print_BillNotes, fontBodyBold, Brushes.Black, New Rectangle(5, Print_Y, PaperWidth, 40), fmtCenter)
+        DrawReceiptBillNotes(g, Print_BillNotes, fontBodyBold, Print_Y, PaperWidth)
 
         e.HasMorePages = False
+    End Sub
+
+    Private Function EstimateReceiptBillNotesHeight(notesText As String) As Integer
+        If String.IsNullOrWhiteSpace(notesText) Then Return 0
+
+        Dim normalizedText As String = notesText.Replace(vbCrLf, vbLf).Replace(vbCr, vbLf)
+        Dim estimatedLines As Integer = 0
+
+        For Each line As String In normalizedText.Split(ControlChars.Lf)
+            estimatedLines += Math.Max(1, CInt(Math.Ceiling(Math.Max(1, line.Length) / 32.0R)))
+        Next
+
+        Return Math.Max(40, (estimatedLines * 18) + 10)
+    End Function
+
+    Private Sub DrawReceiptBillNotes(g As Graphics, notesText As String, font As Font, ByRef y As Integer, paperWidth As Integer)
+        If String.IsNullOrWhiteSpace(notesText) Then Exit Sub
+
+        Using notesFormat As New StringFormat() With {
+            .Alignment = StringAlignment.Center,
+            .LineAlignment = StringAlignment.Near,
+            .Trimming = StringTrimming.Word
+        }
+            Dim rectWidth As Integer = Math.Max(20, paperWidth - 10)
+            Dim textSize As SizeF = g.MeasureString(notesText, font, rectWidth, notesFormat)
+            Dim notesHeight As Integer = Math.Max(40, CInt(Math.Ceiling(textSize.Height)) + 8)
+            g.DrawString(notesText, font, Brushes.Black, New Rectangle(5, y, rectWidth, notesHeight), notesFormat)
+            y += notesHeight
+        End Using
     End Sub
 
     ' دالة توزيع النص (مضغوطة جداً لتناسب 265 بكسل)

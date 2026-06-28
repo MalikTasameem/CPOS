@@ -23,7 +23,7 @@ Public Class Recount_IM_Cost
         Me.Text += " : " & F_ItemsMenu.IM_SH_txt.Text
 
         Cost_txt.Text = F_ItemsMenu.IM_Cost_txt.Text
-        Markter_Val_txt.Text = F_ItemsMenu.Markter_Val_txt.Text
+        '  Markter_Val_txt.Text = F_ItemsMenu.Markter_Val_txt.Text
 
     End Sub
 
@@ -67,7 +67,7 @@ Public Class Recount_IM_Cost
             MsgBox("تم التدوير", MsgBoxStyle.Information, "")
 
             If Edit_OnCard_CB.Checked = True Then F_ItemsMenu.IM_Cost_txt.Text = Cost_txt.Text
-            If Edit_Markval_OnCard_CB.Checked = True Then F_ItemsMenu.Markter_Val_txt.Text = Markter_Val_txt.Text
+            'If Edit_Markval_OnCard_CB.Checked = True Then F_ItemsMenu.Markter_Val_txt.Text = Markter_Val_txt.Text
         End If
 
     End Sub

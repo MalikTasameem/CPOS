@@ -134,9 +134,6 @@ Partial Class ItemsMenu
         Me.Unit_cargo_txt = New System.Windows.Forms.TextBox()
         Me.Open_Camera_btn = New System.Windows.Forms.Button()
         Me.DeleteU_btn = New System.Windows.Forms.Button()
-        Me.Markter_Panel = New System.Windows.Forms.Panel()
-        Me.Markter_Val_txt = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
         Me.InsertU_btn = New System.Windows.Forms.Button()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.Random_Barcode_btn = New System.Windows.Forms.Button()
@@ -217,7 +214,6 @@ Partial Class ItemsMenu
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Cost_Panel.SuspendLayout()
-        Me.Markter_Panel.SuspendLayout()
         CType(Me.IM_Photo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Min_SP_Panel.SuspendLayout()
         Me.TouchTabPage.SuspendLayout()
@@ -246,11 +242,11 @@ Partial Class ItemsMenu
         '
         Me.BarCode_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BarCode_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.BarCode_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BarCode_txt.Location = New System.Drawing.Point(544, 366)
+        Me.BarCode_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.BarCode_txt.Location = New System.Drawing.Point(550, 370)
         Me.BarCode_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.BarCode_txt.Name = "BarCode_txt"
-        Me.BarCode_txt.Size = New System.Drawing.Size(135, 27)
+        Me.BarCode_txt.Size = New System.Drawing.Size(135, 26)
         Me.BarCode_txt.TabIndex = 142
         Me.BarCode_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -278,7 +274,7 @@ Partial Class ItemsMenu
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label6.Location = New System.Drawing.Point(629, 342)
+        Me.Label6.Location = New System.Drawing.Point(600, 352)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(36, 15)
@@ -772,7 +768,7 @@ Partial Class ItemsMenu
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.Location = New System.Drawing.Point(803, 339)
+        Me.Label5.Location = New System.Drawing.Point(814, 352)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(39, 15)
@@ -785,7 +781,7 @@ Partial Class ItemsMenu
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(442, 343)
+        Me.Label3.Location = New System.Drawing.Point(445, 352)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(54, 15)
@@ -796,6 +792,7 @@ Partial Class ItemsMenu
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.WinPrice_Lb)
+        Me.GroupBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(4, 348)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
@@ -808,7 +805,7 @@ Partial Class ItemsMenu
         'WinPrice_Lb
         '
         Me.WinPrice_Lb.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.WinPrice_Lb.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.WinPrice_Lb.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.WinPrice_Lb.ForeColor = System.Drawing.Color.Black
         Me.WinPrice_Lb.Location = New System.Drawing.Point(3, 20)
         Me.WinPrice_Lb.Name = "WinPrice_Lb"
@@ -866,8 +863,8 @@ Partial Class ItemsMenu
         '
         Me.Price_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Price_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.Price_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
-        Me.Price_txt.Location = New System.Drawing.Point(426, 367)
+        Me.Price_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.Price_txt.Location = New System.Drawing.Point(431, 370)
         Me.Price_txt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Price_txt.Name = "Price_txt"
         Me.Price_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -882,13 +879,13 @@ Partial Class ItemsMenu
         Me.IM_Unit_cm.BackColor = System.Drawing.SystemColors.Info
         Me.IM_Unit_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Unit_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
         Me.IM_Unit_cm.FormattingEnabled = True
         Me.IM_Unit_cm.Items.AddRange(New Object() {"قصيرة", "طويلة"})
-        Me.IM_Unit_cm.Location = New System.Drawing.Point(748, 363)
+        Me.IM_Unit_cm.Location = New System.Drawing.Point(748, 370)
         Me.IM_Unit_cm.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
-        Me.IM_Unit_cm.Size = New System.Drawing.Size(110, 29)
+        Me.IM_Unit_cm.Size = New System.Drawing.Size(110, 27)
         Me.IM_Unit_cm.TabIndex = 432
         '
         'IMDataGridViewX
@@ -1165,7 +1162,6 @@ Partial Class ItemsMenu
         Me.TabPage1.Controls.Add(Me.Open_Camera_btn)
         Me.TabPage1.Controls.Add(Me.GroupBox1)
         Me.TabPage1.Controls.Add(Me.DeleteU_btn)
-        Me.TabPage1.Controls.Add(Me.Markter_Panel)
         Me.TabPage1.Controls.Add(Me.InsertU_btn)
         Me.TabPage1.Controls.Add(Me.Label3)
         Me.TabPage1.Controls.Add(Me.IM_Unit_cm)
@@ -1238,7 +1234,7 @@ Partial Class ItemsMenu
         Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label27.Location = New System.Drawing.Point(692, 347)
+        Me.Label27.Location = New System.Drawing.Point(692, 352)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(44, 15)
         Me.Label27.TabIndex = 704
@@ -1249,13 +1245,13 @@ Partial Class ItemsMenu
         '
         Me.Unit_cargo_txt.BackColor = System.Drawing.SystemColors.Info
         Me.Unit_cargo_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Unit_cargo_txt.Font = New System.Drawing.Font("Times New Roman", 12.75!)
+        Me.Unit_cargo_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
         Me.Unit_cargo_txt.ForeColor = System.Drawing.Color.Black
-        Me.Unit_cargo_txt.Location = New System.Drawing.Point(688, 365)
+        Me.Unit_cargo_txt.Location = New System.Drawing.Point(688, 370)
         Me.Unit_cargo_txt.MaxLength = 250
         Me.Unit_cargo_txt.Name = "Unit_cargo_txt"
         Me.Unit_cargo_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Unit_cargo_txt.Size = New System.Drawing.Size(55, 27)
+        Me.Unit_cargo_txt.Size = New System.Drawing.Size(55, 26)
         Me.Unit_cargo_txt.TabIndex = 703
         Me.Unit_cargo_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1286,8 +1282,8 @@ Partial Class ItemsMenu
         Me.DeleteU_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.DeleteU_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DeleteU_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DeleteU_btn.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DeleteU_btn.Location = New System.Drawing.Point(169, 365)
+        Me.DeleteU_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.DeleteU_btn.Location = New System.Drawing.Point(181, 370)
         Me.DeleteU_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.DeleteU_btn.Name = "DeleteU_btn"
         Me.DeleteU_btn.Size = New System.Drawing.Size(38, 28)
@@ -1295,51 +1291,14 @@ Partial Class ItemsMenu
         Me.DeleteU_btn.Text = "-"
         Me.DeleteU_btn.UseVisualStyleBackColor = False
         '
-        'Markter_Panel
-        '
-        Me.Markter_Panel.Controls.Add(Me.Markter_Val_txt)
-        Me.Markter_Panel.Controls.Add(Me.Label12)
-        Me.Markter_Panel.Location = New System.Drawing.Point(276, 294)
-        Me.Markter_Panel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Markter_Panel.Name = "Markter_Panel"
-        Me.Markter_Panel.Size = New System.Drawing.Size(375, 33)
-        Me.Markter_Panel.TabIndex = 678
-        '
-        'Markter_Val_txt
-        '
-        Me.Markter_Val_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Markter_Val_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Markter_Val_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.Markter_Val_txt.Font = New System.Drawing.Font("Stencil", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Markter_Val_txt.Location = New System.Drawing.Point(2, 3)
-        Me.Markter_Val_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Markter_Val_txt.Name = "Markter_Val_txt"
-        Me.Markter_Val_txt.Size = New System.Drawing.Size(162, 26)
-        Me.Markter_Val_txt.TabIndex = 466
-        Me.Markter_Val_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label12
-        '
-        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label12.AutoSize = True
-        Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(168, 4)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(143, 19)
-        Me.Label12.TabIndex = 467
-        Me.Label12.Text = "عمولة المسوق للقطعة"
-        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'InsertU_btn
         '
         Me.InsertU_btn.BackColor = System.Drawing.Color.White
         Me.InsertU_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.InsertU_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.InsertU_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.InsertU_btn.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.InsertU_btn.Location = New System.Drawing.Point(208, 365)
+        Me.InsertU_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.InsertU_btn.Location = New System.Drawing.Point(220, 370)
         Me.InsertU_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.InsertU_btn.Name = "InsertU_btn"
         Me.InsertU_btn.Size = New System.Drawing.Size(38, 28)
@@ -1366,8 +1325,8 @@ Partial Class ItemsMenu
         Me.Random_Barcode_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Random_Barcode_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Random_Barcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Random_Barcode_btn.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Random_Barcode_btn.Location = New System.Drawing.Point(513, 367)
+        Me.Random_Barcode_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.Random_Barcode_btn.Location = New System.Drawing.Point(519, 370)
         Me.Random_Barcode_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Random_Barcode_btn.Name = "Random_Barcode_btn"
         Me.Random_Barcode_btn.Size = New System.Drawing.Size(30, 26)
@@ -1508,10 +1467,10 @@ Partial Class ItemsMenu
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_2_txt)
         Me.Min_SP_Panel.Controls.Add(Me.Label23)
         Me.Min_SP_Panel.Controls.Add(Me.Min_SP_txt)
-        Me.Min_SP_Panel.Location = New System.Drawing.Point(248, 333)
+        Me.Min_SP_Panel.Location = New System.Drawing.Point(259, 338)
         Me.Min_SP_Panel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Min_SP_Panel.Name = "Min_SP_Panel"
-        Me.Min_SP_Panel.Size = New System.Drawing.Size(177, 63)
+        Me.Min_SP_Panel.Size = New System.Drawing.Size(171, 63)
         Me.Min_SP_Panel.TabIndex = 465
         '
         'Label26
@@ -1520,7 +1479,7 @@ Partial Class ItemsMenu
         Me.Label26.AutoSize = True
         Me.Label26.BackColor = System.Drawing.Color.Transparent
         Me.Label26.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label26.Location = New System.Drawing.Point(4, 8)
+        Me.Label26.Location = New System.Drawing.Point(8, 14)
         Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(65, 15)
@@ -1533,8 +1492,8 @@ Partial Class ItemsMenu
         Me.Min_SP_2_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Min_SP_2_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Min_SP_2_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.Min_SP_2_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
-        Me.Min_SP_2_txt.Location = New System.Drawing.Point(3, 32)
+        Me.Min_SP_2_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.Min_SP_2_txt.Location = New System.Drawing.Point(1, 32)
         Me.Min_SP_2_txt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Min_SP_2_txt.Name = "Min_SP_2_txt"
         Me.Min_SP_2_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1548,7 +1507,7 @@ Partial Class ItemsMenu
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.Transparent
         Me.Label23.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label23.Location = New System.Drawing.Point(94, 8)
+        Me.Label23.Location = New System.Drawing.Point(92, 14)
         Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(63, 15)
@@ -1561,8 +1520,8 @@ Partial Class ItemsMenu
         Me.Min_SP_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Min_SP_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Min_SP_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.Min_SP_txt.Font = New System.Drawing.Font("Stencil", 12.0!)
-        Me.Min_SP_txt.Location = New System.Drawing.Point(90, 32)
+        Me.Min_SP_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.Min_SP_txt.Location = New System.Drawing.Point(86, 32)
         Me.Min_SP_txt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Min_SP_txt.Name = "Min_SP_txt"
         Me.Min_SP_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -2441,8 +2400,6 @@ Partial Class ItemsMenu
         Me.TabPage1.PerformLayout()
         Me.Cost_Panel.ResumeLayout(False)
         Me.Cost_Panel.PerformLayout()
-        Me.Markter_Panel.ResumeLayout(False)
-        Me.Markter_Panel.PerformLayout()
         CType(Me.IM_Photo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Min_SP_Panel.ResumeLayout(False)
         Me.Min_SP_Panel.PerformLayout()
@@ -2572,9 +2529,6 @@ Partial Class ItemsMenu
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents Notes_txt As System.Windows.Forms.TextBox
     Friend WithEvents Recount_Cost_btn As System.Windows.Forms.Button
-    Friend WithEvents Markter_Val_txt As System.Windows.Forms.TextBox
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents Markter_Panel As System.Windows.Forms.Panel
     Friend WithEvents ST_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Q_ALERT_T_ID_CL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn

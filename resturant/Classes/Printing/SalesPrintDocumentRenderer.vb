@@ -40,7 +40,7 @@ Public Class SalesPrintDocumentRenderer
                 Return New PaperSize("A6", 413, 583)
             Case "RECEIPT"
                 Dim rowsHeight As Integer = If(PrintData Is Nothing OrElse PrintData.Items Is Nothing, 0, PrintData.Items.Rows.Count * 32)
-                Return New PaperSize("Receipt80", 280, Math.Max(650, 450 + rowsHeight))
+                Return New PaperSize("Receipt80", 280, Math.Max(650, 450 + rowsHeight + EstimateReceiptBottomTextHeight()))
             Case Else
                 Return New PaperSize("A4", 827, 1169)
         End Select
@@ -280,9 +280,8 @@ Public Class SalesPrintDocumentRenderer
 
         If IsSectionVisible("Notes") AndAlso String.IsNullOrWhiteSpace(PrintData.Notes) = False Then
             Using textBrush As New SolidBrush(GetProfileColor(Profile.TextForeColorArgb))
-                g.DrawString("ملاحظات: " & PrintData.Notes, footerFont, textBrush, New Rectangle(bounds.Left, y, bounds.Width, 42), rightFormat)
+                DrawMeasuredTextBlock(g, "ملاحظات: " & PrintData.Notes, footerFont, textBrush, bounds, y, rightFormat, 42)
             End Using
-            y += 44
         End If
 
         If IsSectionVisible("Barcode") AndAlso String.IsNullOrWhiteSpace(PrintData.Barcode) = False Then
@@ -292,10 +291,46 @@ Public Class SalesPrintDocumentRenderer
 
         If IsSectionVisible("Footer") AndAlso String.IsNullOrWhiteSpace(PrintData.Footer) = False Then
             Using footerBrush As New SolidBrush(GetProfileColor(Profile.FooterForeColorArgb))
-                g.DrawString(PrintData.Footer, footerFont, footerBrush, New Rectangle(bounds.Left, y, bounds.Width, 38), centerFormat)
+                DrawMeasuredTextBlock(g, PrintData.Footer, footerFont, footerBrush, bounds, y, centerFormat, 38)
             End Using
-            y += 40
         End If
+    End Sub
+
+    Private Function EstimateReceiptBottomTextHeight() As Integer
+        If PrintData Is Nothing Then Return 0
+
+        Dim extraHeight As Integer = 0
+        extraHeight += Math.Max(0, EstimateTextBlockHeight(PrintData.Notes, 32, 42) - 42)
+        extraHeight += Math.Max(0, EstimateTextBlockHeight(PrintData.Footer, 32, 38) - 38)
+
+        Return extraHeight
+    End Function
+
+    Private Function EstimateTextBlockHeight(text As String, charsPerLine As Integer, minHeight As Integer) As Integer
+        If String.IsNullOrWhiteSpace(text) Then Return 0
+
+        Dim normalizedText As String = text.Replace(vbCrLf, vbLf).Replace(vbCr, vbLf)
+        Dim estimatedLines As Integer = 0
+
+        For Each line As String In normalizedText.Split(ControlChars.Lf)
+            estimatedLines += Math.Max(1, CInt(Math.Ceiling(Math.Max(1, line.Length) / CDbl(charsPerLine))))
+        Next
+
+        Return Math.Max(minHeight, (estimatedLines * 18) + 10)
+    End Function
+
+    Private Sub DrawMeasuredTextBlock(g As Graphics, text As String, font As Font, brush As Brush, bounds As Rectangle, ByRef y As Integer, baseFormat As StringFormat, minHeight As Integer)
+        If String.IsNullOrWhiteSpace(text) Then Exit Sub
+
+        Using blockFormat As StringFormat = DirectCast(baseFormat.Clone(), StringFormat)
+            blockFormat.LineAlignment = StringAlignment.Near
+            blockFormat.Trimming = StringTrimming.Word
+
+            Dim textSize As SizeF = g.MeasureString(text, font, bounds.Width, blockFormat)
+            Dim blockHeight As Integer = Math.Max(minHeight, CInt(Math.Ceiling(textSize.Height)) + 8)
+            g.DrawString(text, font, brush, New Rectangle(bounds.Left, y, bounds.Width, blockHeight), blockFormat)
+            y += blockHeight + 2
+        End Using
     End Sub
 
     Private Sub DrawSummaryRow(g As Graphics, label As String, value As String, x As Integer, y As Integer, width As Integer, font As Font, rightFormat As StringFormat, leftFormat As StringFormat)

@@ -1595,7 +1595,7 @@ Public Class MainForm
 
     Private Sub Sys_Setting_btn_Click_1(sender As Object, e As EventArgs) Handles Sys_Setting_btn.Click
         F_SysOptions = New SysOptions
-        F_SysOptions.ShowDialog()
+        F_SysOptions.Show()
     End Sub
 
     Private Sub Serv_Desc_lb_KeyDown(sender As Object, e As KeyEventArgs) Handles Serv_Label.KeyDown
