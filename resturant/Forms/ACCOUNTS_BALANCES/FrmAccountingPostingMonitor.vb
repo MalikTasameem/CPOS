@@ -206,6 +206,13 @@ ORDER BY [Date] DESC, T_ID DESC;
             UpdateCounters(dt)
             UpdateInventoryRecountDraftCount()
 
+
+            UcGridColumnsSelector1.BindGrid(
+dgvPosting,
+New List(Of String) From {""},
+Me.Name.ToString
+ )
+
             dgvJournal.DataSource = Nothing
             If Not _isPostingLockedByInventoryRecount Then
                 lblStatusMessage.Text = "تم تحميل البيانات"
@@ -323,6 +330,8 @@ WHERE Status = @Status;
     Private Sub FormatPostingGrid()
         If dgvPosting.Columns.Count = 0 Then Return
 
+        ApplyPostingGridCompactFont()
+
         SetHeader("SourceTable", "المصدر", 90)
         SetHeader("T_ID", "رقم الحركة", 90)
         SetHeader("Date", "التاريخ", 110)
@@ -358,6 +367,22 @@ WHERE Status = @Status;
         FormatNumericColumn("Total")
         FormatNumericColumn("Discount")
         FormatNumericColumn("Pure")
+    End Sub
+
+    Private Sub ApplyPostingGridCompactFont()
+        With dgvPosting
+            .Font = New Font("Segoe UI Semibold", 8.0!, FontStyle.Bold)
+            .DefaultCellStyle.Font = New Font("Segoe UI Semibold", 8.0!, FontStyle.Bold)
+            .RowsDefaultCellStyle.Font = New Font("Segoe UI Semibold", 8.0!, FontStyle.Bold)
+            .AlternatingRowsDefaultCellStyle.Font = New Font("Segoe UI Semibold", 8.0!, FontStyle.Bold)
+            .ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 8.0!, FontStyle.Bold)
+            .ColumnHeadersHeight = 30
+            .RowTemplate.Height = 27
+
+            For Each row As DataGridViewRow In .Rows
+                row.Height = 27
+            Next
+        End With
     End Sub
 
     Private Sub SetHeader(columnName As String, headerText As String, width As Integer)
@@ -750,8 +775,8 @@ SELECT
     b.Notes,
     b.Bill_Num,
     b.DATE_IN,
-    b.USER_ID
-FROM dbo.ACC_BALANCE b
+    b.UserName
+FROM dbo.ACC_BALANCE_V b
 WHERE b.B_T_ID = @JournalId
 ORDER BY b.T_ID;
 "
@@ -815,8 +840,8 @@ ORDER BY b.T_ID;
             dgvJournal.Columns("DATE_IN").HeaderText = "تاريخ الإدخال"
         End If
 
-        If dgvJournal.Columns.Contains("USER_ID") Then
-            dgvJournal.Columns("USER_ID").HeaderText = "المستخدم"
+        If dgvJournal.Columns.Contains("UserName") Then
+            dgvJournal.Columns("UserName").HeaderText = "المستخدم"
         End If
     End Sub
 
@@ -898,6 +923,7 @@ ORDER BY b.T_ID;
     Private Sub FrmAccountingPostingMonitor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' تطبيق الثيم الإجباري
         ThemeManager.ApplyThemeToForm(Me)
+        ApplyPostingGridCompactFont()
         UpdateInventoryRecountDraftCount()
     End Sub
 
@@ -909,12 +935,6 @@ ORDER BY b.T_ID;
         UpdateInventoryRecountDraftCount()
         LoadPostingMonitor()
     End Sub
-
-    Private Sub btnPostAll_Click_1(sender As Object, e As EventArgs) Handles btnPostAll.Click
-
-    End Sub
-
-
 
 #End Region
 

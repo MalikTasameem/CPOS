@@ -56,10 +56,10 @@ Partial Class FrmAccountingPostingMonitor
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlTop = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.IM_RECOUNT_COST_Link = New System.Windows.Forms.LinkLabel()
@@ -95,6 +95,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblPostedCount = New System.Windows.Forms.Label()
         Me.lblUnpostedCount = New System.Windows.Forms.Label()
         Me.lblStatusMessage = New System.Windows.Forms.Label()
+        Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         Me.pnlTop.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.pnlActions.SuspendLayout()
@@ -115,7 +116,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.pnlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlTop.Location = New System.Drawing.Point(0, 0)
         Me.pnlTop.Name = "pnlTop"
-        Me.pnlTop.Padding = New System.Windows.Forms.Padding(9, 9, 9, 9)
+        Me.pnlTop.Padding = New System.Windows.Forms.Padding(9)
         Me.pnlTop.Size = New System.Drawing.Size(1097, 146)
         Me.pnlTop.TabIndex = 3
         '
@@ -330,7 +331,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.pnlActions.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlActions.Location = New System.Drawing.Point(0, 146)
         Me.pnlActions.Name = "pnlActions"
-        Me.pnlActions.Padding = New System.Windows.Forms.Padding(9, 9, 9, 9)
+        Me.pnlActions.Padding = New System.Windows.Forms.Padding(9)
         Me.pnlActions.Size = New System.Drawing.Size(1097, 56)
         Me.pnlActions.TabIndex = 2
         '
@@ -340,6 +341,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.flowActions.Controls.Add(Me.btnPostAll)
         Me.flowActions.Controls.Add(Me.btnViewJournal)
         Me.flowActions.Controls.Add(Me.btnClose)
+        Me.flowActions.Controls.Add(Me.UcGridColumnsSelector1)
         Me.flowActions.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flowActions.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
         Me.flowActions.Location = New System.Drawing.Point(9, 9)
@@ -419,7 +421,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlGrid.Location = New System.Drawing.Point(0, 202)
         Me.pnlGrid.Name = "pnlGrid"
-        Me.pnlGrid.Padding = New System.Windows.Forms.Padding(9, 9, 9, 9)
+        Me.pnlGrid.Padding = New System.Windows.Forms.Padding(9)
         Me.pnlGrid.Size = New System.Drawing.Size(1097, 230)
         Me.pnlGrid.TabIndex = 0
         '
@@ -429,23 +431,24 @@ Partial Class FrmAccountingPostingMonitor
         Me.dgvPosting.AllowUserToDeleteRows = False
         Me.dgvPosting.BackgroundColor = System.Drawing.Color.White
         Me.dgvPosting.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Tahoma", 8.0!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPosting.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 8.0!)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPosting.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvPosting.ColumnHeadersHeight = 35
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Tahoma", 8.0!)
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPosting.DefaultCellStyle = DataGridViewCellStyle6
+        Me.dgvPosting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Tahoma", 8.0!)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPosting.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvPosting.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPosting.EnableHeadersVisualStyles = False
         Me.dgvPosting.Location = New System.Drawing.Point(9, 9)
@@ -477,32 +480,32 @@ Partial Class FrmAccountingPostingMonitor
         Me.dgvJournal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvJournal.BackgroundColor = System.Drawing.Color.White
         Me.dgvJournal.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Tahoma", 8.0!)
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvJournal.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Tahoma", 8.0!)
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvJournal.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvJournal.ColumnHeadersHeight = 35
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Tahoma", 8.0!)
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvJournal.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Tahoma", 8.0!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvJournal.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvJournal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvJournal.EnableHeadersVisualStyles = False
-        Me.dgvJournal.Location = New System.Drawing.Point(9, 30)
+        Me.dgvJournal.Location = New System.Drawing.Point(9, 27)
         Me.dgvJournal.Name = "dgvJournal"
         Me.dgvJournal.ReadOnly = True
         Me.dgvJournal.RowHeadersVisible = False
         Me.dgvJournal.RowTemplate.Height = 30
         Me.dgvJournal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvJournal.Size = New System.Drawing.Size(1079, 165)
+        Me.dgvJournal.Size = New System.Drawing.Size(1079, 168)
         Me.dgvJournal.TabIndex = 0
         '
         'lblJournalTitle
@@ -512,7 +515,7 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblJournalTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(55, Byte), Integer), CType(CType(71, Byte), Integer))
         Me.lblJournalTitle.Location = New System.Drawing.Point(9, 0)
         Me.lblJournalTitle.Name = "lblJournalTitle"
-        Me.lblJournalTitle.Size = New System.Drawing.Size(1079, 30)
+        Me.lblJournalTitle.Size = New System.Drawing.Size(1079, 27)
         Me.lblJournalTitle.TabIndex = 1
         Me.lblJournalTitle.Text = "تفاصيل القيد المحاسبي"
         Me.lblJournalTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -586,6 +589,19 @@ Partial Class FrmAccountingPostingMonitor
         Me.lblStatusMessage.Text = "جاهز"
         Me.lblStatusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'UcGridColumnsSelector1
+        '
+        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(524, 3)
+        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
+        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
+        Me.UcGridColumnsSelector1.PopupMinHeight = 120
+        Me.UcGridColumnsSelector1.PopupWidth = 260
+        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
+    "ColumnsSettings"
+        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(111, 35)
+        Me.UcGridColumnsSelector1.TabIndex = 915
+        '
         'FrmAccountingPostingMonitor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -621,4 +637,5 @@ Partial Class FrmAccountingPostingMonitor
 
     Friend WithEvents Panel1 As Panel
     Friend WithEvents IM_RECOUNT_COST_Link As LinkLabel
+    Friend WithEvents UcGridColumnsSelector1 As UcGridColumnsSelector
 End Class

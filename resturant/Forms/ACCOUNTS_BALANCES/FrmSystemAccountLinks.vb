@@ -151,27 +151,6 @@ Public Class FrmSystemAccountLinks
         AddHiddenColumn("TypeIsActive")
         AddHiddenColumn("TypeNotes")
 
-
-        'AddTextColumn("AccountNameAr", "الحساب الأساسي", 220)
-        'AddTextColumn("LinkedAccountDisplay", "الحساب المرتبط", 260)
-        'AddTextColumn("RequiredStatusText", "الإلزام", 80)
-        'AddTextColumn("NaturalStatusText", "الطبيعة", 80)
-        'AddTextColumn("LeafStatusText", "نوع الحساب", 110)
-        'AddTextColumn("DuplicateStatusText", "تكرار الحساب", 100)
-        'AddTextColumn("ActiveStatusText", "الحالة", 80)
-        'AddTextColumn("ValidationMessage", "حالة التحقق", 260)
-
-        'AddHiddenColumn("SystemAccountTypeID")
-        'AddHiddenColumn("AccountKey")
-        'AddHiddenColumn("ACC_T_ID")
-        'AddHiddenColumn("IsValid")
-        'AddHiddenColumn("Required")
-        'AddHiddenColumn("MustBeLeaf")
-        'AddHiddenColumn("AllowSameAccount")
-        'AddHiddenColumn("Expected_ACC_NATURAL")
-        'AddHiddenColumn("TypeIsActive")
-
-
     End Sub
 
     Private Sub AddTextColumn(dataPropertyName As String, headerText As String, fillWeight As Single)

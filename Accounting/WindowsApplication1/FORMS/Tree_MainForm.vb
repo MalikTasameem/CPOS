@@ -304,7 +304,7 @@ Public Class Tree_MainForm
         colIndex += 1
 
         layout.Controls.Add(CreateCard("الإدخال اليومي",
-        {Button5, Button16, Button17, Button22, Button24, Button13}), colIndex, 0)
+        GetDailyEntryButtons()), colIndex, 0)
         colIndex += 1
 
         If includeBudget Then
@@ -325,11 +325,33 @@ Public Class Tree_MainForm
         {Button18, Button15, Button11, Button12, Button14, Button6}), colIndex, 0)
 
         ApplyTreeMainPermissions(layout)
+        ApplyCPOSReceiptButtonsState()
         ApplyStateBudgetVisibility()
         Me.Controls.Add(layout)
         layout.BringToFront()
         ToolStrip1.BringToFront()
         LayoutActivationLabels()
+    End Sub
+
+    Private Function GetDailyEntryButtons() As IEnumerable(Of Button)
+
+        If OpenedFromCPOS Then
+            Return New Button() {Button5, Button22, Button24, Button13}
+        End If
+
+        Return New Button() {Button5, Button16, Button17, Button22, Button24, Button13}
+
+    End Function
+
+    Private Sub ApplyCPOSReceiptButtonsState()
+
+        If OpenedFromCPOS = False Then Exit Sub
+
+        Button16.Visible = False
+        Button16.Enabled = False
+        Button17.Visible = False
+        Button17.Enabled = False
+
     End Sub
 
     Private Function CreateBudgetBasicButtons() As IEnumerable(Of Button)
@@ -872,12 +894,16 @@ Public Class Tree_MainForm
     End Sub
 
     Private Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click
+        If OpenedFromCPOS Then Exit Sub
+
         F_Receipt = New Receipt
         F_Receipt.AG_Type = 3
         F_Receipt.Show()
     End Sub
 
     Private Sub Button17_Click(sender As Object, e As EventArgs) Handles Button17.Click
+        If OpenedFromCPOS Then Exit Sub
+
         F_Receipt = New Receipt
         F_Receipt.AG_Type = 4
         F_Receipt.Show()

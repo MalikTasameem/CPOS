@@ -1524,6 +1524,52 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
+    Private Sub SetSelectedDraftItemPrice(newPrice As Decimal)
+
+        If U_SB_IM_Update = False Then
+            MsgBox("لا تملك صلاحية تعديل سعر بيع الصنف", MsgBoxStyle.Exclamation, "تنبيه")
+            Exit Sub
+        End If
+
+        If CurrentDraft Is Nothing Then Exit Sub
+        If dgvSales.CurrentRow Is Nothing Then Exit Sub
+
+        If newPrice <= 0D Then
+            MsgBox("يجب أن يكون سعر البيع أكبر من صفر", MsgBoxStyle.Exclamation, "تنبيه")
+            Exit Sub
+        End If
+
+        Dim draftLineId As String = dgvSales.CurrentRow.Cells("DraftLineId").Value.ToString()
+
+        Dim item As SaleDraftItem =
+        CurrentDraft.Items.FirstOrDefault(Function(x) x.DraftLineId = draftLineId)
+
+        If item Is Nothing Then Exit Sub
+
+        Dim oldPrice As Decimal = item.Price
+
+        If oldPrice = newPrice Then Exit Sub
+
+        item.Price = newPrice
+        item.T_Price = item.QTY * item.Price
+
+        DraftCalculator.RecalculateDraft(CurrentDraft)
+        DraftManager.SaveDraft(CurrentDraft)
+        LoadDraftToGrid()
+        SelectDraftLine(draftLineId)
+        UpdateDraftTotalsOnScreen()
+        AddDraftLog("سعر",
+                    "تم تعديل سعر بيع الصنف",
+                    "ChangePriceButton",
+                    oldPrice.ToString("0.###"),
+                    newPrice.ToString("0.###"),
+                    item.ItemName,
+                    item.IM_ID,
+                    item.QTY,
+                    item.T_Price)
+
+    End Sub
+
     Private Sub SelectDraftLine(draftLineId As String)
 
         If String.IsNullOrWhiteSpace(draftLineId) Then Exit Sub
@@ -2051,11 +2097,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         End If
         '  Edit_butt.Visible = U_SB_Update
         Show_Cash_btn.Visible = U_SB_Show_Cash
-        'If U_SB_IM_Update = True Then
-        '    IM_Price.ReadOnly = False
-        'Else
-        '    IM_Price.ReadOnly = True
-        'End If
+        ChangePriceButton.Visible = U_SB_IM_Update
+        ChangePriceButton.Enabled = U_SB_IM_Update
         Show_Cash_btn.Visible = S_Pr
         'IM_Profet_btn.Visible = U_Show_Bill_Profet
     End Sub
@@ -2077,6 +2120,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         IMPanel.Enabled = False
         txtNotes.Enabled = False
         IM_Search_btn.Enabled = False
+        ChangePriceButton.Enabled = False
+        ClearDraftItemsButton.Enabled = False
     End Sub
 
     Private Sub Ebable_CatFields()
@@ -2085,6 +2130,8 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         IMPanel.Enabled = True
         txtNotes.Enabled = True
         IM_Search_btn.Enabled = True
+        ChangePriceButton.Enabled = U_SB_IM_Update
+        ClearDraftItemsButton.Enabled = True
     End Sub
 
 
@@ -2462,6 +2509,36 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
+    Private Sub EditSelectedDraftItemPriceByButton()
+
+        If U_SB_IM_Update = False Then
+            MsgBox("لا تملك صلاحية تعديل سعر بيع الصنف", MsgBoxStyle.Exclamation, "تنبيه")
+            Exit Sub
+        End If
+
+        If CurrentDraft Is Nothing Then Exit Sub
+        If dgvSales.Rows.Count = 0 OrElse dgvSales.CurrentRow Is Nothing Then Exit Sub
+
+        Dim priceColumnName As String = ""
+        If dgvSales.Columns.Contains("Price_CL") Then
+            priceColumnName = "Price_CL"
+        ElseIf dgvSales.Columns.Contains("Price") Then
+            priceColumnName = "Price"
+        Else
+            MsgBox("لم يتم العثور على عمود السعر", MsgBoxStyle.Exclamation, "تنبيه")
+            Exit Sub
+        End If
+
+        Dim currentPrice As Decimal = 0D
+        Decimal.TryParse(Convert.ToString(dgvSales.CurrentRow.Cells(priceColumnName).Value), currentPrice)
+
+        Dim selectedPrice As Decimal
+        If ShowTouchPriceDialog(currentPrice, selectedPrice) = DialogResult.OK Then
+            SetSelectedDraftItemPrice(selectedPrice)
+        End If
+
+    End Sub
+
     Private Function IsQuantityColumn(column As DataGridViewColumn) As Boolean
 
         If column Is Nothing Then Return False
@@ -2495,6 +2572,16 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                                      selectedDiscount,
                                      True,
                                      "قيمة التخفيض غير صحيحة")
+
+    End Function
+
+    Private Function ShowTouchPriceDialog(currentPrice As Decimal, ByRef selectedPrice As Decimal) As DialogResult
+
+        Return ShowTouchNumberDialog("إدخال سعر البيع",
+                                     currentPrice,
+                                     selectedPrice,
+                                     False,
+                                     "سعر البيع غير صحيح")
 
     End Function
 
@@ -2980,6 +3067,39 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Else
             AddDraftLog("حذف", "تم حذف سطر من المسودة", "RemoveCatButton")
         End If
+    End Sub
+
+    Private Sub ClearCurrentDraftItems()
+
+        If CurrentDraft Is Nothing Then Exit Sub
+        If CurrentDraft.Items Is Nothing Then CurrentDraft.Items = New List(Of SaleDraftItem)()
+
+        If CurrentDraft.Items.Count = 0 Then
+            MsgBox("لا توجد أصناف داخل المسودة الحالية", MsgBoxStyle.Information, "تنبيه")
+            Exit Sub
+        End If
+
+        If MessageBox.Show("سيتم مسح كل أصناف المسودة الحالية، هل تريد المتابعة؟",
+                           "تأكيد مسح الأصناف",
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Warning,
+                           MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then Exit Sub
+
+        Dim oldItemsCount As Integer = CurrentDraft.Items.Count
+        Dim oldTotal As Decimal = CurrentDraft.Total
+
+        CurrentDraft.Items.Clear()
+        DraftCalculator.RecalculateDraft(CurrentDraft)
+        DraftManager.SaveDraft(CurrentDraft)
+
+        LoadDraftToGrid()
+        UpdateDraftTotalsOnScreen()
+        AddDraftLog("حذف",
+                    "تم مسح كل أصناف المسودة",
+                    "ClearDraftItemsButton",
+                    oldItemsCount.ToString("N0") & " صنف / " & oldTotal.ToString("0.###"),
+                    "0 صنف / 0")
+
     End Sub
 
     Private Sub EnsureDraftExists()
@@ -3891,6 +4011,16 @@ Me.Name.ToString
     Private Sub QTY_Btn_Click(sender As Object, e As EventArgs) Handles QTY_Btn.Click
         AddDraftLog("زر", "فتح تعديل كمية الصنف المحدد", "QTY_Btn")
         EditSelectedDraftItemQtyByButton()
+    End Sub
+
+    Private Sub ChangePriceButton_Click(sender As Object, e As EventArgs) Handles ChangePriceButton.Click
+        AddDraftLog("زر", "فتح تعديل سعر بيع الصنف المحدد", "ChangePriceButton")
+        EditSelectedDraftItemPriceByButton()
+    End Sub
+
+    Private Sub ClearDraftItemsButton_Click(sender As Object, e As EventArgs) Handles ClearDraftItemsButton.Click
+        AddDraftLog("زر", "طلب مسح كل أصناف المسودة", "ClearDraftItemsButton")
+        ClearCurrentDraftItems()
     End Sub
 
     Private Sub Units_btn_Click(sender As Object, e As EventArgs) Handles Units_btn.Click

@@ -994,7 +994,7 @@ Public Class MainForm
     End Sub
 
     Private Function CanUseAccountingPortal() As Boolean
-        Return S_Use_AccountingPortal AndAlso (User_isAdmin OrElse U_Balance)
+        Return S_Use_AccountingPortal
     End Function
 
     Private Sub RefreshAccountingPortalAccess()

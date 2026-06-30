@@ -582,10 +582,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     End Function
 
 
-
-
-
-
     Private Sub GET_Printer_Type()
         Dim c2 As New C
         c2.Str = "select ID,Type from Sales_Bill_Page"

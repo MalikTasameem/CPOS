@@ -183,7 +183,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         Me.lblSearch.Size = New System.Drawing.Size(65, 24)
         Me.lblSearch.TabIndex = 2
         Me.lblSearch.Text = "بحث:"
-        Me.lblSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbMovement
         '
@@ -200,7 +200,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         Me.lblMovement.Size = New System.Drawing.Size(80, 24)
         Me.lblMovement.TabIndex = 4
         Me.lblMovement.Text = "الحركة:"
-        Me.lblMovement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblMovement.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'chkOnlyIssues
         '
@@ -226,7 +226,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         Me.lblEntityType.Size = New System.Drawing.Size(80, 24)
         Me.lblEntityType.TabIndex = 7
         Me.lblEntityType.Text = "النوع:"
-        Me.lblEntityType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblEntityType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'pnlCards
         '
@@ -426,7 +426,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         '
         'btnRulesSettings
         '
-        Me.btnRulesSettings.Location = New System.Drawing.Point(189, 42)
+        Me.btnRulesSettings.Location = New System.Drawing.Point(177, 44)
         Me.btnRulesSettings.Name = "btnRulesSettings"
         Me.btnRulesSettings.Size = New System.Drawing.Size(120, 30)
         Me.btnRulesSettings.TabIndex = 10
@@ -435,7 +435,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         '
         'btnCreateAllMissingAccounts
         '
-        Me.btnCreateAllMissingAccounts.Location = New System.Drawing.Point(189, 4)
+        Me.btnCreateAllMissingAccounts.Location = New System.Drawing.Point(178, 4)
         Me.btnCreateAllMissingAccounts.Name = "btnCreateAllMissingAccounts"
         Me.btnCreateAllMissingAccounts.Size = New System.Drawing.Size(120, 30)
         Me.btnCreateAllMissingAccounts.TabIndex = 8
@@ -444,7 +444,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         '
         'btnRepairAllLinks
         '
-        Me.btnRepairAllLinks.Location = New System.Drawing.Point(309, 4)
+        Me.btnRepairAllLinks.Location = New System.Drawing.Point(301, 4)
         Me.btnRepairAllLinks.Name = "btnRepairAllLinks"
         Me.btnRepairAllLinks.Size = New System.Drawing.Size(120, 30)
         Me.btnRepairAllLinks.TabIndex = 9
@@ -462,7 +462,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         '
         'btnOpenAccount
         '
-        Me.btnOpenAccount.Location = New System.Drawing.Point(430, 4)
+        Me.btnOpenAccount.Location = New System.Drawing.Point(424, 4)
         Me.btnOpenAccount.Name = "btnOpenAccount"
         Me.btnOpenAccount.Size = New System.Drawing.Size(120, 30)
         Me.btnOpenAccount.TabIndex = 1
@@ -471,7 +471,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         '
         'btnValidateOne
         '
-        Me.btnValidateOne.Location = New System.Drawing.Point(550, 4)
+        Me.btnValidateOne.Location = New System.Drawing.Point(546, 4)
         Me.btnValidateOne.Name = "btnValidateOne"
         Me.btnValidateOne.Size = New System.Drawing.Size(120, 30)
         Me.btnValidateOne.TabIndex = 2
@@ -480,7 +480,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         '
         'btnUnlockLink
         '
-        Me.btnUnlockLink.Location = New System.Drawing.Point(671, 4)
+        Me.btnUnlockLink.Location = New System.Drawing.Point(667, 4)
         Me.btnUnlockLink.Name = "btnUnlockLink"
         Me.btnUnlockLink.Size = New System.Drawing.Size(120, 30)
         Me.btnUnlockLink.TabIndex = 3
@@ -489,7 +489,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         '
         'btnLockLink
         '
-        Me.btnLockLink.Location = New System.Drawing.Point(792, 4)
+        Me.btnLockLink.Location = New System.Drawing.Point(789, 4)
         Me.btnLockLink.Name = "btnLockLink"
         Me.btnLockLink.Size = New System.Drawing.Size(120, 30)
         Me.btnLockLink.TabIndex = 4
@@ -498,7 +498,7 @@ Partial Class FRM_ACC_ENTITY_LINKS_MANAGER
         '
         'btnChangeAccount
         '
-        Me.btnChangeAccount.Location = New System.Drawing.Point(913, 4)
+        Me.btnChangeAccount.Location = New System.Drawing.Point(911, 4)
         Me.btnChangeAccount.Name = "btnChangeAccount"
         Me.btnChangeAccount.Size = New System.Drawing.Size(120, 30)
         Me.btnChangeAccount.TabIndex = 5

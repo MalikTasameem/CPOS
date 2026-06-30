@@ -345,6 +345,8 @@ Public Class Returns : Inherits System.Windows.Forms.Form
 
         Serial_Code_Panel.Visible = S_SerialCode
 
+        PriceTextBox.Enabled = U_SB_IM_Update
+
     End Sub
 
     Public Sub SELECT_MAX()

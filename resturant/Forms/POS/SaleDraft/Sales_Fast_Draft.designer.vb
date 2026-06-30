@@ -35,6 +35,8 @@ Partial Class Sales_Fast_Draft
         Me.PreviousBillsButton = New System.Windows.Forms.Button()
         Me.ChangeCustomerButton = New System.Windows.Forms.Button()
         Me.IM_Search_btn = New System.Windows.Forms.Button()
+        Me.ChangePriceButton = New System.Windows.Forms.Button()
+        Me.ClearDraftItemsButton = New System.Windows.Forms.Button()
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
@@ -240,6 +242,44 @@ Partial Class Sales_Fast_Draft
         Me.IM_Search_btn.Text = "🔎" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "بحث عن صنف"
         Me.MetroToolTip1.SetToolTip(Me.IM_Search_btn, "فتح شاشة البحث عن صنف")
         Me.IM_Search_btn.UseVisualStyleBackColor = False
+        '
+        'ChangePriceButton
+        '
+        Me.ChangePriceButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(14, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(144, Byte), Integer))
+        Me.ChangePriceButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ChangePriceButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(94, Byte), Integer), CType(CType(117, Byte), Integer))
+        Me.ChangePriceButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(8, Byte), Integer), CType(CType(145, Byte), Integer), CType(CType(178, Byte), Integer))
+        Me.ChangePriceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ChangePriceButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.ChangePriceButton.ForeColor = System.Drawing.Color.White
+        Me.ChangePriceButton.Location = New System.Drawing.Point(802, 553)
+        Me.ChangePriceButton.Name = "ChangePriceButton"
+        Me.ChangePriceButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChangePriceButton.Size = New System.Drawing.Size(110, 55)
+        Me.ChangePriceButton.TabIndex = 918
+        Me.ChangePriceButton.TabStop = False
+        Me.ChangePriceButton.Text = "💵" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "تعديل السعر"
+        Me.MetroToolTip1.SetToolTip(Me.ChangePriceButton, "تعديل سعر بيع الصنف المحدد")
+        Me.ChangePriceButton.UseVisualStyleBackColor = False
+        '
+        'ClearDraftItemsButton
+        '
+        Me.ClearDraftItemsButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(185, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer))
+        Me.ClearDraftItemsButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ClearDraftItemsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(29, Byte), Integer), CType(CType(29, Byte), Integer))
+        Me.ClearDraftItemsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.ClearDraftItemsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ClearDraftItemsButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.ClearDraftItemsButton.ForeColor = System.Drawing.Color.White
+        Me.ClearDraftItemsButton.Location = New System.Drawing.Point(691, 553)
+        Me.ClearDraftItemsButton.Name = "ClearDraftItemsButton"
+        Me.ClearDraftItemsButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ClearDraftItemsButton.Size = New System.Drawing.Size(110, 55)
+        Me.ClearDraftItemsButton.TabIndex = 919
+        Me.ClearDraftItemsButton.TabStop = False
+        Me.ClearDraftItemsButton.Text = "🧹" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "مسح الأصناف"
+        Me.MetroToolTip1.SetToolTip(Me.ClearDraftItemsButton, "مسح كل أصناف المسودة الحالية")
+        Me.ClearDraftItemsButton.UseVisualStyleBackColor = False
         '
         'IM_Count_LB
         '
@@ -984,6 +1024,8 @@ Partial Class Sales_Fast_Draft
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1024, 695)
+        Me.Controls.Add(Me.ClearDraftItemsButton)
+        Me.Controls.Add(Me.ChangePriceButton)
         Me.Controls.Add(Me.QTY_Btn)
         Me.Controls.Add(Me.note_Btn)
         Me.Controls.Add(Me.Barcode_SH_txt)
@@ -1110,4 +1152,6 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents UcGridColumnsSelector1 As UcGridColumnsSelector
     Friend WithEvents note_Btn As Button
     Friend WithEvents QTY_Btn As Button
+    Friend WithEvents ChangePriceButton As Button
+    Friend WithEvents ClearDraftItemsButton As Button
 End Class
