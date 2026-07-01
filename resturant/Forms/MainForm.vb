@@ -31,6 +31,8 @@ Public Class MainForm
     Private _validTimerPausedByHover As Boolean = False
     Private Const MinValidTimerSeconds As Integer = 30
     Private Const LoadingAlertKey As String = "__ALERT_LOADING__"
+    Private Const AccountingPortalOpeningTag As String = "ACCOUNTING_PORTAL_OPENING"
+    Private _isAccountingPortalOpening As Boolean = False
     'Dim Open_Bills As String = ""
     Dim drag As Boolean
     Dim mouseX As Integer
@@ -982,8 +984,8 @@ Public Class MainForm
         End If
 
         بوابةالحساباتToolStripMenuItem.Text = "بوابة الحسابات"
-        بوابةالحساباتToolStripMenuItem.BackColor = Color.FromArgb(91, 33, 182)
-        بوابةالحساباتToolStripMenuItem.ForeColor = Color.White
+        بوابةالحساباتToolStripMenuItem.BackColor = Color.FromArgb(248, 250, 252)
+        بوابةالحساباتToolStripMenuItem.ForeColor = Color.FromArgb(15, 23, 42)
         بوابةالحساباتToolStripMenuItem.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
         بوابةالحساباتToolStripMenuItem.Padding = New Padding(8, 0, 8, 0)
         بوابةالحساباتToolStripMenuItem.TextAlign = ContentAlignment.MiddleCenter
@@ -1001,12 +1003,58 @@ Public Class MainForm
         If بوابةالحساباتToolStripMenuItem Is Nothing Then Exit Sub
 
         بوابةالحساباتToolStripMenuItem.Visible = S_Use_AccountingPortal
-        بوابةالحساباتToolStripMenuItem.Enabled = CanUseAccountingPortal()
+        بوابةالحساباتToolStripMenuItem.Enabled = CanUseAccountingPortal() AndAlso Not _isAccountingPortalOpening
 
         If ToolStripSeparatorAccountingPortal IsNot Nothing Then
             ToolStripSeparatorAccountingPortal.Visible = S_Use_AccountingPortal
         End If
     End Sub
+
+    Private Sub SetAccountingPortalOpeningState(isOpening As Boolean)
+
+        _isAccountingPortalOpening = isOpening
+
+        If بوابةالحساباتToolStripMenuItem IsNot Nothing Then
+            If isOpening Then
+                بوابةالحساباتToolStripMenuItem.Text = "جارٍ فتح البوابة..."
+                بوابةالحساباتToolStripMenuItem.ToolTipText = "يتم فتح بوابة الحسابات الآن"
+                بوابةالحساباتToolStripMenuItem.Tag = AccountingPortalOpeningTag
+            Else
+                بوابةالحساباتToolStripMenuItem.Text = "بوابة الحسابات"
+                بوابةالحساباتToolStripMenuItem.ToolTipText = "فتح البوابة المحاسبية"
+                بوابةالحساباتToolStripMenuItem.Tag = Nothing
+            End If
+
+            RefreshAccountingPortalAccess()
+            بوابةالحساباتToolStripMenuItem.Invalidate()
+        End If
+
+        Me.UseWaitCursor = isOpening
+        Me.Cursor = If(isOpening, Cursors.WaitCursor, Cursors.Default)
+        Application.DoEvents()
+
+    End Sub
+
+    Private Function ActivateOpenAccountingPortal() As Boolean
+
+        For Each frm As Form In Application.OpenForms
+            If frm Is Me Then Continue For
+
+            Dim formName As String = frm.GetType().FullName
+            If formName = "Accounting.Tree_MainForm" OrElse formName = "Accounting.login" Then
+                If frm.WindowState = FormWindowState.Minimized Then
+                    frm.WindowState = FormWindowState.Normal
+                End If
+
+                frm.BringToFront()
+                frm.Activate()
+                Return True
+            End If
+        Next
+
+        Return False
+
+    End Function
 
     Private Class AccountingPortalToolStripRenderer
         Inherits ToolStripSystemRenderer
@@ -1015,15 +1063,21 @@ Public Class MainForm
             Return item IsNot Nothing AndAlso item.Name = "بوابةالحساباتToolStripMenuItem"
         End Function
 
+        Private Shared Function IsAccountingPortalOpening(item As ToolStripItem) As Boolean
+            Return item IsNot Nothing AndAlso item.Tag IsNot Nothing AndAlso item.Tag.ToString() = AccountingPortalOpeningTag
+        End Function
+
         Private Shared Sub DrawAccountingPortalBackground(e As ToolStripItemRenderEventArgs)
             Dim rect As New Rectangle(Point.Empty, e.Item.Size)
-            Dim backColor As Color = If(e.Item.Selected, Color.FromArgb(109, 40, 217), Color.FromArgb(91, 33, 182))
+            Dim backColor As Color = If(IsAccountingPortalOpening(e.Item),
+                                        Color.FromArgb(224, 242, 254),
+                                        If(e.Item.Selected, Color.FromArgb(226, 232, 240), Color.FromArgb(248, 250, 252)))
 
             Using backBrush As New SolidBrush(backColor)
                 e.Graphics.FillRectangle(backBrush, rect)
             End Using
 
-            Using borderPen As New Pen(Color.FromArgb(196, 181, 253))
+            Using borderPen As New Pen(Color.FromArgb(203, 213, 225))
                 e.Graphics.DrawRectangle(borderPen, 0, 0, rect.Width - 1, rect.Height - 1)
             End Using
         End Sub
@@ -1048,7 +1102,7 @@ Public Class MainForm
 
         Protected Overrides Sub OnRenderItemText(e As ToolStripItemTextRenderEventArgs)
             If IsAccountingPortalItem(e.Item) Then
-                e.TextColor = Color.White
+                e.TextColor = Color.FromArgb(15, 23, 42)
             End If
 
             MyBase.OnRenderItemText(e)
@@ -3303,17 +3357,41 @@ WHERE isDepended = 1
 
 
     Private Sub بوابةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles بوابةالحساباتToolStripMenuItem.Click
+        If _isAccountingPortalOpening Then Exit Sub
+
         If Not CanUseAccountingPortal() Then
-            MsgBox("بوابة الحسابات غير مفعلة أو لا تملك صلاحية استخدامها.", MsgBoxStyle.Exclamation)
+            MessageBox.Show(Me, "بوابة الحسابات غير مفعلة من إعدادات النظام.", "بوابة الحسابات", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading)
             Exit Sub
         End If
 
-        Accounting.System_Startup()
+        If ActivateOpenAccountingPortal() Then Exit Sub
 
-        Dim F As New Accounting.login
-        F.OpenedFromCPOS = True
-        F.HostUserId = USER_ID
-        F.ShowDialog(Me)
+        Try
+            SetAccountingPortalOpeningState(True)
+
+            Accounting.MY_Settings.SqlConStr = resturant.MY_Settings.SqlConStr
+            Accounting.MY_Settings.AttachDbFilename = resturant.MY_Settings.AttachDbFilename
+            Accounting.MY_Settings.IsAttachDB = resturant.MY_Settings.IsAttachDB
+            Accounting.MY_Settings.S_SERVER = resturant.MY_Settings.S_SERVER
+            Accounting.MY_Settings.DB_Authentication = resturant.MY_Settings.DB_Authentication
+            Accounting.MY_Settings.DB_UName = resturant.MY_Settings.DB_UName
+            Accounting.MY_Settings.DB_Pass = resturant.MY_Settings.DB_Pass
+            Accounting.MY_Settings.DataBase = resturant.MY_Settings.DataBase
+
+            Accounting.MY_Settings.Save_AppSetting()
+
+            Accounting.System_Startup()
+
+
+            Dim F As New Accounting.login
+            F.OpenedFromCPOS = True
+            F.HostUserId = USER_ID
+            F.ShowDialog(Me)
+        Catch ex As Exception
+            MessageBox.Show(Me, "تعذر فتح بوابة الحسابات." & Environment.NewLine & ex.Message, "بوابة الحسابات", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading)
+        Finally
+            SetAccountingPortalOpeningState(False)
+        End Try
     End Sub
 
     Private Sub TitleBar_Panel_Paint(sender As Object, e As PaintEventArgs) Handles TitleBar_Panel.Paint

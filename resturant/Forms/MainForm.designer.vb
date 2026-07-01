@@ -642,6 +642,7 @@ Partial Class MainForm
         'بوابةالحساباتToolStripMenuItem
         '
         Me.بوابةالحساباتToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.بوابةالحساباتToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText
         Me.بوابةالحساباتToolStripMenuItem.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.بوابةالحساباتToolStripMenuItem.Name = "بوابةالحساباتToolStripMenuItem"
         Me.بوابةالحساباتToolStripMenuItem.Size = New System.Drawing.Size(108, 26)
