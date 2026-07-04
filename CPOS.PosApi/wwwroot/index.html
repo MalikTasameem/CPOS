@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CPOS Web POS</title>
+    <link rel="stylesheet" href="assets/app.css?v=20260702-3">
+</head>
+<body>
+    <main id="loginView" class="login-shell">
+        <section class="login-panel">
+            <div class="brand-mark">CPOS</div>
+            <h1>نقاط البيع</h1>
+            <form id="loginForm" class="login-form">
+                <label for="passwordInput">كلمة المرور</label>
+                <div class="login-row">
+                    <input id="passwordInput" type="password" autocomplete="current-password" autofocus>
+                    <button type="submit">دخول</button>
+                </div>
+                <p id="loginMessage" class="message"></p>
+            </form>
+        </section>
+    </main>
+
+    <main id="appView" class="app-shell hidden">
+        <header class="topbar">
+            <div>
+                <div class="app-title">نقطة البيع</div>
+                <div id="sessionInfo" class="session-info"></div>
+            </div>
+            <div class="topbar-actions">
+                <button id="refreshButton" class="ghost-button" type="button">تحديث</button>
+                <button id="logoutButton" class="danger-button" type="button">خروج</button>
+            </div>
+        </header>
+
+        <section class="workspace">
+            <aside class="tables-pane">
+                <div class="pane-head">
+                    <h2>الطاولات</h2>
+                    <span id="tablesCount" class="count-badge">0</span>
+                </div>
+                <div class="segmented">
+                    <button class="active" type="button" data-status="all">الكل</button>
+                    <button type="button" data-status="open">المفتوحة</button>
+                    <button type="button" data-status="free">الشاغرة</button>
+                </div>
+                <div id="tablesList" class="tables-list"></div>
+            </aside>
+
+            <section class="bill-pane">
+                <div class="bill-head">
+                    <div>
+                        <h2 id="billTitle">الفاتورة</h2>
+                        <div id="billMeta" class="muted">لم يتم اختيار طاولة</div>
+                    </div>
+                    <button id="sendOrderButton" class="primary-button" type="button" disabled>إرسال الطلب</button>
+                </div>
+
+                <div id="billItems" class="bill-items empty-state">اختر طاولة لفتح الفاتورة</div>
+
+                <footer class="bill-total">
+                    <div>
+                        <span>الإجمالي</span>
+                        <strong id="billTotal">0.000</strong>
+                    </div>
+                    <div>
+                        <span>التخفيض</span>
+                        <strong id="billDiscount">0.000</strong>
+                    </div>
+                    <div>
+                        <span>الصافي</span>
+                        <strong id="billPure">0.000</strong>
+                    </div>
+                </footer>
+            </section>
+
+            <aside class="items-pane">
+                <div class="pane-head">
+                    <h2>الأصناف</h2>
+                    <span id="itemsCount" class="count-badge">0</span>
+                </div>
+                <input id="itemSearchInput" class="search-input" type="search" placeholder="بحث">
+                <div id="groupsList" class="groups-list"></div>
+                <div id="itemsList" class="items-list"></div>
+            </aside>
+        </section>
+    </main>
+
+    <div id="itemEditDialog" class="dialog-backdrop hidden" role="dialog" aria-modal="true">
+        <section class="dialog-card">
+            <div class="dialog-head">
+                <h2 id="itemEditTitle">تعديل الصنف</h2>
+                <button id="closeItemEditButton" class="icon-button" type="button" aria-label="إغلاق">×</button>
+            </div>
+            <label for="editUnitSelect">الوحدة</label>
+            <select id="editUnitSelect" class="dialog-input"></select>
+            <label for="editNotesInput">ملاحظات الصنف</label>
+            <textarea id="editNotesInput" class="dialog-input notes-input" maxlength="500"></textarea>
+            <div class="dialog-actions">
+                <button id="cancelItemEditButton" class="ghost-action" type="button">إلغاء</button>
+                <button id="saveItemEditButton" class="primary-button" type="button">حفظ</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="assets/app.js?v=20260702-3"></script>
+</body>
+</html>

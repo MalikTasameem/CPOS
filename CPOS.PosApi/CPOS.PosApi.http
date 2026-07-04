@@ -1,0 +1,98 @@
+@CPOS.PosApi_HostAddress = http://localhost:5185
+@AuthToken = PUT_LOGIN_TOKEN_HERE
+
+POST {{CPOS.PosApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "password": "123"
+}
+
+###
+
+GET {{CPOS.PosApi_HostAddress}}/api/tables?status=all&includeLayout=true
+Accept: application/json
+Authorization: Bearer {{AuthToken}}
+
+###
+
+GET {{CPOS.PosApi_HostAddress}}/api/pos/bootstrap
+Accept: application/json
+Authorization: Bearer {{AuthToken}}
+
+###
+
+GET {{CPOS.PosApi_HostAddress}}/api/pos/groups
+Accept: application/json
+Authorization: Bearer {{AuthToken}}
+
+###
+
+GET {{CPOS.PosApi_HostAddress}}/api/pos/items?groupId=1
+Accept: application/json
+Authorization: Bearer {{AuthToken}}
+
+###
+
+GET {{CPOS.PosApi_HostAddress}}/api/pos/items/1/units
+Accept: application/json
+Authorization: Bearer {{AuthToken}}
+
+###
+
+GET {{CPOS.PosApi_HostAddress}}/api/pos/items/by-barcode/123456
+Accept: application/json
+Authorization: Bearer {{AuthToken}}
+
+###
+
+POST {{CPOS.PosApi_HostAddress}}/api/tables/1/open-bill
+Content-Type: application/json
+Authorization: Bearer {{AuthToken}}
+
+{
+  "userId": 1,
+  "billTypeId": 3
+}
+
+###
+
+GET {{CPOS.PosApi_HostAddress}}/api/bills/1
+Accept: application/json
+Authorization: Bearer {{AuthToken}}
+
+###
+
+POST {{CPOS.PosApi_HostAddress}}/api/bills/1/items
+Content-Type: application/json
+Authorization: Bearer {{AuthToken}}
+
+{
+  "itemId": 1,
+  "storeId": 1,
+  "unitItemId": 1,
+  "quantity": 1,
+  "salesTypeId": 0
+}
+
+###
+
+PATCH {{CPOS.PosApi_HostAddress}}/api/bills/items/1/qty
+Content-Type: application/json
+Authorization: Bearer {{AuthToken}}
+
+{
+  "changeBy": 1
+}
+
+###
+
+POST {{CPOS.PosApi_HostAddress}}/api/bills/1/send-order
+Content-Type: application/json
+Authorization: Bearer {{AuthToken}}
+
+{
+  "tableId": 1
+}
+
+###
