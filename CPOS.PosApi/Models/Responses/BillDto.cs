@@ -13,6 +13,7 @@ public sealed class BillDto
     public string Barcode { get; set; } = "";
     public string BillDate { get; set; } = "";
     public string CustomerPhone { get; set; } = "";
+    public bool TableIsCash { get; set; }
     public bool IsDepended { get; set; }
     public bool IsVoid { get; set; }
     public bool IsPaid { get; set; }

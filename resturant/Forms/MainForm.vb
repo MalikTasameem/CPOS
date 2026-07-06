@@ -3,10 +3,7 @@ Imports System.IO
 Imports System.Management
 
 
-
 Public Class MainForm
-
-
 
     Dim rs As New Resizer
 
@@ -512,60 +509,6 @@ Public Class MainForm
 
     Public Sub Load_Form()
 
-        'Activation.isFor_Check_Sys_Active = True
-        'Activation.ShowDialog()
-        'Activation.isFor_Check_Sys_Active = False
-
-        'If Activation.isActive = False Then
-        '    Count_AG_BalanceRows()
-        '    ActiveLinkLabel.Visible = True
-        'Else
-        '    ActiveLinkLabel.Visible = False
-        'End If
-        ''-----------------------------------------------------------------------------------------------
-
-
-
-        'DB_Name_Tool.Text = MY_Settings.DataBase
-        'Serv_Desc_lb.Text = MY_Settings.Server_Desc
-        'U_Name_Tool.Text = USER_NAME
-
-        'If MY_Settings.is_SubSys = True Then
-        '    Button23.Visible = True
-        '    is_Con = True
-        'End If
-
-
-        'Check_Sys_Featurs()
-
-        'rs.FindAllControls(Me)
-        'Me.WindowState = FormWindowState.Maximized
-
-        'TimeTimer.Start()
-
-
-        'If MY_Settings.is_SubSys = True Then
-        '    Con_Timer.Start()
-        '    ServeConnect_LB.Visible = True
-        'Else
-        '    Con_Timer.Stop()
-        '    ServeConnect_LB.Visible = False
-        'End If
-
-
-        'LoadPrinters(KashierPrinterComboBox)
-        'If Not String.IsNullOrWhiteSpace(Default_Printer_80) Then KashierPrinterComboBox.SelectedItem = Default_Printer_80
-
-        'LoadPrinters(A4Printer_Cmb)
-        'If Not String.IsNullOrWhiteSpace(Default_Printer_A4) Then A4Printer_Cmb.SelectedItem = Default_Printer_A4
-
-
-        'LoadPrinters(Barcode_DefPrinter_Cm)
-        'If Not String.IsNullOrWhiteSpace(Default_Barcode_Printer) Then Barcode_DefPrinter_Cm.SelectedItem = Default_Barcode_Printer
-
-
-        'Setting_GroupBox.Enabled = is_Home_Mange_Printers
-
 
         Activation.isFor_Check_Sys_Active = True
         'Dim hiddenHandle As IntPtr = Activation.Handle
@@ -914,26 +857,7 @@ Public Class MainForm
 
     End Sub
 
-    'Public Sub F_Load()
 
-    '    'If isBackup = True Then
-    '    '    BackupTimer.Enabled = True
-    '    'Else
-    '    '    BackupTimer.Enabled = False
-    '    'End If
-
-    '    'If isBackupPath2 = True Then
-    '    '    Backup2Timer.Enabled = True
-    '    'Else
-    '    '    Backup2Timer.Enabled = False
-    '    'End If
-
-    '    'If S_Phone_For_Tables = True Then
-    '    '    PhoneAppTimer.Enabled = isUseAsPhone_Crawler
-    '    '    'Phone_PicBox.Visible = isUseAsPhone_Crawler
-    '    'End If
-
-    'End Sub
 
 
     Private Sub Count_AG_BalanceRows()
@@ -1282,18 +1206,6 @@ Public Class MainForm
 
     End Sub
 
-    'Private Sub BackupTimer_Tick(sender As Object, e As EventArgs)
-    '    TimeConuter = TimeConuter + 1
-    '    If TimeConuter = 600 Then Backup_Data()
-    'End Sub
-
-    'Private Sub Backup2Timer_Tick(sender As Object, e As EventArgs)
-    '    TimeConuter2 = TimeConuter2 + 1
-    '    If TimeConuter2 = 3600 Then Backup_DataPath2()
-    'End Sub
-
-
-
     Public Sub IM_FirstTime()
 
         Dim pp As New ReportConnection
@@ -1467,23 +1379,6 @@ Public Class MainForm
         'End Try
         'c.Con.Close()
     End Sub
-
-    'Private Function Check_IF_isOrder(T_ID As Integer) As Boolean
-    '    Dim c As New C
-    '    Dim s As String = "SELECT S_Bills_Type FROM Agents_Balance_MV WHERE T_ID = '" & T_ID & "'"
-    '    Dim com As New SqlClient.SqlCommand(s, c.Con)
-    '    Dim dr As SqlClient.SqlDataReader
-    '    c.Con.Open()
-    '    Try
-    '        dr = com.ExecuteReader
-    '        dr.Read()
-    '        If dr.HasRows = True Then If dr("S_Bills_Type") = 3 Then Return True
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-
-    '    Return False
-    'End Function
 
 
     Private Sub Prd_LB_Click(sender As Object, e As EventArgs) Handles Prd_LB.Click
@@ -1677,167 +1572,6 @@ Public Class MainForm
         F_Agent.ShowDialog()
     End Sub
 
-    'Private Sub Open_MV_DV_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Open_MV_DV.MouseDoubleClick
-
-    '    Me.Cursor = Cursors.AppStarting
-    '    If Open_MV_DV.Rows.Count > 0 Then
-    '        'If Open_MV_DV.CurrentRow.Cells("AG_MV_Type_ID_CL").Value <> 6 Then
-    '        Select Case Open_MV_DV.CurrentRow.Cells(4).Value
-    '            Case 3, 4
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_Receipt = New Receipt
-    '                F_Receipt.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 5, 6
-    '                Add_Prev_Balance.is_Select = True
-    '                Add_Prev_Balance.ShowDialog()
-
-    '            Case 1
-    '                FormType = 1
-
-    '                Select Case SScreenDefault
-    '                    Case 0
-    '                        SB_is_Fast = False
-    '                        T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                        isShowing_Trans = True
-    '                        F_Sales = New Sales
-    '                        F_Sales.ShowDialog()
-    '                        isShowing_Trans = False
-    '                        FormType = 0
-    '                    Case 1
-    '                        SB_is_Fast = False
-    '                        If Check_IF_isOrder(Open_MV_DV.CurrentRow.Cells(0).Value) = True Then POS_ENTER_AS_ORDER = True
-    '                        F_POS = New POS
-    '                        T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                        isShowing_Trans = True
-    '                        F_POS.ShowDialog()
-    '                        isShowing_Trans = False
-    '                    Case 2
-    '                        SB_is_Fast = True
-    '                        T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                        isShowing_Trans = True
-    '                        Sales_Fast.ShowDialog()
-    '                        isShowing_Trans = False
-    '                End Select
-
-    '            Case 7
-    '                FormType = 2
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_Pch = New Pch
-    '                F_Pch.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 8
-    '                FormType = 3
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_IM_Execute = New IM_Execute
-    '                F_IM_Execute.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 9
-    '                FormType = 4
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_Invoice = New Invoice
-    '                F_Invoice.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-    '            Case 10
-    '                FormType = 5
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                Returns.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 11
-    '                FormType = 6
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                Returns.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 12
-    '                FormType = 7
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_Stores_ImmediateOrder = New Stores_ImmediateOrder
-    '                F_Stores_ImmediateOrder.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 2
-    '                FormType = 7
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_EXP_Details = New EXP_Details
-    '                F_EXP_Details.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 13
-    '                FormType = 9
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_Format_Items_Auto = New Format_Items_Auto
-    '                F_Format_Items_Auto.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 16
-    '                FormType = 10
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_ViewBill = New ViewBill
-    '                F_ViewBill.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 17
-    '                FormType = 11
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_Inside_Sales = New Inside_Sales
-    '                F_Inside_Sales.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-
-    '            Case 18
-    '                FormType = 9
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_Format_Items_Manual = New Format_Items_Manual
-    '                F_Format_Items_Manual.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-    '            Case 35
-    '                FormType = 11
-    '                T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
-    '                isShowing_Trans = True
-    '                F_Outside_Sales = New Outside_Sales
-    '                F_Outside_Sales.ShowDialog()
-    '                isShowing_Trans = False
-    '                FormType = 0
-
-
-
-    '        End Select
-    '        ' End If
-    '    End If
-    '    Me.Cursor = Cursors.Default
-    'End Sub
-
-
 
     Private Sub تغييربنسبةمئويةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles تغييربنسبةمئويةToolStripMenuItem.Click
         IM_Change_Price_ByPercent.ShowDialog()
@@ -1852,196 +1586,6 @@ Public Class MainForm
         SearchAgentBill.ShowDialog()
     End Sub
 
-
-    'Dim IM_Dt As New DataTable
-    'Dim Bill_Date_Str, SB_ID, BillNumTxt, BillTypeCmb, Bill_Note, Cr_Phone, TB_Name_Lb, Barcode As String
-    'Public Sub Fetch_Smart_Phone_Awiting()
-
-    '    Dim C As New C
-    '    Dim T_ID As Integer = 0
-    '    'Dim T_NAME As String = ""
-    '    With C.Com
-    '        .Connection = C.Con
-    '        .CommandText = "[Perform_Add_To_AG_MV]"
-    '        .Parameters.AddWithValue("@Bill_T_ID", 0)
-    '        .Parameters.Add("@T_NAME", SqlDbType.NVarChar, 200, "")
-    '        .Parameters("@Bill_T_ID").Direction = ParameterDirection.Output
-    '        '.Parameters("@T_NAME").Direction = ParameterDirection.Output
-    '        .CommandType = CommandType.StoredProcedure
-    '        If SQL_SP_EXEC(C.Com) = True Then
-    '            If Not String.IsNullOrWhiteSpace(.Parameters("@Bill_T_ID").Value().ToString) Then
-    '                T_ID = .Parameters("@Bill_T_ID").Value()
-    '                'T_NAME = .Parameters("@T_NAME").Value()
-    '                Fill_Bill_Info(T_ID)
-    '                SB_Contents_SELECT_Bill(T_ID)
-    '            End If
-    '        End If
-
-    '    End With
-
-    'End Sub
-
-
-    'Public Sub SB_Contents_SELECT_Bill(T_ID As Integer)
-    '    Dim C As New C
-    '    IM_Dt.Clear()
-    '    With C.Com
-    '        .Connection = C.Con
-    '        .CommandText = "SB_Contents_SELECT_Bill"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@SB_T_ID", T_ID)
-    '    End With
-    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '    C.Da.Fill(IM_Dt)
-    'End Sub
-
-    'Public Sub Fill_Bill_Info(T_ID As Integer)
-
-
-    '    'AG_Desc_lb.Text = " الزبون : "
-    '    TB_Name_Lb = "الطاولة : "
-    '    Dim C As New C
-
-    '    With C.Com
-    '        .Connection = C.Con
-    '        .CommandText = "SB_Info_V_SELECT_Bill"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@T_ID", T_ID)
-    '    End With
-    '    C.Con.Open()
-    '    C.Dr = C.Com.ExecuteReader
-    '    If C.Dr.HasRows Then
-    '        C.Dr.Read()
-
-
-    '        BillNumTxt = C.Dr("S_Bill_Pr_ID")
-
-    '        If C.Dr("TB_ID") = 0 Then
-    '            TB_Name_Lb = ""
-    '        Else
-    '            TB_Name_Lb = TB_Name_Lb + C.Dr("T_Name").ToString
-    '        End If
-
-    '        Barcode = C.Dr("Barcode")
-    '        'TB_isOrderd = C.Dr("TB_isOrderd")
-
-    '        Bill_Date_Str = C.Dr("date")
-    '        Cr_Phone = C.Dr("Cr_Phone")
-
-    '        BillTypeCmb = C.Dr("B_Name")
-
-
-    '        SB_ID = C.Dr("SB_ID")
-
-
-    '        USER_NAME = C.Dr("U_Name")
-
-
-
-
-    '        If PrintTBKsh = True Then CashPrint_SB_Ksh(T_ID, TB_Name_Lb)
-    '        If CP_Bill_Screen = True Then Send_To_Bill_Screen(T_ID)
-    '    End If
-    '    C.Con.Close()
-    'End Sub
-
-
-    'Public Sub CashPrint_SB_Ksh(T_ID As Integer, T_NAME As String)
-    '    If AGBillPage_ID <> 7 Then
-
-
-    '        Dim C As New C
-    '        Dim Prt_Path As String
-    '    Dim Prt_ID As Integer
-    '    C.Con.Open()
-    '    With C.Com
-    '        .Connection = C.Con
-    '        .CommandText = "SB_C_By_Printers_SELECT"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@B_T_ID", T_ID)
-    '    End With
-    '    C.Dr = C.Com.ExecuteReader
-    '    If C.Dr.HasRows Then
-    '        While C.Dr.Read()
-    '            Prt_ID = C.Dr("Prt_ID")
-    '            Prt_Path = C.Dr("Prt_Path")
-    '            Dim pp As New ReportConnection
-    '            pp.rp.Load(Application.StartupPath & "\reports\SB_Ksh.rpt")
-    '            pp.LoadTables()
-    '            With pp
-
-    '                .rp.SetParameterValue(0, " الطاولة : " + T_NAME)
-    '                .rp.SetParameterValue(1, T_ID)
-    '                .rp.SetParameterValue(2, T_ID)
-    '                .rp.SetParameterValue(3, Prt_ID)
-    '            End With
-
-    '            If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", C.Dr("Prt_Path")))
-    '            pp.rp.PrintOptions.PrinterName = C.Dr("Prt_Path")
-    '            pp.rp.PrintToPrinter(1, False, 0, 0)
-    '            pp.rp.Dispose()
-
-    '            End While
-    '    End If
-    '    C.Con.Close()
-
-    '    Else
-    '        FAST_REPORT_SB_Ksh(T_ID)
-    '    End If
-    'End Sub
-
-
-    'Private Sub FAST_REPORT_SB_Ksh(T_ID As Integer)
-
-
-    '    Dim C, C2 As New C
-    '    Dim Tmp_Dt As New DataTable
-    '    Dim ItemRow As DataRow
-
-    '    With Tmp_Dt.Columns
-    '        .Add("IM_Name", Type.GetType("System.String"))
-    '        .Add("qty", Type.GetType("System.String"))
-    '    End With
-
-    '    Data_Load(Tmp_Dt, Bill_Date_Str, SB_ID, BillNumTxt, BillTypeCmb, Bill_Note, Cr_Phone, 0, TB_Name_Lb, Barcode)
-
-    '    '---------------------------------------------------------------------------------
-
-    '    C.Str = " Select DISTINCT Printer_ID,Printer_Path  From GM_PRINTER_IM_V WHERE B_T_ID = " & T_ID
-    '    C.Com = New SqlClient.SqlCommand(C.Str, C.Con)
-    '    C.Con.Open()
-
-    '    C.Dr = C.Com.ExecuteReader
-    '    If C.Dr.HasRows = True Then
-    '        While C.Dr.Read()
-    '            Tmp_Dt.Clear()
-
-    '            '-------------------------------------------------------------------
-    '            C2.Str = " Select IM_Name,QTY  From GM_PRINTER_IM_V WHERE B_T_ID = " & T_ID & " AND Printer_ID = " & C.Dr("Printer_ID")
-    '            C2.Com = New SqlClient.SqlCommand(C2.Str, C2.Con)
-    '            C2.Con.Open()
-    '            C2.Dr = C2.Com.ExecuteReader
-    '            If C2.Dr.HasRows = True Then
-    '                While C2.Dr.Read()
-
-    '                    ItemRow = Tmp_Dt.NewRow()
-    '                    ItemRow("IM_Name") = C2.Dr("IM_Name")
-    '                    ItemRow("qty") = C2.Dr("QTY")
-    '                    Tmp_Dt.Rows.Add(ItemRow)
-
-    '                End While
-    '            End If
-    '            C2.Con.Close()
-
-    '            Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", C.Dr("Printer_Path")))
-    '            PRINT_REPORT_KSH()
-    '        End While
-
-    '    End If
-    '    C.Con.Close()
-    '    ' ----------------------------------------------------------------------------------
-
-    'End Sub
 
     Public Sub Send_To_Bill_Screen(T_ID As Integer)
         Dim c As New C
@@ -2058,60 +1602,6 @@ Public Class MainForm
     Private Sub إدارةالأصنافToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles إدارةالأصنافToolStripMenuItem.Click
         IM_Fast_Mang.ShowDialog()
     End Sub
-
-    ''-----------------------------------------------------------------------------------------
-
-    'Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles PhoneAppBWorker.DoWork
-    '    PhoneAppTimer.Enabled = False
-    '    Fetch_Smart_Phone_Awiting()
-    '    'PhoneAppTimer.Enabled = True
-    'End Sub
-
-    'Dim Second = 0
-    'Private Sub PhoneAppTimer_Tick(sender As Object, e As EventArgs) Handles PhoneAppTimer.Tick
-    '    Second += 1
-    '    If Second = 5 Then
-    '        Try
-    '            If Not PhoneAppBWorker.IsBusy Then
-    '                PhoneAppBWorker.RunWorkerAsync()
-    '            End If
-    '            Second = 0
-    '        Catch ex As Exception
-    '            Second = 0
-    '        End Try
-    '    End If
-    'End Sub
-
-
-    'Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles PhoneAppBWorker.RunWorkerCompleted
-    '    PhoneAppTimer.Enabled = True
-    'End Sub
-
-
-    'Public Sub Load_ST_Tran_To_My_STORE(T_ID As Integer)
-    '    Dim c As New C
-    '    With c.Com
-    '        .Connection = c.Con
-    '        .CommandText = "[ST_Trans_finish_Transfer]"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@T_ID", T_ID)
-    '    End With
-    '    If SQL_SP_EXEC(c.Com) = True Then
-    '        If S_Auto_Recive_ST_Tran = False Then MsgBox("تم تحويل البضاعة للمخزن الخاص بك", MsgBoxStyle.Information, "")
-
-    '    End If
-    'End Sub
-
-    'Private Sub Awaiting_ST_Trans_GV_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles SyncHist.MouseDoubleClick
-    '    If SyncHist.RowCount > 0 Then
-    '        If MessageBox.Show(" تحويل البضاعة إلى مخزن المحل ؟", "", MessageBoxButtons.YesNo, _
-    '                 MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-    '            Load_ST_Tran_To_My_STORE(SyncHist.CurrentRow.Cells("ST_TRAN_T_ID_CL").Value)
-    '            Load_Awaiting_ST_Trans()
-    '        End If
-    '    End If
-    'End Sub
-
 
     Private Sub إذنصرفToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles إذنصرفToolStripMenuItem.Click
         F_Inside_Sales = New Inside_Sales
@@ -2195,32 +1685,7 @@ Public Class MainForm
 
 
     Dim Second_2 = 0
-    ' Private Sub SyncTimer_Tick(sender As Object, e As EventArgs) Handles SyncTimer.Tick
-    '    Second_2 += 1
-    '    If Second_2 = 60 Then
-    '        Try
-    '            SyncTimer.Enabled = False
-    '            RefreshSuncHist()
-    '            SyncTimer.Enabled = True
-    '            'If Not Sync_BackgroundWorker.IsBusy Then
-    '            '    Sync_BackgroundWorker.RunWorkerAsync()
-    '            'End If
-    '            Second_2 = 0
-    '        Catch ex As Exception
-    '            Second_2 = 0
-    '        End Try
-    '    End If
-    'End Sub
 
-
-    'Private Sub Sync_BackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles Sync_BackgroundWorker.DoWork
-    '    SyncTimer.Enabled = False
-    '    RefreshSuncHist()
-    'End Sub
-
-    'Private Sub Sync_BackgroundWorker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles Sync_BackgroundWorker.RunWorkerCompleted
-    '    SyncTimer.Enabled = True
-    'End Sub
 
     Private Sub رفعملــفToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles رفعملــفToolStripMenuItem.Click
         On Error Resume Next
@@ -2594,287 +2059,6 @@ WHERE isDepended = 1
     End Sub
 
 
-
-
-    'Public Sub Fill_ALL_ALERT()
-
-    '    DataB.Dispose()
-    '    DataB = New BindingSource
-    '    'ALERT_DGV.DataSource = Nothing
-
-    '    Dim C As New C
-    '    Dim N
-    '    ALERT_DT.Clear()
-    '    Open_Dt.Clear()
-    '    Dim WHERE_STR = ""
-    '    Dim s = ""
-
-    '    '--------------------------------------------------------------------------------------------------1
-
-
-    '    If S_Pr = True Then
-    '        Check_For_OpenPierod()
-
-
-    '        If User_isAdmin = True Then
-    '            C.Str = "select count(*) as N from Open_Periods_V "
-    '        Else
-    '            C.Str = "select count(*) as N  from Open_Periods_V WHERE Open_Periods_V.USER_ID  = " & USER_ID
-    '        End If
-    '        C.Com = New SqlClient.SqlCommand(C.Str, C.Con)
-    '        C.Con.Open()
-
-    '        C.Dr = C.Com.ExecuteReader
-    '        If C.Dr.HasRows = True Then
-    '            C.Dr.Read()
-
-    '            If C.Dr("N") > 0 Then
-    '                N = C.Dr("N")
-    '                ALERT_DT.Rows.Add("Check_For_OpenPierod", " وردية مفتوحة " & " (" & N & ")")
-    '            End If
-
-    '        End If
-    '        C.Con.Close()
-
-
-
-    '    End If
-
-    '    '--------------------------------------------------------------------------------------------------2
-    '    C = New C
-    '    With (C.Com)
-    '        .Connection = C.Con
-    '        .CommandText = "AG_Max_Debit_SELECT"
-    '        .CommandType = CommandType.StoredProcedure
-    '    End With
-    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '    C.Da.Fill(C.Dt)
-    '    If C.Dt.Rows.Count > 0 Then
-
-    '        N = C.Dt.Rows.Count.ToString
-    '        ALERT_DT.Rows.Add("AG_Max_Debit_SELECT", AG_B & " (" & N & ")")
-    '    End If
-
-    '    ''--------------------------------------------------------------------------------------------------3-------------------------
-
-    '    C = New C
-    '    With (C.Com)
-    '        .Connection = C.Con
-    '        .CommandText = "IM_Valid_V_SELECT"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@END_Date_Valid", Date.Now.Date.AddDays(IM_Day_Valid))
-    '    End With
-    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '    C.Da.Fill(C.Dt)
-
-    '    If C.Dt.Rows.Count > 0 Then
-    '        N = C.Dt.Rows.Count.ToString
-    '        ALERT_DT.Rows.Add("IM_Valid_V_SELECT", IM_Valid & " (" & N & ")")
-    '    End If
-    '    '--------------------------------------------------------------------------------------------------4
-
-    '    C = New C
-    '    With (C.Com)
-    '        .Connection = C.Con
-    '        .CommandText = "IM_MinAlert_V_SELECT"
-    '        .CommandType = CommandType.StoredProcedure
-    '    End With
-    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '    C.Da.Fill(C.Dt)
-    '    If C.Dt.Rows.Count > 0 Then
-    '        N = C.Dt.Rows.Count.ToString
-    '        ALERT_DT.Rows.Add("IM_MinAlert_V_SELECT", IM_Min & " (" & N & ")")
-    '    End If
-    '    '--------------------------------------------------------------------------------------------------5
-
-    '    C = New C
-    '    With (C.Com)
-    '        .Connection = C.Con
-    '        .CommandText = "IM_MaxAlert_V_SELECT"
-    '        .CommandType = CommandType.StoredProcedure
-    '    End With
-    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '    C.Da.Fill(C.Dt)
-
-    '    If C.Dt.Rows.Count > 0 Then
-    '        N = C.Dt.Rows.Count.ToString
-    '        ALERT_DT.Rows.Add("IM_MaxAlert_V_SELECT", IM_Max & " (" & N & ")")
-    '    End If
-
-    '    '--------------------------------------------------------------------------------------------------6
-
-    '    C = New C
-    '    With (C.Com)
-    '        .Connection = C.Con
-    '        .CommandText = "Open_AGMV_SELECT"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@USER_ID", USER_ID)
-    '        If U_Save_otherBill = True Then
-    '            .Parameters.AddWithValue("@IS_ADMIN", True)
-    '        Else
-    '            .Parameters.AddWithValue("@IS_ADMIN", User_isAdmin)
-    '        End If
-    '    End With
-    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '    C.Da.Fill(C.Dt)
-
-    '    If C.Dt.Rows.Count > 0 Then
-    '        N = C.Dt.Rows.Count.ToString
-    '        ALERT_DT.Rows.Add("Open_Bills", Open_AGMV & " (" & N & ")")
-    '    End If
-
-    '    '--------------------------------------------------------------------------------------------------7
-
-    '    If Notif_IM_Sell_Less_Than_Cost = True And U_SB_Show_Cash = True Then
-    '        C = New C
-    '        With C.Com
-    '            .Connection = C.Con
-    '            .CommandText = "[Items_Prices_V_SELECT_ALL_Less_Then_Cost]"
-    '            .CommandType = CommandType.StoredProcedure
-    '        End With
-    '        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '        C.Da.Fill(C.Dt)
-    '        If C.Dt.Rows.Count > 0 Then
-    '            N = C.Dt.Rows.Count.ToString
-    '            ALERT_DT.Rows.Add("Items_Prices_V_SELECT_ALL_Less_Then_Cost", IM_SELL_LESS_THAN_COST & " (" & N & ")")
-    '        End If
-    '    End If
-
-    '    ''--------------------------------------------------------------------------------------------------8
-
-
-    '    If Notif_IM_Negitane_QTY = True Then
-    '        C = New C
-    '        With C.Com
-    '            .Connection = C.Con
-    '            .CommandText = "[Items_Prices_V_SELECT_ALL_Negitave_QTY]"
-    '            .CommandType = CommandType.StoredProcedure
-    '        End With
-    '        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '        C.Da.Fill(C.Dt)
-
-    '        If C.Dt.Rows.Count > 0 Then
-
-    '            N = C.Dt.Rows.Count.ToString
-    '            ALERT_DT.Rows.Add("Items_Prices_V_SELECT_ALL_Negitave_QTY", IM_Neg_QTY & " (" & N & ")")
-    '        End If
-    '    End If
-
-    '    '--------------------------------------------------------------------------------------------------9
-
-
-    '    C = New C
-    '    With C.Com
-    '        .Connection = C.Con
-    '        .CommandText = "[IM_Notes_Valid_V_SELECT]"
-    '        .CommandType = CommandType.StoredProcedure
-    '        .Parameters.AddWithValue("@END_Date_Valid", IM_Day_Valid)
-    '    End With
-    '    C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '    C.Da.Fill(C.Dt)
-    '    If C.Dt.Rows.Count > 0 Then
-    '        N = C.Dt.Rows.Count.ToString
-    '        ALERT_DT.Rows.Add("IM_Notes_Valid_V_SELECT", IM_Notes_Valid & " (" & N & ")")
-    '    End If
-    '    ''--------------------------------------------------------------------------------------------------10
-    '    'RCT_NOT_WITH_SB_DT.Clear()
-    '    'C = New C
-    '    'C.Str = "Select SB_ID from RCT_NOT_WITH_SB_V "
-    '    'C.Da = New SqlClient.SqlDataAdapter(C.Str, C.Con)
-    '    'C.Da.Fill(RCT_NOT_WITH_SB_DT)
-
-    '    'If RCT_NOT_WITH_SB_DT.Rows.Count > 0 Then
-    '    '    N = RCT_NOT_WITH_SB_DT.Rows.Count.ToString
-    '    '    ALERT_DT.Rows.Add("RCT_NOT_WITH_SB", RCT_NOT_WITH_SB & " (" & N & ")")
-    '    'End If
-
-    '    '--------------------------------------------------------------------------------------------------11
-
-
-    '    Try
-
-    '        C = New C
-    '        With (C.Com)
-    '            .Connection = C.Con
-    '            .CommandText = "RSV_IM_V_SELECT"
-    '            .CommandType = CommandType.StoredProcedure
-    '        End With
-    '        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '        C.Da.Fill(C.Dt)
-
-    '        If C.Dt.Rows.Count > 0 Then
-    '            N = C.Dt.Rows.Count.ToString
-    '            ALERT_DT.Rows.Add("RSV_IM_V_SELECT", RSV_IM & " (" & N & ")")
-    '        End If
-    '    Catch ex As Exception
-
-    '    End Try
-
-
-
-
-    '    '--------------------------------------------------------------------------------------------------12
-
-    '    Try
-
-    '        C = New C
-    '        With (C.Com)
-    '            .Connection = C.Con
-    '            .CommandText = "ORDER_IM_V_SELECT"
-    '            .CommandType = CommandType.StoredProcedure
-    '        End With
-    '        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '        C.Da.Fill(C.Dt)
-
-    '        If C.Dt.Rows.Count > 0 Then
-    '            N = C.Dt.Rows.Count.ToString
-    '            ALERT_DT.Rows.Add("ORDER_IM_V_SELECT", ORDER_IM & " (" & N & ")")
-    '        End If
-    '    Catch ex As Exception
-
-    '    End Try
-
-    '    '--------------------------------------------------------------------------------------------------13
-
-    '    C = New C
-    '    C.Str = "SELECT top 1 [SyncEnd],[SyncState] FROM [dbo].[SynchroLog] order by id desc"
-
-    '    C.Com = New SqlClient.SqlCommand(C.Str, C.Con)
-    '    C.Con.Open()
-
-    '    C.Dr = C.Com.ExecuteReader
-    '    If C.Dr.HasRows = True Then
-    '        C.Dr.Read()
-    '        ALERT_DT.Rows.Add("", " أخر تزامن: " & " (" & C.Dr("SyncEnd") & ")  الحالة : " & C.Dr("SyncState"))
-    '    End If
-    '    C.Con.Close()
-
-    '    '--------------------------------------------------------------------------------------------------14
-    '    Try
-
-    '        C = New C
-    '        With (C.Com)
-    '            .Connection = C.Con
-    '            .CommandText = "IM_OTHER_STORE_V_SELECT"
-    '            .CommandType = CommandType.StoredProcedure
-    '            .Parameters.AddWithValue("@ST_ID", SB_ST_ID)
-    '        End With
-    '        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-    '        C.Da.Fill(C.Dt)
-
-    '        If C.Dt.Rows.Count > 0 Then
-    '            N = C.Dt.Rows.Count.ToString
-    '            ALERT_DT.Rows.Add("IM_OTHER_STORE_V_SELECT", ST_OTHER & " (" & N & ")")
-    '        End If
-    '    Catch ex As Exception
-
-    '    End Try
-
-
-    'End Sub
-
-
-
     Private Sub ALERT_DGV_MouseHover(sender As Object, e As EventArgs) Handles ALERT_DGV.MouseHover
         _validTimerPausedByHover = True
         ValidTimer.Stop()
@@ -3078,7 +2262,6 @@ WHERE isDepended = 1
         PrinterState(KashierPrinterComboBox.Text)
 
     End Sub
-
 
     Private Sub check_print_Btn2_Click(sender As Object, e As EventArgs) Handles check_print_Btn2.Click
         PrinterState(A4Printer_Cmb.Text)
@@ -3329,7 +2512,6 @@ WHERE isDepended = 1
         End Select
     End Sub
 
-
     Private Sub شاشةالحساباتToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles شاشةالحساباتToolStripMenuItem.Click
         Me.Cursor = Cursors.AppStarting
         F_Balances = New Balances
@@ -3394,7 +2576,4 @@ WHERE isDepended = 1
         End Try
     End Sub
 
-    Private Sub TitleBar_Panel_Paint(sender As Object, e As PaintEventArgs) Handles TitleBar_Panel.Paint
-
-    End Sub
 End Class

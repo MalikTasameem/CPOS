@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CPOS Web POS</title>
-    <link rel="stylesheet" href="assets/app.css?v=20260702-3">
+    <link rel="stylesheet" href="assets/app.css?v=20260705-7">
 </head>
 <body>
     <main id="loginView" class="login-shell">
@@ -45,6 +45,7 @@
                     <button type="button" data-status="open">المفتوحة</button>
                     <button type="button" data-status="free">الشاغرة</button>
                 </div>
+                <button id="directBillButton" class="direct-bill-button hidden" type="button">فاتورة بدون طاولة</button>
                 <div id="tablesList" class="tables-list"></div>
             </aside>
 
@@ -52,9 +53,12 @@
                 <div class="bill-head">
                     <div>
                         <h2 id="billTitle">الفاتورة</h2>
-                        <div id="billMeta" class="muted">لم يتم اختيار طاولة</div>
+                        <div id="billMeta" class="muted bill-meta">لم يتم اختيار طاولة</div>
                     </div>
-                    <button id="sendOrderButton" class="primary-button" type="button" disabled>إرسال الطلب</button>
+                    <div class="bill-actions">
+                        <button id="changeBillTypeButton" class="ghost-action" type="button" disabled>تغيير النوع</button>
+                        <button id="sendOrderButton" class="primary-button" type="button" disabled>إرسال الطلب</button>
+                    </div>
                 </div>
 
                 <div id="billItems" class="bill-items empty-state">اختر طاولة لفتح الفاتورة</div>
@@ -80,9 +84,15 @@
                     <h2>الأصناف</h2>
                     <span id="itemsCount" class="count-badge">0</span>
                 </div>
+                <div class="barcode-row">
+                    <input id="barcodeInput" class="barcode-input" type="text" inputmode="numeric" autocomplete="off" placeholder="باركود">
+                    <button id="barcodeAddButton" type="button">إضافة</button>
+                </div>
                 <input id="itemSearchInput" class="search-input" type="search" placeholder="بحث">
-                <div id="groupsList" class="groups-list"></div>
-                <div id="itemsList" class="items-list"></div>
+                <div class="product-browser">
+                    <div id="groupsList" class="groups-list"></div>
+                    <div id="itemsList" class="items-list"></div>
+                </div>
             </aside>
         </section>
     </main>
@@ -93,10 +103,13 @@
                 <h2 id="itemEditTitle">تعديل الصنف</h2>
                 <button id="closeItemEditButton" class="icon-button" type="button" aria-label="إغلاق">×</button>
             </div>
-            <label for="editUnitSelect">الوحدة</label>
-            <select id="editUnitSelect" class="dialog-input"></select>
+            <label>الوحدة</label>
+            <div id="editUnitButtons" class="unit-buttons"></div>
+            <label>نوع البيع</label>
+            <div id="editSalesTypeButtons" class="sales-type-buttons"></div>
             <label for="editNotesInput">ملاحظات الصنف</label>
             <textarea id="editNotesInput" class="dialog-input notes-input" maxlength="500"></textarea>
+            <button id="openComponentsButton" class="ghost-action full-action" type="button">ملاحظات / إضافات الصنف</button>
             <div class="dialog-actions">
                 <button id="cancelItemEditButton" class="ghost-action" type="button">إلغاء</button>
                 <button id="saveItemEditButton" class="primary-button" type="button">حفظ</button>
@@ -104,7 +117,67 @@
         </section>
     </div>
 
+    <div id="componentDialog" class="dialog-backdrop hidden" role="dialog" aria-modal="true">
+        <section class="dialog-card component-dialog-card">
+            <div class="dialog-head">
+                <h2 id="componentDialogTitle">ملاحظات وإضافات الصنف</h2>
+                <button id="closeComponentDialogButton" class="icon-button" type="button" aria-label="إغلاق">×</button>
+            </div>
+            <section class="component-manager">
+                <div class="component-tabs">
+                    <button id="componentNotesTab" class="active" type="button" data-component-tab="notes">ملاحظات</button>
+                    <button id="componentAddsTab" type="button" data-component-tab="adds">إضافات</button>
+                </div>
+                <div id="componentOptions" class="component-options empty-state">لا توجد خيارات</div>
+                <div class="component-selected-head">
+                    <span>المحدد على الصنف</span>
+                    <button id="clearComponentsButton" class="ghost-action" type="button">إلغاء الكل</button>
+                </div>
+                <div id="selectedComponents" class="selected-components empty-state">لا توجد ملاحظات أو إضافات</div>
+            </section>
+            <div class="dialog-actions">
+                <button id="cancelComponentDialogButton" class="ghost-action" type="button">إغلاق</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="billTypeDialog" class="dialog-backdrop hidden" role="dialog" aria-modal="true">
+        <section class="dialog-card bill-type-card">
+            <div class="dialog-head">
+                <h2>تغيير نوع الفاتورة</h2>
+                <button id="closeBillTypeButton" class="icon-button" type="button" aria-label="إغلاق">×</button>
+            </div>
+            <div id="billTypeOptions" class="bill-type-options"></div>
+            <div class="dialog-actions">
+                <button id="cancelBillTypeButton" class="ghost-action" type="button">إلغاء</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="paymentDialog" class="dialog-backdrop hidden" role="dialog" aria-modal="true">
+        <section class="dialog-card payment-card">
+            <div class="dialog-head">
+                <h2>تحديد طريقة الدفع</h2>
+                <button id="closePaymentButton" class="icon-button" type="button" aria-label="إغلاق">×</button>
+            </div>
+            <div class="payment-total">
+                <span>المبلغ</span>
+                <strong id="paymentAmountText">0</strong>
+            </div>
+            <label>طريقة الدفع</label>
+            <div id="paymentOptions" class="payment-options"></div>
+            <div class="payment-treasury">
+                <span>الخزينة</span>
+                <strong id="paymentTreasuryText">-</strong>
+            </div>
+            <div class="dialog-actions">
+                <button id="cancelPaymentButton" class="ghost-action" type="button">إلغاء</button>
+                <button id="confirmPaymentButton" class="primary-button" type="button">تأكيد الحفظ</button>
+            </div>
+        </section>
+    </div>
+
     <div id="toast" class="toast hidden"></div>
-    <script src="assets/app.js?v=20260702-3"></script>
+    <script src="assets/app.js?v=20260705-7"></script>
 </body>
 </html>

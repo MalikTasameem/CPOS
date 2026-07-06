@@ -335,7 +335,6 @@ Partial Class POS
         'Show_Cash_btn
         '
         Me.Show_Cash_btn.BackColor = System.Drawing.SystemColors.Menu
-        Me.Show_Cash_btn.BackgroundImage = Global.resturant.My.Resources.Resources.iconfinder_money_299107
         Me.Show_Cash_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Show_Cash_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Cash_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
@@ -484,7 +483,6 @@ Partial Class POS
         Me.Show_Open_Bill_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Show_Open_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Show_Open_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Show_Open_Bill_btn.Image = Global.resturant.My.Resources.Resources.if_search_46834
         Me.Show_Open_Bill_btn.Location = New System.Drawing.Point(66, 26)
         Me.Show_Open_Bill_btn.Name = "Show_Open_Bill_btn"
         Me.Show_Open_Bill_btn.Size = New System.Drawing.Size(20, 20)

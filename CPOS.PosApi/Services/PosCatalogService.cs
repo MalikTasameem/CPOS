@@ -39,12 +39,34 @@ ORDER BY IM_ID ASC, U_ID ASC;
 
 SELECT ST_ID, ST_name
 FROM dbo.STORES
-ORDER BY ST_ID ASC;";
+ORDER BY ST_ID ASC;
+
+SELECT B_Type_ID, B_Name
+FROM dbo.Sales_Bills_Types
+ORDER BY B_Type_ID ASC;
+
+SELECT p.PaymentMethodID AS P_ID, m.PAYMENT_NAME, p.AccountID AS Tr_ID, a.Tr_Name, ISNULL(p.is_Lock, 0) AS is_Lock
+FROM dbo.PaymentMethodDefaultAccounts p
+INNER JOIN dbo.PAYMENT_METHOD m ON p.PaymentMethodID = m.P_ID
+INNER JOIN dbo.TreasuryCard a ON p.AccountID = a.Tr_ID
+WHERE ISNULL(p.IsActive, 1) = 1
+ORDER BY p.ID ASC;
+
+SELECT TOP 1 Tr_ID, Tr_Name
+FROM dbo.TreasuryCard
+ORDER BY Tr_ID ASC;
+
+SELECT TOP 1 AG_ID
+FROM dbo.AGENTS
+ORDER BY CASE WHEN ISNULL(isDefault, 0) = 1 THEN 0 ELSE 1 END, AG_ID ASC;";
 
         List<PosGroupDto> groups = new();
         List<PosItemDto> items = new();
         List<PosItemUnitDto> units = new();
         List<PosStoreDto> stores = new();
+        List<PosBillTypeDto> billTypes = new();
+        List<PosPaymentMethodDto> paymentMethods = new();
+        int defaultAgentId = 0;
 
         await using SqlDataReader dr = await cmd.ExecuteReaderAsync(cancellationToken);
         while (await dr.ReadAsync(cancellationToken))
@@ -80,12 +102,58 @@ ORDER BY ST_ID ASC;";
             }
         }
 
+        if (await dr.NextResultAsync(cancellationToken))
+        {
+            while (await dr.ReadAsync(cancellationToken))
+            {
+                billTypes.Add(new PosBillTypeDto
+                {
+                    BillTypeId = GetInt(dr, "B_Type_ID"),
+                    BillTypeName = GetString(dr, "B_Name")
+                });
+            }
+        }
+
+        if (await dr.NextResultAsync(cancellationToken))
+        {
+            while (await dr.ReadAsync(cancellationToken))
+            {
+                paymentMethods.Add(MapPaymentMethod(dr));
+            }
+        }
+
+        if (await dr.NextResultAsync(cancellationToken))
+        {
+            if (paymentMethods.Count == 0 && await dr.ReadAsync(cancellationToken))
+            {
+                paymentMethods.Add(new PosPaymentMethodDto
+                {
+                    PaymentId = 1,
+                    PaymentName = "نقدا",
+                    TreasuryId = GetInt(dr, "Tr_ID"),
+                    TreasuryName = GetString(dr, "Tr_Name"),
+                    IsLocked = false
+                });
+            }
+        }
+
+        if (await dr.NextResultAsync(cancellationToken))
+        {
+            if (await dr.ReadAsync(cancellationToken))
+            {
+                defaultAgentId = GetInt(dr, "AG_ID");
+            }
+        }
+
         return new PosBootstrapResponse
         {
             Groups = groups,
             Items = items,
             Units = units,
-            Stores = stores
+            Stores = stores,
+            BillTypes = billTypes,
+            PaymentMethods = paymentMethods,
+            DefaultAgentId = defaultAgentId
         };
     }
 
@@ -177,7 +245,7 @@ ORDER BY U_ID ASC";
         await using SqlCommand cmd = cn.CreateCommand();
         cmd.CommandType = CommandType.Text;
         cmd.CommandText = @"
-SELECT TOP 1 U_IM_ID, IM_ID, item_name, U_Name, Price, Barcode, isValid
+SELECT TOP 1 U_IM_ID, IM_ID, item_name, U_Name, U_ID, U_Cargo, Price, Barcode, isValid, is_Default
 FROM dbo.IM_units_Search_V
 WHERE Barcode = @Barcode
 ORDER BY IM_ID ASC, U_IM_ID ASC";
@@ -236,6 +304,18 @@ ORDER BY IM_ID ASC, U_IM_ID ASC";
             IsValid = GetBool(dr, "isValid"),
             IsStore = GetBool(dr, "isStore"),
             IsDefault = GetBool(dr, "is_Default")
+        };
+    }
+
+    private static PosPaymentMethodDto MapPaymentMethod(SqlDataReader dr)
+    {
+        return new PosPaymentMethodDto
+        {
+            PaymentId = GetInt(dr, "P_ID"),
+            PaymentName = GetString(dr, "PAYMENT_NAME"),
+            TreasuryId = GetInt(dr, "Tr_ID"),
+            TreasuryName = GetString(dr, "Tr_Name"),
+            IsLocked = GetBool(dr, "is_Lock")
         };
     }
 

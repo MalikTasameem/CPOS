@@ -27,9 +27,14 @@ public sealed class AuthService
         await using SqlCommand cmd = cn.CreateCommand();
         cmd.CommandType = CommandType.Text;
         cmd.CommandText = @"
-SELECT TOP 1 user_id, UserName, isAdmin, is_Allow, AG_ID, Tr_ID
-FROM dbo.Users
-WHERE UserPass = @UserPass";
+SELECT TOP 1 u.user_id, u.UserName, u.isAdmin, u.is_Allow, u.AG_ID, u.Tr_ID,
+       CASE WHEN ISNULL(u.isAdmin, 0) = 1 THEN 1 ELSE ISNULL(v.SB_Show_Price_Info, 0) END AS SB_Show_Price_Info,
+       CASE WHEN ISNULL(u.isAdmin, 0) = 1 THEN 1 ELSE ISNULL(v.Sell_Under_Min_SP, 0) END AS Sell_Under_Min_SP,
+       CASE WHEN ISNULL(u.isAdmin, 0) = 1 THEN 1 ELSE ISNULL(v.Sell_Under_Min_SP_2, 0) END AS Sell_Under_Min_SP_2,
+       ISNULL((SELECT TOP 1 Allow_MinSP FROM dbo.Sys_Features ORDER BY T_ID ASC), 0) AS Allow_MinSP
+FROM dbo.Users u
+LEFT JOIN dbo.Users_Validations_V v ON v.User_id = u.user_id
+WHERE u.UserPass = @UserPass";
         cmd.Parameters.Add("@UserPass", SqlDbType.NVarChar).Value = encryptedPassword;
 
         await cn.OpenAsync(cancellationToken);
@@ -46,6 +51,10 @@ WHERE UserPass = @UserPass";
             UserName = GetString(dr, "UserName"),
             IsAdmin = GetBool(dr, "isAdmin"),
             IsAllow = GetBool(dr, "is_Allow"),
+            CanUseSalesPriceInfo = GetBool(dr, "SB_Show_Price_Info"),
+            CanSellWholesale = GetBool(dr, "Sell_Under_Min_SP"),
+            CanSellWholesale2 = GetBool(dr, "Sell_Under_Min_SP_2"),
+            IsMinSalesPriceEnabled = GetBool(dr, "Allow_MinSP"),
             AgentId = GetNullableInt(dr, "AG_ID"),
             TreasuryId = GetNullableInt(dr, "Tr_ID")
         };

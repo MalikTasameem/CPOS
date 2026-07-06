@@ -32,6 +32,10 @@ public sealed class ApiTokenService : IApiTokenService
             UserId = user.UserId,
             UserName = user.UserName,
             IsAdmin = user.IsAdmin,
+            CanUseSalesPriceInfo = user.CanUseSalesPriceInfo,
+            CanSellWholesale = user.CanSellWholesale,
+            CanSellWholesale2 = user.CanSellWholesale2,
+            IsMinSalesPriceEnabled = user.IsMinSalesPriceEnabled,
             AgentId = user.AgentId,
             TreasuryId = user.TreasuryId,
             ExpiresAtUnix = expiresAt.ToUnixTimeSeconds()
@@ -78,6 +82,10 @@ public sealed class ApiTokenService : IApiTokenService
             UserId = payload.UserId,
             UserName = payload.UserName,
             IsAdmin = payload.IsAdmin,
+            CanUseSalesPriceInfo = payload.CanUseSalesPriceInfo,
+            CanSellWholesale = payload.CanSellWholesale,
+            CanSellWholesale2 = payload.CanSellWholesale2,
+            IsMinSalesPriceEnabled = payload.IsMinSalesPriceEnabled,
             AgentId = payload.AgentId,
             TreasuryId = payload.TreasuryId
         };
@@ -128,6 +136,10 @@ public sealed class ApiTokenService : IApiTokenService
         public int UserId { get; set; }
         public string UserName { get; set; } = "";
         public bool IsAdmin { get; set; }
+        public bool CanUseSalesPriceInfo { get; set; }
+        public bool CanSellWholesale { get; set; }
+        public bool CanSellWholesale2 { get; set; }
+        public bool IsMinSalesPriceEnabled { get; set; }
         public int? AgentId { get; set; }
         public int? TreasuryId { get; set; }
         public long ExpiresAtUnix { get; set; }

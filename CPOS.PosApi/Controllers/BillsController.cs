@@ -1,4 +1,5 @@
 using CPOS.PosApi.Models.Requests;
+using CPOS.PosApi.Security;
 using CPOS.PosApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,8 +24,32 @@ public sealed class BillsController : ControllerBase
             return ValidationProblem(ModelState);
         }
 
+        ApiUserContext user = GetApiUser();
+        request.UserId = user.UserId;
         var result = await _billsService.OpenTableBillAsync(tableId, request, cancellationToken);
         return Ok(result);
+    }
+
+    [HttpPost("bills/open-direct")]
+    public async Task<IActionResult> OpenDirectBill([FromBody] OpenTableBillRequest request, CancellationToken cancellationToken)
+    {
+        if (ModelState.IsValid == false)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        ApiUserContext user = GetApiUser();
+        request.UserId = user.UserId;
+
+        try
+        {
+            var result = await _billsService.OpenDirectBillAsync(request, user.CanUseSalesPriceInfo, cancellationToken);
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpGet("bills/{transactionId:int}")]
@@ -44,8 +69,15 @@ public sealed class BillsController : ControllerBase
             return ValidationProblem(ModelState);
         }
 
-        var bill = await _billsService.AddItemAsync(transactionId, request, cancellationToken);
-        return Ok(bill);
+        try
+        {
+            var bill = await _billsService.AddItemAsync(transactionId, request, cancellationToken);
+            return Ok(bill);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPatch("bills/items/{detailId:int}/qty")]
@@ -56,8 +88,15 @@ public sealed class BillsController : ControllerBase
             return ValidationProblem(ModelState);
         }
 
-        var bill = await _billsService.ChangeItemQuantityAsync(detailId, request, cancellationToken);
-        return Ok(bill);
+        try
+        {
+            var bill = await _billsService.ChangeItemQuantityAsync(detailId, request, cancellationToken);
+            return Ok(bill);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPatch("bills/items/{detailId:int}/details")]
@@ -68,15 +107,142 @@ public sealed class BillsController : ControllerBase
             return ValidationProblem(ModelState);
         }
 
-        var bill = await _billsService.UpdateItemDetailsAsync(detailId, request, cancellationToken);
-        return Ok(bill);
+        try
+        {
+            var bill = await _billsService.UpdateItemDetailsAsync(detailId, request, cancellationToken);
+            return Ok(bill);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("bills/items/{detailId:int}/component-options")]
+    public async Task<IActionResult> GetItemComponentOptions(int detailId, [FromQuery] bool isAdd = false, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var result = await _billsService.GetItemComponentOptionsAsync(detailId, isAdd, cancellationToken);
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("bills/items/{detailId:int}/components")]
+    public async Task<IActionResult> GetItemComponents(int detailId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await _billsService.GetBillItemComponentsAsync(detailId, cancellationToken);
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("bills/items/{detailId:int}/components")]
+    public async Task<IActionResult> AddItemComponent(int detailId, [FromBody] AddBillItemComponentRequest request, CancellationToken cancellationToken)
+    {
+        if (ModelState.IsValid == false)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        try
+        {
+            var result = await _billsService.AddBillItemComponentAsync(detailId, request, cancellationToken);
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPatch("bills/items/{detailId:int}/components/{componentLineId:int}/qty")]
+    public async Task<IActionResult> ChangeItemComponentQuantity(int detailId, int componentLineId, [FromBody] ChangeBillItemComponentQtyRequest request, CancellationToken cancellationToken)
+    {
+        if (ModelState.IsValid == false)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        try
+        {
+            var result = await _billsService.ChangeBillItemComponentQuantityAsync(detailId, componentLineId, request, cancellationToken);
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpDelete("bills/items/{detailId:int}/components/{componentLineId:int}")]
+    public async Task<IActionResult> DeleteItemComponent(int detailId, int componentLineId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await _billsService.DeleteBillItemComponentAsync(detailId, componentLineId, cancellationToken);
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpDelete("bills/items/{detailId:int}/components")]
+    public async Task<IActionResult> ClearItemComponents(int detailId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await _billsService.ClearBillItemComponentsAsync(detailId, cancellationToken);
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPatch("bills/{transactionId:int}/type")]
+    public async Task<IActionResult> UpdateBillType(int transactionId, [FromBody] UpdateBillTypeRequest request, CancellationToken cancellationToken)
+    {
+        if (ModelState.IsValid == false)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        try
+        {
+            var bill = await _billsService.UpdateBillTypeAsync(transactionId, request, cancellationToken);
+            return Ok(bill);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpDelete("bills/items/{detailId:int}")]
     public async Task<IActionResult> DeleteItem(int detailId, [FromQuery] bool onUpdate = false, CancellationToken cancellationToken = default)
     {
-        var bill = await _billsService.DeleteItemAsync(detailId, onUpdate, cancellationToken);
-        return Ok(bill);
+        try
+        {
+            var bill = await _billsService.DeleteItemAsync(detailId, onUpdate, cancellationToken);
+            return Ok(bill);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("bills/{transactionId:int}/send-order")]
@@ -87,7 +253,39 @@ public sealed class BillsController : ControllerBase
             return ValidationProblem(ModelState);
         }
 
-        var bill = await _billsService.SendTableOrderAsync(transactionId, request, cancellationToken);
-        return Ok(bill);
+        try
+        {
+            var bill = await _billsService.SendTableOrderAsync(transactionId, request, cancellationToken);
+            return Ok(bill);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("bills/{transactionId:int}/save")]
+    public async Task<IActionResult> SaveBill(int transactionId, [FromBody] SaveBillRequest request, CancellationToken cancellationToken)
+    {
+        if (ModelState.IsValid == false)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        try
+        {
+            ApiUserContext user = GetApiUser();
+            var result = await _billsService.SaveBillAsync(transactionId, request, user, cancellationToken);
+            return Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    private ApiUserContext GetApiUser()
+    {
+        return HttpContext.Items["ApiUser"] as ApiUserContext ?? new ApiUserContext();
     }
 }
