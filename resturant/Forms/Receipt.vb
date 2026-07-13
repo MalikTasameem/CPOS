@@ -1,6 +1,8 @@
-﻿Public Class Receipt
+﻿Imports System.Drawing.Printing
 
-    Dim rs As New Resizer
+Public Class Receipt
+
+    'Dim rs As New Resizer
     Dim Reciept_T_ID As Integer
     Dim Is_ComandSuccess As Boolean = False
     Dim EditState As String = ""
@@ -588,83 +590,30 @@
     Public Sub Print_RECIEPT()
 
         Try
-            Dim pp As New ReportConnection
+            Dim data As ReceiptPrintData = ReceiptPrintData.FromReceiptForm(Me, Show_Treasury_CB.Checked)
+            Dim renderer As New ReceiptPrintDocumentRenderer(data, ReceiptPage_ID)
 
-            pp.rp.Load(Application.StartupPath & Receipt_Track)
+            Using doc As PrintDocument = renderer.CreatePrintDocument()
+                AddHandler doc.PrintPage, AddressOf renderer.PrintPage
 
-            pp.CrTables = pp.rp.Database.Tables
-            For Each CrTable In pp.CrTables
-                pp.crtableLogoninfo = CrTable.LogOnInfo
-                pp.crtableLogoninfo.ConnectionInfo = pp.crConnectionInfo
-                CrTable.ApplyLogOnInfo(pp.crtableLogoninfo)
-            Next
-
-
-            With pp
-                .rp.SetParameterValue(0, Convert.ToDouble(money_num_txtb.Text))
-
-                If String.IsNullOrWhiteSpace(CR_Phone_Txt.Text) Then
-                    .rp.SetParameterValue(1, AG_Cm.Textt)
-                Else
-                    .rp.SetParameterValue(1, AG_Cm.Textt & " \ " & CR_Phone_Txt.Text)
+                Dim printerName As String = If(ReceiptPage_ID = 1, Default_Printer_80, Default_Printer_A4)
+                If String.IsNullOrWhiteSpace(printerName) = False Then
+                    If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", printerName))
+                    doc.PrinterSettings.PrinterName = printerName
                 End If
-
-                '.rp.SetParameterValue(1, AG_Cm.Textt & " \ " & CR_Phone_Txt.Text)
-                .rp.SetParameterValue(2, ReceiptNum_Txt.Text)
-                .rp.SetParameterValue(3, DateTimeReceipt.Value)
-
-
-                .rp.SetParameterValue(4, payment_Type_combo.Text)
-                If payment_Type_combo.SelectedIndex = 0 Then
-                    .rp.SetParameterValue(11, "--------------------------------")
-                Else
-                    .rp.SetParameterValue(11, "  " + "شيك رقم  " + CheckNum_txtb.Text + " * " + "  " + " عن مصرف " + bankName_Combo.Text + " * ")
-                End If
-
-                .rp.SetParameterValue(5, Notes_txtb.Text + "  " + " * " + Receipt_Title_combobox.Text + " * ")
-
-                .rp.SetParameterValue(6, money_char_txtb.Text)
-
-                If AG_Show_Balance_CB.Checked = True Then
-                    .rp.SetParameterValue(7, "رصيد الحساب :  " & Current_QTY.Text)
-                Else
-                    .rp.SetParameterValue(7, " ")
-                End If
-
-
-                .rp.SetParameterValue(8, USER_NAME)
-                '.rp.SetParameterValue(9, ReceiptCode_Contx_Label.Text)
-                .rp.SetParameterValue(10, ReceiptTypeComboBox.Text)
-                '
-                .rp.SetParameterValue(12, SBill_Title_1)
-
-                If ReceiptTypeComboBox.SelectedValue = 2 Or ReceiptTypeComboBox.SelectedValue = 4 Or ReceiptTypeComboBox.SelectedValue = 5 Then
-                    .rp.SetParameterValue(13, "سلمت للسيد")
-                ElseIf ReceiptTypeComboBox.SelectedValue = 3 Or ReceiptTypeComboBox.SelectedValue = 9 Then
-                    .rp.SetParameterValue(13, "استلمت من السيد")
-                End If
-
-                If ReceiptPage_ID = 1 Then
-                    If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_80))
-                    .rp.PrintOptions.PrinterName = Default_Printer_80
-                Else
-                    If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_A4))
-                    .rp.PrintOptions.PrinterName = Default_Printer_A4
-                End If
-                .rp.SetParameterValue(14, 0)
-
-
 
                 If Show_Bill_CB.Checked = True Then
-                    Dim p As New print
-                    p.CrystalReportViewer1.ReportSource = pp.rp
-                    p.ShowDialog()
+                    Using previewDialog As New PrintPreviewDialog()
+                        previewDialog.Document = doc
+                        previewDialog.WindowState = FormWindowState.Maximized
+                        previewDialog.Text = "معاينة الإيصال"
+                        previewDialog.ShowDialog(Me)
+                    End Using
                 Else
-                    .rp.PrintToPrinter(1, False, 0, 0)
-                    .rp.Dispose()
+                    doc.PrintController = New StandardPrintController()
+                    doc.Print()
                 End If
-
-            End With
+            End Using
 
 
         Catch ex As Exception
@@ -706,6 +655,7 @@
         If AG_ID > 0 Then AG_Cm.Set_IM_By_ID(AG_ID)
 
         AG_Show_Balance_CB.Checked = MY_Settings.AG_Show_Balance_in_Receipt
+        Show_Treasury_CB.Checked = MY_Settings.Show_Treasury_in_Receipt
     End Sub
 
 
@@ -969,6 +919,12 @@
 
     Private Sub Show_Bill_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Show_Bill_CB.CheckedChanged
         CB_CHecked(sender)
+    End Sub
+
+    Private Sub Show_Treasury_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Show_Treasury_CB.CheckedChanged
+        CB_CHecked(sender)
+        MY_Settings.Show_Treasury_in_Receipt = Show_Treasury_CB.Checked
+        MY_Settings.Save_AppSetting()
     End Sub
 
 

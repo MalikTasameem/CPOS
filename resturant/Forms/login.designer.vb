@@ -453,7 +453,7 @@ Partial Class login
         Me.IM_PHONE_3_LB.Name = "IM_PHONE_3_LB"
         Me.IM_PHONE_3_LB.Size = New System.Drawing.Size(84, 15)
         Me.IM_PHONE_3_LB.TabIndex = 580
-        Me.IM_PHONE_3_LB.Text = "092 - 794 26 66"
+        Me.IM_PHONE_3_LB.Text = "091 - 794 26 66"
         '
         'AnyDesk_Btn
         '

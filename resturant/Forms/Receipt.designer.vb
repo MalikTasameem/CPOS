@@ -30,6 +30,7 @@ Partial Class Receipt
         Me.TopTitle_LB = New System.Windows.Forms.Label()
         Me.AG_Show_Balance_CB = New System.Windows.Forms.CheckBox()
         Me.Show_Bill_CB = New System.Windows.Forms.CheckBox()
+        Me.Show_Treasury_CB = New System.Windows.Forms.CheckBox()
         Me.Title_Lb = New System.Windows.Forms.Label()
         Me.Edit_butt = New System.Windows.Forms.Button()
         Me.Rct_Move_Panel = New System.Windows.Forms.Panel()
@@ -166,6 +167,18 @@ Partial Class Receipt
         Me.Show_Bill_CB.TabIndex = 675
         Me.Show_Bill_CB.Text = "معاينة الإيصال"
         Me.Show_Bill_CB.UseVisualStyleBackColor = True
+        '
+        'Show_Treasury_CB
+        '
+        Me.Show_Treasury_CB.AutoSize = True
+        Me.Show_Treasury_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Show_Treasury_CB.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Show_Treasury_CB.Location = New System.Drawing.Point(244, 458)
+        Me.Show_Treasury_CB.Name = "Show_Treasury_CB"
+        Me.Show_Treasury_CB.Size = New System.Drawing.Size(93, 18)
+        Me.Show_Treasury_CB.TabIndex = 676
+        Me.Show_Treasury_CB.Text = "طباعة الخزينة"
+        Me.Show_Treasury_CB.UseVisualStyleBackColor = True
         '
         'Title_Lb
         '
@@ -861,6 +874,7 @@ Partial Class Receipt
         Me.Controls.Add(Me.TitleBar_Panel)
         Me.Controls.Add(Me.AG_Show_Balance_CB)
         Me.Controls.Add(Me.Show_Bill_CB)
+        Me.Controls.Add(Me.Show_Treasury_CB)
         Me.Controls.Add(Me.Title_Lb)
         Me.Controls.Add(Me.Edit_butt)
         Me.Controls.Add(Me.Rct_Move_Panel)
@@ -937,6 +951,7 @@ Partial Class Receipt
     Friend WithEvents ReceiptNum_Txt As System.Windows.Forms.TextBox
     Friend WithEvents AG_Show_Balance_CB As System.Windows.Forms.CheckBox
     Friend WithEvents Show_Bill_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents Show_Treasury_CB As System.Windows.Forms.CheckBox
     Friend WithEvents NULLContextMenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents إضافةالإيصالإلىقائمةالعهدToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem

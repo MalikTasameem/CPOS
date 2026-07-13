@@ -97,6 +97,7 @@ Module MY_Settings
     Public NumOfBillsTest As String = "400"
     Public SB_Search_Bill_Autot_Select As Boolean = True
     Public AG_Show_Balance_in_Receipt As Boolean = True
+    Public Show_Treasury_in_Receipt As Boolean = True
     Public is_Use_Multi_Pay As Boolean = False
     Public Show_AllBill_Clmns As Boolean = True
     Public TableDisplayMode As Integer = 1 '0 = تقليدي، 1 = حديث
@@ -208,6 +209,7 @@ Module MY_Settings
                 sWriter.WriteLine("NumOfBillsTest" & ":" & EncryptionHelper.Encrypt(NumOfBillsTest.ToString()))
                 sWriter.WriteLine("SB_Search_Bill_Autot_Select" & ":" & SB_Search_Bill_Autot_Select.ToString())
                 sWriter.WriteLine("AG_Show_Balance_in_Receipt" & ":" & AG_Show_Balance_in_Receipt.ToString())
+                sWriter.WriteLine("Show_Treasury_in_Receipt" & ":" & Show_Treasury_in_Receipt.ToString())
                 sWriter.WriteLine("is_Use_Multi_Pay" & ":" & is_Use_Multi_Pay.ToString())
                 sWriter.WriteLine("Show_AllBill_Clmns" & ":" & Show_AllBill_Clmns.ToString())
                 sWriter.WriteLine("TableDisplayMode" & ":" & TableDisplayMode.ToString())
@@ -903,6 +905,13 @@ Module MY_Settings
                     AG_Show_Balance_in_Receipt = Convert.ToBoolean(Setting_Value)
                 Else
                     AG_Show_Balance_in_Receipt = Setting_Value
+                End If
+
+            Case "Show_Treasury_in_Receipt"
+                If Setting_Value = "True" Or Setting_Value = "False" Then
+                    Show_Treasury_in_Receipt = Convert.ToBoolean(Setting_Value)
+                Else
+                    Show_Treasury_in_Receipt = Setting_Value
                 End If
 
             Case "is_Use_Multi_Pay"

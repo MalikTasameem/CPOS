@@ -533,14 +533,14 @@ Partial Class Format_Items_Auto
         Me.DateTimeEx.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimeEx.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DateTimeEx.CustomFormat = "dd/MM/yyyy"
-        Me.DateTimeEx.Font = New System.Drawing.Font("Times New Roman", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimeEx.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimeEx.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DateTimeEx.Location = New System.Drawing.Point(2, 4)
         Me.DateTimeEx.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.DateTimeEx.Name = "DateTimeEx"
         Me.DateTimeEx.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.DateTimeEx.RightToLeftLayout = True
-        Me.DateTimeEx.Size = New System.Drawing.Size(133, 29)
+        Me.DateTimeEx.Size = New System.Drawing.Size(130, 29)
         Me.DateTimeEx.TabIndex = 383
         '
         'Label17
@@ -730,14 +730,14 @@ Partial Class Format_Items_Auto
         Me.Title_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Title_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Title_txt.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.Title_txt.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!)
+        Me.Title_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
         Me.Title_txt.ForeColor = System.Drawing.Color.Black
-        Me.Title_txt.Location = New System.Drawing.Point(2, 8)
+        Me.Title_txt.Location = New System.Drawing.Point(2, 6)
         Me.Title_txt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Title_txt.MaxLength = 250
         Me.Title_txt.Name = "Title_txt"
         Me.Title_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Title_txt.Size = New System.Drawing.Size(340, 24)
+        Me.Title_txt.Size = New System.Drawing.Size(340, 27)
         Me.Title_txt.TabIndex = 687
         Me.Title_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -767,9 +767,10 @@ Partial Class Format_Items_Auto
         '
         'Label10
         '
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!)
         Me.Label10.Location = New System.Drawing.Point(346, 9)
         Me.Label10.Name = "Label10"
+        Me.Label10.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label10.Size = New System.Drawing.Size(56, 21)
         Me.Label10.TabIndex = 623
         Me.Label10.Text = "العنوان :"
@@ -788,9 +789,10 @@ Partial Class Format_Items_Auto
         'Label3
         '
         Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!)
         Me.Label3.Location = New System.Drawing.Point(137, 8)
         Me.Label3.Name = "Label3"
+        Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label3.Size = New System.Drawing.Size(54, 21)
         Me.Label3.TabIndex = 690
         Me.Label3.Text = "التاريخ :"
@@ -810,11 +812,12 @@ Partial Class Format_Items_Auto
         'Label5
         '
         Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(910, 629)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(62, 21)
+        Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Label5.Size = New System.Drawing.Size(75, 21)
         Me.Label5.TabIndex = 716
         Me.Label5.Text = "ملاحظة :"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter

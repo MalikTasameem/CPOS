@@ -1506,6 +1506,8 @@
     </Compile>
     <Compile Include="Modules\MY_Settings.vb" />
     <Compile Include="Classes\Print_PDF.vb" />
+    <Compile Include="Classes\Printing\ReceiptPrintData.vb" />
+    <Compile Include="Classes\Printing\ReceiptPrintDocumentRenderer.vb" />
     <Compile Include="Classes\Printing\SalesPrintData.vb" />
     <Compile Include="Classes\Printing\SalesPrintDocumentRenderer.vb" />
     <Compile Include="Classes\Printing\SalesPrintProfile.vb" />

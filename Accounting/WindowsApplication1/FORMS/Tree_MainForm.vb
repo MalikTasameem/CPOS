@@ -1,7 +1,7 @@
 ﻿Imports DevExpress.Utils
 
 Public Class Tree_MainForm
-    Private Const TrialEntriesLimit As Integer = 200
+    Private Const TrialEntriesLimit As Integer = 100
     Private TrialDataReset_Btn As Button
     Private IsTrialLimitExceeded As Boolean = False
     Public Property OpenedFromCPOS As Boolean = False

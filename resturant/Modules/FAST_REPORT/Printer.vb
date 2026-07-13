@@ -215,7 +215,8 @@ Public Class Printer
         With PS1
             Dim DefaultPaper As PaperSize = (From s As PaperSize In prn.PrinterSettings.PaperSizes.Cast(Of PaperSize)()).FirstOrDefault
             If DefaultPaper IsNot Nothing Then
-                .PaperSize = DefaultPaper
+                '.PaperSize = DefaultPaper
+                .PaperSize = New PaperSize("Receipt80", 280, 1200)
             Else
                 .PaperSize = New PaperSize("Thermal80mm", 280, 1200)
             End If

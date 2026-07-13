@@ -262,7 +262,6 @@ Partial Class Frm_manuel_IM_card
         '
         Me.Add_Valid_Btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Add_Valid_Btn.BackColor = System.Drawing.Color.White
-        Me.Add_Valid_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.Add_Valid_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Add_Valid_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Add_Valid_Btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
@@ -277,23 +276,23 @@ Partial Class Frm_manuel_IM_card
         Me.Add_Valid_Btn.Size = New System.Drawing.Size(25, 25)
         Me.Add_Valid_Btn.TabIndex = 709
         Me.Add_Valid_Btn.TabStop = False
-        Me.Add_Valid_Btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Add_Valid_Btn.Text = "➕"
         Me.Add_Valid_Btn.UseVisualStyleBackColor = False
         '
         'Remove_Valid_Btn
         '
         Me.Remove_Valid_Btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Remove_Valid_Btn.BackColor = System.Drawing.Color.White
-        Me.Remove_Valid_Btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_minus_173055
         Me.Remove_Valid_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Remove_Valid_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Remove_Valid_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Remove_Valid_Btn.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Remove_Valid_Btn.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Remove_Valid_Btn.Location = New System.Drawing.Point(44, 2)
         Me.Remove_Valid_Btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Remove_Valid_Btn.Name = "Remove_Valid_Btn"
         Me.Remove_Valid_Btn.Size = New System.Drawing.Size(25, 25)
         Me.Remove_Valid_Btn.TabIndex = 710
+        Me.Remove_Valid_Btn.Text = "➖"
         Me.Remove_Valid_Btn.UseVisualStyleBackColor = False
         '
         'Panel15
@@ -505,13 +504,13 @@ Partial Class Frm_manuel_IM_card
         '
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 14.75!)
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(2, 2)
+        Me.QtyTextBox.Location = New System.Drawing.Point(2, 3)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.QtyTextBox.Size = New System.Drawing.Size(58, 30)
+        Me.QtyTextBox.Size = New System.Drawing.Size(58, 27)
         Me.QtyTextBox.TabIndex = 1001
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -544,18 +543,17 @@ Partial Class Frm_manuel_IM_card
         Me.IM_Unit_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Unit_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.IM_Unit_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
         Me.IM_Unit_cm.FormattingEnabled = True
-        Me.IM_Unit_cm.Location = New System.Drawing.Point(32, 3)
+        Me.IM_Unit_cm.Location = New System.Drawing.Point(32, 4)
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
-        Me.IM_Unit_cm.Size = New System.Drawing.Size(111, 28)
+        Me.IM_Unit_cm.Size = New System.Drawing.Size(111, 27)
         Me.IM_Unit_cm.TabIndex = 500
         '
         'Ass_U_btn
         '
         Me.Ass_U_btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Ass_U_btn.BackColor = System.Drawing.Color.White
-        Me.Ass_U_btn.BackgroundImage = Global.resturant.My.Resources.Resources.if_Add_27831
         Me.Ass_U_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Ass_U_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Ass_U_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
@@ -570,7 +568,7 @@ Partial Class Frm_manuel_IM_card
         Me.Ass_U_btn.Size = New System.Drawing.Size(25, 29)
         Me.Ass_U_btn.TabIndex = 657
         Me.Ass_U_btn.TabStop = False
-        Me.Ass_U_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Ass_U_btn.Text = "➕"
         Me.Ass_U_btn.UseVisualStyleBackColor = False
         '
         'All_St_Panel
@@ -665,7 +663,7 @@ Partial Class Frm_manuel_IM_card
         Me.D_Valid.CalendarFont = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.D_Valid.Cursor = System.Windows.Forms.Cursors.Hand
         Me.D_Valid.CustomFormat = "dd-MM-yyyy"
-        Me.D_Valid.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.D_Valid.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.D_Valid.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.D_Valid.Location = New System.Drawing.Point(2, 2)
         Me.D_Valid.Name = "D_Valid"
@@ -880,13 +878,13 @@ Partial Class Frm_manuel_IM_card
         Me.Confirm_ADD_bercent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Confirm_ADD_bercent.Font = New System.Drawing.Font("JF Flat", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Confirm_ADD_bercent.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Confirm_ADD_bercent.Image = Global.resturant.My.Resources.Resources.if_ok_173061
         Me.Confirm_ADD_bercent.Location = New System.Drawing.Point(741, 253)
         Me.Confirm_ADD_bercent.Name = "Confirm_ADD_bercent"
         Me.Confirm_ADD_bercent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Confirm_ADD_bercent.Size = New System.Drawing.Size(37, 28)
         Me.Confirm_ADD_bercent.TabIndex = 1040
         Me.Confirm_ADD_bercent.TabStop = False
+        Me.Confirm_ADD_bercent.Text = "✔️"
         Me.Confirm_ADD_bercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Confirm_ADD_bercent.UseVisualStyleBackColor = False
         '
