@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Drawing.Printing
 
 Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
 
@@ -1135,53 +1136,7 @@ Me.Name.ToString
     Public Sub IMTranPrintData()
 
         Try
-            Dim pp As New ReportConnection
-
-
-            Select Case Manual_FRM_rpt
-                Case 0 : pp.rp.Load(Application.StartupPath & "\reports\Frm_Manual_Rows_A4.rpt")
-                Case 1 : pp.rp.Load(Application.StartupPath & "\reports\Frm_Manual_Rows_A4_Kitchen.rpt")
-                Case 2 : pp.rp.Load(Application.StartupPath & "\reports\Frm_Manual_Rows_A4_Kitchen_2.rpt")
-            End Select
-
-
-            pp.CrTables = pp.rp.Database.Tables
-            For Each CrTable In pp.CrTables
-                pp.crtableLogoninfo = CrTable.LogOnInfo
-                pp.crtableLogoninfo.ConnectionInfo = pp.crConnectionInfo
-                CrTable.ApplyLogOnInfo(pp.crtableLogoninfo)
-            Next
-            With pp
-                .rp.SetParameterValue(0, "  رقم الأمر :  " + Bill_ID_Txt.Text + "   -   " + " تاريخ : " + DateTimeEx.Text + "   -   " + " العنوان : " + Title_txt.Text)
-                .rp.SetParameterValue(1, USER_NAME)
-                .rp.SetParameterValue(2, MY_Settings.Server_Desc)
-
-
-                If String.IsNullOrWhiteSpace(SB_AG_NAME_TXT.Text) Then
-                    .rp.SetParameterValue(3, "")
-                Else
-                    .rp.SetParameterValue(3, "الزبون : " + SB_AG_NAME_TXT.Text + "   -   " + " رقم فاتورة المبيعات : " + SB_BILL_FS.Textt)
-                End If
-
-                .rp.SetParameterValue(4, T_ID)
-
-
-                If Manual_FRM_rpt = 1 Or Manual_FRM_rpt = 2 Then
-                    .rp.SetParameterValue(5, Deliver_DateTimePicker1.Text)
-                    .rp.SetParameterValue(6, SB_AG_NAME_TXT.Text)
-                    .rp.SetParameterValue(7, EMP_FS.Textt)
-                End If
-
-            End With
-
-            Dim p As New print
-            p.CrystalReportViewer1.ReportSource = pp.rp
-            p.ShowDialog()
-
-            'If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_A4))
-            'pp.rp.PrintOptions.PrinterName = Default_Printer_A4
-            'pp.rp.PrintToPrinter(1, False, 0, 0)
-            'pp.rp.Dispose()
+            ShowManualFormatPrintPreview(ManualFormatPrintMode.RawMaterials)
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -1198,40 +1153,28 @@ Me.Name.ToString
     Public Sub IMTranPrintData_2()
 
         Try
-            Dim pp As New ReportConnection
-            pp.rp.Load(Application.StartupPath & "\reports\Frm_Manual_Products_A4.rpt")
-            pp.CrTables = pp.rp.Database.Tables
-            For Each CrTable In pp.CrTables
-                pp.crtableLogoninfo = CrTable.LogOnInfo
-                pp.crtableLogoninfo.ConnectionInfo = pp.crConnectionInfo
-                CrTable.ApplyLogOnInfo(pp.crtableLogoninfo)
-            Next
-            With pp
-                .rp.SetParameterValue(0, " تاريخ : " + DateTimeEx.Value)
-                .rp.SetParameterValue(1, USER_NAME)
-                .rp.SetParameterValue(2, MY_Settings.Server_Desc)
-                .rp.SetParameterValue(3, "")
-                .rp.SetParameterValue(4, T_ID)
-                .rp.SetParameterValue(5, "  رقم الفاتورة :  " + Bill_ID_Txt.Text)
-                .rp.SetParameterValue(6, " العنوان : " + Title_txt.Text)
-
-            End With
-
-
-            If Def_Befor_Print = 1 Then Shell(String.Format("rundll32 printui.dll,PrintUIEntry /y /n ""{0}""", Default_Printer_A4))
-
-            Dim p As New print
-            p.CrystalReportViewer1.ReportSource = pp.rp
-            p.Show()
-
-            'pp.rp.PrintOptions.PrinterName = Default_Printer_A4
-            'pp.rp.PrintToPrinter(1, False, 0, 0)
-            'pp.rp.Dispose()
+            ShowManualFormatPrintPreview(ManualFormatPrintMode.Products)
 
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
+    End Sub
+
+    Private Sub ShowManualFormatPrintPreview(mode As ManualFormatPrintMode)
+        Dim data As ManualFormatPrintData = ManualFormatPrintData.FromManualForm(Me, mode)
+        Dim renderer As New ManualFormatPrintDocumentRenderer(data)
+
+        Using printDocument As PrintDocument = renderer.CreatePrintDocument()
+            If String.IsNullOrWhiteSpace(Default_Printer_A4) = False Then printDocument.PrinterSettings.PrinterName = Default_Printer_A4
+
+            Using previewDialog As New PrintPreviewDialog()
+                previewDialog.Document = printDocument
+                previewDialog.WindowState = FormWindowState.Maximized
+                previewDialog.Text = data.ReportTitle
+                previewDialog.ShowDialog(Me)
+            End Using
+        End Using
     End Sub
 
     Private Sub Title_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Title_txt.KeyDown
@@ -1412,8 +1355,7 @@ Me.Name.ToString
     End Sub
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
-        Dim F As New Print_PDF
-        F.PRINT_PDF_List(BillMetroGrid, CheckedListBox1, " أمر تصنيــع يدوي رقم " & Bill_ID_Txt.Text & vbNewLine & " تاريخ: " & DateTimeEx.Text & "                          " & " عنوان: " & Title_txt.Text & vbNewLine & " الزبون: " & SB_BILL_FS.Textt & " \ " & SB_AG_NAME_TXT.Text, 1)
+        ShowManualFormatPrintPreview(ManualFormatPrintMode.RawMaterials)
     End Sub
 
     Private Sub Deliver_DateTimePicker1_KeyDown(sender As Object, e As KeyEventArgs) Handles Deliver_DateTimePicker1.KeyDown
@@ -1573,10 +1515,12 @@ Me.Name.ToString
     End Sub
 
     Private Sub طباعــةمفتوحــةموادالخـــامToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles طباعــةمفتوحــةموادالخـــامToolStripMenuItem.Click
-        Dim F As New Print_PDF
-        '   F.PRINT_PDF(ServicesGrid, 2, " أمر تصنيــع يدوي رقم " & Bill_ID_Txt.Text & vbNewLine & " تاريخ: " & DateTimeEx.Text & "                          " & " عنوان: " & Title_txt.Text & vbNewLine & " الزبون: " & SB_BILL_FS.Textt & " \ " & SB_AG_NAME_TXT.Text)
-        F.PRINT_PDF_List(ServicesGrid, CheckedListBox2, " أمر تصنيــع يدوي رقم " & Bill_ID_Txt.Text & vbNewLine & " تاريخ: " & DateTimeEx.Text & "                          " & " عنوان: " & Title_txt.Text & vbNewLine & " الزبون: " & SB_BILL_FS.Textt & " \ " & SB_AG_NAME_TXT.Text, 2)
+        ShowManualFormatPrintPreview(ManualFormatPrintMode.Services)
 
+    End Sub
+
+    Private Sub FullPrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullPrintToolStripMenuItem.Click
+        ShowManualFormatPrintPreview(ManualFormatPrintMode.Full)
     End Sub
 
 

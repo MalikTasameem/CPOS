@@ -51,7 +51,7 @@ Partial Class Format_Items_Manual
         Me.MOVE_From_pch = New System.Windows.Forms.Button()
         Me.MOVE_From_SB = New System.Windows.Forms.Button()
         Me.NULLContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BillMetroGrid = New MetroFramework.Controls.MetroGrid()
+        Me.BillMetroGrid = New System.Windows.Forms.DataGridView()
         Me.T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ت = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Bill_IMID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -63,7 +63,7 @@ Partial Class Format_Items_Manual
         Me.التكلفة = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.الإجمالي = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.خصم_الكمية = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AGMetroGrid = New MetroFramework.Controls.MetroGrid()
+        Me.AGMetroGrid = New System.Windows.Forms.DataGridView()
         Me.DETAILS_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.B_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.prc_IM_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -98,6 +98,7 @@ Partial Class Format_Items_Manual
         Me.Print_ContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.طباعــةمفتوحــةموادالخـــامToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FullPrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Print_btn_2 = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -120,7 +121,7 @@ Partial Class Format_Items_Manual
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.ServicesGrid = New MetroFramework.Controls.MetroGrid()
+        Me.ServicesGrid = New System.Windows.Forms.DataGridView()
         Me.T_ID_2_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Serv_IM_Name_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -389,7 +390,6 @@ Partial Class Format_Items_Manual
         Me.BillMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.BillMetroGrid.Size = New System.Drawing.Size(919, 416)
         Me.BillMetroGrid.TabIndex = 290
-        Me.BillMetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
         'T_ID_CL
         '
@@ -536,7 +536,6 @@ Partial Class Format_Items_Manual
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.AGMetroGrid.Size = New System.Drawing.Size(925, 455)
         Me.AGMetroGrid.TabIndex = 636
-        Me.AGMetroGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
         'DETAILS_T_ID_CL
         '
@@ -912,10 +911,10 @@ Partial Class Format_Items_Manual
         'Print_ContextMenuStrip
         '
         Me.Print_ContextMenuStrip.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Print_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2, Me.طباعــةمفتوحــةموادالخـــامToolStripMenuItem})
+        Me.Print_ContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2, Me.طباعــةمفتوحــةموادالخـــامToolStripMenuItem, Me.FullPrintToolStripMenuItem})
         Me.Print_ContextMenuStrip.Name = "AG_ContextMenuStrip"
         Me.Print_ContextMenuStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Print_ContextMenuStrip.Size = New System.Drawing.Size(223, 48)
+        Me.Print_ContextMenuStrip.Size = New System.Drawing.Size(223, 70)
         '
         'ToolStripMenuItem2
         '
@@ -928,6 +927,12 @@ Partial Class Format_Items_Manual
         Me.طباعــةمفتوحــةموادالخـــامToolStripMenuItem.Name = "طباعــةمفتوحــةموادالخـــامToolStripMenuItem"
         Me.طباعــةمفتوحــةموادالخـــامToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
         Me.طباعــةمفتوحــةموادالخـــامToolStripMenuItem.Text = "طباعــة مفتوحــة اليد العاملة"
+        '
+        'FullPrintToolStripMenuItem
+        '
+        Me.FullPrintToolStripMenuItem.Name = "FullPrintToolStripMenuItem"
+        Me.FullPrintToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
+        Me.FullPrintToolStripMenuItem.Text = "تقرير شامل كامل"
         '
         'Print_btn_2
         '
@@ -1255,7 +1260,6 @@ Partial Class Format_Items_Manual
         Me.ServicesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.ServicesGrid.Size = New System.Drawing.Size(919, 417)
         Me.ServicesGrid.TabIndex = 637
-        Me.ServicesGrid.Theme = MetroFramework.MetroThemeStyle.Light
         '
         'T_ID_2_CL
         '
@@ -1558,7 +1562,7 @@ Partial Class Format_Items_Manual
     Friend WithEvents MetroToolTip1 As MetroFramework.Components.MetroToolTip
     Friend WithEvents New_butt As System.Windows.Forms.Button
     Friend WithEvents Save_butt As System.Windows.Forms.Button
-    Friend WithEvents BillMetroGrid As MetroFramework.Controls.MetroGrid
+    Friend WithEvents BillMetroGrid As System.Windows.Forms.DataGridView
     Friend WithEvents Delete_butt As System.Windows.Forms.Button
     Friend WithEvents DateTimeEx As System.Windows.Forms.DateTimePicker
     Friend WithEvents ADDCatButton As System.Windows.Forms.Button
@@ -1571,7 +1575,7 @@ Partial Class Format_Items_Manual
     Friend WithEvents Down_Bill_btn As System.Windows.Forms.Button
     Friend WithEvents Up_Bill_btn As System.Windows.Forms.Button
     Friend WithEvents Bill_ID_Txt As System.Windows.Forms.TextBox
-    Friend WithEvents AGMetroGrid As MetroFramework.Controls.MetroGrid
+    Friend WithEvents AGMetroGrid As System.Windows.Forms.DataGridView
     Friend WithEvents IM_Qty_LB As System.Windows.Forms.Label
     Friend WithEvents IM_Count_LB As System.Windows.Forms.Label
     Friend WithEvents User_Name_lb As System.Windows.Forms.Label
@@ -1609,7 +1613,7 @@ Partial Class Format_Items_Manual
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents TabPage3 As TabPage
-    Friend WithEvents ServicesGrid As MetroFramework.Controls.MetroGrid
+    Friend WithEvents ServicesGrid As System.Windows.Forms.DataGridView
     Friend WithEvents T_Service_Txt As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents DETAILS_T_ID_CL As DataGridViewTextBoxColumn
@@ -1645,6 +1649,7 @@ Partial Class Format_Items_Manual
     Friend WithEvents MOVE_From_pch As Button
     Friend WithEvents MOVE_From_SB As Button
     Friend WithEvents طباعــةمفتوحــةموادالخـــامToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FullPrintToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TabPage4 As TabPage
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents CheckedListBox2 As CheckedListBox

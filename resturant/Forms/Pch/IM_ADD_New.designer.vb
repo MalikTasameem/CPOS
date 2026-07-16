@@ -109,12 +109,12 @@ Partial Class IM_ADD_New
         '
         Me.Barcode_SH_txt.BackColor = System.Drawing.SystemColors.Info
         Me.Barcode_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Barcode_SH_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.Barcode_SH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Barcode_SH_txt.ForeColor = System.Drawing.Color.Blue
         Me.Barcode_SH_txt.Location = New System.Drawing.Point(103, 98)
         Me.Barcode_SH_txt.Name = "Barcode_SH_txt"
         Me.Barcode_SH_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Barcode_SH_txt.Size = New System.Drawing.Size(326, 29)
+        Me.Barcode_SH_txt.Size = New System.Drawing.Size(326, 25)
         Me.Barcode_SH_txt.TabIndex = 676
         Me.Barcode_SH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -125,23 +125,23 @@ Partial Class IM_ADD_New
         Me.IM_Unit_cm.BackColor = System.Drawing.SystemColors.Info
         Me.IM_Unit_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Unit_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Unit_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Unit_cm.FormattingEnabled = True
         Me.IM_Unit_cm.Location = New System.Drawing.Point(103, 130)
         Me.IM_Unit_cm.Name = "IM_Unit_cm"
-        Me.IM_Unit_cm.Size = New System.Drawing.Size(194, 29)
+        Me.IM_Unit_cm.Size = New System.Drawing.Size(194, 25)
         Me.IM_Unit_cm.TabIndex = 677
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(49, 103)
+        Me.Label1.Location = New System.Drawing.Point(52, 103)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label1.Size = New System.Drawing.Size(51, 19)
+        Me.Label1.Size = New System.Drawing.Size(47, 17)
         Me.Label1.TabIndex = 680
         Me.Label1.Text = "باركود :"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -150,12 +150,12 @@ Partial Class IM_ADD_New
         '
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(14, 42)
+        Me.Label11.Location = New System.Drawing.Point(21, 41)
         Me.Label11.Name = "Label11"
         Me.Label11.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label11.Size = New System.Drawing.Size(86, 19)
+        Me.Label11.Size = New System.Drawing.Size(78, 17)
         Me.Label11.TabIndex = 681
         Me.Label11.Text = "إسم الصنف :"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -163,10 +163,10 @@ Partial Class IM_ADD_New
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label15.Location = New System.Drawing.Point(45, 135)
+        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(48, 135)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(54, 19)
+        Me.Label15.Size = New System.Drawing.Size(51, 17)
         Me.Label15.TabIndex = 682
         Me.Label15.Text = "الوحدة :"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -175,11 +175,11 @@ Partial Class IM_ADD_New
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label4.Location = New System.Drawing.Point(31, 10)
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(39, 10)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(68, 19)
+        Me.Label4.Size = New System.Drawing.Size(60, 17)
         Me.Label4.TabIndex = 685
         Me.Label4.Text = "التصنيف :"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -190,11 +190,11 @@ Partial Class IM_ADD_New
         Me.Random_Barcode_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Random_Barcode_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Random_Barcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Random_Barcode_btn.Font = New System.Drawing.Font("Tahoma", 13.75!, System.Drawing.FontStyle.Bold)
+        Me.Random_Barcode_btn.Font = New System.Drawing.Font("Tahoma", 10.25!, System.Drawing.FontStyle.Bold)
         Me.Random_Barcode_btn.Location = New System.Drawing.Point(431, 98)
         Me.Random_Barcode_btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Random_Barcode_btn.Name = "Random_Barcode_btn"
-        Me.Random_Barcode_btn.Size = New System.Drawing.Size(41, 29)
+        Me.Random_Barcode_btn.Size = New System.Drawing.Size(41, 25)
         Me.Random_Barcode_btn.TabIndex = 689
         Me.Random_Barcode_btn.Text = "🔄"
         Me.Random_Barcode_btn.UseVisualStyleBackColor = False
@@ -202,11 +202,12 @@ Partial Class IM_ADD_New
         'IM_Num_txt
         '
         Me.IM_Num_txt.BackColor = System.Drawing.SystemColors.Info
-        Me.IM_Num_txt.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Num_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.IM_Num_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Num_txt.Location = New System.Drawing.Point(103, 67)
         Me.IM_Num_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_Num_txt.Name = "IM_Num_txt"
-        Me.IM_Num_txt.Size = New System.Drawing.Size(369, 29)
+        Me.IM_Num_txt.Size = New System.Drawing.Size(369, 25)
         Me.IM_Num_txt.TabIndex = 690
         Me.IM_Num_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -214,11 +215,11 @@ Partial Class IM_ADD_New
         '
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label9.Location = New System.Drawing.Point(18, 73)
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(25, 72)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(82, 19)
+        Me.Label9.Size = New System.Drawing.Size(75, 17)
         Me.Label9.TabIndex = 691
         Me.Label9.Text = "رقم الصنف :"
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -238,11 +239,12 @@ Partial Class IM_ADD_New
         'IM_SH_txt
         '
         Me.IM_SH_txt.BackColor = System.Drawing.SystemColors.Info
-        Me.IM_SH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!)
+        Me.IM_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.IM_SH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.IM_SH_txt.Location = New System.Drawing.Point(103, 36)
         Me.IM_SH_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_SH_txt.Name = "IM_SH_txt"
-        Me.IM_SH_txt.Size = New System.Drawing.Size(369, 29)
+        Me.IM_SH_txt.Size = New System.Drawing.Size(369, 25)
         Me.IM_SH_txt.TabIndex = 696
         '
         'Call_IM_After_Insert_CB
@@ -264,14 +266,14 @@ Partial Class IM_ADD_New
         Me.GM_Serach.BackColor = System.Drawing.SystemColors.Info
         Me.GM_Serach.Cursor = System.Windows.Forms.Cursors.Hand
         Me.GM_Serach.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GM_Serach.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!)
+        Me.GM_Serach.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.GM_Serach.FormattingEnabled = True
         Me.GM_Serach.IntegralHeight = False
         Me.GM_Serach.Items.AddRange(New Object() {"قصيرة", "طويلة"})
         Me.GM_Serach.Location = New System.Drawing.Point(103, 4)
         Me.GM_Serach.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GM_Serach.Name = "GM_Serach"
-        Me.GM_Serach.Size = New System.Drawing.Size(331, 29)
+        Me.GM_Serach.Size = New System.Drawing.Size(331, 25)
         Me.GM_Serach.TabIndex = 700
         '
         'ADD_NewGM_Btn
@@ -280,11 +282,11 @@ Partial Class IM_ADD_New
         Me.ADD_NewGM_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ADD_NewGM_Btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ADD_NewGM_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ADD_NewGM_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.25!, System.Drawing.FontStyle.Bold)
+        Me.ADD_NewGM_Btn.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
         Me.ADD_NewGM_Btn.Location = New System.Drawing.Point(436, 4)
         Me.ADD_NewGM_Btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ADD_NewGM_Btn.Name = "ADD_NewGM_Btn"
-        Me.ADD_NewGM_Btn.Size = New System.Drawing.Size(34, 29)
+        Me.ADD_NewGM_Btn.Size = New System.Drawing.Size(34, 25)
         Me.ADD_NewGM_Btn.TabIndex = 699
         Me.ADD_NewGM_Btn.Text = "➕"
         Me.ADD_NewGM_Btn.UseVisualStyleBackColor = False
@@ -293,10 +295,10 @@ Partial Class IM_ADD_New
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!)
         Me.Label2.Location = New System.Drawing.Point(303, 135)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(66, 21)
+        Me.Label2.Size = New System.Drawing.Size(56, 17)
         Me.Label2.TabIndex = 702
         Me.Label2.Text = "الحمولة :"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -305,13 +307,13 @@ Partial Class IM_ADD_New
         '
         Me.Unit_cargo_txt.BackColor = System.Drawing.SystemColors.Info
         Me.Unit_cargo_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Unit_cargo_txt.Font = New System.Drawing.Font("Times New Roman", 15.75!)
+        Me.Unit_cargo_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Unit_cargo_txt.ForeColor = System.Drawing.Color.Black
-        Me.Unit_cargo_txt.Location = New System.Drawing.Point(373, 129)
+        Me.Unit_cargo_txt.Location = New System.Drawing.Point(363, 131)
         Me.Unit_cargo_txt.MaxLength = 250
         Me.Unit_cargo_txt.Name = "Unit_cargo_txt"
         Me.Unit_cargo_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Unit_cargo_txt.Size = New System.Drawing.Size(55, 32)
+        Me.Unit_cargo_txt.Size = New System.Drawing.Size(55, 25)
         Me.Unit_cargo_txt.TabIndex = 701
         Me.Unit_cargo_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -319,22 +321,22 @@ Partial Class IM_ADD_New
         '
         Me.Barcode_By_One_txt.BackColor = System.Drawing.SystemColors.Info
         Me.Barcode_By_One_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Barcode_By_One_txt.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.Barcode_By_One_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Barcode_By_One_txt.ForeColor = System.Drawing.Color.Blue
         Me.Barcode_By_One_txt.Location = New System.Drawing.Point(48, 2)
         Me.Barcode_By_One_txt.Name = "Barcode_By_One_txt"
         Me.Barcode_By_One_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Barcode_By_One_txt.Size = New System.Drawing.Size(276, 29)
+        Me.Barcode_By_One_txt.Size = New System.Drawing.Size(276, 25)
         Me.Barcode_By_One_txt.TabIndex = 703
         Me.Barcode_By_One_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(327, 8)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        Me.Label3.Location = New System.Drawing.Point(327, 5)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(98, 19)
+        Me.Label3.Size = New System.Drawing.Size(91, 17)
         Me.Label3.TabIndex = 704
         Me.Label3.Text = "باركود القطعة :"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.BottomCenter
