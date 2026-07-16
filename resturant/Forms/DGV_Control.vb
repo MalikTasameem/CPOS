@@ -2,43 +2,66 @@
 
 
     Dim ST_Case As Integer = 0 ' 1:St Explorer , 2:IM_Valid , 3 ITEMS_PRICE
+    Private IsLoadingSettings As Boolean = False
+    Private HasPendingSettingsChanges As Boolean = False
+
+    Private Sub DGV_Control_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        SavePendingSettingsChanges()
+    End Sub
     Private Sub DGV_Control_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
     End Sub
 
     Private Sub DGV_Control_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        IsLoadingSettings = True
+        Try
 
-        LAST_PCH_CB.Visible = U_SB_Show_IM_COST
+            LAST_PCH_CB.Visible = U_SB_Show_IM_COST
 
-        If FormType = 0 Then
-            'If F_STORES_Explorer.ParentForm = True Then
+            If FormType = 0 Then
+                'If F_STORES_Explorer.ParentForm = True Then
 
-            If Application.OpenForms().OfType(Of STORES_Explorer).Any Then
-                ST_Case = 1
-                Handle_With_St_Tab()
+                If Application.OpenForms().OfType(Of STORES_Explorer).Any Then
+                    ST_Case = 1
+                    Handle_With_St_Tab()
 
-                'ElseIf F_STORES_Explorer.IsHandleCreated = True Then
-            ElseIf Application.OpenForms().OfType(Of IM_Valid).Any Then
-                ST_Case = 2
-                If LAST_PCH_CB.Visible = True Then LAST_PCH_CB.Enabled = False
-                VALID_CB.Enabled = False
-                GM_CB.Enabled = False
-                Handle_With_St_Tab()
-                'ElseIf Items_Prices.IsHandleCreated = True Then
-            ElseIf Application.OpenForms().OfType(Of Items_Prices).Any Or Application.OpenForms().OfType(Of Price_Less_Than_Cost).Any Then
-                ST_Case = 3
-                IMPR_MINPR_CB.Visible = S_Allow_MinSP
-                IMPR_MINPR_2_CB.Visible = S_Allow_MinSP
-                Handle_With_ITEMS_PRICES_Tab()
+                    'ElseIf F_STORES_Explorer.IsHandleCreated = True Then
+                ElseIf Application.OpenForms().OfType(Of IM_Valid).Any Then
+                    ST_Case = 2
+                    If LAST_PCH_CB.Visible = True Then LAST_PCH_CB.Enabled = False
+                    VALID_CB.Enabled = False
+                    GM_CB.Enabled = False
+                    Handle_With_St_Tab()
+                    'ElseIf Items_Prices.IsHandleCreated = True Then
+                ElseIf Application.OpenForms().OfType(Of Items_Prices).Any Or Application.OpenForms().OfType(Of Price_Less_Than_Cost).Any Then
+                    ST_Case = 3
+                    IMPR_MINPR_CB.Visible = S_Allow_MinSP
+                    IMPR_MINPR_2_CB.Visible = S_Allow_MinSP
+                    Handle_With_ITEMS_PRICES_Tab()
+                End If
+
+            Else
+
+                Handle_With_Other_Tab()
             End If
 
-        Else
+            Serial_Code_CB.Visible = S_SerialCode
+        Finally
+            IsLoadingSettings = False
+        End Try
+    End Sub
 
-            Handle_With_Other_Tab()
-        End If
+    Private Sub MarkSettingsChanged()
+        If IsLoadingSettings Then Exit Sub
+        HasPendingSettingsChanges = True
+    End Sub
 
-        Serial_Code_CB.Visible = S_SerialCode
+    Private Sub SavePendingSettingsChanges()
+        If HasPendingSettingsChanges = False Then Exit Sub
+
+        Save_AppSetting()
+        HasPendingSettingsChanges = False
     End Sub
 
     Private Sub Handle_With_ITEMS_PRICES_Tab()
@@ -200,6 +223,7 @@
     Private Sub Date_cb_CheckedChanged(sender As Object, e As EventArgs) Handles Date_cb.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_Date_CL = sender.Checked
+        MarkSettingsChanged()
 
 
     End Sub
@@ -207,37 +231,37 @@
     Private Sub St_cb_CheckedChanged(sender As Object, e As EventArgs) Handles St_cb.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_ST_Name_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub D_Valid_cb_CheckedChanged(sender As Object, e As EventArgs) Handles D_Valid_cb.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_D_Valid_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub Unit_cb_CheckedChanged(sender As Object, e As EventArgs) Handles Unit_cb.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_IMUnit_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub Price_cb_CheckedChanged(sender As Object, e As EventArgs) Handles Price_cb.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_Price_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub Total_cb_CheckedChanged(sender As Object, e As EventArgs) Handles Total_cb.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_Total_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub B_CodeAdd_1_CB_CheckedChanged(sender As Object, e As EventArgs) Handles B_CodeAdd_1_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_CodeAdd_1 = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub OpenNextBill_CB_CheckedChanged(sender As Object, e As EventArgs) Handles OpenNextBill_CB.CheckedChanged
@@ -246,7 +270,7 @@
             Case 1
                 My_Settings.S_OpenNextBill = sender.Checked
         End Select
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub S_Deafult_cm_SelectedIndexChanged(sender As Object, e As EventArgs) Handles S_Deafult_cm.SelectedIndexChanged
@@ -254,61 +278,61 @@
         '    Case 1
         'MY_Settings.S_Default = S_Deafult_cm.SelectedIndex
         'End Select
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
 
     Private Sub Notes_cb_CheckedChanged(sender As Object, e As EventArgs) Handles Notes_cb.CheckedChanged
         CB_CHecked(sender)
         My_Settings.SP_Notes_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub IMNUM_cb_CheckedChanged(sender As Object, e As EventArgs) Handles IMNUM_cb.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_IMNUM_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub Proj_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Proj_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_Project_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     '-----------------------------------------------------------
     Private Sub GN_CB_CheckedChanged(sender As Object, e As EventArgs) Handles GM_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.ST_GM_Name = sender.CHECKED
-        Save_AppSetting()
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub SHOW_IMNUM_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SHOW_IMNUM_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.ST_IM_Num = sender.CHECKED
-        Save_AppSetting()
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub ST_STName_CB_CheckedChanged(sender As Object, e As EventArgs) Handles ST_STName_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.ST_STNAME = sender.CHECKED
-        Save_AppSetting()
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub LAST_PCH_CB_CheckedChanged(sender As Object, e As EventArgs) Handles LAST_PCH_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.ST_Last_Pch_Price = sender.CHECKED
-        Save_AppSetting()
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub VALID_CB_CheckedChanged(sender As Object, e As EventArgs) Handles VALID_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.ST_Valid = sender.CHECKED
-        Save_AppSetting()
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
@@ -361,14 +385,14 @@
     Private Sub Barcode_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Barcode_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_Barcode_CL = sender.CHECKED
-        Save_AppSetting
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub Serial_Code_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Serial_Code_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.S_Serial_Code_CL = sender.CHECKED
-        Save_AppSetting
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
@@ -376,47 +400,47 @@
     Private Sub IMPR_IMNUM_CB_CheckedChanged(sender As Object, e As EventArgs) Handles IMPR_IMNUM_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.IMPR_IMNUM = sender.CHECKED
-        Save_AppSetting
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub IMPR_BAR_CB_CheckedChanged(sender As Object, e As EventArgs) Handles IMPR_BAR_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.IMPR_BAR = sender.CHECKED
-        Save_AppSetting
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub IMPR_MINPR_CB_CheckedChanged(sender As Object, e As EventArgs) Handles IMPR_MINPR_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.IMPR_MINSP = sender.CHECKED
-        Save_AppSetting
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub IMPR_MINPR_2_CB_CheckedChanged(sender As Object, e As EventArgs) Handles IMPR_MINPR_2_CB.CheckedChanged
         CB_CHecked(sender)
         My_Settings.IMPR_MINSP_2 = sender.CHECKED
-        Save_AppSetting
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub SB_Sch_With_QTY_CB_CheckedChanged(sender As Object, e As EventArgs) Handles SB_Sch_With_QTY_CB.CheckedChanged
         CB_CHecked(sender)
         MY_Settings.SB_Sch_With_QTY = SB_Sch_With_QTY_CB.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 
     Private Sub IM_NOTE_CB_CheckedChanged(sender As Object, e As EventArgs) Handles IM_NOTE_CB.CheckedChanged
         CB_CHecked(sender)
         MY_Settings.S_IM_NOTE_CL = sender.CHECKED
-        Save_AppSetting()
+        MarkSettingsChanged()
         Check_View_Control()
     End Sub
 
     Private Sub IM_Discount_CB_CheckedChanged(sender As Object, e As EventArgs) Handles IM_Discount_CB.CheckedChanged
         CB_CHecked(sender)
         MY_Settings.S_IM_Discount_CL = sender.Checked
-        Save_AppSetting()
+        MarkSettingsChanged()
     End Sub
 End Class

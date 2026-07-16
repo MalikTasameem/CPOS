@@ -1,6 +1,12 @@
 ﻿Imports System.IO
 
 Module MY_Settings
+    Private Const SettingsMinimumKeyCount As Integer = 70
+    Private SettingsWriteBlocked As Boolean = False
+    Private SettingsWriteBlockReason As String = ""
+    Private SettingsWriteBlockMessageShown As Boolean = False
+    Private ReadOnly CriticalSettingKeys As String() = New String() {"S_SERVER", "DataBase", "DB_Authentication", "IsAttachDB", "DB_UName", "DB_Pass", "Online_Con_Str", "NumOfBillsTest", "TableDisplayMode"}
+
     Public S_Total_CL As Boolean = True
     Public Server_Choese_Server As String = ""
     Public S_IMNUM_CL As Boolean = True
@@ -103,161 +109,305 @@ Module MY_Settings
     Public TableDisplayMode As Integer = 1 '0 = تقليدي، 1 = حديث
     '---------------------------------------------------------------------------------------------------------------------------------
 
-    Public Sub ExportButton_Setting_ToFile()
+    Public Sub ExportButton_Setting_ToFile(Optional preserveExistingBackup As Boolean = False)
+        Dim tempPath As String = ""
         Try
             '" & My.Computer.Name & "_B
-            Dim path As String = Application.StartupPath & "\Settings Files\BackUpSettings.AppSettings"
-            Using sWriter As New StreamWriter(path)
-                'For Each setting As Configuration.SettingsPropertyValue In My_Settings.PropertyValues
+            Dim path As String = GetSettingsFilePath()
+            Dim backupPath As String = GetSettingsBackupFilePath()
+            tempPath = GetSettingsTempFilePath()
+            EnsureSettingsDirectory(path)
+            Using fs As New FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None)
+                Using sWriter As New StreamWriter(fs)
+                    'For Each setting As Configuration.SettingsPropertyValue In My_Settings.PropertyValues
 
-                sWriter.WriteLine("S_Total_CL" & ":" & S_Total_CL.ToString())
-                sWriter.WriteLine("Server_Choese_Server" & ":" & Server_Choese_Server.ToString())
-                sWriter.WriteLine("S_IMNUM_CL" & ":" & S_IMNUM_CL.ToString())
-                sWriter.WriteLine("AttachDbFilename" & ":" & AttachDbFilename.ToString())
-                sWriter.WriteLine("ST_GM_Name" & ":" & ST_GM_Name.ToString())
-                sWriter.WriteLine("is_SubSys" & ":" & is_SubSys.ToString())
-                sWriter.WriteLine("App_Suuply" & ":" & App_Suuply.ToString())
-                sWriter.WriteLine("DB_Authentication" & ":" & DB_Authentication.ToString())
-                sWriter.WriteLine("SqlConStr" & ":" & SqlConStr.ToString())
-                sWriter.WriteLine("isCenterSys" & ":" & isCenterSys.ToString())
-                sWriter.WriteLine("S_Default" & ":" & S_Default.ToString())
-                sWriter.WriteLine("POS_Search_Type" & ":" & POS_Search_Type.ToString())
-                sWriter.WriteLine("ST_Last_Pch_Price" & ":" & ST_Last_Pch_Price.ToString())
-                sWriter.WriteLine("SP_Notes_CL" & ":" & SP_Notes_CL.ToString())
-                sWriter.WriteLine("BarcodeWidth" & ":" & BarcodeWidth.ToString())
-                sWriter.WriteLine("IMPR_BAR" & ":" & IMPR_BAR.ToString())
-                sWriter.WriteLine("S_Barcode_CL" & ":" & S_Barcode_CL.ToString())
-                sWriter.WriteLine("BarcodeHieght" & ":" & BarcodeHieght.ToString())
-                sWriter.WriteLine("S_Serial_Code_CL" & ":" & S_Serial_Code_CL.ToString())
-                sWriter.WriteLine("IMPR_MINSP" & ":" & IMPR_MINSP.ToString())
-                sWriter.WriteLine("IMPR_MINSP_2" & ":" & IMPR_MINSP_2.ToString())
-                sWriter.WriteLine("S_IMUnit_CL" & ":" & S_IMUnit_CL.ToString())
-                sWriter.WriteLine("SB_AG_Show_Balance" & ":" & SB_AG_Show_Balance.ToString())
-                sWriter.WriteLine("BarcodePLeft" & ":" & BarcodePLeft.ToString())
-                sWriter.WriteLine("DB_Choese_Server" & ":" & DB_Choese_Server.ToString())
-                sWriter.WriteLine("S_SERVER" & ":" & S_SERVER.ToString())
-                sWriter.WriteLine("S_Price_CL" & ":" & S_Price_CL.ToString())
-                sWriter.WriteLine("S_D_Valid_CL" & ":" & S_D_Valid_CL.ToString())
-                sWriter.WriteLine("BarcodeBUp" & ":" & BarcodeBUp.ToString())
-                sWriter.WriteLine("ST_STNAME" & ":" & ST_STNAME.ToString())
-                sWriter.WriteLine("BarcodeNumber" & ":" & BarcodeNumber.ToString())
-                sWriter.WriteLine("BarcodePUp" & ":" & BarcodePUp.ToString())
-                sWriter.WriteLine("Call_IM_After_Insert_CB" & ":" & Call_IM_After_Insert_CB.ToString())
-                sWriter.WriteLine("S_OpenNextBill" & ":" & S_OpenNextBill.ToString())
-                sWriter.WriteLine("DB_Pass" & ":" & DB_Pass.ToString())
-                sWriter.WriteLine("BR_Print_IMName" & ":" & BR_Print_IMName.ToString())
-                sWriter.WriteLine("DB_UName" & ":" & DB_UName.ToString())
-                sWriter.WriteLine("Search_By_Bar_Rtn" & ":" & Search_By_Bar_Rtn.ToString())
-                sWriter.WriteLine("Cpu_ID" & ":" & Cpu_ID.ToString())
-                sWriter.WriteLine("ST_IM_Num" & ":" & ST_IM_Num.ToString())
-                sWriter.WriteLine("Server_Desc" & ":" & Server_Desc.ToString())
-                sWriter.WriteLine("S_Project_CL" & ":" & S_Project_CL.ToString())
-                sWriter.WriteLine("BarcodeColumn" & ":" & BarcodeColumn.ToString())
-                sWriter.WriteLine("SERVER_IP" & ":" & SERVER_IP.ToString())
-                sWriter.WriteLine("MAINFORM_BK" & ":" & MAINFORM_BK.ToString())
-                sWriter.WriteLine("IsAttachDB" & ":" & IsAttachDB.ToString())
-                sWriter.WriteLine("IMPR_IMNUM" & ":" & IMPR_IMNUM.ToString())
-                sWriter.WriteLine("S_ST_Name_CL" & ":" & S_ST_Name_CL.ToString())
-                sWriter.WriteLine("Order_No_Deliver_Date" & ":" & Order_No_Deliver_Date.ToString())
-                sWriter.WriteLine("Order_Search_Type" & ":" & Order_Search_Type.ToString())
-                sWriter.WriteLine("S_CodeAdd_1" & ":" & S_CodeAdd_1.ToString())
-                sWriter.WriteLine("Pr_Printer_isShow" & ":" & Pr_Printer_isShow.ToString())
-                sWriter.WriteLine("BarcodeCheckA4" & ":" & BarcodeCheckA4.ToString())
-                sWriter.WriteLine("DataBase" & ":" & DataBase.ToString())
-                sWriter.WriteLine("is_ByBarInput" & ":" & is_ByBarInput.ToString())
-                sWriter.WriteLine("ST_Valid" & ":" & ST_Valid.ToString())
-                sWriter.WriteLine("S_Date_CL" & ":" & S_Date_CL.ToString())
-                sWriter.WriteLine("BarcodeRows" & ":" & BarcodeRows.ToString())
-                sWriter.WriteLine("ShowCname" & ":" & ShowCname.ToString())
-                sWriter.WriteLine("AG_SH_Bill_Type" & ":" & AG_SH_Bill_Type.ToString())
-                sWriter.WriteLine("BR_Print_IMPrice" & ":" & BR_Print_IMPrice.ToString())
-                sWriter.WriteLine("SB_Sch_With_QTY" & ":" & SB_Sch_With_QTY.ToString())
-                sWriter.WriteLine("ShowIM_Price_On_Barcode" & ":" & ShowIM_Price_On_Barcode.ToString())
-                sWriter.WriteLine("IM_Search_GM_ID" & ":" & IM_Search_GM_ID.ToString())
-                sWriter.WriteLine("IM_Use_Out_KB" & ":" & IM_Use_Out_KB.ToString())
-                sWriter.WriteLine("Tables_Flate_ID" & ":" & Tables_Flate_ID.ToString())
-                sWriter.WriteLine("Second_Part_isPrice" & ":" & Second_Part_isPrice.ToString())
-                sWriter.WriteLine("Print_TB_Before_End" & ":" & Print_TB_Before_End.ToString())
-                sWriter.WriteLine("QTY_ALERT_SOUND" & ":" & QTY_ALERT_SOUND.ToString())
-                sWriter.WriteLine("SB_Show_Bill" & ":" & SB_Show_Bill.ToString())
-                sWriter.WriteLine("SB_Show_Bill_Rest" & ":" & SB_Show_Bill_Rest.ToString())
-                sWriter.WriteLine("SB_Show_SumPied" & ":" & SB_Show_SumPied.ToString())
-                sWriter.WriteLine("Online_Con_Str" & ":" & Online_Con_Str.ToString())
+                    sWriter.WriteLine("S_Total_CL" & ":" & S_Total_CL.ToString())
+                    sWriter.WriteLine("Server_Choese_Server" & ":" & Server_Choese_Server.ToString())
+                    sWriter.WriteLine("S_IMNUM_CL" & ":" & S_IMNUM_CL.ToString())
+                    sWriter.WriteLine("AttachDbFilename" & ":" & AttachDbFilename.ToString())
+                    sWriter.WriteLine("ST_GM_Name" & ":" & ST_GM_Name.ToString())
+                    sWriter.WriteLine("is_SubSys" & ":" & is_SubSys.ToString())
+                    sWriter.WriteLine("App_Suuply" & ":" & App_Suuply.ToString())
+                    sWriter.WriteLine("DB_Authentication" & ":" & DB_Authentication.ToString())
+                    sWriter.WriteLine("SqlConStr" & ":" & SqlConStr.ToString())
+                    sWriter.WriteLine("isCenterSys" & ":" & isCenterSys.ToString())
+                    sWriter.WriteLine("S_Default" & ":" & S_Default.ToString())
+                    sWriter.WriteLine("POS_Search_Type" & ":" & POS_Search_Type.ToString())
+                    sWriter.WriteLine("ST_Last_Pch_Price" & ":" & ST_Last_Pch_Price.ToString())
+                    sWriter.WriteLine("SP_Notes_CL" & ":" & SP_Notes_CL.ToString())
+                    sWriter.WriteLine("BarcodeWidth" & ":" & BarcodeWidth.ToString())
+                    sWriter.WriteLine("IMPR_BAR" & ":" & IMPR_BAR.ToString())
+                    sWriter.WriteLine("S_Barcode_CL" & ":" & S_Barcode_CL.ToString())
+                    sWriter.WriteLine("BarcodeHieght" & ":" & BarcodeHieght.ToString())
+                    sWriter.WriteLine("S_Serial_Code_CL" & ":" & S_Serial_Code_CL.ToString())
+                    sWriter.WriteLine("IMPR_MINSP" & ":" & IMPR_MINSP.ToString())
+                    sWriter.WriteLine("IMPR_MINSP_2" & ":" & IMPR_MINSP_2.ToString())
+                    sWriter.WriteLine("S_IMUnit_CL" & ":" & S_IMUnit_CL.ToString())
+                    sWriter.WriteLine("SB_AG_Show_Balance" & ":" & SB_AG_Show_Balance.ToString())
+                    sWriter.WriteLine("BarcodePLeft" & ":" & BarcodePLeft.ToString())
+                    sWriter.WriteLine("DB_Choese_Server" & ":" & DB_Choese_Server.ToString())
+                    sWriter.WriteLine("S_SERVER" & ":" & S_SERVER.ToString())
+                    sWriter.WriteLine("S_Price_CL" & ":" & S_Price_CL.ToString())
+                    sWriter.WriteLine("S_D_Valid_CL" & ":" & S_D_Valid_CL.ToString())
+                    sWriter.WriteLine("BarcodeBUp" & ":" & BarcodeBUp.ToString())
+                    sWriter.WriteLine("ST_STNAME" & ":" & ST_STNAME.ToString())
+                    sWriter.WriteLine("BarcodeNumber" & ":" & BarcodeNumber.ToString())
+                    sWriter.WriteLine("BarcodePUp" & ":" & BarcodePUp.ToString())
+                    sWriter.WriteLine("Call_IM_After_Insert_CB" & ":" & Call_IM_After_Insert_CB.ToString())
+                    sWriter.WriteLine("S_OpenNextBill" & ":" & S_OpenNextBill.ToString())
+                    sWriter.WriteLine("DB_Pass" & ":" & DB_Pass.ToString())
+                    sWriter.WriteLine("BR_Print_IMName" & ":" & BR_Print_IMName.ToString())
+                    sWriter.WriteLine("DB_UName" & ":" & DB_UName.ToString())
+                    sWriter.WriteLine("Search_By_Bar_Rtn" & ":" & Search_By_Bar_Rtn.ToString())
+                    sWriter.WriteLine("Cpu_ID" & ":" & Cpu_ID.ToString())
+                    sWriter.WriteLine("ST_IM_Num" & ":" & ST_IM_Num.ToString())
+                    sWriter.WriteLine("Server_Desc" & ":" & Server_Desc.ToString())
+                    sWriter.WriteLine("S_Project_CL" & ":" & S_Project_CL.ToString())
+                    sWriter.WriteLine("BarcodeColumn" & ":" & BarcodeColumn.ToString())
+                    sWriter.WriteLine("SERVER_IP" & ":" & SERVER_IP.ToString())
+                    sWriter.WriteLine("MAINFORM_BK" & ":" & MAINFORM_BK.ToString())
+                    sWriter.WriteLine("IsAttachDB" & ":" & IsAttachDB.ToString())
+                    sWriter.WriteLine("IMPR_IMNUM" & ":" & IMPR_IMNUM.ToString())
+                    sWriter.WriteLine("S_ST_Name_CL" & ":" & S_ST_Name_CL.ToString())
+                    sWriter.WriteLine("Order_No_Deliver_Date" & ":" & Order_No_Deliver_Date.ToString())
+                    sWriter.WriteLine("Order_Search_Type" & ":" & Order_Search_Type.ToString())
+                    sWriter.WriteLine("S_CodeAdd_1" & ":" & S_CodeAdd_1.ToString())
+                    sWriter.WriteLine("Pr_Printer_isShow" & ":" & Pr_Printer_isShow.ToString())
+                    sWriter.WriteLine("BarcodeCheckA4" & ":" & BarcodeCheckA4.ToString())
+                    sWriter.WriteLine("DataBase" & ":" & DataBase.ToString())
+                    sWriter.WriteLine("is_ByBarInput" & ":" & is_ByBarInput.ToString())
+                    sWriter.WriteLine("ST_Valid" & ":" & ST_Valid.ToString())
+                    sWriter.WriteLine("S_Date_CL" & ":" & S_Date_CL.ToString())
+                    sWriter.WriteLine("BarcodeRows" & ":" & BarcodeRows.ToString())
+                    sWriter.WriteLine("ShowCname" & ":" & ShowCname.ToString())
+                    sWriter.WriteLine("AG_SH_Bill_Type" & ":" & AG_SH_Bill_Type.ToString())
+                    sWriter.WriteLine("BR_Print_IMPrice" & ":" & BR_Print_IMPrice.ToString())
+                    sWriter.WriteLine("SB_Sch_With_QTY" & ":" & SB_Sch_With_QTY.ToString())
+                    sWriter.WriteLine("ShowIM_Price_On_Barcode" & ":" & ShowIM_Price_On_Barcode.ToString())
+                    sWriter.WriteLine("IM_Search_GM_ID" & ":" & IM_Search_GM_ID.ToString())
+                    sWriter.WriteLine("IM_Use_Out_KB" & ":" & IM_Use_Out_KB.ToString())
+                    sWriter.WriteLine("Tables_Flate_ID" & ":" & Tables_Flate_ID.ToString())
+                    sWriter.WriteLine("Second_Part_isPrice" & ":" & Second_Part_isPrice.ToString())
+                    sWriter.WriteLine("Print_TB_Before_End" & ":" & Print_TB_Before_End.ToString())
+                    sWriter.WriteLine("QTY_ALERT_SOUND" & ":" & QTY_ALERT_SOUND.ToString())
+                    sWriter.WriteLine("SB_Show_Bill" & ":" & SB_Show_Bill.ToString())
+                    sWriter.WriteLine("SB_Show_Bill_Rest" & ":" & SB_Show_Bill_Rest.ToString())
+                    sWriter.WriteLine("SB_Show_SumPied" & ":" & SB_Show_SumPied.ToString())
+                    sWriter.WriteLine("Online_Con_Str" & ":" & Online_Con_Str.ToString())
 
-                sWriter.WriteLine("is_POS_Copy_2" & ":" & is_POS_Copy_2.ToString())
-                sWriter.WriteLine("POS_Copy_2_Path" & ":" & POS_Copy_2_Path.ToString())
-                sWriter.WriteLine("S_IM_NOTE_CL" & ":" & S_IM_NOTE_CL.ToString())
+                    sWriter.WriteLine("is_POS_Copy_2" & ":" & is_POS_Copy_2.ToString())
+                    sWriter.WriteLine("POS_Copy_2_Path" & ":" & POS_Copy_2_Path.ToString())
+                    sWriter.WriteLine("S_IM_NOTE_CL" & ":" & S_IM_NOTE_CL.ToString())
 
-                sWriter.WriteLine("ShowIM_IM_NAME_On_Barcode" & ":" & ShowIM_IM_NAME_On_Barcode.ToString())
-                sWriter.WriteLine("ShowIM_IM_NUM_On_Barcode" & ":" & ShowIM_IM_NUM_On_Barcode.ToString())
+                    sWriter.WriteLine("ShowIM_IM_NAME_On_Barcode" & ":" & ShowIM_IM_NAME_On_Barcode.ToString())
+                    sWriter.WriteLine("ShowIM_IM_NUM_On_Barcode" & ":" & ShowIM_IM_NUM_On_Barcode.ToString())
 
-                sWriter.WriteLine("SALES_TYPES_CMB" & ":" & SALES_TYPES_CMB.ToString())
-                sWriter.WriteLine("Thread_Time" & ":" & Thread_Time.ToString())
-                sWriter.WriteLine("SB_Remove_Dec" & ":" & SB_Remove_Dec.ToString())
-                sWriter.WriteLine("SB_IM_NEW_ROW" & ":" & SB_IM_NEW_ROW.ToString())
-                sWriter.WriteLine("GM_ID_Selected" & ":" & GM_ID_Selected.ToString())
-                sWriter.WriteLine("Manual_FRM_rpt" & ":" & Manual_FRM_rpt.ToString())
-                sWriter.WriteLine("OutSale_rpt" & ":" & OutSale_rpt.ToString())
-                sWriter.WriteLine("Hard_Serial_NUM" & ":" & Hard_Serial_NUM.ToString())
-                sWriter.WriteLine("is_Home_Mange_Printers" & ":" & is_Home_Mange_Printers.ToString())
-                sWriter.WriteLine("POS_BARCODE_TYPE" & ":" & POS_BARCODE_TYPE.ToString())
-                sWriter.WriteLine("S_IM_Discount_CL" & ":" & S_IM_Discount_CL.ToString())
-                sWriter.WriteLine("SERVER_IMG_PATH" & ":" & SERVER_IMG_PATH.ToString())
-                sWriter.WriteLine("DEBIT_COLOR" & ":" & DEBIT_COLOR.ToString())
-                sWriter.WriteLine("CREDIT_COLOR" & ":" & CREDIT_COLOR.ToString())
-                sWriter.WriteLine("N_Point_Fter" & ":" & N_Point_Fter.ToString())
-                sWriter.WriteLine("NumOfBillsTest" & ":" & EncryptionHelper.Encrypt(NumOfBillsTest.ToString()))
-                sWriter.WriteLine("SB_Search_Bill_Autot_Select" & ":" & SB_Search_Bill_Autot_Select.ToString())
-                sWriter.WriteLine("AG_Show_Balance_in_Receipt" & ":" & AG_Show_Balance_in_Receipt.ToString())
-                sWriter.WriteLine("Show_Treasury_in_Receipt" & ":" & Show_Treasury_in_Receipt.ToString())
-                sWriter.WriteLine("is_Use_Multi_Pay" & ":" & is_Use_Multi_Pay.ToString())
-                sWriter.WriteLine("Show_AllBill_Clmns" & ":" & Show_AllBill_Clmns.ToString())
-                sWriter.WriteLine("TableDisplayMode" & ":" & TableDisplayMode.ToString())
-                sWriter.WriteLine("Thread_Time" & ":" & Thread_Time.ToString())
-
-
+                    sWriter.WriteLine("SALES_TYPES_CMB" & ":" & SALES_TYPES_CMB.ToString())
+                    sWriter.WriteLine("Thread_Time" & ":" & Thread_Time.ToString())
+                    sWriter.WriteLine("SB_Remove_Dec" & ":" & SB_Remove_Dec.ToString())
+                    sWriter.WriteLine("SB_IM_NEW_ROW" & ":" & SB_IM_NEW_ROW.ToString())
+                    sWriter.WriteLine("GM_ID_Selected" & ":" & GM_ID_Selected.ToString())
+                    sWriter.WriteLine("Manual_FRM_rpt" & ":" & Manual_FRM_rpt.ToString())
+                    sWriter.WriteLine("OutSale_rpt" & ":" & OutSale_rpt.ToString())
+                    sWriter.WriteLine("Hard_Serial_NUM" & ":" & Hard_Serial_NUM.ToString())
+                    sWriter.WriteLine("is_Home_Mange_Printers" & ":" & is_Home_Mange_Printers.ToString())
+                    sWriter.WriteLine("POS_BARCODE_TYPE" & ":" & POS_BARCODE_TYPE.ToString())
+                    sWriter.WriteLine("S_IM_Discount_CL" & ":" & S_IM_Discount_CL.ToString())
+                    sWriter.WriteLine("SERVER_IMG_PATH" & ":" & SERVER_IMG_PATH.ToString())
+                    sWriter.WriteLine("DEBIT_COLOR" & ":" & DEBIT_COLOR.ToString())
+                    sWriter.WriteLine("CREDIT_COLOR" & ":" & CREDIT_COLOR.ToString())
+                    sWriter.WriteLine("N_Point_Fter" & ":" & N_Point_Fter.ToString())
+                    sWriter.WriteLine("NumOfBillsTest" & ":" & EncryptionHelper.Encrypt(NumOfBillsTest.ToString()))
+                    sWriter.WriteLine("SB_Search_Bill_Autot_Select" & ":" & SB_Search_Bill_Autot_Select.ToString())
+                    sWriter.WriteLine("AG_Show_Balance_in_Receipt" & ":" & AG_Show_Balance_in_Receipt.ToString())
+                    sWriter.WriteLine("Show_Treasury_in_Receipt" & ":" & Show_Treasury_in_Receipt.ToString())
+                    sWriter.WriteLine("is_Use_Multi_Pay" & ":" & is_Use_Multi_Pay.ToString())
+                    sWriter.WriteLine("Show_AllBill_Clmns" & ":" & Show_AllBill_Clmns.ToString())
+                    sWriter.WriteLine("TableDisplayMode" & ":" & TableDisplayMode.ToString())
+                    sWriter.WriteLine("Thread_Time" & ":" & Thread_Time.ToString())
 
 
-                'Next
 
+
+                    'Next
+
+                    sWriter.Flush()
+                    fs.Flush(True)
+                End Using
             End Using
+
+            CommitSettingsFile(tempPath, path, backupPath, preserveExistingBackup)
+            SettingsWriteBlocked = False
+            SettingsWriteBlockReason = ""
+            SettingsWriteBlockMessageShown = False
 
             'My_Settings.Save()
             ' MessageBox.Show("تم اخذ نسخة احتياطية من الاعدادات", "النظام", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
+            Try
+                If String.IsNullOrWhiteSpace(tempPath) = False AndAlso File.Exists(tempPath) Then File.Delete(tempPath)
+            Catch
+            End Try
             'Logger.Log(ex, "", "", System.Reflection.MethodBase.GetCurrentMethod().Name)
             MsgBox(ex.Message)
         End Try
     End Sub
 
+    Private Function GetSettingsFilePath() As String
+        Return Application.StartupPath & "\Settings Files\BackUpSettings.AppSettings"
+    End Function
+
+    Private Function GetSettingsTempFilePath() As String
+        Return GetSettingsFilePath() & ".tmp"
+    End Function
+
+    Private Function GetSettingsBackupFilePath() As String
+        Return GetSettingsFilePath() & ".bak"
+    End Function
+
+    Private Function GetSettingsCorruptFilePath() As String
+        Return GetSettingsFilePath() & ".corrupt_" & DateTime.Now.ToString("yyyyMMddHHmmss")
+    End Function
+
+    Private Sub EnsureSettingsDirectory(filePath As String)
+        Dim folder As String = Path.GetDirectoryName(filePath)
+        If Directory.Exists(folder) = False Then Directory.CreateDirectory(folder)
+    End Sub
+
+    Private Sub CommitSettingsFile(tempPath As String, filePath As String, backupPath As String, preserveExistingBackup As Boolean)
+        If File.Exists(filePath) Then
+            Dim replaceBackupPath As String = If(preserveExistingBackup, GetSettingsCorruptFilePath(), backupPath)
+            If File.Exists(replaceBackupPath) Then File.Delete(replaceBackupPath)
+            File.Replace(tempPath, filePath, replaceBackupPath, True)
+        Else
+            File.Move(tempPath, filePath)
+        End If
+    End Sub
+
+    Private Function TrySplitSettingLine(input As String, ByRef settingName As String, ByRef settingValue As String) As Boolean
+        settingName = ""
+        settingValue = ""
+
+        If String.IsNullOrWhiteSpace(input) Then Return False
+
+        Dim separatorIndex As Integer = input.IndexOf(":"c)
+        If separatorIndex <= 0 Then Return False
+
+        settingName = input.Substring(0, separatorIndex).Trim()
+        settingValue = input.Substring(separatorIndex + 1)
+
+        Return String.IsNullOrWhiteSpace(settingName) = False
+    End Function
+
+    Private Function ValidateSettingsValues(values As Dictionary(Of String, String), ByRef errorMessage As String) As Boolean
+        errorMessage = ""
+
+        If values Is Nothing OrElse values.Count < SettingsMinimumKeyCount Then
+            errorMessage = "ملف الإعدادات ناقص. عدد المفاتيح المقروءة: " & If(values Is Nothing, 0, values.Count).ToString()
+            Return False
+        End If
+
+        For Each key As String In CriticalSettingKeys
+            If values.ContainsKey(key) = False Then
+                errorMessage = "ملف الإعدادات لا يحتوي على المفتاح الأساسي: " & key
+                Return False
+            End If
+        Next
+
+        Return True
+    End Function
+
+    Private Function TryLoadSettingsFromFile(filePath As String, ByRef errorMessage As String) As Boolean
+        errorMessage = ""
+
+        Try
+            If File.Exists(filePath) = False Then
+                errorMessage = "ملف الإعدادات غير موجود: " & filePath
+                Return False
+            End If
+
+            Dim values As New Dictionary(Of String, String)(StringComparer.OrdinalIgnoreCase)
+
+            Using sReader As New StreamReader(filePath)
+                Dim lineNumber As Integer = 0
+
+                While sReader.Peek() > 0
+                    lineNumber += 1
+                    Dim input As String = sReader.ReadLine()
+                    Dim settingName As String = ""
+                    Dim settingValue As String = ""
+
+                    If TrySplitSettingLine(input, settingName, settingValue) = False Then
+                        errorMessage = "سطر غير صالح في ملف الإعدادات رقم: " & lineNumber.ToString()
+                        Return False
+                    End If
+
+                    values(settingName) = settingValue
+                End While
+            End Using
+
+            If ValidateSettingsValues(values, errorMessage) = False Then Return False
+
+            For Each item As KeyValuePair(Of String, String) In values
+                Try
+                    Check_Setting(item.Key, item.Value)
+                Catch ex As Exception
+                    errorMessage = "فشل تحميل الإعداد: " & item.Key & vbNewLine & ex.Message
+                    Return False
+                End Try
+            Next
+
+            Return True
+        Catch ex As Exception
+            errorMessage = ex.Message
+            Return False
+        End Try
+    End Function
+
     Public Sub Recover_File_Setting()
         Try
-            Dim path As String = Application.StartupPath & "\Settings Files\BackUpSettings.AppSettings"
+            SettingsWriteBlocked = False
+            SettingsWriteBlockReason = ""
+            SettingsWriteBlockMessageShown = False
+
+            Dim path As String = GetSettingsFilePath()
+            Dim backupPath As String = GetSettingsBackupFilePath()
+            Dim primaryError As String = ""
+            Dim backupError As String = ""
+
             If File.Exists(path) Then
+                If TryLoadSettingsFromFile(path, primaryError) Then Exit Sub
 
-                Using sReader As New StreamReader(path)
+                If File.Exists(backupPath) AndAlso TryLoadSettingsFromFile(backupPath, backupError) Then
+                    ExportButton_Setting_ToFile(True)
+                    MessageBox.Show("تم استعادة إعدادات الجهاز من النسخة الاحتياطية بسبب وجود مشكلة في ملف الإعدادات الأساسي." & vbNewLine & primaryError, "النظام", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Exit Sub
+                End If
 
-                    While sReader.Peek() > 0
-                        Try
-                            Dim input = sReader.ReadLine()
-                            ' Split comma delimited data ( SettingName,SettingValue )  
-                            Dim dataSplit = input.Split(CChar(":"))
-                            Check_Setting(dataSplit(0), dataSplit(1))
-                        Catch ex As Exception
-                            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "BackUpSettings")
-                        End Try
-                    End While
-                End Using
-
-                'MessageBox.Show("تم تحميل الاعدادات بنجاح ... قم بالخروج من الظام تم قم بالدخول مجددا", "النظام", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                'Application.Exit()
-                'Application.ExitThread()
-
-            Else
-                ExportButton_Setting_ToFile()
-                'MessageBox.Show("لم يتم ايجاد ملف الاعدادات الاحتياطي ... فشل استعادة الاعدادات", "النظام", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                SettingsWriteBlocked = True
+                SettingsWriteBlockReason = "فشل تحميل ملف الإعدادات الأساسي." & vbNewLine & primaryError
+                If String.IsNullOrWhiteSpace(backupError) = False Then SettingsWriteBlockReason &= vbNewLine & "فشل تحميل النسخة الاحتياطية." & vbNewLine & backupError
+                MessageBox.Show("تم اكتشاف تلف أو نقص في ملف إعدادات الجهاز، لذلك تم منع الحفظ التلقائي حتى لا يتم استبدال إعدادات العميل بالقيم الافتراضية." & vbNewLine & SettingsWriteBlockReason, "النظام", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
             End If
+
+            If File.Exists(backupPath) Then
+                If TryLoadSettingsFromFile(backupPath, backupError) Then
+                    ExportButton_Setting_ToFile(True)
+                    MessageBox.Show("تم إنشاء ملف الإعدادات الأساسي من النسخة الاحتياطية.", "النظام", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Exit Sub
+                End If
+
+                SettingsWriteBlocked = True
+                SettingsWriteBlockReason = "ملف الإعدادات الأساسي غير موجود، والنسخة الاحتياطية غير صالحة." & vbNewLine & backupError
+                MessageBox.Show("تعذر تحميل إعدادات الجهاز، وتم منع الحفظ التلقائي لحماية إعدادات العميل.", "النظام", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            ExportButton_Setting_ToFile()
         Catch ex As Exception
+            SettingsWriteBlocked = True
+            SettingsWriteBlockReason = ex.Message
             MessageBox.Show("يوجد خطأ ... فشل استعادة الاعدادات" & vbNewLine & ex.Message, "النظام", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
@@ -889,7 +1039,19 @@ Module MY_Settings
                 If Setting_Value = "True" Or Setting_Value = "False" Then
                     NumOfBillsTest = Convert.ToBoolean(Setting_Value)
                 Else
-                    NumOfBillsTest = EncryptionHelper.Decrypt(Setting_Value) 'Setting_Value 
+                    Dim decryptedValue As String = ""
+                    Try
+                        decryptedValue = EncryptionHelper.Decrypt(Setting_Value)
+                    Catch
+                        If IsNumeric(Setting_Value) Then
+                            decryptedValue = Setting_Value
+                        Else
+                            Throw
+                        End If
+                    End Try
+
+                    If IsNumeric(decryptedValue) = False Then Throw New FormatException("قيمة NumOfBillsTest غير صالحة")
+                    NumOfBillsTest = decryptedValue
                 End If
 
             Case "SB_Search_Bill_Autot_Select"
@@ -932,7 +1094,9 @@ Module MY_Settings
                 If Setting_Value = "True" Or Setting_Value = "False" Then
                     TableDisplayMode = If(Convert.ToBoolean(Setting_Value), 1, 0)
                 Else
-                    TableDisplayMode = Convert.ToInt32(Setting_Value)
+                    Dim tableMode As Integer = 1
+                    If Integer.TryParse(Setting_Value, tableMode) = False Then Throw New FormatException("قيمة TableDisplayMode غير صالحة")
+                    TableDisplayMode = If(tableMode = 0, 0, 1)
                 End If
 
             Case "Thread_Time"
@@ -947,6 +1111,14 @@ Module MY_Settings
 
 
     Public Sub Save_AppSetting()
+        If SettingsWriteBlocked Then
+            If SettingsWriteBlockMessageShown = False Then
+                MessageBox.Show("تم منع حفظ إعدادات الجهاز لأن آخر عملية تحميل للإعدادات فشلت. عالج ملف الإعدادات أو النسخة الاحتياطية أولاً حتى لا يتم حفظ القيم الافتراضية فوق إعدادات العميل." & vbNewLine & SettingsWriteBlockReason, "النظام", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                SettingsWriteBlockMessageShown = True
+            End If
+            Exit Sub
+        End If
+
         ExportButton_Setting_ToFile()
     End Sub
     '------------------------------------------------------------------------------------------------------------------------------------
