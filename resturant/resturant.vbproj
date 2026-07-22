@@ -69,6 +69,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.Security" />
     <Reference Include="AdvancedDataGridView">
       <HintPath>..\..\..\مخازن-داخلية 11-01-2023\CPOS(1.2)\resturant\bin\Debug\AdvancedDataGridView.dll</HintPath>
     </Reference>
@@ -272,6 +273,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Classes\Online_C.vb" />
+    <Compile Include="Classes\Printing\PrinterProvisioningService.vb" />
     <Compile Include="Classes\OSK_Class.vb" />
     <Compile Include="Classes\Resizer.vb" />
     <Compile Include="Forms\ACCOUNTS_BALANCES\FrmAccountingRepostMonitor.Designer.vb">
@@ -1431,6 +1433,10 @@
     <Compile Include="Forms\Sys_Options\Tables_Flates.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Classes\Backup\ScheduledBackupManager.vb" />
+    <Compile Include="Forms\Sys_Options\Backup.Scheduled.Designer.vb">
+      <DependentUpon>Backup.vb</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Sys_Options\Backup.Designer.vb">
       <DependentUpon>Backup.vb</DependentUpon>
     </Compile>
@@ -1635,6 +1641,12 @@
       <DependentUpon>Printers.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Sys_Options\Printers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Sys_Options\FrmXprinterInvoicePrinters.Designer.vb">
+      <DependentUpon>FrmXprinterInvoicePrinters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Sys_Options\FrmXprinterInvoicePrinters.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Sys_Options\SysDelete.Designer.vb">

@@ -114,7 +114,7 @@ Partial Class EXP_Details
         '
         'TitleBar_Panel
         '
-        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer), CType(CType(35, Byte), Integer))
+        Me.TitleBar_Panel.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.TitleBar_Panel.Controls.Add(Me.lblFormState)
         Me.TitleBar_Panel.Controls.Add(Me.DeletedBillLabel)
         Me.TitleBar_Panel.Controls.Add(Me.HeaderMinBtn)
@@ -160,7 +160,7 @@ Partial Class EXP_Details
         Me.HeaderMinBtn.Dock = System.Windows.Forms.DockStyle.Left
         Me.HeaderMinBtn.FlatAppearance.BorderSize = 0
         Me.HeaderMinBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.HeaderMinBtn.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.HeaderMinBtn.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold)
         Me.HeaderMinBtn.ForeColor = System.Drawing.Color.White
         Me.HeaderMinBtn.Location = New System.Drawing.Point(90, 0)
         Me.HeaderMinBtn.Name = "HeaderMinBtn"
@@ -176,7 +176,7 @@ Partial Class EXP_Details
         Me.HeaderMaxBtn.Dock = System.Windows.Forms.DockStyle.Left
         Me.HeaderMaxBtn.FlatAppearance.BorderSize = 0
         Me.HeaderMaxBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.HeaderMaxBtn.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.HeaderMaxBtn.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold)
         Me.HeaderMaxBtn.ForeColor = System.Drawing.Color.White
         Me.HeaderMaxBtn.Location = New System.Drawing.Point(45, 0)
         Me.HeaderMaxBtn.Name = "HeaderMaxBtn"
@@ -193,7 +193,7 @@ Partial Class EXP_Details
         Me.HeaderCloseBtn.FlatAppearance.BorderSize = 0
         Me.HeaderCloseBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
         Me.HeaderCloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.HeaderCloseBtn.Font = New System.Drawing.Font("Arial", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.HeaderCloseBtn.Font = New System.Drawing.Font("Segoe UI", 10.5!, System.Drawing.FontStyle.Bold)
         Me.HeaderCloseBtn.ForeColor = System.Drawing.Color.White
         Me.HeaderCloseBtn.Location = New System.Drawing.Point(0, 0)
         Me.HeaderCloseBtn.Name = "HeaderCloseBtn"
@@ -227,14 +227,14 @@ Partial Class EXP_Details
         Me.ADDCatButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ADDCatButton.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ADDCatButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 15.75!, System.Drawing.FontStyle.Bold)
         Me.ADDCatButton.ForeColor = System.Drawing.Color.DarkGreen
         Me.ADDCatButton.Location = New System.Drawing.Point(948, 184)
         Me.ADDCatButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.ADDCatButton.Name = "ADDCatButton"
         Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ADDCatButton.Size = New System.Drawing.Size(48, 291)
+        Me.ADDCatButton.Size = New System.Drawing.Size(48, 204)
         Me.ADDCatButton.TabIndex = 396
         Me.ADDCatButton.TabStop = False
         Me.ADDCatButton.Text = "➕"
@@ -246,17 +246,17 @@ Partial Class EXP_Details
         Me.RemoveCatButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RemoveCatButton.BackColor = System.Drawing.Color.WhiteSmoke
         Me.RemoveCatButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 16.0!, System.Drawing.FontStyle.Bold)
+        Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 14.0!, System.Drawing.FontStyle.Bold)
         Me.RemoveCatButton.ForeColor = System.Drawing.Color.DarkRed
-        Me.RemoveCatButton.Location = New System.Drawing.Point(948, 481)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(948, 390)
         Me.RemoveCatButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RemoveCatButton.Size = New System.Drawing.Size(48, 116)
+        Me.RemoveCatButton.Size = New System.Drawing.Size(48, 207)
         Me.RemoveCatButton.TabIndex = 395
         Me.RemoveCatButton.TabStop = False
-        Me.RemoveCatButton.Text = "➖"
+        Me.RemoveCatButton.Text = "❌"
         Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton, "حذف المصروف المختار")
         Me.RemoveCatButton.UseVisualStyleBackColor = False
         '
@@ -303,7 +303,7 @@ Partial Class EXP_Details
         Me.AGMetroGrid.EnableHeadersVisualStyles = False
         Me.AGMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         Me.AGMetroGrid.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.AGMetroGrid.Location = New System.Drawing.Point(2, 184)
+        Me.AGMetroGrid.Location = New System.Drawing.Point(2, 181)
         Me.AGMetroGrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.AGMetroGrid.MultiSelect = False
         Me.AGMetroGrid.Name = "AGMetroGrid"
@@ -324,7 +324,7 @@ Partial Class EXP_Details
         Me.AGMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.AGMetroGrid.RowTemplate.Height = 30
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMetroGrid.Size = New System.Drawing.Size(936, 413)
+        Me.AGMetroGrid.Size = New System.Drawing.Size(936, 416)
         Me.AGMetroGrid.TabIndex = 290
         '
         'T_ID_CL
@@ -380,9 +380,11 @@ Partial Class EXP_Details
         '
         'Title_txt
         '
-        Me.Title_txt.Location = New System.Drawing.Point(3, 9)
+        Me.Title_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Title_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Title_txt.Location = New System.Drawing.Point(3, 7)
         Me.Title_txt.Name = "Title_txt"
-        Me.Title_txt.Size = New System.Drawing.Size(283, 22)
+        Me.Title_txt.Size = New System.Drawing.Size(431, 27)
         Me.Title_txt.TabIndex = 624
         '
         'Notes_txt
@@ -390,7 +392,8 @@ Partial Class EXP_Details
         Me.Notes_txt.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Notes_txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI", 11.0!)
+        Me.Notes_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.Notes_txt.ForeColor = System.Drawing.Color.Black
         Me.Notes_txt.Location = New System.Drawing.Point(0, 604)
         Me.Notes_txt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
@@ -407,14 +410,14 @@ Partial Class EXP_Details
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.QtyTextBox.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(2, 2)
+        Me.QtyTextBox.Location = New System.Drawing.Point(2, 3)
         Me.QtyTextBox.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
         Me.QtyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.QtyTextBox.Size = New System.Drawing.Size(68, 29)
+        Me.QtyTextBox.Size = New System.Drawing.Size(68, 27)
         Me.QtyTextBox.TabIndex = 390
         Me.QtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -423,7 +426,7 @@ Partial Class EXP_Details
         Me.Bill_ID_Txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Bill_ID_Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Bill_ID_Txt.ContextMenuStrip = Me.NULLContextMenuStrip
-        Me.Bill_ID_Txt.Font = New System.Drawing.Font("Times New Roman", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Bill_ID_Txt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Bill_ID_Txt.ForeColor = System.Drawing.Color.Black
         Me.Bill_ID_Txt.Location = New System.Drawing.Point(40, 4)
         Me.Bill_ID_Txt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
@@ -501,7 +504,7 @@ Partial Class EXP_Details
         Me.Total_TextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Total_TextBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Total_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Total_TextBox.Font = New System.Drawing.Font("Stencil", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Total_TextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_TextBox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Total_TextBox.Location = New System.Drawing.Point(1, 691)
         Me.Total_TextBox.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
@@ -509,15 +512,16 @@ Partial Class EXP_Details
         Me.Total_TextBox.Name = "Total_TextBox"
         Me.Total_TextBox.ReadOnly = True
         Me.Total_TextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Total_TextBox.Size = New System.Drawing.Size(186, 42)
+        Me.Total_TextBox.Size = New System.Drawing.Size(186, 36)
         Me.Total_TextBox.TabIndex = 289
+        Me.Total_TextBox.Tag = "TOTALS"
         Me.Total_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label6
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(190, 699)
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(190, 696)
         Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(80, 28)
@@ -528,21 +532,21 @@ Partial Class EXP_Details
         'IM_Cost_txt
         '
         Me.IM_Cost_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Cost_txt.Font = New System.Drawing.Font("Stencil", 13.0!)
-        Me.IM_Cost_txt.Location = New System.Drawing.Point(3, 3)
+        Me.IM_Cost_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.IM_Cost_txt.Location = New System.Drawing.Point(1, 3)
         Me.IM_Cost_txt.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.IM_Cost_txt.Name = "IM_Cost_txt"
-        Me.IM_Cost_txt.Size = New System.Drawing.Size(103, 28)
+        Me.IM_Cost_txt.Size = New System.Drawing.Size(83, 27)
         Me.IM_Cost_txt.TabIndex = 618
         Me.IM_Cost_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label19
         '
         Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label19.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(937, 148)
+        Me.Label19.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        Me.Label19.Location = New System.Drawing.Point(937, 151)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(75, 21)
+        Me.Label19.Size = New System.Drawing.Size(67, 21)
         Me.Label19.TabIndex = 604
         Me.Label19.Text = "المصروف :"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -553,16 +557,16 @@ Partial Class EXP_Details
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.Label10)
         Me.Panel1.Controls.Add(Me.Title_txt)
-        Me.Panel1.Location = New System.Drawing.Point(157, 95)
+        Me.Panel1.Location = New System.Drawing.Point(5, 95)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(356, 40)
+        Me.Panel1.Size = New System.Drawing.Size(508, 40)
         Me.Panel1.TabIndex = 710
         '
         'Label10
         '
         Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(288, 11)
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(437, 10)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(63, 21)
         Me.Label10.TabIndex = 623
@@ -575,18 +579,18 @@ Partial Class EXP_Details
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.Label13)
         Me.Panel6.Controls.Add(Me.IM_Cost_txt)
-        Me.Panel6.Location = New System.Drawing.Point(121, 143)
+        Me.Panel6.Location = New System.Drawing.Point(470, 144)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(158, 35)
+        Me.Panel6.Size = New System.Drawing.Size(135, 35)
         Me.Panel6.TabIndex = 712
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(109, 9)
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        Me.Label13.Location = New System.Drawing.Point(87, 9)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(42, 15)
+        Me.Label13.Size = New System.Drawing.Size(46, 17)
         Me.Label13.TabIndex = 617
         Me.Label13.Text = "السعر :"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -597,7 +601,7 @@ Partial Class EXP_Details
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.Label16)
         Me.Panel5.Controls.Add(Me.QtyTextBox)
-        Me.Panel5.Location = New System.Drawing.Point(2, 143)
+        Me.Panel5.Location = New System.Drawing.Point(352, 144)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(117, 35)
         Me.Panel5.TabIndex = 711
@@ -606,10 +610,10 @@ Partial Class EXP_Details
         '
         Me.Label16.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(73, 9)
+        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        Me.Label16.Location = New System.Drawing.Point(73, 8)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(39, 15)
+        Me.Label16.Size = New System.Drawing.Size(44, 17)
         Me.Label16.TabIndex = 604
         Me.Label16.Text = "العدد :"
         Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -627,8 +631,8 @@ Partial Class EXP_Details
         '
         'Label2
         '
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(142, 10)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        Me.Label2.Location = New System.Drawing.Point(128, 7)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(54, 21)
         Me.Label2.TabIndex = 384
@@ -644,7 +648,7 @@ Partial Class EXP_Details
         Me.Panel9.Controls.Add(Me.Up_Bill_btn)
         Me.Panel9.Location = New System.Drawing.Point(717, 95)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(219, 40)
+        Me.Panel9.Size = New System.Drawing.Size(238, 40)
         Me.Panel9.TabIndex = 713
         '
         'Down_Bill_btn
@@ -652,7 +656,7 @@ Partial Class EXP_Details
         Me.Down_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Down_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Down_Bill_btn.FlatAppearance.BorderSize = 0
-        Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Down_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Down_Bill_btn.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Down_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Down_Bill_btn.Location = New System.Drawing.Point(3, 4)
@@ -670,10 +674,10 @@ Partial Class EXP_Details
         Me.Up_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Up_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Up_Bill_btn.FlatAppearance.BorderSize = 0
-        Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Up_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Up_Bill_btn.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Up_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Up_Bill_btn.Location = New System.Drawing.Point(184, 3)
+        Me.Up_Bill_btn.Location = New System.Drawing.Point(184, 4)
         Me.Up_Bill_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Up_Bill_btn.Name = "Up_Bill_btn"
         Me.Up_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -687,7 +691,7 @@ Partial Class EXP_Details
         '
         Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.75!)
         Me.Label27.Location = New System.Drawing.Point(538, 608)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
@@ -709,7 +713,7 @@ Partial Class EXP_Details
         '
         'Label24
         '
-        Me.Label24.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Font = New System.Drawing.Font("Segoe UI", 9.75!)
         Me.Label24.Location = New System.Drawing.Point(127, 7)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(118, 21)
@@ -721,15 +725,16 @@ Partial Class EXP_Details
         '
         Me.CreditTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.CreditTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CreditTextBox.Font = New System.Drawing.Font("Stencil", 13.0!)
+        Me.CreditTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.CreditTextBox.ForeColor = System.Drawing.Color.DarkBlue
         Me.CreditTextBox.Location = New System.Drawing.Point(3, 3)
         Me.CreditTextBox.MaxLength = 200
         Me.CreditTextBox.Name = "CreditTextBox"
         Me.CreditTextBox.ReadOnly = True
         Me.CreditTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.CreditTextBox.Size = New System.Drawing.Size(121, 28)
+        Me.CreditTextBox.Size = New System.Drawing.Size(121, 27)
         Me.CreditTextBox.TabIndex = 400
+        Me.CreditTextBox.Tag = "TOTALS"
         '
         'ReceiptsMetroGrid
         '
@@ -848,8 +853,8 @@ Partial Class EXP_Details
         Me.DeliveryingButton.FlatAppearance.BorderSize = 0
         Me.DeliveryingButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.DeliveryingButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.DeliveryingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.DeliveryingButton.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DeliveryingButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.DeliveryingButton.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeliveryingButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.DeliveryingButton.Location = New System.Drawing.Point(869, 603)
         Me.DeliveryingButton.Name = "DeliveryingButton"
@@ -857,7 +862,8 @@ Partial Class EXP_Details
         Me.DeliveryingButton.Size = New System.Drawing.Size(69, 66)
         Me.DeliveryingButton.TabIndex = 717
         Me.DeliveryingButton.TabStop = False
-        Me.DeliveryingButton.Text = "سداد 💳 💵"
+        Me.DeliveryingButton.Tag = "PAY"
+        Me.DeliveryingButton.Text = "💳 سداد"
         Me.DeliveryingButton.UseVisualStyleBackColor = False
         '
         'ExitFormButton
@@ -867,19 +873,20 @@ Partial Class EXP_Details
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatAppearance.BorderSize = 0
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
         Me.ExitFormButton.Location = New System.Drawing.Point(876, 701)
         Me.ExitFormButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.ExitFormButton.Name = "ExitFormButton"
         Me.ExitFormButton.Size = New System.Drawing.Size(128, 34)
         Me.ExitFormButton.TabIndex = 664
-        Me.ExitFormButton.Text = "خروج Esc"
+        Me.ExitFormButton.Tag = "CLOSE"
+        Me.ExitFormButton.Text = "× خروج Esc"
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'Print_btn
         '
-        Me.Print_btn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Print_btn.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Print_btn.BackColor = System.Drawing.Color.White
         Me.Print_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Print_btn.Enabled = False
@@ -889,20 +896,20 @@ Partial Class EXP_Details
         Me.Print_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Print_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Print_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Print_btn.Location = New System.Drawing.Point(403, 4)
+        Me.Print_btn.Location = New System.Drawing.Point(345, 5)
         Me.Print_btn.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Print_btn.Name = "Print_btn"
         Me.Print_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Print_btn.Size = New System.Drawing.Size(108, 33)
+        Me.Print_btn.Size = New System.Drawing.Size(113, 34)
         Me.Print_btn.TabIndex = 661
         Me.Print_btn.TabStop = False
         Me.Print_btn.Tag = "PRINT"
-        Me.Print_btn.Text = "طباعة F2"
+        Me.Print_btn.Text = "▣ طباعة F2"
         Me.Print_btn.UseVisualStyleBackColor = False
         '
         'SearchButton
         '
-        Me.SearchButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SearchButton.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.SearchButton.BackColor = System.Drawing.Color.White
         Me.SearchButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SearchButton.FlatAppearance.BorderColor = System.Drawing.Color.Black
@@ -911,19 +918,20 @@ Partial Class EXP_Details
         Me.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.SearchButton.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.SearchButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.SearchButton.Location = New System.Drawing.Point(66, 4)
+        Me.SearchButton.Location = New System.Drawing.Point(5, 5)
         Me.SearchButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.SearchButton.Name = "SearchButton"
         Me.SearchButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SearchButton.Size = New System.Drawing.Size(108, 33)
+        Me.SearchButton.Size = New System.Drawing.Size(215, 34)
         Me.SearchButton.TabIndex = 306
         Me.SearchButton.TabStop = False
-        Me.SearchButton.Text = "بحث"
+        Me.SearchButton.Tag = "GENERAL"
+        Me.SearchButton.Text = "⌕ بحث"
         Me.SearchButton.UseVisualStyleBackColor = False
         '
         'New_butt
         '
-        Me.New_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.New_butt.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.New_butt.BackColor = System.Drawing.Color.White
         Me.New_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.New_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
@@ -932,19 +940,20 @@ Partial Class EXP_Details
         Me.New_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.New_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.New_butt.ForeColor = System.Drawing.Color.Black
-        Me.New_butt.Location = New System.Drawing.Point(666, 4)
+        Me.New_butt.Location = New System.Drawing.Point(827, 5)
         Me.New_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.New_butt.Name = "New_butt"
         Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.New_butt.Size = New System.Drawing.Size(111, 33)
+        Me.New_butt.Size = New System.Drawing.Size(160, 34)
         Me.New_butt.TabIndex = 294
-        Me.New_butt.Text = " فاتورة جديدة F1"
+        Me.New_butt.Tag = "GENERAL"
+        Me.New_butt.Text = "＋ فاتورة جديدة F1"
         Me.New_butt.UseVisualStyleBackColor = False
         '
         'Save_butt
         '
-        Me.Save_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Save_butt.BackColor = System.Drawing.Color.Honeydew
+        Me.Save_butt.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Save_butt.BackColor = System.Drawing.Color.White
         Me.Save_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Save_butt.Enabled = False
         Me.Save_butt.FlatAppearance.BorderColor = System.Drawing.Color.Black
@@ -953,20 +962,20 @@ Partial Class EXP_Details
         Me.Save_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Save_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Save_butt.Location = New System.Drawing.Point(515, 4)
+        Me.Save_butt.Location = New System.Drawing.Point(583, 5)
         Me.Save_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Save_butt.Size = New System.Drawing.Size(146, 33)
+        Me.Save_butt.Size = New System.Drawing.Size(238, 34)
         Me.Save_butt.TabIndex = 293
         Me.Save_butt.TabStop = False
         Me.Save_butt.Tag = "SAVE"
-        Me.Save_butt.Text = "حفظ F12"
+        Me.Save_butt.Text = "✓ حفظ F12"
         Me.Save_butt.UseVisualStyleBackColor = False
         '
         'Edit_butt
         '
-        Me.Edit_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Edit_butt.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Edit_butt.BackColor = System.Drawing.Color.White
         Me.Edit_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Edit_butt.Enabled = False
@@ -976,19 +985,20 @@ Partial Class EXP_Details
         Me.Edit_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Edit_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Edit_butt.Location = New System.Drawing.Point(178, 4)
+        Me.Edit_butt.Location = New System.Drawing.Point(464, 5)
         Me.Edit_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Edit_butt.Name = "Edit_butt"
         Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(108, 33)
+        Me.Edit_butt.Size = New System.Drawing.Size(113, 34)
         Me.Edit_butt.TabIndex = 295
         Me.Edit_butt.TabStop = False
-        Me.Edit_butt.Text = "تعديل F3"
+        Me.Edit_butt.Tag = "GENERAL"
+        Me.Edit_butt.Text = "✎ تعديل F3"
         Me.Edit_butt.UseVisualStyleBackColor = False
         '
         'Delete_butt
         '
-        Me.Delete_butt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Delete_butt.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Delete_butt.BackColor = System.Drawing.Color.White
         Me.Delete_butt.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Delete_butt.Enabled = False
@@ -997,21 +1007,21 @@ Partial Class EXP_Details
         Me.Delete_butt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver
         Me.Delete_butt.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Delete_butt.Location = New System.Drawing.Point(291, 4)
+        Me.Delete_butt.Location = New System.Drawing.Point(226, 5)
         Me.Delete_butt.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Delete_butt.Name = "Delete_butt"
         Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Delete_butt.Size = New System.Drawing.Size(108, 33)
+        Me.Delete_butt.Size = New System.Drawing.Size(113, 34)
         Me.Delete_butt.TabIndex = 296
         Me.Delete_butt.Tag = "DELETE"
-        Me.Delete_butt.Text = " إلغاء F4"
+        Me.Delete_butt.Text = "× إلغاء F4"
         Me.Delete_butt.UseVisualStyleBackColor = False
         '
         'Label3
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(541, 147)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        Me.Label3.Location = New System.Drawing.Point(285, 149)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(61, 21)
         Me.Label3.TabIndex = 379
@@ -1020,6 +1030,8 @@ Partial Class EXP_Details
         '
         'Panel2
         '
+        Me.Panel2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel2.Controls.Add(Me.SearchButton)
         Me.Panel2.Controls.Add(Me.Edit_butt)
@@ -1027,20 +1039,20 @@ Partial Class EXP_Details
         Me.Panel2.Controls.Add(Me.Print_btn)
         Me.Panel2.Controls.Add(Me.Save_butt)
         Me.Panel2.Controls.Add(Me.New_butt)
-        Me.Panel2.Location = New System.Drawing.Point(90, 43)
+        Me.Panel2.Location = New System.Drawing.Point(5, 43)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(846, 44)
+        Me.Panel2.Size = New System.Drawing.Size(994, 46)
         Me.Panel2.TabIndex = 1000
         '
         'EX_Cm
         '
         Me.EX_Cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.EX_Cm.CancelSearchImage = CType(resources.GetObject("EX_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.EX_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!)
+        Me.EX_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!)
         Me.EX_Cm.Location = New System.Drawing.Point(608, 143)
         Me.EX_Cm.Name = "EX_Cm"
         Me.EX_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.EX_Cm.Size = New System.Drawing.Size(328, 38)
+        Me.EX_Cm.Size = New System.Drawing.Size(328, 34)
         Me.EX_Cm.SQL_Column = "Ex_NAME"
         Me.EX_Cm.SQL_ID = "Ex_ID"
         Me.EX_Cm.SQL_IsNumericSearchField = False
@@ -1059,11 +1071,11 @@ Partial Class EXP_Details
         Me.AG_Cm.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
-        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 14.25!)
-        Me.AG_Cm.Location = New System.Drawing.Point(285, 142)
+        Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!)
+        Me.AG_Cm.Location = New System.Drawing.Point(5, 142)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(250, 38)
+        Me.AG_Cm.Size = New System.Drawing.Size(276, 34)
         Me.AG_Cm.SQL_Column = "AG_NAME"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False

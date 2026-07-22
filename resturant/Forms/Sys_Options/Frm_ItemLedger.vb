@@ -494,10 +494,13 @@ FROM dbo.Units
                 Return "تسوية مخزون"
 
             Case "FRM_IM"
-                Return "تصنيع"
+                Return "إستهلاك تصنيع"
 
             Case "رصيد افتتاحي"
                 Return "رصيد افتتاحي"
+
+            Case "FRM_IM_PLUS"
+                Return "تصنيع"
 
             Case Else
                 Return movementType

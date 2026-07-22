@@ -1625,7 +1625,7 @@ Public Class ItemsMenu
         Dim frm As New Frm_ItemLedger(
     IM_ID,
     IM_Name_ToolStrip.Text,
-    1
+    SB_ST_ID
 )
 
         frm.ShowDialog()

@@ -340,6 +340,7 @@ Partial Class Backup
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
+        Me.InitializeScheduledBackupControls()
 
     End Sub
     Friend WithEvents BackupButtonX As DevComponents.DotNetBar.ButtonX

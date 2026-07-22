@@ -43,6 +43,16 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
 
     Public On_Update As Boolean
 
+    Private LinkedSalesTId As Integer = 0
+    Private LinkedSalesBillNumber As Integer = 0
+    Private LinkedSalesBillIsDirty As Boolean = False
+
+    Public ReadOnly Property SelectedSalesBillNumber As String
+        Get
+            Return SB_BILL_No_txt.Text.Trim()
+        End Get
+    End Property
+
     Private Sub Expenses_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         FormType = 0
         Me.Dispose()
@@ -97,6 +107,7 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     Private Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '   If St_Count() = 1 Then All_St_Panel.Visible = False
         ThemeManager.ApplyThemeToForm(Me)
+        ApplyManualFormatGridStyles()
         rs.FindAllControls(Me)
         Me.WindowState = FormWindowState.Maximized
 
@@ -121,6 +132,67 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         'End If
 
 
+    End Sub
+
+    Private Sub ApplyManualFormatGridStyles()
+        ApplySalesLikeGridStyle(BillMetroGrid)
+        ApplySalesLikeGridStyle(AGMetroGrid)
+        ApplySalesLikeGridStyle(ServicesGrid)
+    End Sub
+
+    Private Sub ApplySalesLikeGridStyle(ByVal grid As DataGridView)
+        If grid Is Nothing Then Exit Sub
+
+        Dim rowBackColor As Color = grid.RowsDefaultCellStyle.BackColor
+        If rowBackColor.IsEmpty Then rowBackColor = Color.White
+
+        Dim isDarkState As Boolean = (rowBackColor = Color.IndianRed OrElse rowBackColor = Color.Firebrick OrElse rowBackColor = Color.DarkRed)
+        Dim rowForeColor As Color = If(isDarkState, Color.White, Color.Black)
+
+        grid.EnableHeadersVisualStyles = False
+        grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        grid.BackgroundColor = SystemColors.ButtonFace
+        grid.BorderStyle = BorderStyle.FixedSingle
+        grid.CellBorderStyle = DataGridViewCellBorderStyle.Single
+        grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
+        grid.RowHeadersVisible = False
+        grid.MultiSelect = False
+        grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        grid.RowTemplate.Height = 30
+
+        grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grid.ColumnHeadersDefaultCellStyle.BackColor = SystemColors.Control
+        grid.ColumnHeadersDefaultCellStyle.ForeColor = SystemColors.WindowText
+        grid.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 9.0!, FontStyle.Bold)
+        grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = SystemColors.Control
+        grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = SystemColors.WindowText
+        grid.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True
+        grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+
+        grid.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grid.DefaultCellStyle.BackColor = rowBackColor
+        grid.DefaultCellStyle.ForeColor = rowForeColor
+        grid.DefaultCellStyle.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
+        grid.DefaultCellStyle.SelectionBackColor = Color.DeepSkyBlue
+        grid.DefaultCellStyle.SelectionForeColor = Color.White
+        grid.DefaultCellStyle.WrapMode = DataGridViewTriState.False
+
+        grid.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grid.RowsDefaultCellStyle.BackColor = rowBackColor
+        grid.RowsDefaultCellStyle.ForeColor = rowForeColor
+        grid.RowsDefaultCellStyle.Font = New Font("Segoe UI Semibold", 9.0!, FontStyle.Bold)
+        grid.RowsDefaultCellStyle.SelectionBackColor = Color.DeepSkyBlue
+        grid.RowsDefaultCellStyle.SelectionForeColor = Color.White
+
+        If rowBackColor = Color.White Then
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252)
+            grid.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black
+        Else
+            grid.AlternatingRowsDefaultCellStyle.BackColor = rowBackColor
+            grid.AlternatingRowsDefaultCellStyle.ForeColor = rowForeColor
+        End If
+
+        grid.GridColor = Color.Gainsboro
     End Sub
 
     Public Sub Check_View_Control()
@@ -184,6 +256,7 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     Public Sub Fill_Bill_Info()
 
         Dim C As New C
+        Dim linkedSalesId As Integer = 0
 
         With C.Com
             .Connection = C.Con
@@ -222,14 +295,14 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
             Notes_txt.Text = C.Dr("About")
 
             EMP_FS.Set_IM_By_ID(C.Dr("Cr_ID"))
-            SB_BILL_FS.Set_IM_By_ID(C.Dr("Travel_ID"))
-
-            SELECT_Deliver_Date()
+            linkedSalesId = GetSafeInteger(C.Dr("Travel_ID"))
         Else
             AG_ID = Default_AG_ID
             VoidLb.Enabled = False
         End If
         C.Con.Close()
+        LoadLinkedSalesBillByTId(linkedSalesId)
+        SELECT_Deliver_Date()
     End Sub
 
 
@@ -262,9 +335,12 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         DateTimeEx.Enabled = True
         Notes_txt.Enabled = True
         Title_txt.Enabled = True
-        SB_BILL_FS.Enabled = True
+        SB_BILL_No_txt.Enabled = True
+        Link_SB_Bill_btn.Enabled = True
+        Unlink_SB_Bill_btn.Enabled = True
         EMP_FS.Enabled = True
         Deliver_DateTimePicker1.Enabled = True
+        UpdateLinkedSalesBillButtonState()
         Ebable_CatFields()
     End Sub
 
@@ -272,9 +348,12 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         DateTimeEx.Enabled = False
         Notes_txt.Enabled = False
         Title_txt.Enabled = False
-        SB_BILL_FS.Enabled = False
+        SB_BILL_No_txt.Enabled = False
+        Link_SB_Bill_btn.Enabled = False
+        Unlink_SB_Bill_btn.Enabled = False
         EMP_FS.Enabled = False
         Deliver_DateTimePicker1.Enabled = False
+        UpdateLinkedSalesBillButtonState()
         Disable_CatFields()
     End Sub
 
@@ -318,6 +397,8 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
             Print_btn.Enabled = False
             Print_btn_2.Enabled = False
         End If
+
+        ApplyManualFormatGridStyles()
 
     End Sub
 
@@ -409,6 +490,7 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
             VoidLb.Visible = False
         End If
 
+        ApplyManualFormatGridStyles()
         Me.Text = "عرض بيانات فاتورة"
 
         'If My_Settings.S_Default = 0 Then
@@ -434,8 +516,7 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         Me.Text = FormState
         Title_txt.Clear()
         EMP_FS.Textt = ""
-        SB_BILL_FS.Textt = ""
-        SB_AG_NAME_TXT.Clear()
+        SetLinkedSalesBillFields(0, 0, "", False)
     End Sub
 
     Private Sub ResetNewBill()
@@ -492,9 +573,12 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Save_butt_Click(sender As Object, e As EventArgs) Handles Save_butt.Click
+        If Not ValidateLinkedSalesBillSelection() Then Exit Sub
+
         Beep()
         If MessageBox.Show("إعتماد أمر التصنيع بشكل نهائي ؟", "حفظ", MessageBoxButtons.OKCancel, _
               MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
+            If Not SaveLinkedSalesBillSelection() Then Exit Sub
             If AGMetroGrid.Rows.Count > 0 Then FRM_Manual_Set_Cost()
             Save_About(T_ID, Notes_txt.Text)
             Save_Date(T_ID, DateTimeEx)
@@ -1286,6 +1370,7 @@ Me.Name.ToString
                 ServicesGrid.BackgroundColor = Color.LightYellow
                 ServicesGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
 
+                ApplyManualFormatGridStyles()
                 Ebable_CatFields()
                 Edit_butt.Text = "إيقاف التعديل"
                 Notes_txt.Enabled = True
@@ -1295,6 +1380,8 @@ Me.Name.ToString
                 Enable_Fields()
             End If
         Else
+            If Not ValidateLinkedSalesBillSelection() Then Exit Sub
+            If Not SaveLinkedSalesBillSelection() Then Exit Sub
             Save_About(T_ID, Notes_txt.Text)
             Save_Date(T_ID, DateTimeEx)
             AG_Balance_Update_Date_Deliver(T_ID, Deliver_DateTimePicker1)
@@ -1314,39 +1401,180 @@ Me.Name.ToString
 
     End Sub
 
-    Private Sub FSearch_Filter2_ID_Changed(sender As Object, e As EventArgs) Handles SB_BILL_FS.ID_Changed
-        query("UPDATE Agents_Balance_MV SET Travel_ID = " & SB_BILL_FS.TXT_ID.Text & " WHERE T_ID = " & T_ID)
-        Load_SB_AG_NAME()
-    End Sub
+    Private Sub Link_SB_Bill_btn_Click(sender As Object, e As EventArgs) Handles Link_SB_Bill_btn.Click
+        Dim salesBillNumber As Integer = 0
+        If Not Integer.TryParse(SB_BILL_No_txt.Text.Trim(), salesBillNumber) OrElse salesBillNumber <= 0 Then
+            MessageBox.Show("أدخل رقم فاتورة مبيعات صحيحاً أولاً.", "ربط فاتورة مبيعات",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            SB_BILL_No_txt.Focus()
+            SB_BILL_No_txt.SelectAll()
+            Exit Sub
+        End If
 
-
-    Public Sub Load_SB_AG_NAME()
         Dim c As New C
-        SB_AG_NAME_TXT.Clear()
         Try
-            Dim s As String
-            s = "select AG_NAME from [SB_Info_V] WHERE T_ID = " & SB_BILL_FS.TXT_ID.Text
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
+            c.Com = New SqlClient.SqlCommand(
+                "SELECT TOP 1 T_ID, SB_ID, ISNULL(AG_NAME, N'') AS AG_NAME " &
+                "FROM SB_Info_V " &
+                "WHERE SB_ID = @SB_ID AND T_ID BETWEEN @START_ID AND @END_ID " &
+                "ORDER BY T_ID DESC", c.Con)
+            c.Com.Parameters.Add("@SB_ID", SqlDbType.Int).Value = salesBillNumber
+            c.Com.Parameters.Add("@START_ID", SqlDbType.Int).Value = START_ID
+            c.Com.Parameters.Add("@END_ID", SqlDbType.Int).Value = END_ID
+
             c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                SB_AG_NAME_TXT.Text = c.Dr("AG_NAME")
+            c.Dr = c.Com.ExecuteReader()
+            If Not c.Dr.Read() Then
+                MessageBox.Show("لم يتم العثور على فاتورة المبيعات ضمن بيانات الفرع الحالي.",
+                                "ربط فاتورة مبيعات", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
             End If
+
+            SetLinkedSalesBillFields(Convert.ToInt32(c.Dr("T_ID")),
+                                     Convert.ToInt32(c.Dr("SB_ID")),
+                                     Convert.ToString(c.Dr("AG_NAME")), True)
+            MessageBox.Show("تم التحقق من الفاتورة. سيتم تثبيت الربط عند حفظ أمر التصنيع.",
+                            "ربط فاتورة مبيعات", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show("تعذر التحقق من فاتورة المبيعات: " & ex.Message,
+                            "ربط فاتورة مبيعات", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If c.Dr IsNot Nothing Then c.Dr.Close()
+            If c.Con.State <> ConnectionState.Closed Then c.Con.Close()
         End Try
     End Sub
+
+    Private Sub Unlink_SB_Bill_btn_Click(sender As Object, e As EventArgs) Handles Unlink_SB_Bill_btn.Click
+        If LinkedSalesTId <= 0 AndAlso String.IsNullOrWhiteSpace(SB_BILL_No_txt.Text) Then Exit Sub
+
+        If MessageBox.Show("إلغاء ربط فاتورة المبيعات من أمر التصنيع؟ سيتم التثبيت عند الحفظ.",
+                           "إلغاء الربط", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                           MessageBoxDefaultButton.Button2) = DialogResult.Yes Then
+            SetLinkedSalesBillFields(0, 0, "", True)
+        End If
+    End Sub
+
+    Private Sub SB_BILL_No_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles SB_BILL_No_txt.KeyPress
+        Check_Only_Int(sender, e)
+    End Sub
+
+    Private Sub SB_BILL_No_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles SB_BILL_No_txt.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            Link_SB_Bill_btn.PerformClick()
+            e.SuppressKeyPress = True
+        End If
+    End Sub
+
+    Private Sub LoadLinkedSalesBillByTId(linkedTId As Integer)
+        If linkedTId <= 0 Then
+            SetLinkedSalesBillFields(0, 0, "", False)
+            Exit Sub
+        End If
+
+        Dim c As New C
+        Try
+            c.Com = New SqlClient.SqlCommand(
+                "SELECT TOP 1 T_ID, SB_ID, ISNULL(AG_NAME, N'') AS AG_NAME FROM SB_Info_V WHERE T_ID = @T_ID", c.Con)
+            c.Com.Parameters.Add("@T_ID", SqlDbType.Int).Value = linkedTId
+            c.Con.Open()
+            c.Dr = c.Com.ExecuteReader()
+
+            If c.Dr.Read() Then
+                SetLinkedSalesBillFields(Convert.ToInt32(c.Dr("T_ID")),
+                                         Convert.ToInt32(c.Dr("SB_ID")),
+                                         Convert.ToString(c.Dr("AG_NAME")), False)
+            Else
+                SetLinkedSalesBillFields(0, 0, "", False)
+            End If
+        Catch ex As Exception
+            SetLinkedSalesBillFields(0, 0, "", False)
+            MessageBox.Show("تعذر تحميل فاتورة المبيعات المرتبطة: " & ex.Message,
+                            "فاتورة المبيعات", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Finally
+            If c.Dr IsNot Nothing Then c.Dr.Close()
+            If c.Con.State <> ConnectionState.Closed Then c.Con.Close()
+        End Try
+    End Sub
+
+    Private Sub SetLinkedSalesBillFields(linkedTId As Integer, salesBillNumber As Integer,
+                                         customerName As String, markAsDirty As Boolean)
+        LinkedSalesTId = linkedTId
+        LinkedSalesBillNumber = salesBillNumber
+        SB_BILL_No_txt.Text = If(salesBillNumber > 0, salesBillNumber.ToString(), "")
+        SB_AG_NAME_TXT.Text = If(customerName, "")
+        LinkedSalesBillIsDirty = markAsDirty
+        UpdateLinkedSalesBillButtonState()
+    End Sub
+
+    Private Sub UpdateLinkedSalesBillButtonState()
+        Open_SB_Bill_btn.Enabled = (LinkedSalesTId > 0)
+        If Unlink_SB_Bill_btn.Enabled Then Unlink_SB_Bill_btn.Enabled = (LinkedSalesTId > 0)
+    End Sub
+
+    Private Function ValidateLinkedSalesBillSelection() As Boolean
+        Dim enteredBillNumber As String = SB_BILL_No_txt.Text.Trim()
+
+        If String.IsNullOrWhiteSpace(enteredBillNumber) Then
+            If LinkedSalesTId > 0 Then
+                MessageBox.Show("استخدم زر إلغاء الربط لمسح فاتورة المبيعات المرتبطة.",
+                                "فاتورة المبيعات", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return False
+            End If
+            Return True
+        End If
+
+        Dim parsedBillNumber As Integer = 0
+        If Not Integer.TryParse(enteredBillNumber, parsedBillNumber) OrElse
+           LinkedSalesTId <= 0 OrElse parsedBillNumber <> LinkedSalesBillNumber Then
+            MessageBox.Show("اضغط زر التحقق والربط قبل حفظ أمر التصنيع.",
+                            "فاتورة المبيعات", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    Private Function SaveLinkedSalesBillSelection() As Boolean
+        If Not LinkedSalesBillIsDirty Then Return True
+
+        Dim c As New C
+        Try
+            c.Com = New SqlClient.SqlCommand(
+                "UPDATE Agents_Balance_MV SET Travel_ID = @Travel_ID WHERE T_ID = @T_ID", c.Con)
+            Dim travelParameter As SqlClient.SqlParameter = c.Com.Parameters.Add("@Travel_ID", SqlDbType.Int)
+            travelParameter.Value = If(LinkedSalesTId > 0, CType(LinkedSalesTId, Object), DBNull.Value)
+            c.Com.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
+
+            c.Con.Open()
+            c.Com.ExecuteNonQuery()
+            LinkedSalesBillIsDirty = False
+            Return True
+        Catch ex As Exception
+            MessageBox.Show("تعذر حفظ ربط فاتورة المبيعات: " & ex.Message,
+                            "فاتورة المبيعات", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        Finally
+            If c.Con.State <> ConnectionState.Closed Then c.Con.Close()
+        End Try
+    End Function
+
+    Private Function GetSafeInteger(value As Object) As Integer
+        If value Is Nothing OrElse value Is DBNull.Value Then Return 0
+
+        Dim result As Integer = 0
+        Integer.TryParse(value.ToString(), result)
+        Return result
+    End Function
 
     Private Sub EMP_FS_ID_Changed(sender As Object, e As EventArgs) Handles EMP_FS.ID_Changed
         query("UPDATE Agents_Balance_MV SET Cr_ID = " & EMP_FS.TXT_ID.Text & " WHERE T_ID = " & T_ID)
     End Sub
 
     Private Sub Open_SB_Bill_btn_Click(sender As Object, e As EventArgs) Handles Open_SB_Bill_btn.Click
-        If SB_BILL_FS.TXT_ID.Text > 0 Then
+        If LinkedSalesTId > 0 Then
             isShowing_Trans = True
             F_Sales = New Sales
-            T_ID_Trans = SB_BILL_FS.TXT_ID.Text
+            T_ID_Trans = LinkedSalesTId
             F_Sales.عرضفواتيرالزبونToolStripMenuItem.Visible = False
             F_Sales.BillNumPanel.Enabled = False
             F_Sales.ShowDialog()

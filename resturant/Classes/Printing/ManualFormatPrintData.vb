@@ -31,7 +31,7 @@ Public Class ManualFormatPrintData
         data.OrderDate = If(form.DateTimeEx Is Nothing, "", form.DateTimeEx.Value.ToString("yyyy/MM/dd"))
         data.OrderSubject = SafeControlText(form.Title_txt)
         data.CustomerName = SafeControlText(form.SB_AG_NAME_TXT)
-        data.SalesBillNumber = If(form.SB_BILL_FS Is Nothing, "", form.SB_BILL_FS.Textt)
+        data.SalesBillNumber = form.SelectedSalesBillNumber
         data.EmployeeName = If(form.EMP_FS Is Nothing, "", form.EMP_FS.Textt)
         data.DeliverDate = If(form.Deliver_DateTimePicker1 Is Nothing, "", form.Deliver_DateTimePicker1.Value.ToString("yyyy/MM/dd"))
         data.Notes = SafeControlText(form.Notes_txt)

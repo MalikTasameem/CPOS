@@ -19,6 +19,7 @@ const state = {
     selectedUnitId: 0,
     selectedSalesTypeId: 0,
     selectedPaymentId: 0,
+    saveInProgress: false,
     componentTab: "notes",
     componentOptions: {
         notes: [],
@@ -67,6 +68,8 @@ function bindElements() {
     els.closeBillTypeButton = document.getElementById("closeBillTypeButton");
     els.paymentDialog = document.getElementById("paymentDialog");
     els.paymentAmountText = document.getElementById("paymentAmountText");
+    els.orderSaveOptions = document.getElementById("orderSaveOptions");
+    els.deliverDateInput = document.getElementById("deliverDateInput");
     els.paymentOptions = document.getElementById("paymentOptions");
     els.paymentTreasuryText = document.getElementById("paymentTreasuryText");
     els.cancelPaymentButton = document.getElementById("cancelPaymentButton");
@@ -535,7 +538,7 @@ async function saveBill() {
         return;
     }
 
-    if (shouldAskForPaymentMethod() && state.paymentMethods.length > 1) {
+    if (shouldOpenFinalizeDialog()) {
         openPaymentDialog();
         return;
     }
@@ -544,6 +547,9 @@ async function saveBill() {
 }
 
 async function submitBillSave(paymentMethod) {
+    if (!state.currentBill || state.saveInProgress) return;
+
+    state.saveInProgress = true;
     const buttonText = els.sendOrderButton.textContent;
     els.sendOrderButton.disabled = true;
     els.sendOrderButton.textContent = "جاري الحفظ";
@@ -565,7 +571,18 @@ async function submitBillSave(paymentMethod) {
         els.sendOrderButton.textContent = buttonText;
         renderBill();
         showToast(error.message || "تعذر حفظ الفاتورة", "error");
+    } finally {
+        state.saveInProgress = false;
     }
+}
+
+function shouldOpenFinalizeDialog() {
+    const bill = state.currentBill;
+    if (!bill) return false;
+
+    const isOrderBill = Number(bill.billTypeId || 0) === 3;
+    const hasSeveralPaymentMethods = shouldAskForPaymentMethod() && state.paymentMethods.length > 1;
+    return isOrderBill || hasSeveralPaymentMethods;
 }
 
 function shouldAskForPaymentMethod() {
@@ -596,6 +613,13 @@ function buildSaveBillRequest(paymentMethod) {
         body.treasuryId = treasuryId;
     }
 
+    if (Number(state.currentBill?.billTypeId || 0) === 3) {
+        const deliverDate = els.deliverDateInput.value;
+        if (deliverDate) {
+            body.deliverDate = deliverDate;
+        }
+    }
+
     return body;
 }
 
@@ -606,6 +630,9 @@ function openPaymentDialog() {
     const defaultPayment = getDefaultPaymentMethod();
     state.selectedPaymentId = Number(defaultPayment.paymentId || 1);
     els.paymentAmountText.textContent = formatNumber(bill.pure || 0);
+    const isOrderBill = Number(bill.billTypeId || 0) === 3;
+    els.orderSaveOptions.classList.toggle("hidden", !isOrderBill);
+    els.deliverDateInput.value = "";
     renderPaymentOptions();
     els.paymentDialog.classList.remove("hidden");
 }
@@ -615,6 +642,8 @@ function closePaymentDialog() {
     els.paymentDialog.classList.add("hidden");
     els.paymentOptions.innerHTML = "";
     els.paymentTreasuryText.textContent = "-";
+    els.orderSaveOptions.classList.add("hidden");
+    els.deliverDateInput.value = "";
 }
 
 function renderPaymentOptions() {

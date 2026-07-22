@@ -848,6 +848,28 @@ h2 {
     color: var(--brand-dark);
 }
 
+.order-save-options {
+    display: grid;
+    gap: 7px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    background: #f8fafc;
+}
+
+.order-save-options input {
+    min-height: 44px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+}
+
+.order-save-options small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
 .payment-options {
     min-height: 90px;
     max-height: 230px;

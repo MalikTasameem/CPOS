@@ -229,7 +229,7 @@ Partial Class ItemsMenu
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label1.Location = New System.Drawing.Point(768, 85)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
@@ -260,7 +260,7 @@ Partial Class ItemsMenu
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label2.Location = New System.Drawing.Point(768, 46)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
@@ -273,7 +273,7 @@ Partial Class ItemsMenu
         '
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.Location = New System.Drawing.Point(600, 352)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
@@ -286,11 +286,11 @@ Partial Class ItemsMenu
         '
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label10.Location = New System.Drawing.Point(754, 11)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(78, 19)
+        Me.Label10.Size = New System.Drawing.Size(82, 20)
         Me.Label10.TabIndex = 182
         Me.Label10.Text = "إسم العرض"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -358,7 +358,8 @@ Partial Class ItemsMenu
         '
         'IMSaleNameTextBox
         '
-        Me.IMSaleNameTextBox.Font = New System.Drawing.Font("Arial", 14.0!)
+        Me.IMSaleNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.IMSaleNameTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.IMSaleNameTextBox.Location = New System.Drawing.Point(312, 7)
         Me.IMSaleNameTextBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IMSaleNameTextBox.MaxLength = 500
@@ -405,11 +406,11 @@ Partial Class ItemsMenu
         '
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(729, 235)
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 11.25!)
+        Me.Label7.Location = New System.Drawing.Point(730, 238)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(92, 19)
+        Me.Label7.Size = New System.Drawing.Size(97, 20)
         Me.Label7.TabIndex = 415
         Me.Label7.Text = "لون مربع البيع"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -454,11 +455,11 @@ Partial Class ItemsMenu
         '
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label13.Location = New System.Drawing.Point(729, 263)
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 11.25!)
+        Me.Label13.Location = New System.Drawing.Point(730, 266)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(85, 19)
+        Me.Label13.Size = New System.Drawing.Size(90, 20)
         Me.Label13.TabIndex = 418
         Me.Label13.Text = "لون خط البيع"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -680,11 +681,11 @@ Partial Class ItemsMenu
         '
         Me.IM_Num_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.IM_Num_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.IM_Num_txt.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Num_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.IM_Num_txt.Location = New System.Drawing.Point(276, 121)
         Me.IM_Num_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_Num_txt.Name = "IM_Num_txt"
-        Me.IM_Num_txt.Size = New System.Drawing.Size(487, 29)
+        Me.IM_Num_txt.Size = New System.Drawing.Size(487, 27)
         Me.IM_Num_txt.TabIndex = 460
         Me.IM_Num_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -692,7 +693,7 @@ Partial Class ItemsMenu
         '
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label9.Location = New System.Drawing.Point(767, 122)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
@@ -707,9 +708,9 @@ Partial Class ItemsMenu
         Me.isShortcut_CB.BackColor = System.Drawing.Color.Transparent
         Me.isShortcut_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.isShortcut_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.isShortcut_CB.Font = New System.Drawing.Font("Segoe UI", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.isShortcut_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.isShortcut_CB.ForeColor = System.Drawing.Color.Black
-        Me.isShortcut_CB.Location = New System.Drawing.Point(369, 154)
+        Me.isShortcut_CB.Location = New System.Drawing.Point(369, 155)
         Me.isShortcut_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.isShortcut_CB.Name = "isShortcut_CB"
         Me.isShortcut_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -725,9 +726,9 @@ Partial Class ItemsMenu
         Me.isValid_CB.BackColor = System.Drawing.Color.Transparent
         Me.isValid_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.isValid_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.isValid_CB.Font = New System.Drawing.Font("Segoe UI", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.isValid_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold)
         Me.isValid_CB.ForeColor = System.Drawing.Color.Black
-        Me.isValid_CB.Location = New System.Drawing.Point(687, 154)
+        Me.isValid_CB.Location = New System.Drawing.Point(691, 155)
         Me.isValid_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.isValid_CB.Name = "isValid_CB"
         Me.isValid_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -754,11 +755,11 @@ Partial Class ItemsMenu
         '
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
-        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label8.Location = New System.Drawing.Point(167, 35)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(97, 19)
+        Me.Label8.Size = New System.Drawing.Size(103, 20)
         Me.Label8.TabIndex = 456
         Me.Label8.Text = "تكلفة الصندوق"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -767,7 +768,7 @@ Partial Class ItemsMenu
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(814, 352)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
@@ -780,7 +781,7 @@ Partial Class ItemsMenu
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(445, 352)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
@@ -833,11 +834,11 @@ Partial Class ItemsMenu
         Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label4.Location = New System.Drawing.Point(169, 6)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(87, 19)
+        Me.Label4.Size = New System.Drawing.Size(94, 20)
         Me.Label4.TabIndex = 445
         Me.Label4.Text = "تكلفة القطعة"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -849,7 +850,7 @@ Partial Class ItemsMenu
         Me.GM_Serach.BackColor = System.Drawing.SystemColors.Info
         Me.GM_Serach.Cursor = System.Windows.Forms.Cursors.Hand
         Me.GM_Serach.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GM_Serach.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GM_Serach.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.GM_Serach.FormattingEnabled = True
         Me.GM_Serach.IntegralHeight = False
         Me.GM_Serach.Items.AddRange(New Object() {"قصيرة", "طويلة"})
@@ -984,7 +985,7 @@ Partial Class ItemsMenu
         '
         Me.IM_SH_txt.BackColor = System.Drawing.SystemColors.Window
         Me.IM_SH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_SH_txt.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_SH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.IM_SH_txt.Location = New System.Drawing.Point(324, 80)
         Me.IM_SH_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_SH_txt.Name = "IM_SH_txt"
@@ -1204,7 +1205,7 @@ Partial Class ItemsMenu
         Me.is_Rsv_CB.BackColor = System.Drawing.Color.Transparent
         Me.is_Rsv_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.is_Rsv_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.is_Rsv_CB.Font = New System.Drawing.Font("Segoe UI", 10.25!, System.Drawing.FontStyle.Bold)
+        Me.is_Rsv_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.is_Rsv_CB.ForeColor = System.Drawing.Color.Black
         Me.is_Rsv_CB.Location = New System.Drawing.Point(743, 245)
         Me.is_Rsv_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -1233,7 +1234,7 @@ Partial Class ItemsMenu
         '
         Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label27.AutoSize = True
-        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label27.Location = New System.Drawing.Point(692, 352)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(44, 15)
@@ -1310,8 +1311,8 @@ Partial Class ItemsMenu
         '
         Me.Label25.AutoSize = True
         Me.Label25.BackColor = System.Drawing.Color.Transparent
-        Me.Label25.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(767, 187)
+        Me.Label25.Font = New System.Drawing.Font("Segoe UI", 11.25!)
+        Me.Label25.Location = New System.Drawing.Point(767, 189)
         Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(67, 20)
@@ -1339,11 +1340,11 @@ Partial Class ItemsMenu
         '
         Me.Notes_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Notes_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.Notes_txt.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Notes_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.Notes_txt.Location = New System.Drawing.Point(276, 185)
         Me.Notes_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Notes_txt.Name = "Notes_txt"
-        Me.Notes_txt.Size = New System.Drawing.Size(488, 29)
+        Me.Notes_txt.Size = New System.Drawing.Size(488, 27)
         Me.Notes_txt.TabIndex = 608
         '
         'IMPH_Btn
@@ -1403,7 +1404,7 @@ Partial Class ItemsMenu
         '
         Me.Label18.AutoSize = True
         Me.Label18.BackColor = System.Drawing.Color.Transparent
-        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label18.Location = New System.Drawing.Point(767, 8)
         Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
@@ -1420,7 +1421,7 @@ Partial Class ItemsMenu
         Me.IM_Type_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Type_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.IM_Type_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Type_cm.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Type_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.IM_Type_cm.FormattingEnabled = True
         Me.IM_Type_cm.IntegralHeight = False
         Me.IM_Type_cm.Items.AddRange(New Object() {"خدمة", "بضاعة", "تصنيع"})
@@ -1478,7 +1479,7 @@ Partial Class ItemsMenu
         Me.Label26.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label26.AutoSize = True
         Me.Label26.BackColor = System.Drawing.Color.Transparent
-        Me.Label26.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label26.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label26.Location = New System.Drawing.Point(8, 14)
         Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
@@ -1506,7 +1507,7 @@ Partial Class ItemsMenu
         Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.Transparent
-        Me.Label23.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.Label23.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label23.Location = New System.Drawing.Point(92, 14)
         Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
@@ -1563,11 +1564,11 @@ Partial Class ItemsMenu
         '
         Me.Label24.AutoSize = True
         Me.Label24.BackColor = System.Drawing.Color.Transparent
-        Me.Label24.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label24.Font = New System.Drawing.Font("Segoe UI", 11.25!)
         Me.Label24.Location = New System.Drawing.Point(701, 112)
         Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(113, 19)
+        Me.Label24.Size = New System.Drawing.Size(123, 20)
         Me.Label24.TabIndex = 442
         Me.Label24.Text = "مجموعة ملاحظات"
         Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1580,14 +1581,14 @@ Partial Class ItemsMenu
         Me.GM_Group_CM.Cursor = System.Windows.Forms.Cursors.Hand
         Me.GM_Group_CM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.GM_Group_CM.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GM_Group_CM.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.GM_Group_CM.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
         Me.GM_Group_CM.FormattingEnabled = True
         Me.GM_Group_CM.IntegralHeight = False
         Me.GM_Group_CM.Items.AddRange(New Object() {"قصيرة", "طويلة"})
         Me.GM_Group_CM.Location = New System.Drawing.Point(345, 109)
         Me.GM_Group_CM.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GM_Group_CM.Name = "GM_Group_CM"
-        Me.GM_Group_CM.Size = New System.Drawing.Size(350, 25)
+        Me.GM_Group_CM.Size = New System.Drawing.Size(350, 28)
         Me.GM_Group_CM.TabIndex = 444
         '
         'IMPictureBox
@@ -1629,10 +1630,10 @@ Partial Class ItemsMenu
         'Label75
         '
         Me.Label75.AutoSize = True
-        Me.Label75.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label75.Location = New System.Drawing.Point(801, 282)
+        Me.Label75.Font = New System.Drawing.Font("Segoe UI", 11.25!)
+        Me.Label75.Location = New System.Drawing.Point(801, 289)
         Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(49, 19)
+        Me.Label75.Size = New System.Drawing.Size(52, 20)
         Me.Label75.TabIndex = 662
         Me.Label75.Text = "المخزن"
         Me.Label75.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1643,13 +1644,13 @@ Partial Class ItemsMenu
         Me.ST_cm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ST_cm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ST_cm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ST_cm.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.ST_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ST_cm.FormattingEnabled = True
-        Me.ST_cm.Location = New System.Drawing.Point(676, 310)
+        Me.ST_cm.Location = New System.Drawing.Point(676, 315)
         Me.ST_cm.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ST_cm.Name = "ST_cm"
         Me.ST_cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ST_cm.Size = New System.Drawing.Size(183, 25)
+        Me.ST_cm.Size = New System.Drawing.Size(183, 28)
         Me.ST_cm.TabIndex = 661
         '
         'IM_QTY_ALERT_DGV
@@ -1782,12 +1783,13 @@ Partial Class ItemsMenu
         '
         'MinQtyAlert_txt
         '
+        Me.MinQtyAlert_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MinQtyAlert_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.MinQtyAlert_txt.Font = New System.Drawing.Font("Times New Roman", 12.25!)
+        Me.MinQtyAlert_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MinQtyAlert_txt.Location = New System.Drawing.Point(511, 315)
         Me.MinQtyAlert_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.MinQtyAlert_txt.Name = "MinQtyAlert_txt"
-        Me.MinQtyAlert_txt.Size = New System.Drawing.Size(162, 26)
+        Me.MinQtyAlert_txt.Size = New System.Drawing.Size(162, 27)
         Me.MinQtyAlert_txt.TabIndex = 459
         Me.MinQtyAlert_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1795,11 +1797,11 @@ Partial Class ItemsMenu
         '
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label14.Location = New System.Drawing.Point(516, 288)
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 11.25!)
+        Me.Label14.Location = New System.Drawing.Point(516, 291)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(134, 19)
+        Me.Label14.Size = New System.Drawing.Size(143, 20)
         Me.Label14.TabIndex = 460
         Me.Label14.Text = "إشعار عند أصغر كمية"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1808,25 +1810,26 @@ Partial Class ItemsMenu
         '
         Me.IM_All_Qty_txt.BackColor = System.Drawing.SystemColors.Info
         Me.IM_All_Qty_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.IM_All_Qty_txt.Font = New System.Drawing.Font("Tahoma", 20.0!)
+        Me.IM_All_Qty_txt.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_All_Qty_txt.ForeColor = System.Drawing.Color.Black
         Me.IM_All_Qty_txt.Location = New System.Drawing.Point(247, 546)
         Me.IM_All_Qty_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.IM_All_Qty_txt.Name = "IM_All_Qty_txt"
         Me.IM_All_Qty_txt.ReadOnly = True
-        Me.IM_All_Qty_txt.Size = New System.Drawing.Size(172, 40)
+        Me.IM_All_Qty_txt.Size = New System.Drawing.Size(172, 33)
         Me.IM_All_Qty_txt.TabIndex = 462
         Me.IM_All_Qty_txt.Text = "12"
-        Me.IM_All_Qty_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.IM_All_Qty_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'MaxQtyAlert_txt
         '
+        Me.MaxQtyAlert_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MaxQtyAlert_txt.ContextMenuStrip = Me.NoneContextMenuStrip
-        Me.MaxQtyAlert_txt.Font = New System.Drawing.Font("Times New Roman", 12.25!)
+        Me.MaxQtyAlert_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MaxQtyAlert_txt.Location = New System.Drawing.Point(347, 315)
         Me.MaxQtyAlert_txt.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.MaxQtyAlert_txt.Name = "MaxQtyAlert_txt"
-        Me.MaxQtyAlert_txt.Size = New System.Drawing.Size(162, 26)
+        Me.MaxQtyAlert_txt.Size = New System.Drawing.Size(162, 27)
         Me.MaxQtyAlert_txt.TabIndex = 457
         Me.MaxQtyAlert_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1834,11 +1837,11 @@ Partial Class ItemsMenu
         '
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
-        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label15.Location = New System.Drawing.Point(359, 288)
+        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 11.25!)
+        Me.Label15.Location = New System.Drawing.Point(359, 291)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(124, 19)
+        Me.Label15.Size = New System.Drawing.Size(132, 20)
         Me.Label15.TabIndex = 458
         Me.Label15.Text = "إشعار عند أكبر كمية"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1847,11 +1850,11 @@ Partial Class ItemsMenu
         '
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
-        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.Location = New System.Drawing.Point(423, 552)
         Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(195, 21)
+        Me.Label16.Size = New System.Drawing.Size(194, 21)
         Me.Label16.TabIndex = 463
         Me.Label16.Text = "الكمية الحالية لجميع المخازن :"
         Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1925,12 +1928,12 @@ Partial Class ItemsMenu
         '
         Me.Label22.AutoSize = True
         Me.Label22.BackColor = System.Drawing.Color.Transparent
-        Me.Label22.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label22.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label22.ForeColor = System.Drawing.Color.Black
-        Me.Label22.Location = New System.Drawing.Point(756, 3)
+        Me.Label22.Location = New System.Drawing.Point(758, 7)
         Me.Label22.Name = "Label22"
         Me.Label22.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label22.Size = New System.Drawing.Size(85, 19)
+        Me.Label22.Size = New System.Drawing.Size(79, 17)
         Me.Label22.TabIndex = 663
         Me.Label22.Text = "إسم المكون :"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1939,9 +1942,9 @@ Partial Class ItemsMenu
         '
         Me.QtyTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.QtyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.QtyTextBox.Font = New System.Drawing.Font("Times New Roman", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.QtyTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.QtyTextBox.ForeColor = System.Drawing.Color.Black
-        Me.QtyTextBox.Location = New System.Drawing.Point(526, 70)
+        Me.QtyTextBox.Location = New System.Drawing.Point(526, 68)
         Me.QtyTextBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.QtyTextBox.MaxLength = 250
         Me.QtyTextBox.Name = "QtyTextBox"
@@ -1955,21 +1958,21 @@ Partial Class ItemsMenu
         Me.IM_Unit_cm_2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.IM_Unit_cm_2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.IM_Unit_cm_2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IM_Unit_cm_2.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
+        Me.IM_Unit_cm_2.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IM_Unit_cm_2.FormattingEnabled = True
         Me.IM_Unit_cm_2.Location = New System.Drawing.Point(684, 68)
         Me.IM_Unit_cm_2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IM_Unit_cm_2.Name = "IM_Unit_cm_2"
-        Me.IM_Unit_cm_2.Size = New System.Drawing.Size(112, 25)
+        Me.IM_Unit_cm_2.Size = New System.Drawing.Size(112, 28)
         Me.IM_Unit_cm_2.TabIndex = 660
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label20.Location = New System.Drawing.Point(800, 73)
+        Me.Label20.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(801, 72)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(47, 19)
+        Me.Label20.Size = New System.Drawing.Size(51, 20)
         Me.Label20.TabIndex = 661
         Me.Label20.Text = "الوحدة"
         Me.Label20.TextAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -1977,10 +1980,10 @@ Partial Class ItemsMenu
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label21.Location = New System.Drawing.Point(616, 71)
+        Me.Label21.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(618, 72)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(45, 19)
+        Me.Label21.Size = New System.Drawing.Size(48, 20)
         Me.Label21.TabIndex = 654
         Me.Label21.Text = "الكمية"
         Me.Label21.TextAlign = System.Drawing.ContentAlignment.BottomCenter

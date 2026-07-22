@@ -5,6 +5,7 @@ Imports System.Text.RegularExpressions
 Public Class Printers
     Public Pr_ID As Integer
     Public Pr_Name As String = ""
+    Private XprinterManagerButton As Button
     Private Sub NewEmpButton_Click(sender As Object, e As EventArgs) Handles NewEmpButton.Click
         FieldsPanel.Enabled = True
         SaveButton.Enabled = True
@@ -152,6 +153,7 @@ Public Class Printers
 
 
     Private Sub Printers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        EnsureXprinterManagerButton()
         Load_PrinterNames()
         LoadComputerPrinters()
 
@@ -159,6 +161,36 @@ Public Class Printers
         'Printer_IP_Txt.Location = New Point(20, 20)
         'Printer_IP_Txt.Width = 200
         'Me.Controls.Add(ipTextBox)
+    End Sub
+
+    Private Sub EnsureXprinterManagerButton()
+        If XprinterManagerButton IsNot Nothing Then Return
+
+        XprinterManagerButton = New Button()
+        XprinterManagerButton.BackColor = Color.FromArgb(37, 99, 235)
+        XprinterManagerButton.Cursor = Cursors.Hand
+        XprinterManagerButton.FlatStyle = FlatStyle.Flat
+        XprinterManagerButton.Font = New Font("Segoe UI Semibold", 10.0!, FontStyle.Bold)
+        XprinterManagerButton.ForeColor = Color.White
+        XprinterManagerButton.Location = New Point(310, 368)
+        XprinterManagerButton.Name = "XprinterManagerButton"
+        XprinterManagerButton.Size = New Size(239, 47)
+        XprinterManagerButton.TabIndex = 453
+        XprinterManagerButton.Text = "▣ تعريف طابعات XPRINTER"
+        XprinterManagerButton.UseVisualStyleBackColor = False
+
+        AddHandler XprinterManagerButton.Click, AddressOf XprinterManagerButton_Click
+        Controls.Add(XprinterManagerButton)
+        XprinterManagerButton.BringToFront()
+    End Sub
+
+    Private Sub XprinterManagerButton_Click(sender As Object, e As EventArgs)
+        Using f As New FrmXprinterInvoicePrinters()
+            f.ShowDialog(Me)
+        End Using
+
+        PrPathComboBox.Items.Clear()
+        LoadComputerPrinters()
     End Sub
 
     Private Sub ipTextBox_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles Printer_IP_Txt.Validating

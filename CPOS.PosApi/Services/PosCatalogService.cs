@@ -58,7 +58,7 @@ ORDER BY Tr_ID ASC;
 
 SELECT TOP 1 AG_ID
 FROM dbo.AGENTS
-ORDER BY CASE WHEN ISNULL(isDefault, 0) = 1 THEN 0 ELSE 1 END, AG_ID ASC;";
+ORDER BY CASE WHEN ISNULL(isDefaultAG, 0) = 1 THEN 0 ELSE 1 END, AG_ID ASC;";
 
         List<PosGroupDto> groups = new();
         List<PosItemDto> items = new();

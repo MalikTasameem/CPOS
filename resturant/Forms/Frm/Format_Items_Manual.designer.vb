@@ -47,6 +47,8 @@ Partial Class Format_Items_Manual
         Me.ADDCatButton = New System.Windows.Forms.Button()
         Me.RemoveCatButton = New System.Windows.Forms.Button()
         Me.RemoveCatButton_2 = New System.Windows.Forms.Button()
+        Me.Link_SB_Bill_btn = New System.Windows.Forms.Button()
+        Me.Unlink_SB_Bill_btn = New System.Windows.Forms.Button()
         Me.Open_SB_Bill_btn = New System.Windows.Forms.Button()
         Me.MOVE_From_pch = New System.Windows.Forms.Button()
         Me.MOVE_From_SB = New System.Windows.Forms.Button()
@@ -109,18 +111,22 @@ Partial Class Format_Items_Manual
         Me.Label5 = New System.Windows.Forms.Label()
         Me.MakeBarcode_btn = New System.Windows.Forms.Button()
         Me.Edit_butt = New System.Windows.Forms.Button()
-        Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.SB_AG_NAME_TXT = New System.Windows.Forms.TextBox()
+        Me.SB_BILL_No_txt = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Deliver_DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.BillMetro_UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.ServicesGrid_UcGridColumnsSelector = New resturant.UcGridColumnsSelector()
         Me.ServicesGrid = New System.Windows.Forms.DataGridView()
         Me.T_ID_2_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -128,18 +134,9 @@ Partial Class Format_Items_Manual
         Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.CheckedListBox2 = New System.Windows.Forms.CheckedListBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.T_Service_Txt = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.SB_BILL_FS = New resturant.FSearch_Filter()
         Me.EMP_FS = New resturant.FSearch_Filter()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.BillMetro_UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.ServicesGrid_UcGridColumnsSelector = New resturant.UcGridColumnsSelector()
         CType(Me.BillMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AGMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.IM_Show_CxtMStrip.SuspendLayout()
@@ -151,13 +148,10 @@ Partial Class Format_Items_Manual
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        Me.TabPage3.SuspendLayout()
-        CType(Me.ServicesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage4.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
+        CType(Me.ServicesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MetroToolTip1
@@ -268,6 +262,38 @@ Partial Class Format_Items_Manual
         Me.MetroToolTip1.SetToolTip(Me.RemoveCatButton_2, "حذف المادة الخام المحدده")
         Me.RemoveCatButton_2.UseVisualStyleBackColor = False
         '
+        'Link_SB_Bill_btn
+        '
+        Me.Link_SB_Bill_btn.BackColor = System.Drawing.Color.SeaGreen
+        Me.Link_SB_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Link_SB_Bill_btn.FlatAppearance.BorderSize = 0
+        Me.Link_SB_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Link_SB_Bill_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.Link_SB_Bill_btn.ForeColor = System.Drawing.Color.White
+        Me.Link_SB_Bill_btn.Location = New System.Drawing.Point(756, 90)
+        Me.Link_SB_Bill_btn.Name = "Link_SB_Bill_btn"
+        Me.Link_SB_Bill_btn.Size = New System.Drawing.Size(37, 30)
+        Me.Link_SB_Bill_btn.TabIndex = 907
+        Me.Link_SB_Bill_btn.Text = "✓"
+        Me.MetroToolTip1.SetToolTip(Me.Link_SB_Bill_btn, "التحقق من فاتورة المبيعات وربطها")
+        Me.Link_SB_Bill_btn.UseVisualStyleBackColor = False
+        '
+        'Unlink_SB_Bill_btn
+        '
+        Me.Unlink_SB_Bill_btn.BackColor = System.Drawing.Color.Firebrick
+        Me.Unlink_SB_Bill_btn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Unlink_SB_Bill_btn.FlatAppearance.BorderSize = 0
+        Me.Unlink_SB_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Unlink_SB_Bill_btn.Font = New System.Drawing.Font("Segoe UI Semibold", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.Unlink_SB_Bill_btn.ForeColor = System.Drawing.Color.White
+        Me.Unlink_SB_Bill_btn.Location = New System.Drawing.Point(678, 90)
+        Me.Unlink_SB_Bill_btn.Name = "Unlink_SB_Bill_btn"
+        Me.Unlink_SB_Bill_btn.Size = New System.Drawing.Size(37, 30)
+        Me.Unlink_SB_Bill_btn.TabIndex = 909
+        Me.Unlink_SB_Bill_btn.Text = "×"
+        Me.MetroToolTip1.SetToolTip(Me.Unlink_SB_Bill_btn, "إلغاء ربط فاتورة المبيعات")
+        Me.Unlink_SB_Bill_btn.UseVisualStyleBackColor = False
+        '
         'Open_SB_Bill_btn
         '
         Me.Open_SB_Bill_btn.BackColor = System.Drawing.Color.WhiteSmoke
@@ -278,14 +304,14 @@ Partial Class Format_Items_Manual
         Me.Open_SB_Bill_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Open_SB_Bill_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Open_SB_Bill_btn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Open_SB_Bill_btn.Location = New System.Drawing.Point(716, 90)
+        Me.Open_SB_Bill_btn.Location = New System.Drawing.Point(717, 90)
         Me.Open_SB_Bill_btn.Name = "Open_SB_Bill_btn"
         Me.Open_SB_Bill_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Open_SB_Bill_btn.Size = New System.Drawing.Size(37, 30)
-        Me.Open_SB_Bill_btn.TabIndex = 911
+        Me.Open_SB_Bill_btn.TabIndex = 908
         Me.Open_SB_Bill_btn.TabStop = False
         Me.Open_SB_Bill_btn.Text = "🔍"
-        Me.MetroToolTip1.SetToolTip(Me.Open_SB_Bill_btn, "إضافة الصنف للفاتورة")
+        Me.MetroToolTip1.SetToolTip(Me.Open_SB_Bill_btn, "فتح فاتورة المبيعات المرتبطة")
         Me.Open_SB_Bill_btn.UseVisualStyleBackColor = False
         '
         'MOVE_From_pch
@@ -296,15 +322,14 @@ Partial Class Format_Items_Manual
         Me.MOVE_From_pch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.MOVE_From_pch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.MOVE_From_pch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.MOVE_From_pch.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.MOVE_From_pch.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MOVE_From_pch.ForeColor = System.Drawing.Color.Black
-        Me.MOVE_From_pch.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.MOVE_From_pch.Location = New System.Drawing.Point(950, 446)
         Me.MOVE_From_pch.Name = "MOVE_From_pch"
         Me.MOVE_From_pch.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.MOVE_From_pch.Size = New System.Drawing.Size(48, 46)
         Me.MOVE_From_pch.TabIndex = 919
-        Me.MOVE_From_pch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MOVE_From_pch.Text = "⚡"
         Me.MetroToolTip1.SetToolTip(Me.MOVE_From_pch, "طلب من فاتورة مشتريات")
         Me.MOVE_From_pch.UseVisualStyleBackColor = False
         '
@@ -346,7 +371,7 @@ Partial Class Format_Items_Manual
         Me.BillMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -357,7 +382,7 @@ Partial Class Format_Items_Manual
         Me.BillMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -492,7 +517,7 @@ Partial Class Format_Items_Manual
         Me.AGMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -503,7 +528,7 @@ Partial Class Format_Items_Manual
         Me.AGMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
         DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -687,8 +712,8 @@ Partial Class Format_Items_Manual
         '
         'Label17
         '
-        Me.Label17.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(411, 666)
+        Me.Label17.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label17.Location = New System.Drawing.Point(407, 665)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(127, 28)
         Me.Label17.TabIndex = 620
@@ -759,7 +784,7 @@ Partial Class Format_Items_Manual
         Me.Pure_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Pure_txt.Font = New System.Drawing.Font("Stencil", 15.0!)
         Me.Pure_txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Pure_txt.Location = New System.Drawing.Point(272, 664)
+        Me.Pure_txt.Location = New System.Drawing.Point(272, 663)
         Me.Pure_txt.MaxLength = 200
         Me.Pure_txt.Name = "Pure_txt"
         Me.Pure_txt.ReadOnly = True
@@ -1040,15 +1065,14 @@ Partial Class Format_Items_Manual
         Me.MakeBarcode_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkTurquoise
         Me.MakeBarcode_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.MakeBarcode_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.MakeBarcode_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.MakeBarcode_btn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MakeBarcode_btn.ForeColor = System.Drawing.Color.Black
-        Me.MakeBarcode_btn.Image = Global.resturant.My.Resources.Resources.iconfinder_barcode_2_62744
         Me.MakeBarcode_btn.Location = New System.Drawing.Point(950, 498)
         Me.MakeBarcode_btn.Name = "MakeBarcode_btn"
         Me.MakeBarcode_btn.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.MakeBarcode_btn.Size = New System.Drawing.Size(48, 43)
         Me.MakeBarcode_btn.TabIndex = 733
-        Me.MakeBarcode_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MakeBarcode_btn.Text = "||||"
         Me.MakeBarcode_btn.UseVisualStyleBackColor = False
         '
         'Edit_butt
@@ -1070,19 +1094,6 @@ Partial Class Format_Items_Manual
         Me.Edit_butt.Text = "تعديـل F3"
         Me.Edit_butt.UseVisualStyleBackColor = False
         '
-        'CheckedListBox1
-        '
-        Me.CheckedListBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CheckedListBox1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.CheckedListBox1.FormattingEnabled = True
-        Me.CheckedListBox1.HorizontalScrollbar = True
-        Me.CheckedListBox1.Location = New System.Drawing.Point(3, 21)
-        Me.CheckedListBox1.MultiColumn = True
-        Me.CheckedListBox1.Name = "CheckedListBox1"
-        Me.CheckedListBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.CheckedListBox1.Size = New System.Drawing.Size(777, 108)
-        Me.CheckedListBox1.TabIndex = 902
-        '
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!)
@@ -1096,9 +1107,9 @@ Partial Class Format_Items_Manual
         'Label3
         '
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.Label3.Location = New System.Drawing.Point(638, 91)
+        Me.Label3.Location = New System.Drawing.Point(609, 91)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(76, 28)
+        Me.Label3.Size = New System.Drawing.Size(67, 28)
         Me.Label3.TabIndex = 908
         Me.Label3.Text = "إسم الزبون :"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1125,9 +1136,22 @@ Partial Class Format_Items_Manual
         Me.SB_AG_NAME_TXT.Name = "SB_AG_NAME_TXT"
         Me.SB_AG_NAME_TXT.ReadOnly = True
         Me.SB_AG_NAME_TXT.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SB_AG_NAME_TXT.Size = New System.Drawing.Size(292, 25)
+        Me.SB_AG_NAME_TXT.Size = New System.Drawing.Size(263, 25)
         Me.SB_AG_NAME_TXT.TabIndex = 910
         Me.SB_AG_NAME_TXT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'SB_BILL_No_txt
+        '
+        Me.SB_BILL_No_txt.BackColor = System.Drawing.Color.White
+        Me.SB_BILL_No_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.SB_BILL_No_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 10.75!, System.Drawing.FontStyle.Bold)
+        Me.SB_BILL_No_txt.Location = New System.Drawing.Point(795, 92)
+        Me.SB_BILL_No_txt.MaxLength = 10
+        Me.SB_BILL_No_txt.Name = "SB_BILL_No_txt"
+        Me.SB_BILL_No_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.SB_BILL_No_txt.Size = New System.Drawing.Size(111, 27)
+        Me.SB_BILL_No_txt.TabIndex = 906
+        Me.SB_BILL_No_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label6
         '
@@ -1161,7 +1185,6 @@ Partial Class Format_Items_Manual
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
-        Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControl1.Location = New System.Drawing.Point(5, 128)
         Me.TabControl1.Name = "TabControl1"
@@ -1193,15 +1216,70 @@ Partial Class Format_Items_Manual
         Me.TabPage2.Text = "جــــدول المـــــواد الخــــام"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 1
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.BillMetro_UcGridColumnsSelector1, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.BillMetroGrid, 0, 1)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 2
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.284768!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.71523!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(925, 455)
+        Me.TableLayoutPanel1.TabIndex = 291
+        '
+        'BillMetro_UcGridColumnsSelector1
+        '
+        Me.BillMetro_UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BillMetro_UcGridColumnsSelector1.Location = New System.Drawing.Point(811, 3)
+        Me.BillMetro_UcGridColumnsSelector1.Name = "BillMetro_UcGridColumnsSelector1"
+        Me.BillMetro_UcGridColumnsSelector1.PopupMaxHeight = 320
+        Me.BillMetro_UcGridColumnsSelector1.PopupMinHeight = 120
+        Me.BillMetro_UcGridColumnsSelector1.PopupWidth = 260
+        Me.BillMetro_UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
+    "ColumnsSettings"
+        Me.BillMetro_UcGridColumnsSelector1.Size = New System.Drawing.Size(111, 27)
+        Me.BillMetro_UcGridColumnsSelector1.TabIndex = 915
+        '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.TableLayoutPanel2)
         Me.TabPage3.Location = New System.Drawing.Point(4, 29)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(931, 462)
+        Me.TabPage3.Size = New System.Drawing.Size(931, 461)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "جــــدول اليد العاملة"
         Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 1
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.ServicesGrid_UcGridColumnsSelector, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.ServicesGrid, 0, 1)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 2
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.236842!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.76316!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(925, 456)
+        Me.TableLayoutPanel2.TabIndex = 638
+        '
+        'ServicesGrid_UcGridColumnsSelector
+        '
+        Me.ServicesGrid_UcGridColumnsSelector.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ServicesGrid_UcGridColumnsSelector.Location = New System.Drawing.Point(811, 3)
+        Me.ServicesGrid_UcGridColumnsSelector.Name = "ServicesGrid_UcGridColumnsSelector"
+        Me.ServicesGrid_UcGridColumnsSelector.PopupMaxHeight = 320
+        Me.ServicesGrid_UcGridColumnsSelector.PopupMinHeight = 120
+        Me.ServicesGrid_UcGridColumnsSelector.PopupWidth = 260
+        Me.ServicesGrid_UcGridColumnsSelector.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
+    "ColumnsSettings"
+        Me.ServicesGrid_UcGridColumnsSelector.Size = New System.Drawing.Size(111, 27)
+        Me.ServicesGrid_UcGridColumnsSelector.TabIndex = 916
         '
         'ServicesGrid
         '
@@ -1216,7 +1294,7 @@ Partial Class Format_Items_Manual
         Me.ServicesGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -1311,60 +1389,13 @@ Partial Class Format_Items_Manual
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
         '
-        'TabPage4
-        '
-        Me.TabPage4.Controls.Add(Me.GroupBox2)
-        Me.TabPage4.Controls.Add(Me.GroupBox1)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 29)
-        Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(931, 462)
-        Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "حقول الطباعــة"
-        Me.TabPage4.UseVisualStyleBackColor = True
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.CheckedListBox2)
-        Me.GroupBox2.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 141)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(783, 132)
-        Me.GroupBox2.TabIndex = 904
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "حقول اليد العاملة"
-        '
-        'CheckedListBox2
-        '
-        Me.CheckedListBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CheckedListBox2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.CheckedListBox2.FormattingEnabled = True
-        Me.CheckedListBox2.HorizontalScrollbar = True
-        Me.CheckedListBox2.Location = New System.Drawing.Point(3, 21)
-        Me.CheckedListBox2.MultiColumn = True
-        Me.CheckedListBox2.Name = "CheckedListBox2"
-        Me.CheckedListBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.CheckedListBox2.Size = New System.Drawing.Size(777, 108)
-        Me.CheckedListBox2.TabIndex = 902
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.CheckedListBox1)
-        Me.GroupBox1.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(6, 7)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(783, 132)
-        Me.GroupBox1.TabIndex = 903
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "حقول المواد الخام"
-        '
         'T_Service_Txt
         '
         Me.T_Service_Txt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.T_Service_Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.T_Service_Txt.Font = New System.Drawing.Font("Stencil", 15.0!)
         Me.T_Service_Txt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.T_Service_Txt.Location = New System.Drawing.Point(2, 664)
+        Me.T_Service_Txt.Location = New System.Drawing.Point(1, 663)
         Me.T_Service_Txt.MaxLength = 200
         Me.T_Service_Txt.Name = "T_Service_Txt"
         Me.T_Service_Txt.ReadOnly = True
@@ -1375,34 +1406,13 @@ Partial Class Format_Items_Manual
         '
         'Label8
         '
-        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(140, 666)
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.Label8.Location = New System.Drawing.Point(140, 665)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(129, 28)
         Me.Label8.TabIndex = 918
         Me.Label8.Text = "إجمالي اليد العاملة"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'SB_BILL_FS
-        '
-        Me.SB_BILL_FS.CancelSearchImage = CType(resources.GetObject("SB_BILL_FS.CancelSearchImage"), System.Drawing.Image)
-        Me.SB_BILL_FS.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.SB_BILL_FS.Location = New System.Drawing.Point(755, 90)
-        Me.SB_BILL_FS.Name = "SB_BILL_FS"
-        Me.SB_BILL_FS.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SB_BILL_FS.Size = New System.Drawing.Size(151, 30)
-        Me.SB_BILL_FS.SQL_Column = "SB_ID"
-        Me.SB_BILL_FS.SQL_ID = "T_ID"
-        Me.SB_BILL_FS.SQL_IsNumericSearchField = False
-        Me.SB_BILL_FS.SQL_ListSize = 200
-        Me.SB_BILL_FS.SQL_NumberOfRows = 200
-        Me.SB_BILL_FS.SQL_OrderByField = "SB_ID"
-        Me.SB_BILL_FS.SQL_SearchField = "SB_ID"
-        Me.SB_BILL_FS.SQL_SearchField_WHERE = ""
-        Me.SB_BILL_FS.SQL_Table = "SB_Info_V"
-        Me.SB_BILL_FS.TabIndex = 906
-        Me.SB_BILL_FS.TextMaxLength = 250
-        Me.SB_BILL_FS.Textt = ""
         '
         'EMP_FS
         '
@@ -1425,61 +1435,6 @@ Partial Class Format_Items_Manual
         Me.EMP_FS.TextMaxLength = 250
         Me.EMP_FS.Textt = ""
         '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 1
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.BillMetro_UcGridColumnsSelector1, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.BillMetroGrid, 0, 1)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.284768!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.71523!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(925, 455)
-        Me.TableLayoutPanel1.TabIndex = 291
-        '
-        'BillMetro_UcGridColumnsSelector1
-        '
-        Me.BillMetro_UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BillMetro_UcGridColumnsSelector1.Location = New System.Drawing.Point(811, 3)
-        Me.BillMetro_UcGridColumnsSelector1.Name = "BillMetro_UcGridColumnsSelector1"
-        Me.BillMetro_UcGridColumnsSelector1.PopupMaxHeight = 320
-        Me.BillMetro_UcGridColumnsSelector1.PopupMinHeight = 120
-        Me.BillMetro_UcGridColumnsSelector1.PopupWidth = 260
-        Me.BillMetro_UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
-    "ColumnsSettings"
-        Me.BillMetro_UcGridColumnsSelector1.Size = New System.Drawing.Size(111, 27)
-        Me.BillMetro_UcGridColumnsSelector1.TabIndex = 915
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.ColumnCount = 1
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.ServicesGrid_UcGridColumnsSelector, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.ServicesGrid, 0, 1)
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 2
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.236842!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.76316!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(925, 456)
-        Me.TableLayoutPanel2.TabIndex = 638
-        '
-        'ServicesGrid_UcGridColumnsSelector
-        '
-        Me.ServicesGrid_UcGridColumnsSelector.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ServicesGrid_UcGridColumnsSelector.Location = New System.Drawing.Point(811, 3)
-        Me.ServicesGrid_UcGridColumnsSelector.Name = "ServicesGrid_UcGridColumnsSelector"
-        Me.ServicesGrid_UcGridColumnsSelector.PopupMaxHeight = 320
-        Me.ServicesGrid_UcGridColumnsSelector.PopupMinHeight = 120
-        Me.ServicesGrid_UcGridColumnsSelector.PopupWidth = 260
-        Me.ServicesGrid_UcGridColumnsSelector.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
-    "ColumnsSettings"
-        Me.ServicesGrid_UcGridColumnsSelector.Size = New System.Drawing.Size(111, 27)
-        Me.ServicesGrid_UcGridColumnsSelector.TabIndex = 916
-        '
         'Format_Items_Manual
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
@@ -1496,12 +1451,14 @@ Partial Class Format_Items_Manual
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Deliver_DateTimePicker1)
+        Me.Controls.Add(Me.Unlink_SB_Bill_btn)
+        Me.Controls.Add(Me.Link_SB_Bill_btn)
         Me.Controls.Add(Me.Open_SB_Bill_btn)
+        Me.Controls.Add(Me.SB_BILL_No_txt)
         Me.Controls.Add(Me.SB_AG_NAME_TXT)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.SB_BILL_FS)
         Me.Controls.Add(Me.EMP_FS)
         Me.Controls.Add(Me.Edit_butt)
         Me.Controls.Add(Me.MakeBarcode_btn)
@@ -1548,13 +1505,10 @@ Partial Class Format_Items_Manual
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
-        Me.TabPage3.ResumeLayout(False)
-        CType(Me.ServicesGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage4.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TabPage3.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
+        CType(Me.ServicesGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1596,14 +1550,15 @@ Partial Class Format_Items_Manual
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents MakeBarcode_btn As System.Windows.Forms.Button
     Friend WithEvents Edit_butt As System.Windows.Forms.Button
-    Friend WithEvents CheckedListBox1 As CheckedListBox
     Friend WithEvents DataB As BindingSource
     Friend WithEvents EMP_FS As FSearch_Filter
-    Friend WithEvents SB_BILL_FS As FSearch_Filter
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents SB_AG_NAME_TXT As TextBox
+    Friend WithEvents SB_BILL_No_txt As TextBox
+    Friend WithEvents Link_SB_Bill_btn As Button
+    Friend WithEvents Unlink_SB_Bill_btn As Button
     Friend WithEvents Open_SB_Bill_btn As Button
     Friend WithEvents Print_ContextMenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
@@ -1650,10 +1605,6 @@ Partial Class Format_Items_Manual
     Friend WithEvents MOVE_From_SB As Button
     Friend WithEvents طباعــةمفتوحــةموادالخـــامToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FullPrintToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents TabPage4 As TabPage
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents CheckedListBox2 As CheckedListBox
-    Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents BillMetro_UcGridColumnsSelector1 As UcGridColumnsSelector
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel

@@ -402,12 +402,14 @@ Partial Class MainForm
         Me.تغيربقيمةمعينةToolStripMenuItem.Name = "تغيربقيمةمعينةToolStripMenuItem"
         Me.تغيربقيمةمعينةToolStripMenuItem.Size = New System.Drawing.Size(182, 24)
         Me.تغيربقيمةمعينةToolStripMenuItem.Text = "تغير بقيمة معينة"
+        Me.تغيربقيمةمعينةToolStripMenuItem.Visible = False
         '
         'تغييربنسبةمئويةToolStripMenuItem
         '
         Me.تغييربنسبةمئويةToolStripMenuItem.Name = "تغييربنسبةمئويةToolStripMenuItem"
         Me.تغييربنسبةمئويةToolStripMenuItem.Size = New System.Drawing.Size(182, 24)
         Me.تغييربنسبةمئويةToolStripMenuItem.Text = "تغيير بنسبة مئوية"
+        Me.تغييربنسبةمئويةToolStripMenuItem.Visible = False
         '
         'شاشةتعديلالأسعارToolStripMenuItem
         '

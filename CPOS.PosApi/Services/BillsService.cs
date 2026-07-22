@@ -39,6 +39,54 @@ public sealed class BillsService
         int periodId = request.PeriodId ?? await GetOpenPeriodIdAsync(cn, request.UserId, cancellationToken);
         int agentId = request.AgentId > 0 ? request.AgentId : await GetDefaultAgentIdAsync(cn, cancellationToken);
 
+        OpenBillCommandResult openResult = await ExecuteOpenSalesBillCommandAsync(
+            cn,
+            tableId,
+            request,
+            periodId,
+            agentId,
+            false,
+            cancellationToken);
+
+        BillDto? bill = await GetBillAsync(cn, openResult.TransactionId, cancellationToken);
+        if (BillMatchesRequestedContext(bill, tableId) == false)
+        {
+            openResult = await ExecuteOpenSalesBillCommandAsync(
+                cn,
+                tableId,
+                request,
+                periodId,
+                agentId,
+                true,
+                cancellationToken);
+            bill = await GetBillAsync(cn, openResult.TransactionId, cancellationToken);
+        }
+
+        if (BillMatchesRequestedContext(bill, tableId) == false)
+        {
+            throw new InvalidOperationException("تعذر فتح فاتورة مرتبطة بسياق البيع المحدد.");
+        }
+
+        return new OpenBillResponse
+        {
+            TransactionId = openResult.TransactionId,
+            DailyBillNumber = openResult.DailyBillNumber,
+            SalesBillId = openResult.SalesBillId,
+            IsNew = openResult.IsNew,
+            Bill = bill
+        };
+    }
+
+    private static async Task<OpenBillCommandResult> ExecuteOpenSalesBillCommandAsync(
+        SqlConnection cn,
+        int? tableId,
+        OpenTableBillRequest request,
+        int periodId,
+        int agentId,
+        bool insertNew,
+        CancellationToken cancellationToken)
+    {
+
         await using SqlCommand cmd = cn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.CommandText = "Call_New_SalesBill";
@@ -65,6 +113,7 @@ public sealed class BillsService
         cmd.Parameters.Add("@Pr_ID", SqlDbType.Int).Value = periodId;
         cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = 0;
         cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = request.UserId;
+        cmd.Parameters.Add("@Insert_New", SqlDbType.Int).Value = insertNew ? 1 : 0;
         if (tableId.HasValue && tableId.Value > 0)
         {
             cmd.Parameters.Add("@TB_ID", SqlDbType.Int).Value = tableId.Value;
@@ -74,14 +123,23 @@ public sealed class BillsService
 
         int transactionId = GetOutputInt(tIdParam);
 
-        return new OpenBillResponse
+        return new OpenBillCommandResult(
+            transactionId,
+            GetOutputInt(billNumParam),
+            GetOutputInt(salesBillIdParam),
+            GetOutputInt(isNewParam) != 0);
+    }
+
+    private static bool BillMatchesRequestedContext(BillDto? bill, int? tableId)
+    {
+        if (bill is null) return false;
+
+        if (tableId.HasValue && tableId.Value > 0)
         {
-            TransactionId = transactionId,
-            DailyBillNumber = GetOutputInt(billNumParam),
-            SalesBillId = GetOutputInt(salesBillIdParam),
-            IsNew = GetOutputInt(isNewParam) != 0,
-            Bill = await GetBillAsync(cn, transactionId, cancellationToken)
-        };
+            return bill.TableId == tableId.Value;
+        }
+
+        return bill.TableId <= 0;
     }
 
     public async Task<BillDto?> GetBillAsync(int transactionId, CancellationToken cancellationToken)
@@ -355,82 +413,240 @@ public sealed class BillsService
         await using SqlConnection cn = _connectionFactory.CreateConnection();
         await cn.OpenAsync(cancellationToken);
 
-        BillDto billHeader = await EnsureBillCanBeSavedAsync(cn, transactionId, cancellationToken);
-        if (await HasBillItemsAsync(cn, transactionId, cancellationToken) == false)
-        {
-            throw new InvalidOperationException("لا توجد أصناف في الفاتورة الحالية.");
-        }
+        string lockResource = $"CPOS.PosApi:SaveBill:{transactionId}";
+        bool lockAcquired = false;
 
-        if (billHeader.TableId <= 0 && user.CanUseSalesPriceInfo == false)
+        try
         {
-            throw new InvalidOperationException("ليس لديك صلاحية إنهاء فاتورة بدون طاولة.");
-        }
+            await AcquireBillSaveLockAsync(cn, lockResource, cancellationToken);
+            lockAcquired = true;
 
-        if (billHeader.TableId > 0)
-        {
-            bool tableIsCash = await GetTableIsCashAsync(cn, billHeader.TableId, cancellationToken);
-            if (tableIsCash == false)
+            BillDto? billHeader = await LoadBillHeaderAsync(cn, transactionId, cancellationToken);
+            if (billHeader is null)
             {
-                if (billHeader.IsOrdered == false)
-                {
-                    await MarkTableOrderAsync(cn, transactionId, billHeader.TableId, cancellationToken);
-                }
+                throw new InvalidOperationException("لم يتم العثور على الفاتورة المحددة.");
+            }
 
+            if (billHeader.IsVoid)
+            {
+                throw new InvalidOperationException("الفاتورة ملغية ولا يمكن حفظها.");
+            }
+
+            if (billHeader.IsDepended || billHeader.IsPaid)
+            {
                 return new SaveBillResponse
                 {
-                    Action = "ordered",
-                    Message = billHeader.IsOrdered ? "تم إرسال الطلب مسبقاً." : "تم إرسال الطلب.",
+                    Action = "already-confirmed",
+                    Message = "تم إنهاء الفاتورة مسبقاً.",
                     Bill = await GetBillAsync(cn, transactionId, cancellationToken)
                 };
             }
+
+            if (await HasBillItemsAsync(cn, transactionId, cancellationToken) == false)
+            {
+                throw new InvalidOperationException("لا توجد أصناف في الفاتورة الحالية.");
+            }
+
+            if (billHeader.TableId <= 0 && user.CanUseSalesPriceInfo == false)
+            {
+                throw new InvalidOperationException("ليس لديك صلاحية إنهاء فاتورة بدون طاولة.");
+            }
+
+            if (billHeader.TableId > 0)
+            {
+                bool tableIsCash = await GetTableIsCashAsync(cn, billHeader.TableId, cancellationToken);
+                if (tableIsCash == false)
+                {
+                    if (billHeader.IsOrdered == false)
+                    {
+                        await MarkTableOrderAsync(cn, transactionId, billHeader.TableId, cancellationToken);
+                    }
+
+                    return new SaveBillResponse
+                    {
+                        Action = "ordered",
+                        Message = billHeader.IsOrdered ? "تم إرسال الطلب مسبقاً." : "تم إرسال الطلب.",
+                        Bill = await GetBillAsync(cn, transactionId, cancellationToken)
+                    };
+                }
+            }
+
+            int periodId = await GetOpenPeriodIdAsync(cn, user.UserId, cancellationToken);
+            if (billHeader.IsOrdered)
+            {
+                await SwitchBillToCurrentUserAsync(cn, transactionId, user.UserId, periodId, cancellationToken);
+            }
+
+            BillDto? bill = await GetBillAsync(cn, transactionId, cancellationToken);
+            if (bill is null)
+            {
+                throw new InvalidOperationException("لم يتم العثور على الفاتورة المحددة.");
+            }
+
+            ValidateBillForConfirmation(bill, request);
+            PaymentSelection payment = await ResolvePaymentSelectionAsync(cn, request, user, cancellationToken);
+            await ConfirmBillAsync(cn, bill, request, user, periodId, payment, cancellationToken);
+
+            return new SaveBillResponse
+            {
+                Action = "confirmed",
+                Message = "تم إنهاء الفاتورة.",
+                Bill = await GetBillAsync(cn, transactionId, cancellationToken)
+            };
         }
-
-        int periodId = await GetOpenPeriodIdAsync(cn, user.UserId, cancellationToken);
-        if (billHeader.IsOrdered)
+        finally
         {
-            await SwitchBillToCurrentUserAsync(cn, transactionId, user.UserId, periodId, cancellationToken);
+            if (lockAcquired)
+            {
+                try
+                {
+                    await ReleaseBillSaveLockAsync(cn, lockResource, CancellationToken.None);
+                }
+                catch (SqlException)
+                {
+                    // Closing the connection also releases a session-owned application lock.
+                }
+            }
         }
-
-        BillDto? bill = await GetBillAsync(cn, transactionId, cancellationToken);
-        if (bill is null)
-        {
-            throw new InvalidOperationException("لم يتم العثور على الفاتورة المحددة.");
-        }
-
-        await ConfirmBillAsync(cn, bill, request, user, periodId, cancellationToken);
-
-        return new SaveBillResponse
-        {
-            Action = "confirmed",
-            Message = "تم إنهاء الفاتورة.",
-            Bill = null
-        };
     }
 
-    private static async Task<BillDto> EnsureBillCanBeSavedAsync(SqlConnection cn, int transactionId, CancellationToken cancellationToken)
+    private static async Task AcquireBillSaveLockAsync(SqlConnection cn, string resource, CancellationToken cancellationToken)
     {
-        BillDto? bill = await LoadBillHeaderAsync(cn, transactionId, cancellationToken);
-        if (bill is null)
+        await using SqlCommand cmd = cn.CreateCommand();
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = @"
+DECLARE @LockResult INT;
+EXEC @LockResult = sys.sp_getapplock
+    @Resource = @SaveResource,
+    @LockMode = 'Exclusive',
+    @LockOwner = 'Session',
+    @LockTimeout = 10000;
+SELECT @LockResult;";
+        cmd.Parameters.Add("@SaveResource", SqlDbType.NVarChar, 255).Value = resource;
+
+        object? result = await cmd.ExecuteScalarAsync(cancellationToken);
+        int lockResult = result is null || result is DBNull ? -999 : Convert.ToInt32(result);
+        if (lockResult < 0)
         {
-            throw new InvalidOperationException("لم يتم العثور على الفاتورة المحددة.");
+            throw new InvalidOperationException("الفاتورة قيد الحفظ من جهاز آخر. حاول مرة أخرى بعد لحظات.");
+        }
+    }
+
+    private static async Task ReleaseBillSaveLockAsync(SqlConnection cn, string resource, CancellationToken cancellationToken)
+    {
+        if (cn.State != ConnectionState.Open) return;
+
+        await using SqlCommand cmd = cn.CreateCommand();
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "EXEC sys.sp_releaseapplock @Resource = @SaveResource, @LockOwner = 'Session';";
+        cmd.Parameters.Add("@SaveResource", SqlDbType.NVarChar, 255).Value = resource;
+        await cmd.ExecuteNonQueryAsync(cancellationToken);
+    }
+
+    private static void ValidateBillForConfirmation(BillDto bill, SaveBillRequest request)
+    {
+        if (bill.Discount < 0)
+        {
+            throw new InvalidOperationException("قيمة التخفيض غير صحيحة.");
         }
 
-        if (bill.IsVoid)
+        if (bill.Pure < 0)
         {
-            throw new InvalidOperationException("الفاتورة ملغية ولا يمكن حفظها.");
+            throw new InvalidOperationException("قيمة التخفيض أكبر من إجمالي الفاتورة.");
         }
 
-        if (bill.IsPaid)
+        if (request.PaidAmount.HasValue &&
+            (request.PaidAmount.Value < 0 || request.PaidAmount.Value > bill.Pure))
         {
-            throw new InvalidOperationException("الفاتورة مدفوعة مسبقاً.");
+            throw new InvalidOperationException("المبلغ المدفوع يجب أن يكون بين صفر وصافي الفاتورة.");
+        }
+    }
+
+    private static async Task<PaymentSelection> ResolvePaymentSelectionAsync(
+        SqlConnection cn,
+        SaveBillRequest request,
+        ApiUserContext user,
+        CancellationToken cancellationToken)
+    {
+        int payId = request.PayId.GetValueOrDefault(1);
+        if (payId <= 0)
+        {
+            throw new InvalidOperationException("طريقة الدفع غير صحيحة.");
         }
 
-        if (bill.IsDepended)
+        int activeMethodsCount = 0;
+        int configuredTreasuryId = 0;
+        bool treasuryIsLocked = false;
+
+        await using (SqlCommand cmd = cn.CreateCommand())
         {
-            throw new InvalidOperationException("الفاتورة معتمدة ولا يمكن تعديلها.");
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = @"
+SELECT
+    (SELECT COUNT(*) FROM dbo.PaymentMethodDefaultAccounts WHERE ISNULL(IsActive, 1) = 1) AS ActiveMethodsCount,
+    (SELECT TOP 1 AccountID
+     FROM dbo.PaymentMethodDefaultAccounts
+     WHERE PaymentMethodID = @Pay_ID AND ISNULL(IsActive, 1) = 1
+     ORDER BY ID ASC) AS AccountID,
+    (SELECT TOP 1 ISNULL(is_Lock, 0)
+     FROM dbo.PaymentMethodDefaultAccounts
+     WHERE PaymentMethodID = @Pay_ID AND ISNULL(IsActive, 1) = 1
+     ORDER BY ID ASC) AS is_Lock;";
+            cmd.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = payId;
+
+            await using SqlDataReader dr = await cmd.ExecuteReaderAsync(CommandBehavior.SingleRow, cancellationToken);
+            if (await dr.ReadAsync(cancellationToken))
+            {
+                activeMethodsCount = GetInt(dr, "ActiveMethodsCount");
+                configuredTreasuryId = GetInt(dr, "AccountID");
+                treasuryIsLocked = GetBool(dr, "is_Lock");
+            }
         }
 
-        return bill;
+        if (activeMethodsCount > 0 && configuredTreasuryId <= 0)
+        {
+            throw new InvalidOperationException("طريقة الدفع المحددة غير مفعلة.");
+        }
+
+        if (activeMethodsCount == 0 && payId != 1)
+        {
+            throw new InvalidOperationException("طريقة الدفع المحددة غير مفعلة.");
+        }
+
+        int requestedTreasuryId = request.TreasuryId.GetValueOrDefault(0);
+        int treasuryId;
+
+        if (configuredTreasuryId > 0)
+        {
+            if (treasuryIsLocked && requestedTreasuryId > 0 && requestedTreasuryId != configuredTreasuryId)
+            {
+                throw new InvalidOperationException("الخزينة مرتبطة بطريقة الدفع ولا يمكن تغييرها.");
+            }
+
+            treasuryId = treasuryIsLocked || requestedTreasuryId <= 0
+                ? configuredTreasuryId
+                : requestedTreasuryId;
+        }
+        else
+        {
+            treasuryId = requestedTreasuryId > 0
+                ? requestedTreasuryId
+                : user.TreasuryId ?? await GetDefaultSalesTreasuryIdAsync(cn, cancellationToken);
+        }
+
+        await using (SqlCommand cmd = cn.CreateCommand())
+        {
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "SELECT TOP 1 1 FROM dbo.TreasuryCard WHERE Tr_ID = @Tr_ID";
+            cmd.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = treasuryId;
+            object? treasuryExists = await cmd.ExecuteScalarAsync(cancellationToken);
+            if (treasuryExists is null || treasuryExists is DBNull)
+            {
+                throw new InvalidOperationException("الخزينة المحددة غير موجودة.");
+            }
+        }
+
+        return new PaymentSelection(payId, treasuryId);
     }
 
     private static async Task MarkTableOrderAsync(SqlConnection cn, int transactionId, int tableId, CancellationToken cancellationToken)
@@ -456,11 +672,16 @@ public sealed class BillsService
         await cmd.ExecuteNonQueryAsync(cancellationToken);
     }
 
-    private static async Task ConfirmBillAsync(SqlConnection cn, BillDto bill, SaveBillRequest request, ApiUserContext user, int periodId, CancellationToken cancellationToken)
+    private static async Task ConfirmBillAsync(
+        SqlConnection cn,
+        BillDto bill,
+        SaveBillRequest request,
+        ApiUserContext user,
+        int periodId,
+        PaymentSelection payment,
+        CancellationToken cancellationToken)
     {
         int agentTypeId = await GetAgentTypeIdAsync(cn, bill.AgentId, cancellationToken);
-        int treasuryId = request.TreasuryId ?? user.TreasuryId ?? await GetDefaultSalesTreasuryIdAsync(cn, cancellationToken);
-        int payId = request.PayId.GetValueOrDefault(1);
 
         await using SqlCommand cmd = cn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
@@ -490,7 +711,7 @@ public sealed class BillsService
         }
 
         cmd.Parameters.Add("@isCostmerScreen", SqlDbType.Int).Value = 0;
-        cmd.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = treasuryId;
+        cmd.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = payment.TreasuryId;
         cmd.Parameters.Add("@Pr_ID", SqlDbType.Int).Value = periodId;
 
         if (bill.TableId > 0)
@@ -499,7 +720,7 @@ public sealed class BillsService
         }
 
         cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = user.UserId;
-        cmd.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = payId;
+        cmd.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = payment.PayId;
 
         await cmd.ExecuteNonQueryAsync(cancellationToken);
     }
@@ -661,7 +882,7 @@ ORDER BY T_ID ASC";
     {
         await using SqlCommand cmd = cn.CreateCommand();
         cmd.CommandType = CommandType.Text;
-        cmd.CommandText = "SELECT TOP 1 AG_ID FROM dbo.AGENTS WHERE ISNULL(isDefault, 0) = 1 ORDER BY AG_ID ASC";
+        cmd.CommandText = "SELECT TOP 1 AG_ID FROM dbo.AGENTS WHERE ISNULL(isDefaultAG, 0) = 1 ORDER BY AG_ID ASC";
 
         object? result;
         try
@@ -848,4 +1069,12 @@ WHERE CP_NAME = @CP_NAME AND ISNULL(SB_TR_ID, 0) > 0";
         if (value is bool boolValue) return boolValue;
         return Convert.ToInt32(value) != 0;
     }
+
+    private sealed record OpenBillCommandResult(
+        int TransactionId,
+        int DailyBillNumber,
+        int SalesBillId,
+        bool IsNew);
+
+    private sealed record PaymentSelection(int PayId, int TreasuryId);
 }
