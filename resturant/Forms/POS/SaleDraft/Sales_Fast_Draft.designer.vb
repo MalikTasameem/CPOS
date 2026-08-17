@@ -22,10 +22,10 @@ Partial Class Sales_Fast_Draft
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales_Fast_Draft))
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.RemoveCatButton = New System.Windows.Forms.Button()
@@ -538,14 +538,14 @@ Partial Class Sales_Fast_Draft
         Me.dgvSales.AllowUserToResizeRows = False
         Me.dgvSales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvSales.BackgroundColor = System.Drawing.SystemColors.ButtonFace
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSales.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSales.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSales.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Bill_IMID_CL, Me.is_Check_CL, Me.Barcode_CL, Me.Serial_Code_CL, Me.U_ID, Me.Date_, Me.ST_Name_CL, Me.IMNUM_CL, Me.Item_Name, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.IM_Discount_CL, Me.Total_CL, Me.Notes_CL, Me.T_ID_CL, Me.ST_ID_CL, Me.IM_NOTE_CL})
         Me.dgvSales.Cursor = System.Windows.Forms.Cursors.Hand
@@ -654,11 +654,11 @@ Partial Class Sales_Fast_Draft
         'QTY_CL
         '
         Me.QTY_CL.DataPropertyName = "QTY"
-        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle10.Format = "N3"
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Transparent
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black
-        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle6.Format = "N3"
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Transparent
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black
+        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle6
         Me.QTY_CL.FillWeight = 91.83587!
         Me.QTY_CL.HeaderText = "كمية"
         Me.QTY_CL.Name = "QTY_CL"
@@ -667,8 +667,8 @@ Partial Class Sales_Fast_Draft
         'Price_CL
         '
         Me.Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle11.Format = "N3"
-        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle7.Format = "N3"
+        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle7
         Me.Price_CL.FillWeight = 91.83587!
         Me.Price_CL.HeaderText = "السعر"
         Me.Price_CL.Name = "Price_CL"
@@ -684,8 +684,8 @@ Partial Class Sales_Fast_Draft
         'Total_CL
         '
         Me.Total_CL.DataPropertyName = "T_Price"
-        DataGridViewCellStyle12.Format = "N3"
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle8.Format = "N3"
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle8
         Me.Total_CL.FillWeight = 91.83587!
         Me.Total_CL.HeaderText = "إجمالي"
         Me.Total_CL.Name = "Total_CL"

@@ -33,6 +33,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     ' Dim isPied As Integer = 0
     Dim BillUser_ID As Integer
     Public On_Update As Boolean
+    Private EditPaymentSnapshot As SalesBillPaymentSnapshot
     Public U_ID As Integer
     Dim Min_SP As Double
     Public SB_ID As Integer
@@ -899,10 +900,14 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
     Public Sub ConfermBill()
 
+        Dim useMultiplePayments As Boolean =
+            AG_ID = Default_AG_ID AndAlso SalesPaymentSqlLayer.IsAvailable()
+
         Dim F As New Pay_Main_Form
         F.MONEY_VALUE = Pure
         F.Temp_Tr_ID = SB_TR_ID
         F.AG_ID = AG_ID
+        F.EnableMultiplePayments = useMultiplePayments
         F.ShowDialog()
 
         If F.is_OK = True Then
@@ -915,7 +920,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             Dim c As New C
             With c.Com
                 .Connection = c.Con
-                .CommandText = "SB_ConfermBill"
+                .CommandText = If(useMultiplePayments, "SB_ConfermBill_V2", "SB_ConfermBill")
                 .CommandType = CommandType.StoredProcedure
                 .Parameters.AddWithValue("@T_ID", Me.T_ID)
 
@@ -926,11 +931,18 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
                 .Parameters.AddWithValue("@Discount", Discount_txt.Text)
                 .Parameters.AddWithValue("@Pure", Pure_txt.Text)
 
+                If useMultiplePayments Then
+                    .Parameters.AddWithValue("@Pied", SalesPaymentSqlLayer.GetPaymentsTotal(F.Payments))
+                End If
                 .Parameters.AddWithValue("@AGType_ID", 1)
-                .Parameters.AddWithValue("@Tr_ID", Tr_ID) 'SB_TR_ID
                 .Parameters.AddWithValue("@Pr_ID", Pr_ID)
                 .Parameters.AddWithValue("@User_ID", USER_ID)
-                .Parameters.AddWithValue("@Pay_ID", Pay_ID)
+                If useMultiplePayments Then
+                    SalesPaymentSqlLayer.AddPaymentsParameter(c.Com, F.Payments)
+                Else
+                    .Parameters.AddWithValue("@Tr_ID", Tr_ID) 'SB_TR_ID
+                    .Parameters.AddWithValue("@Pay_ID", Pay_ID)
+                End If
 
             End With
             If SQL_SP_EXEC(c.Com) = True Then
@@ -2531,7 +2543,23 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
                 Beep()
                 If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo, _
                              MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
+                    Dim paymentSnapshot As SalesBillPaymentSnapshot
+                    Try
+                        paymentSnapshot = SalesBillPaymentEditService.CaptureSnapshot(T_ID, USER_ID)
+                        If paymentSnapshot.IsAutoPaidAgent AndAlso
+                           Not SalesBillPaymentEditService.IsReconciliationAvailable() Then
+                            MsgBox("لا يمكن فتح تعديل الفاتورة قبل تثبيت طبقة تسوية الدفعات رقم 005.",
+                                   MsgBoxStyle.Exclamation,
+                                   "تسوية دفعات الفاتورة")
+                            Exit Sub
+                        End If
+                    Catch ex As Exception
+                        MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في فتح التعديل")
+                        Exit Sub
+                    End Try
+
                     If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+                    EditPaymentSnapshot = paymentSnapshot
 
                     Edit_butt.BackColor = Color.GreenYellow
                     On_Update = True
@@ -2548,6 +2576,9 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             Else
                 Save_Date(T_ID, DateTimeEx)
                 Save_Total(T_ID, TOTAL, Disc)
+                If ReconcileEditedBillPayments() = False Then Exit Sub
+
+                EditPaymentSnapshot = Nothing
                 On_Update = False
                 Edit_butt.Text = EditState
                 Edit_butt.BackColor = Color.White
@@ -2558,6 +2589,41 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             End If
         End If
     End Sub
+
+    Private Function ReconcileEditedBillPayments() As Boolean
+        If EditPaymentSnapshot Is Nothing Then
+            MsgBox("تعذر العثور على لقطة دفعات الفاتورة قبل التعديل.", MsgBoxStyle.Critical, "تسوية دفعات الفاتورة")
+            Return False
+        End If
+
+        If Not EditPaymentSnapshot.IsAutoPaidAgent Then Return True
+
+        Dim newPure As Decimal = Convert.ToDecimal(Pure)
+        Dim adjustment As Decimal = newPure - EditPaymentSnapshot.NetPaidTotal
+        Dim payments As IEnumerable(Of SalePaymentAllocation) = New List(Of SalePaymentAllocation)()
+
+        If adjustment <> 0D Then
+            Using reconciliationForm As New SalesPaymentReconciliationForm(EditPaymentSnapshot, newPure)
+                If reconciliationForm.ShowDialog(Me) <> DialogResult.OK OrElse Not reconciliationForm.IsApproved Then Return False
+                payments = reconciliationForm.Payments
+            End Using
+        End If
+
+        Dim result As SalesPaymentReconciliationResult
+        Try
+            result = SalesBillPaymentEditService.ReconcileAutoPaidBill(EditPaymentSnapshot, newPure, payments, USER_ID, Pr_ID)
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "فشل تسوية دفعات الفاتورة")
+            Return False
+        End Try
+
+        If Not result.IsSuccess Then
+            MsgBox(result.ErrorMessage, MsgBoxStyle.Critical, "فشل تسوية دفعات الفاتورة")
+            Return False
+        End If
+
+        Return True
+    End Function
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles DGV_Control_btn.Click

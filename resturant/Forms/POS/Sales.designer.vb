@@ -22,11 +22,11 @@ Partial Class Sales
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales))
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.lblFormState = New System.Windows.Forms.Label()
         Me.Title_Label = New System.Windows.Forms.Label()
@@ -52,14 +52,14 @@ Partial Class Sales
         Me.إدراجموظفللخدمةToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.User_Name_lb = New System.Windows.Forms.Label()
         Me.DiscountPanel = New System.Windows.Forms.Panel()
+        Me.Discount_txt1 = New System.Windows.Forms.TextBox()
+        Me.Calc_Dicount_Btn = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.IM_Count_LB = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Total_TextBox1 = New System.Windows.Forms.TextBox()
         Me.Pure_txt = New System.Windows.Forms.TextBox()
-        Me.Discount_txt1 = New System.Windows.Forms.TextBox()
         Me.IM_Qty_LB = New System.Windows.Forms.Label()
-        Me.Calc_Dicount_Btn = New System.Windows.Forms.Button()
         Me.Show_IM_Rtn_btn = New System.Windows.Forms.Button()
         Me.Rtn_Count_txt = New System.Windows.Forms.TextBox()
         Me.Discount_txt = New System.Windows.Forms.TextBox()
@@ -96,11 +96,6 @@ Partial Class Sales
         Me.IM_Info_Timer = New System.Windows.Forms.Timer(Me.components)
         Me.Project_cm = New System.Windows.Forms.ComboBox()
         Me.ReceiptsMetroGrid = New System.Windows.Forms.DataGridView()
-        Me.Receipt_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Receipt_Num_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PAYMENT_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Value_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AG_Show_Balance_CB = New System.Windows.Forms.CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -157,6 +152,12 @@ Partial Class Sales
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.AG_Cm = New resturant.FSearch_Filter()
+        Me.Receipt_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Receipt_Num_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PAYMENT_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Value_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BsType_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TitleBar_Panel.SuspendLayout()
         Me.IM_ContextMenuStrip.SuspendLayout()
         Me.DiscountPanel.SuspendLayout()
@@ -448,6 +449,25 @@ Partial Class Sales
         Me.DiscountPanel.Size = New System.Drawing.Size(336, 35)
         Me.DiscountPanel.TabIndex = 719
         '
+        'Discount_txt1
+        '
+        Me.Discount_txt1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Discount_txt1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Discount_txt1.Location = New System.Drawing.Point(2, 2)
+        Me.Discount_txt1.Name = "Discount_txt1"
+        Me.Discount_txt1.Size = New System.Drawing.Size(229, 29)
+        Me.Discount_txt1.TabIndex = 722
+        '
+        'Calc_Dicount_Btn
+        '
+        Me.Calc_Dicount_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Calc_Dicount_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(233, 2)
+        Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
+        Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(97, 29)
+        Me.Calc_Dicount_Btn.TabIndex = 0
+        Me.Calc_Dicount_Btn.Text = "التخفيض"
+        '
         'Label3
         '
         Me.Label3.BackColor = System.Drawing.Color.Transparent
@@ -497,15 +517,6 @@ Partial Class Sales
         Me.Pure_txt.Size = New System.Drawing.Size(229, 29)
         Me.Pure_txt.TabIndex = 721
         '
-        'Discount_txt1
-        '
-        Me.Discount_txt1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Discount_txt1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Discount_txt1.Location = New System.Drawing.Point(2, 2)
-        Me.Discount_txt1.Name = "Discount_txt1"
-        Me.Discount_txt1.Size = New System.Drawing.Size(229, 29)
-        Me.Discount_txt1.TabIndex = 722
-        '
         'IM_Qty_LB
         '
         Me.IM_Qty_LB.BackColor = System.Drawing.SystemColors.GradientActiveCaption
@@ -514,16 +525,6 @@ Partial Class Sales
         Me.IM_Qty_LB.Name = "IM_Qty_LB"
         Me.IM_Qty_LB.Size = New System.Drawing.Size(151, 23)
         Me.IM_Qty_LB.TabIndex = 715
-        '
-        'Calc_Dicount_Btn
-        '
-        Me.Calc_Dicount_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Calc_Dicount_Btn.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Calc_Dicount_Btn.Location = New System.Drawing.Point(233, 2)
-        Me.Calc_Dicount_Btn.Name = "Calc_Dicount_Btn"
-        Me.Calc_Dicount_Btn.Size = New System.Drawing.Size(97, 29)
-        Me.Calc_Dicount_Btn.TabIndex = 0
-        Me.Calc_Dicount_Btn.Text = "التخفيض"
         '
         'Show_IM_Rtn_btn
         '
@@ -805,7 +806,7 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(219, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -813,11 +814,11 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.ReceiptsMetroGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ReceiptsMetroGrid.ColumnHeadersVisible = False
-        Me.ReceiptsMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Receipt_T_ID_CL, Me.Receipt_Num_CL, Me.PAYMENT_NAME_CL, Me.DataGridViewTextBoxColumn3, Me.Value_CL})
+        Me.ReceiptsMetroGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Receipt_T_ID_CL, Me.Receipt_Num_CL, Me.PAYMENT_NAME_CL, Me.DataGridViewTextBoxColumn3, Me.Value_CL, Me.BsType_ID_CL})
         Me.ReceiptsMetroGrid.Cursor = System.Windows.Forms.Cursors.Hand
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer), CType(CType(136, Byte), Integer))
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(198, Byte), Integer), CType(CType(247, Byte), Integer))
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
@@ -846,48 +847,6 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.ReceiptsMetroGrid.Size = New System.Drawing.Size(380, 118)
         Me.ReceiptsMetroGrid.TabIndex = 664
-        '
-        'Receipt_T_ID_CL
-        '
-        Me.Receipt_T_ID_CL.DataPropertyName = "T_ID"
-        Me.Receipt_T_ID_CL.HeaderText = "رقم الآلي"
-        Me.Receipt_T_ID_CL.Name = "Receipt_T_ID_CL"
-        Me.Receipt_T_ID_CL.ReadOnly = True
-        Me.Receipt_T_ID_CL.Visible = False
-        '
-        'Receipt_Num_CL
-        '
-        Me.Receipt_Num_CL.DataPropertyName = "Receipt_Num"
-        Me.Receipt_Num_CL.FillWeight = 49.65193!
-        Me.Receipt_Num_CL.HeaderText = "ر.الإيصال"
-        Me.Receipt_Num_CL.Name = "Receipt_Num_CL"
-        Me.Receipt_Num_CL.ReadOnly = True
-        Me.Receipt_Num_CL.Visible = False
-        '
-        'PAYMENT_NAME_CL
-        '
-        Me.PAYMENT_NAME_CL.DataPropertyName = "PAYMENT_NAME"
-        Me.PAYMENT_NAME_CL.HeaderText = "طريقة الدفع"
-        Me.PAYMENT_NAME_CL.Name = "PAYMENT_NAME_CL"
-        Me.PAYMENT_NAME_CL.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.DataPropertyName = "Type_Name"
-        Me.DataGridViewTextBoxColumn3.FillWeight = 108.9268!
-        Me.DataGridViewTextBoxColumn3.HeaderText = "النوع"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        '
-        'Value_CL
-        '
-        Me.Value_CL.DataPropertyName = "Value"
-        DataGridViewCellStyle2.Format = "N2"
-        Me.Value_CL.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Value_CL.FillWeight = 61.42132!
-        Me.Value_CL.HeaderText = "المبلغ"
-        Me.Value_CL.Name = "Value_CL"
-        Me.Value_CL.ReadOnly = True
         '
         'AG_Show_Balance_CB
         '
@@ -1030,9 +989,9 @@ Partial Class Sales
         Me.Panel5.Controls.Add(Me.Show_SumPied_CB)
         Me.Panel5.Controls.Add(Me.User_Name_lb)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(378, 3)
+        Me.Panel5.Location = New System.Drawing.Point(379, 3)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(340, 165)
+        Me.Panel5.Size = New System.Drawing.Size(339, 165)
         Me.Panel5.TabIndex = 703
         '
         'Show_Bill_CB
@@ -1483,7 +1442,7 @@ Partial Class Sales
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel7.Location = New System.Drawing.Point(3, 3)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(369, 165)
+        Me.Panel7.Size = New System.Drawing.Size(370, 165)
         Me.Panel7.TabIndex = 728
         '
         'Panel8
@@ -1504,7 +1463,7 @@ Partial Class Sales
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.3522!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.6478!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 374.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 375.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Panel5, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel7, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel8, 0, 0)
@@ -1537,6 +1496,56 @@ Partial Class Sales
         Me.AG_Cm.TabIndex = 709
         Me.AG_Cm.TextMaxLength = 250
         Me.AG_Cm.Textt = ""
+        '
+        'Receipt_T_ID_CL
+        '
+        Me.Receipt_T_ID_CL.DataPropertyName = "T_ID"
+        Me.Receipt_T_ID_CL.HeaderText = "رقم الآلي"
+        Me.Receipt_T_ID_CL.Name = "Receipt_T_ID_CL"
+        Me.Receipt_T_ID_CL.ReadOnly = True
+        Me.Receipt_T_ID_CL.Visible = False
+        '
+        'Receipt_Num_CL
+        '
+        Me.Receipt_Num_CL.DataPropertyName = "Receipt_Num"
+        Me.Receipt_Num_CL.FillWeight = 49.65193!
+        Me.Receipt_Num_CL.HeaderText = "ر.الإيصال"
+        Me.Receipt_Num_CL.Name = "Receipt_Num_CL"
+        Me.Receipt_Num_CL.ReadOnly = True
+        Me.Receipt_Num_CL.Visible = False
+        '
+        'PAYMENT_NAME_CL
+        '
+        Me.PAYMENT_NAME_CL.DataPropertyName = "PAYMENT_NAME"
+        Me.PAYMENT_NAME_CL.HeaderText = "طريقة الدفع"
+        Me.PAYMENT_NAME_CL.Name = "PAYMENT_NAME_CL"
+        Me.PAYMENT_NAME_CL.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "Type_Name"
+        Me.DataGridViewTextBoxColumn3.FillWeight = 108.9268!
+        Me.DataGridViewTextBoxColumn3.HeaderText = "النوع"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'Value_CL
+        '
+        Me.Value_CL.DataPropertyName = "Value"
+        DataGridViewCellStyle2.Format = "N2"
+        Me.Value_CL.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Value_CL.FillWeight = 61.42132!
+        Me.Value_CL.HeaderText = "المبلغ"
+        Me.Value_CL.Name = "Value_CL"
+        Me.Value_CL.ReadOnly = True
+        '
+        'BsType_ID_CL
+        '
+        Me.BsType_ID_CL.DataPropertyName = "BsType_ID"
+        Me.BsType_ID_CL.HeaderText = "BsType_ID"
+        Me.BsType_ID_CL.Name = "BsType_ID_CL"
+        Me.BsType_ID_CL.ReadOnly = True
+        Me.BsType_ID_CL.Visible = False
         '
         'Sales
         '
@@ -1714,11 +1723,6 @@ Partial Class Sales
     Friend WithEvents تحديدنوعالطباعـــةToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents جدولحجزالخدمةToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents إدراجموظفللخدمةToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Receipt_T_ID_CL As DataGridViewTextBoxColumn
-    Friend WithEvents Receipt_Num_CL As DataGridViewTextBoxColumn
-    Friend WithEvents PAYMENT_NAME_CL As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
-    Friend WithEvents Value_CL As DataGridViewTextBoxColumn
     Friend WithEvents Label24 As Label
     Friend WithEvents AG_Cm As resturant.FSearch_Filter
     Friend WithEvents Label1 As Label
@@ -1734,4 +1738,10 @@ Partial Class Sales
     Friend WithEvents Panel7 As Panel
     Friend WithEvents Panel8 As Panel
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents Receipt_T_ID_CL As DataGridViewTextBoxColumn
+    Friend WithEvents Receipt_Num_CL As DataGridViewTextBoxColumn
+    Friend WithEvents PAYMENT_NAME_CL As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
+    Friend WithEvents Value_CL As DataGridViewTextBoxColumn
+    Friend WithEvents BsType_ID_CL As DataGridViewTextBoxColumn
 End Class

@@ -39,6 +39,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     Dim BillUser_ID As Integer
 
     Public On_Update As Boolean
+    Private EditPaymentSnapshot As SalesBillPaymentSnapshot
     '  Dim U_ID As Integer
     '  Dim Min_SP As Double
     '  Dim Min_SP_2 As Double
@@ -556,7 +557,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Try
             Receipts_DT.Clear()
 
-            Using sqlComm As New SqlClient.SqlCommand("select T_ID,PAYMENT_NAME,Receipt_Num,Type_Name,Value from SB_Receipts_V WHERE Receipt_Tran_ID = @T_ID AND isVoid = 0", sqlCon)
+            Using sqlComm As New SqlClient.SqlCommand("select T_ID,PAYMENT_NAME,Receipt_Num,Type_Name,BsType_ID,Value from SB_Receipts_V WHERE Receipt_Tran_ID = @T_ID AND isVoid = 0", sqlCon)
                 sqlComm.Parameters.AddWithValue("@T_ID", Bill_T_ID)
 
                 Using Da As New SqlClient.SqlDataAdapter(sqlComm)
@@ -1659,6 +1660,17 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
         Try
 
+            Dim paymentSnapshot As SalesBillPaymentSnapshot =
+                SalesBillPaymentEditService.CaptureSnapshot(T_ID, USER_ID)
+
+            If paymentSnapshot.IsAutoPaidAgent AndAlso
+               Not SalesBillPaymentEditService.IsReconciliationAvailable() Then
+                MsgBox("لا يمكن فتح تعديل الفاتورة قبل تثبيت طبقة تسوية الدفعات رقم 005.",
+                       MsgBoxStyle.Exclamation,
+                       "تسوية دفعات الفاتورة")
+                Return False
+            End If
+
             Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
                 Using cmd As New SqlClient.SqlCommand("dbo.Agents_Balance_MV_OpenForEdit", cn)
 
@@ -1672,11 +1684,14 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                 End Using
             End Using
 
+            EditPaymentSnapshot = paymentSnapshot
+
             Return True
 
         Catch ex As Exception
 
             MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في فتح التعديل")
+            EditPaymentSnapshot = Nothing
             Return False
 
         End Try
@@ -1756,7 +1771,6 @@ Public Class Sales : Inherits System.Windows.Forms.Form
                             End Sub)
 
                         tr.Commit()
-                        Return True
 
                     Catch
 
@@ -1769,12 +1783,59 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
             End Using
 
+            If ReconcileEditedBillPayments() = False Then Return False
+
+            EditPaymentSnapshot = Nothing
+            Return True
+
         Catch ex As Exception
 
             MsgBox(ex.Message)
             Return False
 
         End Try
+
+    End Function
+
+    Private Function ReconcileEditedBillPayments() As Boolean
+
+        If EditPaymentSnapshot Is Nothing Then
+            MsgBox("تعذر العثور على لقطة دفعات الفاتورة قبل التعديل.",
+                   MsgBoxStyle.Critical,
+                   "تسوية دفعات الفاتورة")
+            Return False
+        End If
+
+        If Not EditPaymentSnapshot.IsAutoPaidAgent Then Return True
+
+        Dim newPure As Decimal = Convert.ToDecimal(Pure)
+        Dim adjustment As Decimal = newPure - EditPaymentSnapshot.NetPaidTotal
+        Dim payments As IEnumerable(Of SalePaymentAllocation) = New List(Of SalePaymentAllocation)()
+
+        If adjustment <> 0D Then
+            Using reconciliationForm As New SalesPaymentReconciliationForm(EditPaymentSnapshot, newPure)
+                If reconciliationForm.ShowDialog(Me) <> DialogResult.OK OrElse
+                   Not reconciliationForm.IsApproved Then
+                    Return False
+                End If
+                payments = reconciliationForm.Payments
+            End Using
+        End If
+
+        Dim result As SalesPaymentReconciliationResult =
+            SalesBillPaymentEditService.ReconcileAutoPaidBill(
+                EditPaymentSnapshot,
+                newPure,
+                payments,
+                USER_ID,
+                Pr_ID)
+
+        If Not result.IsSuccess Then
+            MsgBox(result.ErrorMessage, MsgBoxStyle.Critical, "فشل تسوية دفعات الفاتورة")
+            Return False
+        End If
+
+        Return True
 
     End Function
 
@@ -1905,11 +1966,24 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Calc_Credit()
-        Dim Sum As Double = 0
+        Dim netReceived As Decimal = 0D
         For i = 0 To ReceiptsMetroGrid.Rows.Count - 1
-            Sum = Sum + ReceiptsMetroGrid.Rows(i).Cells("Value_CL").Value
+            Dim rowView As DataRowView = TryCast(ReceiptsMetroGrid.Rows(i).DataBoundItem, DataRowView)
+            If rowView Is Nothing OrElse rowView("Value") Is DBNull.Value Then Continue For
+
+            Dim receiptValue As Decimal = Convert.ToDecimal(rowView("Value"))
+            Dim receiptTypeID As Integer = 0
+            If rowView.Row.Table.Columns.Contains("BsType_ID") AndAlso rowView("BsType_ID") IsNot DBNull.Value Then
+                receiptTypeID = Convert.ToInt32(rowView("BsType_ID"))
+            End If
+
+            If receiptTypeID = 4 Then
+                netReceived -= Math.Abs(receiptValue)
+            Else
+                netReceived += Math.Abs(receiptValue)
+            End If
         Next
-        Piedmoney_txt.Text = Sum.ToString("n")
+        Piedmoney_txt.Text = netReceived.ToString("n")
     End Sub
 
     Private Sub ReceiptsMetroGrid_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles ReceiptsMetroGrid.RowsRemoved

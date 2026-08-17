@@ -40,6 +40,7 @@ Public Class POS
     Public is_Valid As Boolean = False
 
     Public On_Update As Boolean
+    Private EditPaymentSnapshot As SalesBillPaymentSnapshot
     Dim SB_ID As Integer
     Public U_IM_ID As Integer
 
@@ -3350,7 +3351,23 @@ Public Class POS
             MSG.ShowDialog()
             If MSG.Result = True Then
 
+                Dim paymentSnapshot As SalesBillPaymentSnapshot
+                Try
+                    paymentSnapshot = SalesBillPaymentEditService.CaptureSnapshot(T_ID, USER_ID)
+                    If paymentSnapshot.IsAutoPaidAgent AndAlso
+                       Not SalesBillPaymentEditService.IsReconciliationAvailable() Then
+                        MsgBox("لا يمكن فتح تعديل الفاتورة قبل تثبيت طبقة تسوية الدفعات رقم 005.",
+                               MsgBoxStyle.Exclamation,
+                               "تسوية دفعات الفاتورة")
+                        Exit Sub
+                    End If
+                Catch ex As Exception
+                    MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في فتح التعديل")
+                    Exit Sub
+                End Try
+
                 If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+                EditPaymentSnapshot = paymentSnapshot
 
                 Edit_butt.BackColor = Color.GreenYellow
                 On_Update = True
@@ -3372,10 +3389,13 @@ Public Class POS
             End If
 
         Else
-            On_Update = False
-            Edit_butt.BackColor = Color.WhiteSmoke
             Fill_Bill_Info()
             Save_Total(T_ID, TOTAL, DISCOUNT)
+            If ReconcileEditedBillPayments() = False Then Exit Sub
+
+            EditPaymentSnapshot = Nothing
+            On_Update = False
+            Edit_butt.BackColor = Color.WhiteSmoke
             'SB_Contents_Structers_insert()
             'MetroGrid.BackgroundColor = Color.LightGoldenrodYellow
             'MetroGrid.RowsDefaultCellStyle.BackColor = Color.LightGoldenrodYellow
@@ -3384,6 +3404,41 @@ Public Class POS
             'IM_Option_Panel.Enabled = False
         End If
     End Sub
+
+    Private Function ReconcileEditedBillPayments() As Boolean
+        If EditPaymentSnapshot Is Nothing Then
+            MsgBox("تعذر العثور على لقطة دفعات الفاتورة قبل التعديل.", MsgBoxStyle.Critical, "تسوية دفعات الفاتورة")
+            Return False
+        End If
+
+        If Not EditPaymentSnapshot.IsAutoPaidAgent Then Return True
+
+        Dim newPure As Decimal = Convert.ToDecimal(PURE)
+        Dim adjustment As Decimal = newPure - EditPaymentSnapshot.NetPaidTotal
+        Dim payments As IEnumerable(Of SalePaymentAllocation) = New List(Of SalePaymentAllocation)()
+
+        If adjustment <> 0D Then
+            Using reconciliationForm As New SalesPaymentReconciliationForm(EditPaymentSnapshot, newPure)
+                If reconciliationForm.ShowDialog(Me) <> DialogResult.OK OrElse Not reconciliationForm.IsApproved Then Return False
+                payments = reconciliationForm.Payments
+            End Using
+        End If
+
+        Dim result As SalesPaymentReconciliationResult
+        Try
+            result = SalesBillPaymentEditService.ReconcileAutoPaidBill(EditPaymentSnapshot, newPure, payments, USER_ID, Pr_ID)
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "فشل تسوية دفعات الفاتورة")
+            Return False
+        End Try
+
+        If Not result.IsSuccess Then
+            MsgBox(result.ErrorMessage, MsgBoxStyle.Critical, "فشل تسوية دفعات الفاتورة")
+            Return False
+        End If
+
+        Return True
+    End Function
 
     Private Sub IM_Search_btn_Click(sender As Object, e As EventArgs) Handles IM_Search_btn.Click
         IM_Keyboard.ShowDialog()

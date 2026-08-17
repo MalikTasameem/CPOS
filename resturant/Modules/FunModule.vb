@@ -1478,7 +1478,7 @@ Module FunModule
         Dim C = New C
         Try
             F_Sales.Receipts_DT.Clear()
-            Dim S As String = " select T_ID,PAYMENT_NAME,Receipt_Num,Type_Name,Value from SB_Receipts_V WHERE Receipt_Tran_ID = '" & T_ID & "' AND isVoid = 0"
+            Dim S As String = " select T_ID,PAYMENT_NAME,Receipt_Num,Type_Name,BsType_ID,Value from SB_Receipts_V WHERE Receipt_Tran_ID = '" & T_ID & "' AND isVoid = 0"
             ' Order By T_ID ASC "
             C.Da = New SqlClient.SqlDataAdapter(S, C.Con)
             C.Da.Fill(F_Sales.Receipts_DT)
