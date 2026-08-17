@@ -27,6 +27,7 @@ Public Class SalesPrintData
     Public Property Barcode As String = ""
     Public Property LogoImage As Image = Nothing
     Public Property Items As New DataTable()
+    Public Property PaymentLines As New List(Of SalesPrintPaymentLine)()
 
     Public Shared Function FromSalesForm(form As Sales) As SalesPrintData
         Dim data As New SalesPrintData()
@@ -52,6 +53,7 @@ Public Class SalesPrintData
         data.Barcode = form.Barcode
         data.LogoImage = LoadLogoImage()
         data.Items = BuildItemsTable(form.AGMetroGrid)
+        LoadPaymentLines(data)
 
         Return data
     End Function
@@ -102,13 +104,14 @@ Public Class SalesPrintData
         data.TotalText = SafeText(form.TotalTextBox)
         data.DiscountText = SafeText(form.DiscountTextBox)
         data.PureText = SafeText(form.PureTextBox)
-        data.PaidText = ""
-        data.RestText = ""
+        data.PaidText = 0D.ToString(N_Point_Fter)
+        data.RestText = CalculateRestText(data.PureText, data.PaidText)
         data.QtyText = CalculateGridQtyText(form.MetroGrid, "QTY_CL")
         data.CountText = If(form.MetroGrid Is Nothing, "", form.MetroGrid.Rows.Count.ToString())
         data.Barcode = form.Barcode
         data.LogoImage = LoadLogoImage()
         data.Items = BuildPosItemsTable(form.MetroGrid)
+        LoadPaymentLines(data)
 
         Return data
     End Function
@@ -215,6 +218,55 @@ Public Class SalesPrintData
 
         Return (pureValue - paidValue).ToString(N_Point_Fter)
     End Function
+
+    Private Shared Sub LoadPaymentLines(data As SalesPrintData)
+        If data Is Nothing OrElse data.TID <= 0 Then Return
+
+        Try
+            Const sql As String =
+                "SELECT ISNULL(PAYMENT_NAME, N'') AS PAYMENT_NAME, " &
+                "SUM(ISNULL(Value, 0)) AS PaymentValue " &
+                "FROM SB_Receipts_V " &
+                "WHERE Receipt_Tran_ID = @T_ID AND isVoid = 0 " &
+                "GROUP BY PAYMENT_NAME " &
+                "ORDER BY PAYMENT_NAME"
+
+            Using connection As New SqlConnection(MY_Settings.SqlConStr)
+                Using command As New SqlCommand(sql, connection)
+                    command.Parameters.Add("@T_ID", SqlDbType.Int).Value = data.TID
+                    connection.Open()
+
+                    Using reader As SqlDataReader = command.ExecuteReader()
+                        While reader.Read()
+                            Dim paymentName As String = Convert.ToString(reader("PAYMENT_NAME")).Trim()
+                            If String.IsNullOrWhiteSpace(paymentName) Then paymentName = "غير محدد"
+
+                            Dim amount As Decimal = 0D
+                            If reader("PaymentValue") IsNot DBNull.Value Then
+                                amount = Convert.ToDecimal(reader("PaymentValue"))
+                            End If
+
+                            data.PaymentLines.Add(New SalesPrintPaymentLine With {
+                                .PaymentName = paymentName,
+                                .Amount = amount
+                            })
+                        End While
+                    End Using
+                End Using
+            End Using
+
+            If data.PaymentLines.Count = 0 Then Return
+
+            Dim paidTotal As Decimal = data.PaymentLines.Sum(Function(payment) payment.Amount)
+            data.PaidText = paidTotal.ToString(N_Point_Fter)
+            data.RestText = CalculateRestText(data.PureText, data.PaidText)
+            data.PaymentName = String.Join(" + ", data.PaymentLines.
+                                           Select(Function(payment) payment.PaymentName).
+                                           Distinct())
+        Catch
+            ' الطباعة القديمة تستمر إذا تعذر جلب تفاصيل طرق الدفع.
+        End Try
+    End Sub
 
     Private Shared Function LoadLogoImage() As Image
         Try

@@ -32,6 +32,10 @@ Public Class SalesPrintProfile
     Public Property BorderColorArgb As Integer = Color.LightGray.ToArgb()
     Public Property TotalBackColorArgb As Integer = Color.FromArgb(235, 240, 245).ToArgb()
     Public Property TotalForeColorArgb As Integer = Color.Black.ToArgb()
+    Public Property PaymentBackColorArgb As Integer = Color.FromArgb(230, 240, 250).ToArgb()
+    Public Property PaymentForeColorArgb As Integer = Color.FromArgb(31, 78, 121).ToArgb()
+    Public Property PaidForeColorArgb As Integer = Color.FromArgb(0, 120, 70).ToArgb()
+    Public Property RemainingForeColorArgb As Integer = Color.FromArgb(180, 45, 45).ToArgb()
     Public Property FooterForeColorArgb As Integer = Color.Gray.ToArgb()
     Public Property UseAlternatingRows As Boolean = True
     Public Property DrawGridLines As Boolean = True
@@ -69,6 +73,10 @@ Public Class SalesPrintProfile
         p.BorderColorArgb = BorderColorArgb
         p.TotalBackColorArgb = TotalBackColorArgb
         p.TotalForeColorArgb = TotalForeColorArgb
+        p.PaymentBackColorArgb = PaymentBackColorArgb
+        p.PaymentForeColorArgb = PaymentForeColorArgb
+        p.PaidForeColorArgb = PaidForeColorArgb
+        p.RemainingForeColorArgb = RemainingForeColorArgb
         p.FooterForeColorArgb = FooterForeColorArgb
         p.UseAlternatingRows = UseAlternatingRows
         p.DrawGridLines = DrawGridLines

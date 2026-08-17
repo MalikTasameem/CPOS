@@ -64,6 +64,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Private Print_LogoImage As Image = Nothing
     Dim Print_Y As Integer = 0
     Private Print_PaymentName As String = ""
+    Private ReadOnly Print_PaymentLines As New List(Of SalesPrintPaymentLine)
     Private DynamicSalesFastPrintContextMenu As ContextMenuStrip = Nothing
     Private DynamicSalesFastProfilesMenuItem As ToolStripMenuItem = Nothing
     Private DynamicSalesFastPrintMenuItem As ToolStripMenuItem = Nothing
@@ -1892,7 +1893,10 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
     Public Sub PrintCurrentBill()
 
-        Dim EstimatedHeight As Integer = 520 + (AGMetroGrid.Rows.Count * 30) + Math.Max(0, EstimateReceiptBillNotesHeight(Print_BillNotes) - 40)
+        LoadPrintPaymentLines()
+
+        Dim paymentRowsHeight As Integer = If(Print_PaymentLines.Count = 0, 0, (Print_PaymentLines.Count * 22) + 44)
+        Dim EstimatedHeight As Integer = 520 + (AGMetroGrid.Rows.Count * 30) + paymentRowsHeight + Math.Max(0, EstimateReceiptBillNotesHeight(Print_BillNotes) - 40)
 
         If String.IsNullOrWhiteSpace(Default_Printer_80) Then
             MsgBox("لم يتم تحديد طابعة البيع السريع الإفتراضية", MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
@@ -1935,6 +1939,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         Dim fontSmallBold As New Font("Segoe UI", 8, FontStyle.Bold)
         Dim fontBody As New Font("Segoe UI", 9, FontStyle.Regular)
         Dim fontBodyBold As New Font("Segoe UI", 9, FontStyle.Bold)
+        Dim fontPayment As New Font("Segoe UI", 8, FontStyle.Regular)
         Dim fontItem As New Font("Segoe UI", 8, FontStyle.Regular)
         Dim fontItemBold As New Font("Segoe UI", 8, FontStyle.Bold)
 
@@ -2021,7 +2026,29 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         End If
         DrawThreeParts(g, "Net Total", Pure_txt.Text, "الصافي", Print_Y, fontTitle)
         Print_Y += 24
-        If String.IsNullOrWhiteSpace(Print_PaymentName) = False Then
+        If Print_PaymentLines.Count > 0 Then
+            Dim paidTotal As Decimal = 0D
+
+            DrawDashedLine(g, Print_Y, PaperWidth)
+            Print_Y += 8
+
+            For Each payment As SalesPrintPaymentLine In Print_PaymentLines
+                DrawThreeParts(g, "Payment", payment.Amount.ToString(N_Point_Fter), payment.PaymentName, Print_Y, fontPayment)
+                Print_Y += 22
+                paidTotal += payment.Amount
+            Next
+
+            DrawDashedLine(g, Print_Y, PaperWidth)
+            Print_Y += 8
+
+            Dim pureValue As Decimal = 0D
+            Decimal.TryParse(Pure_txt.Text, pureValue)
+
+            DrawThreeParts(g, "Paid", paidTotal.ToString(N_Point_Fter), "المدفوع", Print_Y, fontBodyBold)
+            Print_Y += 22
+            DrawThreeParts(g, "Remaining", (pureValue - paidTotal).ToString(N_Point_Fter), "المتبقي", Print_Y, fontBodyBold)
+            Print_Y += 24
+        ElseIf String.IsNullOrWhiteSpace(Print_PaymentName) = False Then
             DrawThreeParts(g, "Payment", Print_PaymentName, "طريقة الدفع", Print_Y, fontBodyBold)
             Print_Y += 24
         Else
@@ -2040,6 +2067,47 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         DrawReceiptBillNotes(g, Print_BillNotes, fontBodyBold, Print_Y, PaperWidth)
 
         e.HasMorePages = False
+    End Sub
+
+    Private Sub LoadPrintPaymentLines()
+        Print_PaymentLines.Clear()
+        If T_ID <= 0 Then Exit Sub
+
+        Try
+            Const sql As String =
+                "SELECT ISNULL(PAYMENT_NAME, N'') AS PAYMENT_NAME, " &
+                "SUM(ISNULL(Value, 0)) AS PaymentValue " &
+                "FROM SB_Receipts_V " &
+                "WHERE Receipt_Tran_ID = @T_ID AND isVoid = 0 " &
+                "GROUP BY PAYMENT_NAME " &
+                "ORDER BY PAYMENT_NAME"
+
+            Using connection As New SqlConnection(MY_Settings.SqlConStr)
+                Using command As New SqlCommand(sql, connection)
+                    command.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
+                    connection.Open()
+
+                    Using reader As SqlDataReader = command.ExecuteReader()
+                        While reader.Read()
+                            Dim paymentName As String = Convert.ToString(reader("PAYMENT_NAME")).Trim()
+                            If String.IsNullOrWhiteSpace(paymentName) Then paymentName = "غير محدد"
+
+                            Dim amount As Decimal = 0D
+                            If reader("PaymentValue") IsNot DBNull.Value Then
+                                amount = Convert.ToDecimal(reader("PaymentValue"))
+                            End If
+
+                            Print_PaymentLines.Add(New SalesPrintPaymentLine With {
+                                .PaymentName = paymentName,
+                                .Amount = amount
+                            })
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch
+            ' يبقى اسم طريقة الدفع القديم متاحاً إذا تعذر تحميل السندات.
+        End Try
     End Sub
 
     Private Function EstimateReceiptBillNotesHeight(notesText As String) As Integer

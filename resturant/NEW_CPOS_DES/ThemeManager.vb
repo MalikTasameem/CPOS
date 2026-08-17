@@ -215,7 +215,14 @@ Public Class ThemeManager
                     ts.BackColor = HeaderBackColor : ts.ForeColor = GetContrastColor(HeaderBackColor)
                 End If
                 For Each item As ToolStripItem In ts.Items
-                    item.ForeColor = ts.ForeColor : item.BackColor = Color.Transparent
+                    item.ForeColor = ts.ForeColor
+
+                    If TypeOf item Is ToolStripControlHost Then
+                        'الكنترولات المستضافة مثل ToolStripProgressBar لا تدعم الخلفية الشفافة.
+                        item.BackColor = ts.BackColor
+                    Else
+                        item.BackColor = Color.Transparent
+                    End If
                 Next
             End If
 

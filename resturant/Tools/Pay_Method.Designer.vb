@@ -42,11 +42,11 @@ Partial Class Pay_Method
         Me.MainLayout.Location = New System.Drawing.Point(0, 0)
         Me.MainLayout.Name = "MainLayout"
         Me.MainLayout.RowCount = 4
-        Me.MainLayout.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
-        Me.MainLayout.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
-        Me.MainLayout.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
-        Me.MainLayout.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
-        Me.MainLayout.Size = New System.Drawing.Size(500, 170)
+        Me.MainLayout.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32.0!))
+        Me.MainLayout.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.MainLayout.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32.0!))
+        Me.MainLayout.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.MainLayout.Size = New System.Drawing.Size(620, 420)
         Me.MainLayout.TabIndex = 0
         '
         'lblPayment
@@ -55,7 +55,7 @@ Partial Class Pay_Method
         Me.lblPayment.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPayment.Location = New System.Drawing.Point(3, 0)
         Me.lblPayment.Name = "lblPayment"
-        Me.lblPayment.Size = New System.Drawing.Size(494, 28)
+        Me.lblPayment.Size = New System.Drawing.Size(614, 32)
         Me.lblPayment.TabIndex = 0
         Me.lblPayment.Text = "طريقة الدفع"
         Me.lblPayment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -64,20 +64,22 @@ Partial Class Pay_Method
         '
         Me.pnlPayments.AutoScroll = True
         Me.pnlPayments.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlPayments.Location = New System.Drawing.Point(3, 31)
+        Me.pnlPayments.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.pnlPayments.Location = New System.Drawing.Point(3, 35)
         Me.pnlPayments.Name = "pnlPayments"
-        Me.pnlPayments.Padding = New System.Windows.Forms.Padding(3)
+        Me.pnlPayments.Padding = New System.Windows.Forms.Padding(6)
         Me.pnlPayments.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.pnlPayments.Size = New System.Drawing.Size(494, 64)
+        Me.pnlPayments.Size = New System.Drawing.Size(614, 310)
         Me.pnlPayments.TabIndex = 1
+        Me.pnlPayments.WrapContents = True
         '
         'lblTreasury
         '
         Me.lblTreasury.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblTreasury.Font = New System.Drawing.Font("Segoe UI Semibold", 10.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTreasury.Location = New System.Drawing.Point(3, 98)
+        Me.lblTreasury.Location = New System.Drawing.Point(3, 348)
         Me.lblTreasury.Name = "lblTreasury"
-        Me.lblTreasury.Size = New System.Drawing.Size(494, 28)
+        Me.lblTreasury.Size = New System.Drawing.Size(614, 32)
         Me.lblTreasury.TabIndex = 2
         Me.lblTreasury.Text = "الخزينة"
         Me.lblTreasury.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -89,10 +91,10 @@ Partial Class Pay_Method
         Me.Treasury_ComboBox.Enabled = False
         Me.Treasury_ComboBox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Treasury_ComboBox.FormattingEnabled = True
-        Me.Treasury_ComboBox.Location = New System.Drawing.Point(3, 129)
+        Me.Treasury_ComboBox.Location = New System.Drawing.Point(3, 383)
         Me.Treasury_ComboBox.Name = "Treasury_ComboBox"
         Me.Treasury_ComboBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Treasury_ComboBox.Size = New System.Drawing.Size(494, 23)
+        Me.Treasury_ComboBox.Size = New System.Drawing.Size(614, 23)
         Me.Treasury_ComboBox.TabIndex = 3
         '
         'Pay_Method
@@ -102,7 +104,7 @@ Partial Class Pay_Method
         Me.Controls.Add(Me.MainLayout)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Name = "Pay_Method"
-        Me.Size = New System.Drawing.Size(500, 170)
+        Me.Size = New System.Drawing.Size(620, 420)
         Me.MainLayout.ResumeLayout(False)
         Me.ResumeLayout(False)
 

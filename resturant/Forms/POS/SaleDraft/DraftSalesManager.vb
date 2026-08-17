@@ -134,6 +134,64 @@ Public Class DraftSalesManager
 
     End Function
 
+    Public Function TryGetOpenDraftsWithItems(userId As Integer,
+                                              periodId As Integer,
+                                              ByRef drafts As List(Of SaleDraftHeader),
+                                              ByRef errorMessage As String) As Boolean
+
+        drafts = New List(Of SaleDraftHeader)()
+        errorMessage = ""
+
+        Try
+            For Each filePath As String In Directory.GetFiles(ActiveFolder, "*.json")
+                Try
+                    Dim json As String = File.ReadAllText(filePath)
+                    Dim draft As SaleDraftHeader = JsonConvert.DeserializeObject(Of SaleDraftHeader)(json)
+
+                    If draft Is Nothing Then
+                        Throw New InvalidDataException("ملف المسودة لا يحتوي على بيانات صالحة.")
+                    End If
+
+                    If draft.User_ID = userId AndAlso
+                       draft.S_Bill_Pr_ID.HasValue AndAlso
+                       draft.S_Bill_Pr_ID.Value = periodId AndAlso
+                       draft.Final_T_ID.HasValue = False AndAlso
+                       draft.Final_SB_ID.HasValue = False AndAlso
+                       draft.Items IsNot Nothing AndAlso
+                       draft.Items.Count > 0 Then
+
+                        drafts.Add(draft)
+                    End If
+                Catch ex As Exception
+                    errorMessage = "تعذر التحقق من ملف المسودة: " & Path.GetFileName(filePath) &
+                                   Environment.NewLine & ex.Message
+                    Return False
+                End Try
+            Next
+
+            drafts = drafts.OrderByDescending(Function(x) x.UpdatedAt).ToList()
+            Return True
+        Catch ex As Exception
+            errorMessage = "تعذر الوصول إلى ملفات مسودات المبيعات." & Environment.NewLine & ex.Message
+            Return False
+        End Try
+
+    End Function
+
+    Public Function CountOpenDraftsWithItems(userId As Integer,
+                                             periodId As Integer,
+                                             ByRef errorMessage As String) As Integer
+
+        Dim drafts As List(Of SaleDraftHeader) = Nothing
+
+        If TryGetOpenDraftsWithItems(userId, periodId, drafts, errorMessage) = False Then
+            Return -1
+        End If
+
+        Return drafts.Count
+
+    End Function
+
     ' أرشفة بعد النجاح
     Public Sub ArchiveDraft(draft As SaleDraftHeader)
 

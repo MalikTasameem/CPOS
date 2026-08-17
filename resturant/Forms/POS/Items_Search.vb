@@ -3,6 +3,9 @@
 Public Class Items_Search
 
     Dim IM_DT As New DataTable
+    Private ReadOnly ItemsSearchCacheFolder As String = IO.Path.Combine(Application.StartupPath, "DraftSales\Cache")
+    Private ReadOnly ItemsSearchCacheFilePath As String = IO.Path.Combine(Application.StartupPath, "DraftSales\Cache\ItemsSearch.xml")
+    Private LastItemsLoadError As String = ""
     Private CurrentSearchColumn As String = "item_name"
     Private KeyboardInputHandlerAttached As Boolean = False
 
@@ -79,6 +82,7 @@ Public Class Items_Search
 
 
     Private Sub STORES_Explorer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadItemsSearchCache()
         fetch_GM()
         GM_Serach.SelectedValue = IM_Search_GM_ID
         GLOBAL_IM_ID = 0
@@ -111,22 +115,61 @@ Public Class Items_Search
 
 
     Public Sub fetch_GM()
-        GM_Serach.DataSource = GetMailItems()
+        Dim groups As List(Of MailItem) = Nothing
+
+        Try
+            groups = GetMailItems()
+        Catch
+            groups = BuildGroupsFromCachedItems()
+        End Try
+
+        If groups Is Nothing OrElse groups.Count <= 1 Then groups = BuildGroupsFromCachedItems()
+
+        GM_Serach.DataSource = groups
         GM_Serach.DisplayMember = "name"
         GM_Serach.ValueMember = "ID"
     End Sub
 
+    Private Function BuildGroupsFromCachedItems() As List(Of MailItem)
+        Dim groups As New List(Of MailItem)()
+        groups.Add(New MailItem(0, "-----كل التصنيفات-----"))
+
+        If IM_DT Is Nothing OrElse
+           IM_DT.Columns.Contains("GM_ID") = False OrElse
+           IM_DT.Columns.Contains("GM_NAME") = False Then Return groups
+
+        Dim groupsTable As DataTable = IM_DT.DefaultView.ToTable(True, "GM_ID", "GM_NAME")
+        Dim groupsView As New DataView(groupsTable)
+        groupsView.Sort = "GM_NAME ASC"
+
+        For Each rowView As DataRowView In groupsView
+            Dim groupId As Integer = 0
+            Integer.TryParse(rowView("GM_ID").ToString(), groupId)
+            If groupId > 0 Then groups.Add(New MailItem(groupId, rowView("GM_NAME").ToString()))
+        Next
+
+        Return groups
+    End Function
+
     Public Sub Load_IM(Search_Column As String, SearchText As String)
         Try
             Dim Dv As DataView = IM_DT.AsDataView
+            Dim filters As New List(Of String)()
+
+            If GM_Serach.SelectedValue IsNot Nothing AndAlso
+               Val(GM_Serach.SelectedValue) > 0 AndAlso
+               IM_DT.Columns.Contains("GM_ID") Then
+                filters.Add("GM_ID = " & Convert.ToInt32(GM_Serach.SelectedValue).ToString())
+            End If
 
             If String.IsNullOrWhiteSpace(SearchText) Then
-                Dv.RowFilter = ""
+                Dv.RowFilter = String.Join(" AND ", filters.ToArray())
                 IMDataGridViewX.DataSource = Dv
                 Exit Sub
             End If
 
-            Dv.RowFilter = IM_Serach(SearchText.Trim(), "[" & Search_Column & "]")
+            filters.Add("(" & IM_Serach(SearchText.Trim(), "[" & Search_Column & "]") & ")")
+            Dv.RowFilter = String.Join(" AND ", filters.ToArray())
             IMDataGridViewX.DataSource = Dv
 
         Catch ex As Exception
@@ -193,28 +236,108 @@ Public Class Items_Search
 
     Private Sub Load_ALL_IM()
         Dim c As New C
-        Dim GM_Str As String = ""
-
-        If GM_Serach.SelectedValue IsNot Nothing AndAlso Val(GM_Serach.SelectedValue) > 0 Then
-            GM_Str = " WHERE GM_ID = '" & GM_Serach.SelectedValue & "'"
-        End If
+        Dim loadedItems As New DataTable()
+        LastItemsLoadError = ""
 
         Try
-            IM_DT.Clear()
-
             Dim s As String
             If SB_Sch_With_QTY = False Then
-                s = "select IM_ID,GM_NAME,Barcode,IM_NUM,item_name,U_Name,QTY,isValid,Price from IM_All_V " & GM_Str & " Order by item_name ASC"
+                s = "select IM_ID,ISNULL(GM_ID,0) AS GM_ID,ISNULL(GM_NAME,'') AS GM_NAME,Barcode,IM_NUM,item_name,U_Name,QTY,isValid,Price from IM_All_V Order by item_name ASC"
             Else
-                s = "select IM_ID,GM_NAME,Barcode,IM_NUM,item_name,U_Name,QTY,isValid,Price from IM_All_V_With_QTY " & GM_Str & " Order by item_name ASC"
+                s = "select IM_ID,ISNULL(GM_ID,0) AS GM_ID,ISNULL(GM_NAME,'') AS GM_NAME,Barcode,IM_NUM,item_name,U_Name,QTY,isValid,Price from IM_All_V_With_QTY Order by item_name ASC"
             End If
 
             c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-            c.Da.Fill(IM_DT)
-            IMDataGridViewX.DataSource = IM_DT
+            c.Da.Fill(loadedItems)
+
+            If loadedItems.Rows.Count = 0 Then Throw New DataException("لم يُرجع تحميل الأصناف أي بيانات.")
+            If HasRequiredItemsColumns(loadedItems) = False Then Throw New DataException("بيانات بحث الأصناف لا تحتوي على الأعمدة المطلوبة.")
+
+            IM_DT = loadedItems
+
+            Try
+                SaveItemsSearchCache(IM_DT)
+            Catch cacheEx As Exception
+                LastItemsLoadError = "تم تحميل الأصناف، لكن تعذر تحديث الكاش المحلي: " & cacheEx.Message
+            End Try
+
+            ApplyItemsSourceFilter()
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            LastItemsLoadError = ex.Message
+
+            If IM_DT Is Nothing OrElse IM_DT.Rows.Count = 0 Then
+                LoadItemsSearchCache()
+            End If
+
+            ApplyItemsSourceFilter()
+        End Try
+    End Sub
+
+    Private Sub ApplyItemsSourceFilter()
+        If IM_DT Is Nothing Then Return
+        Load_IM(CurrentSearchColumn, txtSearch.Text.Trim())
+    End Sub
+
+    Private Function HasRequiredItemsColumns(table As DataTable) As Boolean
+        If table Is Nothing Then Return False
+
+        For Each columnName As String In New String() {"IM_ID", "GM_ID", "GM_NAME", "Barcode", "IM_NUM", "item_name", "U_Name", "QTY", "isValid", "Price"}
+            If table.Columns.Contains(columnName) = False Then Return False
+        Next
+
+        Return True
+    End Function
+
+    Private Function LoadItemsSearchCache() As Boolean
+        Try
+            If IO.File.Exists(ItemsSearchCacheFilePath) = False Then Return False
+
+            Dim cachedItems As New DataTable()
+            cachedItems.ReadXml(ItemsSearchCacheFilePath)
+
+            If cachedItems.Rows.Count = 0 OrElse HasRequiredItemsColumns(cachedItems) = False Then Return False
+
+            IM_DT = cachedItems
+            ApplyItemsSourceFilter()
+            Return True
+        Catch
+            Return False
+        End Try
+    End Function
+
+    Private Sub SaveItemsSearchCache(sourceTable As DataTable)
+        If sourceTable Is Nothing OrElse sourceTable.Rows.Count = 0 Then Return
+
+        Dim tempPath As String = ItemsSearchCacheFilePath & ".tmp"
+        If IO.Directory.Exists(ItemsSearchCacheFolder) = False Then IO.Directory.CreateDirectory(ItemsSearchCacheFolder)
+        If IO.File.Exists(tempPath) Then IO.File.Delete(tempPath)
+
+        Try
+            Dim cacheTable As DataTable = sourceTable.Copy()
+            cacheTable.TableName = "ItemsSearch"
+
+            Using fs As New IO.FileStream(tempPath,
+                                         IO.FileMode.Create,
+                                         IO.FileAccess.Write,
+                                         IO.FileShare.None,
+                                         4096,
+                                         IO.FileOptions.WriteThrough)
+                cacheTable.WriteXml(fs, XmlWriteMode.WriteSchema)
+                fs.Flush(True)
+            End Using
+
+            Dim verifyTable As New DataTable()
+            verifyTable.ReadXml(tempPath)
+            If verifyTable.Rows.Count = 0 OrElse HasRequiredItemsColumns(verifyTable) = False Then Throw New DataException("فشل التحقق من كاش بحث الأصناف الجديد.")
+
+            If IO.File.Exists(ItemsSearchCacheFilePath) Then
+                IO.File.Replace(tempPath, ItemsSearchCacheFilePath, Nothing, True)
+            Else
+                IO.File.Move(tempPath, ItemsSearchCacheFilePath)
+            End If
+        Finally
+            If IO.File.Exists(tempPath) Then IO.File.Delete(tempPath)
         End Try
     End Sub
 
@@ -259,6 +382,11 @@ Public Class Items_Search
         If Not String.IsNullOrWhiteSpace(txtSearch.Text) Then
             ExecuteSearch()
         End If
+    End Sub
+
+    Private Sub GM_Serach_SelectedValueChanged(sender As Object, e As EventArgs) Handles GM_Serach.SelectedValueChanged
+        If IM_DT Is Nothing OrElse IM_DT.Columns.Count = 0 Then Return
+        ApplyItemsSourceFilter()
     End Sub
 
     Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown

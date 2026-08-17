@@ -22,10 +22,10 @@ Partial Class Sales_Fast_Draft
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales_Fast_Draft))
         Me.MetroToolTip1 = New MetroFramework.Components.MetroToolTip()
         Me.RemoveCatButton = New System.Windows.Forms.Button()
@@ -87,13 +87,17 @@ Partial Class Sales_Fast_Draft
         Me.IMDicreaseButton = New System.Windows.Forms.Button()
         Me.Units_btn = New System.Windows.Forms.Button()
         Me.Refresh_IM_Btn = New System.Windows.Forms.Button()
-        Me.RefreshStatus_LB = New System.Windows.Forms.Label()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.Print_btn = New System.Windows.Forms.Button()
         Me.New_butt = New System.Windows.Forms.Button()
         Me.Save_butt = New System.Windows.Forms.Button()
         Me.note_Btn = New System.Windows.Forms.Button()
         Me.QTY_Btn = New System.Windows.Forms.Button()
+        Me.ScreenStatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ScreenStatusTypeLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ScreenStatusMessageLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ScreenStatusProgressBar = New System.Windows.Forms.ToolStripProgressBar()
+        Me.ScreenStatusTimeLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         Me.DiscountPanel.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -101,6 +105,7 @@ Partial Class Sales_Fast_Draft
         CType(Me.dgvSales, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        Me.ScreenStatusStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'MetroToolTip1
@@ -285,7 +290,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.IM_Count_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.IM_Count_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Count_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Count_LB.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Count_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.IM_Count_LB.Location = New System.Drawing.Point(259, 665)
         Me.IM_Count_LB.Name = "IM_Count_LB"
@@ -299,7 +304,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.User_Name_lb.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.User_Name_lb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.User_Name_lb.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.User_Name_lb.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold)
         Me.User_Name_lb.ForeColor = System.Drawing.Color.Blue
         Me.User_Name_lb.Location = New System.Drawing.Point(459, 665)
         Me.User_Name_lb.Name = "User_Name_lb"
@@ -411,13 +416,13 @@ Partial Class Sales_Fast_Draft
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Font = New System.Drawing.Font("Segoe UI", 12.25!)
         Me.Label17.Location = New System.Drawing.Point(151, 12)
         Me.Label17.Name = "Label17"
         Me.Label17.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label17.Size = New System.Drawing.Size(88, 25)
+        Me.Label17.Size = New System.Drawing.Size(73, 23)
         Me.Label17.TabIndex = 620
-        Me.Label17.Text = "الصــافـــي"
+        Me.Label17.Text = "الصـافــي"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'IM_Unit_cm
@@ -466,7 +471,7 @@ Partial Class Sales_Fast_Draft
         '
         Me.IM_Qty_LB.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.IM_Qty_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IM_Qty_LB.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IM_Qty_LB.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold)
         Me.IM_Qty_LB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.IM_Qty_LB.Location = New System.Drawing.Point(359, 665)
         Me.IM_Qty_LB.Name = "IM_Qty_LB"
@@ -533,14 +538,14 @@ Partial Class Sales_Fast_Draft
         Me.dgvSales.AllowUserToResizeRows = False
         Me.dgvSales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvSales.BackgroundColor = System.Drawing.SystemColors.ButtonFace
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSales.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSales.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSales.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Bill_IMID_CL, Me.is_Check_CL, Me.Barcode_CL, Me.Serial_Code_CL, Me.U_ID, Me.Date_, Me.ST_Name_CL, Me.IMNUM_CL, Me.Item_Name, Me.D_Valid_CL, Me.IMUnit_CL, Me.QTY_CL, Me.Price_CL, Me.IM_Discount_CL, Me.Total_CL, Me.Notes_CL, Me.T_ID_CL, Me.ST_ID_CL, Me.IM_NOTE_CL})
         Me.dgvSales.Cursor = System.Windows.Forms.Cursors.Hand
@@ -649,11 +654,11 @@ Partial Class Sales_Fast_Draft
         'QTY_CL
         '
         Me.QTY_CL.DataPropertyName = "QTY"
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.Format = "N3"
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Transparent
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
-        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle10.Format = "N3"
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Transparent
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black
+        Me.QTY_CL.DefaultCellStyle = DataGridViewCellStyle10
         Me.QTY_CL.FillWeight = 91.83587!
         Me.QTY_CL.HeaderText = "كمية"
         Me.QTY_CL.Name = "QTY_CL"
@@ -662,8 +667,8 @@ Partial Class Sales_Fast_Draft
         'Price_CL
         '
         Me.Price_CL.DataPropertyName = "Price"
-        DataGridViewCellStyle3.Format = "N3"
-        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle11.Format = "N3"
+        Me.Price_CL.DefaultCellStyle = DataGridViewCellStyle11
         Me.Price_CL.FillWeight = 91.83587!
         Me.Price_CL.HeaderText = "السعر"
         Me.Price_CL.Name = "Price_CL"
@@ -679,8 +684,8 @@ Partial Class Sales_Fast_Draft
         'Total_CL
         '
         Me.Total_CL.DataPropertyName = "T_Price"
-        DataGridViewCellStyle4.Format = "N3"
-        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle12.Format = "N3"
+        Me.Total_CL.DefaultCellStyle = DataGridViewCellStyle12
         Me.Total_CL.FillWeight = 91.83587!
         Me.Total_CL.HeaderText = "إجمالي"
         Me.Total_CL.Name = "Total_CL"
@@ -750,7 +755,7 @@ Partial Class Sales_Fast_Draft
         Me.Panel3.Controls.Add(Me.Label17)
         Me.Panel3.Location = New System.Drawing.Point(3, 644)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(251, 48)
+        Me.Panel3.Size = New System.Drawing.Size(220, 48)
         Me.Panel3.TabIndex = 710
         '
         'Valid_cm
@@ -876,19 +881,6 @@ Partial Class Sales_Fast_Draft
         Me.Refresh_IM_Btn.Text = "تحديث الأصناف"
         Me.Refresh_IM_Btn.UseVisualStyleBackColor = False
         '
-        'RefreshStatus_LB
-        '
-        Me.RefreshStatus_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.RefreshStatus_LB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RefreshStatus_LB.ForeColor = System.Drawing.Color.FromArgb(CType(CType(21, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(61, Byte), Integer))
-        Me.RefreshStatus_LB.Location = New System.Drawing.Point(471, 47)
-        Me.RefreshStatus_LB.Name = "RefreshStatus_LB"
-        Me.RefreshStatus_LB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RefreshStatus_LB.Size = New System.Drawing.Size(405, 30)
-        Me.RefreshStatus_LB.TabIndex = 719
-        Me.RefreshStatus_LB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.RefreshStatus_LB.Visible = False
-        '
         'ExitFormButton
         '
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
@@ -1002,6 +994,51 @@ Partial Class Sales_Fast_Draft
         Me.QTY_Btn.Text = "الكمية 🖊️"
         Me.QTY_Btn.UseVisualStyleBackColor = False
         '
+        'ScreenStatusStrip
+        '
+        Me.ScreenStatusStrip.AutoSize = False
+        Me.ScreenStatusStrip.BackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(246, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.ScreenStatusStrip.Dock = System.Windows.Forms.DockStyle.None
+        Me.ScreenStatusStrip.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ScreenStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScreenStatusTypeLabel, Me.ScreenStatusMessageLabel, Me.ScreenStatusProgressBar, Me.ScreenStatusTimeLabel})
+        Me.ScreenStatusStrip.Location = New System.Drawing.Point(471, 47)
+        Me.ScreenStatusStrip.Name = "ScreenStatusStrip"
+        Me.ScreenStatusStrip.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ScreenStatusStrip.ShowItemToolTips = True
+        Me.ScreenStatusStrip.Size = New System.Drawing.Size(405, 30)
+        Me.ScreenStatusStrip.SizingGrip = False
+        Me.ScreenStatusStrip.TabIndex = 918
+        '
+        'ScreenStatusTypeLabel
+        '
+        Me.ScreenStatusTypeLabel.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.ScreenStatusTypeLabel.Name = "ScreenStatusTypeLabel"
+        Me.ScreenStatusTypeLabel.Size = New System.Drawing.Size(48, 25)
+        Me.ScreenStatusTypeLabel.Text = "● جاهز"
+        '
+        'ScreenStatusMessageLabel
+        '
+        Me.ScreenStatusMessageLabel.Name = "ScreenStatusMessageLabel"
+        Me.ScreenStatusMessageLabel.Size = New System.Drawing.Size(298, 25)
+        Me.ScreenStatusMessageLabel.Spring = True
+        Me.ScreenStatusMessageLabel.Text = "الشاشة جاهزة للاستخدام"
+        Me.ScreenStatusMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'ScreenStatusProgressBar
+        '
+        Me.ScreenStatusProgressBar.MarqueeAnimationSpeed = 25
+        Me.ScreenStatusProgressBar.Name = "ScreenStatusProgressBar"
+        Me.ScreenStatusProgressBar.Size = New System.Drawing.Size(65, 24)
+        Me.ScreenStatusProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee
+        Me.ScreenStatusProgressBar.Visible = False
+        '
+        'ScreenStatusTimeLabel
+        '
+        Me.ScreenStatusTimeLabel.ForeColor = System.Drawing.Color.DimGray
+        Me.ScreenStatusTimeLabel.Name = "ScreenStatusTimeLabel"
+        Me.ScreenStatusTimeLabel.Size = New System.Drawing.Size(44, 25)
+        Me.ScreenStatusTimeLabel.Text = "00:00"
+        '
         'UcGridColumnsSelector1
         '
         Me.UcGridColumnsSelector1.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
@@ -1024,6 +1061,7 @@ Partial Class Sales_Fast_Draft
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1024, 695)
+        Me.Controls.Add(Me.ScreenStatusStrip)
         Me.Controls.Add(Me.ClearDraftItemsButton)
         Me.Controls.Add(Me.ChangePriceButton)
         Me.Controls.Add(Me.QTY_Btn)
@@ -1042,7 +1080,6 @@ Partial Class Sales_Fast_Draft
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.Draft_Btn)
         Me.Controls.Add(Me.Panel4)
-        Me.Controls.Add(Me.RefreshStatus_LB)
         Me.Controls.Add(Me.Refresh_IM_Btn)
         Me.Controls.Add(Me.Valid_cm)
         Me.Controls.Add(Me.Panel3)
@@ -1082,6 +1119,8 @@ Partial Class Sales_Fast_Draft
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.Panel4.ResumeLayout(False)
+        Me.ScreenStatusStrip.ResumeLayout(False)
+        Me.ScreenStatusStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1122,7 +1161,6 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents Valid_cm As System.Windows.Forms.ComboBox
     Friend WithEvents Barcode_SH_txt As TextBox
     Friend WithEvents Refresh_IM_Btn As Button
-    Friend WithEvents RefreshStatus_LB As Label
     Friend WithEvents Panel4 As Panel
     Friend WithEvents Draft_Btn As Button
     Friend WithEvents Bill_IMID_CL As DataGridViewTextBoxColumn
@@ -1154,4 +1192,9 @@ Partial Class Sales_Fast_Draft
     Friend WithEvents QTY_Btn As Button
     Friend WithEvents ChangePriceButton As Button
     Friend WithEvents ClearDraftItemsButton As Button
+    Friend WithEvents ScreenStatusStrip As StatusStrip
+    Friend WithEvents ScreenStatusTypeLabel As ToolStripStatusLabel
+    Friend WithEvents ScreenStatusMessageLabel As ToolStripStatusLabel
+    Friend WithEvents ScreenStatusProgressBar As ToolStripProgressBar
+    Friend WithEvents ScreenStatusTimeLabel As ToolStripStatusLabel
 End Class

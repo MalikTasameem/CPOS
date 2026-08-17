@@ -23,6 +23,19 @@ Public Class Pay_Method
         End Get
     End Property
 
+    Public ReadOnly Property SelectedTreasuryName As String
+        Get
+            If Treasury_ComboBox.SelectedItem Is Nothing Then Return ""
+
+            Dim rowView As DataRowView = TryCast(Treasury_ComboBox.SelectedItem, DataRowView)
+            If rowView IsNot Nothing AndAlso rowView.Row.Table.Columns.Contains("Tr_Name") Then
+                Return Convert.ToString(rowView("Tr_Name")).Trim()
+            End If
+
+            Return Treasury_ComboBox.Text.Trim()
+        End Get
+    End Property
+
     Private SelectedButton As Button = Nothing
 
     Private Sub Pay_Method_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -138,9 +151,10 @@ Public Class Pay_Method
             btn.Tag = Convert.ToInt32(r("P_ID"))
             btn.Text = r("PAYMENT_NAME").ToString()
 
-            btn.Width = 120
-            btn.Height = 50
+            btn.Width = CalculatePaymentButtonWidth(dt.Rows.Count)
+            btn.Height = 58
             btn.Margin = New Padding(6)
+            btn.AutoEllipsis = True
             btn.Cursor = Cursors.Hand
             btn.FlatStyle = FlatStyle.Flat
             btn.FlatAppearance.BorderSize = 1
@@ -157,6 +171,36 @@ Public Class Pay_Method
 
         Next
 
+    End Sub
+
+    Private Function CalculatePaymentButtonWidth(paymentMethodsCount As Integer) As Integer
+        Dim availableWidth As Integer = pnlPayments.ClientSize.Width - pnlPayments.Padding.Horizontal - 24
+        If availableWidth <= 0 Then availableWidth = 560
+
+        Dim columnsCount As Integer
+
+        If paymentMethodsCount <= 1 Then
+            columnsCount = 1
+        ElseIf paymentMethodsCount = 2 Then
+            columnsCount = 2
+        ElseIf paymentMethodsCount = 3 Then
+            columnsCount = 3
+        Else
+            columnsCount = 4
+        End If
+
+        Dim buttonWidth As Integer = (availableWidth \ columnsCount) - 12
+        Return Math.Max(105, buttonWidth)
+    End Function
+
+    Private Sub pnlPayments_SizeChanged(sender As Object, e As EventArgs) Handles pnlPayments.SizeChanged
+        If pnlPayments.Controls.Count = 0 Then Exit Sub
+
+        Dim buttonWidth As Integer = CalculatePaymentButtonWidth(pnlPayments.Controls.Count)
+
+        For Each ctrl As Control In pnlPayments.Controls
+            If TypeOf ctrl Is Button Then ctrl.Width = buttonWidth
+        Next
     End Sub
 
     '------------------------------------------------------------------------------------------------------------------
@@ -280,7 +324,8 @@ Public Class Pay_Method
 
         Dim val As Integer
 
-        If Integer.TryParse(Treasury_ComboBox.SelectedValue.ToString(), val) Then
+        If Treasury_ComboBox.SelectedValue IsNot Nothing AndAlso
+            Integer.TryParse(Treasury_ComboBox.SelectedValue.ToString(), val) Then
             TR_ID = val
         End If
 

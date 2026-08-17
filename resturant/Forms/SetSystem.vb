@@ -274,7 +274,6 @@ END"
 
         Else
             Panel1.Visible = False
-
         End If
     End Sub
 

@@ -6,6 +6,9 @@ Imports ZXing
 
 Public Class SalesPrintDocumentRenderer
 
+    ' وضع مؤقت لاختبار القوالب دون إرسالها إلى الطابعة.
+    Public Const ForcePrintPreview As Boolean = False
+
     Private ReadOnly PrintData As SalesPrintData
     Private ReadOnly Profile As SalesPrintProfile
     Private PrintRowIndex As Integer = 0
@@ -40,7 +43,8 @@ Public Class SalesPrintDocumentRenderer
                 Return New PaperSize("A6", 413, 583)
             Case "RECEIPT"
                 Dim rowsHeight As Integer = If(PrintData Is Nothing OrElse PrintData.Items Is Nothing, 0, PrintData.Items.Rows.Count * 32)
-                Return New PaperSize("Receipt80", 280, Math.Max(650, 450 + rowsHeight + EstimateReceiptBottomTextHeight()))
+                Dim paymentsHeight As Integer = If(PrintData Is Nothing OrElse PrintData.PaymentLines Is Nothing, 0, PrintData.PaymentLines.Count * 24)
+                Return New PaperSize("Receipt80", 280, Math.Max(650, 450 + rowsHeight + paymentsHeight + EstimateReceiptBottomTextHeight()))
             Case Else
                 Return New PaperSize("A4", 827, 1169)
         End Select
@@ -268,14 +272,24 @@ Public Class SalesPrintDocumentRenderer
             y += 24
             DrawSummaryRow(g, "الصافي", PrintData.PureText, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat)
             y += 24
-            If String.IsNullOrWhiteSpace(PrintData.PaymentName) = False Then
-                DrawSummaryRow(g, "طريقة الدفع", PrintData.PaymentName, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat)
+            If IsSectionVisible("Payments") AndAlso PrintData.PaymentLines IsNot Nothing AndAlso PrintData.PaymentLines.Count > 0 Then
+                For Each payment As SalesPrintPaymentLine In PrintData.PaymentLines
+                    DrawSummaryRow(g, payment.PaymentName, payment.Amount.ToString(N_Point_Fter), summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat, Profile.PaymentBackColorArgb, Profile.PaymentForeColorArgb)
+                    y += 24
+                Next
+            ElseIf IsSectionVisible("Payments") AndAlso String.IsNullOrWhiteSpace(PrintData.PaymentName) = False Then
+                DrawSummaryRow(g, "طريقة الدفع", PrintData.PaymentName, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat, Profile.PaymentBackColorArgb, Profile.PaymentForeColorArgb)
                 y += 24
             End If
-            DrawSummaryRow(g, "المدفوع", PrintData.PaidText, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat)
-            y += 24
-            DrawSummaryRow(g, "المتبقي", PrintData.RestText, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat)
-            y += 30
+            If IsSectionVisible("PaidSummary") Then
+                DrawSummaryRow(g, "المدفوع", PrintData.PaidText, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat, Profile.TotalBackColorArgb, Profile.PaidForeColorArgb)
+                y += 24
+            End If
+            If IsSectionVisible("RemainingSummary") Then
+                DrawSummaryRow(g, "المتبقي", PrintData.RestText, summaryLeft, y, summaryWidth, totalFont, rightFormat, leftFormat, Profile.TotalBackColorArgb, Profile.RemainingForeColorArgb)
+                y += 24
+            End If
+            y += 6
         End If
 
         If IsSectionVisible("Notes") AndAlso String.IsNullOrWhiteSpace(PrintData.Notes) = False Then
@@ -333,13 +347,15 @@ Public Class SalesPrintDocumentRenderer
         End Using
     End Sub
 
-    Private Sub DrawSummaryRow(g As Graphics, label As String, value As String, x As Integer, y As Integer, width As Integer, font As Font, rightFormat As StringFormat, leftFormat As StringFormat)
+    Private Sub DrawSummaryRow(g As Graphics, label As String, value As String, x As Integer, y As Integer, width As Integer, font As Font, rightFormat As StringFormat, leftFormat As StringFormat, Optional backColorArgb As Integer = Integer.MinValue, Optional foreColorArgb As Integer = Integer.MinValue)
         Dim rect As New Rectangle(x, y, width, 24)
-        Using backBrush As New SolidBrush(GetProfileColor(Profile.TotalBackColorArgb))
+        If backColorArgb = Integer.MinValue Then backColorArgb = Profile.TotalBackColorArgb
+        If foreColorArgb = Integer.MinValue Then foreColorArgb = Profile.TotalForeColorArgb
+        Using backBrush As New SolidBrush(GetProfileColor(backColorArgb))
             g.FillRectangle(backBrush, rect)
         End Using
         DrawCellBorder(g, rect)
-        Using totalBrush As New SolidBrush(GetProfileColor(Profile.TotalForeColorArgb))
+        Using totalBrush As New SolidBrush(GetProfileColor(foreColorArgb))
             g.DrawString(label, font, totalBrush, New Rectangle(rect.Left + (width \ 2), rect.Top, width \ 2, rect.Height), rightFormat)
             g.DrawString(value, font, totalBrush, New Rectangle(rect.Left, rect.Top, width \ 2, rect.Height), leftFormat)
         End Using

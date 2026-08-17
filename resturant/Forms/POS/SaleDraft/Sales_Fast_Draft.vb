@@ -5,14 +5,24 @@ Imports System.Drawing.Printing
 
 
 Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
+    Private Enum ScreenStatusType
+        Ready
+        Information
+        Loading
+        Success
+        Warning
+        [Error]
+    End Enum
+
     Dim Print_CompName As String = ""
     Dim Print_EngName As String = ""
     Dim Print_BillNotes As String = ""
     Private Print_LogoImage As Image = Nothing
     Dim Print_Y As Integer = 0
     Private Print_PaymentName As String = ""
-
-
+    Private ReadOnly Print_PaymentLines As New List(Of SalesPrintPaymentLine)
+    ' مؤقت للاختبار: أعد القيمة إلى False لاستعادة الطباعة المباشرة.
+    Private Const ForceDraftPrintPreview As Boolean = False
 
 
     Dim rs As New Resizer
@@ -78,6 +88,70 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Const DraftLogsPushThreshold As Integer = 600
     Private ReadOnly DraftLogsQueueFolder As String = IO.Path.Combine(Application.StartupPath, "DraftSales\LogsQueue")
     Private ReadOnly DraftLogsQueueFilePath As String = IO.Path.Combine(Application.StartupPath, "DraftSales\LogsQueue\SalesDraftActionLogs.xml")
+    Private ReadOnly SalesCacheFolder As String = IO.Path.Combine(Application.StartupPath, "DraftSales\Cache")
+    Private ReadOnly ItemsCacheFilePath As String = IO.Path.Combine(Application.StartupPath, "DraftSales\Cache\ItemsUnits.xml")
+    Private ReadOnly ShortcutsCacheFilePath As String = IO.Path.Combine(Application.StartupPath, "DraftSales\Cache\ItemShortcuts.xml")
+    Private LastItemsLoadError As String = ""
+    Private LastShortcutsLoadError As String = ""
+
+    Private Sub SetScreenStatus(message As String,
+                                statusType As ScreenStatusType,
+                                Optional details As String = "")
+
+        If ScreenStatusStrip Is Nothing OrElse ScreenStatusStrip.IsDisposed Then Exit Sub
+
+        If ScreenStatusStrip.InvokeRequired Then
+            ScreenStatusStrip.BeginInvoke(New Action(Of String, ScreenStatusType, String)(AddressOf SetScreenStatus), message, statusType, details)
+            Exit Sub
+        End If
+
+        Dim statusText As String = "● جاهز"
+        Dim statusColor As Color = Color.FromArgb(30, 64, 175)
+        Dim statusBackColor As Color = Color.FromArgb(239, 246, 255)
+
+        Select Case statusType
+            Case ScreenStatusType.Information
+                statusText = "● معلومات"
+                statusColor = Color.FromArgb(3, 105, 161)
+                statusBackColor = Color.FromArgb(240, 249, 255)
+            Case ScreenStatusType.Loading
+                statusText = "● تحميل"
+                statusColor = Color.FromArgb(180, 83, 9)
+                statusBackColor = Color.FromArgb(255, 251, 235)
+            Case ScreenStatusType.Success
+                statusText = "● نجاح"
+                statusColor = Color.FromArgb(21, 128, 61)
+                statusBackColor = Color.FromArgb(240, 253, 244)
+            Case ScreenStatusType.Warning
+                statusText = "● تنبيه"
+                statusColor = Color.FromArgb(194, 65, 12)
+                statusBackColor = Color.FromArgb(255, 247, 237)
+            Case ScreenStatusType.Error
+                statusText = "● خطأ"
+                statusColor = Color.FromArgb(185, 28, 28)
+                statusBackColor = Color.FromArgb(254, 242, 242)
+        End Select
+
+        ScreenStatusStrip.BackColor = statusBackColor
+        ScreenStatusTypeLabel.Text = statusText
+        ScreenStatusTypeLabel.ForeColor = statusColor
+        ScreenStatusMessageLabel.Text = If(String.IsNullOrWhiteSpace(message), "الشاشة جاهزة للاستخدام", message)
+        ScreenStatusMessageLabel.ForeColor = statusColor
+        ScreenStatusMessageLabel.ToolTipText = If(String.IsNullOrWhiteSpace(details), ScreenStatusMessageLabel.Text, details)
+        ScreenStatusProgressBar.Visible = (statusType = ScreenStatusType.Loading)
+        ScreenStatusTimeLabel.Text = DateTime.Now.ToString("HH:mm:ss")
+    End Sub
+
+    Private Function GetStatusTypeFromDraftAction(actionType As String, actionDescription As String) As ScreenStatusType
+        Dim combinedText As String = (If(actionType, "") & " " & If(actionDescription, "")).Trim()
+
+        If combinedText.Contains("تعذر") OrElse combinedText.Contains("فشل") OrElse combinedText.Contains("خطأ") Then Return ScreenStatusType.Error
+        If combinedText.Contains("لم يتم") OrElse combinedText.Contains("إلغاء") OrElse combinedText.Contains("حذف") Then Return ScreenStatusType.Warning
+        If combinedText.Contains("بدء") OrElse combinedText.Contains("جاري") Then Return ScreenStatusType.Loading
+        If combinedText.Contains("تم ") Then Return ScreenStatusType.Success
+
+        Return ScreenStatusType.Information
+    End Function
     '--------------------------------------------------------------------------------------------------------------
     Private Sub LoadPrintSettings()
         Dim db As New C()
@@ -110,28 +184,42 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Public Sub PrintCurrentBill()
 
-        Dim EstimatedHeight As Integer = 520 + (dgvSales.Rows.Count * 30) + Math.Max(0, EstimateReceiptBillNotesHeight(Print_BillNotes) - 40)
+        LoadPrintPaymentLines()
 
-        If String.IsNullOrWhiteSpace(Default_Printer_80) Then
+        Dim paymentRowsHeight As Integer = If(Print_PaymentLines.Count = 0, 0, (Print_PaymentLines.Count * 22) + 44)
+        Dim EstimatedHeight As Integer = 520 + (dgvSales.Rows.Count * 30) + paymentRowsHeight + Math.Max(0, EstimateReceiptBillNotesHeight(Print_BillNotes) - 40)
+
+        If Not ForceDraftPrintPreview AndAlso String.IsNullOrWhiteSpace(Default_Printer_80) Then
             MsgBox("لم يتم تحديد طابعة البيع السريع الإفتراضية", MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
             Exit Sub
         End If
 
-        If IsPrinterInstalled(Default_Printer_80) = False Then
+        If Not ForceDraftPrintPreview AndAlso IsPrinterInstalled(Default_Printer_80) = False Then
             MsgBox("الطابعة المحددة غير موجودة: " & Default_Printer_80, MsgBoxStyle.Exclamation, "تحديــد طابعة الكاشير")
             Exit Sub
         End If
 
-        Dim pd As New PrintDocument()
-        ' 🌟 عرض الورقة 280 بكسل لضمان التوافق مع أضيق الطابعات 🌟
-        pd.PrinterSettings.PrinterName = Default_Printer_80
-        pd.PrintController = New StandardPrintController()
-        pd.DefaultPageSettings.PaperSize = New System.Drawing.Printing.PaperSize("Thermal80mm", 280, EstimatedHeight)
-        pd.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(0, 0, 0, 0)
+        Using pd As New PrintDocument()
+            ' 🌟 عرض الورقة 280 بكسل لضمان التوافق مع أضيق الطابعات 🌟
+            If Not ForceDraftPrintPreview Then
+                pd.PrinterSettings.PrinterName = Default_Printer_80
+                pd.PrintController = New StandardPrintController()
+            End If
+            pd.DefaultPageSettings.PaperSize = New System.Drawing.Printing.PaperSize("Thermal80mm", 280, EstimatedHeight)
+            pd.DefaultPageSettings.Margins = New System.Drawing.Printing.Margins(0, 0, 0, 0)
 
-        AddHandler pd.PrintPage, AddressOf PrintReceiptPage
+            AddHandler pd.PrintPage, AddressOf PrintReceiptPage
 
-        pd.Print()
+            If ForceDraftPrintPreview Then
+                Using preview As New PrintPreviewDialog()
+                    preview.Document = pd
+                    preview.WindowState = FormWindowState.Maximized
+                    preview.ShowDialog(Me)
+                End Using
+            Else
+                pd.Print()
+            End If
+        End Using
     End Sub
 
     Private Function IsPrinterInstalled(printerName As String) As Boolean
@@ -156,6 +244,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         Dim fontSmallBold As New Font("Segoe UI", 8, FontStyle.Bold)
         Dim fontBody As New Font("Segoe UI", 9, FontStyle.Regular)
         Dim fontBodyBold As New Font("Segoe UI", 9, FontStyle.Bold)
+        Dim fontPayment As New Font("Segoe UI", 8, FontStyle.Regular)
 
         ' 🌟 خطوط مخصصة للجدول (أصغر) 🌟
         Dim fontItem As New Font("Segoe UI", 8, FontStyle.Regular)
@@ -250,7 +339,29 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         End If
         DrawThreeParts(g, "Net Total", Pure_txt.Text, "الصافي", Print_Y, fontTitle)
         Print_Y += 24
-        If String.IsNullOrWhiteSpace(Print_PaymentName) = False Then
+        If Print_PaymentLines.Count > 0 Then
+            Dim paidTotal As Decimal = 0D
+
+            DrawDashedLine(g, Print_Y, PaperWidth)
+            Print_Y += 8
+
+            For Each payment As SalesPrintPaymentLine In Print_PaymentLines
+                DrawThreeParts(g, "Payment", payment.Amount.ToString(N_Point_Fter), payment.PaymentName, Print_Y, fontPayment)
+                Print_Y += 22
+                paidTotal += payment.Amount
+            Next
+
+            DrawDashedLine(g, Print_Y, PaperWidth)
+            Print_Y += 8
+
+            Dim pureValue As Decimal = 0D
+            Decimal.TryParse(Pure_txt.Text, pureValue)
+
+            DrawThreeParts(g, "Paid", paidTotal.ToString(N_Point_Fter), "المدفوع", Print_Y, fontBodyBold)
+            Print_Y += 22
+            DrawThreeParts(g, "Remaining", (pureValue - paidTotal).ToString(N_Point_Fter), "المتبقي", Print_Y, fontBodyBold)
+            Print_Y += 24
+        ElseIf String.IsNullOrWhiteSpace(Print_PaymentName) = False Then
             DrawThreeParts(g, "Payment", Print_PaymentName, "طريقة الدفع", Print_Y, fontBodyBold)
             Print_Y += 24
         Else
@@ -270,6 +381,47 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         DrawReceiptBillNotes(g, Print_BillNotes, fontBodyBold, Print_Y, PaperWidth)
 
         e.HasMorePages = False
+    End Sub
+
+    Private Sub LoadPrintPaymentLines()
+        Print_PaymentLines.Clear()
+        If T_ID <= 0 Then Exit Sub
+
+        Try
+            Const sql As String =
+                "SELECT ISNULL(PAYMENT_NAME, N'') AS PAYMENT_NAME, " &
+                "SUM(ISNULL(Value, 0)) AS PaymentValue " &
+                "FROM SB_Receipts_V " &
+                "WHERE Receipt_Tran_ID = @T_ID AND isVoid = 0 " &
+                "GROUP BY PAYMENT_NAME " &
+                "ORDER BY PAYMENT_NAME"
+
+            Using connection As New SqlConnection(MY_Settings.SqlConStr)
+                Using command As New SqlCommand(sql, connection)
+                    command.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
+                    connection.Open()
+
+                    Using reader As SqlDataReader = command.ExecuteReader()
+                        While reader.Read()
+                            Dim paymentName As String = Convert.ToString(reader("PAYMENT_NAME")).Trim()
+                            If String.IsNullOrWhiteSpace(paymentName) Then paymentName = "غير محدد"
+
+                            Dim amount As Decimal = 0D
+                            If reader("PaymentValue") IsNot DBNull.Value Then
+                                amount = Convert.ToDecimal(reader("PaymentValue"))
+                            End If
+
+                            Print_PaymentLines.Add(New SalesPrintPaymentLine With {
+                                .PaymentName = paymentName,
+                                .Amount = amount
+                            })
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch
+            ' يبقى اسم طريقة الدفع القديم متاحاً إذا تعذر تحميل السندات.
+        End Try
     End Sub
 
     Private Function EstimateReceiptBillNotesHeight(notesText As String) As Integer
@@ -361,10 +513,11 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
 
     Public Sub OpenDraft(draftId As String)
-
+        SetScreenStatus("جاري فتح المسودة...", ScreenStatusType.Loading, draftId)
         Dim draft As SaleDraftHeader = DraftManager.LoadDraft(draftId)
 
         If draft Is Nothing Then
+            SetScreenStatus("تعذر فتح المسودة المحددة", ScreenStatusType.Error, draftId)
             MessageBox.Show("تعذر فتح المسودة", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
@@ -916,6 +1069,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
         UpdateDraftLogsCount()
         PersistDraftLogsQueue()
+
+        SetScreenStatus(actionDescription,
+                        GetStatusTypeFromDraftAction(actionType, actionDescription),
+                        If(String.IsNullOrWhiteSpace(newValue), oldValue, newValue))
 
         If DraftLogsGrid IsNot Nothing AndAlso DraftLogsGrid.Rows.Count > 0 Then
             Dim lastRowIndex As Integer = DraftLogsGrid.Rows.Count - 1
@@ -1745,7 +1902,6 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Private Sub loadShortCut_IM()
 
         EnsureShortcutPanels()
-        LoadShortcutItems()
         RenderShortcutGroupButtons()
         RenderShortcutItemsByGroup()
 
@@ -1794,22 +1950,135 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Sub
 
-    Private Sub LoadShortcutItems()
+    Private Function TryLoadShortcutItemsFromDatabase() As Boolean
 
         Dim c As New C
-        ShortcutItemsDt = New DataTable()
+        Dim loadedShortcuts As New DataTable()
+        LastShortcutsLoadError = ""
 
         Try
             Dim s As String = "select IM_ID,ISNULL(GM_ID,0) AS GM_ID,ISNULL(NULLIF(GM_NAME,''),N'بدون مجموعة') AS GM_NAME,item_name,Photo,BK_R,BK_G,BK_B,FK_R,FK_G,FK_B from IM_Menu_V WHERE is_Shortcut = 1 order by GM_NAME ASC,item_name ASC"
             c.Com = New SqlClient.SqlCommand(s, c.Con)
             c.Da = New SqlClient.SqlDataAdapter(c.Com)
-            c.Da.Fill(ShortcutItemsDt)
+            c.Da.Fill(loadedShortcuts)
+
+            If HasRequiredColumns(loadedShortcuts, New String() {"IM_ID", "GM_ID", "GM_NAME", "item_name"}) = False Then
+                Throw New DataException("بيانات اختصارات الأصناف لا تحتوي على الأعمدة المطلوبة.")
+            End If
+
+            ShortcutItemsDt = loadedShortcuts
+
+            Try
+                SaveDataTableCache(ShortcutItemsDt, ShortcutsCacheFilePath, "ItemShortcuts")
+            Catch cacheEx As Exception
+                LastShortcutsLoadError = "تم تحميل الاختصارات، لكن تعذر تحديث الكاش المحلي: " & cacheEx.Message
+            End Try
+
+            Return True
         Catch ex As Exception
-            MsgBox("تعذر تحميل اختصارات الأصناف: " & ex.Message, MsgBoxStyle.Exclamation, "اختصارات الأصناف")
+            LastShortcutsLoadError = ex.Message
+            Return False
         Finally
             If c.Con.State = ConnectionState.Open Then c.Con.Close()
         End Try
 
+    End Function
+
+    Private Function LoadSalesDataFromLocalCache() As Boolean
+        Dim loadedAnyCache As Boolean = False
+        Dim cachedItems As DataTable = Nothing
+        Dim cachedShortcuts As DataTable = Nothing
+        Dim cacheError As String = ""
+
+        If TryLoadDataTableCache(ItemsCacheFilePath,
+                                 New String() {"U_IM_ID", "IM_ID", "item_name", "U_Name", "U_ID", "U_Cargo", "Price", "Barcode"},
+                                 cachedItems,
+                                 cacheError) Then
+            IM_Units_Dt = cachedItems
+            loadedAnyCache = True
+        End If
+
+        cacheError = ""
+        If TryLoadDataTableCache(ShortcutsCacheFilePath,
+                                 New String() {"IM_ID", "GM_ID", "GM_NAME", "item_name"},
+                                 cachedShortcuts,
+                                 cacheError) Then
+            ShortcutItemsDt = cachedShortcuts
+            loadedAnyCache = True
+        End If
+
+        Return loadedAnyCache
+    End Function
+
+    Private Function TryLoadDataTableCache(filePath As String,
+                                           requiredColumns As String(),
+                                           ByRef loadedTable As DataTable,
+                                           ByRef errorMessage As String) As Boolean
+        loadedTable = Nothing
+        errorMessage = ""
+
+        Try
+            If IO.File.Exists(filePath) = False Then Return False
+
+            Dim cacheTable As New DataTable()
+            cacheTable.ReadXml(filePath)
+
+            If HasRequiredColumns(cacheTable, requiredColumns) = False Then
+                errorMessage = "ملف الكاش لا يحتوي على الأعمدة المطلوبة."
+                Return False
+            End If
+
+            loadedTable = cacheTable
+            Return True
+        Catch ex As Exception
+            errorMessage = ex.Message
+            Return False
+        End Try
+    End Function
+
+    Private Function HasRequiredColumns(table As DataTable, requiredColumns As String()) As Boolean
+        If table Is Nothing Then Return False
+
+        For Each columnName As String In requiredColumns
+            If table.Columns.Contains(columnName) = False Then Return False
+        Next
+
+        Return True
+    End Function
+
+    Private Sub SaveDataTableCache(sourceTable As DataTable, filePath As String, tableName As String)
+        If sourceTable Is Nothing Then Exit Sub
+
+        Dim tempPath As String = filePath & ".tmp"
+        If IO.Directory.Exists(SalesCacheFolder) = False Then IO.Directory.CreateDirectory(SalesCacheFolder)
+        If IO.File.Exists(tempPath) Then IO.File.Delete(tempPath)
+
+        Try
+            Dim cacheTable As DataTable = sourceTable.Copy()
+            cacheTable.TableName = tableName
+
+            Using fs As New IO.FileStream(tempPath,
+                                         IO.FileMode.Create,
+                                         IO.FileAccess.Write,
+                                         IO.FileShare.None,
+                                         4096,
+                                         IO.FileOptions.WriteThrough)
+                cacheTable.WriteXml(fs, XmlWriteMode.WriteSchema)
+                fs.Flush(True)
+            End Using
+
+            Dim verifyTable As New DataTable()
+            verifyTable.ReadXml(tempPath)
+            If verifyTable.Columns.Count <> sourceTable.Columns.Count Then Throw New DataException("فشل التحقق من ملف كاش الأصناف الجديد.")
+
+            If IO.File.Exists(filePath) Then
+                IO.File.Replace(tempPath, filePath, Nothing, True)
+            Else
+                IO.File.Move(tempPath, filePath)
+            End If
+        Finally
+            If IO.File.Exists(tempPath) Then IO.File.Delete(tempPath)
+        End Try
     End Sub
 
     Private Sub RenderShortcutGroupButtons()
@@ -2000,6 +2269,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Async Sub Expenses_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetScreenStatus("جاري تهيئة شاشة المبيعات وتحميل البيانات...", ScreenStatusType.Loading)
         ThemeManager.ApplyThemeToForm(Me)
         ApplyTopButtonsStyle()
 
@@ -2010,6 +2280,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         InitializeDraftLogs()
         Me.WindowState = FormWindowState.Maximized
         '   EditState = Edit_butt.Text
+        Dim hasLocalCache As Boolean = LoadSalesDataFromLocalCache()
         loadShortCut_IM()
         'GET_Printer_Type()
         LoadPrintSettings()
@@ -2017,8 +2288,26 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
         AG_ID = Default_AG_ID
         AddDraftLog("فتح", "تم فتح شاشة المبيعات المسودة", "Sales_Fast_Draft")
 
-        Await Load_ALL_IM()
+        Dim itemsLoaded As Boolean = Await Load_ALL_IM()
+        Dim shortcutsLoaded As Boolean = TryLoadShortcutItemsFromDatabase()
+        If shortcutsLoaded Then loadShortCut_IM()
         UpdateDraftButtonIndicator()
+
+        If itemsLoaded AndAlso shortcutsLoaded Then
+            SetScreenStatus("تم تحميل الشاشة والأصناف بنجاح", ScreenStatusType.Success)
+        ElseIf IM_Units_Dt IsNot Nothing AndAlso IM_Units_Dt.Rows.Count > 0 Then
+            SetScreenStatus("تعمل الشاشة بآخر بيانات أصناف محفوظة لعدم توفر الاتصال الحالي",
+                            ScreenStatusType.Warning,
+                            (LastItemsLoadError & Environment.NewLine & LastShortcutsLoadError).Trim())
+        ElseIf hasLocalCache Then
+            SetScreenStatus("تم تحميل جزء من البيانات المحلية، لكن قائمة الأصناف غير متاحة",
+                            ScreenStatusType.Warning,
+                            (LastItemsLoadError & Environment.NewLine & LastShortcutsLoadError).Trim())
+        Else
+            SetScreenStatus("تعذر تحميل الأصناف ولا توجد بيانات محلية سابقة",
+                            ScreenStatusType.Error,
+                            (LastItemsLoadError & Environment.NewLine & LastShortcutsLoadError).Trim())
+        End If
 
         'If isShowing_Trans = True Then
         '    T_ID = T_ID_Trans
@@ -2037,20 +2326,35 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     Public Async Function Load_ALL_IM() As Task(Of Boolean)
         Dim c As New C
         Dim s As String
+        Dim loadedItems As New DataTable()
+        LastItemsLoadError = ""
         Try
-            IM_Units_Dt = New DataTable()
             s = "SELECT U_IM_ID, IM_ID, item_name, U_Name, U_ID, U_Cargo, Price, Min_SP, Min_SP_2,Percent_Price,Barcode FROM IM_Menu_Units_V ORDER BY IM_ID, U_ID ASC"
 
             Using cmd As New SqlCommand(s, c.Con)
                 Await c.Con.OpenAsync()
                 Using reader = Await cmd.ExecuteReaderAsync()
-                    IM_Units_Dt.Load(reader)
+                    loadedItems.Load(reader)
                 End Using
                 c.Con.Close()
             End Using
+
+            If loadedItems.Rows.Count = 0 Then Throw New DataException("لم يُرجع تحميل الأصناف أي بيانات.")
+            If HasRequiredColumns(loadedItems, New String() {"U_IM_ID", "IM_ID", "item_name", "U_Name", "U_ID", "U_Cargo", "Price", "Barcode"}) = False Then
+                Throw New DataException("بيانات الأصناف لا تحتوي على الأعمدة المطلوبة.")
+            End If
+
+            IM_Units_Dt = loadedItems
+
+            Try
+                SaveDataTableCache(IM_Units_Dt, ItemsCacheFilePath, "ItemsUnits")
+            Catch cacheEx As Exception
+                LastItemsLoadError = "تم تحميل الأصناف، لكن تعذر تحديث الكاش المحلي: " & cacheEx.Message
+            End Try
+
             Return True
         Catch ex As Exception
-            MsgBox("IM_Units_Dt: " & ex.Message)
+            LastItemsLoadError = ex.Message
             If c.Con.State = ConnectionState.Open Then c.Con.Close()
             Return False
         End Try
@@ -2225,8 +2529,15 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
     End Function
 
     Private Async Sub Refresh_IM_MENU()
-        Await Load_ALL_IM()
-        loadShortCut_IM()
+        Dim itemsLoaded As Boolean = Await Load_ALL_IM()
+        Dim shortcutsLoaded As Boolean = TryLoadShortcutItemsFromDatabase()
+        If shortcutsLoaded Then loadShortCut_IM()
+
+        If itemsLoaded = False AndAlso shortcutsLoaded = False Then
+            SetScreenStatus("تعذر التحديث؛ تم الإبقاء على بيانات الأصناف السابقة",
+                            ScreenStatusType.Warning,
+                            (LastItemsLoadError & Environment.NewLine & LastShortcutsLoadError).Trim())
+        End If
     End Sub
 
 
@@ -2234,11 +2545,13 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
 
         If CurrentDraft Is Nothing Then
+            SetScreenStatus("لا توجد فاتورة حالية للحفظ", ScreenStatusType.Warning)
             MessageBox.Show("لا توجد فاتورة حالية.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
         AddDraftLog("حفظ", "بدء حفظ وترحيل المسودة", "Save_butt", "", CurrentDraft.DraftId)
+        SetScreenStatus("جاري حفظ وترحيل المسودة...", ScreenStatusType.Loading, CurrentDraft.DraftId)
 
         Me.Cursor = Cursors.WaitCursor
         Try
@@ -2320,10 +2633,15 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Function PushCurrentDraftToDatabase() As Boolean
 
+        Dim useMultiplePayments As Boolean =
+            SalesPaymentSqlLayer.CanUseDraftMultiplePayments(CurrentDraft.AG_ID)
+
         Dim F As New Pay_Main_Form
         F.Temp_Tr_ID = SB_TR_ID
         F.AG_ID = CurrentDraft.AG_ID
         F.MONEY_VALUE = Pure
+        F.EnableMultiplePayments = useMultiplePayments
+        F.Is_Force_Pay = useMultiplePayments
         F.ShowDialog()
 
         If F.is_OK = True Then
@@ -2342,7 +2660,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
             Try
                 Using con As New SqlConnection(MY_Settings.SqlConStr) ' عدّل اسم الاتصال عندك
-                    Using cmd As New SqlCommand("dbo.PushSalesDraft", con)
+                    Using cmd As New SqlCommand(If(useMultiplePayments, "dbo.PushSalesDraft_V2", "dbo.PushSalesDraft"), con)
 
                         cmd.CommandType = CommandType.StoredProcedure
                         cmd.CommandTimeout = 120
@@ -2380,8 +2698,12 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
                         cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = CurrentDraft.User_ID
 
-                        cmd.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = Tr_ID
-                        cmd.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = Pay_ID
+                        If useMultiplePayments Then
+                            SalesPaymentSqlLayer.AddPaymentsParameter(cmd, F.Payments)
+                        Else
+                            cmd.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = Tr_ID
+                            cmd.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = Pay_ID
+                        End If
                         cmd.Parameters.Add("@Pr_ID", SqlDbType.Int).Value = Pr_ID
 
                         If CurrentDraft.Markter_ID.HasValue Then
@@ -3391,7 +3713,11 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                 Me.Cursor = Cursors.AppStarting
                 AddDraftLog("طباعة", "بدء طباعة الفاتورة الحالية", "Print_btn")
                 PrintCurrentBill()
-                AddDraftLog("طباعة", "تم إرسال الفاتورة الحالية للطابعة", "Print_btn")
+                If ForceDraftPrintPreview Then
+                    AddDraftLog("طباعة", "تم عرض معاينة الفاتورة الحالية", "Print_btn")
+                Else
+                    AddDraftLog("طباعة", "تم إرسال الفاتورة الحالية للطابعة", "Print_btn")
+                End If
             Catch ex As Exception
                 AddDraftLog("طباعة", "فشل طباعة الفاتورة: " & ex.Message, "Print_btn")
                 MsgBox(ex.Message, MsgBoxStyle.Critical, "خطأ في الطباعة")
@@ -3809,9 +4135,11 @@ Me.Name.ToString
 
         Try
             Dim isLoaded As Boolean = Await Load_ALL_IM()
+            Dim shortcutsLoaded As Boolean = TryLoadShortcutItemsFromDatabase()
 
-            If isLoaded Then
-                loadShortCut_IM()
+            If shortcutsLoaded Then loadShortCut_IM()
+
+            If isLoaded AndAlso shortcutsLoaded Then
                 AddDraftLog("زر",
                             "تم تحديث الأصناف والاختصارات",
                             "Refresh_IM_Btn",
@@ -3821,9 +4149,16 @@ Me.Name.ToString
                     "تم التحديث: " & IM_Units_Dt.Rows.Count.ToString("N0") & " وحدة متاحة، و" & ShortcutItemsDt.Rows.Count.ToString("N0") & " اختصار",
                     Color.FromArgb(21, 128, 61)
                 )
+            ElseIf IM_Units_Dt IsNot Nothing AndAlso IM_Units_Dt.Rows.Count > 0 Then
+                AddDraftLog("زر", "تعذر التحديث وتم الإبقاء على بيانات الأصناف السابقة", "Refresh_IM_Btn")
+                SetScreenStatus("تعذر التحديث؛ الشاشة مستمرة بآخر بيانات أصناف ناجحة",
+                                ScreenStatusType.Warning,
+                                (LastItemsLoadError & Environment.NewLine & LastShortcutsLoadError).Trim())
             Else
-                AddDraftLog("زر", "تعذر تحديث الأصناف والاختصارات", "Refresh_IM_Btn")
-                SetRefreshStatus("تعذر تحديث الأصناف. راجع رسالة الخطأ.", Color.FromArgb(185, 28, 28))
+                AddDraftLog("زر", "تعذر تحديث الأصناف ولا توجد بيانات محلية", "Refresh_IM_Btn")
+                SetScreenStatus("تعذر تحميل الأصناف ولا توجد بيانات محلية سابقة",
+                                ScreenStatusType.Error,
+                                (LastItemsLoadError & Environment.NewLine & LastShortcutsLoadError).Trim())
             End If
         Finally
             Me.Cursor = Cursors.Default
@@ -3835,10 +4170,11 @@ Me.Name.ToString
     End Sub
 
     Private Sub SetRefreshStatus(message As String, foreColor As Color)
-
-        RefreshStatus_LB.Text = message
-        RefreshStatus_LB.ForeColor = foreColor
-        RefreshStatus_LB.Visible = True
+        Dim statusType As ScreenStatusType = ScreenStatusType.Information
+        If foreColor.R > 150 AndAlso foreColor.G < 100 Then statusType = ScreenStatusType.Error
+        If foreColor.G > foreColor.R AndAlso foreColor.G > foreColor.B Then statusType = ScreenStatusType.Success
+        If message.Contains("الآن") OrElse message.Contains("جاري") Then statusType = ScreenStatusType.Loading
+        SetScreenStatus(message, statusType)
 
     End Sub
 

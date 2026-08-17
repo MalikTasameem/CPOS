@@ -114,6 +114,10 @@ Public Class SalesPrintRepository
                         profile.BorderColorArgb = Convert.ToInt32(dr("BorderColorArgb"))
                         profile.TotalBackColorArgb = Convert.ToInt32(dr("TotalBackColorArgb"))
                         profile.TotalForeColorArgb = Convert.ToInt32(dr("TotalForeColorArgb"))
+                        profile.PaymentBackColorArgb = Convert.ToInt32(dr("PaymentBackColorArgb"))
+                        profile.PaymentForeColorArgb = Convert.ToInt32(dr("PaymentForeColorArgb"))
+                        profile.PaidForeColorArgb = Convert.ToInt32(dr("PaidForeColorArgb"))
+                        profile.RemainingForeColorArgb = Convert.ToInt32(dr("RemainingForeColorArgb"))
                         profile.FooterForeColorArgb = Convert.ToInt32(dr("FooterForeColorArgb"))
                         profile.UseAlternatingRows = Convert.ToBoolean(dr("UseAlternatingRows"))
                         profile.DrawGridLines = Convert.ToBoolean(dr("DrawGridLines"))
@@ -169,12 +173,12 @@ Public Class SalesPrintRepository
                     End If
 
                     If profile.ProfileID <= 0 Then
-                        Using cmd As New SqlCommand("INSERT INTO dbo.Sales_Print_Profile(ProfileName, UsageKey, PaperKind, PrinterName, IsDefault, Landscape, MarginLeft, MarginRight, MarginTop, MarginBottom, LogoWidth, LogoHeight, FontFamily, TitleFontSize, SubTitleFontSize, InfoFontSize, HeaderFontSize, RowFontSize, TotalFontSize, FooterFontSize, TitleForeColorArgb, TextForeColorArgb, HeaderBackColorArgb, HeaderForeColorArgb, RowBackColorArgb, AlternateRowBackColorArgb, BorderColorArgb, TotalBackColorArgb, TotalForeColorArgb, FooterForeColorArgb, UseAlternatingRows, DrawGridLines, CreatedAt, UpdatedAt) OUTPUT INSERTED.ProfileID VALUES(@ProfileName, @UsageKey, @PaperKind, @PrinterName, @IsDefault, @Landscape, @MarginLeft, @MarginRight, @MarginTop, @MarginBottom, @LogoWidth, @LogoHeight, @FontFamily, @TitleFontSize, @SubTitleFontSize, @InfoFontSize, @HeaderFontSize, @RowFontSize, @TotalFontSize, @FooterFontSize, @TitleForeColorArgb, @TextForeColorArgb, @HeaderBackColorArgb, @HeaderForeColorArgb, @RowBackColorArgb, @AlternateRowBackColorArgb, @BorderColorArgb, @TotalBackColorArgb, @TotalForeColorArgb, @FooterForeColorArgb, @UseAlternatingRows, @DrawGridLines, GETDATE(), GETDATE())", cn, tr)
+                        Using cmd As New SqlCommand("INSERT INTO dbo.Sales_Print_Profile(ProfileName, UsageKey, PaperKind, PrinterName, IsDefault, Landscape, MarginLeft, MarginRight, MarginTop, MarginBottom, LogoWidth, LogoHeight, FontFamily, TitleFontSize, SubTitleFontSize, InfoFontSize, HeaderFontSize, RowFontSize, TotalFontSize, FooterFontSize, TitleForeColorArgb, TextForeColorArgb, HeaderBackColorArgb, HeaderForeColorArgb, RowBackColorArgb, AlternateRowBackColorArgb, BorderColorArgb, TotalBackColorArgb, TotalForeColorArgb, PaymentBackColorArgb, PaymentForeColorArgb, PaidForeColorArgb, RemainingForeColorArgb, FooterForeColorArgb, UseAlternatingRows, DrawGridLines, CreatedAt, UpdatedAt) OUTPUT INSERTED.ProfileID VALUES(@ProfileName, @UsageKey, @PaperKind, @PrinterName, @IsDefault, @Landscape, @MarginLeft, @MarginRight, @MarginTop, @MarginBottom, @LogoWidth, @LogoHeight, @FontFamily, @TitleFontSize, @SubTitleFontSize, @InfoFontSize, @HeaderFontSize, @RowFontSize, @TotalFontSize, @FooterFontSize, @TitleForeColorArgb, @TextForeColorArgb, @HeaderBackColorArgb, @HeaderForeColorArgb, @RowBackColorArgb, @AlternateRowBackColorArgb, @BorderColorArgb, @TotalBackColorArgb, @TotalForeColorArgb, @PaymentBackColorArgb, @PaymentForeColorArgb, @PaidForeColorArgb, @RemainingForeColorArgb, @FooterForeColorArgb, @UseAlternatingRows, @DrawGridLines, GETDATE(), GETDATE())", cn, tr)
                             AddProfileParameters(cmd, profile)
                             profile.ProfileID = Convert.ToInt32(cmd.ExecuteScalar())
                         End Using
                     Else
-                        Using cmd As New SqlCommand("UPDATE dbo.Sales_Print_Profile SET ProfileName=@ProfileName, UsageKey=@UsageKey, PaperKind=@PaperKind, PrinterName=@PrinterName, IsDefault=@IsDefault, Landscape=@Landscape, MarginLeft=@MarginLeft, MarginRight=@MarginRight, MarginTop=@MarginTop, MarginBottom=@MarginBottom, LogoWidth=@LogoWidth, LogoHeight=@LogoHeight, FontFamily=@FontFamily, TitleFontSize=@TitleFontSize, SubTitleFontSize=@SubTitleFontSize, InfoFontSize=@InfoFontSize, HeaderFontSize=@HeaderFontSize, RowFontSize=@RowFontSize, TotalFontSize=@TotalFontSize, FooterFontSize=@FooterFontSize, TitleForeColorArgb=@TitleForeColorArgb, TextForeColorArgb=@TextForeColorArgb, HeaderBackColorArgb=@HeaderBackColorArgb, HeaderForeColorArgb=@HeaderForeColorArgb, RowBackColorArgb=@RowBackColorArgb, AlternateRowBackColorArgb=@AlternateRowBackColorArgb, BorderColorArgb=@BorderColorArgb, TotalBackColorArgb=@TotalBackColorArgb, TotalForeColorArgb=@TotalForeColorArgb, FooterForeColorArgb=@FooterForeColorArgb, UseAlternatingRows=@UseAlternatingRows, DrawGridLines=@DrawGridLines, UpdatedAt=GETDATE() WHERE ProfileID=@ProfileID", cn, tr)
+                        Using cmd As New SqlCommand("UPDATE dbo.Sales_Print_Profile SET ProfileName=@ProfileName, UsageKey=@UsageKey, PaperKind=@PaperKind, PrinterName=@PrinterName, IsDefault=@IsDefault, Landscape=@Landscape, MarginLeft=@MarginLeft, MarginRight=@MarginRight, MarginTop=@MarginTop, MarginBottom=@MarginBottom, LogoWidth=@LogoWidth, LogoHeight=@LogoHeight, FontFamily=@FontFamily, TitleFontSize=@TitleFontSize, SubTitleFontSize=@SubTitleFontSize, InfoFontSize=@InfoFontSize, HeaderFontSize=@HeaderFontSize, RowFontSize=@RowFontSize, TotalFontSize=@TotalFontSize, FooterFontSize=@FooterFontSize, TitleForeColorArgb=@TitleForeColorArgb, TextForeColorArgb=@TextForeColorArgb, HeaderBackColorArgb=@HeaderBackColorArgb, HeaderForeColorArgb=@HeaderForeColorArgb, RowBackColorArgb=@RowBackColorArgb, AlternateRowBackColorArgb=@AlternateRowBackColorArgb, BorderColorArgb=@BorderColorArgb, TotalBackColorArgb=@TotalBackColorArgb, TotalForeColorArgb=@TotalForeColorArgb, PaymentBackColorArgb=@PaymentBackColorArgb, PaymentForeColorArgb=@PaymentForeColorArgb, PaidForeColorArgb=@PaidForeColorArgb, RemainingForeColorArgb=@RemainingForeColorArgb, FooterForeColorArgb=@FooterForeColorArgb, UseAlternatingRows=@UseAlternatingRows, DrawGridLines=@DrawGridLines, UpdatedAt=GETDATE() WHERE ProfileID=@ProfileID", cn, tr)
                             AddProfileParameters(cmd, profile)
                             cmd.Parameters.Add("@ProfileID", SqlDbType.Int).Value = profile.ProfileID
                             cmd.ExecuteNonQuery()
@@ -264,6 +268,10 @@ Public Class SalesPrintRepository
         cmd.Parameters.Add("@BorderColorArgb", SqlDbType.Int).Value = profile.BorderColorArgb
         cmd.Parameters.Add("@TotalBackColorArgb", SqlDbType.Int).Value = profile.TotalBackColorArgb
         cmd.Parameters.Add("@TotalForeColorArgb", SqlDbType.Int).Value = profile.TotalForeColorArgb
+        cmd.Parameters.Add("@PaymentBackColorArgb", SqlDbType.Int).Value = profile.PaymentBackColorArgb
+        cmd.Parameters.Add("@PaymentForeColorArgb", SqlDbType.Int).Value = profile.PaymentForeColorArgb
+        cmd.Parameters.Add("@PaidForeColorArgb", SqlDbType.Int).Value = profile.PaidForeColorArgb
+        cmd.Parameters.Add("@RemainingForeColorArgb", SqlDbType.Int).Value = profile.RemainingForeColorArgb
         cmd.Parameters.Add("@FooterForeColorArgb", SqlDbType.Int).Value = profile.FooterForeColorArgb
         cmd.Parameters.Add("@UseAlternatingRows", SqlDbType.Bit).Value = profile.UseAlternatingRows
         cmd.Parameters.Add("@DrawGridLines", SqlDbType.Bit).Value = profile.DrawGridLines
@@ -297,6 +305,9 @@ Public Class SalesPrintRepository
         AddComponent(list, "SECTION", "UserName", "المستخدم", True, 70, 100, "Right")
         AddComponent(list, "SECTION", "ItemsTable", "جدول الأصناف", True, 80, 100, "Center")
         AddComponent(list, "SECTION", "Totals", "الإجماليات", True, 90, 100, "Right")
+        AddComponent(list, "SECTION", "Payments", "تفاصيل طرق الدفع", True, 91, 100, "Right")
+        AddComponent(list, "SECTION", "PaidSummary", "إجمالي المدفوع", True, 92, 100, "Right")
+        AddComponent(list, "SECTION", "RemainingSummary", "المبلغ المتبقي", True, 93, 100, "Right")
         AddComponent(list, "SECTION", "Notes", "ملاحظات الفاتورة", True, 100, 100, "Right")
         AddComponent(list, "SECTION", "Barcode", "الباركود", True, 110, 100, "Center")
         AddComponent(list, "SECTION", "Footer", "التذييل", True, 120, 100, "Center")
@@ -357,6 +368,10 @@ Public Class SalesPrintRepository
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'BorderColorArgb') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD BorderColorArgb INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_BorderColorArgb DEFAULT(-2894893)",
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'TotalBackColorArgb') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD TotalBackColorArgb INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_TotalBackColorArgb DEFAULT(-1253131)",
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'TotalForeColorArgb') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD TotalForeColorArgb INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_TotalForeColorArgb DEFAULT(-16777216)",
+            "IF COL_LENGTH('dbo.Sales_Print_Profile', 'PaymentBackColorArgb') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD PaymentBackColorArgb INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_PaymentBackColorArgb DEFAULT(-1642246)",
+            "IF COL_LENGTH('dbo.Sales_Print_Profile', 'PaymentForeColorArgb') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD PaymentForeColorArgb INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_PaymentForeColorArgb DEFAULT(-14725511)",
+            "IF COL_LENGTH('dbo.Sales_Print_Profile', 'PaidForeColorArgb') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD PaidForeColorArgb INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_PaidForeColorArgb DEFAULT(-16746426)",
+            "IF COL_LENGTH('dbo.Sales_Print_Profile', 'RemainingForeColorArgb') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD RemainingForeColorArgb INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_RemainingForeColorArgb DEFAULT(-4969171)",
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'FooterForeColorArgb') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD FooterForeColorArgb INT NOT NULL CONSTRAINT DF_Sales_Print_Profile_FooterForeColorArgb DEFAULT(-8355712)",
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'UseAlternatingRows') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD UseAlternatingRows BIT NOT NULL CONSTRAINT DF_Sales_Print_Profile_UseAlternatingRows DEFAULT(1)",
             "IF COL_LENGTH('dbo.Sales_Print_Profile', 'DrawGridLines') IS NULL ALTER TABLE dbo.Sales_Print_Profile ADD DrawGridLines BIT NOT NULL CONSTRAINT DF_Sales_Print_Profile_DrawGridLines DEFAULT(1)"

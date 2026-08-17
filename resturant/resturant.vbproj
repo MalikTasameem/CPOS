@@ -273,6 +273,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Classes\Online_C.vb" />
+    <Compile Include="Classes\Payments\SalesPaymentSqlLayer.vb" />
     <Compile Include="Classes\Printing\PrinterProvisioningService.vb" />
     <Compile Include="Classes\OSK_Class.vb" />
     <Compile Include="Classes\Resizer.vb" />
@@ -414,6 +415,7 @@
     <Compile Include="Forms\Pay_Main_Form.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Models\SalePaymentAllocation.vb" />
     <Compile Include="Forms\Pch\ADD_Pch_Exp.designer.vb">
       <DependentUpon>ADD_Pch_Exp.vb</DependentUpon>
     </Compile>
@@ -817,6 +819,12 @@
       <DependentUpon>Returns.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\POS\Returns.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\POS\ReturnOriginalPaymentsForm.Designer.vb">
+      <DependentUpon>ReturnOriginalPaymentsForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\POS\ReturnOriginalPaymentsForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\POS\Sales.designer.vb">
@@ -1518,6 +1526,7 @@
     <Compile Include="Classes\Printing\ReceiptPrintDocumentRenderer.vb" />
     <Compile Include="Classes\Printing\SalesPrintData.vb" />
     <Compile Include="Classes\Printing\SalesPrintDocumentRenderer.vb" />
+    <Compile Include="Classes\Printing\SalesPrintPaymentLine.vb" />
     <Compile Include="Classes\Printing\SalesPrintProfile.vb" />
     <Compile Include="Classes\Printing\SalesPrintPrinterResolver.vb" />
     <Compile Include="Classes\Printing\SalesPrintRepository.vb" />

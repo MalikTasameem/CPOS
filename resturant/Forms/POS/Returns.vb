@@ -1609,7 +1609,43 @@ Public Class Returns : Inherits System.Windows.Forms.Form
         C.Da.Fill(Rtn_Dt)
         MetroGrid1.DataSource = Rtn_Dt
         switch_AG()
+        UpdateOriginalPaymentsButtonState()
         If Rtn_Dt.Rows.Count > 0 And Search_By_Bar_CB.Checked = True Then Bill_SH_TXT.Clear()
+
+
+
+        'If isDiscount = False Then
+        '    MetroGrid1.Columns("Discount_CL").Visible = False
+        'Else
+        '    If Discount_Distribute = True And isDiscount = True Then
+        '        MetroGrid1.Columns("Discount_CL").Visible = True
+        '    End If
+
+        'End If
+
+
+        If isDiscount = False Then
+
+
+            UcGridColumnsSelector1.BindGrid(
+MetroGrid1,
+New List(Of String) From {"Discount_CL"},
+Me.Name.ToString
+)
+
+        Else
+
+
+            UcGridColumnsSelector1.BindGrid(
+MetroGrid1,
+New List(Of String) From {""},
+Me.Name.ToString
+)
+
+            End If
+
+
+
     End Sub
 
     Private Sub switch_AG()
@@ -1670,6 +1706,54 @@ Public Class Returns : Inherits System.Windows.Forms.Form
 
     Private Sub MetroGrid1_MouseClick(sender As Object, e As MouseEventArgs) Handles MetroGrid1.MouseClick
         switch_AG()
+        UpdateOriginalPaymentsButtonState()
+    End Sub
+
+    Private Sub MetroGrid1_CurrentCellChanged(sender As Object, e As EventArgs) Handles MetroGrid1.CurrentCellChanged
+        UpdateOriginalPaymentsButtonState()
+    End Sub
+
+    Private Sub UpdateOriginalPaymentsButtonState()
+        If OriginalPaymentsButton Is Nothing Then Exit Sub
+
+        Dim hasOriginalBill As Boolean = False
+        If MetroGrid1 IsNot Nothing AndAlso
+           MetroGrid1.CurrentRow IsNot Nothing AndAlso
+           MetroGrid1.Columns.Contains("B_T_ID_CL") Then
+
+            Dim value As Object = MetroGrid1.CurrentRow.Cells("B_T_ID_CL").Value
+            Dim originalBillTID As Integer
+            hasOriginalBill = value IsNot Nothing AndAlso
+                              value IsNot DBNull.Value AndAlso
+                              Integer.TryParse(value.ToString(), originalBillTID) AndAlso
+                              originalBillTID > 0
+        End If
+
+        OriginalPaymentsButton.Enabled = hasOriginalBill
+    End Sub
+
+    Private Sub OriginalPaymentsButton_Click(sender As Object, e As EventArgs) Handles OriginalPaymentsButton.Click
+        If MetroGrid1.CurrentRow Is Nothing OrElse
+           Not MetroGrid1.Columns.Contains("B_T_ID_CL") Then Exit Sub
+
+        Dim originalBillTID As Integer
+        Dim value As Object = MetroGrid1.CurrentRow.Cells("B_T_ID_CL").Value
+        If value Is Nothing OrElse value Is DBNull.Value OrElse
+           Not Integer.TryParse(value.ToString(), originalBillTID) OrElse
+           originalBillTID <= 0 Then
+            MessageBox.Show("لم يتم التعرف على الفاتورة الأصلية.", "دفعات الفاتورة", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        Dim billNumber As String = ""
+        If MetroGrid1.Columns.Contains("Bill_ID_CL") Then
+            Dim billValue As Object = MetroGrid1.CurrentRow.Cells("Bill_ID_CL").Value
+            If billValue IsNot Nothing AndAlso billValue IsNot DBNull.Value Then billNumber = billValue.ToString()
+        End If
+
+        Using paymentsForm As New ReturnOriginalPaymentsForm(originalBillTID, billNumber, FormType = 5)
+            paymentsForm.ShowDialog(Me)
+        End Using
     End Sub
 
 

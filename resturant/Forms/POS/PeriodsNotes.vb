@@ -19,6 +19,8 @@
 
     Private Sub End_Period()
 
+        If CanCloseCurrentPeriod() = False Then Exit Sub
+
         Dim C As New C
 
         With C.Com
@@ -58,6 +60,60 @@
         End If
 
     End Sub
+
+    Private Function CanCloseCurrentPeriod() As Boolean
+
+        If F_Periods Is Nothing OrElse
+           F_Periods.Pr_Grid Is Nothing OrElse
+           F_Periods.Pr_Grid.CurrentRow Is Nothing OrElse
+           F_Periods.Pr_Grid.CurrentRow.Cells("Pr_ID_CL") Is Nothing OrElse
+           F_Periods.Pr_Grid.CurrentRow.Cells("Pr_ID_CL").Value Is Nothing OrElse
+           IsDBNull(F_Periods.Pr_Grid.CurrentRow.Cells("Pr_ID_CL").Value) Then
+
+            MessageBox.Show("تعذر تحديد الوردية المطلوب إغلاقها.",
+                            "إغلاق الوردية",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning)
+            Return False
+        End If
+
+        Dim periodId As Integer = 0
+
+        If Integer.TryParse(F_Periods.Pr_Grid.CurrentRow.Cells("Pr_ID_CL").Value.ToString(), periodId) = False OrElse periodId <= 0 Then
+            MessageBox.Show("رقم الوردية المطلوب إغلاقها غير صالح.",
+                            "إغلاق الوردية",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning)
+            Return False
+        End If
+
+        Dim draftManager As New DraftSalesManager()
+        Dim checkError As String = ""
+        Dim openDraftsCount As Integer = draftManager.CountOpenDraftsWithItems(USER_ID, periodId, checkError)
+
+        If openDraftsCount < 0 Then
+            MessageBox.Show("لا يمكن إغلاق الوردية لأن النظام لم يتمكن من التحقق من مسودات المبيعات." &
+                            Environment.NewLine & checkError,
+                            "تعذر التحقق من المسودات",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+            Return False
+        End If
+
+        If openDraftsCount > 0 Then
+            MessageBox.Show("لا يمكن إغلاق الوردية لأن لديك عدد " & openDraftsCount.ToString("N0") &
+                            " من مسودات المبيعات تحتوي على أصناف ولم تتم تسويتها." &
+                            Environment.NewLine &
+                            "يرجى ترحيل المسودات أو حذفها أو إفراغ أصنافها أولاً.",
+                            "مسودات مبيعات غير مسوّاة",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning)
+            Return False
+        End If
+
+        Return True
+
+    End Function
 
     Private Sub Insert_Period()
 

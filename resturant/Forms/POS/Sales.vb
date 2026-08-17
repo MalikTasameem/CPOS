@@ -545,7 +545,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             AG_ID = Default_AG_ID
             'AG_SH_txt.Text = "نقدي"
             Fetch_ItemToList2()
-            VoidLb.Enabled = False
+            DeletedBillLabel.Enabled = False
         End If
 
         Return isBillFound
@@ -648,7 +648,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             ' 1. إعدادات الواجهة الأساسية
             Edit_butt.Text = EditState
             Me.Text = "فاتورة مبيعات "
-            VoidLb.Visible = False
+            DeletedBillLabel.Visible = False
 
             ' 2. توجيه حالة الفاتورة (ملغاة - معلقة - مرحلة - قيد التعديل)
             If isVoid Then
@@ -777,7 +777,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Total_TextBox1.Clear()
         Receipts_DT.Clear()
         DateTimeEx.Text = Date.Now
-        VoidLb.Visible = False
+        DeletedBillLabel.Visible = False
         isVoid = False
         isDepended = False
         Discount_txt1.Clear()
@@ -918,10 +918,14 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
     Private Sub ConfermBill(ByVal sqlCon As SqlClient.SqlConnection)
 
+        Dim useMultiplePayments As Boolean =
+            AG_ID = Default_AG_ID AndAlso SalesPaymentSqlLayer.IsAvailable(sqlCon)
+
         Dim F As New Pay_Main_Form
         F.Temp_Tr_ID = SB_TR_ID
         F.AG_ID = AG_ID
         F.MONEY_VALUE = Pure
+        F.EnableMultiplePayments = useMultiplePayments
         F.ShowDialog()
 
         If F.is_OK = True Then
@@ -933,18 +937,26 @@ Public Class Sales : Inherits System.Windows.Forms.Form
 
                 sqlComm.Connection = sqlCon
                 With sqlComm
-                    .CommandText = "SB_ConfermBill"
+                    .CommandText = If(useMultiplePayments, "SB_ConfermBill_V2", "SB_ConfermBill")
                     .CommandType = CommandType.StoredProcedure
                     .Parameters.AddWithValue("@T_ID", Me.T_ID)
                     .Parameters.AddWithValue("@TOTAL", TOTAL)
                     .Parameters.AddWithValue("@Discount", Disc)
                     .Parameters.AddWithValue("@Pure", Pure)
-                    If AG_ID <> Default_AG_ID Then .Parameters.AddWithValue("@Pied", Piedmoney_txt.Text)
+                    If useMultiplePayments Then
+                        .Parameters.AddWithValue("@Pied", SalesPaymentSqlLayer.GetPaymentsTotal(F.Payments))
+                    ElseIf AG_ID <> Default_AG_ID Then
+                        .Parameters.AddWithValue("@Pied", Piedmoney_txt.Text)
+                    End If
                     .Parameters.AddWithValue("@AGType_ID", 1)
-                    .Parameters.AddWithValue("@Tr_ID", Tr_ID) 'SB_TR_ID
                     .Parameters.AddWithValue("@Pr_ID", Pr_ID)
                     .Parameters.AddWithValue("@User_ID", USER_ID)
-                    .Parameters.AddWithValue("@Pay_ID", Pay_ID)
+                    If useMultiplePayments Then
+                        SalesPaymentSqlLayer.AddPaymentsParameter(sqlComm, F.Payments)
+                    Else
+                        .Parameters.AddWithValue("@Tr_ID", Tr_ID) 'SB_TR_ID
+                        .Parameters.AddWithValue("@Pay_ID", Pay_ID)
+                    End If
                 End With
 
                 If ExecuteSalesConfirmBill(sqlComm) = True Then
@@ -1331,7 +1343,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             printData = SalesPrintData.FromSalesForm(Me)
 
             Using doc As PrintDocument = New SalesPrintDocumentRenderer(printData, profile).CreatePrintDocument()
-                If Show_Bill_CB.Checked Then
+                If SalesPrintDocumentRenderer.ForcePrintPreview OrElse Show_Bill_CB.Checked Then
                     Using preview As New PrintPreviewDialog()
                         preview.Document = doc
                         preview.WindowState = FormWindowState.Maximized
@@ -2171,7 +2183,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         ' ==========================================
         ' جهة اليسار (الإجماليات والخصم)
         If DiscountPanel IsNot Nothing Then DiscountPanel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
-        If Panel16 IsNot Nothing Then Panel16.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left ' خيارات العرض (مدفوع، باقي، ديون)
+        'If Panel16 IsNot Nothing Then Panel16.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left ' خيارات العرض (مدفوع، باقي، ديون)
 
         ' جهة اليمين (الدفع، الإيصالات، والأزرار السفلية)
         If ReceiptsMetroGrid IsNot Nothing Then ReceiptsMetroGrid.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
@@ -2210,5 +2222,9 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         If IM_Check_Panel IsNot Nothing Then IM_Check_Panel.Anchor = AnchorStyles.Top Or AnchorStyles.Left
         'If Markter_Cm IsNot Nothing Then Markter_Cm.Anchor = AnchorStyles.Top Or AnchorStyles.Left
         'If Marketer_Lb IsNot Nothing Then Marketer_Lb.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+    End Sub
+
+    Private Sub IM_Qty_LB_Click(sender As Object, e As EventArgs) Handles IM_Qty_LB.Click
+
     End Sub
 End Class

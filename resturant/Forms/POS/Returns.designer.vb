@@ -58,6 +58,7 @@ Partial Class Returns
         Me.Price_CL_2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Total_CL_2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Date_Search_Btn = New System.Windows.Forms.Button()
+        Me.OriginalPaymentsButton = New System.Windows.Forms.Button()
         Me.MetroGrid1 = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Serial_Code_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -143,6 +144,7 @@ Partial Class Returns
         Me.Min_SP_CB = New System.Windows.Forms.CheckBox()
         Me.mySearchControl = New resturant.SearchItemControl()
         Me.AG_Cm = New resturant.FSearch_Filter()
+        Me.UcGridColumnsSelector1 = New resturant.UcGridColumnsSelector()
         CType(Me.BillMetroGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MetroGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AG_ContextMenuStrip.SuspendLayout()
@@ -455,6 +457,22 @@ Partial Class Returns
         Me.Date_Search_Btn.TabIndex = 637
         Me.Date_Search_Btn.Text = "🔍"
         Me.Date_Search_Btn.UseVisualStyleBackColor = False
+        '
+        'OriginalPaymentsButton
+        '
+        Me.OriginalPaymentsButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
+        Me.OriginalPaymentsButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.OriginalPaymentsButton.Enabled = False
+        Me.OriginalPaymentsButton.FlatAppearance.BorderSize = 0
+        Me.OriginalPaymentsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.OriginalPaymentsButton.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.OriginalPaymentsButton.ForeColor = System.Drawing.Color.White
+        Me.OriginalPaymentsButton.Location = New System.Drawing.Point(43, 122)
+        Me.OriginalPaymentsButton.Name = "OriginalPaymentsButton"
+        Me.OriginalPaymentsButton.Size = New System.Drawing.Size(129, 39)
+        Me.OriginalPaymentsButton.TabIndex = 1050
+        Me.OriginalPaymentsButton.Text = "💳 عرض دفعات الفاتورة"
+        Me.OriginalPaymentsButton.UseVisualStyleBackColor = False
         '
         'MetroGrid1
         '
@@ -1107,13 +1125,14 @@ Partial Class Returns
         '
         'ALLTime_CB
         '
+        Me.ALLTime_CB.AutoSize = True
         Me.ALLTime_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ALLTime_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ALLTime_CB.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ALLTime_CB.Location = New System.Drawing.Point(45, 131)
+        Me.ALLTime_CB.Location = New System.Drawing.Point(90, 135)
         Me.ALLTime_CB.Name = "ALLTime_CB"
         Me.ALLTime_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ALLTime_CB.Size = New System.Drawing.Size(92, 25)
+        Me.ALLTime_CB.Size = New System.Drawing.Size(82, 21)
         Me.ALLTime_CB.TabIndex = 642
         Me.ALLTime_CB.Text = "كل الفترات"
         Me.ALLTime_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1154,17 +1173,18 @@ Partial Class Returns
         Me.Serial_Code_Panel.Controls.Add(Me.Label1)
         Me.Serial_Code_Panel.Controls.Add(Me.Serial_Search_btn)
         Me.Serial_Code_Panel.Controls.Add(Me.Serial_Code_txt)
-        Me.Serial_Code_Panel.Location = New System.Drawing.Point(683, 121)
+        Me.Serial_Code_Panel.Location = New System.Drawing.Point(715, 121)
         Me.Serial_Code_Panel.Name = "Serial_Code_Panel"
-        Me.Serial_Code_Panel.Size = New System.Drawing.Size(321, 39)
+        Me.Serial_Code_Panel.Size = New System.Drawing.Size(291, 39)
         Me.Serial_Code_Panel.TabIndex = 679
         '
         'Label1
         '
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(187, 8)
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(173, 10)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(129, 21)
+        Me.Label1.Size = New System.Drawing.Size(116, 17)
         Me.Label1.TabIndex = 676
         Me.Label1.Text = "بحث برقم التسلسل :"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1175,11 +1195,11 @@ Partial Class Returns
         Me.Serial_Search_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Serial_Search_btn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Serial_Search_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Serial_Search_btn.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Serial_Search_btn.Font = New System.Drawing.Font("Segoe UI", 9.5!)
         Me.Serial_Search_btn.ForeColor = System.Drawing.Color.Black
-        Me.Serial_Search_btn.Location = New System.Drawing.Point(2, 4)
+        Me.Serial_Search_btn.Location = New System.Drawing.Point(1, 6)
         Me.Serial_Search_btn.Name = "Serial_Search_btn"
-        Me.Serial_Search_btn.Size = New System.Drawing.Size(40, 29)
+        Me.Serial_Search_btn.Size = New System.Drawing.Size(28, 25)
         Me.Serial_Search_btn.TabIndex = 675
         Me.Serial_Search_btn.Text = "🔍"
         Me.Serial_Search_btn.UseVisualStyleBackColor = False
@@ -1188,17 +1208,17 @@ Partial Class Returns
         '
         Me.Serial_Code_txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Serial_Code_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Serial_Code_txt.Font = New System.Drawing.Font("Times New Roman", 14.0!)
-        Me.Serial_Code_txt.Location = New System.Drawing.Point(43, 4)
+        Me.Serial_Code_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Serial_Code_txt.Location = New System.Drawing.Point(30, 6)
         Me.Serial_Code_txt.Name = "Serial_Code_txt"
         Me.Serial_Code_txt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Serial_Code_txt.Size = New System.Drawing.Size(140, 29)
+        Me.Serial_Code_txt.Size = New System.Drawing.Size(140, 25)
         Me.Serial_Code_txt.TabIndex = 673
         Me.Serial_Code_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label12
         '
-        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.Location = New System.Drawing.Point(939, 90)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(57, 21)
@@ -1260,7 +1280,7 @@ Partial Class Returns
         '
         'Label11
         '
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.Location = New System.Drawing.Point(262, 8)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(127, 21)
@@ -1313,16 +1333,17 @@ Partial Class Returns
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.DateRange_Flate1)
-        Me.Panel1.Location = New System.Drawing.Point(141, 122)
+        Me.Panel1.Location = New System.Drawing.Point(175, 121)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(539, 38)
+        Me.Panel1.Size = New System.Drawing.Size(539, 39)
         Me.Panel1.TabIndex = 696
         '
         'DateRange_Flate1
         '
         Me.DateRange_Flate1.AutoSize = True
         Me.DateRange_Flate1.BackColor = System.Drawing.SystemColors.Control
-        Me.DateRange_Flate1.Location = New System.Drawing.Point(3, -1)
+        Me.DateRange_Flate1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.DateRange_Flate1.Location = New System.Drawing.Point(2, -1)
         Me.DateRange_Flate1.Name = "DateRange_Flate1"
         Me.DateRange_Flate1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.DateRange_Flate1.Size = New System.Drawing.Size(531, 41)
@@ -1447,12 +1468,30 @@ Partial Class Returns
         Me.AG_Cm.TextMaxLength = 250
         Me.AG_Cm.Textt = ""
         '
+        'UcGridColumnsSelector1
+        '
+        Me.UcGridColumnsSelector1.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(175, Byte), Integer))
+        Me.UcGridColumnsSelector1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.UcGridColumnsSelector1.ForeColor = System.Drawing.Color.Black
+        Me.UcGridColumnsSelector1.Location = New System.Drawing.Point(2, 122)
+        Me.UcGridColumnsSelector1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.UcGridColumnsSelector1.Name = "UcGridColumnsSelector1"
+        Me.UcGridColumnsSelector1.PopupMaxHeight = 320
+        Me.UcGridColumnsSelector1.PopupMinHeight = 120
+        Me.UcGridColumnsSelector1.PopupWidth = 260
+        Me.UcGridColumnsSelector1.SettingsFolder = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Grid" &
+    "ColumnsSettings"
+        Me.UcGridColumnsSelector1.Size = New System.Drawing.Size(40, 39)
+        Me.UcGridColumnsSelector1.TabIndex = 1049
+        '
         'Returns
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.ClientSize = New System.Drawing.Size(1006, 695)
+        Me.Controls.Add(Me.UcGridColumnsSelector1)
+        Me.Controls.Add(Me.OriginalPaymentsButton)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.mySearchControl)
         Me.Controls.Add(Me.AG_Cm)
@@ -1542,6 +1581,7 @@ Partial Class Returns
     Friend WithEvents Bill_ID_Txt As System.Windows.Forms.TextBox
     Friend WithEvents MetroGrid1 As DataGridView
     Friend WithEvents Date_Search_Btn As System.Windows.Forms.Button
+    Friend WithEvents OriginalPaymentsButton As System.Windows.Forms.Button
     Friend WithEvents D_Valid As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents IM_Qty_LB As System.Windows.Forms.Label
@@ -1624,4 +1664,5 @@ Partial Class Returns
     Friend WithEvents Min_SP_CB As CheckBox
     Friend WithEvents AG_Cm As FSearch_Filter
     Friend WithEvents mySearchControl As SearchItemControl
+    Friend WithEvents UcGridColumnsSelector1 As UcGridColumnsSelector
 End Class

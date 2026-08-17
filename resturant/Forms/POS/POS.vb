@@ -1956,6 +1956,8 @@ Public Class POS
 
     Public Sub ConfermBill()
 
+        PIED_OK = False
+
         'If MY_Settings.is_Use_Multi_Pay = True Then
         '    POS_Pied_Types.ShowDialog()
         'Else
@@ -1964,13 +1966,25 @@ Public Class POS
 
         'If PIED_OK = False Then Exit Sub
 
+        Dim useMultiplePayments As Boolean = SalesPaymentSqlLayer.IsAvailable()
+        Dim paymentAmount As Decimal = GetCurrentPaymentAmount()
+
         Dim F As New Pay_Main_Form
-        F.MONEY_VALUE = PURE
+        F.MONEY_VALUE = If(useMultiplePayments, paymentAmount, CDec(PURE))
         F.Temp_Tr_ID = SB_TR_ID
         F.AG_ID = AG_ID
-        F.ShowDialog()
+        F.EnableMultiplePayments = useMultiplePayments
+        F.Is_Force_Pay = useMultiplePayments AndAlso AG_ID <> Default_AG_ID
 
-        If F.is_OK = True Then
+        Dim paymentApproved As Boolean
+        If useMultiplePayments AndAlso paymentAmount = 0D Then
+            paymentApproved = True
+        Else
+            F.ShowDialog()
+            paymentApproved = F.is_OK
+        End If
+
+        If paymentApproved Then
             Dim Tr_ID, Pay_ID As Integer
             Tr_ID = F.Tr_ID
             Pay_ID = F.Pay_ID
@@ -1979,13 +1993,17 @@ Public Class POS
             Dim c As New C
             With c.Com
                 .Connection = c.Con
-                .CommandText = "SB_ConfermBill"
+                .CommandText = If(useMultiplePayments, "SB_ConfermBill_V2", "SB_ConfermBill")
                 .CommandType = CommandType.StoredProcedure
                 .Parameters.AddWithValue("@T_ID", Me.T_ID)
                 .Parameters.AddWithValue("@TOTAL", TOTAL)
                 .Parameters.AddWithValue("@Discount", DISCOUNT)
                 .Parameters.AddWithValue("@Pure", PURE)
-                If AG_ID <> Default_AG_ID And isDierct_Reseve = False Then .Parameters.AddWithValue("@Pied", F_OrderOptions.Piedmoney_txt.Text)
+                If useMultiplePayments Then
+                    .Parameters.AddWithValue("@Pied", paymentAmount)
+                ElseIf AG_ID <> Default_AG_ID And isDierct_Reseve = False Then
+                    .Parameters.AddWithValue("@Pied", F_OrderOptions.Piedmoney_txt.Text)
+                End If
                 .Parameters.AddWithValue("@AGType_ID", AG_TypeID)
                 .Parameters.AddWithValue("@Point_Inc", Point_Inc)
                 .Parameters.AddWithValue("@Points_Sale", Points_Sale)
@@ -1994,21 +2012,42 @@ Public Class POS
                     .Parameters.AddWithValue("@Order_isDeleverd", 0)
                 End If
                 .Parameters.AddWithValue("@isCostmerScreen", isCostmerScreen)
-                .Parameters.AddWithValue("@Tr_ID", Tr_ID)
                 .Parameters.AddWithValue("@Pr_ID", Pr_ID)
                 If TB_ID > 0 Then .Parameters.AddWithValue("@TB_ID", TB_ID)
                 .Parameters.AddWithValue("@User_ID", USER_ID)
-                .Parameters.AddWithValue("@Pay_ID", Pay_ID)
+                If useMultiplePayments Then
+                    SalesPaymentSqlLayer.AddPaymentsParameter(c.Com, F.Payments)
+                Else
+                    .Parameters.AddWithValue("@Tr_ID", Tr_ID)
+                    .Parameters.AddWithValue("@Pay_ID", Pay_ID)
+                End If
             End With
             If SQL_SP_EXEC(c.Com) Then
                 If CP_Bill_Screen = True Then Send_To_Bill_Screen()
                 Print_Bill()
                 ResetNewBill()
+                PIED_OK = True
             End If
 
         End If
 
     End Sub
+
+    Private Function GetCurrentPaymentAmount() As Decimal
+        If AG_ID = Default_AG_ID OrElse AG_TypeID = 3 OrElse AG_TypeID = 5 Then
+            Return CDec(PURE)
+        End If
+
+        If isDierct_Reseve OrElse F_OrderOptions Is Nothing Then Return 0D
+
+        Dim paidAmount As Decimal
+        If Not Decimal.TryParse(F_OrderOptions.Piedmoney_txt.Text, paidAmount) Then Return 0D
+
+        If paidAmount < 0D Then Return 0D
+        If paidAmount > CDec(PURE) Then Return CDec(PURE)
+
+        Return paidAmount
+    End Function
 
     Private Sub PrintBillButton_Click(sender As Object, e As EventArgs) Handles PrintBillButton.Click
         Try
@@ -2074,8 +2113,17 @@ Public Class POS
             printData = SalesPrintData.FromPosForm(Me)
 
             Using doc As PrintDocument = New SalesPrintDocumentRenderer(printData, profile).CreatePrintDocument()
-                doc.PrintController = New StandardPrintController()
-                doc.Print()
+                If SalesPrintDocumentRenderer.ForcePrintPreview Then
+                    Using preview As New PrintPreviewDialog()
+                        preview.Document = doc
+                        preview.WindowState = FormWindowState.Maximized
+                        preview.Text = "معاينة طباعة فاتورة POS"
+                        preview.ShowDialog(Me)
+                    End Using
+                Else
+                    doc.PrintController = New StandardPrintController()
+                    doc.Print()
+                End If
             End Using
         Finally
             If printData IsNot Nothing AndAlso printData.LogoImage IsNot Nothing Then

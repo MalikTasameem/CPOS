@@ -91,10 +91,14 @@
             If Not String.IsNullOrWhiteSpace(Piedmoney_txt.Text) Then F_POS.isDierct_Reseve = False
 
             F_POS.ConfermBill()
-            'If SB_AutoPrint = True Then F_POS.Print_Bill()
-            F_POS.ResetNewBill()
-                Me.Close()
+
+            If F_POS.PIED_OK = False Then
                 Me.Cursor = Cursors.Default
+                Exit Sub
+            End If
+
+            Me.Close()
+            Me.Cursor = Cursors.Default
             End If
 
     End Sub
