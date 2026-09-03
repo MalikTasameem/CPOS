@@ -2633,13 +2633,18 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     Private Function PushCurrentDraftToDatabase() As Boolean
 
+        If Not ValidateDraftBeforePush() Then Return False
+
+        DraftCalculator.RecalculateDraft(CurrentDraft)
+        UpdateDraftTotalsOnScreen()
+
         Dim useMultiplePayments As Boolean =
             SalesPaymentSqlLayer.CanUseDraftMultiplePayments(CurrentDraft.AG_ID)
 
         Dim F As New Pay_Main_Form
         F.Temp_Tr_ID = SB_TR_ID
         F.AG_ID = CurrentDraft.AG_ID
-        F.MONEY_VALUE = Pure
+        F.MONEY_VALUE = CurrentDraft.Pure
         F.EnableMultiplePayments = useMultiplePayments
         F.Is_Force_Pay = useMultiplePayments
         F.ShowDialog()
@@ -2651,10 +2656,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             Print_PaymentName = F.PaymentName
             If String.IsNullOrWhiteSpace(Print_PaymentName) Then Print_PaymentName = "نقدا"
 
-
-            If Not ValidateDraftBeforePush() Then Return False
-
-            DraftCalculator.RecalculateDraft(CurrentDraft)
+            ' تاريخ الفاتورة النهائية هو وقت ترحيل المسودة، وليس وقت إنشائها محليًا.
+            Dim finalBillDate As DateTime = DateTime.Now
+            CurrentDraft.Date = finalBillDate
+            DateTimeEx.Value = finalBillDate
 
             Dim detailsTable As DataTable = BuildDetailsTable(CurrentDraft.Items)
 
@@ -2679,7 +2684,7 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                             cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = DBNull.Value
                         End If
 
-                        cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = CurrentDraft.Date
+                        cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = finalBillDate
                         cmd.Parameters.Add("@Discount", SqlDbType.Decimal).Value = CurrentDraft.Discount
                         cmd.Parameters("@Discount").Precision = 18
                         cmd.Parameters("@Discount").Scale = 3

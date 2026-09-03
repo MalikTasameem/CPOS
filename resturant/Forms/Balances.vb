@@ -2420,6 +2420,7 @@
         Dim N_D = 0, N_C = 0
 
         For i = 0 To AGMVMetroGrid.Rows.Count - 1
+            If GetBooleanCellValue(AGMVMetroGrid.Rows(i), "AGisVoid_CL") Then Continue For
             Dim debitValue As Decimal = GetDecimalCellValue(AGMVMetroGrid.Rows(i), "Debit_CL", True)
             Dim creditValue As Decimal = GetDecimalCellValue(AGMVMetroGrid.Rows(i), "Credit_CL", True)
 
@@ -2467,6 +2468,7 @@
         Dim Sum_B As Decimal = 0D
 
         For i = 0 To Tr_MV_MetroGrid.Rows.Count - 1
+            If GetBooleanCellValue(Tr_MV_MetroGrid.Rows(i), "TrisVoid_CL") Then Continue For
             Sum_D += GetDecimalCellValue(Tr_MV_MetroGrid.Rows(i), "Tr_Debit_CL", True)
             Sum_C += GetDecimalCellValue(Tr_MV_MetroGrid.Rows(i), "Tr_Credit_CL", True)
         Next

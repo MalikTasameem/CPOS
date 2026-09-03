@@ -677,7 +677,6 @@ Public Class Returns : Inherits System.Windows.Forms.Form
                 Beep()
                 Save_AG_Name(T_ID, AG_ID, False)
                 Save_About(T_ID, Notes_txt.Text)
-                Save_Date(T_ID, DateTimeEx)
                 Update_Total()
 
 
@@ -694,6 +693,10 @@ Public Class Returns : Inherits System.Windows.Forms.Form
                 F.ShowDialog()
 
                 If F.is_OK = True Then
+
+                    'استخدم وقت الحفظ الفعلي للفاتورة الجديدة بدلاً من وقت إنشاء المسودة.
+                    DateTimeEx.Value = Date.Now
+                    Save_Date(T_ID, DateTimeEx)
 
 
                     Dim Tr_ID, Pay_ID As Integer
