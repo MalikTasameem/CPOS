@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class EXP_Card
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class EXP_Card
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EXP_Card))
         Me.S_listBox = New System.Windows.Forms.ListBox()
@@ -47,9 +47,9 @@ Partial Class EXP_Card
         Me.S_listBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.S_listBox.FormattingEnabled = True
         Me.S_listBox.ItemHeight = 17
-        Me.S_listBox.Location = New System.Drawing.Point(3, 25)
+        Me.S_listBox.Location = New System.Drawing.Point(3, 19)
         Me.S_listBox.Name = "S_listBox"
-        Me.S_listBox.Size = New System.Drawing.Size(282, 235)
+        Me.S_listBox.Size = New System.Drawing.Size(666, 392)
         Me.S_listBox.TabIndex = 430
         '
         'Label15
@@ -58,22 +58,23 @@ Partial Class EXP_Card
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
-        Me.Label15.Location = New System.Drawing.Point(326, 75)
+        Me.Label15.Location = New System.Drawing.Point(694, 65)
         Me.Label15.Name = "Label15"
         Me.Label15.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Label15.Size = New System.Drawing.Size(50, 15)
+        Me.Label15.Size = New System.Drawing.Size(51, 15)
         Me.Label15.TabIndex = 428
         Me.Label15.Text = "اسم البند"
         '
         'SNameTextBox
         '
+        Me.SNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SNameTextBox.Enabled = False
         Me.SNameTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SNameTextBox.Location = New System.Drawing.Point(16, 72)
+        Me.SNameTextBox.Location = New System.Drawing.Point(3, 62)
         Me.SNameTextBox.MaxLength = 350
         Me.SNameTextBox.Name = "SNameTextBox"
         Me.SNameTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SNameTextBox.Size = New System.Drawing.Size(304, 25)
+        Me.SNameTextBox.Size = New System.Drawing.Size(685, 25)
         Me.SNameTextBox.TabIndex = 429
         Me.SNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -89,13 +90,11 @@ Partial Class EXP_Card
         Me.DeleteSButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.DeleteSButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteSButton.ForeColor = System.Drawing.Color.White
-        Me.DeleteSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.DeleteSButton.Location = New System.Drawing.Point(304, 271)
+        Me.DeleteSButton.Location = New System.Drawing.Point(672, 261)
         Me.DeleteSButton.Name = "DeleteSButton"
         Me.DeleteSButton.Size = New System.Drawing.Size(110, 34)
         Me.DeleteSButton.TabIndex = 435
         Me.DeleteSButton.Text = "✕ حذف"
-        Me.DeleteSButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.DeleteSButton.UseVisualStyleBackColor = False
         '
         'NewSButton
@@ -109,13 +108,11 @@ Partial Class EXP_Card
         Me.NewSButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.NewSButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NewSButton.ForeColor = System.Drawing.Color.White
-        Me.NewSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.NewSButton.Location = New System.Drawing.Point(304, 145)
+        Me.NewSButton.Location = New System.Drawing.Point(672, 135)
         Me.NewSButton.Name = "NewSButton"
         Me.NewSButton.Size = New System.Drawing.Size(110, 34)
         Me.NewSButton.TabIndex = 434
         Me.NewSButton.Text = "＋ جديد"
-        Me.NewSButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.NewSButton.UseVisualStyleBackColor = False
         '
         'EditSButton
@@ -130,13 +127,11 @@ Partial Class EXP_Card
         Me.EditSButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.EditSButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.EditSButton.ForeColor = System.Drawing.Color.White
-        Me.EditSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.EditSButton.Location = New System.Drawing.Point(304, 229)
+        Me.EditSButton.Location = New System.Drawing.Point(672, 219)
         Me.EditSButton.Name = "EditSButton"
         Me.EditSButton.Size = New System.Drawing.Size(110, 34)
         Me.EditSButton.TabIndex = 433
         Me.EditSButton.Text = "✎ تعديل"
-        Me.EditSButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.EditSButton.UseVisualStyleBackColor = False
         '
         'SaveSButton
@@ -151,13 +146,11 @@ Partial Class EXP_Card
         Me.SaveSButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.SaveSButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveSButton.ForeColor = System.Drawing.Color.White
-        Me.SaveSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.SaveSButton.Location = New System.Drawing.Point(304, 187)
+        Me.SaveSButton.Location = New System.Drawing.Point(672, 177)
         Me.SaveSButton.Name = "SaveSButton"
         Me.SaveSButton.Size = New System.Drawing.Size(110, 34)
         Me.SaveSButton.TabIndex = 432
         Me.SaveSButton.Text = "✓ حفظ"
-        Me.SaveSButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.SaveSButton.UseVisualStyleBackColor = False
         '
         'GroupBox1
@@ -165,10 +158,10 @@ Partial Class EXP_Card
         Me.GroupBox1.Controls.Add(Me.S_listBox)
         Me.GroupBox1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 137)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 127)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.GroupBox1.Size = New System.Drawing.Size(288, 263)
+        Me.GroupBox1.Size = New System.Drawing.Size(672, 414)
         Me.GroupBox1.TabIndex = 436
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "قائمة البنود"
@@ -181,13 +174,11 @@ Partial Class EXP_Card
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.Color.White
-        Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.ExitFormButton.Location = New System.Drawing.Point(304, 366)
+        Me.ExitFormButton.Location = New System.Drawing.Point(675, 504)
         Me.ExitFormButton.Name = "ExitFormButton"
         Me.ExitFormButton.Size = New System.Drawing.Size(110, 34)
         Me.ExitFormButton.TabIndex = 454
         Me.ExitFormButton.Text = "↩ خروج"
-        Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.ExitFormButton.UseVisualStyleBackColor = False
         '
         'HeaderPanel
@@ -198,7 +189,7 @@ Partial Class EXP_Card
         Me.HeaderPanel.Controls.Add(Me.Title_Label)
         Me.HeaderPanel.Location = New System.Drawing.Point(0, 0)
         Me.HeaderPanel.Name = "HeaderPanel"
-        Me.HeaderPanel.Size = New System.Drawing.Size(430, 56)
+        Me.HeaderPanel.Size = New System.Drawing.Size(783, 56)
         Me.HeaderPanel.TabIndex = 455
         '
         'Title_Label
@@ -207,10 +198,10 @@ Partial Class EXP_Card
         Me.Title_Label.AutoSize = True
         Me.Title_Label.Font = New System.Drawing.Font("Segoe UI Semibold", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Title_Label.ForeColor = System.Drawing.Color.White
-        Me.Title_Label.Location = New System.Drawing.Point(264, 15)
+        Me.Title_Label.Location = New System.Drawing.Point(617, 15)
         Me.Title_Label.Name = "Title_Label"
         Me.Title_Label.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Title_Label.Size = New System.Drawing.Size(150, 25)
+        Me.Title_Label.Size = New System.Drawing.Size(136, 25)
         Me.Title_Label.TabIndex = 0
         Me.Title_Label.Text = "بنود المصروفات"
         '
@@ -219,13 +210,13 @@ Partial Class EXP_Card
         Me.SEARCH_txt.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
         Me.SEARCH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SEARCH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SEARCH_txt.Location = New System.Drawing.Point(16, 104)
+        Me.SEARCH_txt.Location = New System.Drawing.Point(3, 94)
         Me.SEARCH_txt.MaxLength = 350
         Me.SEARCH_txt.Name = "SEARCH_txt"
         Me.SEARCH_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SEARCH_txt.Size = New System.Drawing.Size(304, 25)
+        Me.SEARCH_txt.Size = New System.Drawing.Size(685, 25)
         Me.SEARCH_txt.TabIndex = 456
-        Me.SEARCH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.SEARCH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'SearchLabel
         '
@@ -233,10 +224,10 @@ Partial Class EXP_Card
         Me.SearchLabel.BackColor = System.Drawing.Color.Transparent
         Me.SearchLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SearchLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
-        Me.SearchLabel.Location = New System.Drawing.Point(326, 109)
+        Me.SearchLabel.Location = New System.Drawing.Point(694, 99)
         Me.SearchLabel.Name = "SearchLabel"
         Me.SearchLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SearchLabel.Size = New System.Drawing.Size(40, 15)
+        Me.SearchLabel.Size = New System.Drawing.Size(41, 15)
         Me.SearchLabel.TabIndex = 457
         Me.SearchLabel.Text = "⌕ بحث"
         '
@@ -246,7 +237,7 @@ Partial Class EXP_Card
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(430, 416)
+        Me.ClientSize = New System.Drawing.Size(783, 543)
         Me.ControlBox = False
         Me.Controls.Add(Me.SearchLabel)
         Me.Controls.Add(Me.SEARCH_txt)

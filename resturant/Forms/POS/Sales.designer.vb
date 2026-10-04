@@ -22,11 +22,11 @@ Partial Class Sales
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Sales))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TitleBar_Panel = New System.Windows.Forms.Panel()
         Me.lblFormState = New System.Windows.Forms.Label()
         Me.Title_Label = New System.Windows.Forms.Label()
@@ -96,6 +96,12 @@ Partial Class Sales
         Me.IM_Info_Timer = New System.Windows.Forms.Timer(Me.components)
         Me.Project_cm = New System.Windows.Forms.ComboBox()
         Me.ReceiptsMetroGrid = New System.Windows.Forms.DataGridView()
+        Me.Receipt_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Receipt_Num_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PAYMENT_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Value_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BsType_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AG_Show_Balance_CB = New System.Windows.Forms.CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -152,12 +158,6 @@ Partial Class Sales
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.AG_Cm = New resturant.FSearch_Filter()
-        Me.Receipt_T_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Receipt_Num_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PAYMENT_NAME_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Value_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BsType_ID_CL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TitleBar_Panel.SuspendLayout()
         Me.IM_ContextMenuStrip.SuspendLayout()
         Me.DiscountPanel.SuspendLayout()
@@ -790,7 +790,7 @@ Partial Class Sales
         Me.Project_cm.Font = New System.Drawing.Font("Segoe UI Semibold", 10.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Project_cm.Location = New System.Drawing.Point(30, 3)
         Me.Project_cm.Name = "Project_cm"
-        Me.Project_cm.Size = New System.Drawing.Size(317, 27)
+        Me.Project_cm.Size = New System.Drawing.Size(376, 27)
         Me.Project_cm.TabIndex = 684
         '
         'ReceiptsMetroGrid
@@ -848,6 +848,56 @@ Partial Class Sales
         Me.ReceiptsMetroGrid.Size = New System.Drawing.Size(380, 118)
         Me.ReceiptsMetroGrid.TabIndex = 664
         '
+        'Receipt_T_ID_CL
+        '
+        Me.Receipt_T_ID_CL.DataPropertyName = "T_ID"
+        Me.Receipt_T_ID_CL.HeaderText = "رقم الآلي"
+        Me.Receipt_T_ID_CL.Name = "Receipt_T_ID_CL"
+        Me.Receipt_T_ID_CL.ReadOnly = True
+        Me.Receipt_T_ID_CL.Visible = False
+        '
+        'Receipt_Num_CL
+        '
+        Me.Receipt_Num_CL.DataPropertyName = "Receipt_Num"
+        Me.Receipt_Num_CL.FillWeight = 49.65193!
+        Me.Receipt_Num_CL.HeaderText = "ر.الإيصال"
+        Me.Receipt_Num_CL.Name = "Receipt_Num_CL"
+        Me.Receipt_Num_CL.ReadOnly = True
+        Me.Receipt_Num_CL.Visible = False
+        '
+        'PAYMENT_NAME_CL
+        '
+        Me.PAYMENT_NAME_CL.DataPropertyName = "PAYMENT_NAME"
+        Me.PAYMENT_NAME_CL.HeaderText = "طريقة الدفع"
+        Me.PAYMENT_NAME_CL.Name = "PAYMENT_NAME_CL"
+        Me.PAYMENT_NAME_CL.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "Type_Name"
+        Me.DataGridViewTextBoxColumn3.FillWeight = 108.9268!
+        Me.DataGridViewTextBoxColumn3.HeaderText = "النوع"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'Value_CL
+        '
+        Me.Value_CL.DataPropertyName = "Value"
+        DataGridViewCellStyle2.Format = "N2"
+        Me.Value_CL.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Value_CL.FillWeight = 61.42132!
+        Me.Value_CL.HeaderText = "المبلغ"
+        Me.Value_CL.Name = "Value_CL"
+        Me.Value_CL.ReadOnly = True
+        '
+        'BsType_ID_CL
+        '
+        Me.BsType_ID_CL.DataPropertyName = "BsType_ID"
+        Me.BsType_ID_CL.HeaderText = "BsType_ID"
+        Me.BsType_ID_CL.Name = "BsType_ID_CL"
+        Me.BsType_ID_CL.ReadOnly = True
+        Me.BsType_ID_CL.Visible = False
+        '
         'AG_Show_Balance_CB
         '
         Me.AG_Show_Balance_CB.AutoSize = True
@@ -867,15 +917,15 @@ Partial Class Sales
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.Project_cm)
         Me.Panel2.Controls.Add(Me.Show_AG_Projects_btn)
-        Me.Panel2.Location = New System.Drawing.Point(684, 183)
+        Me.Panel2.Location = New System.Drawing.Point(630, 183)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(428, 37)
+        Me.Panel2.Size = New System.Drawing.Size(482, 37)
         Me.Panel2.TabIndex = 680
         '
         'Label7
         '
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(351, 6)
+        Me.Label7.Location = New System.Drawing.Point(412, 7)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(65, 21)
         Me.Label7.TabIndex = 683
@@ -989,7 +1039,7 @@ Partial Class Sales
         Me.Panel5.Controls.Add(Me.Show_SumPied_CB)
         Me.Panel5.Controls.Add(Me.User_Name_lb)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(379, 3)
+        Me.Panel5.Location = New System.Drawing.Point(380, 3)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(339, 165)
         Me.Panel5.TabIndex = 703
@@ -1442,7 +1492,7 @@ Partial Class Sales
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel7.Location = New System.Drawing.Point(3, 3)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(370, 165)
+        Me.Panel7.Size = New System.Drawing.Size(371, 165)
         Me.Panel7.TabIndex = 728
         '
         'Panel8
@@ -1453,9 +1503,9 @@ Partial Class Sales
         Me.Panel8.Controls.Add(Me.Show_Cash_btn)
         Me.Panel8.Controls.Add(Me.OpenCahDR_Btn)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel8.Location = New System.Drawing.Point(724, 3)
+        Me.Panel8.Location = New System.Drawing.Point(725, 3)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(440, 165)
+        Me.Panel8.Size = New System.Drawing.Size(439, 165)
         Me.Panel8.TabIndex = 729
         '
         'TableLayoutPanel1
@@ -1463,7 +1513,7 @@ Partial Class Sales
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.3522!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.6478!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 375.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 376.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Panel5, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel7, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel8, 0, 0)
@@ -1496,56 +1546,6 @@ Partial Class Sales
         Me.AG_Cm.TabIndex = 709
         Me.AG_Cm.TextMaxLength = 250
         Me.AG_Cm.Textt = ""
-        '
-        'Receipt_T_ID_CL
-        '
-        Me.Receipt_T_ID_CL.DataPropertyName = "T_ID"
-        Me.Receipt_T_ID_CL.HeaderText = "رقم الآلي"
-        Me.Receipt_T_ID_CL.Name = "Receipt_T_ID_CL"
-        Me.Receipt_T_ID_CL.ReadOnly = True
-        Me.Receipt_T_ID_CL.Visible = False
-        '
-        'Receipt_Num_CL
-        '
-        Me.Receipt_Num_CL.DataPropertyName = "Receipt_Num"
-        Me.Receipt_Num_CL.FillWeight = 49.65193!
-        Me.Receipt_Num_CL.HeaderText = "ر.الإيصال"
-        Me.Receipt_Num_CL.Name = "Receipt_Num_CL"
-        Me.Receipt_Num_CL.ReadOnly = True
-        Me.Receipt_Num_CL.Visible = False
-        '
-        'PAYMENT_NAME_CL
-        '
-        Me.PAYMENT_NAME_CL.DataPropertyName = "PAYMENT_NAME"
-        Me.PAYMENT_NAME_CL.HeaderText = "طريقة الدفع"
-        Me.PAYMENT_NAME_CL.Name = "PAYMENT_NAME_CL"
-        Me.PAYMENT_NAME_CL.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.DataPropertyName = "Type_Name"
-        Me.DataGridViewTextBoxColumn3.FillWeight = 108.9268!
-        Me.DataGridViewTextBoxColumn3.HeaderText = "النوع"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        '
-        'Value_CL
-        '
-        Me.Value_CL.DataPropertyName = "Value"
-        DataGridViewCellStyle2.Format = "N2"
-        Me.Value_CL.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Value_CL.FillWeight = 61.42132!
-        Me.Value_CL.HeaderText = "المبلغ"
-        Me.Value_CL.Name = "Value_CL"
-        Me.Value_CL.ReadOnly = True
-        '
-        'BsType_ID_CL
-        '
-        Me.BsType_ID_CL.DataPropertyName = "BsType_ID"
-        Me.BsType_ID_CL.HeaderText = "BsType_ID"
-        Me.BsType_ID_CL.Name = "BsType_ID_CL"
-        Me.BsType_ID_CL.ReadOnly = True
-        Me.BsType_ID_CL.Visible = False
         '
         'Sales
         '

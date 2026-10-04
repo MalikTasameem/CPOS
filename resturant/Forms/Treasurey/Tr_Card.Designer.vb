@@ -61,9 +61,9 @@ Partial Class Tr_Card
         Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.Color.White
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.ExitFormButton.Location = New System.Drawing.Point(16, 370)
+        Me.ExitFormButton.Location = New System.Drawing.Point(675, 504)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(120, 34)
+        Me.ExitFormButton.Size = New System.Drawing.Size(110, 34)
         Me.ExitFormButton.TabIndex = 667
         Me.ExitFormButton.Text = "↩ خروج"
         Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -82,10 +82,10 @@ Partial Class Tr_Card
         Me.Delete_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
         Me.Delete_butt.ForeColor = System.Drawing.Color.White
         Me.Delete_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Delete_butt.Location = New System.Drawing.Point(154, 370)
+        Me.Delete_butt.Location = New System.Drawing.Point(672, 261)
         Me.Delete_butt.Name = "Delete_butt"
         Me.Delete_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Delete_butt.Size = New System.Drawing.Size(116, 34)
+        Me.Delete_butt.Size = New System.Drawing.Size(110, 34)
         Me.Delete_butt.TabIndex = 664
         Me.Delete_butt.Text = "✕ حذف"
         Me.Delete_butt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -104,10 +104,10 @@ Partial Class Tr_Card
         Me.Edit_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
         Me.Edit_butt.ForeColor = System.Drawing.Color.White
         Me.Edit_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Edit_butt.Location = New System.Drawing.Point(278, 370)
+        Me.Edit_butt.Location = New System.Drawing.Point(672, 219)
         Me.Edit_butt.Name = "Edit_butt"
         Me.Edit_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Edit_butt.Size = New System.Drawing.Size(116, 34)
+        Me.Edit_butt.Size = New System.Drawing.Size(110, 34)
         Me.Edit_butt.TabIndex = 663
         Me.Edit_butt.TabStop = False
         Me.Edit_butt.Text = "✎ تعديل"
@@ -127,10 +127,10 @@ Partial Class Tr_Card
         Me.Save_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
         Me.Save_butt.ForeColor = System.Drawing.Color.White
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Save_butt.Location = New System.Drawing.Point(402, 370)
+        Me.Save_butt.Location = New System.Drawing.Point(672, 177)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Save_butt.Size = New System.Drawing.Size(116, 34)
+        Me.Save_butt.Size = New System.Drawing.Size(110, 34)
         Me.Save_butt.TabIndex = 661
         Me.Save_butt.TabStop = False
         Me.Save_butt.Text = "✓ حفظ"
@@ -156,10 +156,10 @@ Partial Class Tr_Card
         Me.New_butt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold)
         Me.New_butt.ForeColor = System.Drawing.Color.White
         Me.New_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.New_butt.Location = New System.Drawing.Point(526, 370)
+        Me.New_butt.Location = New System.Drawing.Point(672, 135)
         Me.New_butt.Name = "New_butt"
         Me.New_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.New_butt.Size = New System.Drawing.Size(116, 34)
+        Me.New_butt.Size = New System.Drawing.Size(110, 34)
         Me.New_butt.TabIndex = 662
         Me.New_butt.Text = "＋ جديد"
         Me.New_butt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -169,14 +169,14 @@ Partial Class Tr_Card
         '
         Me.Tr_BalanceTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Tr_BalanceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Tr_BalanceTextBox.Font = New System.Drawing.Font("Stencil", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tr_BalanceTextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tr_BalanceTextBox.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Tr_BalanceTextBox.Location = New System.Drawing.Point(16, 176)
+        Me.Tr_BalanceTextBox.Location = New System.Drawing.Point(16, 160)
         Me.Tr_BalanceTextBox.MaxLength = 250
         Me.Tr_BalanceTextBox.Name = "Tr_BalanceTextBox"
         Me.Tr_BalanceTextBox.ReadOnly = True
         Me.Tr_BalanceTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Tr_BalanceTextBox.Size = New System.Drawing.Size(282, 32)
+        Me.Tr_BalanceTextBox.Size = New System.Drawing.Size(282, 25)
         Me.Tr_BalanceTextBox.TabIndex = 292
         Me.Tr_BalanceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -184,21 +184,21 @@ Partial Class Tr_Card
         '
         Me.Tr_Name_txtb.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Tr_Name_txtb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Tr_Name_txtb.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tr_Name_txtb.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tr_Name_txtb.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Tr_Name_txtb.Location = New System.Drawing.Point(19, 36)
+        Me.Tr_Name_txtb.Location = New System.Drawing.Point(16, 32)
         Me.Tr_Name_txtb.MaxLength = 200
         Me.Tr_Name_txtb.Name = "Tr_Name_txtb"
         Me.Tr_Name_txtb.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Tr_Name_txtb.Size = New System.Drawing.Size(279, 33)
+        Me.Tr_Name_txtb.Size = New System.Drawing.Size(282, 25)
         Me.Tr_Name_txtb.TabIndex = 287
         Me.Tr_Name_txtb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 12.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(182, 9)
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(205, 10)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label4.Size = New System.Drawing.Size(113, 23)
@@ -210,21 +210,21 @@ Partial Class Tr_Card
         '
         Me.Tr_BankNum_TextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Tr_BankNum_TextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Tr_BankNum_TextBox.Font = New System.Drawing.Font("Times New Roman", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tr_BankNum_TextBox.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tr_BankNum_TextBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Tr_BankNum_TextBox.Location = New System.Drawing.Point(17, 106)
+        Me.Tr_BankNum_TextBox.Location = New System.Drawing.Point(16, 96)
         Me.Tr_BankNum_TextBox.MaxLength = 200
         Me.Tr_BankNum_TextBox.Name = "Tr_BankNum_TextBox"
         Me.Tr_BankNum_TextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Tr_BankNum_TextBox.Size = New System.Drawing.Size(281, 32)
+        Me.Tr_BankNum_TextBox.Size = New System.Drawing.Size(282, 25)
         Me.Tr_BankNum_TextBox.TabIndex = 289
         Me.Tr_BankNum_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 12.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(186, 79)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(215, 74)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label1.Size = New System.Drawing.Size(106, 23)
@@ -235,8 +235,8 @@ Partial Class Tr_Card
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(219, 150)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(240, 138)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label2.Size = New System.Drawing.Size(73, 23)
@@ -249,14 +249,14 @@ Partial Class Tr_Card
         Me.Total_BS_Txt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Total_BS_Txt.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Total_BS_Txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Total_BS_Txt.Font = New System.Drawing.Font("Stencil", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Total_BS_Txt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Total_BS_Txt.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Total_BS_Txt.Location = New System.Drawing.Point(330, 310)
+        Me.Total_BS_Txt.Location = New System.Drawing.Point(334, 469)
         Me.Total_BS_Txt.MaxLength = 250
         Me.Total_BS_Txt.Name = "Total_BS_Txt"
         Me.Total_BS_Txt.ReadOnly = True
         Me.Total_BS_Txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Total_BS_Txt.Size = New System.Drawing.Size(312, 32)
+        Me.Total_BS_Txt.Size = New System.Drawing.Size(334, 32)
         Me.Total_BS_Txt.TabIndex = 666
         Me.Total_BS_Txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -266,9 +266,9 @@ Partial Class Tr_Card
         Me.S_listBox.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.S_listBox.FormattingEnabled = True
         Me.S_listBox.ItemHeight = 17
-        Me.S_listBox.Location = New System.Drawing.Point(330, 104)
+        Me.S_listBox.Location = New System.Drawing.Point(334, 94)
         Me.S_listBox.Name = "S_listBox"
-        Me.S_listBox.Size = New System.Drawing.Size(312, 191)
+        Me.S_listBox.Size = New System.Drawing.Size(334, 369)
         Me.S_listBox.TabIndex = 668
         '
         'FieldsPanel
@@ -284,30 +284,30 @@ Partial Class Tr_Card
         Me.FieldsPanel.Controls.Add(Me.Tr_BankNum_TextBox)
         Me.FieldsPanel.BackColor = System.Drawing.Color.White
         Me.FieldsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FieldsPanel.Location = New System.Drawing.Point(16, 72)
+        Me.FieldsPanel.Location = New System.Drawing.Point(3, 62)
         Me.FieldsPanel.Name = "FieldsPanel"
-        Me.FieldsPanel.Size = New System.Drawing.Size(302, 270)
+        Me.FieldsPanel.Size = New System.Drawing.Size(325, 439)
         Me.FieldsPanel.TabIndex = 669
         '
         'ACC_CODE_TXT
         '
         Me.ACC_CODE_TXT.BackColor = System.Drawing.SystemColors.WindowText
         Me.ACC_CODE_TXT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ACC_CODE_TXT.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ACC_CODE_TXT.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ACC_CODE_TXT.ForeColor = System.Drawing.Color.White
-        Me.ACC_CODE_TXT.Location = New System.Drawing.Point(3, 288)
+        Me.ACC_CODE_TXT.Location = New System.Drawing.Point(16, 268)
         Me.ACC_CODE_TXT.MaxLength = 500
         Me.ACC_CODE_TXT.Name = "ACC_CODE_TXT"
         Me.ACC_CODE_TXT.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ACC_CODE_TXT.Size = New System.Drawing.Size(205, 29)
+        Me.ACC_CODE_TXT.Size = New System.Drawing.Size(282, 25)
         Me.ACC_CODE_TXT.TabIndex = 618
         Me.ACC_CODE_TXT.Visible = False
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(211, 293)
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(219, 246)
         Me.Label12.Name = "Label12"
         Me.Label12.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Label12.Size = New System.Drawing.Size(81, 19)
@@ -324,7 +324,8 @@ Partial Class Tr_Card
         'IS_BANK_CB
         '
         Me.IS_BANK_CB.AutoSize = True
-        Me.IS_BANK_CB.Location = New System.Drawing.Point(179, 231)
+        Me.IS_BANK_CB.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IS_BANK_CB.Location = New System.Drawing.Point(179, 205)
         Me.IS_BANK_CB.Name = "IS_BANK_CB"
         Me.IS_BANK_CB.Size = New System.Drawing.Size(119, 25)
         Me.IS_BANK_CB.TabIndex = 619
@@ -339,7 +340,7 @@ Partial Class Tr_Card
         Me.HeaderPanel.Controls.Add(Me.Title_Label)
         Me.HeaderPanel.Location = New System.Drawing.Point(0, 0)
         Me.HeaderPanel.Name = "HeaderPanel"
-        Me.HeaderPanel.Size = New System.Drawing.Size(658, 56)
+        Me.HeaderPanel.Size = New System.Drawing.Size(783, 56)
         Me.HeaderPanel.TabIndex = 670
         '
         'Title_Label
@@ -348,7 +349,7 @@ Partial Class Tr_Card
         Me.Title_Label.AutoSize = True
         Me.Title_Label.Font = New System.Drawing.Font("Segoe UI Semibold", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Title_Label.ForeColor = System.Drawing.Color.White
-        Me.Title_Label.Location = New System.Drawing.Point(577, 15)
+        Me.Title_Label.Location = New System.Drawing.Point(702, 15)
         Me.Title_Label.Name = "Title_Label"
         Me.Title_Label.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Title_Label.Size = New System.Drawing.Size(65, 25)
@@ -360,11 +361,11 @@ Partial Class Tr_Card
         Me.SEARCH_txt.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(250, Byte), Integer), CType(CType(252, Byte), Integer))
         Me.SEARCH_txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SEARCH_txt.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SEARCH_txt.Location = New System.Drawing.Point(330, 72)
+        Me.SEARCH_txt.Location = New System.Drawing.Point(334, 62)
         Me.SEARCH_txt.MaxLength = 350
         Me.SEARCH_txt.Name = "SEARCH_txt"
         Me.SEARCH_txt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.SEARCH_txt.Size = New System.Drawing.Size(242, 25)
+        Me.SEARCH_txt.Size = New System.Drawing.Size(254, 25)
         Me.SEARCH_txt.TabIndex = 671
         Me.SEARCH_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -374,7 +375,7 @@ Partial Class Tr_Card
         Me.SearchLabel.BackColor = System.Drawing.Color.Transparent
         Me.SearchLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SearchLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(55, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(81, Byte), Integer))
-        Me.SearchLabel.Location = New System.Drawing.Point(578, 77)
+        Me.SearchLabel.Location = New System.Drawing.Point(594, 67)
         Me.SearchLabel.Name = "SearchLabel"
         Me.SearchLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.SearchLabel.Size = New System.Drawing.Size(40, 15)
@@ -387,7 +388,7 @@ Partial Class Tr_Card
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(245, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(250, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(658, 420)
+        Me.ClientSize = New System.Drawing.Size(783, 543)
         Me.ControlBox = False
         Me.Controls.Add(Me.SearchLabel)
         Me.Controls.Add(Me.SEARCH_txt)
@@ -400,7 +401,7 @@ Partial Class Tr_Card
         Me.Controls.Add(Me.Save_butt)
         Me.Controls.Add(Me.New_butt)
         Me.Controls.Add(Me.Total_BS_Txt)
-        Me.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.MaximizeBox = False

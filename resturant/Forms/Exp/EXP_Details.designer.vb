@@ -230,7 +230,7 @@ Partial Class EXP_Details
         Me.ADDCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ADDCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 15.75!, System.Drawing.FontStyle.Bold)
         Me.ADDCatButton.ForeColor = System.Drawing.Color.DarkGreen
-        Me.ADDCatButton.Location = New System.Drawing.Point(948, 184)
+        Me.ADDCatButton.Location = New System.Drawing.Point(948, 230)
         Me.ADDCatButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.ADDCatButton.Name = "ADDCatButton"
         Me.ADDCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -249,11 +249,11 @@ Partial Class EXP_Details
         Me.RemoveCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.RemoveCatButton.Font = New System.Drawing.Font("Segoe UI Semibold", 14.0!, System.Drawing.FontStyle.Bold)
         Me.RemoveCatButton.ForeColor = System.Drawing.Color.DarkRed
-        Me.RemoveCatButton.Location = New System.Drawing.Point(948, 390)
+        Me.RemoveCatButton.Location = New System.Drawing.Point(948, 440)
         Me.RemoveCatButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.RemoveCatButton.Name = "RemoveCatButton"
         Me.RemoveCatButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RemoveCatButton.Size = New System.Drawing.Size(48, 207)
+        Me.RemoveCatButton.Size = New System.Drawing.Size(48, 157)
         Me.RemoveCatButton.TabIndex = 395
         Me.RemoveCatButton.TabStop = False
         Me.RemoveCatButton.Text = "❌"
@@ -303,7 +303,7 @@ Partial Class EXP_Details
         Me.AGMetroGrid.EnableHeadersVisualStyles = False
         Me.AGMetroGrid.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel)
         Me.AGMetroGrid.GridColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.AGMetroGrid.Location = New System.Drawing.Point(2, 181)
+        Me.AGMetroGrid.Location = New System.Drawing.Point(2, 213)
         Me.AGMetroGrid.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.AGMetroGrid.MultiSelect = False
         Me.AGMetroGrid.Name = "AGMetroGrid"
@@ -324,7 +324,7 @@ Partial Class EXP_Details
         Me.AGMetroGrid.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.AGMetroGrid.RowTemplate.Height = 30
         Me.AGMetroGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.AGMetroGrid.Size = New System.Drawing.Size(936, 416)
+        Me.AGMetroGrid.Size = New System.Drawing.Size(936, 384)
         Me.AGMetroGrid.TabIndex = 290
         '
         'T_ID_CL
@@ -544,9 +544,9 @@ Partial Class EXP_Details
         '
         Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label19.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.Label19.Location = New System.Drawing.Point(937, 151)
+        Me.Label19.Location = New System.Drawing.Point(937, 177)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(67, 21)
+        Me.Label19.Size = New System.Drawing.Size(67, 29)
         Me.Label19.TabIndex = 604
         Me.Label19.Text = "المصروف :"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -579,7 +579,7 @@ Partial Class EXP_Details
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.Label13)
         Me.Panel6.Controls.Add(Me.IM_Cost_txt)
-        Me.Panel6.Location = New System.Drawing.Point(470, 144)
+        Me.Panel6.Location = New System.Drawing.Point(378, 172)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(135, 35)
         Me.Panel6.TabIndex = 712
@@ -601,7 +601,7 @@ Partial Class EXP_Details
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.Label16)
         Me.Panel5.Controls.Add(Me.QtyTextBox)
-        Me.Panel5.Location = New System.Drawing.Point(352, 144)
+        Me.Panel5.Location = New System.Drawing.Point(260, 172)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(117, 35)
         Me.Panel5.TabIndex = 711
@@ -1021,9 +1021,9 @@ Partial Class EXP_Details
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.Label3.Location = New System.Drawing.Point(285, 149)
+        Me.Label3.Location = New System.Drawing.Point(938, 139)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(61, 21)
+        Me.Label3.Size = New System.Drawing.Size(61, 31)
         Me.Label3.TabIndex = 379
         Me.Label3.Text = "الحساب :"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1049,10 +1049,10 @@ Partial Class EXP_Details
         Me.EX_Cm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.EX_Cm.CancelSearchImage = CType(resources.GetObject("EX_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.EX_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!)
-        Me.EX_Cm.Location = New System.Drawing.Point(608, 143)
+        Me.EX_Cm.Location = New System.Drawing.Point(515, 174)
         Me.EX_Cm.Name = "EX_Cm"
         Me.EX_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.EX_Cm.Size = New System.Drawing.Size(328, 34)
+        Me.EX_Cm.Size = New System.Drawing.Size(419, 34)
         Me.EX_Cm.SQL_Column = "Ex_NAME"
         Me.EX_Cm.SQL_ID = "Ex_ID"
         Me.EX_Cm.SQL_IsNumericSearchField = False
@@ -1072,10 +1072,10 @@ Partial Class EXP_Details
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AG_Cm.CancelSearchImage = CType(resources.GetObject("AG_Cm.CancelSearchImage"), System.Drawing.Image)
         Me.AG_Cm.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!)
-        Me.AG_Cm.Location = New System.Drawing.Point(5, 142)
+        Me.AG_Cm.Location = New System.Drawing.Point(515, 137)
         Me.AG_Cm.Name = "AG_Cm"
         Me.AG_Cm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.AG_Cm.Size = New System.Drawing.Size(276, 34)
+        Me.AG_Cm.Size = New System.Drawing.Size(419, 34)
         Me.AG_Cm.SQL_Column = "AG_NAME"
         Me.AG_Cm.SQL_ID = "AG_ID"
         Me.AG_Cm.SQL_IsNumericSearchField = False

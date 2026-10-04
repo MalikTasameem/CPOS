@@ -1609,8 +1609,8 @@ Public Class MainForm
     End Sub
 
     Private Sub إذنإستلامToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles إذنإستلامToolStripMenuItem.Click
-        F_Outside_Sales = New Outside_Sales
-        F_Outside_Sales.Show()
+        F_Outside_Sales_Touch = New Outside_Sales_Touch
+        F_Outside_Sales_Touch.Show()
     End Sub
 
     Private Sub عروضToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles عروضToolStripMenuItem.Click

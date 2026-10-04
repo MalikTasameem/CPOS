@@ -1071,6 +1071,21 @@
     <Compile Include="Forms\Stores\Outside_Sales.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Stores\Outside_Sales_Touch.Designer.vb">
+      <DependentUpon>Outside_Sales_Touch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Stores\Outside_Sales_Touch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Stores\Outside_Sales_Touch_ItemEditor.Designer.vb">
+      <DependentUpon>Outside_Sales_Touch_ItemEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Stores\Outside_Sales_Touch_ItemEditor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Stores\Outside_Sales_Touch_Search.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Stores\STORES_Explorer.designer.vb">
       <DependentUpon>STORES_Explorer.vb</DependentUpon>
     </Compile>
@@ -1888,6 +1903,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reports\IM_GROUPING.resx">
       <DependentUpon>IM_GROUPING.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Stores\Outside_Sales_Touch.resx">
+      <DependentUpon>Outside_Sales_Touch.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Stores\ST_settlement_IM_card.resx">
       <DependentUpon>ST_settlement_IM_card.vb</DependentUpon>
