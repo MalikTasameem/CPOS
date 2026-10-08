@@ -1,4 +1,17 @@
-Partial Class Backup
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class ScheduledBackupForm
+    Inherits System.Windows.Forms.Form
+
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then components.Dispose()
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    Private components As System.ComponentModel.IContainer
     Private ScheduledGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents ScheduledPathTextBox As System.Windows.Forms.TextBox
     Friend WithEvents ScheduledBrowseButton As System.Windows.Forms.Button
@@ -15,7 +28,8 @@ Partial Class Backup
     Friend WithEvents ScheduledRefreshButton As System.Windows.Forms.Button
     Friend WithEvents ScheduledStatusLabel As System.Windows.Forms.Label
 
-    Private Sub InitializeScheduledBackupControls()
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
         Me.ScheduledGroupBox = New System.Windows.Forms.GroupBox()
         Me.ScheduledPathTextBox = New System.Windows.Forms.TextBox()
         Me.ScheduledBrowseButton = New System.Windows.Forms.Button()
@@ -39,8 +53,8 @@ Partial Class Backup
         CType(Me.KeepCountNumeric, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ScheduledGroupBox.SuspendLayout()
 
-        Me.ClientSize = New System.Drawing.Size(1170, 674)
-        Me.ScheduledGroupBox.Location = New System.Drawing.Point(752, 12)
+        Me.ClientSize = New System.Drawing.Size(430, 674)
+        Me.ScheduledGroupBox.Location = New System.Drawing.Point(12, 12)
         Me.ScheduledGroupBox.Name = "ScheduledGroupBox"
         Me.ScheduledGroupBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ScheduledGroupBox.Size = New System.Drawing.Size(406, 650)
@@ -181,7 +195,20 @@ Partial Class Backup
         Me.ScheduledGroupBox.Controls.Add(Me.ScheduledStatusLabel)
         Me.Controls.Add(Me.ScheduledGroupBox)
 
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "ScheduledBackupForm"
+        Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.RightToLeftLayout = True
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Text = "النسخ الاحتياطي المجدول"
+
         CType(Me.KeepCountNumeric, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ScheduledGroupBox.ResumeLayout(False)
+        Me.ResumeLayout(False)
     End Sub
 End Class

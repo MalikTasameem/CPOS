@@ -1468,7 +1468,10 @@
     </Compile>
     <Compile Include="Classes\Backup\ScheduledBackupManager.vb" />
     <Compile Include="Forms\Sys_Options\Backup.Scheduled.Designer.vb">
-      <DependentUpon>Backup.vb</DependentUpon>
+      <DependentUpon>ScheduledBackupForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Sys_Options\ScheduledBackupForm.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Sys_Options\Backup.Designer.vb">
       <DependentUpon>Backup.vb</DependentUpon>

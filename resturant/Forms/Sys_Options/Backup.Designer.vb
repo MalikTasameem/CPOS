@@ -43,6 +43,7 @@ Partial Class Backup
         Me.NoBK_btn = New System.Windows.Forms.Button()
         Me.ExitFormButton = New System.Windows.Forms.Button()
         Me.is_Comprission_CB = New System.Windows.Forms.CheckBox()
+        Me.ScheduledBackupButton = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -313,12 +314,27 @@ Partial Class Backup
         Me.is_Comprission_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.is_Comprission_CB.UseVisualStyleBackColor = True
         '
+        'ScheduledBackupButton
+        '
+        Me.ScheduledBackupButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(85, Byte), Integer))
+        Me.ScheduledBackupButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ScheduledBackupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ScheduledBackupButton.Font = New System.Drawing.Font("Segoe UI Semibold", 13.25!, System.Drawing.FontStyle.Bold)
+        Me.ScheduledBackupButton.ForeColor = System.Drawing.Color.White
+        Me.ScheduledBackupButton.Location = New System.Drawing.Point(181, 399)
+        Me.ScheduledBackupButton.Name = "ScheduledBackupButton"
+        Me.ScheduledBackupButton.Size = New System.Drawing.Size(383, 50)
+        Me.ScheduledBackupButton.TabIndex = 456
+        Me.ScheduledBackupButton.Text = "إدارة النسخ الاحتياطي المجدول"
+        Me.ScheduledBackupButton.UseVisualStyleBackColor = False
+        '
         'Backup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(734, 549)
         Me.ControlBox = False
+        Me.Controls.Add(Me.ScheduledBackupButton)
         Me.Controls.Add(Me.is_Comprission_CB)
         Me.Controls.Add(Me.ExitFormButton)
         Me.Controls.Add(Me.NoBK_btn)
@@ -340,8 +356,6 @@ Partial Class Backup
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
-        Me.InitializeScheduledBackupControls()
-
     End Sub
     Friend WithEvents BackupButtonX As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label14 As System.Windows.Forms.Label
@@ -364,4 +378,5 @@ Partial Class Backup
     Friend WithEvents ExitFormButton As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents is_Comprission_CB As System.Windows.Forms.CheckBox
+    Friend WithEvents ScheduledBackupButton As System.Windows.Forms.Button
 End Class

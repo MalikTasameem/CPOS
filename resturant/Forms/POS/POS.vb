@@ -1182,10 +1182,10 @@ Public Class POS
         End If
     End Sub
 
-    Public Sub Reset_Fields()
+    Public Sub Reset_Fields(Optional refreshSalesSelection As Boolean = True)
 
 
-        Fetch_IM()
+        If refreshSalesSelection Then Fetch_IM()
         isVoidBill = False
         If Title_LB IsNot Nothing Then Title_LB.Text = "المبيعات السريعة (POS)"
         Switch_To_Cash = False
@@ -3252,7 +3252,7 @@ Public Class POS
             C.Dr = C.Com.ExecuteReader
             If C.Dr.HasRows Then
                 C.Dr.Read()
-                F_POS.Reset_Fields()
+                F_POS.Reset_Fields(False)
                 F_POS.isNewBill = 0
                 F_POS.T_ID = C.Dr("T_ID")
 
