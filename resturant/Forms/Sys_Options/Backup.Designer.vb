@@ -52,10 +52,10 @@ Partial Class Backup
         Me.BackupButtonX.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.BackupButtonX.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.BackupButtonX.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BackupButtonX.Font = New System.Drawing.Font("Segoe UI Semibold", 13.25!, System.Drawing.FontStyle.Bold)
-        Me.BackupButtonX.Location = New System.Drawing.Point(374, 497)
+        Me.BackupButtonX.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.BackupButtonX.Location = New System.Drawing.Point(342, 497)
         Me.BackupButtonX.Name = "BackupButtonX"
-        Me.BackupButtonX.Size = New System.Drawing.Size(190, 47)
+        Me.BackupButtonX.Size = New System.Drawing.Size(148, 47)
         Me.BackupButtonX.TabIndex = 276
         Me.BackupButtonX.Text = "أخد  نسخة إحتياطية"
         '
@@ -157,10 +157,10 @@ Partial Class Backup
         Me.RestoreButtonX.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.RestoreButtonX.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.RestoreButtonX.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.RestoreButtonX.Font = New System.Drawing.Font("Segoe UI Semibold", 13.25!, System.Drawing.FontStyle.Bold)
-        Me.RestoreButtonX.Location = New System.Drawing.Point(181, 497)
+        Me.RestoreButtonX.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.RestoreButtonX.Location = New System.Drawing.Point(173, 497)
         Me.RestoreButtonX.Name = "RestoreButtonX"
-        Me.RestoreButtonX.Size = New System.Drawing.Size(190, 47)
+        Me.RestoreButtonX.Size = New System.Drawing.Size(167, 47)
         Me.RestoreButtonX.TabIndex = 265
         Me.RestoreButtonX.Text = "إستعــادة نسخة إحتياطية"
         '
@@ -190,7 +190,7 @@ Partial Class Backup
         Me.Save_butt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Save_butt.Image = Global.resturant.My.Resources.Resources.if_floppy_285657
         Me.Save_butt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Save_butt.Location = New System.Drawing.Point(6, 498)
+        Me.Save_butt.Location = New System.Drawing.Point(2, 498)
         Me.Save_butt.Name = "Save_butt"
         Me.Save_butt.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Save_butt.Size = New System.Drawing.Size(169, 46)
@@ -287,13 +287,13 @@ Partial Class Backup
         Me.ExitFormButton.BackColor = System.Drawing.Color.IndianRed
         Me.ExitFormButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ExitFormButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.ExitFormButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.ExitFormButton.ForeColor = System.Drawing.SystemColors.ControlLight
         Me.ExitFormButton.Image = Global.resturant.My.Resources.Resources.iconfinder_other_arrow_left_other_glyph_763233
         Me.ExitFormButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ExitFormButton.Location = New System.Drawing.Point(600, 498)
+        Me.ExitFormButton.Location = New System.Drawing.Point(725, 498)
         Me.ExitFormButton.Name = "ExitFormButton"
-        Me.ExitFormButton.Size = New System.Drawing.Size(133, 47)
+        Me.ExitFormButton.Size = New System.Drawing.Size(133, 45)
         Me.ExitFormButton.TabIndex = 454
         Me.ExitFormButton.Text = "خروج"
         Me.ExitFormButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -304,11 +304,11 @@ Partial Class Backup
         Me.is_Comprission_CB.AutoSize = True
         Me.is_Comprission_CB.Cursor = System.Windows.Forms.Cursors.Hand
         Me.is_Comprission_CB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.is_Comprission_CB.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.is_Comprission_CB.Location = New System.Drawing.Point(407, 464)
+        Me.is_Comprission_CB.Font = New System.Drawing.Font("Segoe UI", 12.25!)
+        Me.is_Comprission_CB.Location = New System.Drawing.Point(347, 467)
         Me.is_Comprission_CB.Name = "is_Comprission_CB"
         Me.is_Comprission_CB.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.is_Comprission_CB.Size = New System.Drawing.Size(154, 29)
+        Me.is_Comprission_CB.Size = New System.Drawing.Size(140, 27)
         Me.is_Comprission_CB.TabIndex = 455
         Me.is_Comprission_CB.Text = "نسخة مضغوطة"
         Me.is_Comprission_CB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -319,11 +319,11 @@ Partial Class Backup
         Me.ScheduledBackupButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(85, Byte), Integer))
         Me.ScheduledBackupButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.ScheduledBackupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ScheduledBackupButton.Font = New System.Drawing.Font("Segoe UI Semibold", 13.25!, System.Drawing.FontStyle.Bold)
+        Me.ScheduledBackupButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.25!, System.Drawing.FontStyle.Bold)
         Me.ScheduledBackupButton.ForeColor = System.Drawing.Color.White
-        Me.ScheduledBackupButton.Location = New System.Drawing.Point(181, 399)
+        Me.ScheduledBackupButton.Location = New System.Drawing.Point(492, 497)
         Me.ScheduledBackupButton.Name = "ScheduledBackupButton"
-        Me.ScheduledBackupButton.Size = New System.Drawing.Size(383, 50)
+        Me.ScheduledBackupButton.Size = New System.Drawing.Size(218, 47)
         Me.ScheduledBackupButton.TabIndex = 456
         Me.ScheduledBackupButton.Text = "إدارة النسخ الاحتياطي المجدول"
         Me.ScheduledBackupButton.UseVisualStyleBackColor = False
@@ -332,7 +332,7 @@ Partial Class Backup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(734, 549)
+        Me.ClientSize = New System.Drawing.Size(858, 544)
         Me.ControlBox = False
         Me.Controls.Add(Me.ScheduledBackupButton)
         Me.Controls.Add(Me.is_Comprission_CB)
@@ -356,6 +356,7 @@ Partial Class Backup
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
+
     End Sub
     Friend WithEvents BackupButtonX As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label14 As System.Windows.Forms.Label
