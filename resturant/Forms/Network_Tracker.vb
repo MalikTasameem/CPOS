@@ -8,6 +8,7 @@ Public Class Network_Tracker
         Me.Dispose()
     End Sub
     Private Sub IM_Valid_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        AuditV2Button.Enabled = User_isAdmin AndAlso USER_ID > 0
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         rs.FindAllControls(Me)
         fetch_USERS()
@@ -25,28 +26,7 @@ Public Class Network_Tracker
 
 
     Function Ge_St_Items() As List(Of MailItem)
-
-        Dim mailItems = New List(Of MailItem)
-
-        mailItems.Add(New MailItem(0, "---- كل المستخدمين ----"))
-
-        Dim c1 As New C
-        Dim s As String = "select USER_ID AS ID,UserName AS name from USERS ORDER By UserName ASC"
-        c1.Com = New SqlClient.SqlCommand(s, c1.Con)
-        c1.Con.Open()
-        Try
-            c1.Dr = c1.Com.ExecuteReader
-            If c1.Dr.HasRows Then
-                While c1.Dr.Read
-                    mailItems.Add(New MailItem(c1.Dr("ID"), c1.Dr("name")))
-                End While
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        c1.Con.Close()
-        Return mailItems
-
+        Return LoadTrackerLookup("SELECT USER_ID AS ID,UserName AS name FROM dbo.Users ORDER BY UserName,USER_ID", "---- كل المستخدمين ----")
     End Function
 
     Public Sub fetch_Screens()
@@ -58,28 +38,7 @@ Public Class Network_Tracker
 
 
     Function Ge_Screens() As List(Of MailItem)
-
-        Dim mailItems = New List(Of MailItem)
-
-        mailItems.Add(New MailItem(0, "---- كل الشاشات ----"))
-
-        Dim c1 As New C
-        Dim s As String = "select ID AS ID,Type_Name AS name from AgentBalance_Type ORDER By RankNum ASC"
-        c1.Com = New SqlClient.SqlCommand(s, c1.Con)
-        c1.Con.Open()
-        Try
-            c1.Dr = c1.Com.ExecuteReader
-            If c1.Dr.HasRows Then
-                While c1.Dr.Read
-                    mailItems.Add(New MailItem(c1.Dr("ID"), c1.Dr("name")))
-                End While
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        c1.Con.Close()
-        Return mailItems
-
+        Return LoadTrackerLookup("SELECT ID,Type_Name AS name FROM dbo.AgentBalance_Type ORDER BY RankNum,ID", "---- كل الشاشات ----")
     End Function
 
 
@@ -92,28 +51,7 @@ Public Class Network_Tracker
 
 
     Function Ge_op() As List(Of MailItem)
-
-        Dim mailItems = New List(Of MailItem)
-
-        mailItems.Add(New MailItem(0, "---- كل العمليات ----"))
-
-        Dim c1 As New C
-        Dim s As String = "select T_ID AS ID,Operation_Name AS name from Operation_Types"
-        c1.Com = New SqlClient.SqlCommand(s, c1.Con)
-        c1.Con.Open()
-        Try
-            c1.Dr = c1.Com.ExecuteReader
-            If c1.Dr.HasRows Then
-                While c1.Dr.Read
-                    mailItems.Add(New MailItem(c1.Dr("ID"), c1.Dr("name")))
-                End While
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        c1.Con.Close()
-        Return mailItems
-
+        Return LoadTrackerLookup("SELECT T_ID AS ID,Operation_Name AS name FROM dbo.Operation_Types ORDER BY T_ID", "---- كل العمليات ----")
     End Function
 
     'Public Sub Fill_ALL_IM()
@@ -137,55 +75,66 @@ Public Class Network_Tracker
 
 
     Private Sub Fill_ALL_Network()
-        Dim c As New C
-
         Try
-            IM_DT.Clear()
-            Dim Main_Query As String
-            Main_Query = "SELECT ROW_NUMBER() OVER(ORDER BY Date) AS IDX,[T_ID],[CP_Name],[UserName],[Date],[Type_Name],[Operation_Name],[Notes],[Bill_ID],[Screen_Type],[Operation_ID],[User_ID] " & _
-            "from Network_Edit_Tracker_V "
-            Dim middle As String = " where 1=1 "
-            Dim last As String = " order by Date ASC "
+            Dim loaded As New DataTable()
+            Using connection As New SqlConnection(MY_Settings.SqlConStr)
+                Using command As SqlCommand = NetworkTrackerSearch.BuildCommand(DateTimePicker_From.Value, DateTimePicker_To.Value,
+                                                                                GetSelectedFilterId(Screen_Cmb), GetSelectedFilterId(OP_Cm),
+                                                                                GetSelectedFilterId(User_Cm), Num_Txt.Text)
+                    command.Connection = connection
+                    Using adapter As New SqlDataAdapter(command)
+                        adapter.Fill(loaded)
+                    End Using
+                End Using
+            End Using
 
-            middle = middle & " and CONVERT(Date,Date) BETWEEN '" & DateTimePicker_From.Text & "' AND '" & DateTimePicker_To.Text & "' "
-
-            If Screen_Cmb.SelectedValue > 0 Then middle = middle & " and [Screen_Type]=" & Screen_Cmb.SelectedValue & " "
-            If OP_Cm.SelectedValue > 0 Then middle = middle & " and [Operation_ID]=" & OP_Cm.SelectedValue & " "
-            If User_Cm.SelectedValue > 0 Then middle = middle & " and [User_ID]=" & User_Cm.SelectedValue & " "
-            If Not String.IsNullOrWhiteSpace(Num_Txt.Text) Then middle = middle & " and [Bill_ID]=" & Num_Txt.Text & " "
-
-            Main_Query = Main_Query & middle & last
-
-            c.Da = New SqlClient.SqlDataAdapter(Main_Query, c.Con)
-            c.Da.SelectCommand.CommandTimeout = 120
-            'c.Da.Fill(IM_DT)
-            'DataGridViewX.DataSource = IM_DT
-
-            c.Da.Fill(IM_DT)
-            DataB.DataSource = IM_DT
+            ' Replace the previous successful result only after loading and filtering succeed.
+            loaded.DefaultView.RowFilter = NetworkTrackerSearch.BuildNotesFilter(CMSearchTextBox.Text)
+            IM_DT = loaded
+            DataGridViewX.AutoGenerateColumns = False
+            DataB.DataSource = IM_DT.DefaultView
             DataGridViewX.DataSource = DataB
-
-
-            If CheckedListBox1.Items.Count = 0 Then
+            If CheckedListBox1.Items.Count <> DataGridViewX.Columns.Count Then
                 CheckedListBox1.Items.Clear()
-                For i As Integer = 0 To DataGridViewX.ColumnCount - 1
-                    Dim CL = DataGridViewX.Columns(i).HeaderText
-                    CheckedListBox1.Items.Add(CL)
-                    CheckedListBox1.SetItemChecked(i, True)
+                For Each column As DataGridViewColumn In DataGridViewX.Columns
+                    Dim include As Boolean = column.Name <> "T_ID_CL" AndAlso column.Name <> "USER_ID_CL" AndAlso
+                                             column.Name <> "Screen_Type_CL" AndAlso column.Name <> "Operation_ID_CL"
+                    CheckedListBox1.Items.Add(column.HeaderText, include)
                 Next
             End If
-
-            CheckedListBox1.SetItemChecked(1, False)
-            CheckedListBox1.SetItemChecked(9, False)
-            CheckedListBox1.SetItemChecked(10, False)
-            CheckedListBox1.SetItemChecked(11, False)
-
-
-            TotalQYT_txt.Text = DataGridViewX.Rows.Count
+            TotalQYT_txt.Text = DataB.Count.ToString()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox("تعذر تحديث شبكة المراقبة؛ لم تُستبدل نتائج البحث السابقة." & vbCrLf & ex.Message, MsgBoxStyle.Exclamation)
         End Try
     End Sub
+
+    Private Function GetSelectedFilterId(combo As ComboBox) As Integer
+        Dim value As Integer
+        If combo.SelectedValue IsNot Nothing AndAlso combo.SelectedValue IsNot DBNull.Value Then
+            Integer.TryParse(Convert.ToString(combo.SelectedValue), value)
+        End If
+        Return value
+    End Function
+
+    Private Function LoadTrackerLookup(query As String, allText As String) As List(Of MailItem)
+        Dim mailItems As New List(Of MailItem)
+        mailItems.Add(New MailItem(0, allText))
+        Try
+            Using connection As New SqlConnection(MY_Settings.SqlConStr)
+                Using command As New SqlCommand(query, connection)
+                    connection.Open()
+                    Using reader As SqlDataReader = command.ExecuteReader()
+                        While reader.Read()
+                            mailItems.Add(New MailItem(Convert.ToInt32(reader("ID")), Convert.ToString(reader("name"))))
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MsgBox("تعذر تحميل خيارات البحث في شبكة المراقبة: " & ex.Message, MsgBoxStyle.Exclamation)
+        End Try
+        Return mailItems
+    End Function
 
     Private Sub IM_Valid_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         rs.ResizeAllControls(Me)
@@ -201,14 +150,23 @@ Public Class Network_Tracker
     End Sub
 
     Private Sub CMSearchTextBox_TextChanged(sender As Object, e As EventArgs) Handles CMSearchTextBox.TextChanged
-        Dim Dv As DataView
-        Dv = IM_DT.AsDataView
-        Dv.RowFilter = "Notes LIKE '%" + sender.Text + "%'"
-        DataGridViewX.DataSource = Dv
+        If Not IM_DT.Columns.Contains("Notes") Then Return
+        IM_DT.DefaultView.RowFilter = NetworkTrackerSearch.BuildNotesFilter(CMSearchTextBox.Text)
+        TotalQYT_txt.Text = IM_DT.DefaultView.Count.ToString()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim P As New Print_PDF
         P.PRINT_PDF_List(DataGridViewX, CheckedListBox1, " شبكة المراقبة ", 1)
+    End Sub
+
+    Private Sub AuditV2Button_Click(sender As Object, e As EventArgs) Handles AuditV2Button.Click
+        If Not User_isAdmin OrElse USER_ID <= 0 Then
+            MsgBox("عرض المراقبة الجديدة متاح للمدير فقط في هذه الدفعة.", MsgBoxStyle.Exclamation)
+            Return
+        End If
+        Using form As New Network_Audit_Browser()
+            form.ShowDialog(Me)
+        End Using
     End Sub
 End Class

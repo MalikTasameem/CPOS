@@ -1,0 +1,3 @@
+
+LC : warning LC0000: 'Unable to find assembly 'H:\DESKTOP SYSTEMS\Git Projects\CPOS\.tmp\NetworkTrackerBaseline\bin\ACCOUNTING.exe' [H:\DESKTOP SYSTEMS\Git Projects\CPOS\resturant\resturant.vbproj]
+LC : error LC0000: 'Could not load file or assembly 'DevExpress.XtraEditors.v14.2, Version=14.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a' or one of its dependencies. Invalid pointer (Exception from HRESULT: 0x80004003 (E_POINTER))' [H:\DESKTOP SYSTEMS\Git Projects\CPOS\resturant\resturant.vbproj]

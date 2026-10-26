@@ -1,0 +1,280 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Definitions" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Definitions">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="128" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Definition" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="2147483647" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Definitions>
+    <name>AG_Balance_DependingUpdatedBill</name>
+    <Definition>CREATE PROCEDURE [dbo].[AG_Balance_DependingUpdatedBill] 
+@T_ID	int
+		
+AS
+declare @BS_Type INT,@Discount NUMERIC(18,3),@TOTAL NUMERIC(18,3)
+
+BEGIN TRY
+BEGIN TRANSACTION
+
+SELECT @BS_Type = BsType_ID , @Discount = ISNULL(Discount,0) FROM Agents_Balance_MV WHERE T_ID = @T_ID
+
+IF @BS_Type = 1 
+BEGIN 	
+SELECT @T_ID = Bill_T_ID FROM SB_Contents WHERE T_ID = @T_ID
+--UPDATE Agents_Balance_MV SET Debit = ( ( SELECT ISNULL(SUM(T_Price),0) FROM SB_Contents WHERE Bill_T_ID = @T_ID) - ISNULL(Discount,0) )  WHERE T_ID = @T_ID
+SELECT @TOTAL = ISNULL(SUM(T_Price),0) FROM SB_Contents WHERE Bill_T_ID = @T_ID
+EXEC [AG_Balance_Update_Total] @T_ID,@TOTAL,@Discount
+
+END
+--------------------------------------------------------------------------------
+IF @BS_Type = 7 OR @BS_Type = 9
+BEGIN
+UPDATE Pch_Details SET isDepended = 1 where Pch_T_ID = @T_ID 
+--IF @BS_Type = 7 BEGIN 
+--UPDATE Agents_Balance_MV SET Credit = ( SELECT ISNULL(SUM(TOTAL),0) FROM Pch_Details WHERE Pch_T_ID = @T_ID) WHERE T_ID = @T_ID
+SELECT @TOTAL = ISNULL(SUM(TOTAL),0) FROM Pch_Details WHERE Pch_T_ID = @T_ID
+EXEC [AG_Balance_Update_Total] @T_ID,@TOTAL,@Discount
+
+--END
+END
+
+COMMIT
+END TRY
+
+BEGIN CATCH
+IF @@TRANCOUNT &gt; 0
+	print 'DB ERROR ! __ AG_Balance_DependingUpdatedBill'
+ROLLBACK
+END CATCH
+
+
+
+</Definition>
+  </Definitions>
+  <Definitions>
+    <name>AG_Balance_Update_Total</name>
+    <Definition>
+/*
+    المرحلة النهائية لفصل مسؤولية حساب الفاتورة عن تسوية الدفع.
+
+    هذا الإجراء لا يعدل:
+      dbo.Agents_Balance_MV_RCT
+      dbo.Treasury_Balance_MV
+
+    تبقى السندات مجمدة أثناء تعديل الأصناف، وتعالج الفروق لاحقًا بواسطة
+    إجراء تسوية مستقل يسجل تحصيلًا أو استردادًا جديدًا.
+*/
+CREATE PROCEDURE [dbo].[AG_Balance_Update_Total]
+    @T_ID INT,
+    @Total MONEY,
+    @Disc MONEY = 0
+AS
+BEGIN
+    SET NOCOUNT ON
+    SET XACT_ABORT ON
+
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        IF NOT EXISTS
+        (
+            SELECT 1
+            FROM [dbo].[Agents_Balance_MV]
+            WHERE T_ID = @T_ID
+        )
+            RAISERROR(N'لم يتم العثور على المعاملة المطلوب إعادة حسابها.', 16, 1)
+
+        EXEC [dbo].[Recalculate_Agent_Bill_Total] @T_ID
+
+        COMMIT TRANSACTION
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT &gt; 0
+            ROLLBACK TRANSACTION
+
+        DECLARE @ERR_STR NVARCHAR(MAX)
+        SET @ERR_STR = N'[AG_Balance_Update_Total] ' + ERROR_MESSAGE()
+        RAISERROR(@ERR_STR, 16, 1)
+    END CATCH
+END
+</Definition>
+  </Definitions>
+  <Definitions>
+    <name>Recalculate_Agent_Bill_Total</name>
+    <Definition>
+CREATE  PROCEDURE [dbo].[Recalculate_Agent_Bill_Total]
+    @T_ID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE 
+        @BsType_ID INT,
+        @DetailsTotal DECIMAL(18,3) = 0,
+        @Discount DECIMAL(18,3) = 0,
+        @Pure DECIMAL(18,3) = 0;
+
+    -------------------------------------------------------------------
+    -- جلب نوع الفاتورة والخصم الحالي من الهيدر
+    -------------------------------------------------------------------
+    SELECT 
+        @BsType_ID = BsType_ID,
+        @Discount = ISNULL(Discount, 0)
+    FROM Agents_Balance_MV
+    WHERE T_ID = @T_ID;
+
+    IF @BsType_ID IS NULL
+    BEGIN
+        RAISERROR(N'لم يتم العثور على الفاتورة في الجدول الرئيسي Agents_Balance_MV', 16, 1);
+        RETURN;
+    END
+
+    -------------------------------------------------------------------
+    -- تحديد جدول التفاصيل حسب نوع المعاملة
+    -------------------------------------------------------------------
+    IF @BsType_ID = 1
+    BEGIN
+        -- فاتورة مبيعات
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(T_Price, 0)), 0)
+        FROM SB_Contents
+        WHERE Bill_T_ID = @T_ID;
+    END
+	ELSE IF @BsType_ID = 2
+    BEGIN
+        -- فاتورة صروفات
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM EXP_Details
+        WHERE IMEX_T_ID  = @T_ID;
+    END
+    ELSE IF @BsType_ID = 7
+    BEGIN
+        -- فاتورة مشتريات
+        SELECT @DetailsTotal = SUM((Org_Price * QYT))
+		--ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM Pch_Details
+        WHERE Pch_T_ID = @T_ID;
+
+		SELECT @DetailsTotal = @DetailsTotal + ISNULL(SUM([Value]),0) FROM [Pch_Exp_Values] WHERE [Pch_T_ID] = @T_ID AND [isWithBill] = 1
+
+    END
+    ELSE IF @BsType_ID = 8
+    BEGIN
+        -- فاتورة تالف
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM IMEX_Details
+        WHERE IMEX_T_ID = @T_ID;
+    END
+    ELSE IF @BsType_ID = 9
+    BEGIN
+        -- فاتورة جرد
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM Pch_Details
+        WHERE Pch_T_ID = @T_ID;
+    END
+    ELSE IF @BsType_ID = 10
+    BEGIN
+        -- إرجاع مبيعات
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(T_Price, 0)), 0)
+        FROM Rtn_Contents
+        WHERE Bill_T_ID = @T_ID
+          AND Rtn_Type_ID = 1;
+    END
+    ELSE IF @BsType_ID = 11
+    BEGIN
+        -- إرجاع مشتريات
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(T_Price, 0)), 0)
+        FROM Rtn_Contents
+        WHERE Bill_T_ID = @T_ID
+          AND Rtn_Type_ID = 7;
+    END
+    ELSE IF @BsType_ID = 12
+    BEGIN
+        -- إذن تحويل أصناف
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM Store_Trans_Details
+        WHERE B_T_ID = @T_ID;
+    END
+    ELSE IF @BsType_ID = 16
+    BEGIN
+        -- فاتورة عرض
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(T_Price, 0)), 0)
+        FROM ViewBill_Contents
+        WHERE Bill_T_ID = @T_ID;
+    END
+    ELSE IF @BsType_ID = 17
+    BEGIN
+        -- إذن صرف
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM InSale_Details
+        WHERE InSale_T_ID = @T_ID;
+    END
+    ELSE IF @BsType_ID = 35
+    BEGIN
+        -- إذن استلام
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM Outsale_Details
+        WHERE Outsale_T_ID = @T_ID;
+    END
+	ELSE IF @BsType_ID = 13 or @BsType_ID = 18
+    BEGIN
+        -- تصنيع
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM FRM_Details 
+        WHERE FRM_T_ID = @T_ID;
+    END
+	ELSE IF @BsType_ID = 39
+    BEGIN
+        -- تسوية محزنية
+        SELECT @DetailsTotal = ISNULL(SUM(ISNULL(Total, 0)), 0)
+        FROM ST_QTY_Deferences 
+        WHERE Bill_T_ID = @T_ID;
+    END
+    ELSE
+    BEGIN
+        RAISERROR(N'نوع الفاتورة غير مدعوم حاليًا في الإجراء', 16, 1);
+        RETURN;
+    END
+
+    -------------------------------------------------------------------
+    -- حساب الصافي
+    -------------------------------------------------------------------
+    SET @Pure = @DetailsTotal - ISNULL(@Discount, 0);
+
+    -------------------------------------------------------------------
+    -- تحديث الجدول الرئيسي
+    -- هنا أفترض أن Balance = Pure
+    -- إذا لديك منطق آخر مرتبط بالمدفوعات أخبرني لنعدله
+    -------------------------------------------------------------------
+    UPDATE Agents_Balance_MV
+    SET 
+        Total   = @DetailsTotal,
+        Pure    = @Pure--,
+        --Balance = @Pure
+    WHERE T_ID = @T_ID;
+END
+</Definition>
+  </Definitions>
+</NewDataSet>

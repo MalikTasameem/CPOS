@@ -339,7 +339,8 @@
 
     Public Sub Add_ItemToBill(IM_ID As String)
         Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
-        If Not String.IsNullOrWhiteSpace(Bercent_TXT.Text) Then PriceTextBox.Text =
+        Dim additionPrice = PriceTextBox.Text
+        If Not String.IsNullOrWhiteSpace(Bercent_TXT.Text) Then additionPrice =
     (Convert.ToDouble(PriceTextBox.Text) + Convert.ToDouble(PriceTextBox.Text) * (Convert.ToDouble(Bercent_TXT.Text) / 100)).ToString("00.00")
 
         Dim C As New C
@@ -357,7 +358,7 @@
 
             If String.IsNullOrWhiteSpace(QtyTextBox.Text) = False Then .Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox.Text))
             .Parameters.AddWithValue("@U_ID", U_ID)
-            .Parameters.AddWithValue("@Price", PriceTextBox.Text)
+            .Parameters.AddWithValue("@Price", additionPrice)
             .Parameters.AddWithValue("@On_Update", On_Update)
             If Not String.IsNullOrWhiteSpace(Bercent_TXT.Text) Then .Parameters.AddWithValue("@Notes", Bercent_TXT.Text & " % ")
 
@@ -370,16 +371,10 @@
             .Parameters.AddWithValue("@SB_IM_NEW_ROW", SB_IM_NEW_ROW)
         End With
 
-        If SQL_SP_EXEC(C.Com) = True Then
-            If On_Update = True Then
-                DependingUpdatedBill(T_ID)
-
-            End If
-
-            Network_Edit_Tracker_insert(" الصنف:" + mySearchControl.txtSearch.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text, F_Sales.Bill_ID_Txt.Text, 1, 1)
-
-            F_Sales.SB_Contents_SELECT_Bill()
+        Dim savedLine As Integer
+        If AuditSalesAddUi.Run(Me, C.Com, IM_min_QTY, savedLine) Then
             ClearCatFields()
+            AuditSalesAddUi.Refresh(Me, Sub() F_Sales.SB_Contents_SELECT_Bill())
 
 
             Me.Close()

@@ -1039,9 +1039,9 @@ Partial Class Sales
         Me.Panel5.Controls.Add(Me.Show_SumPied_CB)
         Me.Panel5.Controls.Add(Me.User_Name_lb)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(380, 3)
+        Me.Panel5.Location = New System.Drawing.Point(382, 3)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(339, 165)
+        Me.Panel5.Size = New System.Drawing.Size(338, 165)
         Me.Panel5.TabIndex = 703
         '
         'Show_Bill_CB
@@ -1492,7 +1492,7 @@ Partial Class Sales
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel7.Location = New System.Drawing.Point(3, 3)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(371, 165)
+        Me.Panel7.Size = New System.Drawing.Size(373, 165)
         Me.Panel7.TabIndex = 728
         '
         'Panel8
@@ -1503,9 +1503,9 @@ Partial Class Sales
         Me.Panel8.Controls.Add(Me.Show_Cash_btn)
         Me.Panel8.Controls.Add(Me.OpenCahDR_Btn)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel8.Location = New System.Drawing.Point(725, 3)
+        Me.Panel8.Location = New System.Drawing.Point(726, 3)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(439, 165)
+        Me.Panel8.Size = New System.Drawing.Size(438, 165)
         Me.Panel8.TabIndex = 729
         '
         'TableLayoutPanel1
@@ -1513,7 +1513,7 @@ Partial Class Sales
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.3522!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.6478!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 376.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 378.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Panel5, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel7, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel8, 0, 0)

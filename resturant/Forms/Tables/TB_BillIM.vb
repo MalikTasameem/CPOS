@@ -3,31 +3,23 @@
     Public SB_ID As Integer
     Public Pure As Double
     Private Sub BillIM_Grid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles BillIM_Grid.CellContentClick
+        If e.RowIndex < 0 OrElse e.ColumnIndex < 0 OrElse Not HasCurrentItem() Then Return
         Dim Def As Integer
-        Dim Desc As String = ""
         If BillIM_Grid.SelectedRows.Count > 0 Then
             Select Case e.ColumnIndex
                 Case 0
                     Def = 1
-                    Desc = "زيادة عدد 1 :" & vbNewLine & BillIM_Grid.CurrentRow.Cells("IM_Name_CL").Value & vbNewLine & F_TablesBalance.TB_Info.Text
-                    Network_Edit_Tracker_insert(Desc, SB_ID.ToString, 1, 3)
-
                     Change_IM_Qty(Def)
 
                 Case 1
 
                     If BillIM_Grid.CurrentRow.Cells("TB_IM_QTY_CL").Value >= 2 Then
                         Def = -1
-                        Desc = "نقص عدد 1 :" & vbNewLine & BillIM_Grid.CurrentRow.Cells("IM_Name_CL").Value & vbNewLine & F_TablesBalance.TB_Info.Text
-                        Network_Edit_Tracker_insert("نقص عدد 1 للصنف " + BillIM_Grid.CurrentRow.Cells("IM_Name_CL").Value + " - " + F_TablesBalance.TB_Info.Text, SB_ID.ToString, 1, 3)
-
                         Change_IM_Qty(Def)
 
                     End If
 
                 Case 2
-                    Desc = "مسح :" & vbNewLine & BillIM_Grid.CurrentRow.Cells("IM_Name_CL").Value & vbNewLine & "العدد :" + BillIM_Grid.CurrentRow.Cells("TB_IM_QTY_CL").Value.ToString & vbNewLine & F_TablesBalance.TB_Info.Text
-                    Network_Edit_Tracker_insert(Desc, SB_ID.ToString, 1, 3)
                     SB_Contents_Delete_IM()
 
             End Select
@@ -49,8 +41,14 @@
     End Sub
 
     Private Sub Change_IM_Qty(def As Integer)
+        If Not HasCurrentItem() Then Return
         Dim Row_Index As Integer = BillIM_Grid.CurrentCell.RowIndex
         Dim ITEM_NAME As String = BillIM_Grid.CurrentRow.Cells("IM_Name_CL").Value
+        Dim previousQuantity As Decimal = Convert.ToDecimal(BillIM_Grid.CurrentRow.Cells("TB_IM_QTY_CL").Value)
+        Dim auditNotes As String = "تم تعديل كمية صنف الطاولة: " & ITEM_NAME & "؛ رقم حركة الفاتورة: " &
+                                   Convert.ToString(BillIM_Grid.CurrentRow.Cells("Bill_T_ID_CL").Value) & "؛ رقم السطر: " &
+                                   Convert.ToString(BillIM_Grid.CurrentRow.Cells("T_ID_3_CL").Value) & "؛ الكمية المعروضة قبل التغيير: " &
+                                   previousQuantity.ToString() & "؛ مقدار التغيير: " & def.ToString() & "؛ " & F_TablesBalance.TB_Info.Text
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -63,6 +61,7 @@
         End With
 
         If SQL_SP_EXEC(c.Com) = True Then
+            Network_Edit_Tracker_insert(auditNotes, SB_ID.ToString(), 1, 3)
             F_TablesBalance.Refresh_TB_Balance()
             BillIM_Grid.CurrentCell = BillIM_Grid.Rows(Row_Index).Cells(1)
 
@@ -94,6 +93,11 @@
     End Sub
 
     Private Sub SB_Contents_Delete_IM()
+        If Not HasCurrentItem() Then Return
+        Dim auditNotes As String = "تم حذف صنف الطاولة: " & Convert.ToString(BillIM_Grid.CurrentRow.Cells("IM_Name_CL").Value) &
+                                   "؛ رقم حركة الفاتورة: " & Convert.ToString(BillIM_Grid.CurrentRow.Cells("Bill_T_ID_CL").Value) &
+                                   "؛ رقم السطر: " & Convert.ToString(BillIM_Grid.CurrentRow.Cells("T_ID_3_CL").Value) &
+                                   "؛ الكمية: " & Convert.ToString(BillIM_Grid.CurrentRow.Cells("TB_IM_QTY_CL").Value) & "؛ " & F_TablesBalance.TB_Info.Text
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -104,7 +108,7 @@
             '.Parameters.AddWithValue("@Desc", Desc)
         End With
         If SQL_SP_EXEC(c.Com) = True Then
-
+            Network_Edit_Tracker_insert(auditNotes, SB_ID.ToString(), 1, 2)
             If KshPrint = True And BillIM_Grid.CurrentRow.Cells("Ptr_ID_CL").Value > 1 Then
                 Dim pp As New ReportConnection
                 pp.rp.Load(Application.StartupPath & "\reports\SB_Cancel.rpt")
@@ -125,5 +129,14 @@
         End If
     End Sub
 
+    Private Function HasCurrentItem() As Boolean
+        If BillIM_Grid.CurrentRow Is Nothing OrElse BillIM_Grid.CurrentCell Is Nothing OrElse BillIM_Grid.CurrentRow.IsNewRow Then Return False
+        For Each columnName As String In New String() {"IM_Name_CL", "TB_IM_QTY_CL", "Bill_T_ID_CL", "T_ID_3_CL"}
+            If Not BillIM_Grid.Columns.Contains(columnName) Then Return False
+            Dim value As Object = BillIM_Grid.CurrentRow.Cells(columnName).Value
+            If value Is Nothing OrElse value Is DBNull.Value Then Return False
+        Next
+        Return True
+    End Function
 
 End Class

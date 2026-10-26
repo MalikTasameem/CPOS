@@ -1200,11 +1200,20 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
             PREV_AG_ID = AG_ID
             AG_ID = AG_Cm.TXT_ID.Text
 
-            Save_AG_Name(T_ID, AG_ID, On_Update)
-                Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, SB_ID, 1, 3)
+            ' Use the same save procedure here so the audit event follows its actual result.
+            Using sqlComm As New SqlClient.SqlCommand()
+                sqlComm.CommandText = "AG_Balance_Update_AG"
+                sqlComm.CommandType = CommandType.StoredProcedure
+                sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
+                sqlComm.Parameters.AddWithValue("@AG_ID", AG_ID)
+                sqlComm.Parameters.AddWithValue("@ON_UPDATE", On_Update)
+                If SQL_SP_EXEC(sqlComm) AndAlso T_ID > 0 AndAlso PREV_AG_ID <> AG_ID Then
+                    Network_Edit_Tracker_insert("تم تغيير حساب عرض السعر؛ رقم العرض: " & Bill_ID_Txt.Text & "؛ رقم الحركة: " & T_ID.ToString() & "؛ من حساب رقم: " & PREV_AG_ID.ToString() & " إلى حساب: " & AG_Cm.Textt & " (" & AG_ID.ToString() & ")", Bill_ID_Txt.Text, 16, 3)
+                End If
+            End Using
 
-                Fill_All_AG_Proj()
-            End If
+            Fill_All_AG_Proj()
+        End If
 
     End Sub
 

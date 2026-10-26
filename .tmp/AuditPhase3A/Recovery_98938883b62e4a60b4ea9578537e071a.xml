@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AuditSecurityTestRecovery database="CPOS_ACCOUNTING" source="3c520084-0214-43d4-a5fb-797a179c7a7c" status="Cleaned">
+  <OriginalDomains>&lt;Domains/&gt;</OriginalDomains>
+  <Requests>
+    <Request id="9ba7b82c-9dc1-4a22-9683-b0f4d7983cda" />
+    <Request id="d8349752-5c42-460c-8482-e077a99b2f57" />
+    <Request id="9c74f2e4-433f-45d7-9e05-eba6aa8c35ac" />
+    <Request id="ac4c7e6f-a52c-4a87-997b-19dd848ad4ac" />
+    <Request id="c3ded700-9d0f-403e-a754-238e7e9de7ba" />
+    <Request id="ffac8087-34a0-4320-8f49-bf82dbe26a7d" />
+  </Requests>
+</AuditSecurityTestRecovery>

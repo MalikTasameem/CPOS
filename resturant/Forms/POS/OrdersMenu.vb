@@ -401,6 +401,9 @@
             .Parameters.AddWithValue("@Pr_ID", Pr_ID)
         End With
         If SQL_SP_EXEC(C.Com) = True Then
+            If Not Order_isDeleverd Then
+                Network_Edit_Tracker_insert("تمت إعادة الطلبية إلى حالة معلقة؛ رقم الحركة: " & Order_T_ID.ToString() & "؛ الباركود: " & Barcode_txt.Text, SB_ID.ToString(), 1, 3)
+            End If
             F_SalesMenu.OrdersWaitingNum()
             Beep()
             If Convert.ToDouble(Rest_txt.Text) > 0 Then
@@ -866,7 +869,6 @@
         Beep()
         If MessageBox.Show(" إستعادة حالة الطلبية لوضع طلبية معلقة ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, _
             MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
-            Network_Edit_Tracker_insert(" إستعادة وضع الطلبية باركود : " + Barcode_txt.Text, Pure_txt.Text, 0, 0)
             Deliver_Order(False)
         End If
     End Sub

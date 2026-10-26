@@ -62,6 +62,7 @@ Partial Class Network_Tracker
         Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
         Me.DataB = New System.Windows.Forms.BindingSource(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.AuditV2Button = New System.Windows.Forms.Button()
         CType(Me.DataGridViewX, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataB, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -470,12 +471,20 @@ Partial Class Network_Tracker
         Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'AuditV2Button
+        Me.AuditV2Button.Location = New System.Drawing.Point(304, 1)
+        Me.AuditV2Button.Size = New System.Drawing.Size(188, 32)
+        Me.AuditV2Button.Name = "AuditV2Button"
+        Me.AuditV2Button.Text = "المراقبة الجديدة والتفاصيل"
+        Me.AuditV2Button.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
+        Me.AuditV2Button.UseVisualStyleBackColor = True
         'Network_Tracker
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(1004, 695)
+        Me.Controls.Add(Me.AuditV2Button)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.CheckedListBox1)
         Me.Controls.Add(Me.Label3)
@@ -511,6 +520,8 @@ Partial Class Network_Tracker
         Me.PerformLayout()
 
     End Sub
+
+    Friend WithEvents AuditV2Button As System.Windows.Forms.Button
     Public WithEvents DataGridViewX As DevComponents.DotNetBar.Controls.DataGridViewX
     Friend WithEvents TotalQYT_txt As System.Windows.Forms.TextBox
     Friend WithEvents SalarySearchButton As System.Windows.Forms.Button

@@ -1,5 +1,7 @@
 ﻿Public Class Change_IM_Details
     Dim Get_Unit As Boolean = False
+    Private ReadOnly auditLineEdit As New AuditSalesLineEditUi(Me)
+    Private auditParentScreen As String
     Dim IM_ID As Integer
     Dim U_ID As Integer
     Dim QTY As Double
@@ -68,6 +70,20 @@
                     On_Update = Sales_Fast.On_Update
                 End If
 
+                auditParentScreen = If(SB_is_Fast, "Sales_Fast", "Sales")
+                Bill_T_ID = If(SB_is_Fast, Sales_Fast.T_ID, F_Sales.T_ID)
+                If Not auditLineEdit.Load(Bill_T_ID, T_ID, On_Update) Then
+                    ConfermButton.Enabled = False
+                    Return
+                End If
+                Dim saved = auditLineEdit.Snapshot.Line
+                IM_ID = CInt(saved("IM_ID")) : U_ID = CInt(saved("U_ID")) : ST_ID = CInt(saved("ST_ID"))
+                QTY = CDbl(saved("QTY")) : PrevPrice = CDbl(saved("Price"))
+                QtyTextBox.Text = CDec(saved("QTY")).ToString()
+                PriceTextBox.Text = CDec(saved("Price")).ToString()
+                Notes_txt.Text = If(IsDBNull(saved("Notes")), "", CStr(saved("Notes")))
+                IM_Disc_txt.Text = If(IsDBNull(saved("IM_Discount")), 0R, CDbl(saved("IM_Discount"))).ToString()
+                D_Valid = If(IsDBNull(saved("D_Vaild")), "", CStr(saved("D_Vaild")))
                 IM_Load_Min_SP()
 
                 SB_2_Btn.Visible = U_Sell_Under_Min_SP
@@ -258,6 +274,10 @@
     End Sub
 
     Private Sub ConfermButton_Click(sender As Object, e As EventArgs) Handles ConfermButton.Click
+        If auditLineEdit.HasPending Then
+            If auditLineEdit.Save(Nothing) Then RefreshAuditedSale()
+            Return
+        End If
         If String.IsNullOrWhiteSpace(QtyTextBox.Text) Or Convert.ToDouble(QtyTextBox.Text) = 0 Then
             MsgBox("حدد الكمية", MsgBoxStyle.Exclamation)
             QtyTextBox.Select()
@@ -358,10 +378,7 @@
                     End If
                 End If
 
-                If is_PercentCB.Checked = True Then
-                    Notes_txt.Text = Notes_txt.Text & "/ خصم " & IM_Disc_txt.Text & " % "
-                    IM_Disc_txt.Text = Convert.ToDouble(PriceTextBox.Text) * (Convert.ToDouble(IM_Disc_txt.Text) / 100)
-                End If
+                ' Convert percentage only in the request; retries must not convert the controls twice.
 
 
                 If SB_is_Fast = False Then
@@ -579,73 +596,49 @@ CHECK:
     End Function
 
     Private Sub SB_Contents_Confirm_Unit()
-        Dim Row_Index As Integer = 0
-        If F_Sales.AGMetroGrid.Rows.Count > 0 Then Row_Index = F_Sales.AGMetroGrid.CurrentCell.RowIndex
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "SB_IM_Unit_Change"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@SB_T_ID", F_Sales.T_ID)
-            .Parameters.AddWithValue("@IM_T_ID", F_Sales.AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
-            .Parameters.AddWithValue("@U_ID", IM_Unit_cm.SelectedValue)
-            .Parameters.AddWithValue("@QTY", QtyTextBox.Text)
-            .Parameters.AddWithValue("@Price", PriceTextBox.Text)
-            .Parameters.AddWithValue("@Notes", Notes_txt.Text)
-            .Parameters.AddWithValue("@On_Update", F_Sales.On_Update)
-            .Parameters.AddWithValue("@IM_Discount", IM_Disc_txt.Text)
-        End With
-        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-        C.Da.Fill(C.Dt)
-        F_Sales.AGMetroGrid.DataSource = C.Dt
-        NewPrice = PriceTextBox.Text
-        'F_Sales.Calc_Total()
-
-        'If PrevPrice <> NewPrice Then
-        'Network_Edit_Tracker_insert("تعديل سعر بيع صنف '" + IM_LB.Text + "' / رقم آلي '" + F_Sales.Bill_ID_Txt.Text + " / رقم يومي : " + _
-        '                 F_Sales.BillNumTxt.Text + "' من '" + PrevPrice.ToString + "' إلى '" + NewPrice.ToString + "' / المدخل :  " + F_Sales.User_Name_lb.Text, F_Sales.Pure_txt.Text, _
-        '                 F_Sales.AGMetroGrid.CurrentRow.Cells("Bill_IMID_CL").Value, 0)
-        ''End If
-
-        Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " الخصم:" + IM_Disc_txt.Text, F_Sales.Bill_ID_Txt.Text, 1, 3)
-
-
-        ' If F_Sales.On_Update = True Then F_Sales.AG_Balance_Update_Pied()
-        If Row_Index > 0 Then F_Sales.AGMetroGrid.CurrentCell = F_Sales.AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
-        Me.Close()
+        SaveAuditedSale()
     End Sub
 
     Private Sub SB_Contents_Confirm_Unit_fast()
-        Dim Row_Index As Integer = 0
-        If Sales_Fast.AGMetroGrid.Rows.Count > 0 Then Row_Index = Sales_Fast.AGMetroGrid.CurrentCell.RowIndex
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "SB_IM_Unit_Change"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@SB_T_ID", Sales_Fast.T_ID)
-            .Parameters.AddWithValue("@IM_T_ID", Sales_Fast.AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
-            .Parameters.AddWithValue("@U_ID", IM_Unit_cm.SelectedValue)
-            .Parameters.AddWithValue("@QTY", QtyTextBox.Text)
-            .Parameters.AddWithValue("@Price", PriceTextBox.Text)
-            .Parameters.AddWithValue("@Notes", Notes_txt.Text)
-            .Parameters.AddWithValue("@On_Update", Sales_Fast.On_Update)
-            .Parameters.AddWithValue("@IM_Discount", IM_Disc_txt.Text)
-        End With
-        C.Da = New SqlClient.SqlDataAdapter(C.Com)
-        C.Da.Fill(C.Dt)
-        Sales_Fast.AGMetroGrid.DataSource = C.Dt
-        NewPrice = PriceTextBox.Text
-        'Sales_Fast.Calc_Total()
-        'If PrevPrice <> NewPrice Then
-        'Network_Edit_Tracker_insert("تعديل سعر بيع صنف '" + IM_LB.Text + "' / رقم آلي '" + Sales_Fast.Bill_ID_Txt.Text + "' من '" + PrevPrice.ToString + "' إلى '" + NewPrice.ToString + "' / المدخل :  " + Sales_Fast.User_Name_lb.Text, Sales_Fast.Pure_txt.Text, _
-        '                 Sales_Fast.AGMetroGrid.CurrentRow.Cells("Bill_IMID_CL").Value, 0)
-        'End If
+        SaveAuditedSale()
+    End Sub
 
-        Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " الخصم:" + IM_Disc_txt.Text, Sales_Fast.Bill_ID_Txt.Text, 1, 3)
+    Private Sub SaveAuditedSale()
+        If auditLineEdit.Save(Function(context)
+                                  Dim price = Decimal.Parse(PriceTextBox.Text, Globalization.CultureInfo.CurrentCulture)
+                                  Dim quantity = Decimal.Parse(QtyTextBox.Text, Globalization.CultureInfo.CurrentCulture)
+                                  Dim discount = If(String.IsNullOrWhiteSpace(IM_Disc_txt.Text), 0R, Double.Parse(IM_Disc_txt.Text, Globalization.CultureInfo.CurrentCulture))
+                                  Dim notes = Notes_txt.Text
+                                  If is_PercentCB.Checked Then
+                                      notes &= "/ خصم " & IM_Disc_txt.Text & " % "
+                                      discount = CDbl(price) * (discount / 100R)
+                                  End If
+                                  Return AuditSalesLineEdit.Request(context, auditLineEdit.Snapshot, auditParentScreen, price, On_Update, IM_min_QTY, S_Allow_MinSP,
+                                      CInt(IM_Unit_cm.SelectedValue), quantity, discount, notes)
+                              End Function) Then RefreshAuditedSale()
+    End Sub
 
-
-        If Row_Index > 0 Then Sales_Fast.AGMetroGrid.CurrentCell = Sales_Fast.AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
+    Private Sub RefreshAuditedSale()
+        Try
+            Dim grid As DataGridView
+            If auditParentScreen = "Sales_Fast" Then
+                Sales_Fast.SB_Contents_SELECT_Bill()
+                grid = Sales_Fast.AGMetroGrid
+            Else
+                F_Sales.SB_Contents_SELECT_Bill()
+                grid = F_Sales.AGMetroGrid
+            End If
+            If grid.Columns.Contains("T_ID_CL") AndAlso grid.Columns.Contains("EX_Name_CL") Then
+                For Each row As DataGridViewRow In grid.Rows
+                    If Not row.IsNewRow AndAlso row.Cells("T_ID_CL").Value IsNot Nothing AndAlso Not IsDBNull(row.Cells("T_ID_CL").Value) AndAlso Convert.ToInt64(row.Cells("T_ID_CL").Value) = CLng(auditLineEdit.Snapshot.Line("T_ID")) Then
+                        grid.CurrentCell = row.Cells("EX_Name_CL")
+                        Exit For
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            MsgBox("تم حفظ التعديل؛ تعذر تحديث عرض الفاتورة: " & ex.Message, MsgBoxStyle.Exclamation)
+        End Try
         Me.Close()
     End Sub
 
@@ -710,7 +703,7 @@ CHECK:
         End With
         If SQL_SP_EXEC(C.Com) Then
 
-            Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " التكلفة:" + PriceTextBox.Text + " البيع:" + PriceTextBox.Text + " بيع القطعة:" + NewSaleByOne.Text, F_Format_Items_Manual.Bill_ID_Txt.Text, 18, 3)
+            Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " التكلفة:" + PriceTextBox.Text + " البيع:" + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, F_Format_Items_Manual.Bill_ID_Txt.Text, 18, 3)
             F_Format_Items_Manual.Pch_Contents_SELECT_Bill()
         End If
 

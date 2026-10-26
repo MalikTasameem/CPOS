@@ -481,6 +481,7 @@ Imports System.Threading.Tasks
 
 Public Class login
     Dim aa As Integer
+    Private loginInProgress As Boolean
 
     ' --- 1. الحركات التفاعلية (Animations) ---
 
@@ -562,28 +563,42 @@ Public Class login
 
     ' --- 4. التحقق من قاعدة البيانات ---
     Private Sub CheckPass()
+        If loginInProgress Then Return
+        loginInProgress = True
+        EnterButton.Enabled = False
+        Dim sessionAccepted As Boolean = False
+        Dim mainReturnedNormally As Boolean = False
         Try
-            Dim C As New C
-            C.Str = "Select * From Users Where UserPass= '" & EncryptionHelper.Encrypt(passTxt.Text) & "'"
-            C.Com = New SqlCommand(C.Str, C.Con)
-            C.Con.Open()
+            Dim connection As String = MY_Settings.SqlConStr
+            Dim usersTable As New DataTable
+            Using cn As New SqlConnection(connection), cmd As New SqlCommand("SELECT user_id,UserName,is_Allow,isAdmin,AG_ID,Tr_ID FROM Users WHERE UserPass=@Password", cn)
+                cmd.Parameters.Add("@Password", SqlDbType.NVarChar, -1).Value = EncryptionHelper.Encrypt(passTxt.Text)
+                cn.Open()
+                Using reader = cmd.ExecuteReader()
+                    usersTable.Load(reader)
+                End Using
+            End Using ' Authentication connection must not stay open throughout the main dialog.
 
-            C.Dr = C.Com.ExecuteReader
-            C.Dr.Read()
-
-            If C.Dr.HasRows = True Then
+            If usersTable.Rows.Count > 0 Then
+                Dim candidate As DataRow = usersTable.Rows(0)
+                Dim candidateId As Integer = Convert.ToInt32(candidate("user_id"))
+                Dim candidateName As String = Convert.ToString(candidate("UserName"))
                 passTxt.Clear()
-                USER_ID = C.Dr("user_id")
-                USER_NAME = C.Dr("UserName")
 
-                If C.Dr("is_Allow") = 0 Then
+                If Not Convert.ToBoolean(candidate("is_Allow")) Then
+                    ShowAuditWarning(AuditSecuritySession.Current.RejectLogin(connection, candidateId, candidateName, "login", Environment.MachineName, Application.ProductVersion))
                     MsgBox("المعذرة .. أنت غير مسموح لك بالدخول للنظام", MsgBoxStyle.Exclamation)
                     Exit Sub
                 End If
 
+                Dim auditWarning As String = AuditSecuritySession.Current.Start(connection, candidateId, candidateName, "login", Environment.MachineName, Application.ProductVersion)
+                sessionAccepted = True
+                USER_ID = candidateId
+                USER_NAME = candidateName
+                ShowAuditWarning(auditWarning)
                 F_MainForm = New MainForm
 
-                If C.Dr("isAdmin") = True Then
+                If Convert.ToBoolean(candidate("isAdmin")) Then
                     User_isAdmin = True
                     F_MainForm.Sys_Setting_btn.Enabled = True
                     U_SalesVoid = True
@@ -622,13 +637,13 @@ Public Class login
                     User_isAdmin = False
                 End If
 
-                If Not IsDBNull(C.Dr("AG_ID")) Then U_AG_ID = C.Dr("AG_ID")
+                U_AG_ID = If(IsDBNull(candidate("AG_ID")), 0, Convert.ToInt32(candidate("AG_ID")))
 
-                If C.Dr("Tr_ID") > 0 Then
-                    PCH_TR_ID = C.Dr("Tr_ID")
-                    SB_TR_ID = C.Dr("Tr_ID")
-                    Rct_Tr_ID = C.Dr("Tr_ID")
-                    EXP_TR_ID = C.Dr("Tr_ID")
+                If Not IsDBNull(candidate("Tr_ID")) AndAlso Convert.ToInt32(candidate("Tr_ID")) > 0 Then
+                    PCH_TR_ID = Convert.ToInt32(candidate("Tr_ID"))
+                    SB_TR_ID = Convert.ToInt32(candidate("Tr_ID"))
+                    Rct_Tr_ID = Convert.ToInt32(candidate("Tr_ID"))
+                    EXP_TR_ID = Convert.ToInt32(candidate("Tr_ID"))
                 Else
                     PCH_TR_ID = Org_PCH_TR_ID
                     SB_TR_ID = Org_SB_TR_ID
@@ -637,19 +652,38 @@ Public Class login
                 End If
 
                 Me.Hide()
-                F_MainForm = New MainForm
                 F_MainForm.ShowDialog()
-                C.Con.Close()
+                mainReturnedNormally = True
 
             Else
+                ShowAuditWarning(AuditSecuritySession.Current.RejectLogin(connection, Nothing, Nothing, "login", Environment.MachineName, Application.ProductVersion))
                 ' تفعيل الحركات التفاعلية عند رفض الدخول بدلاً من MsgBox الكلاسيكي
                 RejectLogin()
             End If
-            C.Con.Close()
 
         Catch ex As Exception
             MsgBox(ex.Message)
+        Finally
+            If sessionAccepted Then
+                ' An initialization failure is not a fabricated explicit user logout.
+                If mainReturnedNormally Then
+                    ShowAuditWarning(AuditSecuritySession.Current.Finish("login"))
+                Else
+                    AuditSecuritySession.Current.Abandon()
+                End If
+                USER_ID = 0
+                USER_NAME = ""
+                User_isAdmin = False
+                U_AG_ID = 0
+                If Not Me.IsDisposed AndAlso Not Me.Disposing Then Me.Show()
+            End If
+            loginInProgress = False
+            If Not Me.IsDisposed Then EnterButton.Enabled = True
         End Try
+    End Sub
+
+    Private Sub ShowAuditWarning(message As String)
+        If Not String.IsNullOrWhiteSpace(message) Then MsgBox(message, MsgBoxStyle.Exclamation, "شبكة المراقبة")
     End Sub
 
     ' --- 5. إعدادات الفورم والشبكة والأزرار الأخرى ---
@@ -662,6 +696,12 @@ Public Class login
     End Sub
 
     Private Sub login_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        ' Application.Exit can close login before MainForm; record before the existing process kill.
+        If e.CloseReason = CloseReason.UserClosing OrElse e.CloseReason = CloseReason.ApplicationExitCall Then
+            ShowAuditWarning(AuditSecuritySession.Current.Finish("login"))
+        Else
+            AuditSecuritySession.Current.Abandon()
+        End If
         Kill_All_Processes()
     End Sub
 

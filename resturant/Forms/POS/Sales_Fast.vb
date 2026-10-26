@@ -5,6 +5,14 @@ Imports System.Data.SqlClient
 Imports System.Drawing.Printing
 
 Public Class Sales_Fast : Inherits System.Windows.Forms.Form
+    Private ReadOnly auditEditOpening As New AuditSalesEditAttempt()
+
+    Private Sub AuditEditOpening_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If Not auditEditOpening.CanClose() Then
+            e.Cancel = True
+            MsgBox("نتيجة فتح تعديل الفاتورة غير محسومة؛ أعد المحاولة بعد عودة الاتصال قبل إغلاق الشاشة.", MsgBoxStyle.Exclamation)
+        End If
+    End Sub
 
 
     Public Property OpenForPreviousBillsReview As Boolean = False
@@ -225,24 +233,16 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     End Function
 
     Private Sub Change_IM_Qty(def As Integer)
-        Dim SB_T_ID As Integer = AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value
-        Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "SB_Contents_Change_IM_Qty"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", SB_T_ID)
-            .Parameters.AddWithValue("@Def", def)
-            .Parameters.AddWithValue("@On_Update", On_Update)
-        End With
-
-        If SQL_SP_EXEC(c.Com) = True Then
-            SB_Contents_SELECT_Bill()
-            AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
-            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString + " السعر:" + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString,
-                Bill_ID_Txt.Text, 1, 3)
-        End If
+        If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentRow.IsNewRow Then Return
+        For Each column In {"T_ID_CL", "QTY_CL"}
+            If Not AGMetroGrid.Columns.Contains(column) OrElse AGMetroGrid.CurrentRow.Cells(column).Value Is Nothing OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells(column).Value) Then Return
+        Next
+        Dim lineId = Convert.ToInt32(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
+        AuditSalesQuantityUi.Run(Me, T_ID, lineId, Convert.ToDecimal(AGMetroGrid.CurrentRow.Cells("QTY_CL").Value), def, On_Update, IM_min_QTY,
+            Sub()
+                SB_Contents_SELECT_Bill()
+                AuditSalesQuantityUi.SelectLine(AGMetroGrid, "T_ID_CL", "EX_Name_CL", lineId)
+            End Sub)
     End Sub
 
     Private Sub loadShortCut_IM()
@@ -1200,7 +1200,9 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Public Sub Add_ItemToBill(IM_ID As String)
         If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, U_ID)
 
-        If Bercent_Price > 0 Then IM_Price =
+        ' Keep the existing price formula, without changing the editor on a rejected save.
+        Dim additionPrice = IM_Price
+        If Bercent_Price > 0 Then additionPrice =
     IM_Price + IM_Price * (IM_Price / 100).ToString("00.00")
 
         'Dim Row_Index As Integer = 0
@@ -1215,7 +1217,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             .Parameters.AddWithValue("@ST_ID", SB_ST_ID)
             .Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox))
             .Parameters.AddWithValue("@U_ID", U_ID)
-            .Parameters.AddWithValue("@Price", IM_Price)
+            .Parameters.AddWithValue("@Price", additionPrice)
             .Parameters.AddWithValue("@On_Update", On_Update)
             .Parameters.AddWithValue("@Barcode", Barcode_IM)
             If is_Valid = True Then .Parameters.AddWithValue("@D_Vaild", Valid_TXT)
@@ -1223,37 +1225,20 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             .Parameters.AddWithValue("@SB_IM_NEW_ROW", SB_IM_NEW_ROW)
         End With
 
-        If SQL_SP_EXEC(C.Com) = True Then
-            If On_Update = True Then DependingUpdatedBill(T_ID)
-
-            Network_Edit_Tracker_insert(" الصنف:" + IM_Name + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.ToString() + " السعر:" + IM_Price.ToString(), Bill_ID_Txt.Text, 1, 1)
-
-            SB_Contents_SELECT_Bill()
+        Dim savedLine As Integer
+        If AuditSalesAddUi.Run(Me, C.Com, IM_min_QTY, savedLine) Then
             ClearCatFields()
+            If AuditSalesAddUi.Refresh(Me, Sub() SB_Contents_SELECT_Bill()) AndAlso savedLine > 0 Then AuditSalesQuantityUi.SelectLine(AGMetroGrid, "T_ID_CL", "EX_Name_CL", savedLine)
             'If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
         End If
 
     End Sub
 
     Private Sub SB_Contents_Delete_IM(T_ID_CL As Integer)
-        Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "SB_Contents_Delete_IM"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", T_ID_CL)
-            .Parameters.AddWithValue("@On_Update", On_Update)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            'Network_Edit_Tracker_insert("حذف صنف لفاتورة مبيعات/ رقم آلي : " + Bill_ID_Txt.Text + " / الصنف :  " + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " /العدد :  " + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString + " /السعر :  " + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Pure_txt.Text, 0, 0)
-
-            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " الوحدة:" + AGMetroGrid.CurrentRow.Cells("IMUnit_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString _
-                                        + " السعر:" + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Bill_ID_Txt.Text, 1, 2)
-
-            SB_Contents_SELECT_Bill()
-            If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
-        End If
+        If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentRow.IsNewRow OrElse Not AGMetroGrid.Columns.Contains("QTY_CL") Then Return
+        Dim quantity = AGMetroGrid.CurrentRow.Cells("QTY_CL").Value
+        If quantity Is Nothing OrElse IsDBNull(quantity) Then Return
+        AuditSalesDeleteUi.Run(Me, T_ID, T_ID_CL, Convert.ToDecimal(quantity), On_Update, Sub() SB_Contents_SELECT_Bill())
     End Sub
 
 
@@ -2558,7 +2543,12 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
                         Exit Sub
                     End Try
 
-                    If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+                    Try
+                        auditEditOpening.Open(MY_Settings.SqlConStr, AuditSecuritySession.Current.ContextFor(MY_Settings.SqlConStr, USER_ID, "Sales_Fast"), T_ID)
+                    Catch ex As Exception
+                        MsgBox(ex.Message, MsgBoxStyle.Exclamation, "فتح تعديل الفاتورة")
+                        Exit Sub
+                    End Try
                     EditPaymentSnapshot = paymentSnapshot
 
                     Edit_butt.BackColor = Color.GreenYellow
@@ -2570,7 +2560,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
                     DiscountPanel.Enabled = True
                     Ebable_CatFields()
                     Edit_butt.Text = "إيقاف التعديل"
-                    'Network_Edit_Tracker_insert("تعديل فاتورة مبيعات (الشاشة السريعة) / رقم آلي : " + Bill_ID_Txt.Text + "  / المدخل :  " + User_Name_lb.Text, Pure_txt.Text, 0, 0)
                 End If
 
             Else

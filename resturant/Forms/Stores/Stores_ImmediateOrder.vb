@@ -2,6 +2,7 @@
 
 Public Class Stores_ImmediateOrder
 
+    Private ReadOnly auditDocumentEdit As New AuditDocumentEditUi(Me)
     Dim rs As New Resizer
     '  Dim IM_Dt As New DataTable
     Public FormActive As Boolean = True
@@ -656,7 +657,7 @@ Public Class Stores_ImmediateOrder
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
         If Edit_butt.Text = EditState Then
             MsgBox(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ", MsgBoxStyle.Information, "تعديل فاتورة")
-            If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+            If Not auditDocumentEdit.TryOpen(T_ID, 12) Then Exit Sub
 
             On_Update = True
             Edit_butt.Text = "إيقاف التعديل"

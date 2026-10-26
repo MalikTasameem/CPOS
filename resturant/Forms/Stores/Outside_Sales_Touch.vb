@@ -1,6 +1,7 @@
 Imports System.Data.SqlClient
 
 Public Class Outside_Sales_Touch
+    Private ReadOnly auditDocumentEdit As New AuditDocumentEditUi(Me)
     Private _transactionId As Integer
     Private _billId As Integer
     Private _isDepended As Boolean
@@ -684,7 +685,8 @@ Public Class Outside_Sales_Touch
         If Not CanEditDetails() OrElse CartGrid.CurrentRow Is Nothing Then Return
         Dim row As DataRowView = TryCast(CartGrid.CurrentRow.DataBoundItem, DataRowView)
         If row Is Nothing Then Return
-        Dim newQuantity As Decimal = SafeDecimal(row("QYT")) + changeValue
+        Dim previousQuantity As Decimal = SafeDecimal(row("QYT"))
+        Dim newQuantity As Decimal = previousQuantity + changeValue
         If newQuantity <= 0D Then
             SetStatus("الحد الأدنى للكمية هو وحدة واحدة؛ استخدم حذف الصنف لإزالته", True)
             Return
@@ -710,7 +712,7 @@ Public Class Outside_Sales_Touch
                     End Try
                 End Using
             End Using
-            Network_Edit_Tracker_insert("تعديل كمية صنف من شاشة الاستلام اللمسية: " & Convert.ToString(row("item_name")) & " - الكمية الجديدة: " & newQuantity.ToString("N3"), _billId.ToString(), 35, 1)
+            Network_Edit_Tracker_insert("تم تعديل كمية صنف من شاشة الاستلام اللمسية: " & Convert.ToString(row("item_name")) & "؛ رقم الحركة: " & _transactionId.ToString() & "؛ رقم السطر: " & Convert.ToString(row("T_ID")) & "؛ الكمية من: " & previousQuantity.ToString("N3") & " إلى: " & newQuantity.ToString("N3"), _billId.ToString(), 35, 3)
             LoadDetails()
             SetStatus("تم تعديل كمية الصنف", False)
         Catch ex As Exception
@@ -845,7 +847,7 @@ Public Class Outside_Sales_Touch
     Private Sub EditButton_Click(sender As Object, e As EventArgs) Handles EditButton.Click
         If _isVoid Then Return
         If Not _isEditMode Then
-            If Not Open_Agents_Balance_MV_For_Edit(_transactionId) Then Return
+            If Not auditDocumentEdit.TryOpen(_transactionId, 35) Then Return
             _isEditMode = True
             _isDepended = False
             SetStatus("تم فتح الإذن للتعديل المباشر", False)

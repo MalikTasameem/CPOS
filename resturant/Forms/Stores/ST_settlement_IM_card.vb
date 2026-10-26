@@ -143,6 +143,8 @@
 
         If IM_ID > 0 Then
             Dim F As New IM_Update_Qty
+            F.Bill_T_ID = Me.T_ID
+            F.Unit_ID = U_ID
             F.IM_ID = IM_ID
             F.IM_NAME = mySearchControl.txtSearch.Text
             F.Unit_NAME = IM_Unit_cm.Text
@@ -150,7 +152,10 @@
             F.CURRENT_QTY = Current_QTY.Text
             F.ST_ID = ST_cm.SelectedValue
             F.Barcode = SELECT_BARCODE(IM_ID, U_ID)
-            F.ShowDialog()
+            If F.ShowDialog(Me) = DialogResult.OK Then
+                Me.DialogResult = DialogResult.OK
+                Me.Close()
+            End If
         End If
 
     End Sub

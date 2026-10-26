@@ -702,6 +702,12 @@ Public Class MainForm
 
 
     Private Sub Home_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        If e.CloseReason = CloseReason.UserClosing OrElse e.CloseReason = CloseReason.ApplicationExitCall Then
+            Dim auditWarning As String = AuditSecuritySession.Current.Finish("MainForm")
+            If Not String.IsNullOrWhiteSpace(auditWarning) Then MsgBox(auditWarning, MsgBoxStyle.Exclamation, "شبكة المراقبة")
+        Else
+            AuditSecuritySession.Current.Abandon()
+        End If
         GetLastShow()
         login.Show()
     End Sub

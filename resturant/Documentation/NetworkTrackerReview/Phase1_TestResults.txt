@@ -1,0 +1,35 @@
+PASS reference excluded from SQL text
+PASS reference preserved as data
+PASS text reference type and size
+PASS start normalized to midnight
+PASS inclusive final day via exclusive next day
+PASS all optional filters parameterized
+PASS stable date and ID ordering
+PASS legacy records not lost by inner joins
+PASS all-selection adds only date parameters
+PASS culture does not turn dates into text
+PASS leading zero reference preserved
+PASS literal description search: O'Brien
+PASS literal description search: %
+PASS literal description search: *
+PASS literal description search: [
+PASS literal description search: ]
+PASS literal description search: [x]
+PASS literal description search: '[]%*
+PASS literal description search: تسوية
+PASS null filter cleared
+PASS empty filter cleared
+PASS reversed dates rejected
+PASS long reference rejected without truncation
+PASS live helper returns all base records in range
+Live read-only row count: 462
+PASS live deterministic chronological order
+PASS live no duplicate event IDs
+PASS live screen and operation filters
+PASS live injection-like reference treated as text
+PASS view migration body extractable for SELECT-only verification
+PASS migration contains expected view only
+PASS planned view SELECT preserves all events
+PASS all projection classification labels present
+PASS screen and view projection contain same IDs
+PASS: 33 checks. No database writes.

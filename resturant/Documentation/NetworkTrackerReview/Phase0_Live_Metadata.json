@@ -1,0 +1,428 @@
+{
+  "CapturedAt": "2026-10-13T17:10:47.8608528+02:00",
+  "ConfiguredServer": "CLASS-PC\\SYS",
+  "Scope": "Network tracker only; draft/offline log development excluded.",
+  "Database": [
+    {
+      "DatabaseName": "CPOS_ACCOUNTING",
+      "ServerName": "DESKTOP-PNQF0B8\\SYS",
+      "ProductVersion": "12.0.2269.0",
+      "ServerTime": "2026-10-13T17:10:47.867"
+    }
+  ],
+  "Definitions": [
+    {
+      "name": "AA_GET_MAX_ID",
+      "type_desc": "SQL_STORED_PROCEDURE",
+      "modify_date": "2026-04-26T19:14:55",
+      "definition": "-- =============================================\r\n-- Author:\t\t<Author,,Name>\r\n-- Create date: <Create Date,,>\r\n-- Description:\t<Description,,>\r\n-- =============================================\r\ncreate PROCEDURE  [dbo].[AA_GET_MAX_ID]\r\n@TABLE_NAME NVARCHAR(100)\r\nAS\r\nBEGIN\r\nDECLARE @START_ID int,@END_ID int,@T_ID NVARCHAR(20)\r\nSELECT @START_ID=START_ID,@END_ID=END_ID FROM SERVERS\r\n\r\nselect @T_ID = C.COLUMN_NAME FROM  \r\nINFORMATION_SCHEMA.TABLE_CONSTRAINTS T  \r\nJOIN INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE C  \r\nON C.CONSTRAINT_NAME=T.CONSTRAINT_NAME  \r\nWHERE  \r\nC.TABLE_NAME= @TABLE_NAME \r\nand T.CONSTRAINT_TYPE='PRIMARY KEY'\r\n\r\n-----------------------------------------------------------------\r\ndeclare @result table ([rowcount] int);\r\ninsert into @result ([rowcount])\r\nEXEC (' select (isnull(max( ' + @T_ID + ' ), ' + @START_ID + ' )+1) from    ' + @TABLE_NAME + '    WHERE   ' + @T_ID + '    BETWEEN ' + @START_ID + ' AND ' + @END_ID );\r\ndeclare @rowid int = (select top (1) [rowcount] from @result);\r\n-----------------------------------------------------------------\r\n\r\nRETURN @rowid\r\n\r\n\r\nend\r\n"
+    },
+    {
+      "name": "Network_Edit_Tracker_insert",
+      "type_desc": "SQL_STORED_PROCEDURE",
+      "modify_date": "2026-04-26T19:14:55.59",
+      "definition": "-- =============================================\r\n-- Author:\t\t<Author,,Name>\r\n-- Create date: <Create Date,,>\r\n-- Description:\t<Description,,>\r\n-- =============================================\r\nCREATE PROCEDURE  [dbo].[Network_Edit_Tracker_insert]\r\n@User_ID\tint,\r\n@Notes\tnvarchar(MAX),\r\n@Bill_ID nvarchar(50),\r\n@CP_Name\tnvarchar(600),\r\n@Operation_ID\tint\t,\r\n@Screen_Type\tint\t\r\n--@DATE NVARCHAR(50)\r\nAS\r\nBEGIN\r\n\r\nDECLARE @T_ID int\r\n--SELECT @T_ID = (SELECT ISNULL(MAX(T_ID),0) FROM Network_Edit_Tracker)+1\r\nEXEC @T_ID = AA_GET_MAX_ID 'Network_Edit_Tracker'\r\n\r\n\r\n\tinsert into Network_Edit_Tracker (T_ID,Date,User_ID,Notes,Bill_ID,Operation_ID,Screen_Type,CP_Name)\r\n\tvalues(@T_ID,GETDATE(),@User_ID,@Notes,@Bill_ID,@Operation_ID,@Screen_Type,@CP_Name)\r\n\r\nend\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "name": "Network_Edit_Tracker_V",
+      "type_desc": "VIEW",
+      "modify_date": "2026-04-26T19:14:53.853",
+      "definition": "CREATE VIEW [dbo].[Network_Edit_Tracker_V]\r\nAS\r\nSELECT        dbo.Network_Edit_Tracker.T_ID, dbo.Network_Edit_Tracker.CP_Name, dbo.Users.UserName, dbo.Network_Edit_Tracker.Date, dbo.AgentBalance_Type.Type_Name, dbo.Operation_Types.Operation_Name, \r\n                         dbo.Network_Edit_Tracker.Notes, dbo.Network_Edit_Tracker.Bill_ID, dbo.Network_Edit_Tracker.Screen_Type, dbo.Network_Edit_Tracker.Operation_ID, dbo.Network_Edit_Tracker.User_ID\r\nFROM            dbo.Network_Edit_Tracker INNER JOIN\r\n                         dbo.Users ON dbo.Network_Edit_Tracker.User_ID = dbo.Users.User_ID INNER JOIN\r\n                         dbo.AgentBalance_Type ON dbo.Network_Edit_Tracker.Screen_Type = dbo.AgentBalance_Type.id INNER JOIN\r\n                         dbo.Operation_Types ON dbo.Network_Edit_Tracker.Operation_ID = dbo.Operation_Types.T_ID\r\n\r\n\r\n\r\n"
+    },
+    {
+      "name": "Network_Edit_Tracker_V_SELECT",
+      "type_desc": "SQL_STORED_PROCEDURE",
+      "modify_date": "2026-04-26T19:14:55.593",
+      "definition": "CREATE PROCEDURE [dbo].[Network_Edit_Tracker_V_SELECT]\r\n@D_F\tDATE,\r\n@D_T\tDATE,\r\n@USER_ID INT\r\nAS\r\nBEGIN\r\n\r\nIF @USER_ID = 0 \r\nBEGIN\r\nSELECT ROW_NUMBER() OVER(ORDER BY Date) AS IDX\r\n      ,[T_ID]\r\n      ,[CP_Name]\r\n      ,[UserName]\r\n      ,[Date]\r\n      ,[Type_Name]\r\n      ,[Operation_Name]\r\n      ,[Notes]\r\n      ,[Bill_ID]\r\n      ,[Screen_Type]\r\n      ,[Operation_ID]\r\n      ,[User_ID]\r\n from Network_Edit_Tracker_V WHERE CONVERT(DATE,Date) BETWEEN @D_F AND @D_T ORDER BY Date ASC\r\nEND\r\nELSE\r\nBEGIN\r\nSELECT ROW_NUMBER() OVER(ORDER BY Date) AS IDX \r\n      ,[T_ID]\r\n      ,[CP_Name]\r\n      ,[UserName]\r\n      ,[Date]\r\n      ,[Type_Name]\r\n      ,[Operation_Name]\r\n      ,[Notes]\r\n      ,[Bill_ID]\r\n      ,[Screen_Type]\r\n      ,[Operation_ID]\r\n      ,[User_ID]\r\n\t   from Network_Edit_Tracker_V WHERE CONVERT(DATE,Date) BETWEEN @D_F AND @D_T AND USER_ID = @USER_ID ORDER BY Date ASC\r\nEND\r\nEND\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "name": "REDUCE_NETWORK_TRACKER",
+      "type_desc": "SQL_STORED_PROCEDURE",
+      "modify_date": "2026-06-28T17:37:44.333",
+      "definition": "-- =============================================\r\n-- Author:\t\t<Author,,Name>\r\n-- Create date: <Create Date,,>\r\n-- Description:\t<Description,,>\r\n-- =============================================\r\nCREATE PROCEDURE [dbo].[REDUCE_NETWORK_TRACKER] \r\nAS\r\nBEGIN \r\nIF (SELECT COUNT(T_ID) FROM Network_Edit_Tracker) > 50000\r\nBEGIN\r\nDELETE FROM Network_Edit_Tracker WHERE T_ID IN (SELECT TOP 25000 T_ID FROM Network_Edit_Tracker)\r\nEND\r\n\r\nEND\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    }
+  ],
+  "ReferencingModules": [
+    {
+      "name": "DeleteAll_BuysAndSales",
+      "type_desc": "SQL_STORED_PROCEDURE"
+    },
+    {
+      "name": "Network_Edit_Tracker_insert",
+      "type_desc": "SQL_STORED_PROCEDURE"
+    },
+    {
+      "name": "Network_Edit_Tracker_V",
+      "type_desc": "VIEW"
+    },
+    {
+      "name": "Network_Edit_Tracker_V_SELECT",
+      "type_desc": "SQL_STORED_PROCEDURE"
+    },
+    {
+      "name": "REDUCE_NETWORK_TRACKER",
+      "type_desc": "SQL_STORED_PROCEDURE"
+    },
+    {
+      "name": "User_Delete",
+      "type_desc": "SQL_STORED_PROCEDURE"
+    }
+  ],
+  "Columns": [
+    {
+      "column_id": 1,
+      "name": "T_ID",
+      "DataType": "int",
+      "max_length": 4,
+      "precision": 10,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 2,
+      "name": "User_ID",
+      "DataType": "int",
+      "max_length": 4,
+      "precision": 10,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 3,
+      "name": "Date",
+      "DataType": "datetime",
+      "max_length": 8,
+      "precision": 23,
+      "scale": 3,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 4,
+      "name": "Screen_Type",
+      "DataType": "int",
+      "max_length": 4,
+      "precision": 10,
+      "scale": 0,
+      "is_nullable": true,
+      "is_identity": false
+    },
+    {
+      "column_id": 5,
+      "name": "Operation_ID",
+      "DataType": "int",
+      "max_length": 4,
+      "precision": 10,
+      "scale": 0,
+      "is_nullable": true,
+      "is_identity": false
+    },
+    {
+      "column_id": 6,
+      "name": "Notes",
+      "DataType": "nvarchar",
+      "max_length": -1,
+      "precision": 0,
+      "scale": 0,
+      "is_nullable": true,
+      "is_identity": false
+    },
+    {
+      "column_id": 7,
+      "name": "Bill_ID",
+      "DataType": "nvarchar",
+      "max_length": 100,
+      "precision": 0,
+      "scale": 0,
+      "is_nullable": true,
+      "is_identity": false
+    },
+    {
+      "column_id": 8,
+      "name": "CP_Name",
+      "DataType": "nvarchar",
+      "max_length": 1200,
+      "precision": 0,
+      "scale": 0,
+      "is_nullable": true,
+      "is_identity": false
+    }
+  ],
+  "Indexes": [
+    {
+      "name": "PK_Network_Edit_Tracker",
+      "is_unique": true,
+      "type_desc": "CLUSTERED",
+      "key_ordinal": 1,
+      "ColumnName": "T_ID"
+    }
+  ],
+  "Triggers": [],
+  "ForeignKeys": [],
+  "ScreenTypes": [
+    {
+      "id": 1,
+      "Type_Name": "فاتورة مبيعـــات",
+      "RankNum": 1
+    },
+    {
+      "id": 2,
+      "Type_Name": "مصروفات عـــامة",
+      "RankNum": 2
+    },
+    {
+      "id": 3,
+      "Type_Name": "إيصال قبـــض",
+      "RankNum": 4
+    },
+    {
+      "id": 4,
+      "Type_Name": "إيصال صـــرف",
+      "RankNum": 5
+    },
+    {
+      "id": 5,
+      "Type_Name": "إثبات مرتب",
+      "RankNum": 6
+    },
+    {
+      "id": 6,
+      "Type_Name": "رصيد سابـــق مدين",
+      "RankNum": 7
+    },
+    {
+      "id": 7,
+      "Type_Name": "فاتورة مشتريــات",
+      "RankNum": 3
+    },
+    {
+      "id": 8,
+      "Type_Name": "فاتورة  تالف",
+      "RankNum": 8
+    },
+    {
+      "id": 9,
+      "Type_Name": "فاتورة جــرد",
+      "RankNum": 9
+    },
+    {
+      "id": 10,
+      "Type_Name": "إرجـاع مبيعات",
+      "RankNum": 10
+    },
+    {
+      "id": 11,
+      "Type_Name": "إرجـاع مشتريات",
+      "RankNum": 11
+    },
+    {
+      "id": 12,
+      "Type_Name": "إذن تحويل أصناف",
+      "RankNum": 12
+    },
+    {
+      "id": 13,
+      "Type_Name": "أمر تصنيع آلي",
+      "RankNum": 13
+    },
+    {
+      "id": 14,
+      "Type_Name": "إستهلاك تصنيع",
+      "RankNum": 15
+    },
+    {
+      "id": 15,
+      "Type_Name": "تعديل من المستخدم",
+      "RankNum": 16
+    },
+    {
+      "id": 16,
+      "Type_Name": "فاتورة عــرض",
+      "RankNum": 17
+    },
+    {
+      "id": 17,
+      "Type_Name": "إذن صرف",
+      "RankNum": 18
+    },
+    {
+      "id": 18,
+      "Type_Name": "أمر تصنيع يدوي",
+      "RankNum": 14
+    },
+    {
+      "id": 19,
+      "Type_Name": "تركيبة صنف",
+      "RankNum": 19
+    },
+    {
+      "id": 20,
+      "Type_Name": "الأصناف",
+      "RankNum": 20
+    },
+    {
+      "id": 21,
+      "Type_Name": "التصنيفات",
+      "RankNum": 21
+    },
+    {
+      "id": 22,
+      "Type_Name": "الوحدات",
+      "RankNum": 22
+    },
+    {
+      "id": 23,
+      "Type_Name": "كشف المخزن",
+      "RankNum": 23
+    },
+    {
+      "id": 24,
+      "Type_Name": "سحب يدوي من خزينة",
+      "RankNum": 24
+    },
+    {
+      "id": 25,
+      "Type_Name": "إيداع يدوي إلى خزينة ",
+      "RankNum": 25
+    },
+    {
+      "id": 26,
+      "Type_Name": "تحويل يدوي من الخزائن",
+      "RankNum": 26
+    },
+    {
+      "id": 27,
+      "Type_Name": "بطاقة العملاء",
+      "RankNum": 27
+    },
+    {
+      "id": 28,
+      "Type_Name": "نقل طاولات",
+      "RankNum": 28
+    },
+    {
+      "id": 29,
+      "Type_Name": "تعدبل الأسعار بنسبة",
+      "RankNum": 29
+    },
+    {
+      "id": 30,
+      "Type_Name": "تعديل الأسعار بقيمة",
+      "RankNum": 30
+    },
+    {
+      "id": 31,
+      "Type_Name": "المستخدمين",
+      "RankNum": 31
+    },
+    {
+      "id": 32,
+      "Type_Name": "علاوات وخصومات",
+      "RankNum": 32
+    },
+    {
+      "id": 33,
+      "Type_Name": "نقل أصناف من طاولة",
+      "RankNum": 33
+    },
+    {
+      "id": 34,
+      "Type_Name": "مصاريف عهدة",
+      "RankNum": 34
+    },
+    {
+      "id": 35,
+      "Type_Name": "إذن إستلام",
+      "RankNum": 35
+    },
+    {
+      "id": 36,
+      "Type_Name": "عرض مبيعات",
+      "RankNum": 36
+    },
+    {
+      "id": 37,
+      "Type_Name": "رصيد سابـــق دائن",
+      "RankNum": 37
+    },
+    {
+      "id": 38,
+      "Type_Name": "فاتورة أعمال داخلية",
+      "RankNum": 38
+    },
+    {
+      "id": 39,
+      "Type_Name": "فاتورة تسوية كميات",
+      "RankNum": 39
+    },
+    {
+      "id": 40,
+      "Type_Name": "تحويل حسابات",
+      "RankNum": 40
+    },
+    {
+      "id": 41,
+      "Type_Name": "حساب المخزون",
+      "RankNum": 41
+    },
+    {
+      "id": 42,
+      "Type_Name": "حساب تكلفة المبيعات",
+      "RankNum": 42
+    },
+    {
+      "id": 43,
+      "Type_Name": "خصم مسموح",
+      "RankNum": 43
+    },
+    {
+      "id": 44,
+      "Type_Name": "خصم مكتسب",
+      "RankNum": 44
+    }
+  ],
+  "Operations": [
+    {
+      "T_ID": 1,
+      "Operation_Name": "إضافة"
+    },
+    {
+      "T_ID": 2,
+      "Operation_Name": "حذف"
+    },
+    {
+      "T_ID": 3,
+      "Operation_Name": "تعديل"
+    }
+  ],
+  "Counts": [
+    {
+      "BaseRows": 462,
+      "ViewRows": 461,
+      "MissingUser": 0,
+      "MissingScreen": 1,
+      "MissingOperation": 1,
+      "HiddenByInnerJoins": 1
+    }
+  ],
+  "InvalidClassifications": [
+    {
+      "Screen_Type": 0,
+      "Operation_ID": 0,
+      "EventCount": 1
+    }
+  ],
+  "Synchronization": [
+    {
+      "TABLE_NAME": "Network_Edit_Tracker",
+      "is_Push": 1,
+      "is_Pull": 1,
+      "PRIMARY_KEY_NAME": "T_ID",
+      "ORDER_COLUMN": "T_ID",
+      "SELECT_SCRIPT": "SELECT [T_ID]\r\n      ,[User_ID]\r\n      ,[Date]\r\n      ,[Screen_Type]\r\n      ,[Operation_ID]\r\n      ,[Notes]\r\n      ,[Bill_ID]\r\n      ,[CP_Name]\r\n  FROM [dbo].[Network_Edit_Tracker]",
+      "CREATE_SCRIPT": "CREATE TABLE [dbo].[##Network_Edit_Tracker](\r\n\t[T_ID] [int] NOT NULL,\r\n\t[User_ID] [int] NOT NULL,\r\n\t[Date] [datetime] NOT NULL,\r\n\t[Screen_Type] [int] NULL,\r\n\t[Operation_ID] [int] NULL,\r\n\t[Notes] [nvarchar](max) NULL,\r\n\t[Bill_ID] [nvarchar](50) NULL,\r\n\t[CP_Name] [nvarchar](600) NULL,\r\n)"
+    }
+  ]
+}

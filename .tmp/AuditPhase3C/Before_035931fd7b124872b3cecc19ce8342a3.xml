@@ -1,0 +1,1117 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Definitions" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Definitions">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="128" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="definition" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="2147483647" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Definitions>
+    <name>IM_full_movement_tmp_V</name>
+    <definition>
+
+
+
+
+
+
+
+CREATE VIEW [dbo].[IM_full_movement_tmp_V] AS
+
+
+SELECT   7 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,QYT AS P,0 AS N,Pch_ID AS Bill_ID,U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM    Pch_Details_V  WHERE isDepended = 1 AND id = 7
+
+
+UNION ALL
+
+
+SELECT   9 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,QYT AS P,0 AS N,Jrd_ID AS Bill_ID,U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM    Pch_Details_V  WHERE isDepended = 1 AND id = 9
+
+
+UNION ALL
+
+
+
+SELECT   10 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,QTY AS P,0 AS N,SRtn_ID AS Bill_ID,Unit_Name AS U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   Rtn_Contents_V  WHERE isDepended = 1 and Rtn_Type_ID = 1
+
+
+UNION ALL
+
+SELECT   12 AS Type_ID, IM_ID,ST_To_ID AS ST_ID,AG_ID,Date,D_Vaild,QTY AS P,0 AS N,ST_Tran_ID AS Bill_ID,U_NAME AS U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   St_Trans_V  WHERE isDepended = 1
+
+
+UNION ALL
+
+
+SELECT   13 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,QYT AS P,0 AS N,FRM_ID AS Bill_ID,U_NAME AS U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   FRM_Auto_Show_V  WHERE isDepended = 1
+
+
+UNION ALL
+
+
+SELECT   18 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,QYT AS P,0 AS N,FRM_ID AS Bill_ID,U_NAME AS U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   FRM_Manuel_Show_V  WHERE isDepended = 1
+
+
+UNION ALL
+
+
+SELECT   35 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,QYT AS P,0 AS N,OutSale_ID AS Bill_ID,U_NAME AS U_NAME,COST AS Price, TRY_CAST(Barcode AS nvarchar(50)) AS Barcode ,U_Cargo,USER_ID
+FROM   Outsale_Details_V  WHERE isDepended = 1
+
+
+UNION ALL
+
+--0 AS 
+SELECT   23 AS Type_ID, IM_ID,ST_ID,0 AS AG_ID,Date,Valid_D,ST_QTY AS P,0 AS N,0 AS Bill_ID,'' AS U_NAME,0 AS Price,TRY_CAST('0' AS nvarchar(50)) AS Barcode, 0 AS U_Cargo,0 AS USER_ID
+FROM   ST_QTY_Deferences WHERE ST_QTY &gt; 0
+
+UNION ALL
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SELECT   1 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,0 AS P,QTY AS N,SB_ID AS Bill_ID,Unit_Name AS U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM    SB_Contents_V  WHERE isDepended = 1
+
+
+UNION ALL
+
+SELECT   11 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,0 AS P,QTY AS N,PRtn_ID AS Bill_ID,Unit_Name AS U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   Rtn_Contents_V  WHERE isDepended = 1 and Rtn_Type_ID = 7
+
+
+UNION ALL
+
+SELECT   12 AS Type_ID, IM_ID,ST_f_ID AS ST_ID,AG_ID,Date,D_Vaild,0 AS P,QTY AS N,ST_Tran_ID AS Bill_ID,U_NAME AS U_NAME,Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   St_Trans_V  WHERE isDepended = 1
+
+
+UNION ALL
+
+SELECT   8 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,0 AS P,QYT AS N,IMEX_ID AS Bill_ID, U_NAME,Cost AS Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   IMEX_Details_V  WHERE isDepended = 1 
+
+
+UNION ALL
+
+
+SELECT   17 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,D_Vaild,0 AS P,QYT AS N,InSale_ID AS Bill_ID,U_NAME AS U_NAME,COST AS Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   Insale_Details_V  WHERE isDepended = 1
+
+
+UNION ALL
+
+SELECT   14 AS Type_ID, IM_ID,ST_ID,AG_ID,Date,'' AS D_Vaild,0 AS P,QYT AS N,FRM_ID AS Bill_ID,U_NAME AS U_NAME,COST AS Price,TRY_CAST(Barcode AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   FRM_Contents_TMP_V  WHERE isDepended = 1
+
+
+
+UNION ALL
+
+--0 AS 
+SELECT   19 AS Type_ID, Struct_ID AS IM_ID,ST_ID,AG_ID,Date,'' AS D_Vaild,0 AS P,QTY AS N,SB_ID AS Bill_ID,U_NAME AS U_NAME, 0 AS Price,TRY_CAST('0' AS nvarchar(50)) AS Barcode,U_Cargo,USER_ID
+FROM   SB_Contents_Structers_V  WHERE isDepended = 1
+
+
+UNION ALL
+
+--0 AS
+SELECT   23 AS Type_ID, IM_ID,ST_ID,0 AS AG_ID,Date,Valid_D,ST_QTY AS P,0 AS N,0 AS Bill_ID,'' AS U_NAME,0 AS Price, TRY_CAST('0' AS nvarchar(50)) AS Barcode, 0 AS U_Cargo,0 AS USER_ID
+FROM   ST_QTY_Deferences WHERE ST_QTY &lt; 0
+
+
+
+</definition>
+  </Definitions>
+  <Definitions>
+    <name>Network_Audit_Event_Write</name>
+    <definition>CREATE PROCEDURE dbo.Network_Audit_Event_Write
+ @SourceId uniqueidentifier,@RequestId uniqueidentifier,@EventId uniqueidentifier,@EventOrdinal int,
+ @EventXml xml,@ChangesXml xml,@EventFingerprint varbinary(32),@CanonicalEvent varbinary(max)
+AS
+BEGIN
+ SET NOCOUNT ON; SET XACT_ABORT ON;
+ IF @@TRANCOUNT=0 OR XACT_STATE()&lt;&gt;1 THROW 51100,'Audit requires the caller writable transaction.',1;
+ DECLARE @resource nvarchar(255)=N'CPOS.Audit.Request.'+CONVERT(nvarchar(36),@SourceId)+N'.'+CONVERT(nvarchar(36),@RequestId);
+ IF ISNULL(APPLOCK_MODE('public',@resource,'Transaction'),'NoLock')&lt;&gt;'Exclusive'
+    THROW 51100,'Begin the request in this transaction before writing an event.',1;
+ IF @EventId IS NULL OR @EventId='00000000-0000-0000-0000-000000000000' OR @EventOrdinal NOT BETWEEN 1 AND 100
+   OR DATALENGTH(@EventFingerprint)&lt;&gt;32 OR ISNULL(DATALENGTH(@CanonicalEvent),0) NOT BETWEEN 1 AND 1048576
+   OR @EventXml IS NULL OR @ChangesXml IS NULL
+   OR DATALENGTH(CONVERT(nvarchar(max),@EventXml))&gt;524288 OR DATALENGTH(CONVERT(nvarchar(max),@ChangesXml))&gt;524288
+   OR @EventXml.value('count(/Event)','int')&lt;&gt;1 OR @EventXml.value('count(/*)','int')&lt;&gt;1
+   OR @EventXml.exist('/Event[@version="1"]')&lt;&gt;1 OR @ChangesXml.exist('/Changes[@version="1"]')&lt;&gt;1
+   OR @ChangesXml.value('count(/Changes/Change)','int')&gt;100
+   THROW 51101,'Invalid/oversized event envelope.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND SourceId=@SourceId AND SchemaVersion=1)
+    THROW 51102,'Audit source/schema mismatch.',1;
+ DECLARE @operation varchar(64),@actor tinyint,@user int,@service varchar(64),@session uniqueidentifier;
+ SELECT @operation=OperationCode,@actor=ActorKind,@user=ActorUserId,@service=ActorServiceCode,@session=SessionId
+ FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND State=0;
+ IF @operation IS NULL THROW 51105,'Request is missing or already complete.',1;
+ DECLARE @eventCode varchar(64)=@EventXml.value('(/Event/@code)[1]','varchar(64)'),
+  @domain varchar(64)=@EventXml.value('(/Event/@domain)[1]','varchar(64)'),
+  @kind tinyint=@EventXml.value('(/Event/@kind)[1]','tinyint'),
+  @outcome tinyint=@EventXml.value('(/Event/@outcome)[1]','tinyint');
+ IF @eventCode&lt;&gt;@operation OR NOT (
+   (@operation='AuditTest.Changed' AND @domain='AuditTest' AND @kind=1 AND @actor IN(1,3)) OR
+   (@operation IN('Settlement.LineAdded','Settlement.LineDeleted') AND @domain='Inventory.Settlement' AND @kind=1 AND @actor=1) OR
+   (@operation IN('Security.SessionStarted','Security.SessionEnded') AND @domain='Security' AND @kind=2 AND @actor=1 AND @session IS NOT NULL) OR
+   (@operation='Security.LoginRejected' AND @domain='Security' AND @kind=2 AND @actor IN(1,2) AND @session IS NULL))
+   THROW 51101,'Event does not match its request contract.',1;
+ IF (@operation='Security.LoginRejected' AND @outcome&lt;&gt;2) OR (@operation&lt;&gt;'Security.LoginRejected' AND @outcome&lt;&gt;1)
+   THROW 51101,'Outcome does not match the event.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND EnabledDomainsXml.exist('/Domains/Domain[@code=sql:variable("@domain")]')=1)
+   THROW 51102,'Audit domain is disabled.',1;
+ IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE EventId=@EventId OR (SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=@EventOrdinal))
+ BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE EventId=@EventId AND SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=@EventOrdinal
+     AND EventFingerprint=@EventFingerprint AND DATALENGTH(CanonicalEvent)=DATALENGTH(@CanonicalEvent) AND CanonicalEvent=@CanonicalEvent)
+     THROW 51104,'Event identity/ordinal conflicts with different content.',1;
+   SELECT CAST(2 AS int) WriteResult;
+   RETURN;
+ END;
+ DECLARE @changes TABLE(ChangeNo int,EntityType varchar(64),EntityId nvarchar(128),FieldCode varchar(64),ValueType varchar(20),
+ SourceSqlType varchar(40),BeforeState tinyint,BeforeValue nvarchar(max),AfterState tinyint,AfterValue nvarchar(max),ValueOrigin tinyint);
+ INSERT @changes
+ SELECT n.value('@no','int'),n.value('@entityType','varchar(64)'),n.value('@entityId','nvarchar(128)'),n.value('@field','varchar(64)'),
+ n.value('@type','varchar(20)'),n.value('(@sqlType)[1]','varchar(40)'),n.value('(Before/@state)[1]','tinyint'),
+ CASE WHEN n.value('(Before/@state)[1]','tinyint')=3 THEN n.value('(Before)[1]','nvarchar(max)') END,
+ n.value('(After/@state)[1]','tinyint'),CASE WHEN n.value('(After/@state)[1]','tinyint')=3 THEN n.value('(After)[1]','nvarchar(max)') END,n.value('@origin','tinyint')
+ FROM @ChangesXml.nodes('/Changes/Change') x(n);
+ IF (@kind=1 AND NOT EXISTS(SELECT 1 FROM @changes)) OR (@kind=2 AND EXISTS(SELECT 1 FROM @changes))
+    THROW 51101,'Change details are missing or not allowed for this operation.',1;
+ IF EXISTS(SELECT 1 FROM @changes WHERE NOT (
+    (@operation='AuditTest.Changed' AND ((FieldCode IN('Quantity','Cost') AND ValueType='Decimal') OR (FieldCode='Name' AND ValueType='String') OR (FieldCode='RawQuantity' AND ValueType='Float')))
+    OR (@operation IN('Settlement.LineAdded','Settlement.LineDeleted') AND (
+    (FieldCode IN('ItemId','StoreId','UnitId','LineId') AND ValueType='Integer') OR
+    (FieldCode IN('QuantityDelta','Cost','Total','UnitCargo','RequestedQuantity','DocumentTotal','DocumentPure') AND ValueType='Decimal') OR
+    (FieldCode IN('StoredQuantity','DisplayedQuantity') AND ValueType='Float') OR
+    (FieldCode IN('ExpiryDate','CreatedAt') AND ValueType='DateTime') OR
+    (FieldCode IN('ExpiryText','Barcode') AND ValueType='String')))
+ )) THROW 51101,'Field/type not allowed by operation contract.',1;
+ IF EXISTS(SELECT 1 FROM @changes WHERE LEN(BeforeValue)&gt;4096 OR LEN(AfterValue)&gt;4096)
+    THROW 51101,'Change value too long.',1;
+ IF @operation='Settlement.LineAdded' AND EXISTS(SELECT 1 FROM @changes WHERE EntityType='SettlementLine' AND (BeforeState&lt;&gt;1 OR AfterState NOT IN(2,3)))
+    THROW 51101,'Line addition must use absent-before and captured-after.',1;
+ IF @operation='Settlement.LineDeleted' AND EXISTS(SELECT 1 FROM @changes WHERE EntityType='SettlementLine' AND (BeforeState NOT IN(2,3) OR AfterState&lt;&gt;1))
+    THROW 51101,'Line deletion must capture before and absent-after.',1;
+ INSERT dbo.Network_Audit_Event(EventId,SourceId,RequestId,EventOrdinal,CorrelationId,ContractVersion,EventCode,DomainCode,ScreenCode,EventKind,Outcome,
+ ActorKind,ActorUserId,ActorServiceCode,ActorName,SessionId,MachineName,ApplicationVersion,EntityType,EntityId,DocumentNumber,OccurredAtUtc,BusinessDate,
+ ReasonCode,TemplateCode,TemplateVersion,Notes,RelatedEntitiesXml,EventFingerprint,CanonicalEvent)
+ SELECT @EventId,@SourceId,@RequestId,@EventOrdinal,
+ CASE WHEN @EventXml.exist('/Event/@correlation')=1 THEN @EventXml.value('(/Event/@correlation)[1]','uniqueidentifier') END,
+ 1,@eventCode,@domain,@EventXml.value('(/Event/@screen)[1]','varchar(64)'),@kind,@outcome,@actor,@user,@service,
+ CASE WHEN @EventXml.exist('/Event/ActorName')=1 THEN @EventXml.value('(/Event/ActorName)[1]','nvarchar(256)') END,@session,
+ @EventXml.value('(/Event/Machine)[1]','nvarchar(128)'),@EventXml.value('(/Event/Application)[1]','nvarchar(50)'),
+ CASE WHEN @EventXml.exist('/Event/@entityType')=1 THEN @EventXml.value('(/Event/@entityType)[1]','varchar(64)') END,
+ CASE WHEN @EventXml.exist('/Event/@entityId')=1 THEN @EventXml.value('(/Event/@entityId)[1]','nvarchar(128)') END,
+ CASE WHEN @EventXml.exist('/Event/Document')=1 THEN @EventXml.value('(/Event/Document)[1]','nvarchar(50)') END,
+ @EventXml.value('(/Event/@occurred)[1]','datetime2(3)'),
+ CASE WHEN @EventXml.exist('/Event/@businessDate')=1 THEN @EventXml.value('(/Event/@businessDate)[1]','datetime2(3)') END,
+ CASE WHEN @EventXml.exist('/Event/@reason')=1 THEN @EventXml.value('(/Event/@reason)[1]','varchar(64)') END,
+ @eventCode,1,@EventXml.value('(/Event/Notes)[1]','nvarchar(max)'),@EventXml.query('/Event/Entities'),@EventFingerprint,@CanonicalEvent;
+ INSERT dbo.Network_Audit_Change(EventId,ChangeNo,EntityType,EntityId,FieldCode,ValueType,SourceSqlType,BeforeState,BeforeValue,AfterState,AfterValue,ValueOrigin)
+ SELECT @EventId,ChangeNo,EntityType,EntityId,FieldCode,ValueType,SourceSqlType,BeforeState,BeforeValue,AfterState,AfterValue,ValueOrigin FROM @changes;
+ SELECT CAST(1 AS int) WriteResult;
+END</definition>
+  </Definitions>
+  <Definitions>
+    <name>Network_Audit_Request_Begin</name>
+    <definition>CREATE PROCEDURE dbo.Network_Audit_Request_Begin
+ @SourceId uniqueidentifier,@RequestId uniqueidentifier,@OperationCode varchar(64),@DomainCode varchar(64),
+ @ActorKind tinyint,@ActorUserId int=NULL,@ActorServiceCode varchar(64)=NULL,@SessionId uniqueidentifier=NULL,
+ @EntityType varchar(64)=NULL,@EntityId nvarchar(128)=NULL,
+ @RequestFingerprint varbinary(32),@CanonicalRequest varbinary(max),@LockTimeout int=5000
+AS
+BEGIN
+ SET NOCOUNT ON; SET XACT_ABORT ON;
+ IF @@TRANCOUNT=0 OR XACT_STATE()&lt;&gt;1 THROW 51100,'Audit requires the caller writable transaction.',1;
+ IF @SourceId IS NULL OR @RequestId IS NULL OR @RequestId='00000000-0000-0000-0000-000000000000'
+    OR DATALENGTH(@RequestFingerprint)&lt;&gt;32 OR ISNULL(DATALENGTH(@CanonicalRequest),0) NOT BETWEEN 1 AND 1048576
+    OR @LockTimeout NOT BETWEEN 0 AND 10000 THROW 51101,'Invalid audit request contract.',1;
+ IF NOT ((@OperationCode='AuditTest.Changed' AND @DomainCode='AuditTest')
+     OR (@OperationCode IN('Settlement.LineAdded','Settlement.LineDeleted') AND @DomainCode='Inventory.Settlement')
+     OR (@OperationCode IN('Security.SessionStarted','Security.LoginRejected','Security.SessionEnded') AND @DomainCode='Security'))
+     THROW 51101,'Unknown operation/domain.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND SchemaVersion=1 AND SourceId=@SourceId)
+     THROW 51102,'Audit source/schema mismatch.',1;
+ DECLARE @resource nvarchar(255)=N'CPOS.Audit.Request.'+CONVERT(nvarchar(36),@SourceId)+N'.'+CONVERT(nvarchar(36),@RequestId),@lock int;
+ EXEC @lock=sys.sp_getapplock @Resource=@resource,@LockMode='Exclusive',@LockOwner='Transaction',@LockTimeout=@LockTimeout;
+ IF @lock&lt;0 THROW 51103,'Audit request is busy or lock acquisition failed; retry same identity.',1;
+ IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId)
+ BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId
+      AND RequestFingerprint=@RequestFingerprint AND DATALENGTH(CanonicalRequest)=DATALENGTH(@CanonicalRequest) AND CanonicalRequest=@CanonicalRequest)
+      THROW 51104,'Request identity conflicts with different content.',1;
+   IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND State&lt;&gt;1)
+      THROW 51105,'An incomplete request exists. Do not execute again.',1;
+   SELECT CAST('Completed' AS varchar(30)) Status,ResultCode,CONVERT(nvarchar(max),ResultXml) ResultXml
+      FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId;
+   RETURN;
+ END;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND EnabledDomainsXml.exist('/Domains/Domain[@code=sql:variable("@DomainCode")]')=1)
+     THROW 51102,'Audit domain is disabled. No legacy fallback is allowed.',1;
+ INSERT dbo.Network_Audit_Request(SourceId,RequestId,ContractVersion,OperationCode,ActorKind,ActorUserId,ActorServiceCode,SessionId,
+ EntityType,EntityId,RequestFingerprint,CanonicalRequest,State)
+ VALUES(@SourceId,@RequestId,1,@OperationCode,@ActorKind,@ActorUserId,@ActorServiceCode,@SessionId,@EntityType,@EntityId,@RequestFingerprint,@CanonicalRequest,0);
+ SELECT CAST('NewPendingCommit' AS varchar(30)) Status,CAST(NULL AS tinyint) ResultCode,CAST(NULL AS nvarchar(max)) ResultXml;
+END</definition>
+  </Definitions>
+  <Definitions>
+    <name>ST_Balance_TMP_Plus_Negitave_V</name>
+    <definition>
+
+CREATE VIEW [dbo].[ST_Balance_TMP_Plus_Negitave_V]
+AS
+
+SELECT  
+    CONVERT(date, A.[DATE]) AS [DATE],
+    A.IM_ID,
+    A.ST_ID,
+    A.D_Vaild,
+    ISNULL(SUM(A.ST_QTY), 0) AS T_ST_QTY,
+    A.Pch_T_ID AS Bill_T_ID
+FROM Pch_Details A
+WHERE A.isDepended = 1
+GROUP BY 
+    A.IM_ID,
+    A.ST_ID,
+    A.D_Vaild,
+    CONVERT(date, A.[DATE]),
+    --(Price / U_Cargo),
+    A.Pch_T_ID
+
+UNION ALL
+
+SELECT   
+    CONVERT(date, B.[DATE]) AS [DATE],
+    B.IM_ID,
+    B.ST_ID,
+    B.D_Vaild,
+    ISNULL(SUM(B.ST_QTY), 0) AS T_ST_QTY,
+    B.Bill_T_ID AS Bill_T_ID
+FROM Rtn_Contents B
+WHERE B.isDepended = 1 
+  AND B.Rtn_Type_ID = 1
+GROUP BY 
+    B.IM_ID,
+    B.ST_ID,
+    B.D_Vaild,
+    CONVERT(date, B.[DATE]),
+    --(Cost / U_Cargo),
+    B.Bill_T_ID
+
+UNION ALL
+
+SELECT   
+    CONVERT(date, C.[DATE]) AS [DATE],
+    C.IM_ID,
+    C.ST_To_ID AS ST_ID,
+    C.D_Vaild,
+    ISNULL(SUM(C.ST_QTY), 0) AS T_ST_QTY,
+    C.B_T_ID AS Bill_T_ID
+FROM Store_Trans_Details C
+WHERE C.isDepended = 1
+GROUP BY 
+    C.IM_ID,
+    C.ST_To_ID,
+    C.D_Vaild,
+    CONVERT(date, C.[DATE]),
+    --(Price / U_Cargo),
+    C.B_T_ID
+
+UNION ALL
+
+SELECT   
+    CONVERT(date, D.[DATE]) AS [DATE],
+    D.IM_ID,
+    D.ST_ID,
+    D.D_Vaild,
+    ISNULL(SUM(D.ST_QTY), 0) AS T_ST_QTY,
+    D.FRM_T_ID AS Bill_T_ID
+FROM FRM_Details D
+WHERE D.isDepended = 1
+GROUP BY 
+    D.IM_ID,
+    D.ST_ID,
+    D.D_Vaild,
+    CONVERT(date, D.[DATE]),
+    --(Price / U_Cargo),
+    D.FRM_T_ID
+
+UNION ALL
+
+SELECT   
+    CONVERT(date, E.[DATE]) AS [DATE],
+    E.IM_ID,
+    E.ST_ID,
+    E.D_Vaild,
+    ISNULL(SUM(E.ST_QTY), 0) AS T_ST_QTY,
+    E.Outsale_T_ID AS Bill_T_ID
+FROM Outsale_Details E
+WHERE E.isDepended = 1
+GROUP BY 
+    E.IM_ID,
+    E.ST_ID,
+    E.D_Vaild,
+    E.T_ID,
+    CONVERT(date, E.[DATE]),
+    --(Cost / U_Cargo),
+    E.Outsale_T_ID
+
+UNION ALL
+
+SELECT   
+    CONVERT(date, F.[DATE]) AS [DATE],
+    F.IM_ID,
+    F.ST_ID,
+    F.Valid_D AS D_Vaild,
+    ISNULL(SUM(F.ST_QTY), 0) * F.Cost AS T_COST,
+    F.T_ID AS Bill_T_ID
+FROM ST_QTY_Deferences F
+WHERE F.ST_QTY &gt; 0
+GROUP BY 
+    F.IM_ID,
+    F.ST_ID,
+    F.Valid_D,
+    CONVERT(date, F.[DATE]),
+    F.Cost,
+    F.T_ID
+
+UNION ALL
+
+SELECT  
+    CONVERT(date, A1.[DATE]) AS [DATE],
+    A1.IM_ID,
+    A1.ST_ID,
+    A1.D_Vaild,
+    ISNULL(SUM(A1.ST_QTY) * -1, 0) AS T_ST_QTY,
+    A1.Bill_T_ID AS Bill_T_ID
+FROM SB_Contents A1
+WHERE A1.isDepended = 1
+GROUP BY 
+    A1.IM_ID,
+    A1.ST_ID,
+    A1.D_Vaild,
+    CONVERT(date, A1.[DATE]),
+    --(Cost / U_Cargo),
+    A1.Bill_T_ID
+
+UNION ALL
+
+SELECT   
+    CONVERT(date, A2.[DATE]) AS [DATE],
+    A2.IM_ID,
+    A2.ST_ID,
+    A2.D_Vaild,
+    ISNULL(SUM(A2.ST_QTY) * -1, 0) AS T_ST_QTY,
+    A2.Bill_T_ID AS Bill_T_ID
+FROM Rtn_Contents A2
+WHERE A2.isDepended = 1  
+  AND A2.Rtn_Type_ID = 7
+GROUP BY 
+    A2.IM_ID,
+    A2.ST_ID,
+    A2.D_Vaild,
+    CONVERT(date, A2.[DATE]),
+    --(Cost / U_Cargo),
+    A2.Bill_T_ID
+
+UNION ALL
+
+SELECT   
+    CONVERT(date, A3.[DATE]) AS [DATE],
+    A3.IM_ID,
+    A3.ST_f_ID AS ST_ID,
+    A3.D_Vaild,
+    ISNULL(SUM(A3.ST_QTY) * -1, 0) AS T_ST_QTY,
+    A3.B_T_ID AS Bill_T_ID
+FROM Store_Trans_Details A3
+WHERE A3.isDepended = 1
+GROUP BY 
+    A3.IM_ID,
+    A3.ST_f_ID,
+    A3.D_Vaild,
+    CONVERT(date, A3.[DATE]),
+    --(Price / U_Cargo),
+    A3.B_T_ID
+
+UNION ALL
+
+SELECT   
+    CONVERT(date, A4.[DATE]) AS [DATE],
+    A4.IM_ID,
+    A4.ST_ID,
+    A4.D_Vaild,
+    ISNULL(SUM(A4.ST_QTY) * -1, 0) AS T_ST_QTY,
+    A4.IMEX_T_ID AS Bill_T_ID
+FROM IMEX_Details A4
+WHERE A4.isDepended = 1
+GROUP BY 
+    A4.IM_ID,
+    A4.ST_ID,
+    A4.D_Vaild,
+    CONVERT(date, A4.[DATE]),
+    --(Cost / U_Cargo),
+    A4.IMEX_T_ID
+
+UNION ALL
+
+SELECT  
+    CONVERT(date, A5.[DATE]) AS [DATE],
+    A5.IM_ID,
+    A5.ST_ID,
+    A5.D_Vaild,
+    ISNULL(SUM(A5.ST_QTY) * -1, 0) AS T_ST_QTY,
+    A5.InSale_T_ID AS Bill_T_ID
+FROM InSale_Details A5
+WHERE A5.isDepended = 1
+GROUP BY 
+    A5.IM_ID,
+    A5.ST_ID,
+    A5.D_Vaild,
+    CONVERT(date, A5.[DATE]),
+    --(Cost / U_Cargo),
+    A5.InSale_T_ID
+
+UNION ALL
+
+SELECT    
+    CONVERT(date, A6.[DATE]) AS [DATE],
+    A6.IM_ID,
+    A6.ST_ID,
+    A6.D_Vaild,
+    ISNULL(SUM(A6.ST_QTY) * -1, 0) AS T_ST_QTY,
+    A6.Bill_T_ID AS Bill_T_ID
+FROM FRM_Contents_Details A6
+WHERE A6.isDepended = 1 
+  AND ISNULL(A6.is_not_Qty, 0) &lt;&gt; 1
+GROUP BY 
+    A6.IM_ID,
+    A6.ST_ID,
+    A6.D_Vaild,
+    CONVERT(date, A6.[DATE]),
+    --(Cost / U_Cargo),
+    A6.Bill_T_ID
+
+UNION ALL
+
+SELECT    
+    CONVERT(date, A7.[DATE]) AS [DATE],
+    A7.Struct_ID AS IM_ID,
+    A7.ST_ID,
+    '' AS D_Vaild,
+    ISNULL(SUM(A7.ST_QTY) * -1, 0) AS T_ST_QTY,
+    A7.SB_Cont_T_ID AS Bill_T_ID
+FROM SB_Contents_Structers A7
+WHERE A7.isDepended = 1
+GROUP BY 
+    A7.Struct_ID,
+    A7.ST_ID,
+    CONVERT(date, A7.[DATE]),
+    --(Cost / U_Cargo),
+    A7.SB_Cont_T_ID
+
+</definition>
+  </Definitions>
+  <Definitions>
+    <name>ST_Balance_TMP1_Negitave_V</name>
+    <definition>
+
+
+
+
+CREATE VIEW [dbo].[ST_Balance_TMP1_Negitave_V] AS
+--'A1' AS T_ID,
+SELECT  A1.DATE,A1.IM_ID,A1.ST_ID,A1.D_Vaild,ISNULL(sum(A1.ST_QTY)*-1,0) AS QTY
+FROM    SB_Contents A1 WHERE A1.isDepended = 1 
+GROUP BY A1.IM_ID , A1.ST_ID , A1.D_Vaild,A1.DATE --,T_ID
+
+UNION ALL
+
+--'A2' AS T_ID,
+SELECT   A2.DATE,A2.IM_ID,A2.ST_ID,A2.D_Vaild,ISNULL(sum(A2.ST_QTY)*-1,0) AS QTY
+FROM    Rtn_Contents A2 WHERE A2.isDepended = 1  and A2.Rtn_Type_ID = 7  
+GROUP BY A2.IM_ID , A2.ST_ID , A2.D_Vaild,A2.DATE --,T_ID
+
+
+UNION ALL
+
+--'A3' AS T_ID,
+SELECT   A3.DATE,A3.IM_ID,A3.ST_f_ID,A3.D_Vaild,ISNULL(sum(A3.ST_QTY)*-1,0) AS QTY
+FROM    Store_Trans_Details A3 WHERE A3.isDepended = 1  
+GROUP BY A3.IM_ID , A3.ST_f_ID , A3.D_Vaild,A3.DATE --,T_ID
+
+
+UNION ALL
+
+--'A4' AS T_ID,
+SELECT   A4.DATE,A4.IM_ID,A4.ST_ID,A4.D_Vaild,ISNULL(sum(A4.ST_QTY)*-1,0) AS QTY
+FROM   IMEX_Details A4 WHERE A4.isDepended = 1  
+GROUP BY A4.IM_ID , A4.ST_ID , A4.D_Vaild,A4.DATE --,T_ID
+
+UNION ALL
+
+--'A5' AS T_ID,
+SELECT  A5.DATE,A5.IM_ID, A5.ST_ID, A5.D_Vaild,ISNULL(sum( A5.ST_QTY)*-1,0) AS QTY
+FROM    InSale_Details  A5 WHERE  A5.isDepended = 1  
+GROUP BY  A5.IM_ID ,  A5.ST_ID ,  A5.D_Vaild , A5.DATE --,T_ID
+
+UNION ALL
+
+--'A6' AS T_ID,
+SELECT    A6.DATE,A6.IM_ID, A6.ST_ID, A6.D_Vaild,ISNULL(sum( A6.ST_QTY)*-1,0) AS QTY
+FROM    FRM_Contents_Details  A6 WHERE  A6.isDepended = 1 --and is_not_Qty &lt;&gt; 1  
+GROUP BY  A6.IM_ID ,  A6.ST_ID ,  A6.D_Vaild , A6.DATE --,T_ID
+
+UNION ALL
+
+--'A7' AS T_ID,
+SELECT    A7.DATE,A7.Struct_ID AS IM_ID, A7.ST_ID,'' AS D_Vaild,ISNULL(sum(A7.ST_QTY)*-1,0) AS QTY
+FROM    SB_Contents_Structers A7 WHERE A7.isDepended = 1  --AND Struct_ID = 29
+GROUP BY A7.Struct_ID , A7.ST_ID , A7.DATE--,T_ID
+
+UNION ALL
+
+--'A8' AS T_ID,
+SELECT   A8.DATE,A8.IM_ID,A8.ST_ID,A8.Valid_D,ISNULL(sum(A8.ST_QTY),0) AS QTY
+FROM    ST_QTY_Deferences A8 WHERE   A8.ST_QTY &lt; 0  
+GROUP BY    A8.IM_ID ,   A8.ST_ID,A8.Valid_D , A8.DATE--,T_ID
+
+</definition>
+  </Definitions>
+  <Definitions>
+    <name>ST_Balance_TMP1_Plus_V</name>
+    <definition>
+
+
+
+
+CREATE VIEW [dbo].[ST_Balance_TMP1_Plus_V] AS
+
+--'B1' as T_ID,
+SELECT   A.DATE,A.IM_ID,A.ST_ID,A.D_Vaild,ISNULL(sum(A.ST_QTY),0) AS QTY
+FROM    Pch_Details A WHERE A.isDepended = 1
+GROUP BY A.IM_ID , A.ST_ID , A.D_Vaild,A.DATE  --,T_ID
+
+UNION ALL
+
+--'B2' AS T_ID,
+SELECT   B.DATE,B.IM_ID,B.ST_ID,B.D_Vaild,ISNULL(sum(B.ST_QTY),0) AS QTY
+FROM    Rtn_Contents B WHERE B.isDepended = 1  and B.Rtn_Type_ID = 1
+GROUP BY B.IM_ID , B.ST_ID , B.D_Vaild,B.DATE --, T_ID
+
+UNION ALL
+
+--'B3' AS T_ID,
+SELECT   C.DATE,C.IM_ID, C.ST_To_ID, C.D_Vaild,ISNULL(sum( C.ST_QTY),0) AS QTY
+FROM    Store_Trans_Details  C WHERE  C.isDepended = 1
+GROUP BY  C.IM_ID ,  C.ST_To_ID ,  C.D_Vaild,C.DATE--,T_ID
+
+UNION ALL
+
+--'B4' AS T_ID,
+SELECT   D.DATE,D.IM_ID,D.ST_ID,D.D_Vaild,ISNULL(sum(D.ST_QTY),0) AS QTY
+FROM   FRM_Details D WHERE D.isDepended = 1
+GROUP BY D.IM_ID , D.ST_ID , D.D_Vaild,D.DATE--,T_ID
+
+UNION ALL
+
+--'B5' AS T_ID,
+SELECT   E.DATE,E.IM_ID,E.ST_ID,E.D_Vaild,ISNULL(sum(E.ST_QTY),0) AS QTY
+FROM    Outsale_Details E WHERE E.isDepended = 1
+GROUP BY E.IM_ID , E.ST_ID , E.D_Vaild,T_ID,E.DATE
+
+UNION ALL
+
+--'B6' AS T_ID,
+SELECT   F.DATE,F.IM_ID,F.ST_ID,F.Valid_D,ISNULL(sum(F.ST_QTY),0) AS QTY
+FROM    ST_QTY_Deferences F WHERE F.ST_QTY &gt; 0
+GROUP BY F.IM_ID , F.ST_ID ,F.Valid_D,F.DATE--,T_ID
+
+</definition>
+  </Definitions>
+  <Definitions>
+    <name>ST_QTY_Deferences_Details_Delete</name>
+    <definition>-- =============================================
+-- Author:		&lt;Author,,Name&gt;
+-- Create date: &lt;Create Date,,&gt;
+-- Description:	&lt;Description,,&gt;
+-- =============================================
+CREATE PROCEDURE [dbo].[ST_QTY_Deferences_Details_Delete] 
+@T_ID int, @ExpectedBillId int=NULL, @Deleted bit=0 OUTPUT
+
+AS
+BEGIN TRY
+BEGIN TRANSACTION
+
+DECLARE @Bill_T_ID INT
+SET @Deleted=0;
+ SELECT @Bill_T_ID = Bill_T_ID FROM dbo.ST_QTY_Deferences WHERE T_ID=@T_ID;
+ IF @Bill_T_ID IS NULL BEGIN COMMIT; RETURN; END;
+ IF @ExpectedBillId IS NOT NULL AND @ExpectedBillId&lt;&gt;@Bill_T_ID THROW 51106,'Line belongs to another settlement.',1;
+ DECLARE @LockedBill int;
+ SELECT @LockedBill=T_ID FROM dbo.Agents_Balance_MV WITH(UPDLOCK,HOLDLOCK)
+ WHERE T_ID=@Bill_T_ID AND BsType_ID=39 AND isVoid=0;
+ IF @LockedBill IS NULL THROW 51106,'Settlement document is missing, void or of another type.',1;
+
+DELETE FROM ST_QTY_Deferences WHERE T_ID=@T_ID AND Bill_T_ID=@Bill_T_ID;
+ SET @Deleted=CASE WHEN @@ROWCOUNT=1 THEN 1 ELSE 0 END;
+
+EXEC Recalculate_Agent_Bill_Total @Bill_T_ID
+
+COMMIT
+END TRY
+
+BEGIN CATCH
+IF @@TRANCOUNT &gt; 0
+ DECLARE @ErrorMessage NVARCHAR(4000);
+  SELECT @ErrorMessage = ERROR_MESSAGE()
+raiserror(@ErrorMessage,16,1,'خطأ')
+ROLLBACK
+END CATCH
+</definition>
+  </Definitions>
+  <Definitions>
+    <name>VW_InventoryTransactionFlow</name>
+    <definition>
+CREATE VIEW [dbo].[VW_InventoryTransactionFlow]
+AS
+
+/* =========================================================
+   PURCHASE
+========================================================= */
+SELECT
+    CAST('PURCHASE' AS nvarchar(50)) AS MovementType,
+    CAST('Pch_Details' AS nvarchar(100)) AS SourceTable,
+
+    CAST(T_ID AS bigint) AS SourceId,
+    CAST(Pch_T_ID AS bigint) AS SourceParentId,
+
+    IM_ID,
+    ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)) AS U_Cargo,
+    CAST(QYT AS decimal(18,6)) AS UnitQty,
+
+    [Date],
+
+    CAST(ST_QTY AS decimal(18,6)) AS QtyIn,
+    CAST(0 AS decimal(18,6)) AS QtyOut,
+
+    CAST((Price / NULLIF(U_Cargo,0)) AS decimal(18,6)) AS UnitCost,
+    CAST((ST_QTY * (Price / NULLIF(U_Cargo,0))) AS decimal(18,6)) AS TotalCost,
+
+    CAST(1 AS bit) AS AffectCost
+
+FROM dbo.Pch_Details
+WHERE isDepended = 1
+
+
+UNION ALL
+
+/* =========================================================
+   SALES
+========================================================= */
+SELECT
+    CAST('SALE' AS nvarchar(50)),
+    CAST('SB_Contents' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(Bill_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(QTY AS decimal(18,6)),
+
+    [Date],
+
+    CAST(0 AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    CAST(Cost AS decimal(18,6)),
+    CAST((ST_QTY * Cost) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.SB_Contents
+WHERE isDepended = 1
+
+
+UNION ALL
+
+/* =========================================================
+   SALES RETURN
+========================================================= */
+SELECT
+    CAST('SALE_RETURN' AS nvarchar(50)),
+    CAST('Rtn_Contents' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(Bill_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(QTY AS decimal(18,6)),
+
+    [Date],
+
+    CAST(ST_QTY AS decimal(18,6)),
+    CAST(0 AS decimal(18,6)),
+
+    CAST(Cost AS decimal(18,6)),
+    CAST((ST_QTY * Cost) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.Rtn_Contents
+WHERE isDepended = 1
+  AND Rtn_Type_ID = 1
+
+
+UNION ALL
+
+/* =========================================================
+   PURCHASE RETURN
+========================================================= */
+SELECT
+    CAST('PCH_RETURN' AS nvarchar(50)),
+    CAST('Rtn_Contents' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(Bill_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(QTY AS decimal(18,6)),
+
+    [Date],
+
+    CAST(0 AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    CAST(Cost AS decimal(18,6)),
+    CAST((ST_QTY * Cost) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.Rtn_Contents
+WHERE isDepended = 1
+  AND Rtn_Type_ID = 7
+
+
+UNION ALL
+
+/* =========================================================
+   DAMAGE / ITEM EXPORT
+========================================================= */
+SELECT
+    CAST('DAMAGE' AS nvarchar(50)),
+    CAST('IMEX_Details' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(IMEX_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(QYT AS decimal(18,6)),
+
+    [Date],
+
+    CAST(0 AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    CAST(Cost AS decimal(18,6)),
+    CAST((ST_QTY * Cost) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.IMEX_Details
+WHERE isDepended = 1
+
+
+UNION ALL
+
+/* =========================================================
+   ISSUE IN
+========================================================= */
+SELECT
+    CAST('ISSUE_IN' AS nvarchar(50)),
+    CAST('InSale_Details' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(InSale_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(QYT AS decimal(18,6)),
+
+    [Date],
+
+    CAST(0 AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    CAST(Cost AS decimal(18,6)),
+    CAST((ST_QTY * Cost) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.InSale_Details
+WHERE isDepended = 1
+
+
+UNION ALL
+
+/* =========================================================
+   ISSUE OUT
+========================================================= */
+SELECT
+    CAST('ISSUE_OUT' AS nvarchar(50)),
+    CAST('Outsale_Details' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(Outsale_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(QYT AS decimal(18,6)),
+
+    [Date],
+
+    CAST(0 AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    CAST(Cost AS decimal(18,6)),
+    CAST((ST_QTY * Cost) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.Outsale_Details
+WHERE isDepended = 1
+
+
+UNION ALL
+
+/* =========================================================
+   STORE TRANSFER FROM
+========================================================= */
+SELECT
+    CAST('STORE_TRANS_FROM' AS nvarchar(50)),
+    CAST('Store_Trans_Details' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(B_T_ID AS bigint),
+
+    IM_ID,
+    ST_F_ID AS ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(QTY AS decimal(18,6)),
+
+    [Date],
+
+    CAST(0 AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    CAST(Price AS decimal(18,6)),
+    CAST((ST_QTY * Price) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.Store_Trans_Details
+WHERE isDepended = 1
+
+
+UNION ALL
+
+/* =========================================================
+   STORE TRANSFER TO
+========================================================= */
+SELECT
+    CAST('STORE_TRANS_TO' AS nvarchar(50)),
+    CAST('Store_Trans_Details' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(B_T_ID AS bigint),
+
+    IM_ID,
+    ST_TO_ID AS ST_ID,
+
+    U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(QTY AS decimal(18,6)),
+
+    [Date],
+
+    CAST(ST_QTY AS decimal(18,6)),
+    CAST(0 AS decimal(18,6)),
+
+    CAST(Price AS decimal(18,6)),
+    CAST((ST_QTY * Price) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.Store_Trans_Details
+WHERE isDepended = 1
+
+
+UNION ALL
+
+/* =========================================================
+   STORE DIFFERENCE
+   ملاحظة:
+   إذا كان ST_QTY موجب = دخول
+   إذا كان ST_QTY سالب = خروج
+========================================================= */
+SELECT
+    CAST('STORE_DIFF' AS nvarchar(50)),
+    CAST('ST_QTY_Deferences' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(Bill_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    CAST(1 AS bigint) AS U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    [Date],
+
+    CASE
+        WHEN ST_QTY &gt; 0 THEN CAST(ST_QTY AS decimal(18,6))
+        ELSE CAST(0 AS decimal(18,6))
+    END AS QtyIn,
+
+    CASE
+        WHEN ST_QTY &lt; 0 THEN CAST(ABS(ST_QTY) AS decimal(18,6))
+        ELSE CAST(0 AS decimal(18,6))
+    END AS QtyOut,
+
+    CAST(Cost AS decimal(18,6)),
+    CAST((ABS(ST_QTY) * Cost) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.ST_QTY_Deferences
+
+
+UNION ALL
+
+/* =========================================================
+   FORMING / MANUFACTURING CONTENT
+========================================================= */
+SELECT
+    CAST('FRM_IM' AS nvarchar(50)),
+    CAST('FRM_Contents_Details' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(Bill_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    CAST(U_ID AS bigint) AS U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    [Date],
+
+    CAST(0 AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    CAST(Cost AS decimal(18,6)),
+    CAST((ST_QTY * Cost) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.FRM_Contents_Details
+WHERE isDepended = 1
+
+UNION ALL
+
+/* =========================================================
+   FORMING / MANUFACTURING DETAILS
+========================================================= */
+SELECT
+    CAST('FRM_IM_PLUS' AS nvarchar(50)),
+    CAST('FRM_Details' AS nvarchar(100)),
+
+    CAST(T_ID AS bigint),
+    CAST(FRM_T_ID AS bigint),
+
+    IM_ID,
+    ST_ID,
+
+    CAST(U_ID AS bigint) AS U_ID,
+    CAST(U_Cargo AS decimal(18,6)),
+    CAST(ST_QTY AS decimal(18,6)),
+
+    [Date],
+
+	CAST(ST_QTY AS decimal(18,6)),
+    CAST(0 AS decimal(18,6)),
+    
+
+    CAST(Price AS decimal(18,6)),
+    CAST((ST_QTY * Price) AS decimal(18,6)),
+
+    CAST(0 AS bit)
+
+FROM dbo.FRM_Details
+WHERE isDepended = 1;
+
+</definition>
+  </Definitions>
+</NewDataSet>

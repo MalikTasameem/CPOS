@@ -273,6 +273,47 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Classes\Online_C.vb" />
+    <Compile Include="Classes\Audit\AuditCompatibilityReader.vb" />
+    <Compile Include="Models\Audit\AuditEventContext.vb" />
+    <Compile Include="Models\Audit\AuditEventRequest.vb" />
+    <Compile Include="Models\Audit\AuditFieldChange.vb" />
+    <Compile Include="Classes\Audit\AuditContract.vb" />
+    <Compile Include="Classes\Audit\AuditCanonical.vb" />
+    <Compile Include="Classes\Audit\AuditMessageFormatter.vb" />
+    <Compile Include="Classes\Audit\AuditRequestCoordinator.vb" />
+    <Compile Include="Classes\Audit\AuditWriter.vb" />
+    <Compile Include="Classes\Audit\AuditSecuritySession.vb" />
+    <Compile Include="Classes\Audit\AuditSettlementLines.vb" />
+    <Compile Include="Classes\Audit\AuditSettlementHeader.vb" />
+    <Compile Include="Classes\Audit\AuditSalesEdit.vb" />
+    <Compile Include="Classes\Audit\AuditDocumentEdit.vb" />
+    <Compile Include="Classes\Audit\AuditDocumentEditUi.vb" />
+    <Compile Include="Classes\Audit\AuditSalesLineEdit.vb" />
+    <Compile Include="Classes\Audit\AuditSalesLineEditUi.vb" />
+    <Compile Include="Classes\Audit\AuditSalesQuantity.vb" />
+    <Compile Include="Classes\Audit\AuditSalesQuantityUi.vb" />
+    <Compile Include="Classes\Audit\AuditSalesDelete.vb" />
+    <Compile Include="Classes\Audit\AuditSalesDeleteUi.vb" />
+    <Compile Include="Classes\Audit\AuditSalesAdd.vb" />
+    <Compile Include="Classes\Audit\AuditSalesAddUi.vb" />
+    <Compile Include="Forms\Audit\AuditQuantityRecoveryDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Audit\AuditQuantityRecoveryDialog.Designer.vb">
+      <DependentUpon>AuditQuantityRecoveryDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Audit\Network_Audit_Browser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Audit\Network_Audit_Browser.Designer.vb">
+      <DependentUpon>Network_Audit_Browser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Audit\Network_Audit_Details.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Audit\Network_Audit_Details.Designer.vb">
+      <DependentUpon>Network_Audit_Details.vb</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Payments\SalesPaymentSqlLayer.vb" />
     <Compile Include="Classes\Payments\SalesBillPaymentEditService.vb" />
     <Compile Include="Classes\Printing\PrinterProvisioningService.vb" />
@@ -763,12 +804,6 @@
       <DependentUpon>IM_Notes_Valid_Form.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Pch\IM_Notes_Valid_Form.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Network_Tracker.designer.vb">
-      <DependentUpon>Network_Tracker.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Network_Tracker.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Pch\Mang_IM_Valid_Notes.Designer.vb">
@@ -1999,9 +2034,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pch\IM_Notes_Valid_Form.resx">
       <DependentUpon>IM_Notes_Valid_Form.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Network_Tracker.resx">
-      <DependentUpon>Network_Tracker.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pch\Mang_IM_Valid_Notes.resx">
       <DependentUpon>Mang_IM_Valid_Notes.vb</DependentUpon>

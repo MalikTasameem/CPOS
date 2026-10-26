@@ -903,10 +903,11 @@ Me.Name.ToString
     Private Sub Up_Update_btn_Click(sender As Object, e As EventArgs) Handles Up_Update_btn.Click
         If U_Update_IM_QTY = True Then
             If gridv.Rows.Count > 0 Then
-                is_Update_Valid_D = False
-                is_Update_QTY = True
-                is_Update_Unit_Cost = False
-                IM_Update_Qty.ShowDialog()
+                ' Quantity adjustment belongs to an explicitly visible settlement document.
+                ' The old default IM_Update_Qty instance had neither item nor document context.
+                Using settlementForm As New ST_settlement
+                    settlementForm.ShowDialog(Me)
+                End Using
             End If
         End If
     End Sub
@@ -964,12 +965,11 @@ Me.Name.ToString
         End With
 
         If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" تدوير كميات الأصناف بمخزن : " & ST_cm.Text & "  من شاشة كشف المخازن ", 0, 0, 0)
+            Network_Edit_Tracker_insert("اكتملت إعادة حساب كميات الأصناف من شاشة كشف المخازن؛ المخزن: " & ST_cm.Text & "؛ رقم المخزن: " & Convert.ToString(ST_cm.SelectedValue), Convert.ToString(ST_cm.SelectedValue), 23, 3)
             Me.Cursor = Cursors.Default
             Fill_ALL_IM(0)
             Make_Hints()
             MsgBox("تم التدوير", MsgBoxStyle.Information, "")
-            Network_Edit_Tracker_insert(" تدوير كمية المخزن:" & ST_cm.Text, 0, 23, 3)
         End If
 
     End Sub
@@ -991,12 +991,11 @@ Me.Name.ToString
         End With
 
         If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" تدوير متوسط تكلفة الأصناف من شاشة كشف المخازن   : ", 0, 0, 0)
+            Network_Edit_Tracker_insert("اكتملت إعادة حساب متوسط تكلفة الأصناف من شاشة كشف المخازن؛ نطاق التنفيذ: جميع الأصناف وفق إجراء RECOUNT_IM_ALL_MainCost", "", 23, 3)
             Me.Cursor = Cursors.Default
             Fill_ALL_IM(0)
             Make_Hints()
             MsgBox("تم التدوير", MsgBoxStyle.Information, "")
-            Network_Edit_Tracker_insert("تدوير تكلفة الخازن", 0, 23, 3)
 
         End If
 

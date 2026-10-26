@@ -199,7 +199,9 @@ Public Class SysOptions
     End Sub
 
     Private Sub Network_Wacher_btn_Click(sender As Object, e As EventArgs) Handles Network_Wacher_btn.Click
-        Network_Tracker.ShowDialog()
+        Using monitor As New Network_Audit_Browser()
+            monitor.ShowDialog(Me)
+        End Using
     End Sub
 
     Private Sub Button18_Click(sender As Object, e As EventArgs) Handles Button18.Click

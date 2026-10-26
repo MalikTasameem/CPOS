@@ -2,6 +2,7 @@
 
 Public Class Returns : Inherits System.Windows.Forms.Form
 
+    Private ReadOnly auditDocumentEdit As New AuditDocumentEditUi(Me)
     Dim rs As New Resizer
     Dim FormState As String = ""
     Dim DefaultFormState As String = ""
@@ -1932,7 +1933,7 @@ Me.Name.ToString
                 Beep()
                 If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
                              MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-                    If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+                    If Not auditDocumentEdit.TryOpen(T_ID, If(FormType = 5, 10, If(FormType = 6, 11, 0))) Then Exit Sub
 
                     Edit_butt.BackColor = Color.GreenYellow
                     On_Update = True

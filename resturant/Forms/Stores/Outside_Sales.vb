@@ -1,4 +1,5 @@
 ﻿Public Class Outside_Sales : Inherits System.Windows.Forms.Form
+    Private ReadOnly auditDocumentEdit As New AuditDocumentEditUi(Me)
     Dim rs As New Resizer
     Dim FormState As String = ""
     Dim DefaultFormState As String = ""
@@ -317,7 +318,7 @@
         If Edit_butt.Text = EditState Then
 
             MsgBox(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ", MsgBoxStyle.Information, "تعديل فاتورة")
-            If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+            If Not auditDocumentEdit.TryOpen(T_ID, 35) Then Exit Sub
 
             On_Update = True
             Edit_butt.Text = "إيقاف التعديل"
@@ -325,7 +326,6 @@
             AGMetroGrid.BackgroundColor = Color.LightYellow
             AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
             Edit_butt.BackColor = Color.GreenYellow
-            Network_Edit_Tracker_insert("تعديل فاتورة داخلية / رقم آلي : " + Bill_ID_Txt.Text + " / المدخل :  " + User_Name_lb.Text, Total_TextBox.Text, 0, 0)
 
             'If My_Settings.S_Default = 0 Then
             '    Barcode_SH_txt.Select()
@@ -367,7 +367,7 @@
 
         If SQL_SP_EXEC(sqlComm) = True Then
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 17, 3)
+            Network_Edit_Tracker_insert("تم إلغاء إذن الاستلام؛ رقم الإذن: " & Bill_ID_Txt.Text & "؛ رقم الحركة: " & T_ID.ToString(), Bill_ID_Txt.Text, 35, 3)
             isVoid = True
             SelectStateBt()
         End If

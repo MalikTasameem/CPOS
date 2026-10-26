@@ -6,6 +6,14 @@ Imports System.Drawing.Printing
 
 
 Public Class POS
+    Private ReadOnly auditEditOpening As New AuditSalesEditAttempt()
+
+    Private Sub AuditEditOpening_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If Not auditEditOpening.CanClose() Then
+            e.Cancel = True
+            MsgBox("نتيجة فتح تعديل الفاتورة غير محسومة؛ أعد المحاولة بعد عودة الاتصال قبل إغلاق الشاشة.", MsgBoxStyle.Exclamation)
+        End If
+    End Sub
 
     Public rs As New Resizer
     Dim Data As Byte()
@@ -960,8 +968,6 @@ Public Class POS
             If Valid_Allow_IM = False Then Exit Sub
         End If
 
-        Dim Qty_St As String = ""
-
         If IM_min_QTY = False Then
             If BillTypeCmb.SelectedValue <> 3 Then
                 If IM_Check_Neg_QTY_() = 1 Then
@@ -998,26 +1004,14 @@ Public Class POS
             .Parameters.AddWithValue("@On_Update", On_Update)
             .Parameters.AddWithValue("@SALES_TYPES", SALES_TYPES_CMB.SelectedValue)
         End With
-        If SQL_SP_EXEC(C.Com) = True Then
-
-            If On_Update = True Then
-                DependingUpdatedBill(T_ID)
-            End If
-
-            Network_Edit_Tracker_insert(" الصنف:" & IM_Name & " العدد:" & Qty_St & " السعر المسجل:" & IM_Price & " الباركود المدرج:" + Barcode_IM, SB_ID_Txt.Text, 1, 1)
-
-            If String.IsNullOrWhiteSpace(NumTextBox.Text) = False Then
-                Qty_St = NumTextBox.Text
-            Else
-                Qty_St = 1
-            End If
-
-
+        Dim savedLine As Integer
+        If AuditSalesAddUi.Run(Me, C.Com, IM_min_QTY OrElse Convert.ToInt32(BillTypeCmb.SelectedValue) = 3, savedLine) Then
             CLEAR_BARCODE_Fildes()
-            SB_Contents_SELECT_Bill()
+            Dim refreshed = AuditSalesAddUi.Refresh(Me, Sub() SB_Contents_SELECT_Bill())
+            If refreshed AndAlso savedLine > 0 Then AuditSalesQuantityUi.SelectLine(MetroGrid, "IM_T_ID", "IM_NameCL", savedLine)
             ' NumTextBox.Clear()
 
-            If CHECK_IF_IM_RSV(IM_ID) = 1 Then Prepare_For_Rsv()
+            If refreshed AndAlso savedLine > 0 AndAlso MetroGrid.CurrentRow IsNot Nothing AndAlso Not IsDBNull(MetroGrid.CurrentRow.Cells("IM_T_ID").Value) AndAlso Convert.ToInt32(MetroGrid.CurrentRow.Cells("IM_T_ID").Value) = savedLine AndAlso CHECK_IF_IM_RSV(IM_ID) = 1 Then Prepare_For_Rsv()
 
             'If Row_Index > 0 Then MetroGrid.CurrentCell = MetroGrid.Rows(Row_Index).Cells(3)
             IM_ID = 0
@@ -1524,27 +1518,16 @@ Public Class POS
     End Function
 
     Private Sub Change_IM_Qty(def As Integer)
-        Dim SB_T_ID As Integer = MetroGrid.CurrentRow.Cells("IM_T_ID").Value
-        Dim Row_Index As Integer = MetroGrid.CurrentCell.RowIndex
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "SB_Contents_Change_IM_Qty"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", SB_T_ID)
-            .Parameters.AddWithValue("@Def", def)
-            .Parameters.AddWithValue("@On_Update", On_Update)
-        End With
-
-        If SQL_SP_EXEC(c.Com) = True Then
-            If On_Update Then
-                Network_Edit_Tracker_insert(" الصنف:" + MetroGrid.CurrentRow.Cells("IM_NameCL").Value.ToString + " العدد:" + (MetroGrid.CurrentRow.Cells("QTY_CL").Value + def).ToString, _
-             SB_ID_Txt.Text, 1, 3)
-            End If
-            SB_Contents_SELECT_Bill()
-
-            MetroGrid.CurrentCell = MetroGrid.Rows(Row_Index).Cells(3)
-        End If
+        If MetroGrid.CurrentRow Is Nothing OrElse MetroGrid.CurrentRow.IsNewRow Then Return
+        For Each column In {"IM_T_ID", "QTY_CL"}
+            If Not MetroGrid.Columns.Contains(column) OrElse MetroGrid.CurrentRow.Cells(column).Value Is Nothing OrElse IsDBNull(MetroGrid.CurrentRow.Cells(column).Value) Then Return
+        Next
+        Dim lineId = Convert.ToInt32(MetroGrid.CurrentRow.Cells("IM_T_ID").Value)
+        AuditSalesQuantityUi.Run(Me, T_ID, lineId, Convert.ToDecimal(MetroGrid.CurrentRow.Cells("QTY_CL").Value), def, On_Update, IM_min_QTY,
+            Sub()
+                SB_Contents_SELECT_Bill()
+                AuditSalesQuantityUi.SelectLine(MetroGrid, "IM_T_ID", "IM_NameCL", lineId)
+            End Sub)
     End Sub
 
     Private Sub RefreashButton_Click(sender As Object, e As EventArgs) Handles Button23.Click
@@ -1658,20 +1641,11 @@ Public Class POS
     End Sub
 
     Private Sub SB_Contents_Delete_IM()
-        Dim Row_Index As Integer = MetroGrid.CurrentCell.RowIndex
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "SB_Contents_Delete_IM"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", MetroGrid.CurrentRow.Cells("IM_T_ID").Value)
-            .Parameters.AddWithValue("@On_Update", On_Update)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            If On_Update = True Then Network_Edit_Tracker_insert(" الصنف:" + MetroGrid.CurrentRow.Cells("IM_NameCL").Value.ToString + " العدد:" + MetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString, SB_ID_Txt.Text, 1, 2)
-            SB_Contents_SELECT_Bill()
-            If Row_Index > 0 Then MetroGrid.CurrentCell = MetroGrid.Rows(Row_Index - 1).Cells(3)
-        End If
+        If MetroGrid.CurrentRow Is Nothing OrElse MetroGrid.CurrentRow.IsNewRow Then Return
+        For Each column In {"IM_T_ID", "QTY_CL"}
+            If Not MetroGrid.Columns.Contains(column) OrElse MetroGrid.CurrentRow.Cells(column).Value Is Nothing OrElse IsDBNull(MetroGrid.CurrentRow.Cells(column).Value) Then Return
+        Next
+        AuditSalesDeleteUi.Run(Me, T_ID, Convert.ToInt32(MetroGrid.CurrentRow.Cells("IM_T_ID").Value), Convert.ToDecimal(MetroGrid.CurrentRow.Cells("QTY_CL").Value), On_Update, Sub() SB_Contents_SELECT_Bill())
     End Sub
 
     Public Sub Calc_Bill(HOLE_DISCOUNT As Boolean)
@@ -3366,7 +3340,12 @@ Public Class POS
                     Exit Sub
                 End Try
 
-                If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+                Try
+                    auditEditOpening.Open(MY_Settings.SqlConStr, AuditSecuritySession.Current.ContextFor(MY_Settings.SqlConStr, USER_ID, "POS"), T_ID)
+                Catch ex As Exception
+                    MsgBox(ex.Message, MsgBoxStyle.Exclamation, "فتح تعديل الفاتورة")
+                    Exit Sub
+                End Try
                 EditPaymentSnapshot = paymentSnapshot
 
                 Edit_butt.BackColor = Color.GreenYellow
@@ -3385,7 +3364,6 @@ Public Class POS
                 Units_btn.Enabled = True
 
 
-                Network_Edit_Tracker_insert("تعديل فاتورة مبيعات / رقم آلي : " + SB_ID.ToString + " / رقم يومي :  " + BillNumTxt.Text + " / المدخل :  " + USER_NAME, PureTextBox.Text, 0, 0)
             End If
 
         Else

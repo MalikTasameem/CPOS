@@ -1,0 +1,172 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Definitions" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Definitions">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="128" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="definition" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="2147483647" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Definitions>
+    <name>Network_Audit_Event_Write</name>
+    <definition>CREATE PROCEDURE dbo.Network_Audit_Event_Write
+ @SourceId uniqueidentifier,@RequestId uniqueidentifier,@EventId uniqueidentifier,@EventOrdinal int,
+ @EventXml xml,@ChangesXml xml,@EventFingerprint varbinary(32),@CanonicalEvent varbinary(max)
+AS
+BEGIN
+ SET NOCOUNT ON; SET XACT_ABORT ON;
+ IF @@TRANCOUNT=0 OR XACT_STATE()&lt;&gt;1 THROW 51100,'Audit requires the caller writable transaction.',1;
+ DECLARE @resource nvarchar(255)=N'CPOS.Audit.Request.'+CONVERT(nvarchar(36),@SourceId)+N'.'+CONVERT(nvarchar(36),@RequestId);
+ IF ISNULL(APPLOCK_MODE('public',@resource,'Transaction'),'NoLock')&lt;&gt;'Exclusive'
+    THROW 51100,'Begin the request in this transaction before writing an event.',1;
+ IF @EventId IS NULL OR @EventId='00000000-0000-0000-0000-000000000000' OR @EventOrdinal NOT BETWEEN 1 AND 100
+   OR DATALENGTH(@EventFingerprint)&lt;&gt;32 OR ISNULL(DATALENGTH(@CanonicalEvent),0) NOT BETWEEN 1 AND 1048576
+   OR @EventXml IS NULL OR @ChangesXml IS NULL
+   OR DATALENGTH(CONVERT(nvarchar(max),@EventXml))&gt;524288 OR DATALENGTH(CONVERT(nvarchar(max),@ChangesXml))&gt;524288
+   OR @EventXml.value('count(/Event)','int')&lt;&gt;1 OR @EventXml.value('count(/*)','int')&lt;&gt;1
+   OR @EventXml.exist('/Event[@version="1"]')&lt;&gt;1 OR @ChangesXml.exist('/Changes[@version="1"]')&lt;&gt;1
+   OR @ChangesXml.value('count(/Changes/Change)','int')&gt;100
+   THROW 51101,'Invalid/oversized event envelope.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND SourceId=@SourceId AND SchemaVersion=1)
+    THROW 51102,'Audit source/schema mismatch.',1;
+ DECLARE @operation varchar(64),@actor tinyint,@user int,@service varchar(64),@session uniqueidentifier;
+ SELECT @operation=OperationCode,@actor=ActorKind,@user=ActorUserId,@service=ActorServiceCode,@session=SessionId
+ FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND State=0;
+ IF @operation IS NULL THROW 51105,'Request is missing or already complete.',1;
+ DECLARE @eventCode varchar(64)=@EventXml.value('(/Event/@code)[1]','varchar(64)'),
+  @domain varchar(64)=@EventXml.value('(/Event/@domain)[1]','varchar(64)'),
+  @kind tinyint=@EventXml.value('(/Event/@kind)[1]','tinyint'),
+  @outcome tinyint=@EventXml.value('(/Event/@outcome)[1]','tinyint');
+ IF @eventCode&lt;&gt;@operation OR NOT (
+   (@operation='AuditTest.Changed' AND @domain='AuditTest' AND @kind=1 AND @actor IN(1,3)) OR
+   (@operation IN('Settlement.LineAdded','Settlement.LineDeleted','Settlement.Created','Settlement.Approved','Settlement.Voided','Settlement.EditOpened','Settlement.HeaderSaved','Settlement.EditFinished') AND @domain='Inventory.Settlement' AND @kind=1 AND @actor=1) OR
+   (@operation IN('Security.SessionStarted','Security.SessionEnded') AND @domain='Security' AND @kind=2 AND @actor=1 AND @session IS NOT NULL) OR
+   (@operation='Security.LoginRejected' AND @domain='Security' AND @kind=2 AND @actor IN(1,2) AND @session IS NULL))
+   THROW 51101,'Event does not match its request contract.',1;
+ IF (@operation='Security.LoginRejected' AND @outcome&lt;&gt;2) OR (@operation&lt;&gt;'Security.LoginRejected' AND @outcome&lt;&gt;1)
+   THROW 51101,'Outcome does not match the event.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND EnabledDomainsXml.exist('/Domains/Domain[@code=sql:variable("@domain")]')=1)
+   THROW 51102,'Audit domain is disabled.',1;
+ IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE EventId=@EventId OR (SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=@EventOrdinal))
+ BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE EventId=@EventId AND SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=@EventOrdinal
+     AND EventFingerprint=@EventFingerprint AND DATALENGTH(CanonicalEvent)=DATALENGTH(@CanonicalEvent) AND CanonicalEvent=@CanonicalEvent)
+     THROW 51104,'Event identity/ordinal conflicts with different content.',1;
+   SELECT CAST(2 AS int) WriteResult;
+   RETURN;
+ END;
+ DECLARE @changes TABLE(ChangeNo int,EntityType varchar(64),EntityId nvarchar(128),FieldCode varchar(64),ValueType varchar(20),
+ SourceSqlType varchar(40),BeforeState tinyint,BeforeValue nvarchar(max),AfterState tinyint,AfterValue nvarchar(max),ValueOrigin tinyint);
+ INSERT @changes
+ SELECT n.value('@no','int'),n.value('@entityType','varchar(64)'),n.value('@entityId','nvarchar(128)'),n.value('@field','varchar(64)'),
+ n.value('@type','varchar(20)'),n.value('(@sqlType)[1]','varchar(40)'),n.value('(Before/@state)[1]','tinyint'),
+ CASE WHEN n.value('(Before/@state)[1]','tinyint')=3 THEN n.value('(Before)[1]','nvarchar(max)') END,
+ n.value('(After/@state)[1]','tinyint'),CASE WHEN n.value('(After/@state)[1]','tinyint')=3 THEN n.value('(After)[1]','nvarchar(max)') END,n.value('@origin','tinyint')
+ FROM @ChangesXml.nodes('/Changes/Change') x(n);
+ IF (@kind=1 AND NOT EXISTS(SELECT 1 FROM @changes)) OR (@kind=2 AND EXISTS(SELECT 1 FROM @changes))
+    THROW 51101,'Change details are missing or not allowed for this operation.',1;
+ IF EXISTS(SELECT 1 FROM @changes WHERE NOT (
+ (@operation IN('Settlement.Created','Settlement.Approved','Settlement.Voided','Settlement.EditOpened','Settlement.HeaderSaved','Settlement.EditFinished') AND (
+  (FieldCode IN('DocumentNumber','OwnerUserId','AccountId','Approved','Voided','EditOpenedBy','VoidBy','JournalId','OriginalJournalId') AND ValueType='Integer') OR
+  (FieldCode IN('DocumentTotal','DocumentPure','Discount','Balance') AND ValueType='Decimal') OR
+  (FieldCode IN('DocumentDate','EditOpenedAt','VoidAt') AND ValueType='DateTime') OR
+  (FieldCode IN('Title','About','VoidReason') AND ValueType='String') OR
+  (FieldCode IN('NeedRepost','NeedCancelReverse','SalesOpen','Paused','OrderDelivered') AND ValueType='Boolean'))) OR
+    (@operation='AuditTest.Changed' AND ((FieldCode IN('Quantity','Cost') AND ValueType='Decimal') OR (FieldCode='Name' AND ValueType='String') OR (FieldCode='RawQuantity' AND ValueType='Float')))
+    OR (@operation IN('Settlement.LineAdded','Settlement.LineDeleted') AND (
+    (FieldCode IN('ItemId','StoreId','UnitId','LineId') AND ValueType='Integer') OR
+    (FieldCode IN('QuantityDelta','Cost','Total','UnitCargo','RequestedQuantity','DocumentTotal','DocumentPure') AND ValueType='Decimal') OR
+    (FieldCode IN('StoredQuantity','DisplayedQuantity') AND ValueType='Float') OR
+    (FieldCode IN('ExpiryDate','CreatedAt') AND ValueType='DateTime') OR
+    (FieldCode IN('ExpiryText','Barcode') AND ValueType='String')))
+ )) THROW 51101,'Field/type not allowed by operation contract.',1;
+ IF EXISTS(SELECT 1 FROM @changes WHERE LEN(BeforeValue)&gt;4096 OR LEN(AfterValue)&gt;4096)
+    THROW 51101,'Change value too long.',1;
+ IF @operation='Settlement.LineAdded' AND EXISTS(SELECT 1 FROM @changes WHERE EntityType='SettlementLine' AND (BeforeState&lt;&gt;1 OR AfterState NOT IN(2,3)))
+    THROW 51101,'Line addition must use absent-before and captured-after.',1;
+ IF @operation='Settlement.LineDeleted' AND EXISTS(SELECT 1 FROM @changes WHERE EntityType='SettlementLine' AND (BeforeState NOT IN(2,3) OR AfterState&lt;&gt;1))
+    THROW 51101,'Line deletion must capture before and absent-after.',1;
+ INSERT dbo.Network_Audit_Event(EventId,SourceId,RequestId,EventOrdinal,CorrelationId,ContractVersion,EventCode,DomainCode,ScreenCode,EventKind,Outcome,
+ ActorKind,ActorUserId,ActorServiceCode,ActorName,SessionId,MachineName,ApplicationVersion,EntityType,EntityId,DocumentNumber,OccurredAtUtc,BusinessDate,
+ ReasonCode,TemplateCode,TemplateVersion,Notes,RelatedEntitiesXml,EventFingerprint,CanonicalEvent)
+ SELECT @EventId,@SourceId,@RequestId,@EventOrdinal,
+ CASE WHEN @EventXml.exist('/Event/@correlation')=1 THEN @EventXml.value('(/Event/@correlation)[1]','uniqueidentifier') END,
+ 1,@eventCode,@domain,@EventXml.value('(/Event/@screen)[1]','varchar(64)'),@kind,@outcome,@actor,@user,@service,
+ CASE WHEN @EventXml.exist('/Event/ActorName')=1 THEN @EventXml.value('(/Event/ActorName)[1]','nvarchar(256)') END,@session,
+ @EventXml.value('(/Event/Machine)[1]','nvarchar(128)'),@EventXml.value('(/Event/Application)[1]','nvarchar(50)'),
+ CASE WHEN @EventXml.exist('/Event/@entityType')=1 THEN @EventXml.value('(/Event/@entityType)[1]','varchar(64)') END,
+ CASE WHEN @EventXml.exist('/Event/@entityId')=1 THEN @EventXml.value('(/Event/@entityId)[1]','nvarchar(128)') END,
+ CASE WHEN @EventXml.exist('/Event/Document')=1 THEN @EventXml.value('(/Event/Document)[1]','nvarchar(50)') END,
+ @EventXml.value('(/Event/@occurred)[1]','datetime2(3)'),
+ CASE WHEN @EventXml.exist('/Event/@businessDate')=1 THEN @EventXml.value('(/Event/@businessDate)[1]','datetime2(3)') END,
+ CASE WHEN @EventXml.exist('/Event/@reason')=1 THEN @EventXml.value('(/Event/@reason)[1]','varchar(64)') END,
+ @eventCode,1,@EventXml.value('(/Event/Notes)[1]','nvarchar(max)'),@EventXml.query('/Event/Entities'),@EventFingerprint,@CanonicalEvent;
+ INSERT dbo.Network_Audit_Change(EventId,ChangeNo,EntityType,EntityId,FieldCode,ValueType,SourceSqlType,BeforeState,BeforeValue,AfterState,AfterValue,ValueOrigin)
+ SELECT @EventId,ChangeNo,EntityType,EntityId,FieldCode,ValueType,SourceSqlType,BeforeState,BeforeValue,AfterState,AfterValue,ValueOrigin FROM @changes;
+ SELECT CAST(1 AS int) WriteResult;
+END</definition>
+  </Definitions>
+  <Definitions>
+    <name>Network_Audit_Request_Begin</name>
+    <definition>CREATE PROCEDURE dbo.Network_Audit_Request_Begin
+ @SourceId uniqueidentifier,@RequestId uniqueidentifier,@OperationCode varchar(64),@DomainCode varchar(64),
+ @ActorKind tinyint,@ActorUserId int=NULL,@ActorServiceCode varchar(64)=NULL,@SessionId uniqueidentifier=NULL,
+ @EntityType varchar(64)=NULL,@EntityId nvarchar(128)=NULL,
+ @RequestFingerprint varbinary(32),@CanonicalRequest varbinary(max),@LockTimeout int=5000
+AS
+BEGIN
+ SET NOCOUNT ON; SET XACT_ABORT ON;
+ IF @@TRANCOUNT=0 OR XACT_STATE()&lt;&gt;1 THROW 51100,'Audit requires the caller writable transaction.',1;
+ IF @SourceId IS NULL OR @RequestId IS NULL OR @RequestId='00000000-0000-0000-0000-000000000000'
+    OR DATALENGTH(@RequestFingerprint)&lt;&gt;32 OR ISNULL(DATALENGTH(@CanonicalRequest),0) NOT BETWEEN 1 AND 1048576
+    OR @LockTimeout NOT BETWEEN 0 AND 10000 THROW 51101,'Invalid audit request contract.',1;
+ IF NOT ((@OperationCode='AuditTest.Changed' AND @DomainCode='AuditTest')
+     OR (@OperationCode IN('Settlement.LineAdded','Settlement.LineDeleted','Settlement.Created','Settlement.Approved','Settlement.Voided','Settlement.EditOpened','Settlement.HeaderSaved','Settlement.EditFinished') AND @DomainCode='Inventory.Settlement')
+     OR (@OperationCode IN('Security.SessionStarted','Security.LoginRejected','Security.SessionEnded') AND @DomainCode='Security'))
+     THROW 51101,'Unknown operation/domain.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND SchemaVersion=1 AND SourceId=@SourceId)
+     THROW 51102,'Audit source/schema mismatch.',1;
+ DECLARE @resource nvarchar(255)=N'CPOS.Audit.Request.'+CONVERT(nvarchar(36),@SourceId)+N'.'+CONVERT(nvarchar(36),@RequestId),@lock int;
+ EXEC @lock=sys.sp_getapplock @Resource=@resource,@LockMode='Exclusive',@LockOwner='Transaction',@LockTimeout=@LockTimeout;
+ IF @lock&lt;0 THROW 51103,'Audit request is busy or lock acquisition failed; retry same identity.',1;
+ IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId)
+ BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId
+      AND RequestFingerprint=@RequestFingerprint AND DATALENGTH(CanonicalRequest)=DATALENGTH(@CanonicalRequest) AND CanonicalRequest=@CanonicalRequest)
+      THROW 51104,'Request identity conflicts with different content.',1;
+   IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND State&lt;&gt;1)
+      THROW 51105,'An incomplete request exists. Do not execute again.',1;
+   SELECT CAST('Completed' AS varchar(30)) Status,ResultCode,CONVERT(nvarchar(max),ResultXml) ResultXml
+      FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId;
+   RETURN;
+ END;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND EnabledDomainsXml.exist('/Domains/Domain[@code=sql:variable("@DomainCode")]')=1)
+     THROW 51102,'Audit domain is disabled. No legacy fallback is allowed.',1;
+ INSERT dbo.Network_Audit_Request(SourceId,RequestId,ContractVersion,OperationCode,ActorKind,ActorUserId,ActorServiceCode,SessionId,
+ EntityType,EntityId,RequestFingerprint,CanonicalRequest,State)
+ VALUES(@SourceId,@RequestId,1,@OperationCode,@ActorKind,@ActorUserId,@ActorServiceCode,@SessionId,@EntityType,@EntityId,@RequestFingerprint,@CanonicalRequest,0);
+ SELECT CAST('NewPendingCommit' AS varchar(30)) Status,CAST(NULL AS tinyint) ResultCode,CAST(NULL AS nvarchar(max)) ResultXml;
+END</definition>
+  </Definitions>
+</NewDataSet>

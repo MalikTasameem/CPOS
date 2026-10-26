@@ -1,5 +1,8 @@
 ﻿Public Class SBChangePrice
     Dim rs As New Resizer
+    Private ReadOnly auditLineEdit As New AuditSalesLineEditUi(Me)
+    Private auditPriceMode As Boolean
+    Private auditOnUpdate As Boolean
     Dim Min_SP As Double = 0
     Dim Min_SP_2 As Double
     Dim U_ID As Integer
@@ -17,8 +20,12 @@
     End Sub
 
     Private Sub ConfermButton_Click(sender As Object, e As EventArgs) Handles ConfermButton.Click
-
-        If F_POS.isPriceCH = True Then
+        If auditLineEdit.HasPending Then
+            If auditLineEdit.Save(Nothing) Then RefreshAuditedPrice()
+            Return
+        End If
+        If auditPriceMode Then
+            If auditLineEdit.Snapshot Is Nothing Then Return
             If Not String.IsNullOrWhiteSpace(NumTextBox.Text) Then CALC_ChangePrice()
         Else
         If String.IsNullOrWhiteSpace(NumTextBox.Text) = False Then
@@ -56,12 +63,12 @@
 
 
         If U_SB_Sell_Under_Cost = False Then
-            If Show_IM_Cost(False, F_POS.MetroGrid.CurrentRow.Cells("IM_ID_CL").Value, U_ID) > NumTextBox.Text Then
+            If Show_IM_Cost(False, CInt(auditLineEdit.Snapshot.Line("IM_ID")), U_ID) > NumTextBox.Text Then
                 MsgBox("لا يمكنك البيع بأقل من سعر التكلفة", MsgBoxStyle.Critical)
                 Exit Sub
             End If
         Else
-            If Show_IM_Cost(False, F_POS.MetroGrid.CurrentRow.Cells("IM_ID_CL").Value, U_ID) > NumTextBox.Text Then
+            If Show_IM_Cost(False, CInt(auditLineEdit.Snapshot.Line("IM_ID")), U_ID) > NumTextBox.Text Then
                 If MessageBox.Show(" سوف يتم البيع بأقل من سعر التكلفة", "تنويه", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, _
                                               MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Cancel Then Exit Sub
             End If
@@ -92,23 +99,27 @@
     End Function
 
     Private Sub IM_Conferm_NewPrice()
-        Dim SB_T_ID As Integer = F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value
-        Dim Row_Index As Integer = F_POS.MetroGrid.CurrentCell.RowIndex
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "IM_Conferm_NewPrice"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@IM_T_ID", F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value)
-            .Parameters.AddWithValue("@New_Price", NumTextBox.Text)
-            .Parameters.AddWithValue("@On_Update", F_POS.On_Update)
-        End With
-        If SQL_SP_EXEC(C.Com) = True Then
-            F_POS.isPriceCH = False
+        If Not auditPriceMode OrElse auditLineEdit.Snapshot Is Nothing Then Return
+        If auditLineEdit.Save(Function(context) AuditSalesLineEdit.Request(context, auditLineEdit.Snapshot, "POS",
+            Decimal.Parse(NumTextBox.Text, Globalization.CultureInfo.CurrentCulture), auditOnUpdate, IM_min_QTY, S_Allow_MinSP)) Then RefreshAuditedPrice()
+    End Sub
+
+    Private Sub RefreshAuditedPrice()
+        F_POS.isPriceCH = False
+        Try
             F_POS.SB_Contents_SELECT_Bill()
-            F_POS.MetroGrid.CurrentCell = F_POS.MetroGrid.Rows(Row_Index).Cells(3)
-            Me.Close()
-        End If
+            If F_POS.MetroGrid.Columns.Contains("IM_T_ID") AndAlso F_POS.MetroGrid.Columns.Contains("IM_NameCL") Then
+                For Each row As DataGridViewRow In F_POS.MetroGrid.Rows
+                    If Not row.IsNewRow AndAlso row.Cells("IM_T_ID").Value IsNot Nothing AndAlso Not IsDBNull(row.Cells("IM_T_ID").Value) AndAlso Convert.ToInt64(row.Cells("IM_T_ID").Value) = CLng(auditLineEdit.Snapshot.Line("T_ID")) Then
+                        F_POS.MetroGrid.CurrentCell = row.Cells("IM_NameCL")
+                        Exit For
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            MsgBox("تم حفظ السعر؛ تعذر تحديث عرض الفاتورة: " & ex.Message, MsgBoxStyle.Exclamation)
+        End Try
+        Me.Close()
     End Sub
 
     Private Sub isChangePrice_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -120,12 +131,18 @@
     Private Sub isChangePrice_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         rs.FindAllControls(Me)
         ThemeManager.ApplyThemeToForm(Me)
-        If F_POS.isPriceCH = False Then
+        auditPriceMode = F_POS.isPriceCH
+        auditOnUpdate = F_POS.On_Update
+        If Not auditPriceMode Then
             InfoLb.Text = "قيمــة التخفيض"
             If Convert.ToDouble(F_POS.DiscountTextBox.Text) > 0 Then NumTextBox.Text = F_POS.DiscountTextBox.Text
             NumTextBox.Focus()
                 NumTextBox.Select()
             Else
+                If F_POS.MetroGrid.CurrentRow Is Nothing OrElse Not auditLineEdit.Load(F_POS.T_ID, CInt(F_POS.MetroGrid.CurrentRow.Cells("IM_T_ID").Value), auditOnUpdate) Then
+                    ConfermButton.Enabled = False
+                    Return
+                End If
                 Min_SP_Panel.Visible = S_Allow_MinSP
             IM_Fetch_Unit()
             NumTextBox.Focus()

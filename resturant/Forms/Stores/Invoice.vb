@@ -1,4 +1,5 @@
 ﻿Public Class Invoice : Inherits System.Windows.Forms.Form
+    Private ReadOnly auditDocumentEdit As New AuditDocumentEditUi(Me)
     Dim rs As New Resizer
     Dim FormState As String = ""
     Dim DefaultFormState As String = ""
@@ -1846,7 +1847,7 @@ Me.Name.ToString
                     Beep()
                     If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
                                  MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-                        If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+                        If Not auditDocumentEdit.TryOpen(T_ID, 9) Then Exit Sub
 
                         Edit_butt.BackColor = Color.GreenYellow
                         On_Update = True
@@ -1858,7 +1859,6 @@ Me.Name.ToString
                         Title_txt.Enabled = True
                         Ebable_CatFields()
                         Edit_butt.Text = "إيقاف التعديل"
-                        Network_Edit_Tracker_insert("تعديل فاتورة جرد / رقم آلي : " + Bill_ID_Txt.Text + " / المدخل :  " + User_Name_lb.Text, Total_TextBox.Text, 0, 0)
                         Notes_txt.Enabled = True
                         DateTimeEx.Enabled = True
                         Invoice_Type_cm.Enabled = True

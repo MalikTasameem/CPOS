@@ -1,4 +1,5 @@
 ﻿Public Class IM_Execute : Inherits System.Windows.Forms.Form
+    Private ReadOnly auditDocumentEdit As New AuditDocumentEditUi(Me)
     Dim rs As New Resizer
     Dim FormState As String = ""
     Dim DefaultFormState As String = ""
@@ -676,11 +677,10 @@
         If CurrentState = BillState.Saved Then
             ' --- بدء التعديل ---
             MsgBox(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ", MsgBoxStyle.Information, "تعديل فاتورة")
-            If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
+            If Not auditDocumentEdit.TryOpen(T_ID, 8) Then Exit Sub
 
             On_Update = True
             Set_Bill_State(BillState.Editing)
-            Network_Edit_Tracker_insert("تعديل فاتورة تالف / رقم آلي : " + Bill_ID_Txt.Text + " / المدخل :  " + User_Name_lb.Text, Total_TextBox.Text, 0, 0)
         ElseIf CurrentState = BillState.Editing Then
             ' --- إيقاف وحفظ التعديل ---
             On_Update = False

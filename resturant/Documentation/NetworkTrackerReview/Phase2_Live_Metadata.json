@@ -1,0 +1,161 @@
+{
+  "CapturedAt": "2026-10-13T17:50:30.5138479+02:00",
+  "Scope": "Phase 2 design verification only; no writes, no draft/offline changes.",
+  "Database": [
+    {
+      "DatabaseName": "CPOS_ACCOUNTING",
+      "ProductVersion": "12.0.2269.0"
+    }
+  ],
+  "SourceRows": [
+    {
+      "Serv_ID": 1,
+      "Sub_Code": "",
+      "START_ID": 0,
+      "END_ID": 1999999
+    }
+  ],
+  "Definitions": [
+    {
+      "name": "AG_Balance_Void_Row",
+      "type_desc": "SQL_STORED_PROCEDURE",
+      "modify_date": "2026-05-25T14:27:53.93",
+      "definition": "-- =============================================\r\n-- Author:\t\t<Author,,Name>\r\n-- Create date: <Create Date,,>\r\n-- Description:\t<Description,,>\r\n-- =============================================\r\nCREATE PROCEDURE [dbo].[AG_Balance_Void_Row] \r\n@T_ID\tint\t\r\n\r\nAS \r\nSET DEADLOCK_PRIORITY NORMAL\r\n\r\nBEGIN TRY\r\nBEGIN TRANSACTION \r\n\r\ndeclare @SumPure FLOAT,@BS_Type INT,@i INT,@IM_ID INT,@D_Valid NVARCHAR(50),@TB_ID INT , @Bill_Num INT\r\n,@ST_T_ID INT,@ST_ID INT,@ST_QTY NUMERIC(18,2),@ST_F INT,@ST_T INT,@isDepended INT ,@AG_ID INT,@TR_ID INT , @TRAN_ID INT,@SB_T_ID INT\r\n\r\nSELECT @BS_Type = BsType_ID , @AG_ID = AG_ID , @TB_ID = Table_ID , @Bill_Num = S_Bill_Pr_ID FROM Agents_Balance_MV WHERE T_ID = @T_ID\r\n\r\nIF @BS_Type = 1 BEGIN SELECT @SumPure = ISNULL(SUM(T_Price),0) FROM SB_Contents WHERE Bill_T_ID = @T_ID END\r\nIF @BS_Type = 7 or @BS_Type = 9 BEGIN SELECT @SumPure = ISNULL(SUM(Total),0) FROM Pch_Details  WHERE Pch_T_ID  = @T_ID END\r\n\r\n--***************************************************\r\n\r\nIF @BS_Type = 1 BEGIN \t\r\nSELECT @isDepended = isDepended FROM Agents_Balance_MV WHERE T_ID = @T_ID\r\n\r\nIF @isDepended = 1 BEGIN EXEC [SB_Contents_Structers_Remove] @T_ID END\r\n\r\nUPDATE SB_Contents SET isDepended = 0 where Bill_T_ID = @T_ID \r\n\r\n--SELECT @i = min(T_ID) From SB_Contents_WithStore_V WHERE Bill_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM SB_Contents_WithStore_V WHERE T_ID = @i\r\n--EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY\r\n--SELECT @i = min(T_ID) From SB_Contents_WithStore_V WHERE Bill_T_ID = @T_ID AND T_ID > @i\r\n--END\r\n\r\n\r\nIF (SELECT TB_Auto_Print FROM Sys_Features WHERE T_ID = (SELECT T_ID FROM Sys_Model)) = 1\r\nBEGIN\r\n\r\nDECLARE @Desc NVARCHAR(MAX)\r\nSET @Desc = CONCAT(' إلغاء فاتورة رقم ',@Bill_Num, CHAR(13), CHAR(10), ' طاولة : ',(SELECT TOP 1 T_Name  FROM Tables WHERE TB_ID = @TB_ID))\r\n\r\nINSERT INTO TB_AutoPrint_tmp (T_ID, Notes, Printer_IP)\r\nSELECT 0, @Desc, GP.Printer_IP\r\nFROM GM_Printer_V GP\r\nJOIN IM_Menu IM ON GP.GM_ID = IM.GM_ID\r\nWHERE IM.IM_ID IN (SELECT IM_ID FROM SB_Contents WHERE Bill_T_ID = @T_ID) AND GP.Printer_IP IS NOT NULL;\r\n\r\n\r\nEND\r\n\r\nGOTO FINAL_\r\n\r\nEND\r\n\r\n\r\nIF @BS_Type = 2 BEGIN \t\r\nUPDATE EXP_Details SET isDepended = 0 where IMEX_T_ID  = @T_ID \r\nGOTO FINAL_\r\nEND\r\n\r\n\r\nIF @BS_Type IN (3,4)\r\nBEGIN\r\nUpdate Treasury_Balance_MV  SET isVoid = 1,Balance = NULL WHERE AGBalance_T_ID  = @T_ID\r\nGOTO FINAL_\r\nEND\r\n\r\n------------------------------------------------------------------------------------\r\n\r\nIF @BS_Type = 7 or @BS_Type = 9\r\nBEGIN\r\nUPDATE Pch_Details SET isDepended = 0 where Pch_T_ID = @T_ID \r\n--SELECT @i = min(T_id) From Pch_Details WHERE Pch_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM Pch_Details WHERE T_ID = @i\r\n--EXEC Dec_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY\r\n--EXEC ReCount_IM_Main_COST @IM_ID\r\n--SELECT @i = min(T_ID) From Pch_Details WHERE Pch_T_ID = @T_ID AND T_ID > @i\r\n--END\r\nEND\r\n\r\n---------------------------------------------------------------------------------------\r\n\r\nIF @BS_Type = 8 \r\nBEGIN\r\nUPDATE IMEX_Details SET isDepended = 0 where IMEX_T_ID = @T_ID \r\n--SELECT @i = min(T_id) From IMEX_Details WHERE IMEX_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM IMEX_Details WHERE T_ID = @i\r\n--EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY\r\n--SELECT @i = min(T_ID) From IMEX_Details WHERE IMEX_T_ID = @T_ID AND T_ID > @i\r\n--END\r\nEND\r\n-------------------------------------------------------------------------------------------\r\nIF @BS_Type = 10 OR @BS_Type = 11\r\nBEGIN\r\nUPDATE Rtn_Contents  SET isDepended = 0 where Bill_T_ID = @T_ID \r\n--IF @BS_Type = 10 BEGIN EXEC Rtn_Contents_UPDATE_DEPENDED @T_ID END\r\n--SELECT @i = min(T_id) From Rtn_Contents WHERE Bill_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM Rtn_Contents WHERE T_ID = @i\r\n--IF @BS_Type = 10 BEGIN EXEC Dec_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY END\r\n--ELSE BEGIN EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY END\r\n--SELECT @i = min(T_ID) From Rtn_Contents WHERE Bill_T_ID = @T_ID AND T_ID > @i\r\n--END\r\nEND\r\n---------------------------------------------------------------------------------------------\r\nIF @BS_Type = 12 --Store_Trans\r\nBEGIN\r\nUPDATE Store_Trans_Details SET isDepended = 0 where B_T_ID = @T_ID \r\n--SELECT @i = min(T_ID) From Store_Trans_Details WHERE B_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_F = ST_F_ID,@ST_T = ST_To_ID,@ST_QTY = ST_QTY FROM Store_Trans_Details WHERE T_ID = @i\r\n\r\n----EXEC Dec_IM_QTY @IM_ID,@ST_T,@D_Valid,@ST_QTY\r\n--EXEC Inc_IM_QTY @IM_ID,@ST_F,@D_Valid,@ST_QTY\r\n\r\n--SELECT @i = min(T_ID) From Store_Trans_Details WHERE B_T_ID = @T_ID AND T_ID > @i \r\n--END\r\nEND\r\n----------------------------------------------------------------------------------------------\r\n\r\n----------------------------------------------------------------------------------------------\r\n\r\nIF @BS_Type = 13 OR @BS_Type = 18 -- FRM_ITEM\r\nBEGIN\r\n\r\nUPDATE FRM_Details SET isDepended = 0 where FRM_T_ID = @T_ID \r\n\r\n--SELECT @i = min(T_ID) From FRM_Details WHERE FRM_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n\r\n--SELECT @IM_ID=IM_ID,@D_Valid=D_Vaild,@ST_ID = ST_ID,@ST_QTY = ST_QTY\r\n--FROM FRM_Details WHERE T_ID = @i\r\n--EXEC Dec_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY\r\n--SELECT @i = min(T_ID) From FRM_Details WHERE FRM_T_ID = @T_ID AND T_ID > @i\r\n--END\r\n\r\n--2++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\r\n\r\nUPDATE FRM_Contents_Details SET isDepended = 0 where Bill_T_ID = @T_ID \r\n\r\n--SELECT @i = min(T_ID) From FRM_Contents_Details WHERE Bill_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n\r\n--SELECT @IM_ID=IM_ID,@D_Valid='',@ST_ID = ST_ID,@ST_QTY = ST_QTY FROM FRM_Contents_Details WHERE T_ID = @i\r\n--EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY\r\n--SELECT @i = min(T_ID) From FRM_Contents_Details WHERE Bill_T_ID = @T_ID AND T_ID > @i\r\n--END\r\n\r\nEND\r\n\r\n-----------------------------------------------------------------------------------------------\r\n\r\nIF @BS_Type = 17\r\nBEGIN\r\nUPDATE InSale_Details SET isDepended = 0 where InSale_T_ID = @T_ID \r\n--SELECT @i = min(T_id) From InSale_Details WHERE InSale_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM InSale_Details WHERE T_ID = @i\r\n--EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY\r\n--SELECT @i = min(T_ID) From InSale_Details WHERE InSale_T_ID = @T_ID AND T_ID > @i\r\n--END\r\nEND\r\n-------------------------------------------------------------------------------------------\r\n\r\nIF @BS_Type = 35\r\nBEGIN\r\nUPDATE OutSale_Details SET isDepended = 0 where OutSale_T_ID = @T_ID \r\n--SELECT @i = min(T_id) From OutSale_Details WHERE OutSale_T_ID = @T_ID\r\n--WHILE @i IS NOT NULL\r\n--BEGIN\r\n--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM OutSale_Details WHERE T_ID = @i\r\n--EXEC Dec_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY\r\n--SELECT @i = min(T_ID) From OutSale_Details WHERE OutSale_T_ID = @T_ID AND T_ID > @i\r\n--END\r\nEND\r\n-------------------------------------------------------------------------------------------\r\n\r\nFINAL_:\r\n\r\n\r\nexec [Agents_Balance_MV_Cancel]\r\n    @T_ID = @T_ID,\r\n    @User_ID = 1,\r\n    @Reason = 'إلغاء المعاملة'\r\n\r\n\r\nUPDATE Agents_Balance_MV SET SB_isOpen = 0 ,isPause = NULL ,\r\n--Pure = @SumPure ,\r\nOrder_isDeleverd = 1\r\n,isVoid = 1,Balance = NULL WHERE T_ID =@T_ID\r\n\r\n\r\n\r\nIF @TB_ID > 0\r\nBEGIN\r\nIF ( SELECT COUNT(T_ID) FROM Tables_Bills_NotPied_V WHERE Table_ID = @TB_ID ) = 0\r\nBEGIN\r\nUPDATE TABLES SET isbusy = 0 , TB_ORDER_CODE = NULL WHERE TB_ID = @TB_ID\r\nEND\r\nEND\r\n\r\n\r\nSELECT @SB_T_ID = Receipt_Tran_ID  FROM Agents_Balance_MV WHERE T_ID = @T_ID\r\nIF @BS_Type = 3 BEGIN UPDATE Agents_Balance_MV SET isPied = 0 WHERE T_ID = @SB_T_ID END\r\n\r\n---------------------------------------------------------------------------------------------------------\r\nSELECT @i = min(T_ID) From Agents_Balance_MV_RCT WHERE Receipt_Tran_ID = @T_ID\r\nWHILE @i IS NOT NULL\r\nBEGIN\r\nEXEC [Agents_Balance_MV_RCT_VOID] @i\r\n--Update Agents_Balance_MV SET isVoid = 1 WHERE T_ID = @i\r\n--Update Treasury_Balance_MV SET isVoid = 1,Balance = NULL WHERE AGBalance_T_ID = @i\r\nSELECT @i = min(T_ID) From Agents_Balance_MV_RCT WHERE Receipt_Tran_ID = @T_ID AND T_ID > @i\r\nEND\r\n-----------------------------------------------------------------------------------------------------\r\n\r\n\r\n--if @T_ID <> 0 and (SELECT BsType_ID FROM Agents_Balance_MV WHERE T_ID = @T_ID) = 3\r\n--BEGIN exec [AG_Balance_Update_Pied] @T_ID END\r\n\r\n\r\n\r\n\r\nCOMMIT\r\nEND TRY\r\n\r\nBEGIN CATCH\r\nIF @@TRANCOUNT > 0\r\nraiserror ('DB ERROR (AG_Balance_Void_Row)',16,1,'خطأ')\r\nROLLBACK\r\nEND CATCH\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "name": "ST_Balance_Update",
+      "type_desc": "SQL_STORED_PROCEDURE",
+      "modify_date": "2026-05-04T20:21:13.783",
+      "definition": "CREATE PROCEDURE [dbo].[ST_Balance_Update]\r\n@T_ID INT = null,\r\n@Bill_T_ID INT,\r\n@IM_ID\tint,\r\n@D_Valid DATE = NULL,\r\n@ST_QTY\tnumeric(18, 3),\r\n@Qty_Deference numeric(18, 3),\r\n@Tag char = '',\r\n@ST_ID INT,\r\n@Barcode nvarchar(50)\r\n\r\nAS\r\nBEGIN TRY\r\nBEGIN TRANSACTION \r\n\r\n--as\r\n--begin\r\n\r\n DECLARE @U_ID INT,@U_Cargo Numeric(18,2),@Tmp int = 0,@Valid_ST NVARCHAR(50),@T_ID_2  INT,@Cost numeric(18, 3)\r\n\r\nSET @Valid_ST = @D_Valid\r\nIF @Valid_ST IS NULL BEGIN SET @Valid_ST ='' END\r\n\r\n\r\n--SELECT @ST_ID = ST_ID FROM ST_Balance WHERE T_ID = @T_ID\r\n\r\nSELECT @Cost = ISNULL((COST/U_Cargo),0) FROM IM_STORE_View   WHERE IM_ID = @IM_ID AND ST_ID = @ST_ID\r\n\r\nIF @Cost IS NULL BEGIN SET @Cost = 0 END\r\n\r\nSELECT @U_ID = U_ID , @U_Cargo = U_Cargo  FROM IM_Menu_Units_V   WHERE IM_ID = @IM_ID AND is_Default = 1\r\nSET @Cost = @Cost / @U_Cargo\r\n\r\nIF @Tag = '-' BEGIN SET @Qty_Deference = @Qty_Deference * -1 END\r\nIF @Tag <> ' ' BEGIN\r\nEXEC @T_ID = [AA_GET_MAX_ID] 'ST_QTY_Deferences'\r\n INSERT INTO [dbo].[ST_QTY_Deferences]([T_ID],[Bill_T_ID],[IM_ID],[ST_ID],[Valid_D],[ST_QTY],[Cost],[U_Cargo],Total,barcode)\r\n                               VALUES (@T_ID,@Bill_T_ID,@IM_ID,@ST_ID,@Valid_ST,(@Qty_Deference * @U_Cargo ),@Cost,@U_Cargo,(@Qty_Deference * @U_Cargo * @Cost ) ,@Barcode) \r\n END\r\n\r\n EXEC Recalculate_Agent_Bill_Total @Bill_T_ID\r\n\r\n\r\n--SELECT @Tmp = COUNT(*) FROM ST_Balance WHERE IM_ID = @IM_ID AND ST_ID=@ST_ID AND D_Valid = @Valid_ST AND T_ID NOT IN(@T_ID)\r\n--IF @Tmp > 0\r\n--BEGIN\r\n--DELETE FROM ST_Balance WHERE T_ID = @T_ID\r\n--UPDATE ST_Balance  SET ST_QTY += (@ST_QTY * @U_Cargo) WHERE \r\n--IM_ID = @IM_ID AND ST_ID=@ST_ID AND D_Valid = @Valid_ST\r\n--END\r\n--ELSE\r\n--BEGIN\r\n--UPDATE ST_Balance  SET ST_QTY = (@ST_QTY * @U_Cargo) , D_Valid = @Valid_ST  WHERE T_ID = @T_ID \r\n--END\r\n--UPDATE IM_Menu SET Cost = (@Cost / @U_Cargo)  WHERE IM_ID = @IM_ID\r\n\r\n--DELETE FROM ST_Balance WHERE ST_QTY = 0\r\n\r\n--COMMIT\r\n--END TRY\r\n\r\n--BEGIN CATCH\r\n--IF @@TRANCOUNT > 0\r\n--raiserror('ST_Balance_Update',16,1,'خطأ')\r\n--ROLLBACK\r\n--END CATCH\r\n\r\n\r\n\r\nCOMMIT\r\nEND TRY\r\n\r\nBEGIN CATCH\r\nIF @@TRANCOUNT > 0\r\nDECLARE @ERR_STR NVARCHAR(MAX)\r\n       SET @ERR_STR  = '[ST_Balance_Update] ' + ERROR_MESSAGE()\r\n\t   raiserror(@ERR_STR,16,1,'خطأ')\r\nROLLBACK\r\nEND CATCH\r\n\r\n\r\n\r\n--end\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "name": "ST_QTY_Deferences_Details_Delete",
+      "type_desc": "SQL_STORED_PROCEDURE",
+      "modify_date": "2026-05-04T20:21:15.887",
+      "definition": "-- =============================================\r\n-- Author:\t\t<Author,,Name>\r\n-- Create date: <Create Date,,>\r\n-- Description:\t<Description,,>\r\n-- =============================================\r\nCREATE PROCEDURE [dbo].[ST_QTY_Deferences_Details_Delete] \r\n@T_ID\tint\r\n\r\nAS\r\nBEGIN TRY\r\nBEGIN TRANSACTION\r\n\r\nDECLARE @Bill_T_ID INT\r\nSELECT @Bill_T_ID = Bill_T_ID FROM ST_QTY_Deferences WHERE Bill_T_ID = @Bill_T_ID\r\n\r\nDELETE FROM ST_QTY_Deferences WHERE T_ID = @T_ID\r\n\r\nEXEC Recalculate_Agent_Bill_Total @Bill_T_ID\r\n\r\nCOMMIT\r\nEND TRY\r\n\r\nBEGIN CATCH\r\nIF @@TRANCOUNT > 0\r\n DECLARE @ErrorMessage NVARCHAR(4000);\r\n  SELECT @ErrorMessage = ERROR_MESSAGE()\r\nraiserror(@ErrorMessage,16,1,'خطأ')\r\nROLLBACK\r\nEND CATCH\r\n"
+    }
+  ],
+  "SettlementColumns": [
+    {
+      "column_id": 1,
+      "name": "T_ID",
+      "DataType": "int",
+      "max_length": 4,
+      "precision": 10,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 2,
+      "name": "Bill_T_ID",
+      "DataType": "int",
+      "max_length": 4,
+      "precision": 10,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 3,
+      "name": "DATE",
+      "DataType": "datetime",
+      "max_length": 8,
+      "precision": 23,
+      "scale": 3,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 4,
+      "name": "IM_ID",
+      "DataType": "int",
+      "max_length": 4,
+      "precision": 10,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 5,
+      "name": "ST_ID",
+      "DataType": "int",
+      "max_length": 4,
+      "precision": 10,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 6,
+      "name": "Valid_D",
+      "DataType": "nvarchar",
+      "max_length": 100,
+      "precision": 0,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 7,
+      "name": "ST_QTY",
+      "DataType": "float",
+      "max_length": 8,
+      "precision": 53,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 8,
+      "name": "Cost",
+      "DataType": "numeric",
+      "max_length": 9,
+      "precision": 18,
+      "scale": 3,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 9,
+      "name": "U_Cargo",
+      "DataType": "numeric",
+      "max_length": 9,
+      "precision": 18,
+      "scale": 3,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 10,
+      "name": "Barcode",
+      "DataType": "nvarchar",
+      "max_length": 100,
+      "precision": 0,
+      "scale": 0,
+      "is_nullable": false,
+      "is_identity": false
+    },
+    {
+      "column_id": 11,
+      "name": "TOTAL",
+      "DataType": "numeric",
+      "max_length": 9,
+      "precision": 18,
+      "scale": 3,
+      "is_nullable": false,
+      "is_identity": false
+    }
+  ],
+  "ExistingProposedObjects": [],
+  "TrackerSynchronization": [
+    {
+      "TABLE_NAME": "Network_Edit_Tracker",
+      "is_Push": 1,
+      "is_Pull": 1,
+      "PRIMARY_KEY_NAME": "T_ID"
+    }
+  ],
+  "MatchingSqlAgentSteps": [],
+  "SqlAgentInspection": "Read succeeded; only literal references in job steps were searched. Indirect calls and external schedulers are not covered."
+}

@@ -301,6 +301,10 @@
 
     Private Sub PriceTextBox_TextChanged(sender As Object, e As EventArgs) Handles PriceTextBox.TextChanged
         Check_Point_in_FloatNum(sender, e)
+        RefreshCostFields()
+    End Sub
+
+    Private Sub RefreshCostFields()
         If Not String.IsNullOrWhiteSpace(PriceTextBox.Text) And U_Cargo > 1 Then
             CostByOne.Text = Convert.ToDouble(PriceTextBox.Text) / U_Cargo
             CalcAvgCost()
@@ -377,7 +381,7 @@
             c.Dr = c.Com.ExecuteReader
             If c.Dr.HasRows Then
                 c.Dr.Read()
-                Prev_Cost = c.Dr("Cost")
+                If Not IsDBNull(c.Dr("Cost")) Then Prev_Cost = Convert.ToDouble(c.Dr("Cost"))
                 NewSalePrice_txt.Text =
                  ((((Prev_Cost * Prev_Qty) + (Convert.ToDouble(PriceTextBox.Text) * Convert.ToDouble(QtyTextBox.Text))) / (Prev_Qty + Convert.ToDouble(QtyTextBox.Text))) * U_Cargo).ToString("0.00")
             End If
@@ -389,6 +393,7 @@
 
     Public Sub Fetch_IM_Units()
 
+        Get_Unit = False
         Dim c As New C
         U_Dt.Clear()
         Try
@@ -473,16 +478,20 @@
 
     Private Sub ApplySelectedUnitData(cn As SqlClient.SqlConnection)
 
-        If IM_Unit_cm.SelectedValue Is Nothing Then
+        Dim selectedUnitId As Long
+        If IM_Unit_cm.SelectedValue Is Nothing OrElse
+           IM_Unit_cm.SelectedValue Is DBNull.Value OrElse
+           Not Long.TryParse(IM_Unit_cm.SelectedValue.ToString(), selectedUnitId) Then
             Return
         End If
 
+        Dim selectedUnitCost As Double = 0
         Using unitCmd As New SqlClient.SqlCommand(
-            "select U_ID,U_Cargo,Price,Min_SP from IM_Menu_Units_V WHERE U_IM_ID = @U_IM_ID AND IM_ID = @IM_ID",
+            "select U_ID,U_Cargo,Price,Min_SP,Cost from IM_Menu_Units_V WHERE U_IM_ID = @U_IM_ID AND IM_ID = @IM_ID",
             cn
         )
 
-            unitCmd.Parameters.AddWithValue("@U_IM_ID", IM_Unit_cm.SelectedValue)
+            unitCmd.Parameters.AddWithValue("@U_IM_ID", selectedUnitId)
             unitCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
 
             Using rdr As SqlClient.SqlDataReader = unitCmd.ExecuteReader()
@@ -491,6 +500,10 @@
 
                     U_Cargo = Convert.ToDouble(rdr("U_Cargo"))
                     Prev_Sale_Unit_txt.Text = rdr("Price").ToString()
+                    ' تكلفة البطاقة للوحدة الأساسية، وتحوّل إلى تكلفة الوحدة المختارة.
+                    If Not IsDBNull(rdr("Cost")) Then
+                        selectedUnitCost = Convert.ToDouble(rdr("Cost")) * U_Cargo
+                    End If
 
                     If U_Cargo <> 0 Then
                         Current_QTY.Text = (Convert.ToDouble(IM_QTY) / U_Cargo).ToString("N")
@@ -522,37 +535,21 @@
                         Min_SP_2_By_One_Lb.Visible = False
                     End If
 
-                    CalcAvgCost()
-
+                Else
+                    Return
                 End If
 
             End Using
 
         End Using
 
-        ApplyLastPurchasePrice(cn)
-
-    End Sub
-
-    Private Sub ApplyLastPurchasePrice(cn As SqlClient.SqlConnection)
-
-        PriceTextBox.Clear()
-
-        Using priceCmd As New SqlClient.SqlCommand(
-            "select TOP 1 Price from Pch_Details WHERE IM_ID = @IM_ID AND U_ID = @U_ID AND isDepended = 1 ORDER BY Date DESC",
-            cn
-        )
-
-            priceCmd.Parameters.AddWithValue("@IM_ID", IM_ID)
-            priceCmd.Parameters.AddWithValue("@U_ID", U_ID)
-
-            Dim priceValue As Object = priceCmd.ExecuteScalar()
-
-            If priceValue IsNot Nothing AndAlso priceValue IsNot DBNull.Value Then
-                PriceTextBox.Text = priceValue.ToString()
-            End If
-
-        End Using
+        Dim costText As String = selectedUnitCost.ToString()
+        If PriceTextBox.Text = costText Then
+            ' قد تتغير الوحدة أو كمية المخزن دون تغير نص التكلفة.
+            RefreshCostFields()
+        Else
+            PriceTextBox.Text = costText
+        End If
 
     End Sub
 
@@ -644,66 +641,11 @@
     End Sub
 
     Private Sub IM_Fetch_QTY()
-        Dim c As New C
         Try
-            Dim s As String
-            s = "select U_ID,U_Cargo,Price,Min_SP from IM_Menu_Units_V WHERE U_IM_ID = '" & IM_Unit_cm.SelectedValue & "' AND IM_ID = '" & IM_ID & "'"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                U_Cargo = c.Dr("U_Cargo")
-                Prev_Sale_Unit_txt.Text = c.Dr("Price")
-                'Min_SP_2_txt.Text = c.Dr("Min_SP")
-                Dim N As Double = (Convert.ToDouble(IM_QTY) / c.Dr("U_Cargo"))
-                Current_QTY.Text = N.ToString("N")
-                ALL_QTY_txt.Text = ALL_QTY / U_Cargo
-                U_ID = c.Dr("U_ID")
-                If U_Cargo > 1 Then
-                    One_Panel.Visible = True
-                    Two_Panel.Visible = True
-                    NewSaleByOne.Visible = True
-                    CostByOne.Visible = True
-                    Min_SP_By_One_Lb.Visible = True
-                    Min_SP_By_One_txt.Visible = True
-
-                    Min_SP_2_By_One_txt.Visible = True
-                    Min_SP_2_By_One_Lb.Visible = True
-
-                Else
-                    One_Panel.Visible = False
-                    Two_Panel.Visible = False
-                    NewSaleByOne.Visible = False
-                    CostByOne.Visible = False
-                    Min_SP_By_One_Lb.Visible = False
-                    Min_SP_By_One_txt.Visible = False
-
-                    Min_SP_2_By_One_txt.Visible = False
-                    Min_SP_2_By_One_Lb.Visible = False
-
-                End If
-                CalcAvgCost()
-                IM_Fetch_last_Pch_Price()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub IM_Fetch_last_Pch_Price()
-        PriceTextBox.Clear()
-        Dim c As New C
-        Try
-            Dim s As String
-            s = "select TOP 1 Price from Pch_Details WHERE IM_ID = '" & IM_ID & "' AND U_ID = '" & U_ID & "' AND isDepended = 1 ORDER BY Date DESC"
-            c.Com = New SqlClient.SqlCommand(s, c.Con)
-            c.Con.Open()
-            c.Dr = c.Com.ExecuteReader
-            If c.Dr.HasRows Then
-                c.Dr.Read()
-                PriceTextBox.Text = c.Dr("Price")
-            End If
+            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                cn.Open()
+                ApplySelectedUnitData(cn)
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
