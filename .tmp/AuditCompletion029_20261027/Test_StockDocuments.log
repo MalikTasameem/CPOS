@@ -1,0 +1,180 @@
+PASS closed domain
+PASS complete line fields 8
+PASS complete line fields 12
+PASS complete line fields 17
+PASS complete line fields 35
+PASS sales not accepted
+PASS raw SQL not accepted
+PASS no other clients
+PASS approved source
+PASS free test range Agents_Balance_MV
+PASS free test range Outsale_Details
+PASS free test range InSale_Details
+PASS free test range IMEX_Details
+PASS free test range Store_Trans_Details
+PASS free target store
+PASS unused failure trigger
+PASS no unreviewed triggers
+PASS allocated line 8/0
+PASS quantity SQL rounding 8
+PASS cost rounding 8
+PASS idempotent addition 8
+PASS header recalculated 8
+PASS stock captured 8
+PASS deleted 8
+PASS delete total 8
+PASS delete replay 8
+PASS stale deletion rejected 8
+PASS allocated line 8/3.456
+PASS quantity SQL rounding 8
+PASS cost rounding 8
+PASS idempotent addition 8
+PASS header recalculated 8
+PASS stock captured 8
+PASS deleted 8
+PASS delete total 8
+PASS delete replay 8
+PASS stale deletion rejected 8
+PASS changed header rejected 8
+PASS disabled actor 8
+PASS wrong screen 8
+PASS audit failure atomic 8
+PASS allocated line 12/0
+PASS quantity SQL rounding 12
+PASS cost rounding 12
+PASS idempotent addition 12
+PASS header recalculated 12
+PASS stock captured 12
+PASS deleted 12
+PASS delete total 12
+PASS delete replay 12
+PASS stale deletion rejected 12
+PASS allocated line 12/3.456
+PASS quantity SQL rounding 12
+PASS cost rounding 12
+PASS idempotent addition 12
+PASS header recalculated 12
+PASS stock captured 12
+PASS deleted 12
+PASS delete total 12
+PASS delete replay 12
+PASS stale deletion rejected 12
+PASS changed header rejected 12
+PASS disabled actor 12
+PASS wrong screen 12
+PASS audit failure atomic 12
+PASS allocated line 17/0
+PASS quantity SQL rounding 17
+PASS cost rounding 17
+PASS idempotent addition 17
+PASS header recalculated 17
+PASS stock captured 17
+PASS deleted 17
+PASS delete total 17
+PASS delete replay 17
+PASS stale deletion rejected 17
+PASS allocated line 17/3.456
+PASS quantity SQL rounding 17
+PASS cost rounding 17
+PASS idempotent addition 17
+PASS header recalculated 17
+PASS stock captured 17
+PASS deleted 17
+PASS delete total 17
+PASS delete replay 17
+PASS stale deletion rejected 17
+PASS changed header rejected 17
+PASS disabled actor 17
+PASS wrong screen 17
+PASS audit failure atomic 17
+PASS allocated line 35/0
+PASS quantity SQL rounding 35
+PASS cost rounding 35
+PASS idempotent addition 35
+PASS header recalculated 35
+PASS stock captured 35
+PASS deleted 35
+PASS delete total 35
+PASS delete replay 35
+PASS stale deletion rejected 35
+PASS allocated line 35/3.456
+PASS quantity SQL rounding 35
+PASS cost rounding 35
+PASS idempotent addition 35
+PASS header recalculated 35
+PASS stock captured 35
+PASS deleted 35
+PASS delete total 35
+PASS delete replay 35
+PASS stale deletion rejected 35
+PASS changed header rejected 35
+PASS disabled actor 35
+PASS wrong screen 35
+PASS audit failure atomic 35
+PASS touch increment
+PASS touch retry no duplicate
+PASS touch decrement
+PASS displayed quantity stale
+PASS permission revoked 8
+PASS domain disabled 8
+PASS business failure rollback 8
+PASS delete failure including swallowed rollback 8
+PASS second event rollback 8
+PASS request identity conflict 8
+PASS exhausted allocation 8
+PASS barcode not truncated 8
+PASS permission revoked 12
+PASS domain disabled 12
+PASS business failure rollback 12
+PASS delete failure including swallowed rollback 12
+PASS second event rollback 12
+PASS request identity conflict 12
+PASS exhausted allocation 12
+PASS barcode not truncated 12
+PASS permission revoked 17
+PASS domain disabled 17
+PASS business failure rollback 17
+PASS delete failure including swallowed rollback 17
+PASS second event rollback 17
+PASS request identity conflict 17
+PASS exhausted allocation 17
+PASS barcode not truncated 17
+PASS permission revoked 35
+PASS domain disabled 35
+PASS business failure rollback 35
+PASS delete failure including swallowed rollback 35
+PASS second event rollback 35
+PASS request identity conflict 35
+PASS exhausted allocation 35
+PASS barcode not truncated 35
+PASS expiry persisted
+PASS expiry balance tracked
+PASS same store transfer rejected
+PASS competing mutation blocked
+PASS locked deletion succeeds
+PASS baseline restored Agents_Balance_MV
+PASS baseline restored Outsale_Details
+PASS baseline restored InSale_Details
+PASS baseline restored IMEX_Details
+PASS baseline restored Store_Trans_Details
+PASS baseline restored ST_Balance
+PASS baseline restored SERVERS
+PASS baseline restored Stores
+PASS baseline restored Network_Audit_Request
+PASS baseline restored Network_Audit_Event
+PASS baseline restored Network_Audit_Change
+PASS baseline restored Network_Edit_Tracker
+PASS definition unchanged Outsale_Details_Insert
+PASS definition unchanged Outsale_Details_Delete
+PASS definition unchanged InSale_Details_Insert
+PASS definition unchanged InSale_Details_Delete
+PASS definition unchanged IMEX_Details_Insert
+PASS definition unchanged IMEX_Details_Delete
+PASS definition unchanged ST_Trans_Details_insert
+PASS definition unchanged ST_Trans_Details_Delete
+PASS definition unchanged Recalculate_Agent_Bill_Total
+PASS definition unchanged Network_Audit_Request_Begin
+PASS definition unchanged Network_Audit_Event_Write
+PASS domains restored
+PASS failure trigger removed
+PASS 179 stock document checks.

@@ -13,6 +13,7 @@ Partial Class Network_Audit_Browser
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.RootLayout = New System.Windows.Forms.TableLayoutPanel()
         Me.TitleLabel = New System.Windows.Forms.Label()
         Me.FiltersLayout = New System.Windows.Forms.TableLayoutPanel()
@@ -29,8 +30,8 @@ Partial Class Network_Audit_Browser
         Me.KindCombo = New System.Windows.Forms.ComboBox()
         Me.OutcomeCombo = New System.Windows.Forms.ComboBox()
         Me.DocumentText = New System.Windows.Forms.TextBox()
-        Me.UserText = New System.Windows.Forms.TextBox()
-        Me.ScreenText = New System.Windows.Forms.TextBox()
+        Me.UserCombo = New System.Windows.Forms.ComboBox()
+        Me.ScreenCombo = New System.Windows.Forms.ComboBox()
         Me.NotesText = New System.Windows.Forms.TextBox()
         Me.SearchButton = New System.Windows.Forms.Button()
         Me.ResetButton = New System.Windows.Forms.Button()
@@ -52,7 +53,10 @@ Partial Class Network_Audit_Browser
         Me.NextButton = New System.Windows.Forms.Button()
         Me.PageLabel = New System.Windows.Forms.Label()
         Me.DetailsButton = New System.Windows.Forms.Button()
+        Me.PrintButton = New System.Windows.Forms.Button()
         Me.CloseButton = New System.Windows.Forms.Button()
+        Me.ResultsPrintDocument = New System.Drawing.Printing.PrintDocument()
+        Me.ResultsPrintPreviewDialog = New System.Windows.Forms.PrintPreviewDialog()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.StatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.RootLayout.SuspendLayout()
@@ -109,9 +113,9 @@ Partial Class Network_Audit_Browser
         Me.FiltersLayout.Controls.Add(Me.DocumentLabel, 0, 1)
         Me.FiltersLayout.Controls.Add(Me.DocumentText, 1, 1)
         Me.FiltersLayout.Controls.Add(Me.UserLabel, 2, 1)
-        Me.FiltersLayout.Controls.Add(Me.UserText, 3, 1)
+        Me.FiltersLayout.Controls.Add(Me.UserCombo, 3, 1)
         Me.FiltersLayout.Controls.Add(Me.ScreenLabel, 4, 1)
-        Me.FiltersLayout.Controls.Add(Me.ScreenText, 5, 1)
+        Me.FiltersLayout.Controls.Add(Me.ScreenCombo, 5, 1)
         Me.FiltersLayout.Controls.Add(Me.NotesLabel, 6, 1)
         Me.FiltersLayout.Controls.Add(Me.NotesText, 7, 1)
         Me.FiltersLayout.Controls.Add(Me.SearchButton, 0, 2)
@@ -135,7 +139,7 @@ Partial Class Network_Audit_Browser
         Me.DocumentLabel.Text = "المستند"
         Me.DocumentLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DocumentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.UserLabel.Text = "رقم المستخدم"
+        Me.UserLabel.Text = "المستخدم"
         Me.UserLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.UserLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ScreenLabel.Text = "الشاشة"
@@ -169,14 +173,16 @@ Partial Class Network_Audit_Browser
         Me.DocumentText.Margin = New System.Windows.Forms.Padding(3, 8, 3, 5)
         Me.DocumentText.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
         Me.DocumentText.MaxLength = 50
-        Me.UserText.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserText.Margin = New System.Windows.Forms.Padding(3, 8, 3, 5)
-        Me.UserText.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
-        Me.UserText.MaxLength = 10
-        Me.ScreenText.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ScreenText.Margin = New System.Windows.Forms.Padding(3, 8, 3, 5)
-        Me.ScreenText.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
-        Me.ScreenText.MaxLength = 64
+        Me.UserCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.UserCombo.Items.AddRange(New Object() {"كل المستخدمين"})
+        Me.UserCombo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserCombo.Margin = New System.Windows.Forms.Padding(3, 8, 3, 5)
+        Me.UserCombo.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
+        Me.ScreenCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ScreenCombo.Items.AddRange(New Object() {"كل الشاشات"})
+        Me.ScreenCombo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ScreenCombo.Margin = New System.Windows.Forms.Padding(3, 8, 3, 5)
+        Me.ScreenCombo.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
         Me.NotesText.Dock = System.Windows.Forms.DockStyle.Fill
         Me.NotesText.Margin = New System.Windows.Forms.Padding(3, 8, 3, 5)
         Me.NotesText.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
@@ -190,7 +196,7 @@ Partial Class Network_Audit_Browser
         Me.ResetButton.Text = "إعادة ضبط المرشحات"
         Me.ResetButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ResetButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.FilterHint.Text = "الحقول النصية اختيارية. تعرض الشاشة أحداث الآلية الجديدة فقط."
+        Me.FilterHint.Text = "المرشحات اختيارية. تعرض الشاشة أحداث الآلية الجديدة فقط."
         Me.FilterHint.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FilterHint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BasisLabel.Dock = System.Windows.Forms.DockStyle.Fill
@@ -244,10 +250,11 @@ Partial Class Network_Audit_Browser
         Me.BasisColumn.DataPropertyName = "TimeBasis"
         Me.BasisColumn.HeaderText = "أساس الوقت"
         Me.BasisColumn.Width = 210
-        Me.FooterLayout.ColumnCount = 5
+        Me.FooterLayout.ColumnCount = 6
         Me.FooterLayout.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
         Me.FooterLayout.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
         Me.FooterLayout.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.FooterLayout.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
         Me.FooterLayout.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
         Me.FooterLayout.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
         Me.FooterLayout.RowCount = 1
@@ -256,8 +263,9 @@ Partial Class Network_Audit_Browser
         Me.FooterLayout.Controls.Add(Me.PreviousButton, 0, 0)
         Me.FooterLayout.Controls.Add(Me.NextButton, 1, 0)
         Me.FooterLayout.Controls.Add(Me.PageLabel, 2, 0)
-        Me.FooterLayout.Controls.Add(Me.DetailsButton, 3, 0)
-        Me.FooterLayout.Controls.Add(Me.CloseButton, 4, 0)
+        Me.FooterLayout.Controls.Add(Me.PrintButton, 3, 0)
+        Me.FooterLayout.Controls.Add(Me.DetailsButton, 4, 0)
+        Me.FooterLayout.Controls.Add(Me.CloseButton, 5, 0)
         Me.PreviousButton.Text = "السابق"
         Me.PreviousButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PreviousButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
@@ -273,9 +281,23 @@ Partial Class Network_Audit_Browser
         Me.DetailsButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DetailsButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
         Me.DetailsButton.Enabled = False
+        Me.PrintButton.Text = "معاينة الطباعة"
+        Me.PrintButton.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PrintButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
+        Me.PrintButton.Enabled = False
         Me.CloseButton.Text = "إغلاق"
         Me.CloseButton.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CloseButton.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
+        Me.ResultsPrintDocument.DocumentName = "CPOS Audit Events"
+        Me.ResultsPrintPreviewDialog.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.ResultsPrintPreviewDialog.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.ResultsPrintPreviewDialog.ClientSize = New System.Drawing.Size(1000, 700)
+        Me.ResultsPrintPreviewDialog.Document = Me.ResultsPrintDocument
+        Me.ResultsPrintPreviewDialog.Enabled = True
+        Me.ResultsPrintPreviewDialog.Name = "ResultsPrintPreviewDialog"
+        Me.ResultsPrintPreviewDialog.Text = "معاينة طباعة سجل المراقبة"
+        Me.ResultsPrintPreviewDialog.UseAntiAlias = True
+        Me.ResultsPrintPreviewDialog.Visible = False
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel})
         Me.StatusStrip.Dock = System.Windows.Forms.DockStyle.Fill
         Me.StatusStrip.SizingGrip = False
@@ -317,8 +339,8 @@ Partial Class Network_Audit_Browser
     Friend WithEvents KindCombo As ComboBox
     Friend WithEvents OutcomeCombo As ComboBox
     Friend WithEvents DocumentText As TextBox
-    Friend WithEvents UserText As TextBox
-    Friend WithEvents ScreenText As TextBox
+    Friend WithEvents UserCombo As ComboBox
+    Friend WithEvents ScreenCombo As ComboBox
     Friend WithEvents NotesText As TextBox
     Friend WithEvents SearchButton As Button
     Friend WithEvents ResetButton As Button
@@ -339,8 +361,11 @@ Partial Class Network_Audit_Browser
     Friend WithEvents PreviousButton As Button
     Friend WithEvents NextButton As Button
     Friend WithEvents PageLabel As Label
+    Friend WithEvents PrintButton As Button
     Friend WithEvents DetailsButton As Button
     Friend WithEvents CloseButton As Button
+    Friend WithEvents ResultsPrintDocument As System.Drawing.Printing.PrintDocument
+    Friend WithEvents ResultsPrintPreviewDialog As PrintPreviewDialog
     Friend WithEvents StatusStrip As StatusStrip
     Friend WithEvents StatusLabel As ToolStripStatusLabel
 End Class

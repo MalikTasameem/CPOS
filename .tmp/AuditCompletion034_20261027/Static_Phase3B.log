@@ -1,0 +1,16 @@
+PASS boxed SQL bit true enables settlement audit
+PASS boxed SQL bit false keeps settlement audit disabled
+PASS missing activation row cannot fall back to legacy
+PASS NULL activation cannot fall back to legacy
+PASS unexpected numeric activation type rejected
+PASS unexpected text activation type rejected
+PASS request carries explicit document identity
+PASS settlement inputs are culture invariant
+PASS missing document rejected
+PASS fractional precision is not silently rounded
+PASS oversized barcode rejected
+PASS delete carries exact line and document
+PASS confirmed session required for settlement
+PASS absent expiry remains SQL NULL input
+PASS stored expiry and float quantity retain actual SQL types
+PASS: 15 settlement checks.

@@ -362,7 +362,7 @@ Public Class Items_Search
     End Sub
 
     Private Sub ADD_NewGM_Btn_Click(sender As Object, e As EventArgs) Handles ADD_NewGM_Btn.Click
-        IM_ADD_New.ShowDialog()
+        IM_ADD_New.ShowDialog(Me)
     End Sub
 
     Private Sub btnSearchName_Click(sender As Object, e As EventArgs) Handles btnSearchName.Click

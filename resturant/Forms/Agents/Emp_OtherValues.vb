@@ -65,15 +65,13 @@ Public Class Emp_OtherValues
             .Parameters.AddWithValue("@User_ID", USER_ID)
         End With
 
-        If SQL_SP_EXEC(C.Com) = True Then
-            Network_Edit_Tracker_insert(" الموظف:" & AG_Cm.Textt & " التاريخ:" & DateTimePickerDATE.Text & " النوع:" & StateComboBox.Text _
-                                        & " القيمة:" & Val_txt.Text & " ملاحظات:" & NOTES_TXT.Text, 0, 32, 1)
-
-            Disble_Fields()
-            fetch_EMP_Sign()
+        Dim savedId As Integer
+        If AuditEmployeeValuesUi.Run(Me, C.Com, savedId) Then
+            T_ID = savedId
             SaveButton.Enabled = False
+            Disble_Fields()
+            AuditEmployeeValuesUi.Refresh(Me, AddressOf fetch_EMP_Sign)
         End If
-
     End Sub
 
 
@@ -85,13 +83,12 @@ Public Class Emp_OtherValues
             .CommandType = CommandType.StoredProcedure
             .Parameters.AddWithValue("@T_ID", T_ID)
         End With
-        If SQL_SP_EXEC(C.Com) = True Then
-            Network_Edit_Tracker_insert(" الموظف:" & AG_NAME & " التاريخ:" & DateTimePickerDATE.Text & " النوع:" & StateComboBox.Text _
-                                        & " القيمة:" & Val_txt.Text & " ملاحظات:" & NOTES_TXT.Text, 0, 32, 2)
-
-            'Network_Edit_Tracker_insert(" إلغاء حالة  " + DataGridView1.CurrentRow.Cells("Stuts_Name_CL").Value + " للموظف : " + IM_SH_txt.Text + " / " + Start_txt.Text, DataGridView1.CurrentRow.Cells("Val_CL").Value, 0, 0)
+        Dim savedId As Integer
+        If AuditEmployeeValuesUi.Run(Me, C.Com, savedId) Then
             Disble_Fields()
-            fetch_EMP_Sign()
+            Cancel_Btn.Enabled = False
+            UPDATE_btn.Enabled = False
+            AuditEmployeeValuesUi.Refresh(Me, AddressOf fetch_EMP_Sign)
         End If
     End Sub
 
@@ -155,14 +152,12 @@ Public Class Emp_OtherValues
             .Parameters.AddWithValue("@User_ID", USER_ID)
         End With
 
-        If SQL_SP_EXEC(C.Com) = True Then
-            Network_Edit_Tracker_insert(" الإسم السابق:" & AG_NAME & " الموظف:" & AG_Cm.Textt & " التاريخ:" & DateTimePickerDATE.Text & " النوع:" & StateComboBox.Text _
-                                       & " القيمة:" & Val_txt.Text & " ملاحظات:" & NOTES_TXT.Text, 0, 32, 3)
-            Panel1.Enabled = False
-            fetch_EMP_Sign()
+        Dim savedId As Integer
+        If AuditEmployeeValuesUi.Run(Me, C.Com, savedId) Then
+            Disble_Fields()
             UPDATE_btn.Text = EditState
+            AuditEmployeeValuesUi.Refresh(Me, AddressOf fetch_EMP_Sign)
         End If
-
     End Sub
 
     Private Sub DataGridView1_MouseClick(sender As Object, e As MouseEventArgs) Handles DataGridView1.MouseClick

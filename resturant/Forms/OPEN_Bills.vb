@@ -47,6 +47,7 @@
                     T_ID_Trans = Open_MV_DV.CurrentRow.Cells(0).Value
                     isShowing_Trans = True
                     F_Receipt = New Receipt
+                    F_Receipt.ConfigureEntryContext(0, 0)
                     F_Receipt.ShowDialog()
                     isShowing_Trans = False
                     FormType = 0

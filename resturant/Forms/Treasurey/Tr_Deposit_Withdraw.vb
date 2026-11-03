@@ -265,19 +265,19 @@
         sqlComm.Parameters.AddWithValue("@isFirst_Time", isFirstTran_CB.Checked)
         sqlComm.Parameters("@T_ID").Direction = ParameterDirection.Output
 
-        If SQL_SP_EXEC(sqlComm) = True Then
+        Dim savedId As Integer
+        If AuditFinanceUi.Run(Me, sqlComm, savedId) Then
+            save_butt.Enabled = False
+            Fields_Panel.Enabled = False
+            AuditFinanceUi.Refresh(Me, Sub()
 
-            If ReceiptTypeComboBox.SelectedValue = 1 Then
-                Network_Edit_Tracker_insert(" من حساب الخزينة:" & Treasury_ComboBox.Text & " القيمة:" & money_num_txtb.Text, Me.ReceiptNum_Txt.Text, 24, 1)
-            Else
-                Network_Edit_Tracker_insert(" إلى حساب الخزينة:" & Treasury_ComboBox.Text & " القيمة:" & money_num_txtb.Text & " أول مدة:" & Is_First_Time, Me.ReceiptNum_Txt.Text, 25, 1)
-            End If
 
-            MsgBox("تمت العملية بنجاح", MsgBoxStyle.Information)
-            Me.ReceiptNum_Txt.Text = sqlComm.Parameters("@T_ID").Value.ToString()
-            Treasury_Balance.Text = Show_TR_T_Balance(Treasury_ComboBox.SelectedValue)
-            After_Save_Receipt()
-            Select_Tr_MV(Me.ReceiptNum_Txt.Text)
+                MsgBox("تمت العملية بنجاح", MsgBoxStyle.Information)
+                If savedId > 0 Then Me.ReceiptNum_Txt.Text = savedId.ToString()
+                Treasury_Balance.Text = Show_TR_T_Balance(Treasury_ComboBox.SelectedValue)
+                After_Save_Receipt()
+                If savedId > 0 Then Select_Tr_MV(savedId)
+            End Sub)
         End If
 
 
@@ -371,16 +371,17 @@
         sqlComm.CommandText = "[Treasury_BalanceMV_isVoid]"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-        If SQL_SP_EXEC(sqlComm) = True Then
-
-            If ReceiptTypeComboBox.SelectedValue = 1 Then
-                Network_Edit_Tracker_insert(" من حساب الخزينة:" & Treasury_ComboBox.Text & " القيمة:" & money_num_txtb.Text, Me.ReceiptNum_Txt.Text, 24, 2)
-            Else
-                Network_Edit_Tracker_insert(" إلى حساب الخزينة:" & Treasury_ComboBox.Text & " القيمة:" & money_num_txtb.Text & " أول مدة:" & Is_First_Time, Me.ReceiptNum_Txt.Text, 25, 2)
-            End If
-            Treasury_Balance.Text = Show_TR_T_Balance(Treasury_ComboBox.SelectedValue)
+        Dim savedId As Integer
+        If AuditFinanceUi.Run(Me, sqlComm, savedId) Then
+            save_butt.Enabled = False
+            Fields_Panel.Enabled = False
             Delete_butt.Enabled = False
-            Void_Lb.Visible = True
+            AuditFinanceUi.Refresh(Me, Sub()
+
+                Treasury_Balance.Text = Show_TR_T_Balance(Treasury_ComboBox.SelectedValue)
+                Delete_butt.Enabled = False
+                Void_Lb.Visible = True
+            End Sub)
         End If
     End Sub
 

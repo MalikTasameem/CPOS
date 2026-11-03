@@ -111,14 +111,15 @@
 
 
     Private Sub MetroGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles MetroGrid.CellContentClick
-
+        If e.RowIndex < 0 OrElse MetroGrid.CurrentRow Is Nothing OrElse MetroGrid.CurrentRow.IsNewRow Then Return
         If e.ColumnIndex = 0 Then
 
             If IsDBNull(MetroGrid.CurrentRow.Cells("IM_ID_CL").Value) Then
-                Insert_IM()
                 If IsDBNull(MetroGrid.CurrentRow.Cells("IM_NAME_CL").Value) Then
                     MsgBox("أدخل إسم الصنف", MsgBoxStyle.Exclamation, "")
                 Else
+                    If Not Insert_IM() Then Return
+                    MetroGrid.CurrentRow.Cells("IM_ID_CL").Value = IM_ID
                     Confirm_IM()
                 End If
             Else
@@ -134,6 +135,7 @@
         End If
 
         If e.ColumnIndex = 1 Then
+            If IsDBNull(MetroGrid.CurrentRow.Cells("IM_ID_CL").Value) Then Return
             IM_ID = MetroGrid.CurrentRow.Cells("IM_ID_CL").Value
             If MessageBox.Show(" تـأكيــد حــذف العنصر ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, _
                     MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
@@ -154,15 +156,14 @@
             .Parameters.AddWithValue("@IM_ID", IM_ID)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditItemMasterUi.Run(Me, c.Com) Then
             MsgBox("تم حــذف الصــنف", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("" & MetroGrid.CurrentRow.Cells("IM_Name_CL").Value.ToString, 0, 20, 2)
-            Fill_All_IM()
+            AuditItemMasterUi.Refresh(Me, AddressOf Fill_All_IM)
         End If
     End Sub
 
 
-    Public Sub Insert_IM()
+    Public Function Insert_IM() As Boolean
         Dim c As New C
 
         With c.Com
@@ -182,9 +183,10 @@
             'Fetch_IM()
             ''IM_SH_txt.Select()
             'isValid_CB.Checked = isValid
+            Return IM_ID > 0
         End If
-
-    End Sub
+        Return False
+    End Function
 
 
     Private Sub Confirm_IM()
@@ -229,12 +231,11 @@
 
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditItemMasterUi.Run(Me, c.Com) Then
             MsgBox("تم الحفظ", MsgBoxStyle.Information)
             'Network_Edit_Tracker_insert(" (من واجهة إدارة الأصناف) تعديل بيانات الصنف : " + MetroGrid.CurrentRow.Cells("IM_NAME_CL").Value.ToString + " / سعر البيع : " + MetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, 0, F_ItemsMenu.IM_ID, 0)
 
 
-            Network_Edit_Tracker_insert(" الصنف:" & MetroGrid.CurrentRow.Cells("IM_Name_CL").Value.ToString + " سعر البيع:" + MetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, 0, 20, 3)
             'Fill_All_IM()
         End If
 

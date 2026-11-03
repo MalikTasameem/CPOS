@@ -1,0 +1,83 @@
+PASS closed addition domain
+PASS explicit input catalogue
+PASS unknown field
+PASS no other clients
+PASS approved source
+PASS fixture identities unused
+PASS no unreviewed triggers
+PASS isolated recipe baseline
+PASS atomic add POS
+PASS actual line POS
+PASS component persisted POS
+PASS full new row states POS
+PASS line header component stock captured POS
+PASS idempotent replay POS
+PASS receipts unchanged POS
+PASS atomic add Sales_Fast
+PASS actual line Sales_Fast
+PASS component persisted Sales_Fast
+PASS full new row states Sales_Fast
+PASS line header component stock captured Sales_Fast
+PASS idempotent replay Sales_Fast
+PASS receipts unchanged Sales_Fast
+PASS merge returns actual existing line Sales_Fast
+PASS merge quantity Sales_Fast
+PASS merge previous values Sales_Fast
+PASS replaced components before after Sales_Fast
+PASS atomic add SB_IM_card
+PASS actual line SB_IM_card
+PASS component persisted SB_IM_card
+PASS full new row states SB_IM_card
+PASS line header component stock captured SB_IM_card
+PASS idempotent replay SB_IM_card
+PASS receipts unchanged SB_IM_card
+PASS merge returns actual existing line SB_IM_card
+PASS merge quantity SB_IM_card
+PASS merge previous values SB_IM_card
+PASS replaced components before after SB_IM_card
+PASS edit recalculates correct header in same transaction
+PASS edit preserves payment behavior
+PASS undelivered order stays inactive
+PASS undelivered order consumes no components
+PASS large recipe fully captured
+PASS large recipe split without truncation
+PASS same identity different quantity
+PASS legacy zero-quantity normalization not silently changed
+PASS fractional input retained
+PASS checkbox maps to SQL one not minus one
+PASS serial preserved
+PASS actual substituted expiry captured
+PASS stock audit uses actual expiry
+PASS concurrent allocator cannot reuse pending identity
+PASS disabled actor
+PASS approved invoice must be opened for editing
+PASS stale header
+PASS void invoice
+PASS unit belongs to item
+PASS negative stock rolls back
+PASS second event failure is not success
+PASS restored Agents_Balance_MV
+PASS restored SB_Contents
+PASS restored SB_Contents_Structers
+PASS restored IM_Struct_Menu
+PASS restored SB_IM_Components
+PASS restored SB_Rsv
+PASS restored SB_Rsv_2
+PASS restored SB_VALUE_Bercent_Details
+PASS restored Agents_Balance_MV_RCT
+PASS restored Treasury_Balance_MV
+PASS restored Network_Edit_Tracker
+PASS restored Network_Audit_Request
+PASS restored Network_Audit_Event
+PASS restored Network_Audit_Change
+PASS definition preserved Network_Audit_Request_Begin
+PASS definition preserved Network_Audit_Event_Write
+PASS definition preserved SB_Contents_INSERT
+PASS definition preserved SB_Contents_INSERT_2
+PASS definition preserved SB_Contents_Structers_insert_ONE
+PASS definition preserved AG_Balance_DependingUpdatedBill
+PASS definition preserved AG_Balance_Update_Total
+PASS financial contents restored
+PASS failure trigger rolled back
+PASS no incomplete requests
+PASS: 82 sales addition checks.

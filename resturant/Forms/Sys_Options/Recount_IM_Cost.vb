@@ -61,13 +61,8 @@ Public Class Recount_IM_Cost
             .Parameters.AddWithValue("@Calc_MarkVal", Markval_CB.Checked)
 
         End With
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditInventoryOperationsUi.Run(Me, c.Com, F_ItemsMenu.IM_ID, 0) Then
 
-            Dim auditNotes As String = "اكتملت إعادة الحساب للصنف: " & F_ItemsMenu.IM_SH_txt.Text & "؛ رقم الصنف: " & F_ItemsMenu.IM_ID.ToString() &
-                                       "؛ من: " & Pr_DateRange.D_F.Value.ToString("yyyy-MM-dd HH:mm:ss") & " إلى: " & Pr_DateRange.D_T.Value.ToString("yyyy-MM-dd HH:mm:ss")
-            If Cost_CB.Checked Then auditNotes &= "؛ تكلفة مدخلة: " & Cost_txt.Text & "؛ تعديل تكلفة البطاقة: " & If(Edit_OnCard_CB.Checked, "نعم", "لا")
-            If Markval_CB.Checked Then auditNotes &= "؛ عمولة مسوق مدخلة: " & Markter_Val_txt.Text & "؛ تعديل عمولة البطاقة: " & If(Edit_Markval_OnCard_CB.Checked, "نعم", "لا")
-            Network_Edit_Tracker_insert(auditNotes, F_ItemsMenu.IM_ID.ToString(), 20, 3)
             MsgBox("تم التدوير", MsgBoxStyle.Information, "")
 
             If Edit_OnCard_CB.Checked = True Then F_ItemsMenu.IM_Cost_txt.Text = Cost_txt.Text

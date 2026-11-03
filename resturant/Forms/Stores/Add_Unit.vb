@@ -94,8 +94,8 @@
         Dim U_ID As Integer
 
         If Check_Unit_Exist(IM_Unit_cm, Unit_cargo_txt.Text) = 0 Then
-            Unit_Insert(IM_Unit_cm, Unit_cargo_txt.Text, 22)
-            U_ID = GET_Unit_Exist(IM_Unit_cm.Text, Unit_cargo_txt.Text)
+            If Not Unit_Insert(IM_Unit_cm, Unit_cargo_txt.Text, 22) Then Return
+            U_ID = Convert.ToInt32(IM_Unit_cm.SelectedValue)
         Else
             U_ID = GET_Unit_Exist(IM_Unit_cm.Text, Unit_cargo_txt.Text)
         End If
@@ -121,12 +121,14 @@
             .Parameters.AddWithValue("@Row_Enabled", 1)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            If FormType = 2 Then
-                F_Pch_IM_card.Fetch_IM_Units()
-            ElseIf FormType = 4 Then
-                F_Invoice_IM_card.Fetch_IM_Units()
-            End If
+        If AuditItemUnitsUi.Run(Me, c.Com, Not S_is_Multi_BAR) Then
+            AuditItemUnitsUi.Refresh(Me, Sub()
+                                             If FormType = 2 Then
+                                                 F_Pch_IM_card.Fetch_IM_Units()
+                                             ElseIf FormType = 4 Then
+                                                 F_Invoice_IM_card.Fetch_IM_Units()
+                                             End If
+                                         End Sub)
             MsgBox("تم إضافة الوحدة", MsgBoxStyle.Information)
             Me.Close()
         End If

@@ -1,0 +1,20 @@
+PASS header no legacy writer
+PASS header no direct header writes
+PASS line no legacy writer
+PASS line no direct header writes
+PASS single V2 header handler
+PASS no fallback header branches
+PASS header route Created
+PASS header route Approved
+PASS header route Voided
+PASS header route HeaderSaved
+PASS header route EditOpened
+PASS header route EditFinished
+PASS header delete and editor fail closed
+PASS header saves immutable request
+PASS delete saves immutable request
+PASS line has no direct-write branch
+PASS new line attempts check gate
+PASS line saves immutable request
+PASS unknown result retains request reference
+PASS 19 settlement V2-only static checks.

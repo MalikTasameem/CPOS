@@ -1,0 +1,106 @@
+PASS no other database clients
+PASS approved source
+PASS fixture header and recipe unused
+PASS known unit and merge cost
+PASS no unreviewed business triggers
+PASS installed SB_Contents_INSERT
+PASS installed SB_Contents_INSERT_2
+PASS installed SB_Contents_Delete_IM
+PASS installed SB_Contents_Structers_insert
+PASS installed SB_Contents_Structers_insert_ONE
+PASS new line components created once
+PASS immediate component stock delta
+PASS repeated single/full/recount does not append
+PASS rebuild does not duplicate stock effect
+PASS add and rebuild do not alter payments
+PASS add path 1 edit 0 financial rollback
+PASS add path 1 edit 0 fixture rollback
+PASS new line components created once
+PASS immediate component stock delta
+PASS repeated single/full/recount does not append
+PASS rebuild does not duplicate stock effect
+PASS add and rebuild do not alter payments
+PASS add path 1 edit 1 financial rollback
+PASS add path 1 edit 1 fixture rollback
+PASS new line components created once
+PASS immediate component stock delta
+PASS repeated single/full/recount does not append
+PASS rebuild does not duplicate stock effect
+PASS add and rebuild do not alter payments
+PASS add path 2 edit 0 financial rollback
+PASS add path 2 edit 0 fixture rollback
+PASS new line components created once
+PASS immediate component stock delta
+PASS repeated single/full/recount does not append
+PASS rebuild does not duplicate stock effect
+PASS add and rebuild do not alter payments
+PASS add path 2 edit 1 financial rollback
+PASS add path 2 edit 1 fixture rollback
+PASS merge keeps the actual line ID and increases its quantity
+PASS merged quantity replaces old components
+PASS merged stock effect is final quantity only
+PASS delete always removes structures
+PASS delete restores component stock
+PASS merge/delete preserve payments
+PASS merge edit 0 financial rollback
+PASS merge edit 0 fixture rollback
+PASS merge keeps the actual line ID and increases its quantity
+PASS merged quantity replaces old components
+PASS merged stock effect is final quantity only
+PASS delete always removes structures
+PASS delete restores component stock
+PASS merge/delete preserve payments
+PASS merge edit 1 financial rollback
+PASS merge edit 1 fixture rollback
+PASS actual confirmation preserves one recipe set
+PASS confirmation does not consume components twice
+PASS invoice confirmed by original procedure
+PASS zero-payment fixture creates no financial movement
+PASS confirm V1 financial rollback
+PASS confirm V1 fixture rollback
+PASS actual confirmation preserves one recipe set
+PASS confirmation does not consume components twice
+PASS invoice confirmed by original procedure
+PASS zero-payment fixture creates no financial movement
+PASS confirm V2 financial rollback
+PASS confirm V2 fixture rollback
+PASS undelivered order line not depended
+PASS undelivered order creates no component stock effect
+PASS actual delivery creates components
+PASS delivery/full rebuild affects stock once
+PASS addition to a delivered order stays stock-active
+PASS delivered order addition adds only its own component quantity
+PASS order path 1 financial rollback
+PASS order path 1 fixture rollback
+PASS undelivered order line not depended
+PASS undelivered order creates no component stock effect
+PASS actual delivery creates components
+PASS delivery/full rebuild affects stock once
+PASS addition to a delivered order stays stock-active
+PASS delivered order addition adds only its own component quantity
+PASS order path 2 financial rollback
+PASS order path 2 fixture rollback
+PASS inactive line removes stale structures
+PASS void invoice does not rebuild active structures
+PASS inactive and void financial rollback
+PASS inactive and void fixture rollback
+PASS component failure propagates to caller, not silent success
+PASS injected component failure path 1 financial rollback
+PASS injected component failure path 1 fixture rollback
+PASS component failure propagates to caller, not silent success
+PASS injected component failure path 2 financial rollback
+PASS injected component failure path 2 fixture rollback
+PASS unchanged procedure SB_ConfermBill
+PASS unchanged procedure SB_ConfermBill_V2
+PASS unchanged procedure Deliver_Order
+PASS unchanged procedure AG_Balance_Update_isDepended
+PASS unchanged procedure AG_Balance_Update_Total
+PASS unchanged procedure AG_Balance_Update_Pied_On_Update
+PASS unchanged procedure Recalculate_Agent_Bill_Total
+PASS unchanged procedure Inc_IM_QTY
+PASS unchanged procedure Dec_IM_QTY
+PASS unchanged procedure SB_Contents_Change_IM_Qty
+PASS period counters restored
+PASS failure trigger removed by rollback
+PASS no incomplete audit requests
+PASS 105 component lifecycle checks; all fixtures rolled back.

@@ -964,12 +964,13 @@ Me.Name.ToString
             .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert("اكتملت إعادة حساب كميات الأصناف من شاشة كشف المخازن؛ المخزن: " & ST_cm.Text & "؛ رقم المخزن: " & Convert.ToString(ST_cm.SelectedValue), Convert.ToString(ST_cm.SelectedValue), 23, 3)
+        If AuditInventoryOperationsUi.Run(Me, c.Com, Convert.ToInt32(ST_cm.SelectedValue), 0) Then
             Me.Cursor = Cursors.Default
-            Fill_ALL_IM(0)
-            Make_Hints()
-            MsgBox("تم التدوير", MsgBoxStyle.Information, "")
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                Fill_ALL_IM(0)
+                Make_Hints()
+                MsgBox("تم التدوير", MsgBoxStyle.Information, "")
+            End Sub)
         End If
 
     End Sub
@@ -990,12 +991,13 @@ Me.Name.ToString
             .CommandType = CommandType.StoredProcedure
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert("اكتملت إعادة حساب متوسط تكلفة الأصناف من شاشة كشف المخازن؛ نطاق التنفيذ: جميع الأصناف وفق إجراء RECOUNT_IM_ALL_MainCost", "", 23, 3)
+        If AuditInventoryOperationsUi.Run(Me, c.Com, 1, 0) Then
             Me.Cursor = Cursors.Default
-            Fill_ALL_IM(0)
-            Make_Hints()
-            MsgBox("تم التدوير", MsgBoxStyle.Information, "")
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                Fill_ALL_IM(0)
+                Make_Hints()
+                MsgBox("تم التدوير", MsgBoxStyle.Information, "")
+            End Sub)
 
         End If
 

@@ -184,13 +184,14 @@
         If Valid_Panel.Visible = True Then sqlComm.Parameters.AddWithValue("@D_Vaild", Valid_cm.Text)
         If String.IsNullOrWhiteSpace(QtyTextBox.Text) = False Then sqlComm.Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox.Text))
         sqlComm.Parameters.AddWithValue("@On_Update", On_Update)
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" الصنف:" & mySearchControl.txtSearch.Text & " الوحدة:" & IM_Unit_cm.Text & " العدد:" & QtyTextBox.Text & " التكلفة:" & IM_Cost_txt.Text, F_IM_Execute.Bill_ID_Txt.Text, 8, 1)
-            ClearCatFields()
-            F_IM_Execute.SELECT_EXP_Cats(T_ID)
+        If AuditStockDocumentUi.Run(Me, sqlComm, T_ID, 8) Then
+            Me.Enabled = False
+            AuditStockDocumentUi.Refresh(Me, Sub()
+                ClearCatFields()
+                F_IM_Execute.SELECT_EXP_Cats(T_ID)
+            End Sub)
             Me.Close()
         End If
-
     End Sub
 
     Private Sub IM_Cost_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Cost_txt.KeyDown

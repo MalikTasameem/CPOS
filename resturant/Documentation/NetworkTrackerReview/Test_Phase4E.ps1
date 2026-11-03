@@ -7,6 +7,8 @@ $sources=@('Models\Audit\AuditEventContext.vb','Models\Audit\AuditEventRequest.v
  'Classes\Audit\AuditContract.vb','Classes\Audit\AuditCanonical.vb','Classes\Audit\AuditMessageFormatter.vb',
  'Classes\Audit\AuditRequestCoordinator.vb','Classes\Audit\AuditWriter.vb','Classes\Audit\AuditSalesEdit.vb',
  'Classes\Audit\AuditSalesLineEdit.vb','Classes\Audit\AuditSalesQuantity.vb','Classes\Audit\AuditSalesDelete.vb') | ForEach-Object {Join-Path $projectRoot $_}
+$sources += @(Get-ChildItem -LiteralPath (Join-Path $projectRoot 'Classes\Audit') -Filter 'AuditContract.*.vb' | ForEach-Object { $_.FullName })
+$sources += Join-Path $projectRoot 'Classes\Audit\AuditDisplayNameResolver.vb'
 $sources+=Join-Path $PSScriptRoot 'AuditSalesDeleteTests.vb'
 $exe=Join-Path $output 'AuditSalesDeleteTests.exe'
 & 'C:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe' /nologo /target:exe /optionstrict+ /imports:System /main:AuditSalesDeleteTests /reference:System.dll,System.Core.dll,System.Data.dll,System.Xml.dll,System.Xml.Linq.dll "/out:$exe" $sources

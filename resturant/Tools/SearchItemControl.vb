@@ -538,7 +538,7 @@
 
         Dim f As Items_Search = Items_Search.GetInstance()
 
-        f.ShowDialog()
+        f.ShowDialog(Me.FindForm())
         f.BringToFront()
         f.WindowState = FormWindowState.Normal
 

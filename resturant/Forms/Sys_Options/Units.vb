@@ -17,82 +17,40 @@ Public Class Units
         End Get
     End Property
     Public Sub Printer_Insert()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "Unit_Insert"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@U_ID", 0)
-            .Parameters.AddWithValue("@U_Name", Me.Un_Name_txt.Text)
-            If String.IsNullOrWhiteSpace(Un_Cargo_txt.Text) = False Then
-                If Convert.ToDouble(Un_Cargo_txt.Text) = 0 Then
-                    .Parameters.AddWithValue("@U_Cargo", 1)
-                Else
-                    .Parameters.AddWithValue("@U_Cargo", Un_Cargo_txt.Text)
-                End If
-            Else
-                .Parameters.AddWithValue("@U_Cargo", 1)
-            End If
-
-        End With
-
-        If SQL_SP_EXEC(c.Com) = True Then
-            MsgBox("تـم إضافة الوحدة ", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الوحدة:" & Un_Name_txt.Text & " الحمولة:" & Un_Cargo_txt.Text, 0, 22, 1)
-            PrintersPage_Clear_Fields()
-            Load_PrinterNames()
-            Un_Name_txt.Select()
-        End If
+        Dim savedId As Integer
+        If Not AuditUnitsUi.Run(Me, "Unit.Created", 0, Un_Name_txt.Text, Un_Cargo_txt.Text, savedId) Then Return
+        AuditUnitsUi.Refresh(Me, Sub()
+                                    MsgBox("تـم إضافة الوحدة ", MsgBoxStyle.Information)
+                                    PrintersPage_Clear_Fields()
+                                    Load_PrinterNames()
+                                    Un_Name_txt.Select()
+                                End Sub)
     End Sub
 
     Public Sub Printer_Update()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "Unit_Update"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@U_ID", Me.Un_ID)
-            .Parameters.AddWithValue("@U_Name", Me.Un_Name_txt.Text)
-            If String.IsNullOrWhiteSpace(Un_Cargo_txt.Text) = False Then
-                If Convert.ToDouble(Un_Cargo_txt.Text) = 0 Then
-                    .Parameters.AddWithValue("@U_Cargo", 1)
-                Else
-                    .Parameters.AddWithValue("@U_Cargo", Un_Cargo_txt.Text)
-                End If
-            Else
-                .Parameters.AddWithValue("@U_Cargo", 1)
-            End If
-        End With
-
-        If SQL_SP_EXEC(c.Com) = True Then
-            MsgBox("تـــم تعديل الوحدة ", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الإسم السابق:" & Un_Name & " الوحدة:" & Un_Name_txt.Text & " الحمولة:" & Un_Cargo_txt.Text, 0, 22, 3)
-            Load_PrinterNames()
-            PrintersPage_Clear_Fields()
-            FieldsPanel.Enabled = False
-            EditEmpButton.Text = "تعديل"
-            EditEmpButton.Font = New System.Drawing.Font("Segoe UI Semibold", 11, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CType(0, Byte))
-        End If
+        Dim savedId As Integer
+        If Not AuditUnitsUi.Run(Me, "Unit.Updated", Un_ID, Un_Name_txt.Text, Un_Cargo_txt.Text, savedId) Then Return
+        AuditUnitsUi.Refresh(Me, Sub()
+                                    MsgBox("تـــم تعديل الوحدة ", MsgBoxStyle.Information)
+                                    Load_PrinterNames()
+                                    PrintersPage_Clear_Fields()
+                                    FieldsPanel.Enabled = False
+                                    EditEmpButton.Text = "تعديل"
+                                    EditEmpButton.Font = New System.Drawing.Font("Segoe UI Semibold", 11, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CType(0, Byte))
+                                End Sub)
     End Sub
 
     Public Sub Printer_Delete()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "Unit_Delete"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@U_ID", Me.Un_ID)
-        End With
-
-        If SQL_SP_EXEC(c.Com) = True Then
-            MsgBox("تـــم حــذف الوحدة ", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الوحدة:" & Un_Name, 0, 22, 2)
-            Load_PrinterNames()
-            FieldsPanel.Enabled = False
-            DeleteButton.Enabled = False
-            SaveButton.Enabled = False
-            EditEmpButton.Enabled = False
-        End If
+        Dim savedId As Integer
+        If Not AuditUnitsUi.Run(Me, "Unit.Deleted", Un_ID, "", "", savedId) Then Return
+        AuditUnitsUi.Refresh(Me, Sub()
+                                    MsgBox("تـــم حــذف الوحدة ", MsgBoxStyle.Information)
+                                    Load_PrinterNames()
+                                    FieldsPanel.Enabled = False
+                                    DeleteButton.Enabled = False
+                                    SaveButton.Enabled = False
+                                    EditEmpButton.Enabled = False
+                                End Sub)
     End Sub
 
     Public Sub Load_PrinterNames()

@@ -1,0 +1,7 @@
+PASS closed purchase addition domain
+PASS complete purchase row
+PASS receipt entity excluded
+System.Exception: FAILED no other clients
+   عند AuditPurchaseAddTests.Check(Boolean ok, String label)
+   عند AuditPurchaseAddTests.Live(String settings)
+   عند AuditPurchaseAddTests.Main(String[] args)

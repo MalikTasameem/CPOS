@@ -189,8 +189,7 @@ Public Class AgentsMenu
     End Sub
 
     Private Sub Switch_Sales_Agent(T_ID As Integer, AG_ID As Integer, On_Update As Boolean)
-        Save_AG_Name(T_ID, AG_ID, On_Update)
-        Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, F_Sales.SB_ID, 1, 3)
+        If Not AuditDocumentFieldsUi.Account(Me, T_ID, 1, AG_ID, On_Update) Then Return
         'If AG_ID <> Default_AG_ID Then
         '    F_Sales.AG_SH_txt.Text = AG_Cm.Textt  'IM_SH_txt.Text
         'End If
@@ -202,8 +201,7 @@ Public Class AgentsMenu
     End Sub
 
     Private Sub Switch_Fast_Sales_Agent(T_ID As Integer, AG_ID As Integer, On_Update As Boolean)
-        Save_AG_Name(T_ID, AG_ID, On_Update)
-        Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, Sales_Fast.SB_ID, 1, 3)
+        If Not AuditDocumentFieldsUi.Account(Me, T_ID, 1, AG_ID, On_Update) Then Return
         If AG_ID <> Default_AG_ID Then
             Sales_Fast.AG_SH_txt.Text = AG_Cm.Textt   'IM_SH_txt.Text
         Else
@@ -232,33 +230,21 @@ Public Class AgentsMenu
     End Sub
 
     Public Sub AG_Balance_Update_AG(AG_ID As Integer)
+        If AuditDocumentFieldsUi.Account(Me, F_POS.T_ID, 1, AG_ID, F_POS.On_Update) Then
 
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "AG_Balance_Update_AG"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", F_POS.T_ID)
-            .Parameters.AddWithValue("@AG_ID", AG_ID)
-            .Parameters.AddWithValue("@ON_UPDATE", F_POS.On_Update)
-        End With
-
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, F_POS.SB_ID_Txt.Text, 1, 3)
-
-            If AG_Type_cm.SelectedValue = 3 Then Make_StdPercentDis()
-
-            If AG_Type_cm.SelectedValue = 5 Then Make_PrevDisPercent()
-
-            If Home_Panel = "POS" Then
-                F_POS.Fill_Bill_Info()
-                If F_POS.AG_TypeID = 4 Then F_POS.Point = Current_QTY.Text
-            End If
-
-            If TB_Part_Pied = True Then
-                TablePiedApart.AG_ID = AG_ID
-                TablePiedApart.Fill_Bill_Info()
-            End If
+            AuditDocumentFieldsUi.Refresh(Me,
+                Sub()
+                    If AG_Type_cm.SelectedValue = 3 Then Make_StdPercentDis()
+                    If AG_Type_cm.SelectedValue = 5 Then Make_PrevDisPercent()
+                    If Home_Panel = "POS" Then
+                        F_POS.Fill_Bill_Info()
+                        If F_POS.AG_TypeID = 4 Then F_POS.Point = Current_QTY.Text
+                    End If
+                    If TB_Part_Pied = True Then
+                        TablePiedApart.AG_ID = AG_ID
+                        TablePiedApart.Fill_Bill_Info()
+                    End If
+                End Sub)
             Me.Close()
         End If
     End Sub

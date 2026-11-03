@@ -2124,33 +2124,20 @@ Module FunModule
         Return U_ID
     End Function
 
-    Public Sub Unit_Insert(ByRef IM_Unit_cm As ComboBox, Unit_cargo As String, Form_Index As Integer)
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "Unit_Insert"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@U_ID", 0)
-            .Parameters.AddWithValue("@U_Name", IM_Unit_cm.Text)
-            .Parameters("@U_ID").Direction = ParameterDirection.Output
-            If String.IsNullOrWhiteSpace(Unit_cargo) = False Then
-                If Convert.ToDouble(Unit_cargo) = 0 Then
-                    Unit_cargo = "1"
-                    .Parameters.AddWithValue("@U_Cargo", 1)
-                Else
-                    .Parameters.AddWithValue("@U_Cargo", Unit_cargo)
-                End If
-            Else
-                .Parameters.AddWithValue("@U_Cargo", 1)
-            End If
-
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert("(من شاشة إضافة صنف) الوحدة:" & IM_Unit_cm.Text & " الحمولة:" & Unit_cargo, 0, Form_Index, 1)
+    Public Function Unit_Insert(ByRef IM_Unit_cm As ComboBox, Unit_cargo As String, Form_Index As Integer) As Boolean
+        Dim savedId As Integer
+        If Not AuditUnitsUi.Run(IM_Unit_cm.FindForm(), "Unit.Created", 0, IM_Unit_cm.Text, Unit_cargo, savedId) Then Return False
+        If savedId <= 0 Then Return False
+        Try
             Load_Units(IM_Unit_cm)
-            IM_Unit_cm.SelectedValue = c.Com.Parameters("@U_ID").Value.ToString()
-        End If
-    End Sub
+            IM_Unit_cm.SelectedValue = savedId
+            If IM_Unit_cm.SelectedValue Is Nothing OrElse Convert.ToInt32(IM_Unit_cm.SelectedValue) <> savedId Then Throw New InvalidOperationException("تعذر تحديد الوحدة الجديدة.")
+            Return True
+        Catch ex As Exception
+            MsgBox("تم إنشاء الوحدة؛ تعذر تحديث اختيارها. حدّث القائمة ولا تكرر الإنشاء. " & ex.Message, MsgBoxStyle.Exclamation)
+            Return False
+        End Try
+    End Function
 
     Public Sub Load_Units(ByRef IM_Unit_cm As ComboBox)
         Dim c As New C

@@ -55,23 +55,12 @@
             .Parameters.AddWithValue("@User_ID", USER_ID)
 
         End With
-        If SQL_SP_EXEC(C.Com) = True Then
-            MsgBox("تم الإضافة", MsgBoxStyle.Information, "")
-
-            If balanceTypeId = 37 Then
-                Network_Edit_Tracker_insert(ComboBox1.Text & " لحساب:" & AG_NAME & " بقيمة : " & amount.ToString(N_Point_Fter) & " دائن (عليه)", 0, 37, 1)
-            ElseIf balanceTypeId = 6 Then
-                Network_Edit_Tracker_insert(ComboBox1.Text & " لحساب:" & AG_NAME & " بقيمة : " & amount.ToString(N_Point_Fter) & " مدين (له)", 0, 6, 1)
-            Else
-                Network_Edit_Tracker_insert(ComboBox1.Text & " لحساب:" & AG_NAME & " بقيمة : " & amount.ToString(N_Point_Fter), 0, 5, 1)
-            End If
-
-            F_Agent.AG_BalanceTextBox.Text = Show_AG_T_Balance(F_Agent.AG_ID)
+        If AuditAccountEntryUi.Run(Me, C.Com) Then
+            AuditAccountEntryUi.Refresh(Me, Sub()
+                                               F_Agent.AG_BalanceTextBox.Text = Show_AG_T_Balance(F_Agent.AG_ID)
+                                           End Sub)
+            Me.Close()
         End If
-
-
-
-        Me.Close()
     End Sub
 
     'Private Sub EditSButton_Click(sender As Object, e As EventArgs) Handles EditSButton.Click
@@ -111,34 +100,14 @@
     End Sub
 
     Private Sub Exp_Static_DELETE()
-        ' F_Exp_Static.Dt.Clear()
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "AG_Balance_Void_Row"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", F_Balances.AGMVMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
-        End With
-        If SQL_SP_EXEC(C.Com) = True Then
-
-
-            If is_Select = True Then
-                Dim typeId As Integer = Convert.ToInt32(F_Balances.AGMVMetroGrid.CurrentRow.Cells("AG_MV_Type_ID_CL").Value)
-
-                If typeId = 37 Then
-                    Network_Edit_Tracker_insert(" لحساب:" & AG_NAME & " بقيمة : " & Debit_txt.Text & " دائن (عليه)", 0, 37, 2)
-                ElseIf typeId = 6 Then
-                    Network_Edit_Tracker_insert(" لحساب:" & AG_NAME & " بقيمة : " & Debit_txt.Text & " مدين (له)", 0, 6, 2)
-                ElseIf typeId = 5 Then
-                    Network_Edit_Tracker_insert(" لحساب:" & F_Balances.AGMVMetroGrid.CurrentRow.Cells("AG_Name_CL").Value.ToString & " بقيمة : " & Debit_txt.Text, 0, 5, 2)
-                End If
-
-            End If
-
-            Me.Close()
-        End If
-
-
+        If F_Balances Is Nothing OrElse F_Balances.IsDisposed Then Return
+        Dim grid = F_Balances.AGMVMetroGrid, row = grid.CurrentRow
+        If row Is Nothing OrElse row.IsNewRow OrElse Not grid.Columns.Contains("T_ID_CL") OrElse Not grid.Columns.Contains("AG_MV_Type_ID_CL") Then Return
+        If row.Cells("T_ID_CL").Value Is Nothing OrElse IsDBNull(row.Cells("T_ID_CL").Value) OrElse row.Cells("AG_MV_Type_ID_CL").Value Is Nothing OrElse IsDBNull(row.Cells("AG_MV_Type_ID_CL").Value) Then Return
+        Dim id As Integer, kind As Integer
+        If Not Integer.TryParse(row.Cells("T_ID_CL").Value.ToString(), id) OrElse Not Integer.TryParse(row.Cells("AG_MV_Type_ID_CL").Value.ToString(), kind) Then Return
+        If kind <> 5 AndAlso kind <> 6 AndAlso kind <> 37 Then Return
+        If AuditDocumentVoidUi.Run(Me, id, kind) Then Me.Close()
     End Sub
 
     Private Sub Exp_Static_Add_Load(sender As Object, e As EventArgs) Handles MyBase.Load

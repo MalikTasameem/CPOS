@@ -1,0 +1,1412 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Definitions" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Definitions">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="128" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Definition" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="2147483647" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Definitions>
+    <name>AA_GET_MAX_ID</name>
+    <Definition>-- =============================================
+-- Author:		&lt;Author,,Name&gt;
+-- Create date: &lt;Create Date,,&gt;
+-- Description:	&lt;Description,,&gt;
+-- =============================================
+create PROCEDURE  [dbo].[AA_GET_MAX_ID]
+@TABLE_NAME NVARCHAR(100)
+AS
+BEGIN
+DECLARE @START_ID int,@END_ID int,@T_ID NVARCHAR(20)
+SELECT @START_ID=START_ID,@END_ID=END_ID FROM SERVERS
+
+select @T_ID = C.COLUMN_NAME FROM  
+INFORMATION_SCHEMA.TABLE_CONSTRAINTS T  
+JOIN INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE C  
+ON C.CONSTRAINT_NAME=T.CONSTRAINT_NAME  
+WHERE  
+C.TABLE_NAME= @TABLE_NAME 
+and T.CONSTRAINT_TYPE='PRIMARY KEY'
+
+-----------------------------------------------------------------
+declare @result table ([rowcount] int);
+insert into @result ([rowcount])
+EXEC (' select (isnull(max( ' + @T_ID + ' ), ' + @START_ID + ' )+1) from    ' + @TABLE_NAME + '    WHERE   ' + @T_ID + '    BETWEEN ' + @START_ID + ' AND ' + @END_ID );
+declare @rowid int = (select top (1) [rowcount] from @result);
+-----------------------------------------------------------------
+
+RETURN @rowid
+
+
+end
+</Definition>
+  </Definitions>
+  <Definitions>
+    <name>AG_Balance_Void_Row</name>
+    <Definition>-- =============================================
+-- Author:		&lt;Author,,Name&gt;
+-- Create date: &lt;Create Date,,&gt;
+-- Description:	&lt;Description,,&gt;
+-- =============================================
+CREATE PROCEDURE [dbo].[AG_Balance_Void_Row] 
+@T_ID	int	
+
+AS 
+SET DEADLOCK_PRIORITY NORMAL
+
+BEGIN TRY
+BEGIN TRANSACTION 
+
+declare @SumPure FLOAT,@BS_Type INT,@i INT,@IM_ID INT,@D_Valid NVARCHAR(50),@TB_ID INT , @Bill_Num INT
+,@ST_T_ID INT,@ST_ID INT,@ST_QTY NUMERIC(18,2),@ST_F INT,@ST_T INT,@isDepended INT ,@AG_ID INT,@TR_ID INT , @TRAN_ID INT,@SB_T_ID INT
+
+SELECT @BS_Type = BsType_ID , @AG_ID = AG_ID , @TB_ID = Table_ID , @Bill_Num = S_Bill_Pr_ID FROM Agents_Balance_MV WHERE T_ID = @T_ID
+
+IF @BS_Type = 1 BEGIN SELECT @SumPure = ISNULL(SUM(T_Price),0) FROM SB_Contents WHERE Bill_T_ID = @T_ID END
+IF @BS_Type = 7 or @BS_Type = 9 BEGIN SELECT @SumPure = ISNULL(SUM(Total),0) FROM Pch_Details  WHERE Pch_T_ID  = @T_ID END
+
+--***************************************************
+
+IF @BS_Type = 1 BEGIN 	
+SELECT @isDepended = isDepended FROM Agents_Balance_MV WHERE T_ID = @T_ID
+
+IF @isDepended = 1 BEGIN EXEC [SB_Contents_Structers_Remove] @T_ID END
+
+UPDATE SB_Contents SET isDepended = 0 where Bill_T_ID = @T_ID 
+
+--SELECT @i = min(T_ID) From SB_Contents_WithStore_V WHERE Bill_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM SB_Contents_WithStore_V WHERE T_ID = @i
+--EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY
+--SELECT @i = min(T_ID) From SB_Contents_WithStore_V WHERE Bill_T_ID = @T_ID AND T_ID &gt; @i
+--END
+
+
+IF (SELECT TB_Auto_Print FROM Sys_Features WHERE T_ID = (SELECT T_ID FROM Sys_Model)) = 1
+BEGIN
+
+DECLARE @Desc NVARCHAR(MAX)
+SET @Desc = CONCAT(' إلغاء فاتورة رقم ',@Bill_Num, CHAR(13), CHAR(10), ' طاولة : ',(SELECT TOP 1 T_Name  FROM Tables WHERE TB_ID = @TB_ID))
+
+INSERT INTO TB_AutoPrint_tmp (T_ID, Notes, Printer_IP)
+SELECT 0, @Desc, GP.Printer_IP
+FROM GM_Printer_V GP
+JOIN IM_Menu IM ON GP.GM_ID = IM.GM_ID
+WHERE IM.IM_ID IN (SELECT IM_ID FROM SB_Contents WHERE Bill_T_ID = @T_ID) AND GP.Printer_IP IS NOT NULL;
+
+
+END
+
+GOTO FINAL_
+
+END
+
+
+IF @BS_Type = 2 BEGIN 	
+UPDATE EXP_Details SET isDepended = 0 where IMEX_T_ID  = @T_ID 
+GOTO FINAL_
+END
+
+
+IF @BS_Type IN (3,4)
+BEGIN
+Update Treasury_Balance_MV  SET isVoid = 1,Balance = NULL WHERE AGBalance_T_ID  = @T_ID
+GOTO FINAL_
+END
+
+------------------------------------------------------------------------------------
+
+IF @BS_Type = 7 or @BS_Type = 9
+BEGIN
+UPDATE Pch_Details SET isDepended = 0 where Pch_T_ID = @T_ID 
+--SELECT @i = min(T_id) From Pch_Details WHERE Pch_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM Pch_Details WHERE T_ID = @i
+--EXEC Dec_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY
+--EXEC ReCount_IM_Main_COST @IM_ID
+--SELECT @i = min(T_ID) From Pch_Details WHERE Pch_T_ID = @T_ID AND T_ID &gt; @i
+--END
+END
+
+---------------------------------------------------------------------------------------
+
+IF @BS_Type = 8 
+BEGIN
+UPDATE IMEX_Details SET isDepended = 0 where IMEX_T_ID = @T_ID 
+--SELECT @i = min(T_id) From IMEX_Details WHERE IMEX_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM IMEX_Details WHERE T_ID = @i
+--EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY
+--SELECT @i = min(T_ID) From IMEX_Details WHERE IMEX_T_ID = @T_ID AND T_ID &gt; @i
+--END
+END
+-------------------------------------------------------------------------------------------
+IF @BS_Type = 10 OR @BS_Type = 11
+BEGIN
+UPDATE Rtn_Contents  SET isDepended = 0 where Bill_T_ID = @T_ID 
+--IF @BS_Type = 10 BEGIN EXEC Rtn_Contents_UPDATE_DEPENDED @T_ID END
+--SELECT @i = min(T_id) From Rtn_Contents WHERE Bill_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM Rtn_Contents WHERE T_ID = @i
+--IF @BS_Type = 10 BEGIN EXEC Dec_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY END
+--ELSE BEGIN EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY END
+--SELECT @i = min(T_ID) From Rtn_Contents WHERE Bill_T_ID = @T_ID AND T_ID &gt; @i
+--END
+END
+---------------------------------------------------------------------------------------------
+IF @BS_Type = 12 --Store_Trans
+BEGIN
+UPDATE Store_Trans_Details SET isDepended = 0 where B_T_ID = @T_ID 
+--SELECT @i = min(T_ID) From Store_Trans_Details WHERE B_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_F = ST_F_ID,@ST_T = ST_To_ID,@ST_QTY = ST_QTY FROM Store_Trans_Details WHERE T_ID = @i
+
+----EXEC Dec_IM_QTY @IM_ID,@ST_T,@D_Valid,@ST_QTY
+--EXEC Inc_IM_QTY @IM_ID,@ST_F,@D_Valid,@ST_QTY
+
+--SELECT @i = min(T_ID) From Store_Trans_Details WHERE B_T_ID = @T_ID AND T_ID &gt; @i 
+--END
+END
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+
+IF @BS_Type = 13 OR @BS_Type = 18 -- FRM_ITEM
+BEGIN
+
+UPDATE FRM_Details SET isDepended = 0 where FRM_T_ID = @T_ID 
+
+--SELECT @i = min(T_ID) From FRM_Details WHERE FRM_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+
+--SELECT @IM_ID=IM_ID,@D_Valid=D_Vaild,@ST_ID = ST_ID,@ST_QTY = ST_QTY
+--FROM FRM_Details WHERE T_ID = @i
+--EXEC Dec_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY
+--SELECT @i = min(T_ID) From FRM_Details WHERE FRM_T_ID = @T_ID AND T_ID &gt; @i
+--END
+
+--2++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+UPDATE FRM_Contents_Details SET isDepended = 0 where Bill_T_ID = @T_ID 
+
+--SELECT @i = min(T_ID) From FRM_Contents_Details WHERE Bill_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+
+--SELECT @IM_ID=IM_ID,@D_Valid='',@ST_ID = ST_ID,@ST_QTY = ST_QTY FROM FRM_Contents_Details WHERE T_ID = @i
+--EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY
+--SELECT @i = min(T_ID) From FRM_Contents_Details WHERE Bill_T_ID = @T_ID AND T_ID &gt; @i
+--END
+
+END
+
+-----------------------------------------------------------------------------------------------
+
+IF @BS_Type = 17
+BEGIN
+UPDATE InSale_Details SET isDepended = 0 where InSale_T_ID = @T_ID 
+--SELECT @i = min(T_id) From InSale_Details WHERE InSale_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM InSale_Details WHERE T_ID = @i
+--EXEC Inc_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY
+--SELECT @i = min(T_ID) From InSale_Details WHERE InSale_T_ID = @T_ID AND T_ID &gt; @i
+--END
+END
+-------------------------------------------------------------------------------------------
+
+IF @BS_Type = 35
+BEGIN
+UPDATE OutSale_Details SET isDepended = 0 where OutSale_T_ID = @T_ID 
+--SELECT @i = min(T_id) From OutSale_Details WHERE OutSale_T_ID = @T_ID
+--WHILE @i IS NOT NULL
+--BEGIN
+--SELECT @IM_ID = IM_ID,@D_Valid=D_Vaild,@ST_ID=ST_ID,@ST_QTY=ST_QTY FROM OutSale_Details WHERE T_ID = @i
+--EXEC Dec_IM_QTY @IM_ID,@ST_ID,@D_Valid,@ST_QTY
+--SELECT @i = min(T_ID) From OutSale_Details WHERE OutSale_T_ID = @T_ID AND T_ID &gt; @i
+--END
+END
+-------------------------------------------------------------------------------------------
+
+FINAL_:
+
+
+exec [Agents_Balance_MV_Cancel]
+    @T_ID = @T_ID,
+    @User_ID = 1,
+    @Reason = 'إلغاء المعاملة'
+
+
+UPDATE Agents_Balance_MV SET SB_isOpen = 0 ,isPause = NULL ,
+--Pure = @SumPure ,
+Order_isDeleverd = 1
+,isVoid = 1,Balance = NULL WHERE T_ID =@T_ID
+
+
+
+IF @TB_ID &gt; 0
+BEGIN
+IF ( SELECT COUNT(T_ID) FROM Tables_Bills_NotPied_V WHERE Table_ID = @TB_ID ) = 0
+BEGIN
+UPDATE TABLES SET isbusy = 0 , TB_ORDER_CODE = NULL WHERE TB_ID = @TB_ID
+END
+END
+
+
+SELECT @SB_T_ID = Receipt_Tran_ID  FROM Agents_Balance_MV WHERE T_ID = @T_ID
+IF @BS_Type = 3 BEGIN UPDATE Agents_Balance_MV SET isPied = 0 WHERE T_ID = @SB_T_ID END
+
+---------------------------------------------------------------------------------------------------------
+SELECT @i = min(T_ID) From Agents_Balance_MV_RCT WHERE Receipt_Tran_ID = @T_ID
+WHILE @i IS NOT NULL
+BEGIN
+EXEC [Agents_Balance_MV_RCT_VOID] @i
+--Update Agents_Balance_MV SET isVoid = 1 WHERE T_ID = @i
+--Update Treasury_Balance_MV SET isVoid = 1,Balance = NULL WHERE AGBalance_T_ID = @i
+SELECT @i = min(T_ID) From Agents_Balance_MV_RCT WHERE Receipt_Tran_ID = @T_ID AND T_ID &gt; @i
+END
+-----------------------------------------------------------------------------------------------------
+
+
+--if @T_ID &lt;&gt; 0 and (SELECT BsType_ID FROM Agents_Balance_MV WHERE T_ID = @T_ID) = 3
+--BEGIN exec [AG_Balance_Update_Pied] @T_ID END
+
+
+
+
+COMMIT
+END TRY
+
+BEGIN CATCH
+IF @@TRANCOUNT &gt; 0
+raiserror ('DB ERROR (AG_Balance_Void_Row)',16,1,'خطأ')
+ROLLBACK
+END CATCH
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Definition>
+  </Definitions>
+  <Definitions>
+    <name>Agents_insert_Prev_Balance</name>
+    <Definition>CREATE PROCEDURE  [dbo].[Agents_insert_Prev_Balance]
+@AG_ID int,
+@NOTES nvarchar(MAX) = NULL,
+@Balance	numeric(18, 3) = 0,
+@Date Datetime,
+@Type_ID int,
+@User_ID int
+AS
+BEGIN
+DECLARE @T_ID INT
+
+
+IF @Type_ID = 5
+BEGIN
+EXEC @T_ID = AA_GET_MAX_ID 'Agents_Balance_MV'
+INSERT INTO Agents_Balance_MV (T_ID,AG_ID,Receipt_Title,Date,TOTAL,Pure,Debit,BsType_ID,isDepended,User_ID,isVoid)
+VALUES(@T_ID,@AG_ID,@NOTES,@Date,@Balance,@Balance,@Balance,@Type_ID,1,@User_ID,0)
+
+END
+
+
+IF @Type_ID = 6
+BEGIN
+EXEC @T_ID = AA_GET_MAX_ID 'Agents_Balance_MV'
+INSERT INTO Agents_Balance_MV (T_ID,AG_ID,Receipt_Title,Date,TOTAL,Pure,Credit,BsType_ID,isDepended,User_ID,isVoid)
+VALUES(@T_ID,@AG_ID,@NOTES,@Date,@Balance,@Balance,@Balance,@Type_ID,1,@User_ID,0)
+
+END
+
+IF @Type_ID = 37
+BEGIN
+EXEC @T_ID = AA_GET_MAX_ID 'Agents_Balance_MV'
+INSERT INTO Agents_Balance_MV (T_ID,AG_ID,Receipt_Title,Date,TOTAL,Pure,Debit,BsType_ID,isDepended,User_ID,isVoid)
+VALUES(@T_ID,@AG_ID,@NOTES,@Date,@Balance,@Balance,@Balance,@Type_ID,1,@User_ID,0)
+
+END
+
+
+END
+
+
+
+
+</Definition>
+  </Definitions>
+  <Definitions>
+    <name>Network_Audit_Event_Write</name>
+    <Definition>CREATE PROCEDURE dbo.Network_Audit_Event_Write
+ @SourceId uniqueidentifier,@RequestId uniqueidentifier,@EventId uniqueidentifier,@EventOrdinal int,
+ @EventXml xml,@ChangesXml xml,@EventFingerprint varbinary(32),@CanonicalEvent varbinary(max)
+AS
+BEGIN
+ SET NOCOUNT ON; SET XACT_ABORT ON;
+ IF @@TRANCOUNT=0 OR XACT_STATE()&lt;&gt;1 THROW 51100,'Audit requires the caller writable transaction.',1;
+ DECLARE @resource nvarchar(255)=N'CPOS.Audit.Request.'+CONVERT(nvarchar(36),@SourceId)+N'.'+CONVERT(nvarchar(36),@RequestId);
+ IF ISNULL(APPLOCK_MODE('public',@resource,'Transaction'),'NoLock')&lt;&gt;'Exclusive'
+    THROW 51100,'Begin the request in this transaction before writing an event.',1;
+ IF @EventId IS NULL OR @EventId='00000000-0000-0000-0000-000000000000' OR @EventOrdinal NOT BETWEEN 1 AND 100
+   OR DATALENGTH(@EventFingerprint)&lt;&gt;32 OR ISNULL(DATALENGTH(@CanonicalEvent),0) NOT BETWEEN 1 AND 1048576
+   OR @EventXml IS NULL OR @ChangesXml IS NULL
+   OR DATALENGTH(CONVERT(nvarchar(max),@EventXml))&gt;524288 OR DATALENGTH(CONVERT(nvarchar(max),@ChangesXml))&gt;524288
+   OR @EventXml.value('count(/Event)','int')&lt;&gt;1 OR @EventXml.value('count(/*)','int')&lt;&gt;1
+   OR @EventXml.exist('/Event[@version="1"]')&lt;&gt;1 OR @ChangesXml.exist('/Changes[@version="1"]')&lt;&gt;1
+   OR @ChangesXml.value('count(/Changes/Change)','int')&gt;100
+   THROW 51101,'Invalid/oversized event envelope.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND SourceId=@SourceId AND SchemaVersion=1)
+    THROW 51102,'Audit source/schema mismatch.',1;
+ DECLARE @operation varchar(64),@actor tinyint,@user int,@service varchar(64),@session uniqueidentifier;
+ SELECT @operation=OperationCode,@actor=ActorKind,@user=ActorUserId,@service=ActorServiceCode,@session=SessionId
+ FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND State=0;
+ IF @operation IS NULL THROW 51105,'Request is missing or already complete.',1;
+ DECLARE @eventCode varchar(64)=@EventXml.value('(/Event/@code)[1]','varchar(64)'),
+  @domain varchar(64)=@EventXml.value('(/Event/@domain)[1]','varchar(64)'),
+  @kind tinyint=@EventXml.value('(/Event/@kind)[1]','tinyint'),
+  @outcome tinyint=@EventXml.value('(/Event/@outcome)[1]','tinyint');
+ IF @eventCode&lt;&gt;@operation OR NOT (
+   (@operation='AuditTest.Changed' AND @domain='AuditTest' AND @kind=1 AND @actor IN(1,3)) OR (@operation IN('Expense.LineAdded','Expense.LineDeleted') AND @domain='Expenses.Lines' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('Return.LineAdded','Return.LineDeleted','Return.LineQuantityChanged') AND @domain='Sales.ReturnLines' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('EmployeeValue.Created','EmployeeValue.Updated','EmployeeValue.Voided') AND @domain='People.EmployeeValues' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('StockDocument.LineAdded','StockDocument.LineDeleted','StockDocument.LineQuantityChanged') AND @domain='Inventory.DocumentLines' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('TreasuryMovement.Created','TreasuryMovement.Voided','TreasuryTransfer.Created','TreasuryTransfer.Voided','AccountTransfer.Created','AccountTransfer.Voided') AND @domain='Finance.Transfers' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('Table.Transferred','Table.LineQuantityChanged','Table.LineDeleted') AND @domain='Sales.Tables' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('Item.FastUpdated','Item.Deleted') AND @domain='Catalog.Items' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('Offer.Created','Offer.ItemOffersDeleted','PriceRule.Created','PriceRule.Deleted') AND @domain='Catalog.PricingRules' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('ItemUnit.Created','ItemUnit.Updated','ItemUnit.Deleted','ItemUnit.PriceChanged','ItemUnit.OfferPriceChanged') AND @domain='Catalog.ItemUnits' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('Group.Created','Group.Updated','Group.Deleted','Group.PrinterLinked','Group.PrinterUnlinked') AND @domain='Catalog.Groups' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('Unit.Created','Unit.Updated','Unit.Deleted') AND @domain='Catalog.Units' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation='Document.Voided' AND @domain='Documents.Cancellation' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation='Sales.LineAdded' AND @domain='Sales.LineLifecycle' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation='Sales.LineDeleted' AND @domain='Sales.LineLifecycle' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation='Sales.LineQuantityStepped' AND @domain='Sales.LineQuantity' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation IN('Sales.LineDetailsChanged','Sales.LinePriceChanged') AND @domain='Sales.LineEditing' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation='Document.EditOpened' AND @domain='Documents.EditOpening' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR (@operation='Sales.EditOpened' AND @domain='Sales.EditOpening' AND @kind=1 AND @actor=1 AND @session IS NOT NULL) OR
+   (@operation IN('Settlement.LineAdded','Settlement.LineDeleted','Settlement.LineUpdated','Settlement.Created','Settlement.Approved','Settlement.Voided','Settlement.EditOpened','Settlement.HeaderSaved','Settlement.EditFinished') AND @domain='Inventory.Settlement' AND @kind=1 AND @actor=1) OR
+   (@operation IN('Security.SessionStarted','Security.SessionEnded') AND @domain='Security' AND @kind=2 AND @actor=1 AND @session IS NOT NULL) OR
+   (@operation='Security.LoginRejected' AND @domain='Security' AND @kind=2 AND @actor IN(1,2) AND @session IS NULL))
+   THROW 51101,'Event does not match its request contract.',1;
+ IF (@operation='Security.LoginRejected' AND @outcome&lt;&gt;2) OR (@operation&lt;&gt;'Security.LoginRejected' AND @outcome&lt;&gt;1)
+   THROW 51101,'Outcome does not match the event.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND EnabledDomainsXml.exist('/Domains/Domain[@code=sql:variable("@domain")]')=1)
+   THROW 51102,'Audit domain is disabled.',1;
+ IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE EventId=@EventId OR (SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=@EventOrdinal))
+ BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE EventId=@EventId AND SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=@EventOrdinal
+     AND EventFingerprint=@EventFingerprint AND DATALENGTH(CanonicalEvent)=DATALENGTH(@CanonicalEvent) AND CanonicalEvent=@CanonicalEvent)
+     THROW 51104,'Event identity/ordinal conflicts with different content.',1;
+   SELECT CAST(2 AS int) WriteResult;
+   RETURN;
+ END;
+ DECLARE @changes TABLE(ChangeNo int,EntityType varchar(64),EntityId nvarchar(128),FieldCode varchar(64),ValueType varchar(20),
+ SourceSqlType varchar(40),BeforeState tinyint,BeforeValue nvarchar(max),AfterState tinyint,AfterValue nvarchar(max),ValueOrigin tinyint);
+ INSERT @changes
+ SELECT n.value('@no','int'),n.value('@entityType','varchar(64)'),n.value('@entityId','nvarchar(128)'),n.value('@field','varchar(64)'),
+ n.value('@type','varchar(20)'),n.value('(@sqlType)[1]','varchar(40)'),n.value('(Before/@state)[1]','tinyint'),
+ CASE WHEN n.value('(Before/@state)[1]','tinyint')=3 THEN n.value('(Before)[1]','nvarchar(max)') END,
+ n.value('(After/@state)[1]','tinyint'),CASE WHEN n.value('(After/@state)[1]','tinyint')=3 THEN n.value('(After)[1]','nvarchar(max)') END,n.value('@origin','tinyint')
+ FROM @ChangesXml.nodes('/Changes/Change') x(n);
+ IF (@kind=1 AND NOT EXISTS(SELECT 1 FROM @changes)) OR (@kind=2 AND EXISTS(SELECT 1 FROM @changes))
+    THROW 51101,'Change details are missing or not allowed for this operation.',1;
+ IF EXISTS(SELECT 1 FROM @changes WHERE NOT (
+ (@operation IN('Settlement.Created','Settlement.Approved','Settlement.Voided','Settlement.EditOpened','Settlement.HeaderSaved','Settlement.EditFinished') AND (
+  (FieldCode IN('DocumentNumber','OwnerUserId','AccountId','Approved','Voided','EditOpenedBy','VoidBy','JournalId','OriginalJournalId') AND ValueType='Integer') OR
+  (FieldCode IN('DocumentTotal','DocumentPure','Discount','Balance') AND ValueType='Decimal') OR
+  (FieldCode IN('DocumentDate','EditOpenedAt','VoidAt') AND ValueType='DateTime') OR
+  (FieldCode IN('Title','About','VoidReason') AND ValueType='String') OR
+  (FieldCode IN('NeedRepost','NeedCancelReverse','SalesOpen','Paused','OrderDelivered') AND ValueType='Boolean'))) OR
+    (@operation='Sales.EditOpened' AND (
+  (FieldCode IN('Approved','Voided','JournalId','OriginalJournalId','EditOpenedBy') AND ValueType='Integer') OR
+  (FieldCode='NeedRepost' AND ValueType='Boolean') OR
+  (FieldCode='EditOpenedAt' AND ValueType='DateTime') OR
+  (FieldCode IN('DocumentTotal','DocumentPure','Discount') AND ValueType='Decimal'))) OR (@operation='Document.EditOpened' AND (
+  (FieldCode IN('DocumentType','DocumentNumber','Approved','Voided','JournalId','OriginalJournalId','EditOpenedBy') AND ValueType='Integer') OR
+  (FieldCode='NeedRepost' AND ValueType='Boolean') OR
+  (FieldCode='EditOpenedAt' AND ValueType='DateTime') OR
+  (FieldCode IN('DocumentTotal','DocumentPure','Discount') AND ValueType='Decimal'))) OR (@operation IN('Sales.LineDetailsChanged','Sales.LinePriceChanged') AND (
+  (EntityType='SalesLine' AND (
+   (FieldCode IN('ItemId','UnitId','StoreId','LineApproved','MinimumPriceUsed','MinimumPrice2Used') AND ValueType='Integer') OR
+   (FieldCode IN('LineQuantity','LinePrice','LineTotal','StoredQuantity') AND ValueType='Decimal') OR
+   (FieldCode IN('LineCost','UnitCargo','LineDiscount','StockQuantity') AND ValueType='Float') OR
+   (FieldCode IN('LineNotes','ExpiryText') AND ValueType='String') OR (FieldCode='LineDate' AND ValueType='DateTime'))) OR
+  (EntityType='SalesInvoice' AND (
+   (FieldCode IN('DocumentTotal','DocumentPure','Discount') AND ValueType='Decimal') OR
+   (FieldCode IN('Approved','Voided','AccountId') AND ValueType='Integer') OR
+   (FieldCode='DocumentProfit' AND ValueType='Float') OR (FieldCode='NeedRepost' AND ValueType='Boolean'))))) OR (@operation IN('Sales.LineQuantityStepped','Sales.LineDetailsChanged') AND ((EntityType='SalesLine' AND ((FieldCode IN('ItemId','UnitId','StoreId','LineApproved','MinimumPriceUsed','MinimumPrice2Used') AND ValueType='Integer') OR (FieldCode IN('LineQuantity','LinePrice','LineTotal','StoredQuantity') AND ValueType='Decimal') OR (FieldCode IN('LineCost','UnitCargo','LineDiscount','StockQuantity') AND ValueType='Float') OR (FieldCode IN('LineNotes','ExpiryText') AND ValueType='String') OR (FieldCode IN('LineDate') AND ValueType='DateTime'))) OR
+ (EntityType='SalesInvoice' AND ((FieldCode IN('DocumentTotal','DocumentPure','Discount') AND ValueType='Decimal') OR (FieldCode IN('Approved','Voided','AccountId') AND ValueType='Integer') OR (FieldCode IN('DocumentProfit') AND ValueType='Float') OR (FieldCode IN('NeedRepost') AND ValueType='Boolean'))) OR
+ (EntityType='SalesStructure' AND ((FieldCode IN('StructureLineId','StructureItemId','StructureUnitId','StructureStoreId','StructureApproved') AND ValueType='Integer') OR (FieldCode IN('StructureQuantity','StructureCargo','StructureStoredQuantity','StructureCost') AND ValueType='Decimal') OR (FieldCode IN('StructureDate') AND ValueType='DateTime'))) OR
+ (EntityType='StockBucket' AND ((FieldCode IN('ItemId','StoreId') AND ValueType='Integer') OR (FieldCode IN('ExpiryText') AND ValueType='String') OR (FieldCode IN('StockQuantity') AND ValueType='Float'))))) OR (@operation IN('Sales.LineDeleted','Sales.LineAdded') AND ((EntityType='SalesLine' AND ((FieldCode IN('ItemId','UnitId','StoreId','LineApproved','MinimumPriceUsed','MinimumPrice2Used','LineDocumentId','ParentLineId') AND ValueType='Integer') OR (FieldCode IN('LineQuantity','LinePrice','LineTotal','StoredQuantity','SalespersonPercent','MarketerValue') AND ValueType='Decimal') OR (FieldCode IN('LineCost','UnitCargo','LineDiscount') AND ValueType='Float') OR (FieldCode IN('LineNotes','ExpiryText','LineComponentsText','LineBarcode','LineSerial') AND ValueType='String') OR (FieldCode IN('LineDate') AND ValueType='DateTime') OR (FieldCode IN('LineChecked') AND ValueType='Boolean'))) OR
+ (EntityType='SalesInvoice' AND ((FieldCode IN('DocumentTotal','DocumentPure','Discount') AND ValueType='Decimal') OR (FieldCode IN('Approved','Voided','AccountId') AND ValueType='Integer') OR (FieldCode IN('DocumentProfit') AND ValueType='Float') OR (FieldCode IN('NeedRepost') AND ValueType='Boolean'))) OR
+ (EntityType='SalesStructure' AND ((FieldCode IN('StructureLineId','StructureItemId','StructureUnitId','StructureStoreId','StructureApproved') AND ValueType='Integer') OR (FieldCode IN('StructureQuantity','StructureCargo','StructureStoredQuantity','StructureCost') AND ValueType='Decimal') OR (FieldCode IN('StructureDate') AND ValueType='DateTime'))) OR
+ (EntityType='SalesComponent' AND ((FieldCode IN('ComponentLineId','ComponentId','ComponentQuantity') AND ValueType='Integer') OR (FieldCode IN('ComponentPrice') AND ValueType='Decimal'))) OR
+ (EntityType='SalesReservation' AND ((FieldCode IN('ReservationLineId') AND ValueType='Integer') OR (FieldCode IN('ReservationDateTime') AND ValueType='DateTime'))) OR
+ (EntityType='SalesTimedReservation' AND ((FieldCode IN('ReservationLineId','ReservationItemId') AND ValueType='Integer') OR (FieldCode IN('ReservationDate') AND ValueType='Date') OR (FieldCode IN('ReservationTime','ReservationNotes') AND ValueType='String'))) OR
+ (EntityType='SalesCommission' AND ((FieldCode IN('CommissionAccountId') AND ValueType='Integer') OR (FieldCode IN('CommissionValue') AND ValueType='Decimal'))) OR
+ (EntityType='StockBucket' AND ((FieldCode IN('ItemId','StoreId') AND ValueType='Integer') OR (FieldCode IN('ExpiryText') AND ValueType='String') OR (FieldCode IN('StockQuantity') AND ValueType='Float'))))) OR (@operation='Document.Voided') OR (@operation IN('Unit.Created','Unit.Updated','Unit.Deleted')) OR (@operation IN('Group.Created','Group.Updated','Group.Deleted','Group.PrinterLinked','Group.PrinterUnlinked')) OR (@operation IN('ItemUnit.Created','ItemUnit.Updated','ItemUnit.Deleted','ItemUnit.PriceChanged','ItemUnit.OfferPriceChanged')) OR (@operation IN('Offer.Created','Offer.ItemOffersDeleted','PriceRule.Created','PriceRule.Deleted')) OR (@operation IN('Item.FastUpdated','Item.Deleted')) OR (@operation IN('Table.Transferred','Table.LineQuantityChanged','Table.LineDeleted')) OR (@operation IN('TreasuryMovement.Created','TreasuryMovement.Voided','TreasuryTransfer.Created','TreasuryTransfer.Voided','AccountTransfer.Created','AccountTransfer.Voided')) OR (@operation IN('StockDocument.LineAdded','StockDocument.LineDeleted','StockDocument.LineQuantityChanged')) OR (@operation IN('EmployeeValue.Created','EmployeeValue.Updated','EmployeeValue.Voided')) OR (@operation IN('Return.LineAdded','Return.LineDeleted','Return.LineQuantityChanged')) OR (@operation IN('Expense.LineAdded','Expense.LineDeleted')) OR (@operation='AuditTest.Changed' AND ((FieldCode IN('Quantity','Cost') AND ValueType='Decimal') OR (FieldCode='Name' AND ValueType='String') OR (FieldCode='RawQuantity' AND ValueType='Float')))
+    OR (@operation IN('Settlement.LineAdded','Settlement.LineDeleted','Settlement.LineUpdated') AND (
+    (FieldCode IN('ItemId','StoreId','UnitId','LineId') AND ValueType='Integer') OR
+    (FieldCode IN('QuantityDelta','Cost','Total','UnitCargo','RequestedQuantity','DocumentTotal','DocumentPure') AND ValueType='Decimal') OR
+    (FieldCode IN('StoredQuantity','DisplayedQuantity','StockQuantity') AND ValueType='Float') OR
+    (FieldCode IN('ExpiryDate','CreatedAt') AND ValueType='DateTime') OR
+    (FieldCode IN('ExpiryText','Barcode') AND ValueType='String')))
+ )) THROW 51101,'Field/type not allowed by operation contract.',1;
+ IF EXISTS(SELECT 1 FROM @changes WHERE LEN(BeforeValue)&gt;4096 OR LEN(AfterValue)&gt;4096)
+    THROW 51101,'Change value too long.',1;
+ IF @operation='Settlement.LineAdded' AND EXISTS(SELECT 1 FROM @changes WHERE EntityType='SettlementLine' AND (BeforeState&lt;&gt;1 OR AfterState NOT IN(2,3)))
+    THROW 51101,'Line addition must use absent-before and captured-after.',1;
+ IF @operation='Settlement.LineDeleted' AND EXISTS(SELECT 1 FROM @changes WHERE EntityType='SettlementLine' AND (BeforeState NOT IN(2,3) OR AfterState&lt;&gt;1))
+    THROW 51101,'Line deletion must capture before and absent-after.',1;
+ IF @operation='Settlement.LineUpdated' AND EXISTS(SELECT 1 FROM @changes WHERE EntityType='SettlementLine' AND (BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3)))
+   THROW 51101,'Line update requires real before and after values.',1;
+ IF @operation='Sales.EditOpened' AND (EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'SalesInvoice' OR ValueOrigin&lt;&gt;1 OR BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3)) OR (SELECT COUNT(*) FROM @changes)&lt;&gt;10)
+   THROW 51101,'Sales edit opening requires ten actual before/after header fields.',1;
+ IF @operation='Document.EditOpened'
+ BEGIN
+  IF (SELECT COUNT(*) FROM @changes)&lt;&gt;12 OR EXISTS(SELECT 1 FROM @changes WHERE ValueOrigin&lt;&gt;1 OR BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3))
+   THROW 51101,'Document opening requires twelve actual before/after fields.',1;
+  IF (SELECT COUNT(*) FROM @changes WHERE FieldCode='DocumentType' AND BeforeState=3 AND AfterState=3 AND BeforeValue=AfterValue
+      AND AfterValue IN('2','7','8','9','10','11','12','13','17','18','35'))&lt;&gt;1
+   THROW 51101,'Invalid document type.',1;
+  DECLARE @docType int=(SELECT CONVERT(int,AfterValue) FROM @changes WHERE FieldCode='DocumentType');
+  DECLARE @docEntity varchar(64)=CASE @docType
+   WHEN 2 THEN 'GeneralExpense' WHEN 7 THEN 'PurchaseInvoice' WHEN 8 THEN 'WasteDocument' WHEN 9 THEN 'StockCount'
+   WHEN 10 THEN 'SalesReturn' WHEN 11 THEN 'PurchaseReturn' WHEN 12 THEN 'StockTransfer' WHEN 13 THEN 'AutoManufacturing'
+   WHEN 17 THEN 'StockIssue' WHEN 18 THEN 'ManualManufacturing' WHEN 35 THEN 'StockReceipt' END;
+  DECLARE @docId nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @docScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  IF @docEntity IS NULL OR @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;@docEntity
+   OR EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;@docEntity OR EntityId&lt;&gt;@docId)
+   OR NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType=@docEntity AND EntityId=@docId)
+   THROW 51101,'Document identity mismatch.',1;
+  IF NOT ((@docType=2 AND @docScreen='EXP_Details') OR (@docType=7 AND @docScreen='Pch') OR (@docType=8 AND @docScreen='IM_Execute')
+   OR (@docType=9 AND @docScreen='Invoice') OR (@docType IN(10,11) AND @docScreen='Returns')
+   OR (@docType=12 AND @docScreen='Stores_ImmediateOrder') OR (@docType=13 AND @docScreen='Format_Items_Auto')
+   OR (@docType=17 AND @docScreen='Inside_Sales') OR (@docType=18 AND @docScreen='Format_Items_Manual')
+   OR (@docType=35 AND @docScreen IN('Outside_Sales','Outside_Sales_Touch')))
+   THROW 51101,'Document screen mismatch.',1;
+ END;
+ IF @operation IN('Sales.LineDetailsChanged','Sales.LinePriceChanged') AND (@EventOrdinal=1 OR @operation='Sales.LinePriceChanged')
+ BEGIN
+  -- AuditDetailComponents016: first part stays the original 25 fields.
+  IF @operation='Sales.LinePriceChanged' AND @EventOrdinal&lt;&gt;1 THROW 51101,'Price-only operation has no component parts.',1;
+  DECLARE @saleId nvarchar(128)=(SELECT EntityId FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='SalesInvoice'),
+   @saleLine nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @saleScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  IF @saleId IS NULL OR @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'SalesLine'
+   OR (@operation='Sales.LineDetailsChanged' AND @saleScreen&lt;&gt;'Change_IM_Details')
+   OR (@operation='Sales.LinePriceChanged' AND @saleScreen&lt;&gt;'SBChangePrice')
+   THROW 51101,'Sales line request identity or screen mismatch.',1;
+  IF (SELECT COUNT(*) FROM @changes)&lt;&gt;25 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='SalesLine')&lt;&gt;17
+   OR (SELECT COUNT(*) FROM @changes WHERE EntityType='SalesInvoice')&lt;&gt;8
+   OR EXISTS(SELECT 1 FROM @changes WHERE ValueOrigin&lt;&gt;1 OR BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3)
+       OR (EntityType='SalesLine' AND EntityId&lt;&gt;@saleLine) OR (EntityType='SalesInvoice' AND EntityId&lt;&gt;@saleId))
+   THROW 51101,'Sales edit requires twenty-five actual fields.',1;
+  IF @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;1
+   OR @EventXml.exist('/Event/Entities/Entity[@role="Document" and @type="SalesInvoice" and @id=sql:variable("@saleId")]')&lt;&gt;1
+   THROW 51101,'Sales line document reference missing.',1;
+ END;
+ IF @operation='Sales.LineQuantityStepped' OR (@operation='Sales.LineDetailsChanged' AND @EventOrdinal&gt;1)
+ BEGIN
+  DECLARE @stepBill nvarchar(128)=(SELECT EntityId FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='SalesInvoice'),
+   @stepLine nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)');
+  IF @stepBill IS NULL OR @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'SalesLine'
+   OR (@operation='Sales.LineQuantityStepped' AND @EventXml.value('(/Event/@screen)[1]','varchar(64)') NOT IN('Sales','Sales_Fast','POS'))
+   OR (@operation='Sales.LineDetailsChanged' AND @EventXml.value('(/Event/@screen)[1]','varchar(64)')&lt;&gt;'Change_IM_Details')
+   THROW 51101,'Invalid quantity/detail identity or screen.',1;
+  IF @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;1 OR
+   @EventXml.exist('/Event/Entities/Entity[@role="Document" and @type="SalesInvoice" and @id=sql:variable("@stepBill")]')&lt;&gt;1
+   THROW 51101,'Quantity step invoice reference missing.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE ValueOrigin&lt;&gt;1 OR BeforeState=0 OR AfterState=0 OR (BeforeState=1 AND AfterState=1)
+   OR (EntityType&lt;&gt;'SalesStructure' AND (BeforeState&lt;2 OR AfterState&lt;2)))
+   THROW 51101,'Actual captured quantity values required.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes)&lt;&gt;25 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='SalesLine' AND EntityId=@stepLine)&lt;&gt;17
+    OR (SELECT COUNT(*) FROM @changes WHERE EntityType='SalesInvoice' AND EntityId=@stepBill)&lt;&gt;8
+    THROW 51101,'Quantity first event requires complete line and header.',1;
+  END
+  ELSE
+  BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=1 AND EntityType='SalesLine' AND EntityId=@stepLine AND EventCode=@operation)
+    THROW 51101,'Quantity detail must follow its main event.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType NOT IN('SalesStructure','StockBucket'))
+    OR EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId
+     HAVING COUNT(*)&lt;&gt;CASE WHEN EntityType='SalesStructure' THEN 10 ELSE 4 END)
+    THROW 51101,'Quantity detail rows must be complete.',1;
+  END
+ END;
+ IF @operation='Sales.LineDeleted'
+ BEGIN
+  DECLARE @deletedBill nvarchar(128)=(SELECT EntityId FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='SalesInvoice'),
+   @deletedLine nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)');
+  IF @deletedBill IS NULL OR @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'SalesLine'
+   OR @EventXml.value('(/Event/@screen)[1]','varchar(64)') NOT IN('Sales','Sales_Fast','POS') THROW 51101,'Invalid delete identity or screen.',1;
+  IF @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;1 OR @EventXml.exist('/Event/Entities/Entity[@role="Document" and @type="SalesInvoice" and @id=sql:variable("@deletedBill")]')&lt;&gt;1 THROW 51101,'Missing invoice relation.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE ValueOrigin&lt;&gt;1 OR BeforeState&lt;2 OR AfterState=0 OR (EntityType='SalesLine' AND AfterState&lt;&gt;1) OR (EntityType IN('SalesInvoice','StockBucket') AND AfterState&lt;2)) THROW 51101,'Actual delete values required.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes)&lt;&gt;32 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='SalesLine' AND EntityId=@deletedLine)&lt;&gt;24 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='SalesInvoice' AND EntityId=@deletedBill)&lt;&gt;8 THROW 51101,'Complete deleted line and header required.',1;
+  END
+  ELSE
+  BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=1 AND EventCode=@operation AND EntityType='SalesLine' AND EntityId=@deletedLine) THROW 51101,'Delete detail must follow its main event.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType NOT IN('SalesStructure','SalesComponent','SalesReservation','SalesTimedReservation','SalesCommission','StockBucket'))
+    OR EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;CASE EntityType WHEN 'SalesStructure' THEN 10 WHEN 'SalesComponent' THEN 4 WHEN 'SalesReservation' THEN 2 WHEN 'SalesTimedReservation' THEN 5 WHEN 'SalesCommission' THEN 2 WHEN 'StockBucket' THEN 4 ELSE -1 END) THROW 51101,'Delete detail rows incomplete.',1;
+  END
+ END;
+ -- AuditAddition017: actual full rows, new or merged, plus component/stock pages.
+ IF @operation='Sales.LineAdded'
+ BEGIN
+  DECLARE @addedBill nvarchar(128)=(SELECT EntityId FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='SalesInvoice'),
+   @addedLine nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)');
+  IF @addedBill IS NULL OR @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'SalesLine'
+   OR @EventXml.value('(/Event/@screen)[1]','varchar(64)') NOT IN('POS','Sales_Fast','SB_IM_card') THROW 51117,'Invalid addition identity or screen.',1;
+  IF @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;1 OR @EventXml.exist('/Event/Entities/Entity[@role="Document" and @type="SalesInvoice" and @id=sql:variable("@addedBill")]')&lt;&gt;1 THROW 51117,'Missing invoice relation.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE ValueOrigin&lt;&gt;1 OR BeforeState=0 OR AfterState=0 OR (BeforeState=1 AND AfterState=1)
+   OR EntityType NOT IN('SalesLine','SalesInvoice','SalesStructure','StockBucket')
+   OR (EntityType&lt;&gt;'SalesStructure' AND AfterState&lt;2) OR (EntityType IN('SalesInvoice','StockBucket') AND BeforeState&lt;2)) THROW 51117,'Actual addition values required.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes)&lt;&gt;32 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='SalesLine' AND EntityId=@addedLine)&lt;&gt;24 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='SalesInvoice' AND EntityId=@addedBill)&lt;&gt;8 THROW 51117,'Complete added line and header required.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='SalesLine' AND BeforeState=1) AND EXISTS(SELECT 1 FROM @changes WHERE EntityType='SalesLine' AND BeforeState&lt;&gt;1) THROW 51117,'Inconsistent new/merged line state.',1;
+  END
+  ELSE
+  BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Event WHERE SourceId=@SourceId AND RequestId=@RequestId AND EventOrdinal=1 AND EventCode=@operation AND EntityType='SalesLine' AND EntityId=@addedLine) THROW 51117,'Addition detail must follow its main event.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType NOT IN('SalesStructure','StockBucket'))
+    OR EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;CASE EntityType WHEN 'SalesStructure' THEN 10 WHEN 'StockBucket' THEN 4 ELSE -1 END) THROW 51117,'Addition detail rows incomplete.',1;
+  END
+ END;
+ -- AuditCancellation018: closed rows and types, actual values, no business correction.
+ IF @operation='Document.Voided'
+ BEGIN
+  DECLARE @cv TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @cv SELECT e.E,f.F,f.T,f.S FROM (VALUES('BusinessDocument'),('Receipt')) e(E) CROSS JOIN (VALUES
+   ('Voided','Integer','int'),('NeedRepost','Boolean','bit'),('NeedCancelReverse','Boolean','bit'),
+   ('VoidAt','DateTime','datetime'),('VoidBy','Integer','int'),('VoidReason','String','nvarchar(500)'),
+   ('JournalId','Integer','int'),('DocumentTotal','Decimal','numeric(18,3)'),('DocumentPure','Decimal','numeric(18,3)'),
+   ('Discount','Decimal','numeric(18,3)'),('Debit','Decimal','numeric(18,3)'),('Credit','Decimal','numeric(18,3)'),
+   ('Balance','Decimal','numeric(18,3)'),('AccountId','Integer','int'),('Approved','Integer','int')) f(F,T,S);
+  INSERT @cv VALUES
+   ('BusinessDocument','DocumentType','Integer','int'),('BusinessDocument','DocumentNumber','Integer','int'),('BusinessDocument','DocumentDate','DateTime','datetime'),
+   ('BusinessDocument','SalesOpen','Boolean','bit'),('BusinessDocument','Paused','Boolean','bit'),('BusinessDocument','OrderDelivered','Boolean','bit'),('BusinessDocument','PaidState','Integer','int'),('BusinessDocument','TableId','Integer','int'),
+   ('Receipt','ReceiptNumber','Integer','int'),('Receipt','ReceiptDocumentId','Integer','int'),('Receipt','PaymentId','Integer','int'),('Receipt','TreasuryId','Integer','int'),('Receipt','DocumentType','Integer','int'),
+   ('TreasuryMovement','TreasuryId','Integer','int'),('TreasuryMovement','TreasuryDocumentId','Integer','int'),('TreasuryMovement','TreasuryType','Integer','int'),('TreasuryMovement','TreasuryVoided','Boolean','bit'),
+   ('TreasuryMovement','DocumentPure','Decimal','numeric(18,3)'),('TreasuryMovement','Debit','Decimal','numeric(18,3)'),('TreasuryMovement','Credit','Decimal','numeric(18,3)'),('TreasuryMovement','Balance','Decimal','numeric(18,3)'),
+   ('DiningTable','TableBusy','Boolean','bit'),('DiningTable','TableOrderCode','String','nvarchar(100)'),('CancellationPrintQueue','PrintQueueRows','Integer','bigint'),
+   ('StockBucket','ItemId','Integer','int'),('StockBucket','StoreId','Integer','bigint'),('StockBucket','ExpiryText','String','nvarchar(50)'),('StockBucket','StockQuantity','Float','float(53)'),
+   ('EXP_Details','ExpenseId','Integer','bigint'),('EXP_Details','ExpenseQuantity','Decimal','numeric(18,3)'),('EXP_Details','ExpensePrice','Decimal','numeric(18,3)'),('EXP_Details','ExpenseTotal','Decimal','numeric(18,3)'),('EXP_Details','LineApprovedBit','Boolean','bit');
+  INSERT @cv SELECT e.E,f.F,f.T,f.S FROM (VALUES('SB_Contents'),('Pch_Details'),('IMEX_Details'),('Rtn_Contents'),('FRM_Details'),('FRM_Contents_Details'),('InSale_Details'),('OutSale_Details')) e(E)
+   CROSS JOIN (VALUES('ItemId','Integer','int'),('ExpiryText','String','nvarchar(50)')) f(F,T,S);
+  INSERT @cv SELECT e.E,f.F,f.T,f.S FROM (VALUES('SB_Contents'),('Pch_Details'),('IMEX_Details'),('Rtn_Contents'),('FRM_Details'),('FRM_Contents_Details'),('InSale_Details'),('OutSale_Details')) e(E)
+   CROSS APPLY (VALUES('StoreId','Integer',CASE WHEN E='OutSale_Details' THEN 'int' ELSE 'bigint' END),
+    ('StoredQuantity','Decimal',CASE WHEN E='FRM_Contents_Details' THEN 'numeric(18,3)' ELSE 'numeric(18,2)' END),
+    (CASE WHEN E IN('SB_Contents','Rtn_Contents','FRM_Contents_Details') THEN 'LineApproved' ELSE 'LineApprovedBit' END,
+     CASE WHEN E IN('SB_Contents','Rtn_Contents','FRM_Contents_Details') THEN 'Integer' ELSE 'Boolean' END,
+     CASE WHEN E IN('SB_Contents','Rtn_Contents','FRM_Contents_Details') THEN 'int' ELSE 'bit' END)) f(F,T,S);
+  INSERT @cv SELECT 'SalesStructure',f.F,f.T,f.S FROM (VALUES
+   ('StructureLineId','Integer','int'),('StructureDate','DateTime','datetime'),('StructureItemId','Integer','int'),('StructureUnitId','Integer','int'),('StructureStoreId','Integer','int'),
+   ('StructureQuantity','Decimal','numeric(18,3)'),('StructureCargo','Decimal','numeric(18,2)'),('StructureStoredQuantity','Decimal','numeric(18,2)'),('StructureApproved','Integer','int'),('StructureCost','Decimal','numeric(18,3)')) f(F,T,S);
+  IF EXISTS(SELECT 1 FROM @changes c WHERE NOT EXISTS(SELECT 1 FROM @cv v WHERE v.E=c.EntityType AND v.F=c.FieldCode AND v.T=c.ValueType AND v.S=c.SourceSqlType)
+   OR ValueOrigin&lt;&gt;1 OR BeforeState NOT IN(2,3) OR AfterState NOT IN(1,2,3) OR (EntityType&lt;&gt;'SalesStructure' AND AfterState=1)) THROW 51118,'Invalid cancellation field or state.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;(SELECT COUNT(*) FROM @cv v WHERE v.E=EntityType)) THROW 51118,'Incomplete cancellation row.',1;
+  DECLARE @voidId nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),@voidType int,
+   @voidScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  IF @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'BusinessDocument' OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0
+   OR NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='BusinessDocument' AND EntityId=@voidId) THROW 51118,'Invalid cancellation identity.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes)&lt;&gt;23 OR EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'BusinessDocument' OR EntityId&lt;&gt;@voidId) THROW 51118,'Cancellation header required first.',1;
+   IF NOT EXISTS(SELECT 1 FROM @changes WHERE FieldCode='Voided' AND BeforeState=3 AND AfterState=3 AND BeforeValue='0' AND AfterValue='1') THROW 51118,'Actual cancellation transition required.',1;
+   SELECT @voidType=CONVERT(int,AfterValue) FROM @changes WHERE FieldCode='DocumentType' AND BeforeState=3 AND AfterState=3 AND BeforeValue=AfterValue;
+  END
+  ELSE
+  BEGIN
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='BusinessDocument') THROW 51118,'Unexpected second header.',1;
+   SELECT @voidType=CONVERT(int,c.AfterValue) FROM dbo.Network_Audit_Event e JOIN dbo.Network_Audit_Change c ON c.EventId=e.EventId
+    WHERE e.SourceId=@SourceId AND e.RequestId=@RequestId AND e.EventOrdinal=1 AND e.EventCode=@operation AND e.EntityId=@voidId AND c.FieldCode='DocumentType';
+  END;
+  IF @voidType IS NULL OR NOT ((@voidType=1 AND @voidScreen IN('Sales','Sales_Fast','POS','OrdersMenu','POS_Abcent_Bills','ShowBill_IM'))
+   OR (@voidType=2 AND @voidScreen='EXP_Details') OR (@voidType=7 AND @voidScreen='Pch') OR (@voidType=8 AND @voidScreen='IM_Execute') OR (@voidType=9 AND @voidScreen='Invoice')
+   OR (@voidType IN(10,11) AND @voidScreen='Returns') OR (@voidType=13 AND @voidScreen='Format_Items_Auto') OR (@voidType=16 AND @voidScreen='ViewBill')
+   OR (@voidType=17 AND @voidScreen='Inside_Sales') OR (@voidType=18 AND @voidScreen='Format_Items_Manual') OR (@voidType=35 AND @voidScreen IN('Outside_Sales','Outside_Sales_Touch'))) THROW 51118,'Cancellation screen/type mismatch.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE EntityType NOT IN('BusinessDocument','Receipt','TreasuryMovement','StockBucket','DiningTable') AND NOT
+   ((@voidType=1 AND EntityType IN('SB_Contents','SalesStructure','CancellationPrintQueue')) OR (@voidType=2 AND EntityType='EXP_Details')
+    OR (@voidType IN(7,9) AND EntityType='Pch_Details') OR (@voidType=8 AND EntityType='IMEX_Details') OR (@voidType IN(10,11) AND EntityType='Rtn_Contents')
+    OR (@voidType IN(13,18) AND EntityType IN('FRM_Details','FRM_Contents_Details')) OR (@voidType=17 AND EntityType='InSale_Details') OR (@voidType=35 AND EntityType='OutSale_Details'))) THROW 51118,'Cancellation row belongs to another document type.',1;
+ END;
+ -- AuditUnits019: complete actual master row.
+ IF @operation IN('Unit.Created','Unit.Updated','Unit.Deleted')
+ BEGIN
+  DECLARE @unitId nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @unitScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  IF @EventOrdinal&lt;&gt;1 OR @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'Unit'
+   OR ISNULL(TRY_CONVERT(int,@unitId),0)&lt;=2 OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0
+   OR (SELECT COUNT(*) FROM @changes)&lt;&gt;3 THROW 51119,'Invalid unit event identity.',1;
+  IF @unitScreen NOT IN('Units','ItemsMenu','IM_ADD_New','Add_Unit') OR (@operation&lt;&gt;'Unit.Created' AND @unitScreen&lt;&gt;'Units') THROW 51119,'Invalid unit screen.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='Unit'
+   AND EntityId=CASE WHEN @operation='Unit.Created' THEN 'New' ELSE @unitId END) THROW 51119,'Unit request mismatch.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'Unit' OR EntityId&lt;&gt;@unitId OR ValueOrigin&lt;&gt;1
+   OR BeforeState&lt;&gt;CASE WHEN @operation='Unit.Created' THEN 1 ELSE 3 END OR AfterState&lt;&gt;CASE WHEN @operation='Unit.Deleted' THEN 1 ELSE 3 END
+   OR NOT ((FieldCode='UnitName' AND ValueType='String' AND SourceSqlType='nvarchar(250)')
+    OR (FieldCode='UnitCargo' AND ValueType='Float' AND SourceSqlType='float(53)')
+    OR (FieldCode='UnitDefault' AND ValueType='Boolean' AND SourceSqlType='bit'))) THROW 51119,'Invalid unit fields or states.',1;
+ END;
+ -- AuditGroups020: actual master and printer-link rows.
+ IF @operation IN('Group.Created','Group.Updated','Group.Deleted','Group.PrinterLinked','Group.PrinterUnlinked')
+ BEGIN
+  DECLARE @groupId nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @groupScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  IF @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'ProductGroup' OR ISNULL(TRY_CONVERT(int,@groupId),0)&lt;=0
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0 THROW 51120,'Invalid group identity.',1;
+  IF @groupScreen NOT IN('GeneralMenu','ItemsMenu','IM_ADD_New') OR (@operation&lt;&gt;'Group.Created' AND @groupScreen&lt;&gt;'GeneralMenu') THROW 51120,'Invalid group screen.',1;
+  IF @operation='Group.Deleted' AND @groupId='1' THROW 51120,'Protected group.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='ProductGroup'
+   AND EntityId=CASE WHEN @operation='Group.Created' THEN 'New' ELSE @groupId END) THROW 51120,'Group request mismatch.',1;
+  DECLARE @gf TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @gf VALUES
+   ('ProductGroup','GroupName','String','nvarchar(200)'),('ProductGroup','PrinterId','Integer','bigint'),
+   ('ProductGroup','BackRed','Integer','int'),('ProductGroup','BackGreen','Integer','int'),('ProductGroup','BackBlue','Integer','int'),
+   ('ProductGroup','ForeRed','Integer','int'),('ProductGroup','ForeGreen','Integer','int'),('ProductGroup','ForeBlue','Integer','int'),
+   ('ProductGroup','ShowInPos','Integer','int'),('ProductGroup','GroupRank','Float','float(53)'),
+   ('ProductGroup','GroupStoreId','Integer','int'),('ProductGroup','KitchenScreen','String','nvarchar(200)'),('ProductGroup','CategoryId','Integer','int'),
+   ('GroupPrinter','GroupId','Integer','int'),('GroupPrinter','LinkedPrinterId','Integer','int');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE ValueOrigin&lt;&gt;1 OR NOT EXISTS(SELECT 1 FROM @gf f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType)) THROW 51120,'Invalid group field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;CASE WHEN EntityType='ProductGroup' THEN 13 ELSE 2 END) THROW 51120,'Incomplete group row.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes)&lt;&gt;13 OR EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'ProductGroup' OR EntityId&lt;&gt;@groupId
+   OR (@operation='Group.Created' AND BeforeState&lt;&gt;1) OR (@operation&lt;&gt;'Group.Created' AND BeforeState NOT IN(2,3))
+   OR (@operation='Group.Deleted' AND AfterState&lt;&gt;1) OR (@operation&lt;&gt;'Group.Deleted' AND AfterState NOT IN(2,3))) THROW 51120,'Invalid group header states.',1;
+  END
+  ELSE
+  BEGIN
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'GroupPrinter' OR BeforeState NOT IN(1,3) OR AfterState NOT IN(1,3) OR (BeforeState=1 AND AfterState=1)
+    OR (FieldCode='GroupId' AND ((BeforeState=3 AND BeforeValue&lt;&gt;@groupId) OR (AfterState=3 AND AfterValue&lt;&gt;@groupId)))) THROW 51120,'Invalid printer-link row.',1;
+  END;
+ END;
+ -- AuditItemUnits021: actual item context, unit siblings and recipe rows.
+ IF @operation IN('ItemUnit.Created','ItemUnit.Updated','ItemUnit.Deleted','ItemUnit.PriceChanged','ItemUnit.OfferPriceChanged')
+ BEGIN
+  DECLARE @iuItem nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @iuTarget nvarchar(50)=@EventXml.value('(/Event/Document/text())[1]','nvarchar(50)'),
+   @iuScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  IF @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'CatalogItem' OR ISNULL(TRY_CONVERT(int,@iuItem),0)&lt;=0 OR ISNULL(TRY_CONVERT(int,@iuTarget),0)&lt;=0
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0 THROW 51121,'Invalid item-unit identity.',1;
+  IF NOT ((@operation='ItemUnit.Created' AND @iuScreen IN('ItemsMenu','Add_Unit'))
+   OR (@operation='ItemUnit.Deleted' AND @iuScreen='ItemsMenu') OR (@operation='ItemUnit.Updated' AND @iuScreen='Update_IM_Unit')
+   OR (@operation='ItemUnit.PriceChanged' AND @iuScreen='IM_Change_PriceByVal') OR (@operation='ItemUnit.OfferPriceChanged' AND @iuScreen='OFFERS')) THROW 51121,'Invalid item-unit screen.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='CatalogItem' AND EntityId=@iuItem) THROW 51121,'Item-unit request mismatch.',1;
+  DECLARE @iuf TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @iuf VALUES
+   ('CatalogItem','ItemName','String','nvarchar(500)'),
+   ('CatalogItem','ItemSalesName','String','nvarchar(500)'),
+   ('ItemUnit','ItemId','Integer','int'),
+   ('ItemUnit','UnitId','Integer','int'),
+   ('ItemUnit','UnitBarcode','String','nvarchar(max)'),
+   ('ItemUnit','UnitPrice','Decimal','numeric(18,3)'),
+   ('ItemUnit','MinimumPrice','Decimal','numeric(18,3)'),
+   ('ItemUnit','MinimumPrice2','Decimal','numeric(18,3)'),
+   ('ItemUnit','DefaultFlag','Integer','int'),
+   ('ItemUnit','UnitRowEnabled','Boolean','bit'),
+   ('ItemUnit','UnitUserId','Integer','int'),
+   ('ItemUnit','OfferPrice','Decimal','numeric(18,3)'),
+   ('ItemUnitRecipe','RecipeItemId','Integer','int'),
+   ('ItemUnitRecipe','RecipeItemUnitId','Integer','int'),
+   ('ItemUnitRecipe','RecipeComponentId','Integer','int'),
+   ('ItemUnitRecipe','RecipeUnitId','Integer','int'),
+   ('ItemUnitRecipe','RecipeQuantity','Float','float(53)'),
+   ('ItemUnitRecipe','RecipeRowEnabled','Boolean','bit'),
+   ('ItemUnitRecipe','RecipeUserId','Integer','int');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE ValueOrigin&lt;&gt;1 OR NOT EXISTS(SELECT 1 FROM @iuf f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType)) THROW 51121,'Invalid item-unit field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;CASE EntityType WHEN 'CatalogItem' THEN 2 WHEN 'ItemUnit' THEN 10 ELSE 7 END
+    OR MIN(CASE WHEN BeforeState=1 THEN 1 ELSE 0 END)&lt;&gt;MAX(CASE WHEN BeforeState=1 THEN 1 ELSE 0 END)
+    OR MIN(CASE WHEN AfterState=1 THEN 1 ELSE 0 END)&lt;&gt;MAX(CASE WHEN AfterState=1 THEN 1 ELSE 0 END)) THROW 51121,'Incomplete or inconsistent item-unit row.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE ISNULL(TRY_CONVERT(int,EntityId),0)&lt;=0 OR BeforeState=0 OR AfterState=0 OR (BeforeState=1 AND AfterState=1)) THROW 51121,'Uncaptured item-unit values.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes)&lt;&gt;2 OR EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'CatalogItem' OR EntityId&lt;&gt;@iuItem OR BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3)) THROW 51121,'Invalid item context.',1;
+  END
+  ELSE
+  BEGIN
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='CatalogItem' OR (FieldCode='ItemId' AND ((BeforeState=3 AND BeforeValue&lt;&gt;@iuItem) OR (AfterState=3 AND AfterValue&lt;&gt;@iuItem)))) THROW 51121,'Invalid item-unit details.',1;
+  END;
+ END;
+ -- AuditPricingRules022: multiset offers (S references are request-local) and keyed percentage rules.
+ IF @operation IN('Offer.Created','Offer.ItemOffersDeleted','PriceRule.Created','PriceRule.Deleted')
+ BEGIN
+  DECLARE @pcOffer bit=CASE WHEN @operation LIKE 'Offer.%' THEN 1 ELSE 0 END,
+   @pcOwner nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @pcTarget nvarchar(50)=@EventXml.value('(/Event/Document/text())[1]','nvarchar(50)'),
+   @pcScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  DECLARE @pcParent varchar(64)=CASE WHEN @pcOffer=1 THEN 'ItemOffers' ELSE 'PriceRuleGroup' END,
+   @pcChild varchar(64)=CASE WHEN @pcOffer=1 THEN 'OfferSnapshotRow' ELSE 'PriceRule' END;
+  IF @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;@pcParent OR ISNULL(TRY_CONVERT(int,@pcOwner),0)&lt;=0 OR ISNULL(TRY_CONVERT(int,@pcTarget),0)&lt;=0
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0 OR (@pcOffer=1 AND @pcTarget&lt;&gt;@pcOwner) THROW 51122,'Invalid pricing identity.',1;
+  IF @pcScreen&lt;&gt;CASE WHEN @pcOffer=1 THEN 'OFFERS' ELSE 'IM_Change_Price_ByPercent' END THROW 51122,'Invalid pricing screen.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType=@pcParent AND EntityId=@pcOwner) THROW 51122,'Pricing request mismatch.',1;
+  DECLARE @pcFields TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @pcFields VALUES
+   ('ItemOffers','OfferItemName','String','nvarchar(500)'),
+   ('ItemOffers','OfferItemSalesName','String','nvarchar(500)'),
+   ('PriceRuleGroup','RuleGroupName','String','nvarchar(200)'),
+   ('OfferSnapshotRow','OfferItemId','Integer','int'),
+   ('OfferSnapshotRow','OfferCreatedAt','DateTime','datetime'),
+   ('OfferSnapshotRow','OfferTitle','String','nvarchar(4000)'),
+   ('OfferSnapshotRow','OfferStartDate','Date','date'),
+   ('OfferSnapshotRow','OfferEndDate','Date','date'),
+   ('OfferSnapshotRow','OfferStartTime','String','time(0)'),
+   ('OfferSnapshotRow','OfferEndTime','String','time(0)'),
+   ('OfferSnapshotRow','OfferUserId','Integer','int'),
+   ('PriceRule','RuleCreatedAt','DateTime','datetime'),
+   ('PriceRule','RuleGroupId','Integer','int'),
+   ('PriceRule','RulePercent','Decimal','numeric(18,2)');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE ValueOrigin&lt;&gt;1 OR NOT EXISTS(SELECT 1 FROM @pcFields f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType)) THROW 51122,'Invalid pricing field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;CASE EntityType WHEN 'ItemOffers' THEN 2 WHEN 'PriceRuleGroup' THEN 1 WHEN 'OfferSnapshotRow' THEN 8 ELSE 3 END
+   OR MIN(CASE WHEN BeforeState=1 THEN 1 ELSE 0 END)&lt;&gt;MAX(CASE WHEN BeforeState=1 THEN 1 ELSE 0 END)
+   OR MIN(CASE WHEN AfterState=1 THEN 1 ELSE 0 END)&lt;&gt;MAX(CASE WHEN AfterState=1 THEN 1 ELSE 0 END)) THROW 51122,'Incomplete pricing row.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE BeforeState=0 OR AfterState=0 OR (BeforeState=1 AND AfterState=1)) THROW 51122,'Uncaptured pricing values.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes)&lt;&gt;CASE WHEN @pcOffer=1 THEN 2 ELSE 1 END OR EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;@pcParent OR EntityId&lt;&gt;@pcOwner OR BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3)) THROW 51122,'Invalid pricing context.',1;
+  END
+  ELSE
+  BEGIN
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;@pcChild OR (@pcOffer=0 AND ISNULL(TRY_CONVERT(int,EntityId),0)&lt;=0)
+    OR (@pcOffer=1 AND (LEFT(EntityId,1)&lt;&gt;'S' OR SUBSTRING(EntityId,2,127) LIKE '%[^0-9]%' OR ISNULL(TRY_CONVERT(int,SUBSTRING(EntityId,2,127)),0)&lt;=0))
+    OR (FieldCode IN('OfferItemId','RuleGroupId') AND ((BeforeState=3 AND BeforeValue&lt;&gt;@pcOwner) OR (AfterState=3 AND AfterValue&lt;&gt;@pcOwner)))
+    OR (@operation IN('Offer.Created','PriceRule.Created') AND AfterState NOT IN(2,3))
+    OR (@operation IN('Offer.ItemOffersDeleted','PriceRule.Deleted') AND BeforeState NOT IN(2,3))
+    OR (@operation='Offer.ItemOffersDeleted' AND AfterState&lt;&gt;1)
+    OR (@operation='PriceRule.Created' AND (BeforeState&lt;&gt;1 OR EntityId&lt;&gt;@pcTarget))
+    OR (@operation='PriceRule.Deleted' AND EntityId=@pcTarget AND AfterState&lt;&gt;1)
+    OR (@pcOffer=0 AND (BeforeState=2 OR AfterState=2))) THROW 51122,'Invalid pricing detail states.',1;
+  END;
+ END;
+ -- AuditItemMaster023: source values plus explicitly derived image hash/length, never image bytes.
+ IF @operation IN('Item.FastUpdated','Item.Deleted')
+ BEGIN
+  DECLARE @imOwner nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @imScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  IF @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'CatalogItemRecord' OR ISNULL(TRY_CONVERT(int,@imOwner),0)&lt;=0
+   OR @EventXml.value('(/Event/Document/text())[1]','nvarchar(50)')&lt;&gt;@imOwner OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0 THROW 51123,'Invalid item identity.',1;
+  IF @imScreen&lt;&gt;'IM_Fast_Mang' AND NOT(@operation='Item.Deleted' AND @imScreen='ItemsMenu') THROW 51123,'Invalid item screen.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='CatalogItemRecord' AND EntityId=@imOwner) THROW 51123,'Item request mismatch.',1;
+  DECLARE @imFields TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40),O tinyint);
+  INSERT @imFields VALUES
+   ('CatalogItemRecord','ItemName','String','nvarchar(500)',1),
+   ('CatalogItemRecord','ItemSalesName','String','nvarchar(500)',1),
+   ('CatalogItemRecord','ItemGroupId','Integer','int',1),
+   ('CatalogItemRecord','ItemPhotoSha256','String','image',3),
+   ('CatalogItemRecord','ItemPhotoBytes','Integer','image',3),
+   ('CatalogItemRecord','ItemActive','Boolean','bit',1),
+   ('CatalogItemRecord','ItemStoreType','Integer','int',1),
+   ('CatalogItemRecord','ItemUsesExpiry','Integer','int',1),
+   ('CatalogItemRecord','ItemCost','Float','float(53)',1),
+   ('CatalogItemRecord','ItemVariablePrice','Boolean','bit',1),
+   ('CatalogItemRecord','ItemBKR','Integer','int',1),
+   ('CatalogItemRecord','ItemBKG','Integer','int',1),
+   ('CatalogItemRecord','ItemBKB','Integer','int',1),
+   ('CatalogItemRecord','ItemFKR','Integer','int',1),
+   ('CatalogItemRecord','ItemFKG','Integer','int',1),
+   ('CatalogItemRecord','ItemFKB','Integer','int',1),
+   ('CatalogItemRecord','ItemUserId','Integer','int',1),
+   ('CatalogItemRecord','ItemEnabled','Boolean','bit',1),
+   ('CatalogItemRecord','ItemLastPurchaseId','Integer','int',1),
+   ('CatalogItemRecord','ItemLastPurchaseCargo','Decimal','numeric(18,3)',1),
+   ('CatalogItemRecord','ItemShortcut','Integer','int',1),
+   ('CatalogItemRecord','ItemNumber','String','nvarchar(100)',1),
+   ('CatalogItemRecord','ItemCompanyGroup','Integer','int',1),
+   ('CatalogItemRecord','ItemPhotoPath','String','nvarchar(max)',1),
+   ('CatalogItemRecord','ItemNotes','String','nvarchar(max)',1),
+   ('CatalogItemRecord','ItemMarketerValue','Decimal','numeric(18,3)',1),
+   ('CatalogItemRecord','ItemDate','DateTime','datetime',1),
+   ('CatalogItemRecord','ItemMaxAlert','Decimal','numeric(18,2)',1),
+   ('CatalogItemRecord','ItemMinAlert','Decimal','numeric(18,2)',1),
+   ('ItemAlert','AlertItemId','Integer','int',1),
+   ('ItemAlert','AlertStoreId','Integer','bigint',1),
+   ('ItemAlert','AlertMinimum','Decimal','numeric(18,3)',1),
+   ('ItemAlert','AlertMaximum','Decimal','numeric(18,3)',1),
+   ('ItemAlert','AlertEnabled','Boolean','bit',1),
+   ('ItemAlert','AlertUserId','Integer','bigint',1),
+   ('ItemFormat','FormatItemId','Integer','int',1),
+   ('ItemFormat','FormatComponentId','Integer','int',1),
+   ('ItemFormat','FormatUnitId','Integer','bigint',1),
+   ('ItemFormat','FormatQuantity','Float','float(53)',1),
+   ('ItemFormat','FormatEnabled','Boolean','bit',1),
+   ('ItemFormat','FormatUserId','Integer','bigint',1),
+   ('ItemDifference','DifferenceBillId','Integer','int',1),
+   ('ItemDifference','DifferenceDate','DateTime','datetime',1),
+   ('ItemDifference','DifferenceItemId','Integer','int',1),
+   ('ItemDifference','DifferenceStoreId','Integer','int',1),
+   ('ItemDifference','DifferenceExpiry','String','nvarchar(50)',1),
+   ('ItemDifference','DifferenceQuantity','Float','float(53)',1),
+   ('ItemDifference','DifferenceCost','Decimal','numeric(18,3)',1),
+   ('ItemDifference','DifferenceCargo','Decimal','numeric(18,3)',1),
+   ('ItemDifference','DifferenceBarcode','String','nvarchar(50)',1),
+   ('ItemDifference','DifferenceTotal','Decimal','numeric(18,3)',1),
+   ('ItemUnit','ItemId','Integer','int',1),
+   ('ItemUnit','UnitId','Integer','int',1),
+   ('ItemUnit','UnitBarcode','String','nvarchar(max)',1),
+   ('ItemUnit','UnitPrice','Decimal','numeric(18,3)',1),
+   ('ItemUnit','MinimumPrice','Decimal','numeric(18,3)',1),
+   ('ItemUnit','MinimumPrice2','Decimal','numeric(18,3)',1),
+   ('ItemUnit','DefaultFlag','Integer','int',1),
+   ('ItemUnit','UnitRowEnabled','Boolean','bit',1),
+   ('ItemUnit','UnitUserId','Integer','int',1),
+   ('ItemUnit','OfferPrice','Decimal','numeric(18,3)',1);
+  IF EXISTS(SELECT 1 FROM @changes c WHERE NOT EXISTS(SELECT 1 FROM @imFields f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType AND f.O=c.ValueOrigin)) THROW 51123,'Invalid item field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;CASE EntityType WHEN 'CatalogItemRecord' THEN 29 WHEN 'ItemAlert' THEN 6 WHEN 'ItemFormat' THEN 6 WHEN 'ItemDifference' THEN 10 WHEN 'ItemUnit' THEN 10 ELSE -1 END
+   OR MIN(CASE WHEN BeforeState=1 THEN 1 ELSE 0 END)&lt;&gt;MAX(CASE WHEN BeforeState=1 THEN 1 ELSE 0 END)
+   OR MIN(CASE WHEN AfterState=1 THEN 1 ELSE 0 END)&lt;&gt;MAX(CASE WHEN AfterState=1 THEN 1 ELSE 0 END)) THROW 51123,'Incomplete item row.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE ISNULL(TRY_CONVERT(int,EntityId),0)&lt;=0 OR BeforeState=0 OR AfterState=0 OR (BeforeState=1 AND AfterState=1)
+   OR (@operation='Item.Deleted' AND (BeforeState NOT IN(2,3) OR AfterState&lt;&gt;1))
+   OR (@operation='Item.FastUpdated' AND (AfterState NOT IN(2,3) OR (EntityType&lt;&gt;'ItemUnit' AND BeforeState NOT IN(2,3))))
+   OR (FieldCode IN('ItemId','AlertItemId','FormatItemId','DifferenceItemId') AND ((BeforeState=3 AND BeforeValue&lt;&gt;@imOwner) OR (AfterState=3 AND AfterValue&lt;&gt;@imOwner)))) THROW 51123,'Invalid item states.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes)&lt;&gt;29 OR EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'CatalogItemRecord' OR EntityId&lt;&gt;@imOwner) THROW 51123,'Invalid item header.',1;
+  END
+  ELSE IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='CatalogItemRecord') THROW 51123,'Repeated item header.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE FieldCode='ItemPhotoSha256' AND ((BeforeState=3 AND (LEN(BeforeValue)&lt;&gt;64 OR BeforeValue LIKE '%[^A-F0-9]%')) OR (AfterState=3 AND (LEN(AfterValue)&lt;&gt;64 OR AfterValue LIKE '%[^A-F0-9]%')))) THROW 51123,'Invalid photo digest.',1;
+ END;
+ -- AuditTables024: persisted before/after values; queue identities Qn are request-local.
+ IF @operation IN('Table.Transferred','Table.LineQuantityChanged','Table.LineDeleted')
+ BEGIN
+  DECLARE @tbOwner nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @tbEntity varchar(64)=@EventXml.value('(/Event/@entityType)[1]','varchar(64)'),
+   @tbScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)'),
+   @tbTransfer bit=CASE WHEN @operation='Table.Transferred' THEN 1 ELSE 0 END;
+  IF ISNULL(TRY_CONVERT(int,@tbOwner),0)&lt;=0 OR @tbEntity&lt;&gt;CASE WHEN @tbTransfer=1 THEN 'TableState' ELSE 'TableInvoice' END OR @tbScreen&lt;&gt;CASE WHEN @tbTransfer=1 THEN 'TablesBalance' ELSE 'TB_BillIM' END
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0 THROW 51124,'Invalid table identity.',1;
+  IF @tbTransfer=1 AND @EventXml.exist('/Event/Document')=1 THROW 51124,'Transfer does not have one invoice number.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType=@tbEntity AND EntityId=@tbOwner) THROW 51124,'Table request mismatch.',1;
+  DECLARE @tbFields TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @tbFields VALUES
+   ('TableLine','ItemId','Integer','int'),
+   ('TableLine','UnitId','Integer','bigint'),
+   ('TableLine','StoreId','Integer','bigint'),
+   ('TableLine','LineQuantity','Decimal','numeric(18,3)'),
+   ('TableLine','LinePrice','Decimal','numeric(18,3)'),
+   ('TableLine','LineTotal','Decimal','numeric(18,3)'),
+   ('TableLine','LineCost','Float','float(53)'),
+   ('TableLine','UnitCargo','Float','float(53)'),
+   ('TableLine','StoredQuantity','Decimal','numeric(18,2)'),
+   ('TableLine','LineDiscount','Float','float(53)'),
+   ('TableLine','LineNotes','String','nvarchar(max)'),
+   ('TableLine','ExpiryText','String','nvarchar(50)'),
+   ('TableLine','LineApproved','Integer','int'),
+   ('TableLine','LineDate','DateTime','datetime'),
+   ('TableLine','MinimumPriceUsed','Integer','int'),
+   ('TableLine','MinimumPrice2Used','Integer','int'),
+   ('TableLine','LineDocumentId','Integer','int'),
+   ('TableLine','LineComponentsText','String','nvarchar(max)'),
+   ('TableLine','ParentLineId','Integer','int'),
+   ('TableLine','SalespersonPercent','Decimal','numeric(18,3)'),
+   ('TableLine','MarketerValue','Decimal','numeric(18,3)'),
+   ('TableLine','LineBarcode','String','nvarchar(max)'),
+   ('TableLine','LineSerial','String','nvarchar(100)'),
+   ('TableLine','LineChecked','Boolean','bit'),
+   ('TableInvoice','DocumentTotal','Decimal','numeric(18,3)'),
+   ('TableInvoice','DocumentPure','Decimal','numeric(18,3)'),
+   ('TableInvoice','Discount','Decimal','numeric(18,3)'),
+   ('TableInvoice','DocumentProfit','Float','float(53)'),
+   ('TableInvoice','Approved','Integer','int'),
+   ('TableInvoice','Voided','Integer','int'),
+   ('TableInvoice','NeedRepost','Boolean','bit'),
+   ('TableInvoice','AccountId','Integer','int'),
+   ('TableInvoice','TableId','Integer','int'),
+   ('TableInvoice','InvoiceTableCode','String','nvarchar(100)'),
+   ('TableInvoice','InvoiceNumber','Integer','int'),
+   ('TableInvoice','InvoiceType','Integer','int'),
+   ('TableInvoice','InvoicePaid','Integer','int'),
+   ('TableInvoice','InvoiceOrdered','Integer','int'),
+   ('TableInvoice','InvoiceOwner','Integer','int'),
+   ('TableState','TableFloor','Integer','int'),
+   ('TableState','TableName','String','nvarchar(100)'),
+   ('TableState','TableActive','Boolean','bit'),
+   ('TableState','TableReserved','Boolean','bit'),
+   ('TableState','TableBusy','Boolean','bit'),
+   ('TableState','TableOrderCode','String','nvarchar(100)'),
+   ('TableState','TableCash','Integer','int'),
+   ('TableState','TableOpenedAt','DateTime','datetime'),
+   ('TableState','TablePrint','Boolean','bit'),
+   ('TablePrintRow','QueueStoredId','Integer','int'),
+   ('TablePrintRow','QueueDate','DateTime','datetime'),
+   ('TablePrintRow','QueueNotes','String','nvarchar(max)'),
+   ('TablePrintRow','QueuePrinter','String','nvarchar(100)');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE c.ValueOrigin&lt;&gt;1 OR NOT EXISTS(SELECT 1 FROM @tbFields f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType)) THROW 51124,'Invalid table field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;CASE EntityType WHEN 'TableState' THEN 9 WHEN 'TableInvoice' THEN 15 WHEN 'TableLine' THEN 24 WHEN 'TablePrintRow' THEN 4 ELSE -1 END) THROW 51124,'Incomplete table row.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE
+   (EntityType&lt;&gt;'TablePrintRow' AND ISNULL(TRY_CONVERT(int,EntityId),0)&lt;=0)
+   OR (EntityType='TablePrintRow' AND (LEFT(EntityId,1)&lt;&gt;'Q' OR ISNULL(TRY_CONVERT(int,SUBSTRING(EntityId,2,127)),0)&lt;=0))
+   OR (EntityType='TablePrintRow' AND BeforeState&lt;&gt;1)
+   OR (EntityType&lt;&gt;'TablePrintRow' AND BeforeState NOT IN(2,3))
+   OR (@operation='Table.LineDeleted' AND EntityType='TableLine' AND AfterState&lt;&gt;1)
+   OR ((@operation&lt;&gt;'Table.LineDeleted' OR EntityType&lt;&gt;'TableLine') AND AfterState NOT IN(2,3))
+   OR (@tbTransfer=1 AND EntityType NOT IN('TableState','TableInvoice'))
+   OR (@tbTransfer=0 AND EntityType NOT IN('TableInvoice','TableLine','TablePrintRow'))
+   OR (@tbTransfer=0 AND EntityType='TableInvoice' AND EntityId&lt;&gt;@tbOwner)
+   OR (FieldCode='LineDocumentId' AND (BeforeValue&lt;&gt;@tbOwner OR (@operation&lt;&gt;'Table.LineDeleted' AND AfterValue&lt;&gt;@tbOwner)))) THROW 51124,'Invalid table row states.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF @tbTransfer=1 AND ((SELECT COUNT(*) FROM @changes)&lt;&gt;18 OR EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'TableState') OR NOT EXISTS(SELECT 1 FROM @changes WHERE EntityId=@tbOwner)) THROW 51124,'Invalid transfer header.',1;
+   IF @tbTransfer=0 AND ((SELECT COUNT(*) FROM @changes)&lt;&gt;39 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='TableInvoice')&lt;&gt;15 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='TableLine')&lt;&gt;24) THROW 51124,'Invalid table line header.',1;
+  END
+  ELSE IF EXISTS(SELECT 1 FROM @changes WHERE (@tbTransfer=1 AND EntityType&lt;&gt;'TableInvoice') OR (@tbTransfer=0 AND EntityType&lt;&gt;'TablePrintRow')) THROW 51124,'Invalid table detail part.',1;
+ END;
+ -- AuditFinance025: full persisted finance rows; no business procedure changes.
+ IF @operation IN('TreasuryMovement.Created','TreasuryMovement.Voided','TreasuryTransfer.Created','TreasuryTransfer.Voided','AccountTransfer.Created','AccountTransfer.Voided')
+ BEGIN
+  DECLARE @finOwner nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @finEntity varchar(64)=@EventXml.value('(/Event/@entityType)[1]','varchar(64)'),
+   @finScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)'),
+   @finCreate bit=CASE WHEN @operation LIKE '%.Created' THEN 1 ELSE 0 END,
+   @finAccount bit=CASE WHEN @operation LIKE 'AccountTransfer.%' THEN 1 ELSE 0 END,
+   @finTransfer bit=CASE WHEN @operation LIKE 'TreasuryTransfer.%' THEN 1 ELSE 0 END;
+  IF ISNULL(TRY_CONVERT(int,@finOwner),0)&lt;=0
+   OR @finEntity&lt;&gt;CASE WHEN @finAccount=1 THEN 'FinanceAccountRow' WHEN @finTransfer=1 THEN 'FinanceTreasuryTransfer' ELSE 'FinanceTreasuryRow' END
+   OR @finScreen&lt;&gt;CASE WHEN @finAccount=1 THEN 'AG_Transfers' WHEN @finTransfer=1 THEN 'Tr_Transfers' ELSE 'Tr_Deposit_Withdraw' END
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0
+   OR @EventXml.value('count(/Event/Document)','int')&lt;&gt;1
+   OR @EventXml.value('(/Event/Document/text())[1]','nvarchar(50)')&lt;&gt;@finOwner THROW 51125,'Invalid financial identity.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType=@finEntity AND EntityId=CASE WHEN @finCreate=1 THEN 'New' ELSE @finOwner END) THROW 51125,'Financial request mismatch.',1;
+  DECLARE @finFields TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @finFields VALUES
+   ('FinanceTreasuryRow','CashAGBalanceTID','Integer','int'),
+   ('FinanceTreasuryRow','CashTranID','Integer','int'),
+   ('FinanceTreasuryRow','Cashdate','DateTime','datetime'),
+   ('FinanceTreasuryRow','CashTrID','Integer','int'),
+   ('FinanceTreasuryRow','Cashnoticemove','String','nvarchar(max)'),
+   ('FinanceTreasuryRow','CashBankName','String','nvarchar(100)'),
+   ('FinanceTreasuryRow','CashCheckNum','String','nvarchar(100)'),
+   ('FinanceTreasuryRow','CashPure','Decimal','numeric(18,3)'),
+   ('FinanceTreasuryRow','CashDebit','Decimal','numeric(18,3)'),
+   ('FinanceTreasuryRow','CashCredit','Decimal','numeric(18,3)'),
+   ('FinanceTreasuryRow','CashBalance','Decimal','numeric(18,3)'),
+   ('FinanceTreasuryRow','CashTrTypeID','Integer','int'),
+   ('FinanceTreasuryRow','CashisTranFrom','Boolean','bit'),
+   ('FinanceTreasuryRow','CashisTranTo','Boolean','bit'),
+   ('FinanceTreasuryRow','CashUserID','Integer','int'),
+   ('FinanceTreasuryRow','CashisVoid','Boolean','bit'),
+   ('FinanceTreasuryRow','CashisFirstTime','Integer','int'),
+   ('FinanceTreasuryRow','CashJournalId','Integer','int'),
+   ('FinanceTreasuryRow','CashPostedAt','DateTime','datetime'),
+   ('FinanceTreasuryRow','CashPostedBy','Integer','int'),
+   ('FinanceTreasuryRow','CashOriginalJournalId','Integer','int'),
+   ('FinanceTreasuryRow','CashLastReversalJournalId','Integer','int'),
+   ('FinanceTreasuryRow','CashNeedRepost','Boolean','bit'),
+   ('FinanceTreasuryRow','CashEditVersion','Integer','int'),
+   ('FinanceTreasuryRow','CashEditOpenedAt','DateTime','datetime'),
+   ('FinanceTreasuryRow','CashEditOpenedBy','Integer','int'),
+   ('FinanceTreasuryRow','CashLastRepostAt','DateTime','datetime'),
+   ('FinanceTreasuryRow','CashLastRepostBy','Integer','int'),
+   ('FinanceTreasuryRow','CashVoidAt','DateTime','datetime'),
+   ('FinanceTreasuryRow','CashVoidBy','Integer','int'),
+   ('FinanceTreasuryRow','CashVoidReason','String','nvarchar(500)'),
+   ('FinanceTreasuryRow','CashVoidReversalJournalId','Integer','int'),
+   ('FinanceTreasuryRow','CashNeedCancelReverse','Boolean','bit'),
+   ('FinanceAccountRow','AccountDATE','DateTime','datetime'),
+   ('FinanceAccountRow','AccountAGIDFROM','Integer','int'),
+   ('FinanceAccountRow','AccountAGIDTO','Integer','int'),
+   ('FinanceAccountRow','AccountTITLE','String','nvarchar(2500)'),
+   ('FinanceAccountRow','AccountABOUT','String','nvarchar(max)'),
+   ('FinanceAccountRow','AccountUSERID','Integer','int'),
+   ('FinanceAccountRow','AccountisVoid','Integer','int'),
+   ('FinanceAccountRow','AccountVALUE','Decimal','numeric(18,3)'),
+   ('FinanceAccountRow','AccountBsTypeID','Integer','int'),
+   ('FinanceAccountRow','AccountJournalId','Integer','int'),
+   ('FinanceAccountRow','AccountPostedAt','DateTime','datetime'),
+   ('FinanceAccountRow','AccountPostedBy','Integer','int'),
+   ('FinanceAccountRow','AccountOriginalJournalId','Integer','int'),
+   ('FinanceAccountRow','AccountLastReversalJournalId','Integer','int'),
+   ('FinanceAccountRow','AccountNeedRepost','Boolean','bit'),
+   ('FinanceAccountRow','AccountEditVersion','Integer','int'),
+   ('FinanceAccountRow','AccountEditOpenedAt','DateTime','datetime'),
+   ('FinanceAccountRow','AccountEditOpenedBy','Integer','int'),
+   ('FinanceAccountRow','AccountLastRepostAt','DateTime','datetime'),
+   ('FinanceAccountRow','AccountLastRepostBy','Integer','int'),
+   ('FinanceAccountRow','AccountVoidAt','DateTime','datetime'),
+   ('FinanceAccountRow','AccountVoidBy','Integer','int'),
+   ('FinanceAccountRow','AccountVoidReason','String','nvarchar(500)'),
+   ('FinanceAccountRow','AccountVoidReversalJournalId','Integer','int'),
+   ('FinanceAccountRow','AccountNeedCancelReverse','Boolean','bit');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE c.ValueOrigin&lt;&gt;1 OR c.EntityType&lt;&gt;CASE WHEN @finAccount=1 THEN 'FinanceAccountRow' ELSE 'FinanceTreasuryRow' END OR NOT EXISTS(SELECT 1 FROM @finFields f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType)) THROW 51125,'Invalid financial field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;CASE WHEN @finAccount=1 THEN 25 ELSE 33 END) THROW 51125,'Incomplete financial row.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE ISNULL(TRY_CONVERT(int,EntityId),0)&lt;=0 OR (@finCreate=1 AND BeforeState&lt;&gt;1) OR (@finCreate=0 AND BeforeState NOT IN(2,3)) OR AfterState NOT IN(2,3)
+   OR ((@finAccount=1 OR @operation='TreasuryMovement.Created') AND EntityId&lt;&gt;@finOwner)
+   OR (@finTransfer=1 AND FieldCode='CashTranID' AND (AfterState&lt;&gt;3 OR AfterValue&lt;&gt;@finOwner OR (@finCreate=0 AND (BeforeState&lt;&gt;3 OR BeforeValue&lt;&gt;@finOwner))))) THROW 51125,'Invalid financial states.',1;
+  IF (@finAccount=1 OR @finCreate=1) AND (@EventOrdinal&lt;&gt;1 OR (SELECT COUNT(*) FROM @changes)&lt;&gt;CASE WHEN @finAccount=1 THEN 25 WHEN @finTransfer=1 THEN 66 ELSE 33 END) THROW 51125,'Incomplete financial event.',1;
+  IF @operation='TreasuryMovement.Voided' AND EXISTS(SELECT 1 FROM @changes c WHERE NOT EXISTS(SELECT 1 FROM dbo.Treasury_Balance_MV m WITH(HOLDLOCK) WHERE m.T_ID=TRY_CONVERT(int,c.EntityId) AND (m.T_ID=TRY_CONVERT(int,@finOwner) OR m.Tran_ID=(SELECT Tran_ID FROM dbo.Treasury_Balance_MV WITH(HOLDLOCK) WHERE T_ID=TRY_CONVERT(int,@finOwner))))) THROW 51125,'Unrelated treasury row.',1;
+ END;
+ -- AuditStockLines026: complete affected line, recalculated header and derived stock.
+ IF @operation IN('StockDocument.LineAdded','StockDocument.LineDeleted','StockDocument.LineQuantityChanged')
+ BEGIN
+  DECLARE @slOwner nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @slEntity varchar(64)=@EventXml.value('(/Event/@entityType)[1]','varchar(64)'),
+   @slScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)'),
+   @slType int,@slLine varchar(64),@slCount int;
+  SELECT @slType=BsType_ID FROM dbo.Agents_Balance_MV WITH(HOLDLOCK) WHERE T_ID=TRY_CONVERT(int,@slOwner) AND isVoid=0;
+  SET @slLine=CASE @slType WHEN 35 THEN 'StockReceiptLine' WHEN 17 THEN 'StockIssueLine' WHEN 8 THEN 'StockDamageLine' WHEN 12 THEN 'StockTransferLine' END;
+  SET @slCount=CASE @slType WHEN 8 THEN 13 WHEN 12 THEN 15 ELSE 14 END;
+  IF @slLine IS NULL OR @slEntity&lt;&gt;'StockDocument' OR ISNULL(TRY_CONVERT(int,@slOwner),0)&lt;=0
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0
+   OR @EventXml.value('count(/Event/Document)','int')&lt;&gt;1 THROW 51126,'Invalid stock document identity.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType=@slEntity AND EntityId=@slOwner) THROW 51126,'Stock request mismatch.',1;
+  IF NOT (
+    (@slType=35 AND ((@operation='StockDocument.LineAdded' AND @slScreen IN('Outside_Sales_IM_card','Outside_Sales_Touch')) OR (@operation='StockDocument.LineDeleted' AND @slScreen IN('Outside_Sales','Outside_Sales_Touch')) OR (@operation='StockDocument.LineQuantityChanged' AND @slScreen='Outside_Sales_Touch')))
+    OR (@slType=17 AND ((@operation='StockDocument.LineAdded' AND @slScreen='Inside_Sales_IM_card') OR (@operation='StockDocument.LineDeleted' AND @slScreen='Inside_Sales')))
+    OR (@slType=8 AND ((@operation='StockDocument.LineAdded' AND @slScreen='IMEX_IM_card') OR (@operation='StockDocument.LineDeleted' AND @slScreen='IM_Execute')))
+    OR (@slType=12 AND ((@operation='StockDocument.LineAdded' AND @slScreen='Stores_Trans_IM_card') OR (@operation='StockDocument.LineDeleted' AND @slScreen='Stores_ImmediateOrder')))
+  ) THROW 51126,'Invalid stock screen.',1;
+  DECLARE @slFields TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @slFields VALUES
+   ('StockDocument','Voided','Integer','int'),
+   ('StockDocument','NeedRepost','Boolean','bit'),
+   ('StockDocument','NeedCancelReverse','Boolean','bit'),
+   ('StockDocument','VoidAt','DateTime','datetime'),
+   ('StockDocument','VoidBy','Integer','int'),
+   ('StockDocument','VoidReason','String','nvarchar(500)'),
+   ('StockDocument','JournalId','Integer','int'),
+   ('StockDocument','DocumentTotal','Decimal','numeric(18,3)'),
+   ('StockDocument','DocumentPure','Decimal','numeric(18,3)'),
+   ('StockDocument','Discount','Decimal','numeric(18,3)'),
+   ('StockDocument','Debit','Decimal','numeric(18,3)'),
+   ('StockDocument','Credit','Decimal','numeric(18,3)'),
+   ('StockDocument','Balance','Decimal','numeric(18,3)'),
+   ('StockDocument','AccountId','Integer','int'),
+   ('StockDocument','Approved','Integer','int'),
+   ('StockDocument','DocumentType','Integer','int'),
+   ('StockDocument','DocumentNumber','Integer','int'),
+   ('StockDocument','DocumentDate','DateTime','datetime'),
+   ('StockDocument','SalesOpen','Boolean','bit'),
+   ('StockDocument','Paused','Boolean','bit'),
+   ('StockDocument','OrderDelivered','Boolean','bit'),
+   ('StockDocument','PaidState','Integer','int'),
+   ('StockDocument','TableId','Integer','int'),
+   ('StockReceiptLine','SLDocumentId','Integer','int'),
+   ('StockReceiptLine','SLDate','DateTime','datetime'),
+   ('StockReceiptLine','SLItemId','Integer','int'),
+   ('StockReceiptLine','SLUnitId','Integer','int'),
+   ('StockReceiptLine','SLCost','Decimal','numeric(18,2)'),
+   ('StockReceiptLine','SLExpiry','String','nvarchar(50)'),
+   ('StockReceiptLine','SLQuantity','Decimal','numeric(18,2)'),
+   ('StockReceiptLine','SLTotal','Decimal','numeric(18,2)'),
+   ('StockReceiptLine','SLCargo','Float','float(53)'),
+   ('StockReceiptLine','SLStoredQuantity','Decimal','numeric(18,2)'),
+   ('StockReceiptLine','SLApproved','Boolean','bit'),
+   ('StockReceiptLine','SLBarcode','String','nvarchar(max)'),
+   ('StockReceiptLine','SLStoreId','Integer','int'),
+   ('StockReceiptLine','SLSalePrice','Decimal','numeric(18,3)'),
+   ('StockIssueLine','SLDocumentId','Integer','int'),
+   ('StockIssueLine','SLDate','DateTime','datetime'),
+   ('StockIssueLine','SLItemId','Integer','int'),
+   ('StockIssueLine','SLUnitId','Integer','bigint'),
+   ('StockIssueLine','SLCost','Decimal','numeric(18,2)'),
+   ('StockIssueLine','SLExpiry','String','nvarchar(50)'),
+   ('StockIssueLine','SLQuantity','Decimal','numeric(18,2)'),
+   ('StockIssueLine','SLTotal','Decimal','numeric(18,2)'),
+   ('StockIssueLine','SLCargo','Float','float(53)'),
+   ('StockIssueLine','SLStoredQuantity','Decimal','numeric(18,2)'),
+   ('StockIssueLine','SLApproved','Boolean','bit'),
+   ('StockIssueLine','SLBarcode','String','nvarchar(max)'),
+   ('StockIssueLine','SLStoreId','Integer','bigint'),
+   ('StockIssueLine','SLSalePrice','Decimal','numeric(18,3)'),
+   ('StockDamageLine','SLDocumentId','Integer','int'),
+   ('StockDamageLine','SLDate','DateTime','datetime'),
+   ('StockDamageLine','SLItemId','Integer','int'),
+   ('StockDamageLine','SLUnitId','Integer','bigint'),
+   ('StockDamageLine','SLCost','Decimal','numeric(18,2)'),
+   ('StockDamageLine','SLExpiry','String','nvarchar(50)'),
+   ('StockDamageLine','SLQuantity','Decimal','numeric(18,2)'),
+   ('StockDamageLine','SLTotal','Decimal','numeric(18,2)'),
+   ('StockDamageLine','SLCargo','Float','float(53)'),
+   ('StockDamageLine','SLStoredQuantity','Decimal','numeric(18,2)'),
+   ('StockDamageLine','SLApproved','Boolean','bit'),
+   ('StockDamageLine','SLBarcode','String','nvarchar(50)'),
+   ('StockDamageLine','SLStoreId','Integer','bigint'),
+   ('StockTransferLine','SLDocumentId','Integer','int'),
+   ('StockTransferLine','SLDate','DateTime','datetime'),
+   ('StockTransferLine','SLItemId','Integer','int'),
+   ('StockTransferLine','SLUnitId','Integer','int'),
+   ('StockTransferLine','SLCost','Decimal','numeric(18,2)'),
+   ('StockTransferLine','SLExpiry','String','nvarchar(50)'),
+   ('StockTransferLine','SLQuantity','Decimal','numeric(18,2)'),
+   ('StockTransferLine','SLTotal','Decimal','numeric(18,2)'),
+   ('StockTransferLine','SLCargo','Float','float(53)'),
+   ('StockTransferLine','SLStoredQuantity','Decimal','numeric(18,2)'),
+   ('StockTransferLine','SLApprovedInt','Integer','int'),
+   ('StockTransferLine','SLBarcode','String','nvarchar(50)'),
+   ('StockTransferLine','SLFromStoreId','Integer','bigint'),
+   ('StockTransferLine','SLToStoreId','Integer','bigint'),
+   ('StockTransferLine','SLSalePrice','Decimal','numeric(18,2)'),
+   ('StockBucket','ItemId','Integer','int'),
+   ('StockBucket','StoreId','Integer','bigint'),
+   ('StockBucket','ExpiryText','String','nvarchar(50)'),
+   ('StockBucket','StockQuantity','Float','float(53)');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE c.EntityType NOT IN('StockDocument','StockBucket',@slLine) OR c.ValueOrigin&lt;&gt;CASE WHEN c.EntityType='StockBucket' THEN 3 ELSE 1 END OR NOT EXISTS(SELECT 1 FROM @slFields f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType)) THROW 51126,'Invalid stock field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;(SELECT COUNT(*) FROM @slFields f WHERE f.E=EntityType)) THROW 51126,'Incomplete stock row.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE (EntityType&lt;&gt;'StockBucket' AND ISNULL(TRY_CONVERT(int,EntityId),0)&lt;=0) OR (EntityType='StockDocument' AND EntityId&lt;&gt;@slOwner) OR (EntityType='StockBucket' AND (LEN(EntityId)&lt;&gt;64 OR EntityId COLLATE Latin1_General_BIN2 LIKE '%[^A-F0-9]%'))) THROW 51126,'Invalid stock row identity.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE (EntityType IN('StockDocument','StockBucket') AND (BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3))) OR (EntityType=@slLine AND (
+   (@operation='StockDocument.LineAdded' AND (BeforeState&lt;&gt;1 OR AfterState NOT IN(2,3))) OR
+   (@operation='StockDocument.LineDeleted' AND (AfterState&lt;&gt;1 OR BeforeState NOT IN(2,3))) OR
+   (@operation='StockDocument.LineQuantityChanged' AND (BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3)))))) THROW 51126,'Invalid stock value states.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes WHERE EntityType='StockDocument')&lt;&gt;23 OR (SELECT COUNT(*) FROM @changes WHERE EntityType=@slLine)&lt;&gt;@slCount OR EXISTS(SELECT 1 FROM @changes WHERE EntityType='StockBucket') THROW 51126,'First stock event must contain header and line.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='StockDocument' AND FieldCode='DocumentType' AND (BeforeValue&lt;&gt;CONVERT(nvarchar(20),@slType) OR AfterValue&lt;&gt;CONVERT(nvarchar(20),@slType))) THROW 51126,'Stock type mismatch.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType=@slLine AND FieldCode='SLDocumentId' AND CASE WHEN @operation='StockDocument.LineDeleted' THEN BeforeValue ELSE AfterValue END&lt;&gt;@slOwner) THROW 51126,'Unrelated stock line.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='StockDocument' AND FieldCode='DocumentNumber' AND (AfterState&lt;&gt;3 OR AfterValue&lt;&gt;@EventXml.value('(/Event/Document/text())[1]','nvarchar(50)'))) THROW 51126,'Stock number mismatch.',1;
+  END
+  ELSE IF EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'StockBucket') THROW 51126,'Additional stock events contain balances only.',1;
+ END;
+ -- AuditEmployeeValues027: complete persisted value.
+ IF @operation IN('EmployeeValue.Created','EmployeeValue.Updated','EmployeeValue.Voided')
+ BEGIN
+  DECLARE @evOwner nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @evCreate bit=CASE WHEN @operation='EmployeeValue.Created' THEN 1 ELSE 0 END;
+  IF @EventXml.value('(/Event/@entityType)[1]','varchar(64)')&lt;&gt;'EmployeeValue'
+   OR @EventXml.value('(/Event/@screen)[1]','varchar(64)')&lt;&gt;'Emp_OtherValues'
+   OR @EventOrdinal&lt;&gt;1 OR ISNULL(TRY_CONVERT(int,@evOwner),0)&lt;=0
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0
+   OR @EventXml.value('count(/Event/Document)','int')&lt;&gt;1
+   OR @EventXml.value('(/Event/Document/text())[1]','nvarchar(50)')&lt;&gt;@evOwner
+   OR (SELECT COUNT(*) FROM @changes)&lt;&gt;10 THROW 51127,'Invalid employee value event.',1;
+  IF NOT EXISTS(SELECT 1 FROM Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType='EmployeeValue' AND EntityId=CASE WHEN @evCreate=1 THEN 'New' ELSE @evOwner END) THROW 51127,'Employee request mismatch.',1;
+  DECLARE @evFields TABLE(F varchar(64),T varchar(20),S varchar(40));
+  INSERT @evFields VALUES
+   ('EVCreatedAt','DateTime','datetime'),('EVBusinessDate','DateTime','datetime'),('EVYear','Integer','int'),('EVMonth','Integer','int'),
+   ('EVEmployeeId','Integer','int'),('EVType','Integer','int'),('EVAmount','Decimal','numeric(18,3)'),('EVNotes','String','nvarchar(max)'),
+   ('EVVoided','Integer','int'),('EVOriginalUserId','Integer','bigint');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE c.EntityType&lt;&gt;'EmployeeValue' OR c.EntityId&lt;&gt;@evOwner OR c.ValueOrigin&lt;&gt;1 OR
+   NOT EXISTS(SELECT 1 FROM @evFields f WHERE f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType) OR
+   (@evCreate=1 AND BeforeState&lt;&gt;1) OR (@evCreate=0 AND BeforeState NOT IN(2,3)) OR AfterState NOT IN(2,3)) THROW 51127,'Invalid employee value field.',1;
+  IF @operation='EmployeeValue.Voided' AND NOT EXISTS(SELECT 1 FROM @changes WHERE FieldCode='EVVoided' AND AfterState=3 AND AfterValue='1') THROW 51127,'Employee cancellation not confirmed.',1;
+ END;
+ -- AuditReturnLines028: complete affected line, recalculated header and derived return.
+ IF @operation IN('Return.LineAdded','Return.LineDeleted','Return.LineQuantityChanged')
+ BEGIN
+  DECLARE @rlOwner nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @rlEntity varchar(64)=@EventXml.value('(/Event/@entityType)[1]','varchar(64)'),
+   @rlScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)'),
+   @rlType int,@rlLine varchar(64),@rlCount int;
+  SELECT @rlType=BsType_ID FROM dbo.Agents_Balance_MV WITH(HOLDLOCK) WHERE T_ID=TRY_CONVERT(int,@rlOwner) AND isVoid=0;
+  SET @rlLine=CASE WHEN @rlType IN(10,11) THEN 'ReturnLine' END;
+  SET @rlCount=23;
+  IF @rlLine IS NULL OR @rlEntity&lt;&gt;'ReturnDocument' OR ISNULL(TRY_CONVERT(int,@rlOwner),0)&lt;=0
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0
+   OR @EventXml.value('count(/Event/Document)','int')&lt;&gt;1 THROW 51128,'Invalid return document identity.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType=@rlEntity AND EntityId=@rlOwner) THROW 51128,'Return request mismatch.',1;
+  IF @rlScreen&lt;&gt;'Returns' THROW 51128,'Invalid return screen.',1;
+  DECLARE @rlFields TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @rlFields VALUES
+   ('ReturnDocument','Voided','Integer','int'),
+   ('ReturnDocument','NeedRepost','Boolean','bit'),
+   ('ReturnDocument','NeedCancelReverse','Boolean','bit'),
+   ('ReturnDocument','VoidAt','DateTime','datetime'),
+   ('ReturnDocument','VoidBy','Integer','int'),
+   ('ReturnDocument','VoidReason','String','nvarchar(500)'),
+   ('ReturnDocument','JournalId','Integer','int'),
+   ('ReturnDocument','DocumentTotal','Decimal','numeric(18,3)'),
+   ('ReturnDocument','DocumentPure','Decimal','numeric(18,3)'),
+   ('ReturnDocument','Discount','Decimal','numeric(18,3)'),
+   ('ReturnDocument','Debit','Decimal','numeric(18,3)'),
+   ('ReturnDocument','Credit','Decimal','numeric(18,3)'),
+   ('ReturnDocument','Balance','Decimal','numeric(18,3)'),
+   ('ReturnDocument','AccountId','Integer','int'),
+   ('ReturnDocument','Approved','Integer','int'),
+   ('ReturnDocument','DocumentType','Integer','int'),
+   ('ReturnDocument','DocumentNumber','Integer','int'),
+   ('ReturnDocument','DocumentDate','DateTime','datetime'),
+   ('ReturnDocument','SalesOpen','Boolean','bit'),
+   ('ReturnDocument','Paused','Boolean','bit'),
+   ('ReturnDocument','OrderDelivered','Boolean','bit'),
+   ('ReturnDocument','PaidState','Integer','int'),
+   ('ReturnDocument','TableId','Integer','int'),
+   ('ReturnLine','RLDate','DateTime','datetime'),
+   ('ReturnLine','RLDocumentId','Integer','int'),
+   ('ReturnLine','RLReturnType','Integer','int'),
+   ('ReturnLine','RLItemId','Integer','int'),
+   ('ReturnLine','RLUnitId','Integer','bigint'),
+   ('ReturnLine','RLStoreId','Integer','bigint'),
+   ('ReturnLine','RLComponents','String','nvarchar(max)'),
+   ('ReturnLine','RLCost','Decimal','numeric(18,2)'),
+   ('ReturnLine','RLPrice','Decimal','numeric(18,2)'),
+   ('ReturnLine','RLExpiry','String','nvarchar(50)'),
+   ('ReturnLine','RLQuantity','Float','float(53)'),
+   ('ReturnLine','RLTotal','Decimal','numeric(18,2)'),
+   ('ReturnLine','RLCargo','Float','float(53)'),
+   ('ReturnLine','RLStoredQuantity','Decimal','numeric(18,2)'),
+   ('ReturnLine','RLApproved','Integer','int'),
+   ('ReturnLine','RLSellerPercent','Decimal','numeric(18,2)'),
+   ('ReturnLine','RLOriginalBillId','Integer','int'),
+   ('ReturnLine','RLProjectId','Integer','int'),
+   ('ReturnLine','RLMarketerValue','Decimal','numeric(18,3)'),
+   ('ReturnLine','RLBarcode','String','nvarchar(max)'),
+   ('ReturnLine','RLSerial','String','nvarchar(100)'),
+   ('ReturnLine','RLMinPrice','Integer','int'),
+   ('ReturnLine','RLMinPrice2','Integer','int'),
+   ('StockBucket','ItemId','Integer','int'),
+   ('StockBucket','StoreId','Integer','bigint'),
+   ('StockBucket','ExpiryText','String','nvarchar(50)'),
+   ('StockBucket','StockQuantity','Float','float(53)');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE c.EntityType NOT IN('ReturnDocument','StockBucket',@rlLine) OR c.ValueOrigin&lt;&gt;CASE WHEN c.EntityType='StockBucket' THEN 3 ELSE 1 END OR NOT EXISTS(SELECT 1 FROM @rlFields f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType)) THROW 51128,'Invalid return field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;(SELECT COUNT(*) FROM @rlFields f WHERE f.E=EntityType)) THROW 51128,'Incomplete return row.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE (EntityType&lt;&gt;'StockBucket' AND ISNULL(TRY_CONVERT(int,EntityId),0)&lt;=0) OR (EntityType='ReturnDocument' AND EntityId&lt;&gt;@rlOwner) OR (EntityType='StockBucket' AND (LEN(EntityId)&lt;&gt;64 OR EntityId COLLATE Latin1_General_BIN2 LIKE '%[^A-F0-9]%'))) THROW 51128,'Invalid return row identity.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE (EntityType IN('ReturnDocument','StockBucket') AND (BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3))) OR (EntityType=@rlLine AND (
+   (@operation='Return.LineAdded' AND (BeforeState&lt;&gt;1 OR AfterState NOT IN(2,3))) OR
+   (@operation='Return.LineDeleted' AND (AfterState&lt;&gt;1 OR BeforeState NOT IN(2,3))) OR
+   (@operation='Return.LineQuantityChanged' AND (BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3)))))) THROW 51128,'Invalid return value states.',1;
+  IF @EventOrdinal=1
+  BEGIN
+   IF (SELECT COUNT(*) FROM @changes WHERE EntityType='ReturnDocument')&lt;&gt;23 OR (SELECT COUNT(*) FROM @changes WHERE EntityType=@rlLine)&lt;&gt;@rlCount OR EXISTS(SELECT 1 FROM @changes WHERE EntityType='StockBucket') THROW 51128,'First return event must contain header and line.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='ReturnDocument' AND FieldCode='DocumentType' AND (BeforeValue&lt;&gt;CONVERT(nvarchar(20),@rlType) OR AfterValue&lt;&gt;CONVERT(nvarchar(20),@rlType))) THROW 51128,'Return type mismatch.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType=@rlLine AND FieldCode='RLDocumentId' AND CASE WHEN @operation='Return.LineDeleted' THEN BeforeValue ELSE AfterValue END&lt;&gt;@rlOwner) THROW 51128,'Unrelated return line.',1;
+   IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='ReturnDocument' AND FieldCode='DocumentNumber' AND (AfterState&lt;&gt;3 OR AfterValue&lt;&gt;@EventXml.value('(/Event/Document/text())[1]','nvarchar(50)'))) THROW 51128,'Return number mismatch.',1;
+  END
+  ELSE IF EXISTS(SELECT 1 FROM @changes WHERE EntityType&lt;&gt;'StockBucket') THROW 51128,'Additional return events contain balances only.',1;
+ END;
+ -- AuditExpenseLines029: complete affected line and recalculated header.
+ IF @operation IN('Expense.LineAdded','Expense.LineDeleted')
+ BEGIN
+  DECLARE @elOwner nvarchar(128)=@EventXml.value('(/Event/@entityId)[1]','nvarchar(128)'),
+   @elEntity varchar(64)=@EventXml.value('(/Event/@entityType)[1]','varchar(64)'),
+   @elScreen varchar(64)=@EventXml.value('(/Event/@screen)[1]','varchar(64)');
+  IF @elEntity&lt;&gt;'ExpenseDocument' OR ISNULL(TRY_CONVERT(int,@elOwner),0)&lt;=0 OR @elScreen&lt;&gt;'EXP_Details' OR @EventOrdinal&lt;&gt;1
+   OR @EventXml.value('count(/Event/Entities/Entity)','int')&lt;&gt;0 OR @EventXml.value('count(/Event/Document)','int')&lt;&gt;1
+   OR NOT EXISTS(SELECT 1 FROM dbo.Agents_Balance_MV WITH(HOLDLOCK) WHERE T_ID=TRY_CONVERT(int,@elOwner) AND BsType_ID=2 AND isVoid=0)
+   THROW 51129,'Invalid expense document identity.',1;
+  IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND EntityType=@elEntity AND EntityId=@elOwner) THROW 51129,'Expense request mismatch.',1;
+  DECLARE @elFields TABLE(E varchar(64),F varchar(64),T varchar(20),S varchar(40));
+  INSERT @elFields VALUES
+   ('ExpenseDocument','Voided','Integer','int'),
+   ('ExpenseDocument','NeedRepost','Boolean','bit'),
+   ('ExpenseDocument','NeedCancelReverse','Boolean','bit'),
+   ('ExpenseDocument','VoidAt','DateTime','datetime'),
+   ('ExpenseDocument','VoidBy','Integer','int'),
+   ('ExpenseDocument','VoidReason','String','nvarchar(500)'),
+   ('ExpenseDocument','JournalId','Integer','int'),
+   ('ExpenseDocument','DocumentTotal','Decimal','numeric(18,3)'),
+   ('ExpenseDocument','DocumentPure','Decimal','numeric(18,3)'),
+   ('ExpenseDocument','Discount','Decimal','numeric(18,3)'),
+   ('ExpenseDocument','Debit','Decimal','numeric(18,3)'),
+   ('ExpenseDocument','Credit','Decimal','numeric(18,3)'),
+   ('ExpenseDocument','Balance','Decimal','numeric(18,3)'),
+   ('ExpenseDocument','AccountId','Integer','int'),
+   ('ExpenseDocument','Approved','Integer','int'),
+   ('ExpenseDocument','DocumentType','Integer','int'),
+   ('ExpenseDocument','DocumentNumber','Integer','int'),
+   ('ExpenseDocument','DocumentDate','DateTime','datetime'),
+   ('ExpenseDocument','SalesOpen','Boolean','bit'),
+   ('ExpenseDocument','Paused','Boolean','bit'),
+   ('ExpenseDocument','OrderDelivered','Boolean','bit'),
+   ('ExpenseDocument','PaidState','Integer','int'),
+   ('ExpenseDocument','TableId','Integer','int'),
+   ('ExpenseLine','ExpenseDocumentId','Integer','int'),
+   ('ExpenseLine','ExpenseDate','DateTime','datetime'),
+   ('ExpenseLine','ExpenseId','Integer','bigint'),
+   ('ExpenseLine','ExpenseQuantity','Decimal','numeric(18,3)'),
+   ('ExpenseLine','ExpensePrice','Decimal','numeric(18,3)'),
+   ('ExpenseLine','ExpenseTotal','Decimal','numeric(18,3)'),
+   ('ExpenseLine','ExpenseApproved','Boolean','bit');
+  IF EXISTS(SELECT 1 FROM @changes c WHERE c.ValueOrigin&lt;&gt;1 OR NOT EXISTS(SELECT 1 FROM @elFields f WHERE f.E=c.EntityType AND f.F=c.FieldCode AND f.T=c.ValueType AND f.S=c.SourceSqlType)) THROW 51129,'Invalid expense field.',1;
+  IF EXISTS(SELECT EntityType,EntityId FROM @changes GROUP BY EntityType,EntityId HAVING COUNT(*)&lt;&gt;(SELECT COUNT(*) FROM @elFields f WHERE f.E=EntityType)) THROW 51129,'Incomplete expense row.',1;
+  IF (SELECT COUNT(*) FROM @changes WHERE EntityType='ExpenseDocument')&lt;&gt;23 OR (SELECT COUNT(*) FROM @changes WHERE EntityType='ExpenseLine')&lt;&gt;7 THROW 51129,'Expense requires header and one line.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE ISNULL(TRY_CONVERT(int,EntityId),0)&lt;=0 OR (EntityType='ExpenseDocument' AND EntityId&lt;&gt;@elOwner)) THROW 51129,'Invalid expense row identity.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE (EntityType='ExpenseDocument' AND (BeforeState NOT IN(2,3) OR AfterState NOT IN(2,3))) OR (EntityType='ExpenseLine' AND (
+   (@operation='Expense.LineAdded' AND (BeforeState&lt;&gt;1 OR AfterState NOT IN(2,3))) OR
+   (@operation='Expense.LineDeleted' AND (AfterState&lt;&gt;1 OR BeforeState NOT IN(2,3)))))) THROW 51129,'Invalid expense value states.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='ExpenseDocument' AND FieldCode='DocumentType' AND (BeforeValue&lt;&gt;'2' OR AfterValue&lt;&gt;'2')) THROW 51129,'Expense type mismatch.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='ExpenseLine' AND FieldCode='ExpenseDocumentId' AND CASE WHEN @operation='Expense.LineDeleted' THEN BeforeValue ELSE AfterValue END&lt;&gt;@elOwner) THROW 51129,'Unrelated expense line.',1;
+  IF EXISTS(SELECT 1 FROM @changes WHERE EntityType='ExpenseDocument' AND FieldCode='DocumentNumber' AND (AfterState&lt;&gt;3 OR AfterValue&lt;&gt;@EventXml.value('(/Event/Document/text())[1]','nvarchar(50)'))) THROW 51129,'Expense number mismatch.',1;
+ END;
+ INSERT dbo.Network_Audit_Event(EventId,SourceId,RequestId,EventOrdinal,CorrelationId,ContractVersion,EventCode,DomainCode,ScreenCode,EventKind,Outcome,
+ ActorKind,ActorUserId,ActorServiceCode,ActorName,SessionId,MachineName,ApplicationVersion,EntityType,EntityId,DocumentNumber,OccurredAtUtc,BusinessDate,
+ ReasonCode,TemplateCode,TemplateVersion,Notes,RelatedEntitiesXml,EventFingerprint,CanonicalEvent)
+ SELECT @EventId,@SourceId,@RequestId,@EventOrdinal,
+ CASE WHEN @EventXml.exist('/Event/@correlation')=1 THEN @EventXml.value('(/Event/@correlation)[1]','uniqueidentifier') END,
+ 1,@eventCode,@domain,@EventXml.value('(/Event/@screen)[1]','varchar(64)'),@kind,@outcome,@actor,@user,@service,
+ CASE WHEN @EventXml.exist('/Event/ActorName')=1 THEN @EventXml.value('(/Event/ActorName)[1]','nvarchar(256)') END,@session,
+ @EventXml.value('(/Event/Machine)[1]','nvarchar(128)'),@EventXml.value('(/Event/Application)[1]','nvarchar(50)'),
+ CASE WHEN @EventXml.exist('/Event/@entityType')=1 THEN @EventXml.value('(/Event/@entityType)[1]','varchar(64)') END,
+ CASE WHEN @EventXml.exist('/Event/@entityId')=1 THEN @EventXml.value('(/Event/@entityId)[1]','nvarchar(128)') END,
+ CASE WHEN @EventXml.exist('/Event/Document')=1 THEN @EventXml.value('(/Event/Document)[1]','nvarchar(50)') END,
+ @EventXml.value('(/Event/@occurred)[1]','datetime2(3)'),
+ CASE WHEN @EventXml.exist('/Event/@businessDate')=1 THEN @EventXml.value('(/Event/@businessDate)[1]','datetime2(3)') END,
+ CASE WHEN @EventXml.exist('/Event/@reason')=1 THEN @EventXml.value('(/Event/@reason)[1]','varchar(64)') END,
+ @eventCode,1,@EventXml.value('(/Event/Notes)[1]','nvarchar(max)'),@EventXml.query('/Event/Entities'),@EventFingerprint,@CanonicalEvent;
+ INSERT dbo.Network_Audit_Change(EventId,ChangeNo,EntityType,EntityId,FieldCode,ValueType,SourceSqlType,BeforeState,BeforeValue,AfterState,AfterValue,ValueOrigin)
+ SELECT @EventId,ChangeNo,EntityType,EntityId,FieldCode,ValueType,SourceSqlType,BeforeState,BeforeValue,AfterState,AfterValue,ValueOrigin FROM @changes;
+ SELECT CAST(1 AS int) WriteResult;
+END</Definition>
+  </Definitions>
+  <Definitions>
+    <name>Network_Audit_Request_Begin</name>
+    <Definition>CREATE PROCEDURE dbo.Network_Audit_Request_Begin
+ @SourceId uniqueidentifier,@RequestId uniqueidentifier,@OperationCode varchar(64),@DomainCode varchar(64),
+ @ActorKind tinyint,@ActorUserId int=NULL,@ActorServiceCode varchar(64)=NULL,@SessionId uniqueidentifier=NULL,
+ @EntityType varchar(64)=NULL,@EntityId nvarchar(128)=NULL,
+ @RequestFingerprint varbinary(32),@CanonicalRequest varbinary(max),@LockTimeout int=5000
+AS
+BEGIN
+ SET NOCOUNT ON; SET XACT_ABORT ON;
+ IF @@TRANCOUNT=0 OR XACT_STATE()&lt;&gt;1 THROW 51100,'Audit requires the caller writable transaction.',1;
+ IF @SourceId IS NULL OR @RequestId IS NULL OR @RequestId='00000000-0000-0000-0000-000000000000'
+    OR DATALENGTH(@RequestFingerprint)&lt;&gt;32 OR ISNULL(DATALENGTH(@CanonicalRequest),0) NOT BETWEEN 1 AND 1048576
+    OR @LockTimeout NOT BETWEEN 0 AND 10000 THROW 51101,'Invalid audit request contract.',1;
+ IF NOT ((@OperationCode='AuditTest.Changed' AND @DomainCode='AuditTest') OR (@OperationCode IN('Expense.LineAdded','Expense.LineDeleted') AND @DomainCode='Expenses.Lines') OR (@OperationCode IN('Return.LineAdded','Return.LineDeleted','Return.LineQuantityChanged') AND @DomainCode='Sales.ReturnLines') OR (@OperationCode IN('EmployeeValue.Created','EmployeeValue.Updated','EmployeeValue.Voided') AND @DomainCode='People.EmployeeValues') OR (@OperationCode IN('StockDocument.LineAdded','StockDocument.LineDeleted','StockDocument.LineQuantityChanged') AND @DomainCode='Inventory.DocumentLines') OR (@OperationCode IN('TreasuryMovement.Created','TreasuryMovement.Voided','TreasuryTransfer.Created','TreasuryTransfer.Voided','AccountTransfer.Created','AccountTransfer.Voided') AND @DomainCode='Finance.Transfers') OR (@OperationCode IN('Table.Transferred','Table.LineQuantityChanged','Table.LineDeleted') AND @DomainCode='Sales.Tables') OR (@OperationCode IN('Item.FastUpdated','Item.Deleted') AND @DomainCode='Catalog.Items') OR (@OperationCode IN('Offer.Created','Offer.ItemOffersDeleted','PriceRule.Created','PriceRule.Deleted') AND @DomainCode='Catalog.PricingRules') OR (@OperationCode IN('ItemUnit.Created','ItemUnit.Updated','ItemUnit.Deleted','ItemUnit.PriceChanged','ItemUnit.OfferPriceChanged') AND @DomainCode='Catalog.ItemUnits') OR (@OperationCode IN('Group.Created','Group.Updated','Group.Deleted','Group.PrinterLinked','Group.PrinterUnlinked') AND @DomainCode='Catalog.Groups') OR (@OperationCode IN('Unit.Created','Unit.Updated','Unit.Deleted') AND @DomainCode='Catalog.Units') OR (@OperationCode='Document.Voided' AND @DomainCode='Documents.Cancellation') OR (@OperationCode='Sales.LineAdded' AND @DomainCode='Sales.LineLifecycle') OR (@OperationCode='Sales.LineDeleted' AND @DomainCode='Sales.LineLifecycle') OR (@OperationCode='Sales.LineQuantityStepped' AND @DomainCode='Sales.LineQuantity') OR (@OperationCode IN('Sales.LineDetailsChanged','Sales.LinePriceChanged') AND @DomainCode='Sales.LineEditing') OR (@OperationCode='Document.EditOpened' AND @DomainCode='Documents.EditOpening') OR (@OperationCode='Sales.EditOpened' AND @DomainCode='Sales.EditOpening')
+     OR (@OperationCode IN('Settlement.LineAdded','Settlement.LineDeleted','Settlement.LineUpdated','Settlement.Created','Settlement.Approved','Settlement.Voided','Settlement.EditOpened','Settlement.HeaderSaved','Settlement.EditFinished') AND @DomainCode='Inventory.Settlement')
+     OR (@OperationCode IN('Security.SessionStarted','Security.LoginRejected','Security.SessionEnded') AND @DomainCode='Security'))
+     THROW 51101,'Unknown operation/domain.',1;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND SchemaVersion=1 AND SourceId=@SourceId)
+     THROW 51102,'Audit source/schema mismatch.',1;
+ DECLARE @resource nvarchar(255)=N'CPOS.Audit.Request.'+CONVERT(nvarchar(36),@SourceId)+N'.'+CONVERT(nvarchar(36),@RequestId),@lock int;
+ EXEC @lock=sys.sp_getapplock @Resource=@resource,@LockMode='Exclusive',@LockOwner='Transaction',@LockTimeout=@LockTimeout;
+ IF @lock&lt;0 THROW 51103,'Audit request is busy or lock acquisition failed; retry same identity.',1;
+ IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId)
+ BEGIN
+   IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId
+      AND RequestFingerprint=@RequestFingerprint AND DATALENGTH(CanonicalRequest)=DATALENGTH(@CanonicalRequest) AND CanonicalRequest=@CanonicalRequest)
+      THROW 51104,'Request identity conflicts with different content.',1;
+   IF EXISTS(SELECT 1 FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId AND State&lt;&gt;1)
+      THROW 51105,'An incomplete request exists. Do not execute again.',1;
+   SELECT CAST('Completed' AS varchar(30)) Status,ResultCode,CONVERT(nvarchar(max),ResultXml) ResultXml
+      FROM dbo.Network_Audit_Request WHERE SourceId=@SourceId AND RequestId=@RequestId;
+   RETURN;
+ END;
+ IF NOT EXISTS(SELECT 1 FROM dbo.Network_Audit_Source WHERE ConfigId=1 AND EnabledDomainsXml.exist('/Domains/Domain[@code=sql:variable("@DomainCode")]')=1)
+     THROW 51102,'Audit domain is disabled. No legacy fallback is allowed.',1;
+ INSERT dbo.Network_Audit_Request(SourceId,RequestId,ContractVersion,OperationCode,ActorKind,ActorUserId,ActorServiceCode,SessionId,
+ EntityType,EntityId,RequestFingerprint,CanonicalRequest,State)
+ VALUES(@SourceId,@RequestId,1,@OperationCode,@ActorKind,@ActorUserId,@ActorServiceCode,@SessionId,@EntityType,@EntityId,@RequestFingerprint,@CanonicalRequest,0);
+ SELECT CAST('NewPendingCommit' AS varchar(30)) Status,CAST(NULL AS tinyint) ResultCode,CAST(NULL AS nvarchar(max)) ResultXml;
+END</Definition>
+  </Definitions>
+</NewDataSet>

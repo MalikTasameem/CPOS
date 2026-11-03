@@ -1,0 +1,22 @@
+PASS V2 search has no legacy table dependencies
+PASS primary reader refuses mixed search before connecting
+PASS primary reader refuses old details before connecting
+PASS primary screen exposes only the new log
+PASS reader requires permission
+PASS LIKE metacharacters escaped
+PASS search text is never SQL code
+PASS page offset typed
+PASS Unicode search typed
+PASS exclusive day end converted to UTC
+PASS reversed dates rejected
+PASS unknown record kind rejected
+PASS oversized text rejected
+PASS negative page rejected
+PASS V2 unavailable is explicit
+PASS uncaptured/absent/NULL/zero remain distinct
+PASS legacy outcome not invented as success
+PASS canonical payload omitted from UI details
+PASS failed refresh finishes without a retry loop
+PASS failed refresh preserves previous results
+PASS failed refresh restores UI controls
+PASS: 21 assertions. No business tables were written.

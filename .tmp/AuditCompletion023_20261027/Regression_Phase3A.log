@@ -1,0 +1,41 @@
+PASS explicitly disabled policy does not write
+PASS disabled policy creates no fictional audited session
+PASS start confirmed before session is published
+PASS context is an isolated copy
+PASS stale global user cannot reuse session
+PASS different database cannot reuse session
+PASS unknown login rejection saved
+PASS unknown rejection never inherits old user or session
+PASS known rejection has candidate identity but no session
+PASS rejection preserves previous active session
+PASS specific POS rejection accepted NoOpenPeriod
+PASS POS rejection message explains the actual restriction
+PASS specific POS rejection accepted SalesPermissionDenied
+PASS POS rejection message explains the actual restriction
+PASS security API accepts no credential data
+PASS user switch ends the old actor snapshot
+PASS user switch gets a distinct session
+PASS duplicate exit hooks do not duplicate end event
+PASS ended session cannot be reused
+PASS OS shutdown does not fabricate explicit logout
+PASS restored database cannot reuse old session
+PASS restore invalidation does not write into replaced database
+PASS failed user switch cannot activate candidate
+PASS failed user switch keeps old confirmed actor
+PASS write failure blocks login
+PASS failed start never publishes session
+PASS disabling domain cannot bypass unresolved start
+PASS disabled retry keeps original request identity
+PASS unresolved start cannot be replaced by another user
+PASS unknown status does not replay
+PASS in-progress request was not executed again
+PASS status connection failure is not interpreted as NotFound
+PASS safe retry retains request event and time
+PASS retry stores exactly one start
+PASS end failure is returned as warning
+PASS end failure still clears local session
+PASS lost commit reply recovered by same identity
+PASS audit failure never changes rejection into acceptance
+PASS unavailable policy fails closed rather than falling back
+PASS unavailable policy has no write side effect
+PASS: 40 security checks.

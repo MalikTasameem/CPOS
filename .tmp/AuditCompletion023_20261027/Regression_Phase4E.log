@@ -1,0 +1,76 @@
+PASS closed deletion domain
+PASS all non-key sales columns captured
+PASS SQL time preserved as explicit hh:mm:ss
+PASS unknown field rejected
+PASS no other clients
+PASS fixture identities unused
+PASS no unreviewed test triggers
+PASS actual user permissions
+PASS approved source
+PASS atomic delete Sales
+PASS requested line deleted Sales
+PASS other line unchanged Sales
+PASS main and stock parts Sales
+PASS all deleted columns captured Sales
+PASS replay does not delete again Sales
+PASS unapproved header behavior preserved Sales
+PASS payments unchanged Sales
+PASS atomic delete Sales_Fast
+PASS requested line deleted Sales_Fast
+PASS other line unchanged Sales_Fast
+PASS main and stock parts Sales_Fast
+PASS all deleted columns captured Sales_Fast
+PASS replay does not delete again Sales_Fast
+PASS unapproved header behavior preserved Sales_Fast
+PASS payments unchanged Sales_Fast
+PASS atomic delete POS
+PASS requested line deleted POS
+PASS other line unchanged POS
+PASS main and stock parts POS
+PASS all deleted columns captured POS
+PASS replay does not delete again POS
+PASS unapproved header behavior preserved POS
+PASS payments unchanged POS
+PASS approved header recalculated by original procedure
+PASS all five dependent entities captured as deleted
+PASS reservation time captured exactly
+PASS approved delete payments unchanged
+PASS large dependent rows split without truncation
+PASS all 179 actual values recorded
+PASS approved correction removes components even before invoice approval
+PASS all removed component values recorded as absent
+PASS stale line/header/dependent rejected
+PASS stale line/header/dependent rejected
+PASS stale line/header/dependent rejected
+PASS permission revoked Sales
+PASS permission revoked SB_Update
+PASS void document rejected
+PASS different login rejected
+PASS disabled domain fails closed
+PASS writer failure part 1
+PASS no partial committable operation
+PASS writer failure part 2
+PASS no partial committable operation
+PASS rollback restored Agents_Balance_MV
+PASS rollback restored SB_Contents
+PASS rollback restored SB_Contents_Structers
+PASS rollback restored SB_IM_Components
+PASS rollback restored SB_Rsv
+PASS rollback restored SB_Rsv_2
+PASS rollback restored SB_VALUE_Bercent_Details
+PASS rollback restored Agents_Balance_MV_RCT
+PASS rollback restored Treasury_Balance_MV
+PASS rollback restored Network_Edit_Tracker
+PASS rollback restored Network_Audit_Request
+PASS rollback restored Network_Audit_Event
+PASS rollback restored Network_Audit_Change
+PASS business definition unchanged SB_Contents_Delete_IM
+PASS business definition unchanged SB_Contents_Structers_Remove_ONE
+PASS business definition unchanged AG_Balance_Update_Pied_On_Update
+PASS business definition unchanged AG_Balance_Update_Total
+PASS business definition unchanged Recalculate_Agent_Bill_Total
+PASS business definition unchanged Inc_IM_QTY
+PASS all payments restored
+PASS domains restored
+PASS failure trigger rolled back
+PASS: 75 sales deletion checks.

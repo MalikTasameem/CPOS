@@ -440,6 +440,7 @@
         AG_Type = 3
         F_Receipt = New Receipt
         Receipt_Tran_ID = Order_T_ID
+        F_Receipt.ConfigureEntryContext(1, Order_T_ID)
 
         With F_Receipt
             Rct_Tr_ID = SB_TR_ID
@@ -818,19 +819,12 @@
     End Sub
 
     Private Sub SB_VoidBill()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "AG_Balance_Void_Row"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Order_T_ID)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert("إلغاء الفاتورة (باركود " & Barcode_txt.Text & ")", SB_ID, 1, 3)
+        If Not AuditDocumentVoidUi.Run(Me, Order_T_ID, 1) Then Return
+        Try
             Load_Details()
-        End If
-
-
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub OrdersGrid_KeyDown(sender As Object, e As KeyEventArgs)

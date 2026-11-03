@@ -1409,6 +1409,7 @@ Public Class MainForm
                 AG_Type = 3
                 F_Receipt = New Receipt
                 Receipt_Tran_ID = 0
+                F_Receipt.ConfigureEntryContext(0, 0)
                 F_Receipt.Show()
             Else
                 MsgBox("يجب عليك فتــح وردية عمل أولا", MsgBoxStyle.Exclamation)
@@ -1418,6 +1419,7 @@ Public Class MainForm
             AG_Type = 3
             F_Receipt = New Receipt
             Receipt_Tran_ID = 0
+            F_Receipt.ConfigureEntryContext(0, 0)
             F_Receipt.Show()
         End If
     End Sub
@@ -1451,6 +1453,7 @@ Public Class MainForm
         AG_Type = 4
         F_Receipt = New Receipt
         Receipt_Tran_ID = 0
+        F_Receipt.ConfigureEntryContext(0, 0)
         F_Receipt.Show()
     End Sub
 

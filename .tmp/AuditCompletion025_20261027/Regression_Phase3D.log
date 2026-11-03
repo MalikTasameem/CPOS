@@ -1,0 +1,48 @@
+PASS fresh positive difference
+PASS fresh negative difference
+PASS stale displayed balance rejected
+PASS unrepresentable difference rejected
+PASS no other clients during rollback tests
+PASS fixture identities do not exist
+PASS competing sale fixture references verified
+PASS no unreviewed fixture triggers
+PASS existing test actor authorized
+PASS isolated expiry stock key empty
+PASS 008 gate installed and enabled
+PASS control: fixture alone does not block an unrelated sales writer
+PASS stock locks block concurrent legacy sales until settlement ends
+PASS add reaches requested stock immediately
+PASS same request never adds twice
+PASS line update applies only delta from old line
+PASS edit preserves cost and expiry
+PASS updated event captures all nine before and after fields
+PASS update replay is idempotent
+PASS unchanged edit produces no false change
+PASS delete removes only line effect
+PASS negative difference reduces stock
+PASS unchanged current quantity is NoChange
+PASS live stale balance rejected
+PASS stale line including cost rejected
+PASS blocked actor checked during transaction
+PASS voided document cannot accept a pending line
+PASS approval while dialog open requires explicit edit
+PASS approved document allows active authorized editor
+PASS finished edit cannot use stale accounting edit metadata
+PASS same user different login session cannot reuse edit
+PASS negative stock edit blocked
+PASS zero difference edit preserves line identity and cost
+PASS explicit existing negative-stock policy is respected
+PASS audit failure rolls back stock with operation
+PASS audit failure also rolls back line update
+PASS rollback restored Agents_Balance_MV
+PASS rollback restored ST_QTY_Deferences
+PASS rollback restored Network_Audit_Request
+PASS rollback restored Network_Audit_Event
+PASS rollback restored Network_Audit_Change
+PASS rollback restored Network_Edit_Tracker
+PASS rollback restored SB_Contents
+PASS fixture stock fully rolled back
+PASS activation unchanged
+PASS failure trigger rolled back
+PASS actor activation restored
+PASS: 47 safety checks.

@@ -6,41 +6,18 @@ Public Class Fast_SB_Discount
 
     Public is_By_Draft As Boolean = False
     Public is_OK As Boolean = False
+    Public AuditOnUpdate As Boolean = False
+    Private _confirming As Boolean
+    Private _billId As Integer
+    Private _total As Double
+    Private _initialDiscount As Double
 
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
         Me.Close()
     End Sub
 
 
-    Private Sub UpdateGB_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-
-        If Application.OpenForms().OfType(Of Sales_Fast).Any Then
-            Sales_Fast.Total_TextBox.Text = Identifiers.TOTAL
-            Sales_Fast.Discount_txt.Text = Identifiers.Disc
-            Sales_Fast.Pure_txt.Text = Identifiers.Pure
-
-            Sales_Fast.TOTAL = Identifiers.TOTAL
-            Sales_Fast.Disc = Identifiers.Disc
-            Sales_Fast.Pure = Identifiers.Pure
-
-        End If
-
-        If Application.OpenForms().OfType(Of POS).Any Then
-            F_POS.TotalTextBox.Text = Identifiers.TOTAL
-            F_POS.DiscountTextBox.Text = Identifiers.Disc
-            F_POS.PureTextBox.Text = Identifiers.Pure
-
-            F_POS.TOTAL = Identifiers.TOTAL
-            F_POS.DISCOUNT = Identifiers.Disc
-            F_POS.Pure = Identifiers.Pure
-
-
-            F_SBChangePrice.NumTextBox.Text = Identifiers.Disc
-            UpdateGBButton_Click(sender, e)
-        End If
-
-        Me.Dispose()
-    End Sub
+    ' Closing the dialog never writes or applies a discount. Only confirmation does.
 
     Private Sub Fast_SB_Discount_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then Me.Close()
@@ -49,35 +26,50 @@ Public Class Fast_SB_Discount
 
 
     Private Sub UpdateGBButton_Click(sender As Object, e As EventArgs) Handles UpdateGBButton.Click
-
-        If CheckBox1.Checked = True Then Discount_txt.Text = Identifiers.TOTAL - Convert.ToDouble(TextBox1.Text)
-        If CheckBox2.Checked = True Then Discount_txt.Text = Identifiers.TOTAL - Convert.ToDouble(TextBox2.Text)
-        If CheckBox3.Checked = True Then Discount_txt.Text = Identifiers.TOTAL - Convert.ToDouble(TextBox3.Text)
-
-
-        If Not String.IsNullOrWhiteSpace(Discount_txt.Text) Then
-            Identifiers.Disc = Convert.ToDouble(Discount_txt.Text)
-            Identifiers.Pure = (Identifiers.TOTAL).ToString("00.00") - (Identifiers.Disc).ToString("00.00")
-            'Sales_Fast.Pure = Pure
-        End If
-
-        If String.IsNullOrWhiteSpace(Percent_txt.Text) Then Percent_txt.Text = 0
-
-        If is_By_Draft = False Then
-            Update_Discount(Identifiers.T_ID, Identifiers.Disc, Percent_txt.Text)
-            Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & Discount_txt.Text, Identifiers.SB_ID, 1, 3)
-        Else
+        If _confirming OrElse is_OK Then Return
+        _confirming = True
+        UpdateGBButton.Enabled = False
+        Try
+            Dim selectedTotal As Double
+            Dim roundingText As String = Nothing
+            If CheckBox1.Checked Then roundingText = TextBox1.Text
+            If CheckBox2.Checked Then roundingText = TextBox2.Text
+            If CheckBox3.Checked Then roundingText = TextBox3.Text
+            If roundingText IsNot Nothing Then
+                If Not Double.TryParse(roundingText, selectedTotal) OrElse Double.IsNaN(selectedTotal) OrElse Double.IsInfinity(selectedTotal) Then Throw New ArgumentException("قيمة التقريب غير صحيحة.")
+                Discount_txt.Text = (_total - selectedTotal).ToString()
+            End If
+            Dim amount As Decimal = Convert.ToDecimal(_initialDiscount), percent As Decimal = 0D
+            If Not String.IsNullOrWhiteSpace(Discount_txt.Text) AndAlso Not Decimal.TryParse(Discount_txt.Text, amount) Then Throw New ArgumentException("قيمة الخصم غير صحيحة.")
+            If Not String.IsNullOrWhiteSpace(Percent_txt.Text) AndAlso Not Decimal.TryParse(Percent_txt.Text, percent) Then Throw New ArgumentException("نسبة الخصم غير صحيحة.")
+            Dim resultDiscount = Convert.ToDouble(If(is_By_Draft, amount, Decimal.Round(amount, 3, MidpointRounding.AwayFromZero)))
+            Dim resultPure = Convert.ToDouble(_total.ToString("00.00")) - Convert.ToDouble(resultDiscount.ToString("00.00"))
+            If Not is_By_Draft Then
+                If Not AuditDocumentFieldsUi.FastDiscount(Me, _billId, amount, percent, AuditOnUpdate) Then Return
+            End If
+            ' Publish the result only after a confirmed save (drafts remain local).
+            Identifiers.Disc = resultDiscount
+            Identifiers.Pure = resultPure
             is_OK = True
-        End If
-
-        Me.Close()
+            Me.DialogResult = DialogResult.OK
+            Me.Close()
+        Catch ex As Exception
+            MessageBox.Show(Me, ex.Message, "خصم الفاتورة", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Finally
+            _confirming = False
+            If Not IsDisposed Then UpdateGBButton.Enabled = True
+        End Try
     End Sub
 
 
     Private Sub Fast_SB_Discount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
-        Discount_txt.Text = Identifiers.Disc
+        is_OK = False
+        _billId = Identifiers.T_ID
+        _total = Identifiers.TOTAL
+        _initialDiscount = Identifiers.Disc
+        Discount_txt.Text = _initialDiscount
         Discount_txt.Focus()
         Discount_txt.Select()
 
@@ -201,6 +193,7 @@ Public Class Fast_SB_Discount
 
 
     Private Sub Percent_txt_TextChanged(sender As Object, e As EventArgs) Handles Percent_txt.TextChanged
-        If Not String.IsNullOrWhiteSpace(Percent_txt.Text) Then Discount_txt.Text = (TOTAL * (Percent_txt.Text / 100))
+        Dim percent As Decimal
+        If Decimal.TryParse(Percent_txt.Text, percent) Then Discount_txt.Text = (_total * (Convert.ToDouble(percent) / 100)).ToString()
     End Sub
 End Class

@@ -1,0 +1,8 @@
+PASS narrow operation-specific domain
+PASS opening never accepts financial changes
+PASS missing document rejected
+PASS confirmed login required
+PASS unknown connection retains pending request
+PASS unknown request cannot move to another document
+PASS unknown status prevents silently discarding request
+PASS: 7 sales edit opening checks.

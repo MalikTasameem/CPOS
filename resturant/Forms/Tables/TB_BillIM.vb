@@ -45,10 +45,6 @@
         Dim Row_Index As Integer = BillIM_Grid.CurrentCell.RowIndex
         Dim ITEM_NAME As String = BillIM_Grid.CurrentRow.Cells("IM_Name_CL").Value
         Dim previousQuantity As Decimal = Convert.ToDecimal(BillIM_Grid.CurrentRow.Cells("TB_IM_QTY_CL").Value)
-        Dim auditNotes As String = "تم تعديل كمية صنف الطاولة: " & ITEM_NAME & "؛ رقم حركة الفاتورة: " &
-                                   Convert.ToString(BillIM_Grid.CurrentRow.Cells("Bill_T_ID_CL").Value) & "؛ رقم السطر: " &
-                                   Convert.ToString(BillIM_Grid.CurrentRow.Cells("T_ID_3_CL").Value) & "؛ الكمية المعروضة قبل التغيير: " &
-                                   previousQuantity.ToString() & "؛ مقدار التغيير: " & def.ToString() & "؛ " & F_TablesBalance.TB_Info.Text
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -60,9 +56,10 @@
             '.Parameters.AddWithValue("@Desc", Desc)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(auditNotes, SB_ID.ToString(), 1, 3)
+        If AuditTablesUi.Run(Me, c.Com, previousQuantity) Then
+            AuditTablesUi.Refresh(Me, Sub()
             F_TablesBalance.Refresh_TB_Balance()
+            If Row_Index >= BillIM_Grid.Rows.Count Then Return
             BillIM_Grid.CurrentCell = BillIM_Grid.Rows(Row_Index).Cells(1)
 
             If (KshPrint = True Or S_TB_Auto_Print = True) And BillIM_Grid.CurrentRow.Cells("Ptr_ID_CL").Value > 1 Then
@@ -88,16 +85,13 @@
                 pp.rp.PrintToPrinter(1, False, 0, 0)
                 pp.rp.Dispose()
             End If
-
+                                     End Sub)
         End If
     End Sub
 
     Private Sub SB_Contents_Delete_IM()
         If Not HasCurrentItem() Then Return
-        Dim auditNotes As String = "تم حذف صنف الطاولة: " & Convert.ToString(BillIM_Grid.CurrentRow.Cells("IM_Name_CL").Value) &
-                                   "؛ رقم حركة الفاتورة: " & Convert.ToString(BillIM_Grid.CurrentRow.Cells("Bill_T_ID_CL").Value) &
-                                   "؛ رقم السطر: " & Convert.ToString(BillIM_Grid.CurrentRow.Cells("T_ID_3_CL").Value) &
-                                   "؛ الكمية: " & Convert.ToString(BillIM_Grid.CurrentRow.Cells("TB_IM_QTY_CL").Value) & "؛ " & F_TablesBalance.TB_Info.Text
+        Dim previousQuantity As Decimal = Convert.ToDecimal(BillIM_Grid.CurrentRow.Cells("TB_IM_QTY_CL").Value)
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -107,8 +101,8 @@
             .Parameters.AddWithValue("@T_ID", BillIM_Grid.CurrentRow.Cells("T_ID_3_CL").Value)
             '.Parameters.AddWithValue("@Desc", Desc)
         End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(auditNotes, SB_ID.ToString(), 1, 2)
+        If AuditTablesUi.Run(Me, c.Com, previousQuantity) Then
+            AuditTablesUi.Refresh(Me, Sub()
             If KshPrint = True And BillIM_Grid.CurrentRow.Cells("Ptr_ID_CL").Value > 1 Then
                 Dim pp As New ReportConnection
                 pp.rp.Load(Application.StartupPath & "\reports\SB_Cancel.rpt")
@@ -126,6 +120,7 @@
             End If
 
             F_TablesBalance.Refresh_TB_Balance()
+                                     End Sub)
         End If
     End Sub
 

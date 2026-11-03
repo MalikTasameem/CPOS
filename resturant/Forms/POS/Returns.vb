@@ -145,22 +145,45 @@ Public Class Returns : Inherits System.Windows.Forms.Form
         End Select
     End Sub
 
-    Private Sub Change_IM_Qty(def As Integer)
-        Dim SB_T_ID As Integer = BillMetroGrid.CurrentRow.Cells("T_ID_CL").Value
-        Dim Row_Index As Integer = BillMetroGrid.CurrentCell.RowIndex
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "SB_Contents_Change_IM_Qty"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", SB_T_ID)
-            .Parameters.AddWithValue("@Def", def)
-        End With
+    Private Function ReturnDocumentType() As Integer
+        If FormType = 5 Then Return 10
+        If FormType = 6 Then Return 11
+        Throw New InvalidOperationException("نوع شاشة المرتجع غير محدد.")
+    End Function
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            SB_Contents_SELECT_Bill()
-            BillMetroGrid.CurrentCell = BillMetroGrid.Rows(Row_Index).Cells(3)
-        End If
+    Private Function ReturnGridValue(grid As DataGridView, column As String) As Object
+        If grid.CurrentRow Is Nothing OrElse grid.CurrentRow.IsNewRow OrElse Not grid.Columns.Contains(column) Then Throw New InvalidOperationException("حدد سطرًا صالحًا أولًا؛ الحقل المطلوب: " & column)
+        Return If(grid.CurrentRow.Cells(column).Value, DBNull.Value)
+    End Function
+
+    Private Sub SelectReturnLine(lineId As Integer)
+        If Not BillMetroGrid.Columns.Contains("T_ID_CL") OrElse Not BillMetroGrid.Columns.Contains("EX_Name_CL") Then Return
+        For Each row As DataGridViewRow In BillMetroGrid.Rows
+            If Not row.IsNewRow AndAlso Not IsDBNull(row.Cells("T_ID_CL").Value) AndAlso Convert.ToInt32(row.Cells("T_ID_CL").Value) = lineId Then
+                BillMetroGrid.CurrentCell = row.Cells("EX_Name_CL")
+                Exit For
+            End If
+        Next
+    End Sub
+
+    Private Sub Change_IM_Qty(def As Integer)
+        Try
+            Dim lineId = Convert.ToInt32(ReturnGridValue(BillMetroGrid, "T_ID_CL"))
+            Using command As New SqlCommand("Return.QuantityStep")
+                command.Parameters.AddWithValue("@T_ID", lineId)
+                command.Parameters.AddWithValue("@DisplayedQuantity", Convert.ToDouble(ReturnGridValue(BillMetroGrid, "QTY_CL")))
+                command.Parameters.AddWithValue("@QuantityDelta", def)
+                command.Parameters.AddWithValue("@On_Update", On_Update)
+                If AuditReturnUi.Run(Me, command, Me.T_ID, ReturnDocumentType()) Then
+                    AuditReturnUi.Refresh(Me, Sub()
+                                                 SB_Contents_SELECT_Bill()
+                                                 SelectReturnLine(lineId)
+                                             End Sub)
+                End If
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Public Sub Load_ST()
@@ -763,18 +786,14 @@ Public Class Returns : Inherits System.Windows.Forms.Form
     End Function
 
     Private Sub Cancel_Bill()
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, If(FormType = 5, 10, 11)) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
             isVoid = True
             SelectStateBt()
-        End If
-
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -941,8 +960,6 @@ Public Class Returns : Inherits System.Windows.Forms.Form
     Public Sub Add_ItemToBill(IM_ID As String)
         Try
 
-            Dim SB_ID_FROM As String = "(بدون)"
-            If MetroGrid1.Rows.Count > 0 Then SB_ID_FROM = MetroGrid1.CurrentRow.Cells("Bill_ID_CL").Value.ToString
 
             If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
 
@@ -963,6 +980,7 @@ Public Class Returns : Inherits System.Windows.Forms.Form
                     .Parameters.AddWithValue("@Rtn_Type_ID", 7)
                 End If
                 .Parameters.AddWithValue("@SB_T_ID", Me.T_ID)
+                .Parameters.AddWithValue("@On_Update", On_Update)
                 .Parameters.AddWithValue("@IM_ID", IM_ID)
                 .Parameters.AddWithValue("@Barcode", Barcode_IM)
                 If String.IsNullOrWhiteSpace(QtyTextBox.Text) = False Then .Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox.Text))
@@ -972,39 +990,23 @@ Public Class Returns : Inherits System.Windows.Forms.Form
                 If Valid_Panel.Visible = True Then .Parameters.AddWithValue("@D_Vaild", D_Valid.Value.Date)
 
                 If MetroGrid1.Rows.Count > 0 Then
-                    .Parameters.AddWithValue("@Orginal_Bill_T_ID", MetroGrid1.CurrentRow.Cells("B_T_ID_CL").Value)
-                    .Parameters.AddWithValue("@Markter_Val", MetroGrid1.CurrentRow.Cells("Markter_Val_CL").Value)
-                    .Parameters.AddWithValue("@Serial_Code", MetroGrid1.CurrentRow.Cells("Serial_Code_CL").Value)
-                    .Parameters.AddWithValue("@is_By_Min_SP", MetroGrid1.CurrentRow.Cells("is_By_Min_SP_CL").Value)
-                    .Parameters.AddWithValue("@is_By_Min_SP_2", MetroGrid1.CurrentRow.Cells("is_By_Min_SP_2_CL").Value)
+                    .Parameters.AddWithValue("@Orginal_Bill_T_ID", ReturnGridValue(MetroGrid1, "B_T_ID_CL"))
+                    .Parameters.AddWithValue("@Markter_Val", ReturnGridValue(MetroGrid1, "Markter_Val_CL"))
+                    .Parameters.AddWithValue("@Serial_Code", ReturnGridValue(MetroGrid1, "Serial_Code_CL"))
+                    .Parameters.AddWithValue("@is_By_Min_SP", ReturnGridValue(MetroGrid1, "is_By_Min_SP_CL"))
+                    .Parameters.AddWithValue("@is_By_Min_SP_2", ReturnGridValue(MetroGrid1, "is_By_Min_SP_2_CL"))
                 End If
 
             End With
-            C.Da = New SqlClient.SqlDataAdapter(C.Com)
-            C.Da.Fill(C.Dt)
-            BillMetroGrid.DataSource = C.Dt
-
-            If FormType = 5 Then
-                Network_Edit_Tracker_insert(" الصنف:" & mySearchControl.txtSearch.Text & " العدد:" & QtyTextBox.Text & " السعر:" & PriceTextBox.Text & " من فاتورة:" & SB_ID_FROM, Bill_ID_Txt.Text, 10, 1)
-            Else
-                Network_Edit_Tracker_insert(" الصنف:" & mySearchControl.txtSearch.Text & " العدد:" & QtyTextBox.Text & " السعر:" & PriceTextBox.Text & " من فاتورة:" & SB_ID_FROM, Bill_ID_Txt.Text, 11, 1)
-            End If
-
-
-            ClearCatFields()
-            If BillMetroGrid.Rows.Count > 0 Then BillMetroGrid.CurrentCell = BillMetroGrid.Rows(BillMetroGrid.Rows.Count - 1).Cells("EX_Name_CL")
-
-            If Search_By_Bar_CB.Checked = False Then
-                'If MY_Settings.S_Default = 0 Then
-                '    Barcode_SH_txt.Select()
-                'Else
-                '    IM_SH_txt.Select()
-                'End If
-            Else
-                Bill_SH_TXT.Select()
-            End If
-
-
+            If Not AuditReturnUi.Run(Me, C.Com, Me.T_ID, ReturnDocumentType()) Then Exit Sub
+            ' A known committed addition must not be offered again if display refresh fails.
+            Me.IM_ID = 0
+            AuditReturnUi.Refresh(Me, Sub()
+                                         ClearCatFields()
+                                         SB_Contents_SELECT_Bill()
+                                         If BillMetroGrid.Rows.Count > 0 AndAlso BillMetroGrid.Columns.Contains("EX_Name_CL") Then BillMetroGrid.CurrentCell = BillMetroGrid.Rows(BillMetroGrid.Rows.Count - 1).Cells("EX_Name_CL")
+                                         If Search_By_Bar_CB.Checked Then Bill_SH_TXT.Select()
+                                     End Sub)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -1013,44 +1015,21 @@ Public Class Returns : Inherits System.Windows.Forms.Form
 
 
     Private Sub SB_Contents_Delete_IM(T_ID As Integer)
-
         Try
-
-            Dim SB_ID_FROM As String = "(بدون)"
-            If MetroGrid1.Rows.Count > 0 Then SB_ID_FROM = MetroGrid1.CurrentRow.Cells("Bill_ID_CL").Value.ToString
-
-            Dim Row_Index As Integer = BillMetroGrid.CurrentCell.RowIndex
-            Dim c As New C
-            With c.Com
-                .Connection = c.Con
-                .CommandText = "Rtn_Contents_Delete_IM"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@T_ID", T_ID)
-            End With
-            If SQL_SP_EXEC(c.Com) = True Then
-
-                If FormType = 5 Then
-                    Network_Edit_Tracker_insert(" الصنف:" & BillMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString & _
-            " العدد:" & BillMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString & " السعر:" & BillMetroGrid.CurrentRow.Cells("Price_CL_2").Value.ToString & " من فاتورة:" & SB_ID_FROM, Bill_ID_Txt.Text, 10, 2)
-                Else
-                    Network_Edit_Tracker_insert(" الصنف:" & BillMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString & _
-            " العدد:" & BillMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString & " السعر:" & BillMetroGrid.CurrentRow.Cells("Price_CL_2").Value.ToString & " من فاتورة:" & SB_ID_FROM, Bill_ID_Txt.Text, 11, 2)
+            Dim selected = Convert.ToInt32(ReturnGridValue(BillMetroGrid, "T_ID_CL"))
+            If selected <> T_ID Then Throw New InvalidOperationException("تغير الصنف المحدد؛ أعد تحديده.")
+            Dim rowIndex = BillMetroGrid.CurrentRow.Index
+            Using command As New SqlCommand("Rtn_Contents_Delete_IM")
+                command.Parameters.AddWithValue("@T_ID", T_ID)
+                command.Parameters.AddWithValue("@On_Update", On_Update)
+                If AuditReturnUi.Run(Me, command, Me.T_ID, ReturnDocumentType()) Then
+                    AuditReturnUi.Refresh(Me, Sub()
+                                                 SB_Contents_SELECT_Bill()
+                                                 If BillMetroGrid.Rows.Count > 0 AndAlso BillMetroGrid.Columns.Contains("EX_Name_CL") Then BillMetroGrid.CurrentCell = BillMetroGrid.Rows(Math.Min(Math.Max(0, rowIndex - 1), BillMetroGrid.Rows.Count - 1)).Cells("EX_Name_CL")
+                                                 If Search_By_Bar_CB.Checked Then Bill_SH_TXT.Select()
+                                             End Sub)
                 End If
-
-                SB_Contents_SELECT_Bill()
-                If Row_Index > 0 Then BillMetroGrid.CurrentCell = BillMetroGrid.Rows(Row_Index - 1).Cells(3)
-                If Search_By_Bar_CB.Checked = False Then
-                    'If MY_Settings.S_Default = 0 Then
-                    '    Barcode_SH_txt.Select()
-                    'Else
-                    '    IM_SH_txt.Select()
-                    'End If
-                Else
-                    Bill_SH_TXT.Select()
-                End If
-            End If
-
-
+            End Using
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

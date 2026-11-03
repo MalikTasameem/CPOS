@@ -166,15 +166,20 @@
 
         sqlComm.Parameters("@T_ID").Direction = ParameterDirection.Output
 
-        If SQL_SP_EXEC(sqlComm) = True Then
-            MsgBox("تم الإضافة بنجاح", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" من حساب :" & F_Treasury_ComboBox.Textt & " إلى حساب :" & T_Treasury_ComboBox.Textt & " القيمة:" & money_num_txtb.Text, Me.ReceiptNum_Txt.Text, 40, 1)
-            Me.ReceiptNum_Txt.Text = sqlComm.Parameters("@T_ID").Value.ToString()
+        Dim savedId As Integer
+        If AuditFinanceUi.Run(Me, sqlComm, savedId) Then
+            save_butt.Enabled = False
+            Fields_Panel.Enabled = False
+            AuditFinanceUi.Refresh(Me, Sub()
+                MsgBox("تم الإضافة بنجاح", MsgBoxStyle.Information)
 
-            F_Treasury_Balance.Text = Show_AG_T_Balance(F_Treasury_ComboBox.TXT_ID.Text)
-            T_Treasury_Balance.Text = Show_AG_T_Balance(T_Treasury_ComboBox.TXT_ID.Text)
-            'After_Save_Receipt()
-            Select_Tr_Balance_Transfer()
+                If savedId > 0 Then Me.ReceiptNum_Txt.Text = savedId.ToString()
+
+                F_Treasury_Balance.Text = Show_AG_T_Balance(F_Treasury_ComboBox.TXT_ID.Text)
+                T_Treasury_Balance.Text = Show_AG_T_Balance(T_Treasury_ComboBox.TXT_ID.Text)
+                'After_Save_Receipt()
+                If savedId > 0 Then Select_Tr_Balance_Transfer()
+            End Sub)
         End If
 
 
@@ -379,13 +384,19 @@
 
 
         sqlComm.Parameters.AddWithValue("@Process", "DELETE")
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" من حساب :" & F_Treasury_ComboBox.Textt & " إلى حساب :" & T_Treasury_ComboBox.Textt & " القيمة:" & money_num_txtb.Text, Me.ReceiptNum_Txt.Text, 40, 2)
-            After_Void_Receipt()
+        Dim savedId As Integer
+        If AuditFinanceUi.Run(Me, sqlComm, savedId) Then
+            save_butt.Enabled = False
+            Fields_Panel.Enabled = False
+            Cancel_Btn.Enabled = False
+            AuditFinanceUi.Refresh(Me, Sub()
 
-            F_Treasury_Balance.Text = Show_AG_T_Balance(F_Treasury_ComboBox.TXT_ID.Text)
-            T_Treasury_Balance.Text = Show_AG_T_Balance(T_Treasury_ComboBox.TXT_ID.Text)
+                After_Void_Receipt()
 
+                F_Treasury_Balance.Text = Show_AG_T_Balance(F_Treasury_ComboBox.TXT_ID.Text)
+                T_Treasury_Balance.Text = Show_AG_T_Balance(T_Treasury_ComboBox.TXT_ID.Text)
+
+            End Sub)
         End If
     End Sub
 

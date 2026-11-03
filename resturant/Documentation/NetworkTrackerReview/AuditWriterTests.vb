@@ -111,6 +111,12 @@ Friend Module AuditWriterTests
         Check(True, "unknown login rejection contains no old user")
         security.Context.SessionId = Guid.NewGuid()
         Reject(Of ArgumentException)(Sub() AuditCanonical.RequestBytes(security), "rejected login cannot inherit old session")
+        Dim namedEvent As New AuditEventRequest()
+        namedEvent.Changes.Add(New AuditFieldChange With {.FieldCode = "PurchaseItemName", .Before = AuditValue.Missing(AuditValueState.Absent),
+            .After = AuditValue.Capture("String", "  صنف   محفوظ  ")})
+        Dim humanDescription = AuditDisplayNameResolver.DecorateCaptured(namedEvent, "إضافة الصنف 153")
+        Check(humanDescription.Contains("التعريف المحفوظ") AndAlso humanDescription.Contains("صنف محفوظ"), "captured entity name is normalized into the persisted human description")
+        Check(AuditDisplayNameResolver.DecorateCaptured(namedEvent, "إضافة الصنف 153؛ صنف محفوظ") = "إضافة الصنف 153؛ صنف محفوظ", "entity name is not duplicated when the formatter already displays it")
     End Sub
 
     Private Function ReadConnection(path As String) As String

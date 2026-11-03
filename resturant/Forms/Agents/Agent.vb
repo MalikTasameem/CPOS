@@ -350,11 +350,8 @@ Public Class Agent
             .Parameters("@Ag_ID").Direction = ParameterDirection.Output
         End With
 
-        If SQL_SP_EXEC(C.Com) = True Then
+        If AuditPeopleCardsUi.Run(Me, C.Com) Then
             MsgBox("تمت إضافة العميـل", MsgBoxStyle.Information)
-
-            Network_Edit_Tracker_insert(" العميل:" & IM_SH_txt.Text & " الرقم:" & Barcode_txt.Text & " لهاتف:" & AG_Phone_TextBox.Text & " العنوان:" & AG_AddressTextBox.Text & " البريد الإلكتروني:" _
-                            & Email_txt.Text & " النوع:" & AG_Type_cm.Text & " العملة:" & Cr_CM.Text & " المرتب:" & SalaryTextBox.Text & " إشعار الدين:" & Max_Debit_txt.Text & " مباشرة العمل: " & Date_Start.Text, 0, 27, 1)
 
             AG_ID = C.Com.Parameters("@AG_ID").Value.ToString()
             '  Load_AG()
@@ -390,10 +387,8 @@ Public Class Agent
         End With
 
 
-        If SQL_SP_EXEC(C.Com) = True Then
+        If AuditPeopleCardsUi.Run(Me, C.Com) Then
             MsgBox("تم تعديل بيانات العميــــل", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الإسم السابق:" & AG_Name & " العميل:" & IM_SH_txt.Text & " الرقم:" & Barcode_txt.Text & " لهاتف:" & AG_Phone_TextBox.Text & " العنوان:" & AG_AddressTextBox.Text & " البريد الإلكتروني:" _
-                                       & Email_txt.Text & " النوع:" & AG_Type_cm.Text & " العملة:" & Cr_CM.Text & " المرتب:" & SalaryTextBox.Text & " إشعار الدين:" & Max_Debit_txt.Text & " مباشرة العمل: " & Date_Start.Text, 0, 27, 3)
             Edit_butt.Text = EditState
             ClearFields()
             DeleteOrUpdateStateBt()
@@ -413,9 +408,8 @@ Public Class Agent
             .Parameters.AddWithValue("@USER_ID", USER_ID)
         End With
 
-        If SQL_SP_EXEC(C.Com) = True Then
+        If AuditPeopleCardsUi.Run(Me, C.Com) Then
             MsgBox("تم حـــذف بيانات العميـل", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" العميل:" & AG_Name, 0, 27, 2)
 
             ClearFields()
             DeleteOrUpdateStateBt()

@@ -29,11 +29,10 @@
             If Not String.IsNullOrWhiteSpace(NumTextBox.Text) Then CALC_ChangePrice()
         Else
         If String.IsNullOrWhiteSpace(NumTextBox.Text) = False Then
+                If Not AuditDocumentFieldsUi.Discount(Me, F_POS.T_ID, 1, Convert.ToDecimal(NumTextBox.Text), F_POS.On_Update) Then Return
             F_POS.DiscountTextBox.Text = NumTextBox.Text
                 F_POS.Calc_Bill(True)
-                Update_Discount(F_POS.T_ID, NumTextBox.Text)
                 F_POS.Make_Discount()
-                Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & NumTextBox.Text, F_POS.SB_ID_Txt.Text, 1, 3)
             Me.Close()
         Else
             Me.Close()
@@ -222,12 +221,23 @@
 
         If F_POS.MetroGrid.Rows.Count > 0 Then
             Dim F As New Fast_SB_Discount
-            Identifiers.T_ID = T_ID
+            Identifiers.T_ID = F_POS.T_ID
             Identifiers.TOTAL = F_POS.TotalTextBox.Text
             Identifiers.Disc = Disc
             Identifiers.Pure = F_POS.PureTextBox.Text
             Identifiers.SB_ID = SB_ID
-            Fast_SB_Discount.ShowDialog()
+            F.AuditOnUpdate = F_POS.On_Update
+            F.ShowDialog(Me)
+            If F.is_OK Then
+                AuditDocumentFieldsUi.Refresh(Me, Sub()
+                                                     F_POS.DISCOUNT = Identifiers.Disc
+                                                     F_POS.Pure = Identifiers.Pure
+                                                     F_POS.DiscountTextBox.Text = Identifiers.Disc.ToString()
+                                                     F_POS.PureTextBox.Text = Identifiers.Pure.ToString()
+                                                     NumTextBox.Text = Identifiers.Disc.ToString()
+                                                 End Sub)
+            End If
+            F.Dispose()
         End If
 
     End Sub
@@ -244,11 +254,20 @@
         Dim F_Percent_Disc As New Percent_Disc
         F_Percent_Disc.T_ID = F_POS.T_ID
         F_Percent_Disc.TOTAL = F_POS.TOTAL
+        F_Percent_Disc.AuditDocumentType = 1
+        F_Percent_Disc.AuditOnUpdate = F_POS.On_Update
         F_Percent_Disc.ShowDialog()
-        If F_Percent_Disc.Result > 0 Then
-            NumTextBox.Text = F_Percent_Disc.Result
-            ConfermButton_Click(sender, e)
+        If F_Percent_Disc.Confirmed Then
+            ' The child already committed the discount with its audit; do not save it again.
+            AuditDocumentFieldsUi.Refresh(Me, Sub()
+                                                 NumTextBox.Text = F_Percent_Disc.Result.ToString()
+                                                 F_POS.DiscountTextBox.Text = F_Percent_Disc.Result.ToString()
+                                                 F_POS.Calc_Bill(True)
+                                                 F_POS.Make_Discount()
+                                             End Sub)
+            Me.Close()
         End If
+        F_Percent_Disc.Dispose()
     End Sub
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click

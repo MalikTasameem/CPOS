@@ -56,36 +56,72 @@ Public Class Backup
     End Sub
 
     Private Sub RestoreButtonX_Click(sender As Object, e As EventArgs) Handles RestoreButtonX.Click
-        Me.Cursor = Cursors.WaitCursor
-        Restore_DataBase()
-        Me.Cursor = Cursors.Default
+        RestoreButtonX.Enabled = False
+        Try
+            Me.Cursor = Cursors.WaitCursor
+            Restore_DataBase()
+        Finally
+            Me.Cursor = Cursors.Default
+            RestoreButtonX.Enabled = True
+        End Try
     End Sub
 
     Public Sub Restore_DataBase()
-        Dim c As New C
-        Dim OpenFileDialog1 As New OpenFileDialog
-        OpenFileDialog1.Filter = "Backup Files (*.bak)|*.bak"
-        OpenFileDialog1.RestoreDirectory = True
-        OpenFileDialog1.Title = "Open backup file"
-        If OpenFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-            'getting restore file path.
-            Dim path As String
-            path = System.IO.Path.GetFullPath(OpenFileDialog1.FileName)
-
-            'Code to restore database.
+        Using chooser As New OpenFileDialog With {.Filter = "Backup Files (*.bak)|*.bak", .RestoreDirectory = True, .Title = "Open backup file"}
+            If chooser.ShowDialog(Me) <> DialogResult.OK Then Return
             Try
-                c.Com = New SqlCommand("USE master ALTER DATABASE " & My_Settings.DataBase & "  SET SINGLE_USER " &
-                                       " WITH ROLLBACK IMMEDIATE  RESTORE DATABASE " & My_Settings.DataBase & " FROM DISK = '" & path & "'   with REPLACE", c.Con)
-                c.Con.Open()
-                c.Com.ExecuteNonQuery()
-                MsgBox("تــم إسترجاع النسخة الإحتياطية للنظام", MsgBoxStyle.Information)
-                Network_Edit_Tracker_insert(" إسترجاع نسخة إحتياطية للمنظومة من المسار " + path, 0, 0, 0)
-                c.Con.Close()
+                Dim connection = MY_Settings.SqlConStr
+                Dim builder As New SqlConnectionStringBuilder(connection)
+                Dim database = builder.InitialCatalog
+                If Not String.Equals(database, MY_Settings.DataBase, StringComparison.OrdinalIgnoreCase) Then Throw New InvalidOperationException("اسم قاعدة الاتصال لا يطابق إعداد الاستعادة؛ لم يتم التنفيذ.")
+                Dim context = AuditSecuritySession.Current.ContextFor(connection, USER_ID, Me.Name)
+                Dim backupFile = System.IO.Path.GetFullPath(chooser.FileName)
+                If MessageBox.Show(Me, "ستستبدل الاستعادة قاعدة " & database & " وتفصل اتصالاتها الحالية. تأكد من حفظ العمل وإغلاق الأجهزة الأخرى. هل تريد المتابعة؟", "تأكيد استعادة قاعدة البيانات", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) <> DialogResult.OK Then Return
+                Using journal As New AdministrativeRestoreAudit(AdministrativeRestoreAudit.DefaultDirectory)
+                    Dim pending = journal.Unresolved()
+                    If pending.Count > 0 Then
+                        If MessageBox.Show(Me, "توجد محاولة استعادة سابقة غير محسومة: " & String.Join(", ", pending) & Environment.NewLine &
+                            "لا تعني هذه الحالة فشل الاستعادة. هل راجعت حالة القاعدة على الخادم وتريد السماح بمحاولة جديدة مستقلة؟ لن نغيّر نتيجة المحاولة السابقة." & Environment.NewLine & AdministrativeRestoreAudit.DefaultDirectory,
+                            "مراجعة إدارية مطلوبة", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) <> DialogResult.Yes Then Return
+                        journal.AcknowledgeUnresolved(pending, context)
+                    End If
+                    journal.Start(context, builder.DataSource, database, backupFile)
+                    Dim completed As Boolean = False
+                    Dim executionError As Exception = Nothing
+                    Dim journalError As Exception = Nothing
+                    Try
+                        builder.InitialCatalog = "master"
+                        builder.Pooling = False
+                        builder.ApplicationName = "CPOS Administrative Restore"
+                        Using cn As New SqlConnection(builder.ConnectionString), command = AdministrativeRestoreExecutor.CreateCommand(cn, database, backupFile)
+                            cn.Open()
+                            journal.MarkDispatched()
+                            command.ExecuteNonQuery()
+                            completed = True
+                        End Using
+                    Catch ex As Exception
+                        executionError = ex
+                    Finally
+                        Try
+                            Dim sqlError = TryCast(executionError, SqlException)
+                            journal.Finish(If(completed, "Succeeded", If(journal.WasDispatched, "Unknown", "NotDispatched")), If(sqlError Is Nothing, CType(Nothing, Integer?), sqlError.Number))
+                        Catch ex As Exception
+                            journalError = ex
+                        End Try
+                        If journal.WasDispatched Then AuditSecuritySession.Current.InvalidateAfterAdministrativeRestore()
+                    End Try
+                    Dim message = If(completed, "أكد SQL Server اكتمال استعادة النسخة الاحتياطية.", If(journal.WasDispatched,
+                        "نتيجة الاستعادة غير محسومة. لا تكررها قبل فحص حالة القاعدة على الخادم؛ قد يكون الأمر قد نُفذ.", "لم يُرسل أمر الاستعادة إلى الخادم."))
+                    If executionError IsNot Nothing Then message &= Environment.NewLine & executionError.Message
+                    If journalError IsNot Nothing Then message &= Environment.NewLine & "تعذر تثبيت النتيجة النهائية في السجل المحلي؛ بقي سجل بدء المحاولة للمراجعة. " & journalError.Message
+                    If journal.WasDispatched Then message &= Environment.NewLine & "أُبطلت جلسة المراقبة القديمة. أعد تشغيل البرنامج وتسجيل الدخول بعد التحقق من جاهزية القاعدة."
+                    message &= Environment.NewLine & "مرجع: " & journal.Reference & Environment.NewLine & AdministrativeRestoreAudit.DefaultDirectory
+                    MessageBox.Show(Me, message, "استعادة قاعدة البيانات", MessageBoxButtons.OK, If(completed AndAlso journalError Is Nothing, MessageBoxIcon.Information, MessageBoxIcon.Warning))
+                End Using
             Catch ex As Exception
-                MsgBox(ex.Message)
-                c.Con.Close()
+                MessageBox.Show(Me, "لم يبدأ تنفيذ الاستعادة: " & ex.Message, "الاستعادة", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End Try
-        End If
+        End Using
     End Sub
 
 

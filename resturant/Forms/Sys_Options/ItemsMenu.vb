@@ -554,8 +554,11 @@ Public Class ItemsMenu
             .Parameters("@IM_ID").Direction = ParameterDirection.Output
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            IM_ID = c.Com.Parameters("@IM_ID").Value.ToString()
+        SaveButton.Enabled = False
+        IM_ID = 0
+        Dim savedId As Integer
+        If AuditItemLifecycleUi.Run(Me, c.Com, savedId) AndAlso savedId > 0 Then
+            IM_ID = savedId
             Fetch_IM()
             IM_SH_txt.Select()
             isValid_CB.Checked = isValid
@@ -572,15 +575,16 @@ Public Class ItemsMenu
             .Parameters.AddWithValue("@IM_ID", IM_ID)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditItemMasterUi.Run(Me, c.Com) Then
             MsgBox("تم حــذف الصــنف", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("" & IM_Name_ToolStrip.Text, IM_ID, 20, 2)
-            RefreshItemsCache()
-            Coutnt_IM()
-            Clear_Fields()
-            Load_Units(IM_Unit_cm)
-            Load_GM()
-            ADD_New_IM()
+            AuditItemMasterUi.Refresh(Me, Sub()
+                                            RefreshItemsCache()
+                                            Coutnt_IM()
+                                            Clear_Fields()
+                                            Load_Units(IM_Unit_cm)
+                                            Load_GM()
+                                            ADD_New_IM()
+                                        End Sub)
         End If
 
     End Sub
@@ -782,18 +786,10 @@ Public Class ItemsMenu
 
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditItemLifecycleUi.Run(Me, c.Com) Then
             MsgBox("تم الحفظ", MsgBoxStyle.Information)
-            RefreshItemsCache()
-
-            If is_New_IM = True Then
-                Network_Edit_Tracker_insert(" إسم الصنف:" & IM_SH_txt.Text & " النوع:" & IM_Type_cm.Text & " التصنيف:" & GM_Serach.Text & " الرقم:" & IM_Num_txt.Text & " الصلاحية:" _
-                           & Valid_St & " إضافة للإختصارات:" & isShort_St & " تكلفة القطعة:" & IM_Cost_txt.Text, IM_ID, 20, 1)
-            Else
-                Network_Edit_Tracker_insert(" الإسم السابق:" & IM_Name_ToolStrip.Text & " إسم الصنف:" & IM_SH_txt.Text & " النوع:" & IM_Type_cm.Text & " التصنيف:" & GM_Serach.Text & " الرقم:" & IM_Num_txt.Text & " الصلاحية:" _
-                               & Valid_St & " إضافة للإختصارات:" & isShort_St & " تكلفة القطعة:" & IM_Cost_txt.Text, IM_ID, 20, 3)
-            End If
-
+            AuditItemLifecycleUi.Refresh(Me, Sub()
+                RefreshItemsCache()
 
             GM_ID = GM_Serach.SelectedValue
             isValid = isValid_CB.Checked
@@ -803,6 +799,7 @@ Public Class ItemsMenu
             Load_Units(IM_Unit_cm)
             Coutnt_IM()
             ADD_New_IM()
+            End Sub)
         End If
 
     End Sub
@@ -916,8 +913,8 @@ Public Class ItemsMenu
 
         Dim U_ID As Integer
         If Check_Unit_Exist(IM_Unit_cm, Unit_cargo_txt.Text) = 0 Then
-            Unit_Insert(IM_Unit_cm, Unit_cargo_txt.Text, 22)
-            U_ID = GET_Unit_Exist(IM_Unit_cm.Text, Unit_cargo_txt.Text)
+            If Not Unit_Insert(IM_Unit_cm, Unit_cargo_txt.Text, 22) Then Return
+            U_ID = Convert.ToInt32(IM_Unit_cm.SelectedValue)
         Else
             U_ID = GET_Unit_Exist(IM_Unit_cm.Text, Unit_cargo_txt.Text)
         End If
@@ -938,9 +935,8 @@ Public Class ItemsMenu
             .Parameters.AddWithValue("@User_ID", USER_ID)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-
-            Network_Edit_Tracker_insert(" إضافة وحدة للصنف " & IM_Name_ToolStrip.Text & " الوحدة:" & IM_Unit_cm.Text & " الباركود: " & BarCode_txt.Text & " السعر: " & Price_txt.Text & " الجملة: " & Min_SP_txt.Text & " جملة الجملة: " & Min_SP_2_txt.Text, 0, 20, 1)
+        If AuditItemUnitsUi.Run(Me, c.Com, Not S_is_Multi_BAR) Then
+            AuditItemUnitsUi.Refresh(Me, Sub()
             RefreshItemsCache()
             Unit_cargo_txt.Clear()
             IM_Units_Select()
@@ -954,6 +950,7 @@ Public Class ItemsMenu
             '    IM_Unit_cm.SelectedValue = Def_U_ID
             'End If
             If IM_Type_cm.SelectedIndex > 0 Then IM_Unit_cm.SelectedValue = Def_U_ID
+                                       End Sub)
         End If
     End Sub
 
@@ -1009,11 +1006,11 @@ Public Class ItemsMenu
             .Parameters.AddWithValue("@U_IM_ID", Unit_DataGridView.CurrentRow.Cells("U_IM_ID_CL").Value)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" حذف وحدة للصنف " & IM_Name_ToolStrip.Text & " الوحدة:" & Unit_DataGridView.CurrentRow.Cells("U_Name_CL").Value.ToString _
-                                        & " الباركود:" & Unit_DataGridView.CurrentRow.Cells("Barcode_CL").Value.ToString & " السعر: " & Unit_DataGridView.CurrentRow.Cells("Price_CL").Value.ToString & " الجملة: " & Unit_DataGridView.CurrentRow.Cells("Min_SP_CL").Value.ToString & " جملة الجملة: " & Unit_DataGridView.CurrentRow.Cells("Min_SP_2_CL").Value.ToString, 0, 20, 2)
-            RefreshItemsCache()
-            IM_Units_Select()
+        If AuditItemUnitsUi.Run(Me, c.Com) Then
+            AuditItemUnitsUi.Refresh(Me, Sub()
+                                             RefreshItemsCache()
+                                             IM_Units_Select()
+                                         End Sub)
         End If
     End Sub
 
@@ -1105,41 +1102,25 @@ Public Class ItemsMenu
         Else
             If MessageBox.Show(" إضافة " + GM_Serach.Text + " إلى قائمة المجموعات ", " إضافة مجموعة ", MessageBoxButtons.YesNo,
                                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-                GM_Serach.SelectedValue = Insert_Fast_GM()
+                Dim newGroupId = Insert_Fast_GM()
+                If newGroupId > 0 Then GM_Serach.SelectedValue = newGroupId
             End If
         End If
         ' End If
     End Sub
 
-    Private Function Insert_Fast_GM()
-        Dim GM_New_ID As Integer
-        Dim C As New C
-
-        If GM_Serach.Text.Count < 4 Then
-            Do While GM_Serach.Text.Count < 4
-                GM_Serach.Text = GM_Serach.Text + " "
-            Loop
-        End If
-
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "GM_insert"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@GM_ID", 0)
-            .Parameters.AddWithValue("@GM_Name", Me.GM_Serach.Text)
-            .Parameters.AddWithValue("@POS_isShow", 1)
-            .Parameters.AddWithValue("@Printer_ID", 1)
-            .Parameters.AddWithValue("@Ksh_Screen", My.Computer.Name)
-            .Parameters("@GM_ID").Direction = ParameterDirection.Output
-
-            If SQL_SP_EXEC(C.Com) Then
-                GM_New_ID = .Parameters("@GM_ID").Value.ToString()
-                Load_GM()
-            End If
-
-        End With
-
-        Return GM_New_ID
+    Private Function Insert_Fast_GM() As Integer
+        If GM_Serach.Text.Length < 4 Then GM_Serach.Text = GM_Serach.Text.PadRight(4)
+        Using command As New System.Data.SqlClient.SqlCommand("GM_insert")
+            command.Parameters.Add("@GM_Name", SqlDbType.NVarChar, 200).Value = GM_Serach.Text
+            command.Parameters.Add("@POS_isShow", SqlDbType.Int).Value = 1
+            command.Parameters.Add("@Printer_ID", SqlDbType.Int).Value = 1
+            command.Parameters.Add("@Ksh_Screen", SqlDbType.NVarChar, 200).Value = My.Computer.Name
+            Dim savedId As Integer
+            If Not AuditGroupsUi.Run(Me, command, savedId) Then Return 0
+            AuditGroupsUi.Refresh(Me, AddressOf Load_GM)
+            Return savedId
+        End Using
     End Function
 
     Private Sub Min_SP_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Min_SP_txt.KeyDown

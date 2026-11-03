@@ -212,4 +212,10 @@ Friend NotInheritable Class AuditSecuritySession
         result.ScreenCode = screen
         Return result
     End Function
+
+    Friend Sub InvalidateAfterAdministrativeRestore()
+        ' The database may have been replaced. Never write an end event into a different history.
+        active = Nothing
+        pendingStart = Nothing
+    End Sub
 End Class

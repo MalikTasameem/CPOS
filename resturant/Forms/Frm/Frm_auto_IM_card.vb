@@ -203,7 +203,7 @@
     Private Sub Insert_Cat()
         If String.IsNullOrWhiteSpace(Barcode_IM) Then Barcode_IM = SELECT_BARCODE(IM_ID, IM_Unit_cm.SelectedValue)
         Dim Row_Index As Integer = 0
-        If F_Format_Items_Auto.AGMetroGrid.Rows.Count > 0 Then Row_Index = F_Format_Items_Auto.AGMetroGrid.CurrentCell.RowIndex + 1
+        If F_Format_Items_Auto.AGMetroGrid.CurrentCell IsNot Nothing Then Row_Index = F_Format_Items_Auto.AGMetroGrid.CurrentCell.RowIndex + 1
         Dim sqlComm As New SqlClient.SqlCommand()
         sqlComm.CommandText = "FRM_Details_Insert"
         sqlComm.CommandType = CommandType.StoredProcedure
@@ -224,15 +224,15 @@
         If String.IsNullOrWhiteSpace(Min_SP_By_One_txt.Text) = False Then sqlComm.Parameters.AddWithValue("@Min_SP_ByOne", Convert.ToDouble(Min_SP_By_One_txt.Text))
 
 
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If AuditInventoryOperationsUi.Run(Me, sqlComm, T_ID, 13) Then
 
-            Network_Edit_Tracker_insert(" الصنف:" + mySearchControl.txtSearch.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " البيع:" _
-                                       + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, F_Format_Items_Auto.Bill_ID_Txt.Text, 13, 1)
 
             'Update_Total()
-            ClearCatFields()
-            F_Format_Items_Auto.Pch_Contents_SELECT_Bill()
-            If Row_Index > 0 Then F_Format_Items_Auto.AGMetroGrid.CurrentCell = F_Format_Items_Auto.AGMetroGrid.Rows(Row_Index).Cells("FRM_IM_NAME_CL")
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                ClearCatFields()
+                F_Format_Items_Auto.Pch_Contents_SELECT_Bill()
+                If Row_Index > 0 AndAlso Row_Index < F_Format_Items_Auto.AGMetroGrid.Rows.Count Then F_Format_Items_Auto.AGMetroGrid.CurrentCell = F_Format_Items_Auto.AGMetroGrid.Rows(Row_Index).Cells("FRM_IM_NAME_CL")
+            End Sub)
             'If MY_Settings.S_Default = 0 Then
             '    Barcode_SH_txt.Select()
             'Else

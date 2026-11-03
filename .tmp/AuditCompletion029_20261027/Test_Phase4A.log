@@ -1,0 +1,35 @@
+PASS narrow operation-specific domain
+PASS opening never accepts financial changes
+PASS missing document rejected
+PASS confirmed login required
+PASS unknown connection retains pending request
+PASS unknown request cannot move to another document
+PASS unknown status prevents silently discarding request
+PASS no other clients
+PASS fixture and missing-document keys unused
+PASS no unreviewed triggers
+PASS test actor has actual sales-edit permission
+PASS open edit and event are pending the same commit
+PASS actual actor and time captured without financial changes
+PASS ten actual before and after fields
+PASS retry resolves to original operation
+PASS retry creates only one event
+PASS existing accounting repost semantics preserved
+PASS blocked actor rejected within transaction
+PASS void invoice cannot open
+PASS unapproved invoice rejected
+PASS wrong invoice type rejected
+PASS missing invoice rejected
+PASS event failure rolls back edit opening
+PASS rollback preserved Agents_Balance_MV
+PASS rollback preserved SB_Contents
+PASS rollback preserved Treasury_Balance_MV
+PASS rollback preserved Network_Edit_Tracker
+PASS rollback preserved Network_Audit_Request
+PASS rollback preserved Network_Audit_Event
+PASS rollback preserved Network_Audit_Change
+PASS fixture header fully rolled back
+PASS failure trigger rolled back
+PASS activation unchanged by tests
+PASS actor activation restored
+PASS: 34 sales edit opening checks.

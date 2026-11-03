@@ -1,0 +1,143 @@
+PASS narrow opening-only domain
+PASS closed type and screen mapping 2 / EXP_Details
+PASS message distinguishes opening from saving EXP_Details
+PASS closed type and screen mapping 7 / Pch
+PASS message distinguishes opening from saving Pch
+PASS closed type and screen mapping 8 / IM_Execute
+PASS message distinguishes opening from saving IM_Execute
+PASS closed type and screen mapping 9 / Invoice
+PASS message distinguishes opening from saving Invoice
+PASS closed type and screen mapping 10 / Returns
+PASS message distinguishes opening from saving Returns
+PASS closed type and screen mapping 11 / Returns
+PASS message distinguishes opening from saving Returns
+PASS closed type and screen mapping 12 / Stores_ImmediateOrder
+PASS message distinguishes opening from saving Stores_ImmediateOrder
+PASS closed type and screen mapping 13 / Format_Items_Auto
+PASS message distinguishes opening from saving Format_Items_Auto
+PASS closed type and screen mapping 17 / Inside_Sales
+PASS message distinguishes opening from saving Inside_Sales
+PASS closed type and screen mapping 18 / Format_Items_Manual
+PASS message distinguishes opening from saving Format_Items_Manual
+PASS closed type and screen mapping 35 / Outside_Sales
+PASS message distinguishes opening from saving Outside_Sales
+PASS closed type and screen mapping 35 / Outside_Sales_Touch
+PASS message distinguishes opening from saving Outside_Sales_Touch
+PASS missing document ID rejected
+PASS sales cannot bypass its dedicated path
+PASS screen/type mismatch rejected
+PASS confirmed session required
+PASS no financial mutations in opening inputs
+PASS unknown connection retains pending request
+PASS pending request cannot change document
+PASS pending request cannot change actor
+PASS pending request cannot change session
+PASS unknown result cannot be silently discarded
+PASS no other clients
+PASS fixture keys unused
+PASS no unreviewed triggers
+PASS actual permissions and role key confirmed
+PASS same transaction EXP_Details / 2
+PASS actual actor/time; financial values unchanged EXP_Details
+PASS twelve actual fields EXP_Details
+PASS same request replays EXP_Details
+PASS one event after retry EXP_Details
+PASS denied permission 2
+PASS permission denial did not open 2
+PASS same transaction Pch / 7
+PASS actual actor/time; financial values unchanged Pch
+PASS twelve actual fields Pch
+PASS same request replays Pch
+PASS one event after retry Pch
+PASS denied permission 7
+PASS permission denial did not open 7
+PASS same transaction IM_Execute / 8
+PASS actual actor/time; financial values unchanged IM_Execute
+PASS twelve actual fields IM_Execute
+PASS same request replays IM_Execute
+PASS one event after retry IM_Execute
+PASS denied permission 8
+PASS permission denial did not open 8
+PASS same transaction Invoice / 9
+PASS actual actor/time; financial values unchanged Invoice
+PASS twelve actual fields Invoice
+PASS same request replays Invoice
+PASS one event after retry Invoice
+PASS denied permission 9
+PASS permission denial did not open 9
+PASS same transaction Returns / 10
+PASS actual actor/time; financial values unchanged Returns
+PASS twelve actual fields Returns
+PASS same request replays Returns
+PASS one event after retry Returns
+PASS denied permission 10
+PASS permission denial did not open 10
+PASS same transaction Returns / 11
+PASS actual actor/time; financial values unchanged Returns
+PASS twelve actual fields Returns
+PASS same request replays Returns
+PASS one event after retry Returns
+PASS denied permission 11
+PASS permission denial did not open 11
+PASS same transaction Stores_ImmediateOrder / 12
+PASS actual actor/time; financial values unchanged Stores_ImmediateOrder
+PASS twelve actual fields Stores_ImmediateOrder
+PASS same request replays Stores_ImmediateOrder
+PASS one event after retry Stores_ImmediateOrder
+PASS denied permission 12
+PASS permission denial did not open 12
+PASS same transaction Format_Items_Auto / 13
+PASS actual actor/time; financial values unchanged Format_Items_Auto
+PASS twelve actual fields Format_Items_Auto
+PASS same request replays Format_Items_Auto
+PASS one event after retry Format_Items_Auto
+PASS denied permission 13
+PASS permission denial did not open 13
+PASS same transaction Inside_Sales / 17
+PASS actual actor/time; financial values unchanged Inside_Sales
+PASS twelve actual fields Inside_Sales
+PASS same request replays Inside_Sales
+PASS one event after retry Inside_Sales
+PASS denied permission 17
+PASS permission denial did not open 17
+PASS same transaction Format_Items_Manual / 18
+PASS actual actor/time; financial values unchanged Format_Items_Manual
+PASS twelve actual fields Format_Items_Manual
+PASS same request replays Format_Items_Manual
+PASS one event after retry Format_Items_Manual
+PASS denied permission 18
+PASS permission denial did not open 18
+PASS same transaction Outside_Sales / 35
+PASS actual actor/time; financial values unchanged Outside_Sales
+PASS twelve actual fields Outside_Sales
+PASS same request replays Outside_Sales
+PASS one event after retry Outside_Sales
+PASS same transaction Outside_Sales_Touch / 35
+PASS actual actor/time; financial values unchanged Outside_Sales_Touch
+PASS twelve actual fields Outside_Sales_Touch
+PASS same request replays Outside_Sales_Touch
+PASS one event after retry Outside_Sales_Touch
+PASS denied permission 35
+PASS permission denial did not open 35
+PASS original repost semantics preserved
+PASS persisted unapproved header retains its state
+PASS void document rejected
+PASS actual type mismatch rejected
+PASS missing actual document rejected
+PASS disabled actor rejected
+PASS writer failure prevents success
+PASS writer failure leaves no committable transaction (state=0)
+PASS server rollback also removed the edit fixture
+PASS rollback preserved Agents_Balance_MV
+PASS rollback preserved SB_Contents
+PASS rollback preserved Treasury_Balance_MV
+PASS rollback preserved Network_Edit_Tracker
+PASS rollback preserved Network_Audit_Request
+PASS rollback preserved Network_Audit_Event
+PASS rollback preserved Network_Audit_Change
+PASS fixture header removed by rollback
+PASS test failure trigger rolled back
+PASS activation unchanged by tests
+PASS business procedure unchanged
+PASS actor and all permission flags restored
+PASS: 142 document edit opening checks.

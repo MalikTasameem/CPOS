@@ -820,94 +820,21 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Save_EditChanges()
-
         If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
-
         Try
-
-            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
-
-                cn.Open()
-
-                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
-
-                    Try
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Total",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@Total", TOTAL)
-                                cmd.Parameters.AddWithValue("@Disc", Disc)
-                            End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                If String.IsNullOrWhiteSpace(Notes_txt.Text) = False Then cmd.Parameters.AddWithValue("@About", Notes_txt.Text)
-                            End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_ReferNum",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@ReferNum", EX_ReferNumTextBox.Text)
-                            End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Date",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@Date", DateTimeEx.Value)
-                                cmd.Parameters.AddWithValue("@Month", DateTimeEx.Value.Month)
-                                cmd.Parameters.AddWithValue("@YEAR", DateTimeEx.Value.Year)
-                            End Sub)
-
-                        Disc = Convert.ToDouble(Discount_txt.Text) * Convert.ToDouble(Cr_Equal_TXT.Text)
-                        Discount_txt.Text = Disc
-
-                        Using discountCmd As New SqlClient.SqlCommand(
-                            "Update Agents_Balance_MV SET Discount = @Discount WHERE T_ID = @T_ID",
-                            cn,
-                            tr
-                        )
-
-                            discountCmd.Parameters.AddWithValue("@Discount", Convert.ToDouble(Discount_txt.Text))
-                            discountCmd.Parameters.AddWithValue("@T_ID", T_ID)
-                            discountCmd.ExecuteNonQuery()
-
-                        End Using
-
-                        ExecuteEditStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@User_ID", USER_ID)
-                                cmd.Parameters.AddWithValue("@Notes", " تخفيض للفاتورة بقيمة:" & Disc.ToString)
-                                cmd.Parameters.AddWithValue("@Bill_ID", Bill_ID_Txt.Text)
-                                cmd.Parameters.AddWithValue("@Screen_Type", 7)
-                                cmd.Parameters.AddWithValue("@Operation_ID", 3)
-                                cmd.Parameters.AddWithValue("@CP_Name", My.Computer.Name)
-                            End Sub)
-
-                        tr.Commit()
-
-                    Catch
-
-                        tr.Rollback()
-                        Throw
-
-                    End Try
-
-                End Using
-
-            End Using
-
-            If Cr_CM.SelectedValue > 1 Then T_Other_Cr_TXT.Text = (Pure / Convert.ToDouble(Cr_Equal_TXT.Text)).ToString("n")
-            Pure_txt.Text = (TOTAL - Disc).ToString("n")
-            Pure = TOTAL - Disc
-
+            Dim calculatedDisc As Decimal = CDec(Discount_txt.Text) * CDec(Cr_Equal_TXT.Text)
+            If Not AuditDocumentWorkflowsUi.EditFields(Me, T_ID, 7, CDec(TOTAL), calculatedDisc, DateTimeEx.Value, Notes_txt.Text, EX_ReferNumTextBox.Text, Nothing) Then Return
+            Disc = CDbl(calculatedDisc)
+            Discount_txt.Text = Disc.ToString()
+            AuditDocumentFieldsUi.Refresh(Me,
+                Sub()
+                    If Cr_CM.SelectedValue IsNot Nothing AndAlso Not IsDBNull(Cr_CM.SelectedValue) AndAlso CInt(Cr_CM.SelectedValue) > 1 Then T_Other_Cr_TXT.Text = (Pure / Convert.ToDouble(Cr_Equal_TXT.Text)).ToString("n")
+                    Pure_txt.Text = (TOTAL - Disc).ToString("n")
+                    Pure = TOTAL - Disc
+                End Sub)
         Catch ex As Exception
-
             MsgBox(ex.Message)
-
         End Try
-
     End Sub
 
     Private Sub ExecuteEditStoredProcedure(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, procedureName As String, addParameters As Action(Of SqlClient.SqlCommand))
@@ -960,16 +887,14 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Function
 
     Private Sub Cancel_Bill()
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 7) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 7, 3)
             isVoid = True
             SelectStateBt()
-        End If
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     'Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
@@ -1181,18 +1106,19 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Delete_Cat()
+        If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentCell Is Nothing OrElse Not AGMetroGrid.Columns.Contains("T_ID_CL") OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) Then Return
         Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
         Dim sqlComm As New SqlClient.SqlCommand
         sqlComm.CommandText = "Pch_Details_Delete"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
         sqlComm.Parameters.AddWithValue("@On_Update", On_Update)
-        If SQL_SP_EXEC(sqlComm) = True Then
-            If Not IsDBNull(AGMetroGrid.CurrentRow.Cells("NewSale_CL").Value) Then MsgBox("قم بتعديل سعر البيع من شاشة الأصناف", MsgBoxStyle.Information, "")
-            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " الوحدة:" + AGMetroGrid.CurrentRow.Cells("IMUnit_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString _
-                            + " السعر:" + AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Bill_ID_Txt.Text, 7, 2)
-            Pch_Contents_SELECT_Bill()
-            If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
+        If AuditInventoryOperationsUi.Run(Me, sqlComm, T_ID, 7) Then
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                If Not IsDBNull(AGMetroGrid.CurrentRow.Cells("NewSale_CL").Value) Then MsgBox("قم بتعديل سعر البيع من شاشة الأصناف", MsgBoxStyle.Information, "")
+                Pch_Contents_SELECT_Bill()
+                If Row_Index > 0 AndAlso Row_Index <= AGMetroGrid.Rows.Count Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
+            End Sub)
         End If
     End Sub
 
@@ -1252,6 +1178,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             AG_Type = 4
             F_Receipt = New Receipt
             Receipt_Tran_ID = T_ID
+            F_Receipt.ConfigureEntryContext(2, T_ID)
             With F_Receipt
                 Rct_Tr_ID = PCH_TR_ID
                 .Fields_Panel.Enabled = True
@@ -1273,6 +1200,7 @@ Public Class Pch : Inherits System.Windows.Forms.Form
             AG_Type = 4
             isShowingDetails = True
             F_Receipt = New Receipt
+            F_Receipt.ConfigureEntryContext(2, T_ID)
             F_Receipt.ShowDialog()
             isShowingDetails = False
         End If
@@ -1306,9 +1234,8 @@ Public Class Pch : Inherits System.Windows.Forms.Form
         sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
         sqlComm.Parameters("@AG_ID").Direction = ParameterDirection.Output
         sqlComm.Parameters.AddWithValue("@E_mail", "")
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If AuditPeopleCardsUi.Run(Me, sqlComm) Then
             MsgBox("تمت إضافة العميــل", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" (من شاشة المشتريات) الزبون:" & AG_Cm.Textt, 0, 27, 1)
             New_AG_ID = sqlComm.Parameters("@AG_ID").Value.ToString()
             'Load_AG()
         End If
@@ -1505,10 +1432,10 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Make_Discount()
-        Disc = Convert.ToDouble(Discount_txt.Text) * Convert.ToDouble(Cr_Equal_TXT.Text)
+        Dim requestedDisc As Double = Convert.ToDouble(Discount_txt.Text) * Convert.ToDouble(Cr_Equal_TXT.Text)
+        If Not AuditDocumentFieldsUi.Discount(Me, T_ID, 7, Convert.ToDecimal(requestedDisc), On_Update) Then Return
+        Disc = requestedDisc
         Discount_txt.Text = Disc
-        Update_Discount(T_ID, Discount_txt.Text)
-        Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & Disc.ToString, Bill_ID_Txt.Text, 7, 3)
         If Cr_CM.SelectedValue > 1 Then T_Other_Cr_TXT.Text = (Pure / Convert.ToDouble(Cr_Equal_TXT.Text)).ToString("n")
         Pure_txt.Text = (TOTAL - Disc).ToString("n")
         Pure = TOTAL - Disc
@@ -1528,13 +1455,12 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub AG_Balance_Update_Equal_Value()
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "[AG_Balance_Update_Equal_Value]"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-        sqlComm.Parameters.AddWithValue("@Cr_ID", Cr_CM.SelectedValue)
-        If Not String.IsNullOrWhiteSpace(Cr_Equal_TXT.Text) Then sqlComm.Parameters.AddWithValue("@Cr_Equal_Value", Cr_Equal_TXT.Text)
-        SQL_SP_EXEC(sqlComm)
+        Try
+            Dim exchange As Decimal = If(String.IsNullOrWhiteSpace(Cr_Equal_TXT.Text), 1D, CDec(Cr_Equal_TXT.Text))
+            AuditDocumentWorkflowsUi.Currency(Me, T_ID, On_Update, Cr_CM.SelectedValue, exchange)
+        Catch ex As Exception
+            MessageBox.Show(Me, ex.Message, "عملة المشتريات", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub Cr_Equal_TXT_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cr_Equal_TXT.KeyPress
@@ -1701,22 +1627,37 @@ Public Class Pch : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
-        If AG_Cm.TXT_ID.Text > 0 Then
-            AG_ID = AG_Cm.TXT_ID.Text
-            If is_Select_Mode = False Then
-                Save_AG_Name(T_ID, AG_ID, On_Update)
-                Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, Bill_ID_Txt.Text, 7, 3)
-                AG_Balance_Update_Equal_Value()
-            End If
+        Dim selectedAccount As Integer
+        If Not Integer.TryParse(AG_Cm.TXT_ID.Text, selectedAccount) OrElse selectedAccount <= 0 Then Return
+        If is_Select_Mode Then
+            AG_ID = selectedAccount
             Fetch_AG_Currency()
-
+            Return
         End If
+        Try
+            Dim exchange As Decimal = If(String.IsNullOrWhiteSpace(Cr_Equal_TXT.Text), 1D, CDec(Cr_Equal_TXT.Text))
+            If Not AuditDocumentWorkflowsUi.Currency(Me, T_ID, On_Update, Cr_CM.SelectedValue, exchange, selectedAccount) Then
+                is_Select_Mode = True
+                Try
+                    AG_Cm.Set_IM_By_ID(AG_ID)
+                Finally
+                    is_Select_Mode = False
+                End Try
+                Return
+            End If
+            AG_ID = selectedAccount
+            AuditDocumentFieldsUi.Refresh(Me, Sub() Fetch_AG_Currency())
+        Catch ex As Exception
+            MessageBox.Show(Me, ex.Message, "حساب المشتريات", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub تخفيضبنسبةToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles تخفيضبنسبةToolStripMenuItem.Click
         Dim F_Percent_Disc As New Percent_Disc
         F_Percent_Disc.T_ID = T_ID
         F_Percent_Disc.TOTAL = TOTAL
+        F_Percent_Disc.AuditDocumentType = 7
+        F_Percent_Disc.AuditOnUpdate = On_Update
         F_Percent_Disc.ShowDialog()
         Select_ExpBill(T_ID)
     End Sub

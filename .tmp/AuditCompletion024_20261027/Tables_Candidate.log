@@ -1,0 +1,104 @@
+PASS 15 invoice fields
+PASS 24 line fields
+PASS 9 table fields
+PASS closed table domain
+PASS unknown operation denied
+PASS no other clients
+PASS approved source
+PASS unused fixture Tables
+PASS unused fixture Agents_Balance_MV
+PASS unused fixture SB_Contents
+PASS unused fixture Printers
+PASS failure trigger unused
+PASS no unknown business triggers
+PASS recalculated total plus
+PASS net after discount plus
+PASS line state plus
+PASS SQL cargo rounding plus
+PASS existing stock and payment semantics plus
+PASS 39 fields plus
+PASS idempotent plus
+PASS stale plus
+PASS request identity payload mismatch plus
+PASS recalculated total minus
+PASS net after discount minus
+PASS line state minus
+PASS SQL cargo rounding minus
+PASS existing stock and payment semantics minus
+PASS 39 fields minus
+PASS idempotent minus
+PASS stale minus
+PASS request identity payload mismatch minus
+PASS recalculated total delete
+PASS net after discount delete
+PASS line state delete
+PASS existing stock and payment semantics delete
+PASS 39 fields delete
+PASS idempotent delete
+PASS stale delete
+PASS request identity payload mismatch delete
+PASS invoice moved False
+PASS paid invoice stays False
+PASS destination order code False
+PASS table busy states False
+PASS source open date cleared
+PASS transfer never rewrites item rows
+PASS two table rows plus invoice
+PASS transfer replay
+PASS invoice moved True
+PASS paid invoice stays True
+PASS destination order code True
+PASS table busy states True
+PASS source open date cleared
+PASS transfer never rewrites item rows
+PASS two table rows plus invoice
+PASS transfer replay
+PASS duplicate print rows preserved plus
+PASS print rows paged plus
+PASS print payload captured plus
+PASS retry does not requeue plus
+PASS duplicate print rows preserved delete
+PASS print rows paged delete
+PASS print payload captured delete
+PASS retry does not requeue delete
+PASS reject disabled
+PASS reject permission
+PASS reject domain
+PASS reject wrong-screen
+PASS reject paid
+PASS reject void
+PASS reject wrong-line
+PASS reject stale-line
+PASS reject stale-header
+PASS reject same-table
+PASS reject zero-delta
+PASS detail failure rolls back transfer
+PASS detail failure rolls back plus
+PASS detail failure rolls back delete
+PASS swallowed legacy rollback never reports success
+PASS snapshot prevents competing edit
+PASS locked quantity applied once
+PASS original data unchanged 0
+PASS original data unchanged 1
+PASS original data unchanged 2
+PASS original data unchanged 3
+PASS original data unchanged 4
+PASS original data unchanged 5
+PASS original data unchanged 6
+PASS original data unchanged 7
+PASS original data unchanged 8
+PASS original data unchanged 9
+PASS definition unchanged Transform_Tables
+PASS definition unchanged SB_Contents_Change_TB_IM_Qty
+PASS definition unchanged SB_Contents_Delete_TB_IM
+PASS definition unchanged Recalculate_Agent_Bill_Total
+PASS definition unchanged Network_Audit_Request_Begin
+PASS definition unchanged Network_Audit_Event_Write
+PASS rollback count Network_Audit_Request
+PASS rollback count Network_Audit_Event
+PASS rollback count Network_Audit_Change
+PASS rollback count Network_Edit_Tracker
+PASS domain rollback
+PASS no incomplete request
+PASS failure trigger removed
+PASS 103 table-operation checks.

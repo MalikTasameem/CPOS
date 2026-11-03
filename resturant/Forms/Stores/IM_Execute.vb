@@ -719,17 +719,13 @@
 
     'End Sub
     Private Sub Cancel_Bill()
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 8) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 8, 3)
-
             Set_Bill_State(BillState.Voided) ' <--- الاعتماد على الحالة الجديدة
-        End If
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -910,21 +906,20 @@
     End Sub
 
     Private Sub Delete_Cat()
+        If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentRow.IsNewRow OrElse Not AGMetroGrid.Columns.Contains("T_ID_CL") OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) Then Return
+
         Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
         Dim sqlComm As New SqlClient.SqlCommand
         sqlComm.CommandText = "IMEX_Details_Delete"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
         'sqlComm.Parameters.AddWithValue("@On_Update", On_Update)
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" الصنف:" & AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString & " الوحدة:" & AGMetroGrid.CurrentRow.Cells("IMUnit_CL").Value.ToString &
-               " العدد:" & AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString & " التكلفة:" & AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Bill_ID_Txt.Text, 8, 2)
-            SELECT_EXP_Cats(T_ID)
-            Update_Total()
-            If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
-            '  mySearchControl.txtSearch.Select()
+        If AuditStockDocumentUi.Run(Me, sqlComm, T_ID, 8) Then
+            AuditStockDocumentUi.Refresh(Me, Sub()
+                SELECT_EXP_Cats(T_ID)
+                If Row_Index > 0 AndAlso Row_Index - 1 < AGMetroGrid.Rows.Count AndAlso AGMetroGrid.Columns.Contains("EX_Name_CL") Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
+            End Sub)
         End If
-
     End Sub
 
     'Private Sub IM_Cost_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Cost_txt.KeyDown

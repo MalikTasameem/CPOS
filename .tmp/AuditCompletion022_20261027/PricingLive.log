@@ -1,0 +1,90 @@
+PASS 8 actual offer fields without invented key
+PASS 3 actual percentage fields
+PASS closed pricing domain
+PASS offer input catalogue
+PASS unknown operation denied
+PASS no other clients
+PASS approved source
+PASS no unreviewed triggers
+PASS unused item fixture
+PASS unused group fixture
+PASS no existing fixture offers
+PASS no existing fixture rules
+PASS failure trigger name unused
+PASS offer created for actual item
+PASS dates retain original SQL date conversion
+PASS time(0) retains SQL rounding
+PASS confirmed actor overrides untrusted command user
+PASS business timestamp is not claimed as UTC
+PASS offer retry returns completed
+PASS offer retry creates no duplicate
+PASS all new offer fields captured
+PASS request id cannot change offer payload
+PASS actual stored title length
+PASS end-of-day SQL conversion retained
+PASS no hidden new date-order rule
+PASS snapshot insensitive to row enumeration order
+PASS adding preserves all duplicate occurrences
+PASS only new occurrence reported created
+PASS large offer snapshots paged without loss
+PASS delete all offers by item preserved
+PASS all 26 deleted rows and nulls captured
+PASS delete-all replay
+PASS new delete of missing offers is rejected
+PASS actual percentage rounding and identity
+PASS percentage replay returns original identity
+PASS second pre-read request detects changed group
+PASS duplicate rule checked inside transaction
+PASS selected percentage deleted
+PASS percentage deletion replay
+PASS original percentage range and rounding 0
+PASS original percentage range and rounding -10.25
+PASS original percentage range and rounding 150.25
+PASS original percentage range and rounding 12.345
+PASS original percentage range and rounding 12.355
+PASS original percentage range and rounding 99.995
+PASS original percentage range and rounding -12.345
+PASS delete selected existing duplicate rule only
+PASS other percentage unchanged
+PASS stale offer multiset rejected
+PASS stale item context rejected
+PASS wrong pricing screen denied
+PASS arbitrary field denied
+PASS disabled user denied
+PASS revoked permission denied
+PASS disabled pricing gate blocks save
+PASS detail audit failure rolls back Offer.Created
+PASS detail audit failure rolls back Offer.ItemOffersDeleted
+PASS detail audit failure rolls back PriceRule.Created
+PASS detail audit failure rolls back PriceRule.Deleted
+PASS rollback count IM_Menu
+PASS rollback count General_menu
+PASS rollback count OFFERS_MASTER
+PASS rollback count Change_Price
+PASS rollback count IM_Units
+PASS rollback count SB_Contents
+PASS rollback count Agents_Balance_MV
+PASS rollback count Users
+PASS rollback count Users_Validations
+PASS rollback count Network_Edit_Tracker
+PASS rollback count Network_Audit_Request
+PASS rollback count Network_Audit_Event
+PASS rollback count Network_Audit_Change
+PASS definition unchanged OFFERS_MASTER_INSERT
+PASS definition unchanged OFFERS_MASTER_DELETE
+PASS definition unchanged Change_Price_Insert
+PASS definition unchanged Change_Price_DELETE
+PASS definition unchanged Check_IM_OFFER
+PASS definition unchanged IM_Menu_Units_V
+PASS definition unchanged Network_Audit_Request_Begin
+PASS definition unchanged Network_Audit_Event_Write
+PASS all stored unit prices unchanged
+PASS all original offer occurrences unchanged
+PASS all original percentage rows unchanged
+PASS all invoice lines unchanged
+PASS all invoice headers unchanged
+PASS domain rollback
+PASS no incomplete requests
+PASS failure trigger removed
+Rollback leaves no fixture rows. Change_Price identity values may retain ordinary gaps; no reseed.
+PASS 88 pricing-rule checks.

@@ -1,0 +1,962 @@
+[
+  {
+    "File": "Forms\\Agents\\Add_Prev_Balance.vb",
+    "Line": 62,
+    "Method": "Exp_Static_INSERT",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(ComboBox1.Text & \" لحساب:\" & AG_NAME & \" بقيمة : \" & amount.ToString(N_Point_Fter) & \" دائن (عليه)\", 0, 37, 1)"
+  },
+  {
+    "File": "Forms\\Agents\\Add_Prev_Balance.vb",
+    "Line": 64,
+    "Method": "Exp_Static_INSERT",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(ComboBox1.Text & \" لحساب:\" & AG_NAME & \" بقيمة : \" & amount.ToString(N_Point_Fter) & \" مدين (له)\", 0, 6, 1)"
+  },
+  {
+    "File": "Forms\\Agents\\Add_Prev_Balance.vb",
+    "Line": 66,
+    "Method": "Exp_Static_INSERT",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(ComboBox1.Text & \" لحساب:\" & AG_NAME & \" بقيمة : \" & amount.ToString(N_Point_Fter), 0, 5, 1)"
+  },
+  {
+    "File": "Forms\\Agents\\Add_Prev_Balance.vb",
+    "Line": 99,
+    "Method": "Exp_Static_INSERT",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'    Network_Edit_Tracker_insert(\"تعديل بيانات مصروف تابث \" + EX_NAME, 0, 0, 0)"
+  },
+  {
+    "File": "Forms\\Agents\\Add_Prev_Balance.vb",
+    "Line": 129,
+    "Method": "Exp_Static_DELETE",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" لحساب:\" & AG_NAME & \" بقيمة : \" & Debit_txt.Text & \" دائن (عليه)\", 0, 37, 2)"
+  },
+  {
+    "File": "Forms\\Agents\\Add_Prev_Balance.vb",
+    "Line": 131,
+    "Method": "Exp_Static_DELETE",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" لحساب:\" & AG_NAME & \" بقيمة : \" & Debit_txt.Text & \" مدين (له)\", 0, 6, 2)"
+  },
+  {
+    "File": "Forms\\Agents\\Add_Prev_Balance.vb",
+    "Line": 133,
+    "Method": "Exp_Static_DELETE",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" لحساب:\" & F_Balances.AGMVMetroGrid.CurrentRow.Cells(\"AG_Name_CL\").Value.ToString & \" بقيمة : \" & Debit_txt.Text, 0, 5, 2)"
+  },
+  {
+    "File": "Forms\\Agents\\Agent.vb",
+    "Line": 356,
+    "Method": "Insert_New_AG",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" العميل:\" & IM_SH_txt.Text & \" الرقم:\" & Barcode_txt.Text & \" لهاتف:\" & AG_Phone_TextBox.Text & \" العنوان:\" & AG_AddressTextBox.Text & \" البريد الإلكتروني:\" _ & Email_txt.Text & \" النوع:\" & AG_Type_cm.Text & \" العملة:\" & Cr_CM.Text & \" المرتب:\" & SalaryTextBox.Text & \" إشعار الدين:\" & Max_Debit_txt.Text & \" مباشرة العمل: \" & Date_Start.Text, 0, 27, 1)"
+  },
+  {
+    "File": "Forms\\Agents\\Agent.vb",
+    "Line": 395,
+    "Method": "Update_AG",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الإسم السابق:\" & AG_Name & \" العميل:\" & IM_SH_txt.Text & \" الرقم:\" & Barcode_txt.Text & \" لهاتف:\" & AG_Phone_TextBox.Text & \" العنوان:\" & AG_AddressTextBox.Text & \" البريد الإلكتروني:\" _ & Email_txt.Text & \" النوع:\" & AG_Type_cm.Text & \" العملة:\" & Cr_CM.Text & \" المرتب:\" & SalaryTextBox.Text & \" إشعار الدين:\" & Max_Debit_txt.Text & \" مباشرة العمل: \" & Date_Start.Text, 0, 27, 3)"
+  },
+  {
+    "File": "Forms\\Agents\\Agent.vb",
+    "Line": 418,
+    "Method": "Delete_AG",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" العميل:\" & AG_Name, 0, 27, 2)"
+  },
+  {
+    "File": "Forms\\Agents\\AgentsMenu.vb",
+    "Line": 193,
+    "Method": "Switch_Sales_Agent",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تعديل الفاتورة إلي حساب \" & AG_Cm.Textt, F_Sales.SB_ID, 1, 3)"
+  },
+  {
+    "File": "Forms\\Agents\\AgentsMenu.vb",
+    "Line": 206,
+    "Method": "Switch_Fast_Sales_Agent",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تعديل الفاتورة إلي حساب \" & AG_Cm.Textt, Sales_Fast.SB_ID, 1, 3)"
+  },
+  {
+    "File": "Forms\\Agents\\AgentsMenu.vb",
+    "Line": 247,
+    "Method": "AG_Balance_Update_AG",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تعديل الفاتورة إلي حساب \" & AG_Cm.Textt, F_POS.SB_ID_Txt.Text, 1, 3)"
+  },
+  {
+    "File": "Forms\\Agents\\Emp_OtherValues.vb",
+    "Line": 69,
+    "Method": "Sign_Insert",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الموظف:\" & AG_Cm.Textt & \" التاريخ:\" & DateTimePickerDATE.Text & \" النوع:\" & StateComboBox.Text _ & \" القيمة:\" & Val_txt.Text & \" ملاحظات:\" & NOTES_TXT.Text, 0, 32, 1)"
+  },
+  {
+    "File": "Forms\\Agents\\Emp_OtherValues.vb",
+    "Line": 89,
+    "Method": "Others_Values_Void",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الموظف:\" & AG_NAME & \" التاريخ:\" & DateTimePickerDATE.Text & \" النوع:\" & StateComboBox.Text _ & \" القيمة:\" & Val_txt.Text & \" ملاحظات:\" & NOTES_TXT.Text, 0, 32, 2)"
+  },
+  {
+    "File": "Forms\\Agents\\Emp_OtherValues.vb",
+    "Line": 92,
+    "Method": "Others_Values_Void",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\" إلغاء حالة  \" + DataGridView1.CurrentRow.Cells(\"Stuts_Name_CL\").Value + \" للموظف : \" + IM_SH_txt.Text + \" / \" + Start_txt.Text, DataGridView1.CurrentRow.Cells(\"Val_CL\").Value, 0, 0)"
+  },
+  {
+    "File": "Forms\\Agents\\Emp_OtherValues.vb",
+    "Line": 132,
+    "Method": "UPDATE_btn_Click",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\" تعديل حالة  \" + StateComboBox.Text + \" للموظف : \" + IM_SH_txt.Text + \" / \" + Start_txt.Text, Val_txt.Text, 0, 0)"
+  },
+  {
+    "File": "Forms\\Agents\\Emp_OtherValues.vb",
+    "Line": 159,
+    "Method": "Sign_UPDATE",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الإسم السابق:\" & AG_NAME & \" الموظف:\" & AG_Cm.Textt & \" التاريخ:\" & DateTimePickerDATE.Text & \" النوع:\" & StateComboBox.Text _ & \" القيمة:\" & Val_txt.Text & \" ملاحظات:\" & NOTES_TXT.Text, 0, 32, 3)"
+  },
+  {
+    "File": "Forms\\Balances.vb",
+    "Line": 2753,
+    "Method": "Insert_salary",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"ترصيد مرتبات عدد \" & SalariesMetroGrid.Rows.Count.ToString & \" موظف بإجمالي قيمة مرتبات  \" & TotalPureTextBox.Text, 0, 5, 1)"
+  },
+  {
+    "File": "Forms\\Change_IM_Details.vb",
+    "Line": 467,
+    "Method": "View_Contents_IM_Unit_Change",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + IM_LB.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" السعر:\" + PriceTextBox.Text, F_ViewBill.Bill_ID_Txt.Text, 16, 3)"
+  },
+  {
+    "File": "Forms\\Change_IM_Details.vb",
+    "Line": 671,
+    "Method": "Pch_Contents_Confirm_Unit",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\"تعديل بيانات صنف '\" + IM_LB.Text + \"' / رقم آلي '\" + F_Pch.Bill_ID_Txt.Text + \" / رقم يومي : \" + _ '     F_Pch.Bill_ID_Txt.Text + \"' من '\" + PrevPrice.ToString + \"' إلى '\" + NewPrice.ToString + \"' / المدخل :  \" + F_Pch.User_Name_lb.Text, F_Pch.Pure_txt.Text, _ '     F_Pch.AGMetroGrid.CurrentRow.Cells(\"Bill_IMID_CL\").Value, 0)"
+  },
+  {
+    "File": "Forms\\Change_IM_Details.vb",
+    "Line": 675,
+    "Method": "Pch_Contents_Confirm_Unit",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + IM_LB.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" الشراء:\" + PriceTextBox.Text + \" البيع:\" + NewSalePrice_txt.Text _ + \" بيع القطعة:\" + NewSaleByOne.Text, F_Pch.Bill_ID_Txt.Text, 7, 3)"
+  },
+  {
+    "File": "Forms\\Change_IM_Details.vb",
+    "Line": 706,
+    "Method": "Frm_Manual_Confirm_Unit",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + IM_LB.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" التكلفة:\" + PriceTextBox.Text + \" البيع:\" + NewSalePrice_txt.Text + \" بيع القطعة:\" + NewSaleByOne.Text, F_Format_Items_Manual.Bill_ID_Txt.Text, 18, 3)"
+  },
+  {
+    "File": "Forms\\Change_IM_Details.vb",
+    "Line": 738,
+    "Method": "Invoice_Contents_Confirm_Unit",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + IM_LB.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" الشراء:\" + PriceTextBox.Text + \" البيع:\" + NewSalePrice_txt.Text _ + \" بيع القطعة:\" + NewSaleByOne.Text, F_Invoice.Bill_ID_Txt.Text, 9, 3)"
+  },
+  {
+    "File": "Forms\\Custody.vb",
+    "Line": 191,
+    "Method": "money_num_txtb_TextChanged",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        'Network_Edit_Tracker_insert(\" العميل:\" & IM_SH_txt.Text & \" الرقم:\" & Barcode_txt.Text & \" لهاتف:\" & AG_Phone_TextBox.Text & \" العنوان:\" & AG_AddressTextBox.Text & \" البريد الإلكتروني:\" _ '        '                & Email_txt.Text & \" النوع:\" & AG_Type_cm.Text & \" العملة:\" & Cr_CM.Text & \" المرتب:\" & SalaryTextBox.Text & \" إشعار الدين:\" & Max_Debit_txt.Text, 0, 27, 1)"
+  },
+  {
+    "File": "Forms\\Custody.vb",
+    "Line": 232,
+    "Method": "Custody_INSERT",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\" العميل:\" & IM_SH_txt.Text & \" الرقم:\" & Barcode_txt.Text & \" لهاتف:\" & AG_Phone_TextBox.Text & \" العنوان:\" & AG_AddressTextBox.Text & \" البريد الإلكتروني:\" _ '                & Email_txt.Text & \" النوع:\" & AG_Type_cm.Text & \" العملة:\" & Cr_CM.Text & \" المرتب:\" & SalaryTextBox.Text & \" إشعار الدين:\" & Max_Debit_txt.Text, 0, 27, 1)"
+  },
+  {
+    "File": "Forms\\Custody.vb",
+    "Line": 277,
+    "Method": "Load_MV_OF_Custody",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        'Network_Edit_Tracker_insert(\" العميل:\" & IM_SH_txt.Text & \" الرقم:\" & Barcode_txt.Text & \" لهاتف:\" & AG_Phone_TextBox.Text & \" العنوان:\" & AG_AddressTextBox.Text & \" البريد الإلكتروني:\" _ '        '                & Email_txt.Text & \" النوع:\" & AG_Type_cm.Text & \" العملة:\" & Cr_CM.Text & \" المرتب:\" & SalaryTextBox.Text & \" إشعار الدين:\" & Max_Debit_txt.Text, 0, 27, 1)"
+  },
+  {
+    "File": "Forms\\Custody.vb",
+    "Line": 324,
+    "Method": "Custody_Details_INSERT",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" النوع:\" & Details_Name_cm.Text & \" العنوان:\" & Details_Bill_Num_txt.Text & \" بقيمة : \" & Details_Value_txt.Text, 0, 34, 1)"
+  },
+  {
+    "File": "Forms\\Custody.vb",
+    "Line": 434,
+    "Method": "Custody_Details_DELETE",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" النوع:\" & BillsGrid.CurrentRow.Cells(\"Receipt_Title_CL\").Value.ToString & \" العنوان:\" & BillsGrid.CurrentRow.Cells(\"About_CL\").Value.ToString & \" بقيمة : \" & BillsGrid.CurrentRow.Cells(\"Pure_CL\").Value, 0, 34, 2)"
+  },
+  {
+    "File": "Forms\\Custody.vb",
+    "Line": 448,
+    "Method": "Custody_CLOSE",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\" النوع:\" & BillsGrid.CurrentRow.Cells(\"Receipt_Title_CL\").Value.ToString & \" العنوان:\" & BillsGrid.CurrentRow.Cells(\"About_CL\").Value.ToString & \" بقيمة : \" & BillsGrid.CurrentRow.Cells(\"Credit_CL\").Value, 0, 34, 2)"
+  },
+  {
+    "File": "Forms\\Exp\\EXP_Details.vb",
+    "Line": 436,
+    "Method": "Edit_butt_Click",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'   Network_Edit_Tracker_insert(\"تعديل فاتورة مصروفات  / رقم آلي : \" + Bill_ID_Txt.Text + \"  / المدخل :  \" + User_Name_lb.Text, Total_TextBox.Text, 0, 0)"
+  },
+  {
+    "File": "Forms\\Exp\\EXP_Details.vb",
+    "Line": 586,
+    "Method": "Insert_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" المصروف:\" & EX_Cm.Textt & \" العدد:\" & QtyTextBox.Text & \" السعر:\" & IM_Cost_txt.Text, Bill_ID_Txt.Text, 2, 1)"
+  },
+  {
+    "File": "Forms\\Exp\\EXP_Details.vb",
+    "Line": 620,
+    "Method": "Delete_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" المصروف:\" & AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString & \" العدد:\" & AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString & \" السعر:\" & AGMetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString, Bill_ID_Txt.Text, 2, 2)"
+  },
+  {
+    "File": "Forms\\Frm\\Format_Items_Auto.vb",
+    "Line": 513,
+    "Method": "SB_Contents_Delete_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + AGMetroGrid.CurrentRow.Cells(\"FRM_IM_NAME_CL\").Value.ToString + \" الوحدة:\" + AGMetroGrid.CurrentRow.Cells(\"U_Name_CL\").Value.ToString + \" العدد:\" + AGMetroGrid.CurrentRow.Cells(\"Rtn_QTY_CL\").Value.ToString _ + \" التكلفة:\" + AGMetroGrid.CurrentRow.Cells(\"Rtn_Price_CL\").Value.ToString + \" البيع:\" + AGMetroGrid.CurrentRow.Cells(\"SALE_Price_CL\").Value.ToString, Bill_ID_Txt.Text, 13, 2)"
+  },
+  {
+    "File": "Forms\\Frm\\Format_Items_Manual.vb",
+    "Line": 793,
+    "Method": "SB_Contents_Delete_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + AGMetroGrid.CurrentRow.Cells(\"FRM_IM_NAME_CL\").Value.ToString + \" الوحدة:\" + AGMetroGrid.CurrentRow.Cells(\"U_Name_CL\").Value.ToString + \" العدد:\" + AGMetroGrid.CurrentRow.Cells(\"prc_QTY_CL\").Value.ToString _ + \" التكلفة:\" + AGMetroGrid.CurrentRow.Cells(\"Rtn_Price_CL\").Value.ToString + \" البيع:\" + AGMetroGrid.CurrentRow.Cells(\"SALE_Price_CL\").Value.ToString, Bill_ID_Txt.Text, 13, 2)"
+  },
+  {
+    "File": "Forms\\Frm\\Format_Items_Manual.vb",
+    "Line": 1157,
+    "Method": "Frm_Contetnts_Manual_Delete_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + BillMetroGrid.CurrentRow.Cells(5).Value.ToString + \" الوحدة:\" + BillMetroGrid.CurrentRow.Cells(6).Value.ToString + \" العدد:\" + BillMetroGrid.CurrentRow.Cells(7).Value.ToString _ + \" التكلفة:\" + BillMetroGrid.CurrentRow.Cells(8).Value.ToString, Bill_ID_Txt.Text, 14, 2)"
+  },
+  {
+    "File": "Forms\\Frm\\Format_Items_Manual.vb",
+    "Line": 1162,
+    "Method": "Frm_Contetnts_Manual_Delete_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الإسم:\" + ServicesGrid.CurrentRow.Cells(2).Value.ToString + \" العدد:\" + ServicesGrid.CurrentRow.Cells(4).Value.ToString _ + \" التكلفة:\" + ServicesGrid.CurrentRow.Cells(3).Value.ToString, Bill_ID_Txt.Text, 14, 2)"
+  },
+  {
+    "File": "Forms\\Frm\\Frm_auto_IM_card.vb",
+    "Line": 229,
+    "Method": "Insert_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + mySearchControl.txtSearch.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" السعر:\" + PriceTextBox.Text + \" البيع:\" _ + NewSalePrice_txt.Text + \" بيع القطعة:\" + NewSaleByOne.Text, F_Format_Items_Auto.Bill_ID_Txt.Text, 13, 1)"
+  },
+  {
+    "File": "Forms\\Frm\\Frm_manuel_IM_card.vb",
+    "Line": 289,
+    "Method": "Insert_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + mySearchControl.txtSearch.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" السعر:\" + PriceTextBox.Text + \" البيع:\" _ + NewSalePrice_txt.Text + \" بيع القطعة:\" + NewSaleByOne.Text, F_Format_Items_Manual.Bill_ID_Txt.Text, 18, 1)"
+  },
+  {
+    "File": "Forms\\Frm\\Frm_manuel_IM_card.vb",
+    "Line": 427,
+    "Method": "ClearCatFields",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\" الصنف:\" + mySearchControl.txtSearch.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" السعر:\" + PriceTextBox.Text + \" البيع:\" _ '                                    + NewSalePrice_txt.Text + \" بيع القطعة:\" + NewSaleByOne.Text, F_Pch.Bill_ID_Txt.Text, 7, 1)"
+  },
+  {
+    "File": "Forms\\Pch\\IM_ADD_New.vb",
+    "Line": 204,
+    "Method": "Confirm_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" (شاشة إضافة صنف) إسم الصنف:\" & IM_SH_txt.Text & \" النوع:\" & \"بضاعة\" & \" التصنيف:\" & GM_Serach.Text & \" الرقم:\" & IM_Num_txt.Text & _ \" الصلاحية:\" & Valid_St & \" الوحدة:\" & IM_Unit_cm.Text & \" باركود:\" & Barcode_SH_txt.Text & \"  باركود الوحدة2:\" & Barcode_By_One_txt.Text, 0, 20, 1)"
+  },
+  {
+    "File": "Forms\\Pch\\Pch_IM_card_11.vb",
+    "Line": 284,
+    "Method": "Insert_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + mySearchControl.txtSearch.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" السعر:\" + PriceTextBox.Text + \" البيع:\" _ + NewSalePrice_txt.Text + \" بيع القطعة:\" + NewSaleByOne.Text, F_Pch.Bill_ID_Txt.Text, 7, 1)"
+  },
+  {
+    "File": "Forms\\Pch\\Pch.vb",
+    "Line": 683,
+    "Method": "ExecutePchDiscountUpdate",
+    "Kind": "TransactionalCall",
+    "Compiled": true,
+    "Statement": "ExecuteEditStoredProcedure(cn, tr, \"Network_Edit_Tracker_insert\", Sub(cmd) cmd.Parameters.AddWithValue(\"@User_ID\", USER_ID) cmd.Parameters.AddWithValue(\"@Notes\", \" تخفيض للفاتورة بقيمة:\" & calculatedDisc.ToString) cmd.Parameters.AddWithValue(\"@Bill_ID\", Bill_ID_Txt.Text) cmd.Parameters.AddWithValue(\"@Screen_Type\", 7) cmd.Parameters.AddWithValue(\"@Operation_ID\", 3) cmd.Parameters.AddWithValue(\"@CP_Name\", My.Computer.Name) End Sub)"
+  },
+  {
+    "File": "Forms\\Pch\\Pch.vb",
+    "Line": 878,
+    "Method": "Save_EditChanges",
+    "Kind": "TransactionalCall",
+    "Compiled": true,
+    "Statement": "ExecuteEditStoredProcedure(cn, tr, \"Network_Edit_Tracker_insert\", Sub(cmd) cmd.Parameters.AddWithValue(\"@User_ID\", USER_ID) cmd.Parameters.AddWithValue(\"@Notes\", \" تخفيض للفاتورة بقيمة:\" & Disc.ToString) cmd.Parameters.AddWithValue(\"@Bill_ID\", Bill_ID_Txt.Text) cmd.Parameters.AddWithValue(\"@Screen_Type\", 7) cmd.Parameters.AddWithValue(\"@Operation_ID\", 3) cmd.Parameters.AddWithValue(\"@CP_Name\", My.Computer.Name) End Sub)"
+  },
+  {
+    "File": "Forms\\Pch\\Pch.vb",
+    "Line": 1190,
+    "Method": "Delete_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString + \" الوحدة:\" + AGMetroGrid.CurrentRow.Cells(\"IMUnit_CL\").Value.ToString + \" العدد:\" + AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString _ + \" السعر:\" + AGMetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString, Bill_ID_Txt.Text, 7, 2)"
+  },
+  {
+    "File": "Forms\\Pch\\Pch.vb",
+    "Line": 1309,
+    "Method": "Insert_Fast_AG",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" (من شاشة المشتريات) الزبون:\" & AG_Cm.Textt, 0, 27, 1)"
+  },
+  {
+    "File": "Forms\\Pch\\Pch.vb",
+    "Line": 1509,
+    "Method": "Make_Discount",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تخفيض للفاتورة بقيمة:\" & Disc.ToString, Bill_ID_Txt.Text, 7, 3)"
+  },
+  {
+    "File": "Forms\\Pch\\Pch.vb",
+    "Line": 1706,
+    "Method": "AG_Cm_ID_Changed",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تعديل الفاتورة إلي حساب \" & AG_Cm.Textt, Bill_ID_Txt.Text, 7, 3)"
+  },
+  {
+    "File": "Forms\\POS\\Fast_SB_Discount.vb",
+    "Line": 68,
+    "Method": "UpdateGBButton_Click",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تخفيض للفاتورة بقيمة:\" & Discount_txt.Text, Identifiers.SB_ID, 1, 3)"
+  },
+  {
+    "File": "Forms\\POS\\OrdersMenu.vb",
+    "Line": 405,
+    "Method": "Deliver_Order",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"تمت إعادة الطلبية إلى حالة معلقة؛ رقم الحركة: \" & Order_T_ID.ToString() & \"؛ الباركود: \" & Barcode_txt.Text, SB_ID.ToString(), 1, 3)"
+  },
+  {
+    "File": "Forms\\POS\\Returns.vb",
+    "Line": 984,
+    "Method": "Add_ItemToBill",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & mySearchControl.txtSearch.Text & \" العدد:\" & QtyTextBox.Text & \" السعر:\" & PriceTextBox.Text & \" من فاتورة:\" & SB_ID_FROM, Bill_ID_Txt.Text, 10, 1)"
+  },
+  {
+    "File": "Forms\\POS\\Returns.vb",
+    "Line": 986,
+    "Method": "Add_ItemToBill",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & mySearchControl.txtSearch.Text & \" العدد:\" & QtyTextBox.Text & \" السعر:\" & PriceTextBox.Text & \" من فاتورة:\" & SB_ID_FROM, Bill_ID_Txt.Text, 11, 1)"
+  },
+  {
+    "File": "Forms\\POS\\Returns.vb",
+    "Line": 1029,
+    "Method": "SB_Contents_Delete_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & BillMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString & _ \" العدد:\" & BillMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString & \" السعر:\" & BillMetroGrid.CurrentRow.Cells(\"Price_CL_2\").Value.ToString & \" من فاتورة:\" & SB_ID_FROM, Bill_ID_Txt.Text, 10, 2)"
+  },
+  {
+    "File": "Forms\\POS\\Returns.vb",
+    "Line": 1032,
+    "Method": "SB_Contents_Delete_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & BillMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString & _ \" العدد:\" & BillMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString & \" السعر:\" & BillMetroGrid.CurrentRow.Cells(\"Price_CL_2\").Value.ToString & \" من فاتورة:\" & SB_ID_FROM, Bill_ID_Txt.Text, 11, 2)"
+  },
+  {
+    "File": "Forms\\POS\\SaleDraft\\Sales_Fast_Draft.vb",
+    "Line": 1897,
+    "Method": "IM_Check_Neg_QTY_2",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\" الصنف:\" + dgvSales.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString + \" العدد:\" + dgvSales.CurrentRow.Cells(\"QTY_CL\").Value.ToString + \" السعر:\" + dgvSales.CurrentRow.Cells(\"Price_CL\").Value.ToString, '            Bill_ID_Txt.Text, 1, 3)"
+  },
+  {
+    "File": "Forms\\POS\\Sales.vb",
+    "Line": 1095,
+    "Method": "Insert_Fast_AG",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" (من شاشة المبيعات) الزبون:\" & AG_Cm.Textt, 0, 27, 1)"
+  },
+  {
+    "File": "Forms\\POS\\Sales.vb",
+    "Line": 1115,
+    "Method": "Fetch_ItemToList2",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تعديل الفاتورة إلي حساب \" & AG_Cm.Textt, SB_ID, 1, 3)"
+  },
+  {
+    "File": "Forms\\POS\\Sales.vb",
+    "Line": 1121,
+    "Method": "Fetch_ItemToList2",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تعديل الفاتورة إلي حساب \" & AG_Cm.Textt, SB_ID, 1, 3)"
+  },
+  {
+    "File": "Forms\\POS\\Sales.vb",
+    "Line": 1733,
+    "Method": "Save_EditChanges",
+    "Kind": "TransactionalCall",
+    "Compiled": true,
+    "Statement": "ExecuteEditStoredProcedure(cn, tr, \"Network_Edit_Tracker_insert\", Sub(cmd) cmd.Parameters.AddWithValue(\"@User_ID\", USER_ID) cmd.Parameters.AddWithValue(\"@Notes\", \" تخفيض للفاتورة بقيمة:\" & Disc.ToString) cmd.Parameters.AddWithValue(\"@Bill_ID\", Bill_ID_Txt.Text) cmd.Parameters.AddWithValue(\"@Screen_Type\", 1) cmd.Parameters.AddWithValue(\"@Operation_ID\", 3) cmd.Parameters.AddWithValue(\"@CP_Name\", My.Computer.Name) End Sub)"
+  },
+  {
+    "File": "Forms\\POS\\Sales.vb",
+    "Line": 1826,
+    "Method": "Close_Sale",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تخفيض للفاتورة بقيمة:\" & Disc.ToString, Bill_ID_Txt.Text, 1, 3)"
+  },
+  {
+    "File": "Forms\\POS\\SBChangePrice.vb",
+    "Line": 36,
+    "Method": "ConfermButton_Click",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تخفيض للفاتورة بقيمة:\" & NumTextBox.Text, F_POS.SB_ID_Txt.Text, 1, 3)"
+  },
+  {
+    "File": "Forms\\POS\\ViewBill_IM_card.vb",
+    "Line": 362,
+    "Method": "Add_ItemToBill",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + mySearchControl.txtSearch.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" السعر:\" + PriceTextBox.Text, F_ViewBill.Bill_ID_Txt.Text, 16, 1)"
+  },
+  {
+    "File": "Forms\\POS\\ViewBill_IM_card.vb",
+    "Line": 364,
+    "Method": "Add_ItemToBill",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\" الصنف:\" & IM_SH_txt.Text & \" الوحدة:\" & IM_Unit_cm.Text & \" العدد:\" & QtyTextBox.Text & \" السعر:\" & PriceTextBox.Text, Bill_ID_Txt.Text, 16, 1)"
+  },
+  {
+    "File": "Forms\\POS\\ViewBill.vb",
+    "Line": 609,
+    "Method": "ViewBill_Contents_Delete_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString & \" الوحدة:\" & AGMetroGrid.CurrentRow.Cells(\"IMUnit_CL\").Value.ToString & \" العدد:\" & AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString & \" السعر:\" & AGMetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString, Bill_ID_Txt.Text, 16, 2)"
+  },
+  {
+    "File": "Forms\\POS\\ViewBill.vb",
+    "Line": 658,
+    "Method": "Insert_Fast_AG",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" (من شاشة فواتير العرض) الزبون:\" & AG_Cm.Textt, 0, 27, 1)"
+  },
+  {
+    "File": "Forms\\POS\\ViewBill.vb",
+    "Line": 992,
+    "Method": "Calc_Dicount_Btn_Click",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تخفيض للفاتورة بقيمة:\" & Disc.ToString, Bill_ID_Txt.Text, 16, 3)"
+  },
+  {
+    "File": "Forms\\POS\\ViewBill.vb",
+    "Line": 1207,
+    "Method": "Fetch_ItemToList2",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"تم تغيير حساب عرض السعر؛ رقم العرض: \" & Bill_ID_Txt.Text & \"؛ رقم الحركة: \" & T_ID.ToString() & \"؛ من حساب رقم: \" & PREV_AG_ID.ToString() & \" إلى حساب: \" & AG_Cm.Textt & \" (\" & AG_ID.ToString() & \")\", Bill_ID_Txt.Text, 16, 3)"
+  },
+  {
+    "File": "Forms\\Receipt.vb",
+    "Line": 447,
+    "Method": "Receipt_Insert",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" إيصال للحساب \" & AG_Cm.Textt & \" بقيمة : \" & money_num_txtb.Text, ReceiptNum_Txt.Text, AG_Type, 1)"
+  },
+  {
+    "File": "Forms\\Receipt.vb",
+    "Line": 450,
+    "Method": "Receipt_Insert",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'    Network_Edit_Tracker_insert(\" إيصال للحساب \" & AG_Cm.Textt & \" بقيمة : \" & money_num_txtb.Text, ReceiptNum_Txt.Text, AG_Type, 3)"
+  },
+  {
+    "File": "Forms\\Receipt.vb",
+    "Line": 517,
+    "Method": "Receipt_UPDATE",
+    "Kind": "TransactionalCall",
+    "Compiled": true,
+    "Statement": "ExecuteReceiptStoredProcedure(cn, tr, \"Network_Edit_Tracker_insert\", Sub(cmd) cmd.Parameters.AddWithValue(\"@User_ID\", USER_ID) cmd.Parameters.AddWithValue(\"@Notes\", \" إيصال للحساب \" & AG_Cm.Textt & \" بقيمة : \" & money_num_txtb.Text) cmd.Parameters.AddWithValue(\"@Bill_ID\", ReceiptNum_Txt.Text) cmd.Parameters.AddWithValue(\"@Screen_Type\", AG_Type) cmd.Parameters.AddWithValue(\"@Operation_ID\", 3) cmd.Parameters.AddWithValue(\"@CP_Name\", My.Computer.Name) End Sub)"
+  },
+  {
+    "File": "Forms\\Receipt.vb",
+    "Line": 759,
+    "Method": "Agents_Balance_MV_RCT_VOID",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"إلغاء الإيصال\", F_Receipt.ReceiptNum_Txt.Text, AG_Type, 3)"
+  },
+  {
+    "File": "Forms\\Receipt.vb",
+    "Line": 864,
+    "Method": "Edit_butt_Click",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\"تعديل \" + ReceiptTypeComboBox.Text + \" / رقم  : \" + ReceiptNum_Txt.Text, money_num_txtb.Text, 0, 0)"
+  },
+  {
+    "File": "Forms\\Receipt.vb",
+    "Line": 973,
+    "Method": "Custody_INSERT",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\" العميل:\" & IM_SH_txt.Text & \" الرقم:\" & Barcode_txt.Text & \" لهاتف:\" & AG_Phone_TextBox.Text & \" العنوان:\" & AG_AddressTextBox.Text & \" البريد الإلكتروني:\" _ '                & Email_txt.Text & \" النوع:\" & AG_Type_cm.Text & \" العملة:\" & Cr_CM.Text & \" المرتب:\" & SalaryTextBox.Text & \" إشعار الدين:\" & Max_Debit_txt.Text, 0, 27, 1)"
+  },
+  {
+    "File": "Forms\\Reports\\IM_CYRCLE.vb",
+    "Line": 476,
+    "Method": "RECOUNT_IM_ALL_QTY",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تدوير كميات الأصناف بمخزن : \" & ST_cm.Text & \"  من شاشة كشف المخازن \", 0, 23, 3)"
+  },
+  {
+    "File": "Forms\\Reports\\IM_CYRCLE.vb",
+    "Line": 481,
+    "Method": "RECOUNT_IM_ALL_QTY",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\" تدوير كمية المخزن:\" & ST_cm.Text, 0, 23, 3)"
+  },
+  {
+    "File": "Forms\\Reports\\IM_CYRCLE.vb",
+    "Line": 503,
+    "Method": "RECOUNT_IM_ALL_COST",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" تدوير متوسط تكلفة الأصناف من شاشة كشف المخازن   : \", 0, 23, 3)"
+  },
+  {
+    "File": "Forms\\Reports\\IM_CYRCLE.vb",
+    "Line": 508,
+    "Method": "RECOUNT_IM_ALL_COST",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\"تدوير تكلفة الخازن\", 0, 23, 3)"
+  },
+  {
+    "File": "Forms\\Reports\\IM_GROUPING.vb",
+    "Line": 535,
+    "Method": "RECOUNT_IM_ALL_QTY",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'    Network_Edit_Tracker_insert(\" تدوير كميات الأصناف بمخزن : \" & ST_cm.Text & \"  من شاشة كشف المخازن \", 0, 0, 0)"
+  },
+  {
+    "File": "Forms\\Reports\\IM_GROUPING.vb",
+    "Line": 540,
+    "Method": "RECOUNT_IM_ALL_QTY",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'    Network_Edit_Tracker_insert(\" تدوير كمية المخزن:\" & ST_cm.Text, 0, 23, 3)"
+  },
+  {
+    "File": "Forms\\Reports\\IM_GROUPING.vb",
+    "Line": 562,
+    "Method": "RECOUNT_IM_ALL_QTY",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\" تدوير متوسط تكلفة الأصناف من شاشة كشف المخازن   : \", 0, 0, 0)"
+  },
+  {
+    "File": "Forms\\Reports\\IM_GROUPING.vb",
+    "Line": 567,
+    "Method": "RECOUNT_IM_ALL_QTY",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\"تدوير تكلفة الخازن\", 0, 23, 3)"
+  },
+  {
+    "File": "Forms\\Stores\\IM_Execute.vb",
+    "Line": 659,
+    "Method": "Save_butt_Click",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\"تعديل فاتورة تالف / رقم آلي : \" + Bill_ID_Txt.Text + \" / المدخل :  \" + User_Name_lb.Text, Total_TextBox.Text, 0, 0)"
+  },
+  {
+    "File": "Forms\\Stores\\IM_Execute.vb",
+    "Line": 715,
+    "Method": "Delete_butt_Click",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\"إلغاء الفاتورة\", Bill_ID_Txt.Text, 8, 3)"
+  },
+  {
+    "File": "Forms\\Stores\\IM_Execute.vb",
+    "Line": 883,
+    "Method": "Insert_NewBill",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\" الصنف:\" & mySearchControl.txtSearch.Text & \" الوحدة:\" & IM_Unit_cm.Text & \" العدد:\" & QtyTextBox.Text & \" التكلفة:\" & IM_Cost_txt.Text, Bill_ID_Txt.Text, 8, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\IM_Execute.vb",
+    "Line": 916,
+    "Method": "Delete_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString & \" الوحدة:\" & AGMetroGrid.CurrentRow.Cells(\"IMUnit_CL\").Value.ToString & \" العدد:\" & AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString & \" التكلفة:\" & AGMetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString, Bill_ID_Txt.Text, 8, 2)"
+  },
+  {
+    "File": "Forms\\Stores\\IM_Update_Qty.vb",
+    "Line": 241,
+    "Method": "ST_Balance_Update",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"إضافة فرق تسوية للمستند T_ID=\" & Bill_T_ID.ToString() & \"؛ الصنف: \" & IM_Name_txt.Text & \"؛ المخزن: \" & ST_Name_txt.Text & \"؛ الوحدة المختارة: \" & Unit_txt.Text & \"؛ الكمية المطلوبة: \" & New_Qty_txt.Text & \"؛ الفرق: \" & Tag_txt.Text & Qty_Deference_Txt.Text, 0, 39, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\IMEX_IM_card.vb",
+    "Line": 188,
+    "Method": "Insert_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & mySearchControl.txtSearch.Text & \" الوحدة:\" & IM_Unit_cm.Text & \" العدد:\" & QtyTextBox.Text & \" التكلفة:\" & IM_Cost_txt.Text, F_IM_Execute.Bill_ID_Txt.Text, 8, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Inside_Sales_IM_card.vb",
+    "Line": 197,
+    "Method": "Insert_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & mySearchControl.txtSearch.Text & \" الوحدة:\" & IM_Unit_cm.Text & \" العدد:\" & QtyTextBox.Text & \" السعر:\" & IM_Cost_txt.Text, F_Inside_Sales.Bill_ID_Txt.Text, 17, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Inside_Sales.vb",
+    "Line": 521,
+    "Method": "Insert_NewBill",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\" الصنف:\" & IM_SH_txt.Text & \" الوحدة:\" & IM_Unit_cm.Text & \" العدد:\" & QtyTextBox.Text & \" السعر:\" & IM_Cost_txt.Text, Bill_ID_Txt.Text, 17, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Inside_Sales.vb",
+    "Line": 559,
+    "Method": "Delete_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString & \" الوحدة:\" & AGMetroGrid.CurrentRow.Cells(\"IMUnit_CL\").Value.ToString & _ \" العدد:\" & AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString & \" السعر:\" & AGMetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString, Bill_ID_Txt.Text, 17, 2)"
+  },
+  {
+    "File": "Forms\\Stores\\Invoice_IM_card.vb",
+    "Line": 263,
+    "Method": "Insert_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + mySearchControl.txtSearch.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" السعر:\" + PriceTextBox.Text + \" البيع:\" _ + NewSalePrice_txt.Text + \" بيع القطعة:\" + NewSaleByOne.Text, F_Invoice.Bill_ID_Txt.Text, 9, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Invoice.vb",
+    "Line": 816,
+    "Method": "Insert_NewBill",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\" الصنف:\" + IM_SH_txt.Text + \" الوحدة:\" + IM_Unit_cm.Text + \" العدد:\" + QtyTextBox.Text + \" السعر:\" + PriceTextBox.Text + \" البيع:\" _ '            + NewSalePrice_txt.Text + \" بيع القطعة:\" + NewSaleByOne.Text, Bill_ID_Txt.Text, 9, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Invoice.vb",
+    "Line": 822,
+    "Method": "Insert_NewBill",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        'Network_Edit_Tracker_insert(\"إضافة صنف لفاتورة مشتريات / رقم آلي: \" + Bill_ID_Txt.Text + \" /الصنف: \" + IM_SH_txt.Text _ '        '                + \" /العدد: \" + QtyTextBox.Text + \" /الوحدة: \" + IM_Unit_cm.Text + \" /السعر: \" + PriceTextBox.Text + \" /البيع:  \" _ '        '                + NewSalePrice_txt.Text + \" /بيع القطعة:  \" + NewSaleByOne.Text, Total_TextBox.Text, 0, 0)"
+  },
+  {
+    "File": "Forms\\Stores\\Invoice.vb",
+    "Line": 894,
+    "Method": "Delete_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString + \" الوحدة:\" + AGMetroGrid.CurrentRow.Cells(\"IMUnit_CL\").Value.ToString + \" العدد:\" + AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString _ + \" السعر:\" + AGMetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString, Bill_ID_Txt.Text, 9, 2)"
+  },
+  {
+    "File": "Forms\\Stores\\Outside_Sales_IM_card.vb",
+    "Line": 228,
+    "Method": "Insert_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & mySearchControl.txtSearch.Text & \" الوحدة:\" & IM_Unit_cm.Text & \" العدد:\" & QtyTextBox.Text & \" السعر:\" & PriceTextBox.Text, F_Outside_Sales.Bill_ID_Txt.Text, 35, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Outside_Sales_Touch.vb",
+    "Line": 437,
+    "Method": "AddConfiguredItemToBill",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"إضافة صنف من شاشة الاستلام اللمسية: \" & itemName & \" - الكمية: \" & quantity.ToString(\"N3\") & \" - التكلفة: \" & price.ToString(\"N3\"), _billId.ToString(), 35, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Outside_Sales_Touch.vb",
+    "Line": 619,
+    "Method": "AddItemButton_Click",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"إضافة صنف من شاشة الاستلام اللمسية: \" & SelectedItemLabel.Text & \" - الكمية: \" & quantity.ToString(\"N3\") & \" - التكلفة: \" & price.ToString(\"N3\"), _billId.ToString(), 35, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Outside_Sales_Touch.vb",
+    "Line": 669,
+    "Method": "DeleteLineButton_Click",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"حذف صنف من شاشة الاستلام اللمسية: \" & Convert.ToString(row(\"item_name\")) & \" - الكمية: \" & Convert.ToString(row(\"QYT\")), _billId.ToString(), 35, 2)"
+  },
+  {
+    "File": "Forms\\Stores\\Outside_Sales_Touch.vb",
+    "Line": 715,
+    "Method": "ChangeSelectedLineQuantity",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"تم تعديل كمية صنف من شاشة الاستلام اللمسية: \" & Convert.ToString(row(\"item_name\")) & \"؛ رقم الحركة: \" & _transactionId.ToString() & \"؛ رقم السطر: \" & Convert.ToString(row(\"T_ID\")) & \"؛ الكمية من: \" & previousQuantity.ToString(\"N3\") & \" إلى: \" & newQuantity.ToString(\"N3\"), _billId.ToString(), 35, 3)"
+  },
+  {
+    "File": "Forms\\Stores\\Outside_Sales.vb",
+    "Line": 548,
+    "Method": "Insert_NewBill",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'        Network_Edit_Tracker_insert(\" الصنف:\" & IM_SH_txt.Text & \" الوحدة:\" & IM_Unit_cm.Text & \" العدد:\" & QtyTextBox.Text & \" السعر:\" & IM_Cost_txt.Text, Bill_ID_Txt.Text, 35, 1)"
+  },
+  {
+    "File": "Forms\\Stores\\Outside_Sales.vb",
+    "Line": 586,
+    "Method": "Delete_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString & \" الوحدة:\" & AGMetroGrid.CurrentRow.Cells(\"IMUnit_CL\").Value.ToString & _ \" العدد:\" & AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString & \" السعر:\" & AGMetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString, Bill_ID_Txt.Text, 35, 2)"
+  },
+  {
+    "File": "Forms\\Stores\\ST_settlement.vb",
+    "Line": 659,
+    "Method": "Cancel_Bill",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"إلغاء مستند تسوية المخزون؛ T_ID=\" & T_ID.ToString(), Bill_ID_Txt.Text, 39, 3)"
+  },
+  {
+    "File": "Forms\\Stores\\ST_settlement.vb",
+    "Line": 865,
+    "Method": "Delete_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" + AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString + \" كمية التسوية:\" + AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString, Bill_ID_Txt.Text, 39, 2)"
+  },
+  {
+    "File": "Forms\\Stores\\ST_settlement.vb",
+    "Line": 1214,
+    "Method": "Edit_butt_Click",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"فتح تعديل مستند تسوية المخزون؛ T_ID=\" & T_ID.ToString() & \"؛ المدخل: \" & User_Name_lb.Text, Bill_ID_Txt.Text, 39, 3)"
+  },
+  {
+    "File": "Forms\\Stores\\STORES_Explorer.vb",
+    "Line": 968,
+    "Method": "RECOUNT_IM_ALL_QTY",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"اكتملت إعادة حساب كميات الأصناف من شاشة كشف المخازن؛ المخزن: \" & ST_cm.Text & \"؛ رقم المخزن: \" & Convert.ToString(ST_cm.SelectedValue), Convert.ToString(ST_cm.SelectedValue), 23, 3)"
+  },
+  {
+    "File": "Forms\\Stores\\STORES_Explorer.vb",
+    "Line": 994,
+    "Method": "RECOUNT_IM_ALL_COST",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"اكتملت إعادة حساب متوسط تكلفة الأصناف من شاشة كشف المخازن؛ نطاق التنفيذ: جميع الأصناف وفق إجراء RECOUNT_IM_ALL_MainCost\", \"\", 23, 3)"
+  },
+  {
+    "File": "Forms\\Stores\\Stores_ImmediateOrder.vb",
+    "Line": 521,
+    "Method": "Delete_Cat",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & AGMetroGrid.CurrentRow.Cells(\"EX_Name_CL\").Value.ToString & \" الوحدة:\" & AGMetroGrid.CurrentRow.Cells(\"IMUnit_CL\").Value.ToString & \" العدد:\" & AGMetroGrid.CurrentRow.Cells(\"QTY_CL\").Value.ToString _ & \" السعر:\" & AGMetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString & \" من مخزن:\" & AGMetroGrid.CurrentRow.Cells(\"ST_Name_CL\").Value.ToString _ & \" إلى مخزن:\" & AGMetroGrid.CurrentRow.Cells(\"ST_To_CL\").Value.ToString, Bill_ID_Txt.Text, 12, 2)"
+  },
+  {
+    "File": "Forms\\Stores\\Stores_Trans_IM_card.vb",
+    "Line": 178,
+    "Method": "INSERT_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الصنف:\" & mySearchControl.txtSearch.Text & \" الوحدة:\" & IM_Unit_cm.Text & \" العدد:\" & QTY_txt.Text & \" السعر:\" & IM_Cost_txt.Text & \" من مخزن:\" & ST_cm.Text & \" إلى مخزن:\" & F_Stores_ImmediateOrder.ST_To_cm.Text, F_Stores_ImmediateOrder.Bill_ID_Txt.Text, 12, 1)"
+  },
+  {
+    "File": "Forms\\Sys_Options\\IM_Fast_Mang.vb",
+    "Line": 236,
+    "Method": "Confirm_IM",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'Network_Edit_Tracker_insert(\" (من واجهة إدارة الأصناف) تعديل بيانات الصنف : \" + MetroGrid.CurrentRow.Cells(\"IM_NAME_CL\").Value.ToString + \" / سعر البيع : \" + MetroGrid.CurrentRow.Cells(\"Price_CL\").Value.ToString, 0, F_ItemsMenu.IM_ID, 0)"
+  },
+  {
+    "File": "Forms\\Sys_Options\\ItemsMenu.vb",
+    "Line": 791,
+    "Method": "Confirm_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" إسم الصنف:\" & IM_SH_txt.Text & \" النوع:\" & IM_Type_cm.Text & \" التصنيف:\" & GM_Serach.Text & \" الرقم:\" & IM_Num_txt.Text & \" الصلاحية:\" _ & Valid_St & \" إضافة للإختصارات:\" & isShort_St & \" تكلفة القطعة:\" & IM_Cost_txt.Text, IM_ID, 20, 1)"
+  },
+  {
+    "File": "Forms\\Sys_Options\\ItemsMenu.vb",
+    "Line": 794,
+    "Method": "Confirm_IM",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الإسم السابق:\" & IM_Name_ToolStrip.Text & \" إسم الصنف:\" & IM_SH_txt.Text & \" النوع:\" & IM_Type_cm.Text & \" التصنيف:\" & GM_Serach.Text & \" الرقم:\" & IM_Num_txt.Text & \" الصلاحية:\" _ & Valid_St & \" إضافة للإختصارات:\" & isShort_St & \" تكلفة القطعة:\" & IM_Cost_txt.Text, IM_ID, 20, 3)"
+  },
+  {
+    "File": "Forms\\Sys_Options\\Recount_IM_Cost.vb",
+    "Line": 70,
+    "Method": "Recount_IM_Cost",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(auditNotes, F_ItemsMenu.IM_ID.ToString(), 20, 3)"
+  },
+  {
+    "File": "Forms\\Sys_Options\\Users.vb",
+    "Line": 120,
+    "Method": "User_Insert",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الإسم:\" & NameUserTextBox.Text & \" الصلاحية:\" & Valid_Cm.Text & \" الخزينة الإفتراضية:\" & Treasury_ComboBox.Text & \" إمكانية الدخول:\" & Allow_Str, 0, 31, 1)"
+  },
+  {
+    "File": "Forms\\Sys_Options\\Users.vb",
+    "Line": 198,
+    "Method": "User_Update",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الإسم السابق:\" & User_Name & \" الإسم:\" & NameUserTextBox.Text & \" الصلاحية:\" & Valid_Cm.Text & \" الخزينة الإفتراضية:\" & Treasury_ComboBox.Text & \" إمكانية الدخول:\" & Allow_Str, 0, 31, 3)"
+  },
+  {
+    "File": "Forms\\Sys_Options\\Users.vb",
+    "Line": 220,
+    "Method": "User_Delete",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\" الإسم:\" & User_Name, 0, 31, 2)"
+  },
+  {
+    "File": "Forms\\Tables\\Tables_Trans_IM.vb",
+    "Line": 188,
+    "Method": "AG_Balance_Update_TB_Ordered",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(Me.TB_From_Lb.Text & Me.TB_To_LB.Text & Str, 0, 33, 3)"
+  },
+  {
+    "File": "Modules\\FunModule.vb",
+    "Line": 1371,
+    "Method": "Void_Row",
+    "Kind": "Call",
+    "Compiled": true,
+    "Statement": "Network_Edit_Tracker_insert(\"إلغاء الإيصال\", F_Receipt.ReceiptNum_Txt.Text, AG_Type, 3)"
+  },
+  {
+    "File": "Modules\\FunModule.vb",
+    "Line": 1540,
+    "Method": "Network_Edit_Tracker_insert",
+    "Kind": "Definition",
+    "Compiled": true,
+    "Statement": "Public Sub Network_Edit_Tracker_insert(Notes As String, Bill_ID As String, Screen_Type As Integer, Operation_ID As Integer)"
+  },
+  {
+    "File": "Modules\\FunModule.vb",
+    "Line": 1544,
+    "Method": "Network_Edit_Tracker_insert",
+    "Kind": "CommandText",
+    "Compiled": true,
+    "Statement": ".CommandText = \"Network_Edit_Tracker_insert\""
+  },
+  {
+    "File": "Modules\\FunModule.vb",
+    "Line": 2396,
+    "Method": "AG_Balance_UN_Void_Row",
+    "Kind": "Comment",
+    "Compiled": true,
+    "Statement": "'    Network_Edit_Tracker_insert(\" تراجع عن إلغاء فاتورة \", Bill_ID, ag_type, 3)"
+  }
+]

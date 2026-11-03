@@ -423,18 +423,14 @@ Public Class Format_Items_Auto : Inherits System.Windows.Forms.Form
     End Function
 
     Private Sub Cancel_Bill()
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 13) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
             isVoid = True
             SelectStateBt()
-        End If
-
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -504,6 +500,7 @@ Public Class Format_Items_Auto : Inherits System.Windows.Forms.Form
 
 
     Private Sub SB_Contents_Delete_IM()
+        If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentCell Is Nothing OrElse Not AGMetroGrid.Columns.Contains("DETAILS_T_ID_CL") OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells("DETAILS_T_ID_CL").Value) Then Return
         Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
         Dim c As New C
         With c.Com
@@ -512,14 +509,13 @@ Public Class Format_Items_Auto : Inherits System.Windows.Forms.Form
             .CommandType = CommandType.StoredProcedure
             .Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("DETAILS_T_ID_CL").Value)
         End With
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditInventoryOperationsUi.Run(Me, c.Com, T_ID, 13) Then
 
-            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("FRM_IM_NAME_CL").Value.ToString + " الوحدة:" +
-             AGMetroGrid.CurrentRow.Cells("U_Name_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("Rtn_QTY_CL").Value.ToString _
-            + " التكلفة:" + AGMetroGrid.CurrentRow.Cells("Rtn_Price_CL").Value.ToString + " البيع:" + AGMetroGrid.CurrentRow.Cells("SALE_Price_CL").Value.ToString, Bill_ID_Txt.Text, 13, 2)
 
-            Pch_Contents_SELECT_Bill()
-            If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("FRM_IM_NAME_CL")
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                Pch_Contents_SELECT_Bill()
+                If Row_Index > 0 AndAlso Row_Index <= AGMetroGrid.Rows.Count Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("FRM_IM_NAME_CL")
+            End Sub)
             'If MY_Settings.S_Default = 0 Then
             '    Barcode_SH_txt.Select()
             'Else

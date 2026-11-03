@@ -46,7 +46,11 @@ Friend NotInheritable Class AuditSalesLineEdit
         For Each col As DataColumn In row.Table.Columns
             If col.ColumnName = "AuditStock" Then Continue For
             Dim v = row(col)
-            Dim t = If(col.DataType Is GetType(Double), "Float", If(col.DataType Is GetType(Decimal), "Decimal", If(col.DataType Is GetType(DateTime), "DateTime", If(col.DataType Is GetType(Boolean), "Boolean", If(col.DataType Is GetType(Integer) OrElse col.DataType Is GetType(Long), "Integer", "String")))))
+            ' ADO.NET exposes SQL tinyint/smallint as Byte/Int16.  Treat every
+            ' supported integral CLR type as Integer; otherwise a valid SQL
+            ' tinyint is misclassified as String while hashing a snapshot.
+            Dim integral = col.DataType Is GetType(Byte) OrElse col.DataType Is GetType(Short) OrElse col.DataType Is GetType(Integer) OrElse col.DataType Is GetType(Long)
+            Dim t = If(col.DataType Is GetType(Double), "Float", If(col.DataType Is GetType(Decimal), "Decimal", If(col.DataType Is GetType(DateTime), "DateTime", If(col.DataType Is GetType(Boolean), "Boolean", If(integral, "Integer", "String")))))
             Dim value = AuditValue.Capture(t, v)
             xml.Add(New XElement(col.ColumnName, New XAttribute("state", CInt(value.State)), value.Text))
         Next

@@ -1,0 +1,150 @@
+PASS closed cancellation domain
+PASS 23 actual header values
+PASS 20 actual receipt values
+PASS unknown type denied
+PASS sensitive table denied
+PASS no other clients
+PASS approved source
+PASS no unreviewed triggers
+PASS unused fixture keys Agents_Balance_MV
+PASS unused fixture keys SB_Contents
+PASS unused fixture keys EXP_Details
+PASS unused fixture keys Pch_Details
+PASS unused fixture keys IMEX_Details
+PASS unused fixture keys Rtn_Contents
+PASS unused fixture keys FRM_Details
+PASS unused fixture keys InSale_Details
+PASS unused fixture keys OutSale_Details
+PASS unused fixture keys Agents_Balance_MV_RCT
+PASS unused fixture keys Treasury_Balance_MV
+PASS atomic cancellation Sales/1
+PASS unchanged formula and legacy VoidBy Sales
+PASS receipt cancelled Sales
+PASS treasury cancelled Sales
+PASS complete receipt evidence Sales
+PASS replay does not re-cancel Sales
+PASS approved sale removes components
+PASS atomic cancellation Sales_Fast/1
+PASS unchanged formula and legacy VoidBy Sales_Fast
+PASS receipt cancelled Sales_Fast
+PASS treasury cancelled Sales_Fast
+PASS complete receipt evidence Sales_Fast
+PASS replay does not re-cancel Sales_Fast
+PASS approved sale removes components
+PASS atomic cancellation POS/1
+PASS unchanged formula and legacy VoidBy POS
+PASS receipt cancelled POS
+PASS treasury cancelled POS
+PASS complete receipt evidence POS
+PASS replay does not re-cancel POS
+PASS approved sale removes components
+PASS atomic cancellation OrdersMenu/1
+PASS unchanged formula and legacy VoidBy OrdersMenu
+PASS receipt cancelled OrdersMenu
+PASS treasury cancelled OrdersMenu
+PASS complete receipt evidence OrdersMenu
+PASS replay does not re-cancel OrdersMenu
+PASS approved sale removes components
+PASS atomic cancellation POS_Abcent_Bills/1
+PASS unchanged formula and legacy VoidBy POS_Abcent_Bills
+PASS receipt cancelled POS_Abcent_Bills
+PASS treasury cancelled POS_Abcent_Bills
+PASS complete receipt evidence POS_Abcent_Bills
+PASS replay does not re-cancel POS_Abcent_Bills
+PASS approved sale removes components
+PASS atomic cancellation ShowBill_IM/1
+PASS unchanged formula and legacy VoidBy ShowBill_IM
+PASS receipt cancelled ShowBill_IM
+PASS treasury cancelled ShowBill_IM
+PASS complete receipt evidence ShowBill_IM
+PASS replay does not re-cancel ShowBill_IM
+PASS approved sale removes components
+PASS atomic cancellation EXP_Details/2
+PASS unchanged formula and legacy VoidBy EXP_Details
+PASS receipt cancelled EXP_Details
+PASS treasury cancelled EXP_Details
+PASS complete receipt evidence EXP_Details
+PASS replay does not re-cancel EXP_Details
+PASS atomic cancellation Pch/7
+PASS unchanged formula and legacy VoidBy Pch
+PASS receipt cancelled Pch
+PASS treasury cancelled Pch
+PASS complete receipt evidence Pch
+PASS replay does not re-cancel Pch
+PASS atomic cancellation IM_Execute/8
+PASS unchanged formula and legacy VoidBy IM_Execute
+PASS receipt cancelled IM_Execute
+PASS treasury cancelled IM_Execute
+PASS complete receipt evidence IM_Execute
+PASS replay does not re-cancel IM_Execute
+PASS atomic cancellation Invoice/9
+PASS unchanged formula and legacy VoidBy Invoice
+PASS receipt cancelled Invoice
+PASS treasury cancelled Invoice
+PASS complete receipt evidence Invoice
+PASS replay does not re-cancel Invoice
+PASS atomic cancellation Returns/10
+PASS unchanged formula and legacy VoidBy Returns
+PASS receipt cancelled Returns
+PASS treasury cancelled Returns
+PASS complete receipt evidence Returns
+PASS replay does not re-cancel Returns
+PASS atomic cancellation Returns/11
+PASS unchanged formula and legacy VoidBy Returns
+PASS receipt cancelled Returns
+PASS treasury cancelled Returns
+PASS complete receipt evidence Returns
+PASS replay does not re-cancel Returns
+PASS atomic cancellation Format_Items_Auto/13
+PASS unchanged formula and legacy VoidBy Format_Items_Auto
+PASS receipt cancelled Format_Items_Auto
+PASS treasury cancelled Format_Items_Auto
+PASS complete receipt evidence Format_Items_Auto
+PASS replay does not re-cancel Format_Items_Auto
+PASS atomic cancellation ViewBill/16
+PASS unchanged formula and legacy VoidBy ViewBill
+PASS receipt cancelled ViewBill
+PASS treasury cancelled ViewBill
+PASS complete receipt evidence ViewBill
+PASS replay does not re-cancel ViewBill
+PASS atomic cancellation Inside_Sales/17
+PASS unchanged formula and legacy VoidBy Inside_Sales
+PASS receipt cancelled Inside_Sales
+PASS treasury cancelled Inside_Sales
+PASS complete receipt evidence Inside_Sales
+PASS replay does not re-cancel Inside_Sales
+PASS atomic cancellation Format_Items_Manual/18
+PASS unchanged formula and legacy VoidBy Format_Items_Manual
+PASS receipt cancelled Format_Items_Manual
+PASS treasury cancelled Format_Items_Manual
+PASS complete receipt evidence Format_Items_Manual
+PASS replay does not re-cancel Format_Items_Manual
+PASS atomic cancellation Outside_Sales/35
+PASS unchanged formula and legacy VoidBy Outside_Sales
+PASS receipt cancelled Outside_Sales
+PASS treasury cancelled Outside_Sales
+PASS complete receipt evidence Outside_Sales
+PASS replay does not re-cancel Outside_Sales
+PASS atomic cancellation Outside_Sales_Touch/35
+PASS unchanged formula and legacy VoidBy Outside_Sales_Touch
+PASS receipt cancelled Outside_Sales_Touch
+PASS treasury cancelled Outside_Sales_Touch
+PASS complete receipt evidence Outside_Sales_Touch
+PASS replay does not re-cancel Outside_Sales_Touch
+PASS deferred pre-approval component behavior preserved
+PASS remaining component truthfully captured
+PASS stale receipt graph rejected
+PASS disabled user rejected
+PASS actual actor differs from legacy fixed actor
+PASS business actor correction explicitly deferred
+PASS large graph paged
+PASS all removed components captured without truncation
+PASS cancellation permission checked again
+PASS wrong screen cannot cancel sale
+PASS existing receipt cancellation failure preserved
+PASS second event failure rolls back business
+PASS all row counts restored
+PASS business and audit definitions restored
+PASS domain baseline restored
+PASS no fault trigger left
+PASS 149 cancellation checks.

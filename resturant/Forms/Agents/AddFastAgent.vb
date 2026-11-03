@@ -45,7 +45,7 @@
             .Parameters.AddWithValue("@E_mail", "")
         End With
 
-        If SQL_SP_EXEC(C.Com) = True Then
+        If AuditPeopleCardsUi.Run(Me, C.Com) Then
             MsgBox("تمت إضافة الزبون", MsgBoxStyle.Information)
             AG_ID = C.Com.Parameters("@Ag_ID").Value.ToString()
             Save_AG_btn.Enabled = False
@@ -92,7 +92,7 @@
                     'If Home.Home_Panel.Tag = "POS" Then
                     '    F_AgentsMenu.AG_Balance_Update_AG(AG_ID)
                     'End If
-                    Me.Close()
+                    ' Insert_Fast_AG closes only after a confirmed save.
                 End If
 
             End If

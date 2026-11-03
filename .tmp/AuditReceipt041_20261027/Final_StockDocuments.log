@@ -1,0 +1,8 @@
+PASS closed domain
+PASS complete line fields 8
+PASS complete line fields 12
+PASS complete line fields 17
+PASS complete line fields 35
+PASS sales not accepted
+PASS raw SQL not accepted
+PASS 7 stock document checks.

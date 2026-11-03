@@ -4042,9 +4042,11 @@ Me.Name.ToString
             Identifiers.Pure = Pure_txt.Text
             Identifiers.SB_ID = SB_ID
 
-            Fast_SB_Discount.ShowDialog()
+            ' Show the configured draft instance; the default instance would write to SQL.
+            F.ShowDialog(Me)
 
             If F.is_OK = True Then SetDraftDiscount(Identifiers.Disc)
+            F.Dispose()
 
         End If
 
@@ -4102,7 +4104,7 @@ Me.Name.ToString
 
         Dim f As Items_Search = Items_Search.GetInstance()
 
-        f.ShowDialog()
+        f.ShowDialog(Me)
         f.BringToFront()
         f.WindowState = FormWindowState.Normal
 

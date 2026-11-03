@@ -1,0 +1,6 @@
+PASS 8 actual offer fields without invented key
+PASS 3 actual percentage fields
+PASS closed pricing domain
+PASS offer input catalogue
+PASS unknown operation denied
+PASS 5 pricing-rule checks.

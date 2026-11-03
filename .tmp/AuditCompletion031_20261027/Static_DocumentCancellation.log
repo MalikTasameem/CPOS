@@ -1,0 +1,6 @@
+PASS closed cancellation domain
+PASS 23 actual header values
+PASS 20 actual receipt values
+PASS unknown type denied
+PASS sensitive table denied
+PASS 5 cancellation checks.

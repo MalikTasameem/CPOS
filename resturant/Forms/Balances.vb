@@ -1740,6 +1740,7 @@
                     T_ID_Trans = AGMVMetroGrid.CurrentRow.Cells("T_ID_CL").Value
                     isShowing_Trans = True
                     F_Receipt = New Receipt
+                    F_Receipt.ConfigureEntryContext(0, 0)
                     F_Receipt.ShowDialog()
                     isShowing_Trans = False
                     FormType = 0
@@ -2667,6 +2668,7 @@
         AG_Type = 3
         F_Receipt = New Receipt
         Receipt_Tran_ID = 0
+        F_Receipt.ConfigureEntryContext(0, 0)
         F_Receipt.ShowDialog()
     End Sub
 
@@ -2678,6 +2680,7 @@
         AG_Type = 4
         F_Receipt = New Receipt
         Receipt_Tran_ID = 0
+        F_Receipt.ConfigureEntryContext(0, 0)
         F_Receipt.ShowDialog()
     End Sub
 
@@ -2748,9 +2751,8 @@
             .Parameters.AddWithValue("@User_ID", USER_ID)
             .Parameters.AddWithValue("@Salary_Date", Salary_Date.Value)
         End With
-        If SQL_SP_EXEC(C.Com) Then
+        If AuditSalaryBatchUi.Run(Me, C.Com) Then
             MsgBox("تم الترصيد", MsgBoxStyle.Information, "")
-            Network_Edit_Tracker_insert("ترصيد مرتبات عدد " & SalariesMetroGrid.Rows.Count.ToString & " موظف بإجمالي قيمة مرتبات  " & TotalPureTextBox.Text, 0, 5, 1)
         End If
 
 

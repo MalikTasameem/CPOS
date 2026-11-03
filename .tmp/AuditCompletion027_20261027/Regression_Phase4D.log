@@ -1,0 +1,92 @@
+PASS separate quantity-only domain
+PASS complete component row contract
+PASS stock key and quantity contract
+PASS closed fields
+PASS no other database clients
+PASS fixture identifiers unused
+PASS no unreviewed test triggers
+PASS actor and actual permissions verified
+PASS stock items and unit references verified
+PASS fixture recipe initially empty
+PASS competitor parent verified
+PASS atomic step Sales
+PASS original quantity calculation Sales
+PASS unapproved stored header behavior preserved Sales
+PASS main event and stock detail part Sales
+PASS same request never increments twice Sales
+PASS receipts and treasury unchanged Sales
+PASS atomic step Sales_Fast
+PASS original quantity calculation Sales_Fast
+PASS unapproved stored header behavior preserved Sales_Fast
+PASS main event and stock detail part Sales_Fast
+PASS same request never increments twice Sales_Fast
+PASS receipts and treasury unchanged Sales_Fast
+PASS atomic step POS
+PASS original quantity calculation POS
+PASS unapproved stored header behavior preserved POS
+PASS main event and stock detail part POS
+PASS same request never increments twice POS
+PASS receipts and treasury unchanged POS
+PASS minus one
+PASS boundary NoChange without event
+PASS stale displayed quantity rejected
+PASS only single steps accepted
+PASS table route cannot use wrong procedure
+PASS fractional lower boundary stays unchanged
+PASS NoChange replay creates no event
+PASS NoChange does not rebuild component identities
+PASS reducing an existing stock deficit is allowed
+PASS same identity with different step rejected
+PASS legacy step discount calculation is unchanged, not silently repaired
+PASS disabled domain cannot fall back to legacy
+PASS oversized event-part count rejected without truncation
+PASS stale line or header rejected
+PASS stale line or header rejected
+PASS original component remove and rebuild captured
+PASS old and new component identities have ten fields each
+PASS approved invoice original total recalculation
+PASS approved step leaves payments unchanged
+PASS large component detail split into bounded parts
+PASS all 273 values retained without truncation
+PASS stale recipe or component rejected
+PASS stale recipe or component rejected
+PASS order retains no component consumption
+PASS new main item negative stock rejected
+PASS component negative stock rejected even when main stock sufficient
+PASS control allows competing component sale
+PASS main stock locks block concurrent legacy sale
+PASS component stock locks block concurrent legacy sale
+PASS current permission enforced Sales
+PASS current permission enforced SB_Update
+PASS void document rejected
+PASS another login cannot reuse edit opening
+PASS writer failure in part 1 rolls back quantity and components
+PASS no committable partial operation
+PASS writer failure in part 2 rolls back quantity and components
+PASS no committable partial operation
+PASS rollback restored Agents_Balance_MV
+PASS rollback restored SB_Contents
+PASS rollback restored SB_Contents_Structers
+PASS rollback restored IM_Struct_Menu
+PASS rollback restored ST_QTY_Deferences
+PASS rollback restored Agents_Balance_MV_RCT
+PASS rollback restored Treasury_Balance_MV
+PASS rollback restored Network_Edit_Tracker
+PASS rollback restored Network_Audit_Request
+PASS rollback restored Network_Audit_Event
+PASS rollback restored Network_Audit_Change
+PASS business definition unchanged SB_Contents_Change_IM_Qty
+PASS business definition unchanged SB_Contents_Structers_Recount_One
+PASS business definition unchanged SB_Contents_Structers_Remove_ONE
+PASS business definition unchanged SB_Contents_Structers_insert_ONE
+PASS business definition unchanged AG_Balance_Update_Total
+PASS business definition unchanged AG_Balance_Update_Pied_On_Update
+PASS business definition unchanged Recalculate_Agent_Bill_Total
+PASS business definition unchanged Inc_IM_QTY
+PASS business definition unchanged Dec_IM_QTY
+PASS all receipt and treasury values restored
+PASS no failure trigger retained
+PASS domain activation unchanged by tests
+PASS permissions restored
+PASS competing sale fully rolled back
+PASS: 91 quantity step checks.

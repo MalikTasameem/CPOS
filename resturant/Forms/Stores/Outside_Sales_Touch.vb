@@ -422,20 +422,17 @@ Public Class Outside_Sales_Touch
                 command.Parameters.Add("@On_Update", SqlDbType.Bit).Value = True
                 command.Parameters.Add("@SPRICE", SqlDbType.Float).Value = Convert.ToDouble(price)
                 If requiresExpiry Then command.Parameters.Add("@D_Vaild", SqlDbType.Date).Value = expiryDate
-                If Not SQL_SP_EXEC(command) Then
+                If Not AuditStockDocumentUi.Run(Me, command, _transactionId, 35) Then
                     SetStatus("لم تتم إضافة الصنف إلى الإذن", True)
                     Return False
                 End If
             End Using
 
-            LoadDetails()
-            If _detailsTable.Rows.Count = 0 Then
-                SetStatus("تم تنفيذ الإضافة ولكن تعذر إعادة تحميل تفاصيل الإذن", True)
-                Return False
-            End If
-            SelectLastCartRow()
-            Network_Edit_Tracker_insert("إضافة صنف من شاشة الاستلام اللمسية: " & itemName & " - الكمية: " & quantity.ToString("N3") & " - التكلفة: " & price.ToString("N3"), _billId.ToString(), 35, 1)
-            SetStatus("تمت إضافة " & quantity.ToString("0.###") & " × " & itemName, False)
+            AuditStockDocumentUi.Refresh(Me, Sub()
+                LoadDetails()
+                SelectLastCartRow()
+                SetStatus("تمت إضافة " & quantity.ToString("0.###") & " × " & itemName, False)
+            End Sub)
             Return True
         Catch ex As Exception
             SetStatus(ex.Message, True)
@@ -595,33 +592,7 @@ Public Class Outside_Sales_Touch
             Return
         End If
 
-        Dim duplicateRows() As DataRow = _detailsTable.Select("IM_ID=" & _selectedItemId.ToString() & " AND ST_ID=" & SelectedStoreId().ToString())
-        If duplicateRows.Length > 0 AndAlso MessageBox.Show("الصنف مضاف مسبقًا إلى هذا المخزن. هل تريد إضافته مرة أخرى؟", "تنبيه", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) <> DialogResult.OK Then Return
-
-        Try
-            Using command As New SqlCommand("Outsale_Details_Insert")
-                command.CommandType = CommandType.StoredProcedure
-                command.Parameters.AddWithValue("@Outsale_T_ID", _transactionId)
-                command.Parameters.AddWithValue("@IM_ID", _selectedItemId)
-                command.Parameters.AddWithValue("@U_ID", _selectedUnitId)
-                command.Parameters.AddWithValue("@Price", price)
-                command.Parameters.AddWithValue("@ST_ID", SelectedStoreId())
-                command.Parameters.AddWithValue("@Barcode", SELECT_BARCODE(_selectedItemId, _selectedUnitId))
-                command.Parameters.AddWithValue("@Total", quantity * price)
-                command.Parameters.AddWithValue("@QYT", quantity)
-                command.Parameters.AddWithValue("@On_Update", True)
-                command.Parameters.AddWithValue("@SPRICE", price)
-                If _selectedItemRequiresExpiry Then command.Parameters.AddWithValue("@D_Vaild", ExpiryDatePicker.Value.Date)
-                If Not SQL_SP_EXEC(command) Then Return
-            End Using
-            LoadDetails()
-            SelectLastCartRow()
-            Network_Edit_Tracker_insert("إضافة صنف من شاشة الاستلام اللمسية: " & SelectedItemLabel.Text & " - الكمية: " & quantity.ToString("N3") & " - التكلفة: " & price.ToString("N3"), _billId.ToString(), 35, 1)
-            ClearSelectedItemEditor()
-            SetStatus("تمت إضافة الصنف", False)
-        Catch ex As Exception
-            SetStatus(ex.Message, True)
-        End Try
+        If AddConfiguredItemToBill(_selectedItemId, SelectedItemLabel.Text, _selectedUnitId, SelectedStoreId(), quantity, price, _selectedItemRequiresExpiry, ExpiryDatePicker.Value.Date) Then ClearSelectedItemEditor()
     End Sub
 
     Private Sub SelectLastCartRow()
@@ -659,16 +630,16 @@ Public Class Outside_Sales_Touch
 
     Private Sub DeleteLineButton_Click(sender As Object, e As EventArgs) Handles DeleteLineButton.Click
         If Not CanEditDetails() OrElse CartGrid.CurrentRow Is Nothing Then Return
-        Dim row As DataRowView = TryCast(CartGrid.CurrentRow.DataBoundItem, DataRowView)
-        If row Is Nothing Then Return
-        'If MessageBox.Show("حذف الصنف المحدد من الإذن؟", "تأكيد", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) <> DialogResult.OK Then Return
+        Dim row = TryCast(CartGrid.CurrentRow.DataBoundItem, DataRowView)
+        If row Is Nothing OrElse Not row.DataView.Table.Columns.Contains("T_ID") OrElse IsDBNull(row("T_ID")) Then Return
         Using command As New SqlCommand("Outsale_Details_Delete")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.AddWithValue("@T_ID", Convert.ToInt32(row("T_ID")))
-            If SQL_SP_EXEC(command) Then
-                Network_Edit_Tracker_insert("حذف صنف من شاشة الاستلام اللمسية: " & Convert.ToString(row("item_name")) & " - الكمية: " & Convert.ToString(row("QYT")), _billId.ToString(), 35, 2)
-                LoadDetails()
-                SetStatus("تم حذف الصنف", False)
+            If AuditStockDocumentUi.Run(Me, command, _transactionId, 35) Then
+                AuditStockDocumentUi.Refresh(Me, Sub()
+                    LoadDetails()
+                    SetStatus("تم حذف الصنف", False)
+                End Sub)
             End If
         End Using
     End Sub
@@ -683,41 +654,23 @@ Public Class Outside_Sales_Touch
 
     Private Sub ChangeSelectedLineQuantity(changeValue As Decimal)
         If Not CanEditDetails() OrElse CartGrid.CurrentRow Is Nothing Then Return
-        Dim row As DataRowView = TryCast(CartGrid.CurrentRow.DataBoundItem, DataRowView)
-        If row Is Nothing Then Return
-        Dim previousQuantity As Decimal = SafeDecimal(row("QYT"))
-        Dim newQuantity As Decimal = previousQuantity + changeValue
-        If newQuantity <= 0D Then
+        Dim row = TryCast(CartGrid.CurrentRow.DataBoundItem, DataRowView)
+        If row Is Nothing OrElse Not row.DataView.Table.Columns.Contains("T_ID") OrElse Not row.DataView.Table.Columns.Contains("QYT") OrElse IsDBNull(row("T_ID")) OrElse IsDBNull(row("QYT")) Then Return
+        If SafeDecimal(row("QYT")) + changeValue <= 0D Then
             SetStatus("الحد الأدنى للكمية هو وحدة واحدة؛ استخدم حذف الصنف لإزالته", True)
             Return
         End If
-
-        Try
-            Using connection As New SqlConnection(MY_Settings.SqlConStr)
-                connection.Open()
-                Using transaction As SqlTransaction = connection.BeginTransaction()
-                    Try
-                        Using command As New SqlCommand("UPDATE dbo.Outsale_Details SET QYT=@QYT,ST_QTY=U_Cargo*@QYT,Total=Cost*@QYT WHERE T_ID=@T_ID; EXEC dbo.Recalculate_Agent_Bill_Total @BILL_T_ID;", connection, transaction)
-                            command.Parameters.Add("@QYT", SqlDbType.Decimal).Value = newQuantity
-                            command.Parameters("@QYT").Precision = 18
-                            command.Parameters("@QYT").Scale = 3
-                            command.Parameters.Add("@T_ID", SqlDbType.Int).Value = Convert.ToInt32(row("T_ID"))
-                            command.Parameters.Add("@BILL_T_ID", SqlDbType.Int).Value = _transactionId
-                            command.ExecuteNonQuery()
-                        End Using
-                        transaction.Commit()
-                    Catch
-                        transaction.Rollback()
-                        Throw
-                    End Try
-                End Using
-            End Using
-            Network_Edit_Tracker_insert("تم تعديل كمية صنف من شاشة الاستلام اللمسية: " & Convert.ToString(row("item_name")) & "؛ رقم الحركة: " & _transactionId.ToString() & "؛ رقم السطر: " & Convert.ToString(row("T_ID")) & "؛ الكمية من: " & previousQuantity.ToString("N3") & " إلى: " & newQuantity.ToString("N3"), _billId.ToString(), 35, 3)
-            LoadDetails()
-            SetStatus("تم تعديل كمية الصنف", False)
-        Catch ex As Exception
-            SetStatus(ex.Message, True)
-        End Try
+        Using command As New SqlCommand("StockReceipt.QuantityStep")
+            command.Parameters.AddWithValue("@T_ID", Convert.ToInt32(row("T_ID")))
+            command.Parameters.AddWithValue("@DisplayedQuantity", SafeDecimal(row("QYT")))
+            command.Parameters.AddWithValue("@QuantityDelta", changeValue)
+            If AuditStockDocumentUi.Run(Me, command, _transactionId, 35) Then
+                AuditStockDocumentUi.Refresh(Me, Sub()
+                    LoadDetails()
+                    SetStatus("تم تعديل كمية الصنف", False)
+                End Sub)
+            End If
+        End Using
     End Sub
 
     Private Sub LoadLastDraftOrCreate()
@@ -862,11 +815,12 @@ Public Class Outside_Sales_Touch
     Private Sub CancelBillButton_Click(sender As Object, e As EventArgs) Handles CancelBillButton.Click
         If _transactionId <= 0 OrElse _isVoid Then Return
         If MessageBox.Show("سيتم إلغاء إذن الاستلام وكل معاملاته. هل أنت متأكد؟", "إلغاء إذن", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) <> DialogResult.OK Then Return
-        Using command As New SqlCommand("AG_Balance_Void_Row")
-            command.CommandType = CommandType.StoredProcedure
-            command.Parameters.AddWithValue("@T_ID", _transactionId)
-            If SQL_SP_EXEC(command) Then LoadBill(_transactionId)
-        End Using
+        If Not AuditDocumentVoidUi.Run(Me, _transactionId, 35) Then Return
+        Try
+            LoadBill(_transactionId)
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ إلغاء الإذن؛ تعذر تحديث العرض: " & ex.Message, "تحديث العرض", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub NewButton_Click(sender As Object, e As EventArgs) Handles NewButton.Click

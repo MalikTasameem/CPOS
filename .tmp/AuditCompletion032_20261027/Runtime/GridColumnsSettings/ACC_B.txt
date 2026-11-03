@@ -1,0 +1,12 @@
+﻿DATE_IN_CL	True
+DATE_CL	False
+COST_NAME_CL	False
+Cr_Name_CL	False
+Currency_Equal_CL	False
+MASTER_NOTES_CL	False
+ACC_CODE_CL	True
+ACC_NAME_CL	True
+Bill_Num_CL	True
+CREDIT_CL	True
+DEBIT_CL	True
+Notes_CL	True

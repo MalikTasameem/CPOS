@@ -450,6 +450,7 @@
 
 
     Private Sub View_Contents_IM_Unit_Change()
+        If F_ViewBill Is Nothing OrElse F_ViewBill.AGMetroGrid.CurrentRow Is Nothing OrElse Not F_ViewBill.AGMetroGrid.Columns.Contains("T_ID_CL") OrElse F_ViewBill.AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value Is Nothing OrElse IsDBNull(F_ViewBill.AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) Then Return
 
         Dim C As New C
         With C.Com
@@ -463,13 +464,10 @@
 
 
         End With
-        If SQL_SP_EXEC(C.Com) Then
-            Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text, F_ViewBill.Bill_ID_Txt.Text, 16, 3)
-            F_ViewBill.ViewBill_Contents_SELECT_Bill()
-            'F_ViewBill.Update_Total()
+        If AuditQuoteLinesUi.Run(Me, C.Com, F_ViewBill.T_ID, F_ViewBill.AuditEditing) Then
+            AuditQuoteLinesUi.Refresh(Me, Sub() F_ViewBill.ViewBill_Contents_SELECT_Bill())
             Me.Close()
         End If
-
     End Sub
 
     Public Function IM_Check_Pch_Def_QTY_()
@@ -643,6 +641,7 @@ CHECK:
     End Sub
 
     Private Sub Pch_Contents_Confirm_Unit()
+        If F_Pch.AGMetroGrid.CurrentRow Is Nothing OrElse F_Pch.AGMetroGrid.CurrentCell Is Nothing OrElse Not F_Pch.AGMetroGrid.Columns.Contains("T_ID_CL") OrElse IsDBNull(F_Pch.AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) Then Return
         Try
 
             Dim Row_Index As Integer = 0
@@ -662,20 +661,11 @@ CHECK:
                 .Parameters.AddWithValue("@Notes", Notes_txt.Text)
                 .Parameters.AddWithValue("@On_Update", F_Pch.On_Update)
             End With
-            C.Da = New SqlClient.SqlDataAdapter(C.Com)
-            C.Da.Fill(C.Dt)
-            F_Pch.AGMetroGrid.DataSource = C.Dt
-            If Row_Index > 0 Then F_Pch.AGMetroGrid.CurrentCell = F_Pch.AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
-
-
-            'Network_Edit_Tracker_insert("تعديل بيانات صنف '" + IM_LB.Text + "' / رقم آلي '" + F_Pch.Bill_ID_Txt.Text + " / رقم يومي : " + _
-            '     F_Pch.Bill_ID_Txt.Text + "' من '" + PrevPrice.ToString + "' إلى '" + NewPrice.ToString + "' / المدخل :  " + F_Pch.User_Name_lb.Text, F_Pch.Pure_txt.Text, _
-            '     F_Pch.AGMetroGrid.CurrentRow.Cells("Bill_IMID_CL").Value, 0)
-
-            Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " الشراء:" + PriceTextBox.Text + " البيع:" + NewSalePrice_txt.Text _
-                                        + " بيع القطعة:" + NewSaleByOne.Text, F_Pch.Bill_ID_Txt.Text, 7, 3)
-            'F_Pch.Pch_Contents_SELECT_Bill()
-            F_Pch.Calc_Total()
+            If Not AuditInventoryOperationsUi.Run(Me, C.Com, F_Pch.T_ID, 7) Then Return
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                F_Pch.Pch_Contents_SELECT_Bill()
+                If Row_Index >= 0 AndAlso Row_Index < F_Pch.AGMetroGrid.Rows.Count Then F_Pch.AGMetroGrid.CurrentCell = F_Pch.AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
+            End Sub)
             Me.Close()
 
         Catch ex As Exception
@@ -688,6 +678,7 @@ CHECK:
 
     Private Sub Frm_Manual_Confirm_Unit()
 
+        If F_Format_Items_Manual.AGMetroGrid.CurrentRow Is Nothing OrElse Not F_Format_Items_Manual.AGMetroGrid.Columns.Contains("DETAILS_T_ID_CL") OrElse IsDBNull(F_Format_Items_Manual.AGMetroGrid.CurrentRow.Cells("DETAILS_T_ID_CL").Value) Then Return
         Dim C As New C
         With C.Com
             .Connection = C.Con
@@ -701,17 +692,15 @@ CHECK:
             If String.IsNullOrWhiteSpace(NewSaleByOne.Text) = False Then .Parameters.AddWithValue("@NewSaleByOne", NewSaleByOne.Text)
             ' .Parameters.AddWithValue("@Notes", Notes_txt.Text)
         End With
-        If SQL_SP_EXEC(C.Com) Then
-
-            Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " التكلفة:" + PriceTextBox.Text + " البيع:" + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, F_Format_Items_Manual.Bill_ID_Txt.Text, 18, 3)
-            F_Format_Items_Manual.Pch_Contents_SELECT_Bill()
-        End If
+        If Not AuditInventoryOperationsUi.Run(Me, C.Com, F_Format_Items_Manual.T_ID, 18) Then Return
+        AuditInventoryOperationsUi.Refresh(Me, Sub() F_Format_Items_Manual.Pch_Contents_SELECT_Bill())
 
         Me.Close()
     End Sub
 
 
     Private Sub Invoice_Contents_Confirm_Unit()
+        If F_Invoice.AGMetroGrid.CurrentRow Is Nothing OrElse F_Invoice.AGMetroGrid.CurrentCell Is Nothing OrElse Not F_Invoice.AGMetroGrid.Columns.Contains("T_ID_CL") OrElse IsDBNull(F_Invoice.AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) Then Return
         Try
             Dim Row_Index As Integer = 0
             If F_Invoice.AGMetroGrid.Rows.Count > 0 Then Row_Index = F_Invoice.AGMetroGrid.CurrentCell.RowIndex
@@ -730,15 +719,11 @@ CHECK:
                 .Parameters.AddWithValue("@Notes", Notes_txt.Text)
                 .Parameters.AddWithValue("@On_Update", F_Invoice.On_Update)
             End With
-            F_Invoice.Bill_DT.Clear()
-            C.Da = New SqlClient.SqlDataAdapter(C.Com)
-            C.Da.Fill(F_Invoice.Bill_DT)
-            F_Invoice.AGMetroGrid.DataSource = F_Invoice.Bill_DT
-
-            Network_Edit_Tracker_insert(" الصنف:" + IM_LB.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " الشراء:" + PriceTextBox.Text + " البيع:" + NewSalePrice_txt.Text _
-                                       + " بيع القطعة:" + NewSaleByOne.Text, F_Invoice.Bill_ID_Txt.Text, 9, 3)
-
-            If Row_Index > 0 Then F_Invoice.AGMetroGrid.CurrentCell = F_Invoice.AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
+            If Not AuditInventoryOperationsUi.Run(Me, C.Com, F_Invoice.T_ID, 9) Then Return
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                F_Invoice.Pch_Contents_SELECT_Bill()
+                If Row_Index >= 0 AndAlso Row_Index < F_Invoice.AGMetroGrid.Rows.Count Then F_Invoice.AGMetroGrid.CurrentCell = F_Invoice.AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
+            End Sub)
             Me.Close()
         Catch ex As Exception
             MsgBox(ex.Message)

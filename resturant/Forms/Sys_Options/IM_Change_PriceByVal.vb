@@ -76,20 +76,39 @@
             Exit Sub
         End If
 
-        If Convert.ToDouble(Val_TXT.Text) < 0 Then
+        Dim delta As Decimal
+        If Not Decimal.TryParse(Val_TXT.Text, delta) Then
+            MessageBox.Show("قيمة التعديل غير صالحة.", "تعديل الأسعار", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+        If delta < 0 Then
             If MessageBox.Show(" خصم قيمة " & Val_TXT.Text & " دينار من قائمة " & vbNewLine & GM_Serach.Text, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
                 Exit Sub
             End If
-        ElseIf Convert.ToDouble(Val_TXT.Text) > 0 Then
+        ElseIf delta > 0 Then
             If MessageBox.Show(" زيادة قيمة " & Val_TXT.Text & " دينار من قائمة " & vbNewLine & GM_Serach.Text, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.No Then
                 Exit Sub
             End If
         End If
 
-        For i = 0 To IM_GV.Rows.Count - 1
-            If String.IsNullOrWhiteSpace(IM_GV.Rows(i).Cells("Price_CL").Value) Then IM_GV.Rows(i).Cells("Price_CL").Value = 0
-            Dim Val As Double = IM_GV.Rows(i).Cells("Price_CL").Value + Convert.ToDouble(Val_TXT.Text)
-            IM_Units_UpdatePrice(IM_GV.Rows(i).Cells("U_IM_ID_CL").Value, IM_GV.Rows(i).Cells("item_name_CL").Value, IM_GV.Rows(i).Cells("U_Name_CL").Value, Val)
+        Dim prices As New System.Collections.Generic.List(Of System.Collections.Generic.KeyValuePair(Of Integer, Decimal))
+        Try
+            For Each row As DataGridViewRow In IM_GV.Rows
+                If row.IsNewRow Then Continue For
+                Dim price As Decimal = If(IsDBNull(row.Cells("Price_CL").Value) OrElse row.Cells("Price_CL").Value Is Nothing, 0D, Convert.ToDecimal(row.Cells("Price_CL").Value))
+                prices.Add(New System.Collections.Generic.KeyValuePair(Of Integer, Decimal)(Convert.ToInt32(row.Cells("U_IM_ID_CL").Value), price + delta))
+            Next
+        Catch ex As Exception
+            MessageBox.Show("لم تبدأ الدفعة؛ تعذر قراءة أسعار القائمة. " & ex.Message, "تعديل الأسعار", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End Try
+        Dim saved As Integer = 0
+        For Each price In prices
+            If Not IM_Units_UpdatePrice(price.Key, price.Value) Then
+                MessageBox.Show("توقفت الدفعة. عدد الصفوف المحفوظة: " & saved.ToString() & ". لم تنفذ الصفوف التالية. حدّث القائمة قبل المتابعة؛ إعادة تطبيق الزيادة على القائمة كاملة تؤثر مجددًا في الصفوف المحفوظة.", "تعديل الأسعار", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit For
+            End If
+            saved += 1
         Next
         Load_GM_IM()
     End Sub
@@ -100,28 +119,28 @@
     End Sub
 
     Private Sub DataGridViewX1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles IM_GV.CellEndEdit
-        If String.IsNullOrWhiteSpace(IM_GV.CurrentRow.Cells("Price_CL").Value) Then IM_GV.CurrentRow.Cells("Price_CL").Value = 0
-        IM_Units_UpdatePrice(IM_GV.CurrentRow.Cells("U_IM_ID_CL").Value, IM_GV.CurrentRow.Cells("item_name_CL").Value, IM_GV.CurrentRow.Cells("U_Name_CL").Value, IM_GV.CurrentRow.Cells("Price_CL").Value)
+        If e.RowIndex < 0 OrElse IM_GV.CurrentRow Is Nothing OrElse IM_GV.CurrentRow.IsNewRow Then Return
+        Dim price As Decimal
+        Dim text = Convert.ToString(IM_GV.CurrentRow.Cells("Price_CL").Value)
+        If Not String.IsNullOrWhiteSpace(text) AndAlso Not Decimal.TryParse(text, price) Then
+            MessageBox.Show("السعر غير صالح؛ لم يتم حفظه.", "تعديل الأسعار", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Load_GM_IM() : Return
+        End If
+        IM_Units_UpdatePrice(Convert.ToInt32(IM_GV.CurrentRow.Cells("U_IM_ID_CL").Value), price)
+        Load_GM_IM()
     End Sub
 
-    Private Sub IM_Units_UpdatePrice(U_IM_ID As Integer, item_name As String, U_Name As String, Price As Double)
-        Try
-            Dim c As New C
-            With c.Com
-                .Connection = c.Con
-                .CommandText = "[IM_Units_UpdatePriceBy_Val]"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@U_IM_ID", U_IM_ID)
-                .Parameters.AddWithValue("@Price", Price)
-            End With
-            If SQL_SP_EXEC(c.Com) = True Then
-                Network_Edit_Tracker_insert(" الصنف:" & item_name & " الوحدة:" & U_Name & " سعر البيع:" & Price.ToString, 0, 30, 3)
-            End If
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
+    Private Function IM_Units_UpdatePrice(U_IM_ID As Integer, Price As Decimal) As Boolean
+        Dim c As New C
+        With c.Com
+            .Connection = c.Con
+            .CommandText = "[IM_Units_UpdatePriceBy_Val]"
+            .CommandType = CommandType.StoredProcedure
+            .Parameters.AddWithValue("@U_IM_ID", U_IM_ID)
+            .Parameters.AddWithValue("@Price", Price)
+        End With
+        Return AuditItemUnitsUi.Run(Me, c.Com)
+    End Function
 
     Private Sub GM_Serach_SelectedValueChanged(sender As Object, e As EventArgs) Handles GM_Serach.SelectedValueChanged
         If Get_COUNTER = True Then Load_GM_IM()

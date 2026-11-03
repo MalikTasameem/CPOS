@@ -1,0 +1,87 @@
+PASS 2 item context fields
+PASS 10 actual item-unit fields
+PASS 7 recipe fields
+PASS closed item-unit domain
+PASS unknown operation denied
+PASS no other clients
+PASS approved source
+PASS no unreviewed triggers
+PASS unused item fixture
+PASS unused unit fixtures
+PASS unused recipe fixtures
+PASS base units present
+PASS failure trigger name unused
+PASS create actual id/price ItemsMenu
+PASS actual generated barcode/nulls ItemsMenu
+PASS original row-enabled policy ItemsMenu
+PASS same request returns same id ItemsMenu
+PASS all 10 created values ItemsMenu
+PASS same id changed payload denied ItemsMenu
+PASS create actual id/price Add_Unit
+PASS actual generated barcode/nulls Add_Unit
+PASS original row-enabled policy Add_Unit
+PASS same request returns same id Add_Unit
+PASS all 10 created values Add_Unit
+PASS same id changed payload denied Add_Unit
+PASS original barcode length and nullable minima
+PASS default transfers across sibling units
+PASS both default changes audited
+PASS unchecked default retains original procedure behavior
+PASS zero value IM_Units_UpdatePriceBy_Val
+PASS sibling price unchanged IM_Units_UpdatePriceBy_Val
+PASS replay price IM_Units_UpdatePriceBy_Val
+PASS original negative-price policy IM_Units_UpdatePriceBy_Val
+PASS zero value IM_Units_Update_OFFER_Price
+PASS sibling price unchanged IM_Units_Update_OFFER_Price
+PASS replay price IM_Units_Update_OFFER_Price
+PASS original negative-price policy IM_Units_Update_OFFER_Price
+PASS target link removed
+PASS 31 dependent recipe rows removed
+PASS all deletion values captured
+PASS graph split into bounded event parts
+PASS delete replay
+PASS stale sibling graph rejected
+PASS stale recipe graph rejected
+PASS orphan recipe cannot silently become a new link child
+PASS barcode policy repeated in transaction
+PASS multiple barcode option preserved
+PASS unreviewed screen denied
+PASS arbitrary input denied
+PASS disabled actor denied
+PASS revoked item permission denied
+PASS disabled domain blocks mutation
+PASS domain failure blocks mutation or rolls back fixture
+PASS audit detail failure IM_Units_DELETE
+PASS failed fixture rolled back IM_Units_DELETE
+PASS audit detail failure IM_Units_UpdatePrice
+PASS failed fixture rolled back IM_Units_UpdatePrice
+PASS audit detail failure IM_Units_insert
+PASS failed fixture rolled back IM_Units_insert
+PASS legacy rollback cannot report completed
+PASS rollback count IM_Menu
+PASS rollback count IM_Units
+PASS rollback count IM_Struct_Menu
+PASS rollback count Units
+PASS rollback count SERVERS
+PASS rollback count Users
+PASS rollback count Users_Validations
+PASS rollback count Network_Edit_Tracker
+PASS rollback count Network_Audit_Request
+PASS rollback count Network_Audit_Event
+PASS rollback count Network_Audit_Change
+PASS procedure unchanged IM_Units_insert
+PASS procedure unchanged IM_Units_UpdatePrice
+PASS procedure unchanged IM_Units_DELETE
+PASS procedure unchanged IM_Units_UpdatePriceBy_Val
+PASS procedure unchanged IM_Units_Update_OFFER_Price
+PASS procedure unchanged AA_GET_MAX_IM_UNITS
+PASS procedure unchanged AG_BalanceMV_GetSerial_Barcode
+PASS procedure unchanged IM_Check_Barcode
+PASS procedure unchanged Network_Audit_Request_Begin
+PASS procedure unchanged Network_Audit_Event_Write
+PASS all original unit data unchanged
+PASS all original recipe data unchanged
+PASS domain rollback
+PASS no incomplete requests
+PASS failure trigger removed
+PASS 86 item-unit checks.

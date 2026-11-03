@@ -1,0 +1,99 @@
+PASS closed expense domain
+PASS all seven expense row values
+PASS unrelated entity rejected
+PASS no other clients
+PASS approved source
+PASS existing expense reference
+PASS test range free Agents_Balance_MV
+PASS test range free EXP_Details
+PASS test trigger name free
+PASS no unreviewed triggers
+PASS locked allocator
+PASS SQL quantity rounding
+PASS SQL price rounding
+PASS original total rounding
+PASS immediate approval effect
+PASS header recalculated
+PASS add retry same result
+PASS complete header and line
+PASS own line removed
+PASS deleted total recalculated
+PASS delete retry
+PASS stale deletion
+PASS locked allocator
+PASS SQL quantity rounding
+PASS SQL price rounding
+PASS original total rounding
+PASS immediate approval effect
+PASS header recalculated
+PASS add retry same result
+PASS complete header and line
+PASS own line removed
+PASS deleted total recalculated
+PASS delete retry
+PASS stale deletion
+PASS locked allocator
+PASS SQL quantity rounding
+PASS SQL price rounding
+PASS original total rounding
+PASS immediate approval effect
+PASS header recalculated
+PASS add retry same result
+PASS complete header and line
+PASS own line removed
+PASS deleted total recalculated
+PASS delete retry
+PASS stale deletion
+PASS locked allocator
+PASS SQL quantity rounding
+PASS SQL price rounding
+PASS original total rounding
+PASS immediate approval effect
+PASS header recalculated
+PASS add retry same result
+PASS complete header and line
+PASS own line removed
+PASS deleted total recalculated
+PASS delete retry
+PASS stale deletion
+PASS audit failure add
+PASS business failure add
+PASS audit failure delete
+PASS business failure delete
+PASS stale or invalid header Discount=1
+PASS stale or invalid header isVoid=1
+PASS stale or invalid header BsType_ID=7
+PASS stale or invalid header isDepended=1
+PASS permission revoked
+PASS permission revoked
+PASS disabled user
+PASS domain disabled no legacy fallback
+PASS wrong screen
+PASS request identity conflict
+PASS allocation exhausted
+PASS concurrent change locked
+PASS locked request saved
+PASS line moved to another invoice
+PASS rollback table Agents_Balance_MV
+PASS rollback table EXP_Details
+PASS rollback table Treasury_Balance_MV
+PASS rollback table Agents_Balance_MV_RCT
+PASS rollback table SERVERS
+PASS rollback table Expenses_Card
+PASS rollback table Users
+PASS rollback table Users_Validations
+PASS rollback table Network_Audit_Request
+PASS rollback table Network_Audit_Event
+PASS rollback table Network_Audit_Change
+PASS rollback table Network_Edit_Tracker
+PASS procedure unchanged EXP_Details_Insert
+PASS procedure unchanged EXP_Details_Delete
+PASS procedure unchanged AA_GET_MAX_EXP_Details
+PASS procedure unchanged AG_Balance_Update_Total
+PASS procedure unchanged AG_Balance_Update_Pied_On_Update
+PASS procedure unchanged Recalculate_Agent_Bill_Total
+PASS procedure unchanged Network_Audit_Request_Begin
+PASS procedure unchanged Network_Audit_Event_Write
+PASS domains unchanged
+PASS no trigger left
+PASS 98 expense line checks.

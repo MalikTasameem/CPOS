@@ -15,7 +15,6 @@
     Public Unit_ID As Integer
     Public EditLineId As Integer
     Private editSnapshot As String
-    Private auditMode As Boolean
     Private ready As Boolean
     Private pendingAudit As AuditOperationRequest
     Private pendingConnection As String
@@ -37,9 +36,8 @@
         QTY_txt.ReadOnly = True
         Cost_txt.ReadOnly = True ' Cost calculation is owned by the existing SQL path.
         Try
-            auditMode = AuditSettlementLines.IsEnabled(MY_Settings.SqlConStr)
+            If Not AuditSettlementLines.IsEnabled(MY_Settings.SqlConStr) Then Throw New InvalidOperationException("مراقبة التسويات الجديدة غير مفعلة؛ لا يمكن حفظ الكمية.")
             If EditLineId > 0 Then
-                If Not auditMode Then Throw New InvalidOperationException("تعديل سطر التسوية يتطلب تفعيل المراقبة الجديدة.")
                 Dim row = AuditSettlementLines.ReadEditLine(MY_Settings.SqlConStr,
                     AuditSecuritySession.Current.ContextFor(MY_Settings.SqlConStr, USER_ID, "IM_Update_Qty"), Bill_T_ID, EditLineId)
                 editSnapshot = AuditSettlementLines.LineSnapshot(row)
@@ -57,7 +55,7 @@
                 ConfermButton.Text = "حفظ F12"
             Else
                 Check_IF_IM_Valid()
-                If auditMode Then RefreshCurrentQuantity()
+                RefreshCurrentQuantity()
             End If
             ready = True
             New_Qty_txt.Select()
@@ -85,12 +83,9 @@
                 Else
                     Valid_Panel.Visible = False
                 End If
-            ElseIf auditMode Then
+            Else
                 Throw New InvalidOperationException("الصنف غير موجود؛ أعد اختيار الصنف.")
             End If
-        Catch ex As Exception
-            If auditMode Then Throw
-            MsgBox(ex.Message)
         Finally
             c.Con.Close()
         End Try
@@ -116,29 +111,25 @@
             End If
             saving = True
             ConfermButton.Enabled = False
-            If pendingAudit Is Nothing AndAlso AuditSettlementLines.IsEnabled(MY_Settings.SqlConStr) <> auditMode Then Throw New InvalidOperationException("تغير وضع مراقبة التسويات؛ أغلق النافذة وأعد فتحها قبل الحفظ.")
-            If pendingAudit IsNot Nothing OrElse auditMode Then
-                If pendingAudit Is Nothing Then
-                    pendingConnection = MY_Settings.SqlConStr
-                    If EditLineId > 0 Then
-                        pendingAudit = AuditSettlementLines.UpdateRequest(AuditSecuritySession.Current.ContextFor(pendingConnection, USER_ID, "IM_Update_Qty"),
-                            Bill_T_ID, EditLineId, requested, editSnapshot, IM_min_QTY)
-                    Else
-                        Dim difference = AuditSettlementLines.VerifiedDifference(requested, CURRENT_QTY, CURRENT_QTY)
-                        pendingAudit = AuditSettlementLines.AddRequest(AuditSecuritySession.Current.ContextFor(pendingConnection, USER_ID, "IM_Update_Qty"),
-                            Bill_T_ID, IM_ID, ST_ID, Unit_ID, Barcode, requested, difference, CURRENT_QTY,
-                            If(Valid_Panel.Visible, CType(DateTime.SpecifyKind(Valid_Date.Value.Date, DateTimeKind.Unspecified), DateTime?), Nothing), IM_min_QTY)
-                    End If
+            If pendingAudit Is Nothing AndAlso Not AuditSettlementLines.IsEnabled(MY_Settings.SqlConStr) Then Throw New InvalidOperationException("مراقبة التسويات الجديدة غير مفعلة؛ لم يتم حفظ الكمية.")
+            If pendingAudit Is Nothing Then
+                pendingConnection = MY_Settings.SqlConStr
+                If EditLineId > 0 Then
+                    pendingAudit = AuditSettlementLines.UpdateRequest(AuditSecuritySession.Current.ContextFor(pendingConnection, USER_ID, "IM_Update_Qty"),
+                        Bill_T_ID, EditLineId, requested, editSnapshot, IM_min_QTY)
+                Else
+                    Dim difference = AuditSettlementLines.VerifiedDifference(requested, CURRENT_QTY, CURRENT_QTY)
+                    pendingAudit = AuditSettlementLines.AddRequest(AuditSecuritySession.Current.ContextFor(pendingConnection, USER_ID, "IM_Update_Qty"),
+                        Bill_T_ID, IM_ID, ST_ID, Unit_ID, Barcode, requested, difference, CURRENT_QTY,
+                        If(Valid_Panel.Visible, CType(DateTime.SpecifyKind(Valid_Date.Value.Date, DateTimeKind.Unspecified), DateTime?), Nothing), IM_min_QTY)
                 End If
-                SetPendingInputs(True)
-                Dim result = AuditSettlementLines.Save(pendingConnection, pendingAudit)
-                pendingAudit = Nothing
-                MsgBox(If(result.ResultCode.GetValueOrDefault() = 5, "لا يوجد تغيير؛ لم تسجل حركة إضافية.", "تم حفظ سطر التسوية وتسجيله في المراقبة."), MsgBoxStyle.Information)
-                Me.DialogResult = DialogResult.OK
-                Me.Close()
-            Else
-                ST_Balance_Update()
             End If
+            SetPendingInputs(True)
+            Dim result = AuditSettlementLines.Save(pendingConnection, pendingAudit)
+            pendingAudit = Nothing
+            MsgBox(If(result.ResultCode.GetValueOrDefault() = 5, "لا يوجد تغيير؛ لم تسجل حركة إضافية.", "تم حفظ سطر التسوية وتسجيله في المراقبة."), MsgBoxStyle.Information)
+            Me.DialogResult = DialogResult.OK
+            Me.Close()
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Exclamation)
             If pendingAudit IsNot Nothing Then
@@ -146,7 +137,7 @@
                     If AuditRequestCoordinator.Status(pendingConnection, pendingAudit).Status = "NotFound" Then
                         pendingAudit = Nothing
                         SetPendingInputs(False)
-                        If auditMode AndAlso EditLineId = 0 Then
+                        If EditLineId = 0 Then
                             Try
                                 RefreshCurrentQuantity()
                             Catch refreshError As Exception
@@ -180,7 +171,7 @@
     End Sub
 
     Private Sub Valid_Date_ValueChanged(sender As Object, e As EventArgs) Handles Valid_Date.ValueChanged
-        If Not ready OrElse Not auditMode OrElse EditLineId > 0 OrElse pendingAudit IsNot Nothing Then Return
+        If Not ready OrElse EditLineId > 0 OrElse pendingAudit IsNot Nothing Then Return
         Try
             RefreshCurrentQuantity()
         Catch ex As Exception
@@ -209,46 +200,6 @@
         MsgBox("نتيجة التسوية غير محسومة. أعد المحاولة بنفس الزر بعد عودة الاتصال. مرجع الطلب: " & pendingAudit.RequestId.ToString("D"), MsgBoxStyle.Exclamation)
     End Sub
 
-    Private Sub ST_Balance_Update()
-        If Convert.ToDecimal(Qty_Deference_Txt.Text) = 0D Then
-            MsgBox("لم تتغير الكمية؛ لم يضف سطر تسوية.", MsgBoxStyle.Information)
-            Me.DialogResult = DialogResult.OK
-            Me.Close()
-            Return
-        End If
-        Dim c As New C
-
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "ST_Balance_Update"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@Bill_T_ID", Bill_T_ID)
-            .Parameters.AddWithValue("@T_ID", 0)
-            .Parameters.AddWithValue("@IM_ID", IM_ID) 'F_STORES_Explorer.gridv.CurrentRow.Cells(1).Value
-            .Parameters.AddWithValue("@ST_ID", ST_ID) 'F_STORES_Explorer.gridv.CurrentRow.Cells(2).Value
-
-            If Valid_Panel.Visible = True Then .Parameters.AddWithValue("@D_Valid", Valid_Date.Value.Date)
-            .Parameters.AddWithValue("@ST_QTY", New_Qty_txt.Text)
-            '.Parameters.AddWithValue("@Cost", Cost_txt.Text)
-            .Parameters.AddWithValue("@Qty_Deference", Qty_Deference_Txt.Text)
-            .Parameters.AddWithValue("@Tag", Tag_txt.Text)
-            .Parameters.AddWithValue("@Barcode", Barcode)
-
-        End With
-
-        If SQL_SP_EXEC(c.Com) Then
-            MsgBox("تم حفظ التعديلات", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إضافة فرق تسوية للمستند T_ID=" & Bill_T_ID.ToString() & "؛ الصنف: " & IM_Name_txt.Text & "؛ المخزن: " & ST_Name_txt.Text & "؛ الوحدة المختارة: " & Unit_txt.Text & "؛ الكمية المطلوبة: " & New_Qty_txt.Text & "؛ الفرق: " & Tag_txt.Text & Qty_Deference_Txt.Text, 0, 39, 1)
-            'F_STORES_Explorer.gridv.CurrentRow.Cells(11).Value = Cost_txt.Text
-            'F_STORES_Explorer.gridv.CurrentRow.Cells(10).Value = New_Qty_txt.Text
-            'F_STORES_Explorer.gridv.CurrentRow.Cells(13).Value = Convert.ToDouble(Cost_txt.Text) * Convert.ToDouble(New_Qty_txt.Text)
-            'F_STORES_Explorer.Get_Total_QYT()
-
-            Me.DialogResult = DialogResult.OK
-            Me.Close()
-        End If
-
-    End Sub
 
     Private Sub Cost_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Cost_txt.KeyPress
         Check_Only_Float(sender, e)

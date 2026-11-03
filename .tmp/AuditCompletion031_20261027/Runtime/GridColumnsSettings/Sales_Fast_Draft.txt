@@ -1,0 +1,12 @@
+﻿is_Check_CL	False
+ST_Name_CL	False
+IMNUM_CL	False
+IM_Discount_CL	False
+T_ID_CL	False
+IM_NOTE_CL	False
+Barcode_CL	True
+Item_Name	True
+IMUnit_CL	True
+QTY_CL	True
+Price_CL	True
+Total_CL	True

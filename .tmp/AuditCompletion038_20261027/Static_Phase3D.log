@@ -1,0 +1,5 @@
+PASS fresh positive difference
+PASS fresh negative difference
+PASS stale displayed balance rejected
+PASS unrepresentable difference rejected
+PASS: 4 safety checks.

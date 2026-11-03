@@ -1,0 +1,2 @@
+PASS 181 inventory/manufacturing offline checks.
+PASS SQL 2014 parse, two exact procedure fingerprints, local temp isolation, retained scope, fail-closed event construction.

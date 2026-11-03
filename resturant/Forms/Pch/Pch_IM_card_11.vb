@@ -274,39 +274,11 @@
 
             sqlComm.Parameters("@T_ID").Direction = ParameterDirection.Output
 
-            If SQL_SP_EXEC(sqlComm) = True Then
-
-                Indx_ID = sqlComm.Parameters("@T_ID").Value
-            Valid_Notes_Insert()
-
-            If F_Pch.On_Update = True Then DependingUpdatedBill(T_ID)
-
-            Network_Edit_Tracker_insert(" الصنف:" + mySearchControl.txtSearch.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text + " البيع:" _
-                                        + NewSalePrice_txt.Text + " بيع القطعة:" + NewSaleByOne.Text, F_Pch.Bill_ID_Txt.Text, 7, 1)
-
-            F_Pch.Pch_Contents_SELECT_Bill()
-
+        If AuditPurchaseAddUi.Run(Me, sqlComm, T_ID, 7, Valid_ListBox.Items.Cast(Of Object)().Select(Function(x) Convert.ToDateTime(x, Globalization.CultureInfo.CurrentCulture))) Then
+            AuditPurchaseAddUi.Refresh(Me, Sub() F_Pch.Pch_Contents_SELECT_Bill())
             Me.Close()
-
         End If
-
-        End Sub
-
-    Private Sub Valid_Notes_Insert()
-
-            For i = 0 To Valid_ListBox.Items.Count - 1
-                Valid_ListBox.SelectedIndex = i
-
-                Dim sqlComm As New SqlClient.SqlCommand
-                sqlComm.CommandText = "Valid_Notes_Insert"
-                sqlComm.CommandType = CommandType.StoredProcedure
-                sqlComm.Parameters.AddWithValue("@Pch_T_ID", Indx_ID)
-                sqlComm.Parameters.AddWithValue("@IM_ID", IM_ID)
-                sqlComm.Parameters.AddWithValue("@VALID_DATE", Valid_ListBox.SelectedItem)
-                SQL_SP_EXEC(sqlComm)
-
-            Next
-        End Sub
+    End Sub
 
     Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown
             Select Case e.KeyCode
@@ -972,7 +944,7 @@
     End Sub
 
     Private Sub ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ADD_New_IM_btn.Click
-        IM_ADD_New.ShowDialog()
+        IM_ADD_New.ShowDialog(Me)
         If is_Add_New_IM = True Then
             mySearchControl.Refresh_Data()
             mySearchControl.SelectItemByName(mySearchControl.txtSearch.Text)

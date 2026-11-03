@@ -69,6 +69,15 @@ Friend Module AuditSettlementSafetyTests
         Return AuditSettlementLines.AddRequest(context, Doc, itemId, storeId, unitId, "Audit3D", target, target - CDec(shown), shown, Expiry)
     End Function
 
+    Private Function RejectedStockUnchanged(cn As SqlConnection, tx As SqlTransaction, disabledBalance As Double) As Boolean
+        ' THROW with XACT_ABORT can roll back the outer fixture, including its seed.
+        If CInt(Scalar(cn, tx, "SELECT XACT_STATE()")) = 0 Then
+            Return CInt(Scalar(cn, tx, "SELECT COUNT(*) FROM ST_QTY_Deferences WHERE T_ID=" & Seed)) = 0 AndAlso
+                CInt(Scalar(cn, tx, "SELECT COUNT(*) FROM Agents_Balance_MV WHERE T_ID=" & Doc)) = 0 AndAlso Balance(cn, tx) = 0R
+        End If
+        Return Balance(cn, tx) = disabledBalance AndAlso CDbl(SavedLine(cn, tx, Seed)("ST_QTY")) = 8R
+    End Function
+
     Private Function Id(result As AuditRequestResult) As Integer
         Return Integer.Parse(AuditCanonical.ParseXml(result.ResultXml).Element("Values").Elements("Value").Single(Function(x) CStr(x.Attribute("name")) = "LineId").Value)
     End Function
@@ -150,6 +159,41 @@ Friend Module AuditSettlementSafetyTests
             domains = CStr(Scalar(cn, Nothing, "SELECT CONVERT(nvarchar(max),EnabledDomainsXml) FROM dbo.Network_Audit_Source WHERE ConfigId=1"))
         End Using
         Check(AuditSettlementLines.IsEnabled(connection), "008 gate installed and enabled")
+
+        ' The screens no longer retain a legacy write path when the gate is disabled.
+        For Each action In {"Created", "HeaderSaved", "Approved", "EditOpened", "EditFinished", "Voided"}
+            Dim operation = action
+            Fixture(Sub(cn, tx)
+                        Dim request = AuditSettlementHeader.Request(context, operation, If(operation = "Created", 0, Doc), New DateTime(2026, 10, 26), "Audit3D", "Rollback fixture", False)
+                        Scalar(cn, tx, "UPDATE Network_Audit_Source SET EnabledDomainsXml.modify('delete /Domains/Domain[@code=""Inventory.Settlement""]') WHERE ConfigId=1")
+                        Dim disabledBalance = Balance(cn, tx)
+                        Reject(Sub() AuditSettlementHeader.ExecuteInTransaction(cn, tx, request), "disabled gate blocks header " & operation, "Audit domain is disabled")
+                        Check(CInt(Scalar(cn, tx, "SELECT COUNT(*) FROM Network_Audit_Request WHERE RequestId='" & request.RequestId.ToString() & "'")) = 0, "disabled header leaves no request " & operation)
+                        Check(RejectedStockUnchanged(cn, tx, disabledBalance), "disabled header leaves no stock change " & operation)
+                    End Sub)
+        Next
+        For Each action In {"Add", "Update", "Delete"}
+            Dim operation = action
+            Fixture(Sub(cn, tx)
+                        Dim request As AuditOperationRequest
+                        Select Case operation
+                            Case "Add" : request = Add(10D, 8R)
+                            Case "Update" : request = AuditSettlementLines.UpdateRequest(context, Doc, Seed, 9D, AuditSettlementLines.LineSnapshot(SavedLine(cn, tx, Seed)), False)
+                            Case Else : request = AuditSettlementLines.DeleteRequest(context, Doc, Seed)
+                        End Select
+                        Scalar(cn, tx, "UPDATE Network_Audit_Source SET EnabledDomainsXml.modify('delete /Domains/Domain[@code=""Inventory.Settlement""]') WHERE ConfigId=1")
+                        Dim disabledBalance = Balance(cn, tx)
+                        Reject(Sub() AuditSettlementLines.ExecuteInTransaction(cn, tx, request), "disabled gate blocks line " & operation, "Audit domain is disabled")
+                        Check(CInt(Scalar(cn, tx, "SELECT COUNT(*) FROM Network_Audit_Request WHERE RequestId='" & request.RequestId.ToString() & "'")) = 0, "disabled line leaves no request " & operation)
+                        Check(RejectedStockUnchanged(cn, tx, disabledBalance), "disabled line leaves no stock change " & operation)
+                    End Sub)
+        Next
+        Fixture(Sub(cn, tx)
+                    Dim request = Add(10D, 8R), result = AuditSettlementLines.ExecuteInTransaction(cn, tx, request)
+                    Scalar(cn, tx, "UPDATE Network_Audit_Source SET EnabledDomainsXml.modify('delete /Domains/Domain[@code=""Inventory.Settlement""]') WHERE ConfigId=1")
+                    Dim disabledBalance = Balance(cn, tx)
+                    Check(Id(AuditSettlementLines.ExecuteInTransaction(cn, tx, request)) = Id(result) AndAlso Balance(cn, tx) = disabledBalance AndAlso CDbl(SavedLine(cn, tx, Id(result))("ST_QTY")) = 2R, "completed request resolves after gate disabled without duplicate stock")
+                End Sub)
 
         Fixture(Sub(cn, tx)
                     Check(Not CompetingSaleIsBlocked(), "control: fixture alone does not block an unrelated sales writer")

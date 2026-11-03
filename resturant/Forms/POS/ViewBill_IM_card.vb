@@ -357,23 +357,13 @@
             .Parameters.AddWithValue("@Price", PriceTextBox.Text)
         End With
 
-        If SQL_SP_EXEC(C.Com) = True Then
-
-            Network_Edit_Tracker_insert(" الصنف:" + mySearchControl.txtSearch.Text + " الوحدة:" + IM_Unit_cm.Text + " العدد:" + QtyTextBox.Text + " السعر:" + PriceTextBox.Text, F_ViewBill.Bill_ID_Txt.Text, 16, 1)
-
-            'Network_Edit_Tracker_insert(" الصنف:" & IM_SH_txt.Text & " الوحدة:" & IM_Unit_cm.Text & " العدد:" & QtyTextBox.Text & " السعر:" & PriceTextBox.Text, Bill_ID_Txt.Text, 16, 1)
-            'If On_Update = True Then
-            '    DependingUpdatedBill(T_ID)
-            'End If
-
-            F_ViewBill.ViewBill_Contents_SELECT_Bill()
-            ClearCatFields()
-
-
+        If AuditQuoteLinesUi.Run(Me, C.Com, T_ID, F_ViewBill.AuditEditing) Then
+            AuditQuoteLinesUi.Refresh(Me, Sub()
+                                               F_ViewBill.ViewBill_Contents_SELECT_Bill()
+                                               ClearCatFields()
+                                           End Sub)
             Me.Close()
-
         End If
-
     End Sub
 
     Private Sub PriceTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles PriceTextBox.KeyDown

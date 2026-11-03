@@ -1,0 +1,11 @@
+﻿ت	True
+T_ID_CL	False
+Bill_IMID_CL	False
+U_ID_CL	False
+المخزن	True
+المادة	True
+الكمية	True
+الوحدة	True
+التكلفة	True
+الإجمالي	True
+خصم_الكمية	True

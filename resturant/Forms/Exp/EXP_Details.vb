@@ -465,19 +465,14 @@
     End Sub
 
     Private Sub Cancel_Bill()
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 2) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 2, 3)
             isVoid = True
             SelectStateBt()
-        End If
-
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -587,13 +582,13 @@
         sqlComm.Parameters.AddWithValue("@Price", IM_Cost_txt.Text)
         sqlComm.Parameters.AddWithValue("@Total", Convert.ToDouble(QtyTextBox.Text) * Convert.ToDouble(IM_Cost_txt.Text))
         If String.IsNullOrWhiteSpace(QtyTextBox.Text) = False Then sqlComm.Parameters.AddWithValue("@QYT", Convert.ToDouble(QtyTextBox.Text))
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" المصروف:" & EX_Cm.Textt & " العدد:" & QtyTextBox.Text & " السعر:" & IM_Cost_txt.Text, Bill_ID_Txt.Text, 2, 1)
-            SELECT_EXP_Cats(T_ID)
-            Update_Total()
-            ClearCatFields()
-            'If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
-            EX_Cm.Select()
+        If AuditExpenseUi.Run(Me, sqlComm, T_ID) Then
+            AuditExpenseUi.Refresh(Me, Sub()
+                                          SELECT_EXP_Cats(T_ID)
+                                          Calc_Total()
+                                          ClearCatFields()
+                                          EX_Cm.Select()
+                                      End Sub)
         End If
 
     End Sub
@@ -615,19 +610,20 @@
     End Sub
 
     Private Sub Delete_Cat()
+        If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentCell Is Nothing OrElse AGMetroGrid.CurrentRow.IsNewRow OrElse Not AGMetroGrid.Columns.Contains("T_ID_CL") OrElse AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value Is Nothing OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) Then Return
         Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
         Dim sqlComm As New SqlClient.SqlCommand
         sqlComm.CommandText = "EXP_Details_Delete"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
         sqlComm.Parameters.AddWithValue("@On_Update", On_Update)
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" المصروف:" & AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString &
-               " العدد:" & AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString & " السعر:" & AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Bill_ID_Txt.Text, 2, 2)
-            SELECT_EXP_Cats(T_ID)
-            Update_Total()
-            If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
-            EX_Cm.Select()
+        If AuditExpenseUi.Run(Me, sqlComm, T_ID) Then
+            AuditExpenseUi.Refresh(Me, Sub()
+                                          SELECT_EXP_Cats(T_ID)
+                                          Calc_Total()
+                                          If Row_Index > 0 AndAlso AGMetroGrid.Rows.Count > 0 AndAlso AGMetroGrid.Columns.Contains("EX_Name_CL") Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Math.Min(Row_Index - 1, AGMetroGrid.Rows.Count - 1)).Cells("EX_Name_CL")
+                                          EX_Cm.Select()
+                                      End Sub)
         End If
 
     End Sub
@@ -921,6 +917,7 @@
             AG_Type = 4
             F_Receipt = New Receipt
             Receipt_Tran_ID = T_ID
+            F_Receipt.ConfigureEntryContext(8, T_ID)
 
             With F_Receipt
                 Rct_Tr_ID = EXP_TR_ID
@@ -949,6 +946,7 @@
             AG_Type = 4
             isShowingDetails = True
             F_Receipt = New Receipt
+            F_Receipt.ConfigureEntryContext(8, T_ID)
             F_Receipt.ShowDialog()
             isShowingDetails = False
         End If

@@ -7,6 +7,8 @@ $settingsPath=Join-Path $projectRoot 'bin\Debug\Settings Files\BackUpSettings.Ap
 $sources=@('Models\Audit\AuditEventContext.vb','Models\Audit\AuditEventRequest.vb','Models\Audit\AuditFieldChange.vb',
  'Classes\Audit\AuditContract.vb','Classes\Audit\AuditCanonical.vb','Classes\Audit\AuditMessageFormatter.vb',
  'Classes\Audit\AuditRequestCoordinator.vb','Classes\Audit\AuditWriter.vb','Classes\Audit\AuditDocumentEdit.vb') | ForEach-Object {Join-Path $projectRoot $_}
+$sources += @(Get-ChildItem -LiteralPath (Join-Path $projectRoot 'Classes\Audit') -Filter 'AuditContract.*.vb' | ForEach-Object { $_.FullName })
+$sources += Join-Path $projectRoot 'Classes\Audit\AuditDisplayNameResolver.vb'
 $sources+=Join-Path $PSScriptRoot 'AuditDocumentEditTests.vb'
 $exe=Join-Path $output 'AuditDocumentEditTests.exe'
 & 'C:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe' /nologo /target:exe /optionstrict+ /imports:System /main:AuditDocumentEditTests `

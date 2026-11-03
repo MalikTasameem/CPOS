@@ -512,27 +512,23 @@ Public Class Stores_ImmediateOrder
     Private Sub Delete_Cat()
         Try
 
+            If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentRow.IsNewRow OrElse Not AGMetroGrid.Columns.Contains("T_ID_CL") OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) Then Return
+
+
             Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
             Dim sqlComm As New SqlClient.SqlCommand
             sqlComm.CommandText = "ST_Trans_Details_Delete"
             sqlComm.CommandType = CommandType.StoredProcedure
             sqlComm.Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
-            If SQL_SP_EXEC(sqlComm) = True Then
-                Network_Edit_Tracker_insert(" الصنف:" & AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString & " الوحدة:" & AGMetroGrid.CurrentRow.Cells("IMUnit_CL").Value.ToString & " العدد:" & AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString _
-                                            & " السعر:" & AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString & " من مخزن:" & AGMetroGrid.CurrentRow.Cells("ST_Name_CL").Value.ToString _
-                                            & " إلى مخزن:" & AGMetroGrid.CurrentRow.Cells("ST_To_CL").Value.ToString, Bill_ID_Txt.Text, 12, 2)
-                St_Trans_Contents_SELECT_Bill()
-                If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
-                'If MY_Settings.S_Default = 0 Then
-                '    Barcode_SH_txt.Select()
-                'Else
-                '    IM_SH_txt.Select()
-                'End If
+            If AuditStockDocumentUi.Run(Me, sqlComm, T_ID, 12) Then
+                AuditStockDocumentUi.Refresh(Me, Sub()
+                    St_Trans_Contents_SELECT_Bill()
+                    If Row_Index > 0 AndAlso Row_Index - 1 < AGMetroGrid.Rows.Count AndAlso AGMetroGrid.Columns.Contains("EX_Name_CL") Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
+                End Sub)
             End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
-
     End Sub
 
     Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click

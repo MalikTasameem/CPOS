@@ -1,0 +1,63 @@
+PASS empty/zero cargo retains normalization
+PASS no unapproved positive-only rule
+PASS nonfinite cargo rejected
+PASS complete unit master
+PASS closed domain
+PASS no other clients
+PASS approved source
+PASS no unreviewed triggers
+PASS unused unit fixture
+PASS unused item-unit fixture
+PASS failure trigger name unused
+PASS create actual id/name Units
+PASS float/default preserved Units
+PASS replay returns original identity Units
+PASS one event Units
+PASS three actual created fields Units
+PASS create actual id/name ItemsMenu
+PASS float/default preserved ItemsMenu
+PASS replay returns original identity ItemsMenu
+PASS one event ItemsMenu
+PASS three actual created fields ItemsMenu
+PASS create actual id/name IM_ADD_New
+PASS float/default preserved IM_ADD_New
+PASS replay returns original identity IM_ADD_New
+PASS one event IM_ADD_New
+PASS three actual created fields IM_ADD_New
+PASS create actual id/name Add_Unit
+PASS float/default preserved Add_Unit
+PASS replay returns original identity Add_Unit
+PASS one event Add_Unit
+PASS three actual created fields Add_Unit
+PASS actual procedure truncation and negative cargo unchanged
+PASS unused unit deleted
+PASS delete replay survives missing row
+PASS deletion actual row retained in audit
+PASS stale row rejected
+PASS referenced unit cannot be deleted
+PASS protected default id
+PASS auxiliary update not allowed
+PASS unreviewed screen rejected
+PASS disabled actor rejected
+PASS item-management permission rechecked
+PASS invalid range fails before insert
+PASS event failure rejects business mutation
+PASS rollback count Units
+PASS rollback count IM_Units
+PASS rollback count SERVERS
+PASS rollback count Users
+PASS rollback count Users_Validations
+PASS rollback count Network_Edit_Tracker
+PASS rollback count Network_Audit_Request
+PASS rollback count Network_Audit_Event
+PASS rollback count Network_Audit_Change
+PASS procedure unchanged Unit_Insert
+PASS procedure unchanged Unit_Update
+PASS procedure unchanged Unit_Delete
+PASS procedure unchanged AA_GET_MAX_UNITS
+PASS procedure unchanged Network_Audit_Request_Begin
+PASS procedure unchanged Network_Audit_Event_Write
+PASS domain rollback
+PASS no incomplete requests
+PASS failure trigger removed by rollback
+PASS 62 unit checks.

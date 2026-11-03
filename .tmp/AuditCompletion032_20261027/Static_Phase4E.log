@@ -1,0 +1,5 @@
+PASS closed deletion domain
+PASS all non-key sales columns captured
+PASS SQL time preserved as explicit hh:mm:ss
+PASS unknown field rejected
+PASS: 4 sales deletion checks.

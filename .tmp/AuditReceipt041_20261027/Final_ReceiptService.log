@@ -1,0 +1,2 @@
+PASS 1034 Receipt service checks; no database access.
+PASS normalized procedure hash, explicit SQL rounding, transaction survival, validate-before-write. Offline only.

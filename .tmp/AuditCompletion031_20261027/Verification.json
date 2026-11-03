@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-27",
+  "status": "CodeOnly_PendingDatabaseValidation",
+  "migration": "031_Purchase_Addition.sql",
+  "databaseInstalled": false,
+  "liveTestsCompleted": false,
+  "liveAttemptStoppedAt": "No other database clients guard; no fixtures created",
+  "userDecision": "أكمل الكود فقط حاليًا",
+  "staticChecks": 460,
+  "staticSuites": 28,
+  "purchaseStaticChecks": 179,
+  "sql2014SyntaxChecks": 3,
+  "powershellSyntaxChecks": 2,
+  "buildErrors": 0,
+  "buildWarnings": 6,
+  "resourceCount": 232,
+  "sourceRemainingSites": 55,
+  "sourceRemainingFiles": 26,
+  "runtimeSHA256": "C32776B981DFB8FB806CEC91D4DD9C74220C8A046FD8F5939C15D3A2D7734970",
+  "primarySHA256": "3B38C6228A092A300F6D35304342812551265F4D6E87B982D93CA3A4195AB169",
+  "primaryReplaced": false
+}

@@ -26,7 +26,7 @@ Public Class UpdateUserPass
                 MsgBox("كلمة المرور مسجلة من قبل ... الرجاء اختيار كلمة أخرى", MsgBoxStyle.Critical)
                 Exit Sub
             Else
-                User_Update_Pass()
+                If Not User_Update_Pass() Then Return
             End If
             '----------------------------------------------------------
             Me.Close()
@@ -57,7 +57,7 @@ Public Class UpdateUserPass
         Return f
     End Function
 
-    Public Sub User_Update_Pass()
+    Public Function User_Update_Pass() As Boolean
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -66,10 +66,18 @@ Public Class UpdateUserPass
             .Parameters.AddWithValue("@user_id", ID_u)
             .Parameters.AddWithValue("@NewPass", EncryptionHelper.Encrypt(NewPassTextBox.Text))
             .Parameters.AddWithValue("@WEB_PASS", NewPassTextBox.Text)
+            ' Only the in-memory envelope sees the previous credential; it is never audited.
+            .Parameters.AddWithValue("@OldPass", OldPassTextBox.Text)
+            .Parameters.AddWithValue("@OldPassEncrypted", EncryptionHelper.Encrypt(OldPassTextBox.Text))
         End With
-        If SQL_SP_EXEC(c.Com) Then MsgBox("تم تغيير كلمة المرور", MsgBoxStyle.Information)
+        If Not AuditPeopleCardsUi.Run(Me, c.Com) Then Return False
+        AuditPeopleCardsUi.Refresh(Me, Sub()
+                                          If F_users IsNot Nothing AndAlso Not F_users.IsDisposed AndAlso F_users.ID_u = ID_u Then F_users.PassUserTextBox.Text = NewPassTextBox.Text
+                                      End Sub)
+        MsgBox("تم تغيير كلمة المرور", MsgBoxStyle.Information)
+        Return True
 
-    End Sub
+    End Function
 
     Private Sub UpdateGB_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()

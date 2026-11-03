@@ -44,46 +44,26 @@
     End Sub
 
     Private Sub Call_New_Bill()
-        Dim C As New C
-
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "Call_New_SalesBill"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", 0)
-            .Parameters.AddWithValue("@AG_ID", SB_Default_AG)
-            .Parameters.AddWithValue("@Bill_Num", 0)
-            .Parameters.AddWithValue("@SB_ID", 0)
-            .Parameters.AddWithValue("@isNew", 0)
-            .Parameters.AddWithValue("@SB_Type", SB_DefaultStatus)
-            .Parameters.AddWithValue("@Pr_ID", Pr_ID)
-            .Parameters.AddWithValue("@isPied", 0)
-            .Parameters.AddWithValue("@User_ID", USER_ID)
-            .Parameters("@T_ID").Direction = ParameterDirection.Output
-            .Parameters("@Bill_Num").Direction = ParameterDirection.Output
-            .Parameters("@isNew").Direction = ParameterDirection.Output
-            .Parameters("@SB_ID").Direction = ParameterDirection.Output
-        End With
-        If SQL_SP_EXEC(C.Com) = True Then
-            Me.T_ID = C.Com.Parameters("@T_ID").Value
-            F_POS.T_ID = C.Com.Parameters("@T_ID").Value
-            Fill_Bill_Info()
-            SB_Contents_SELECT_Bill_First_Time()
-            AG_Balance_Update_AG(TB_TO_Num)
+        Dim savedBill As Integer
+        Dim values As New Dictionary(Of String, Object) From {{"DefaultAccountId", SB_Default_AG}, {"PeriodId", Pr_ID}, {"SaleType", SB_DefaultStatus}}
+        If Not AuditTableSplitUi.Run(Me, "TableSplit.Started", TB_Num, TB_TO_Num, 0, values, savedBill) Then
+            Me.Close()
+            Return
         End If
+        If savedBill <= 0 Then
+            SaveButton.Enabled = False
+            Me.Close()
+            Return
+        End If
+        Me.T_ID = savedBill
+        F_POS.T_ID = savedBill
+        AuditDocumentFieldsUi.Refresh(Me,
+            Sub()
+                Fill_Bill_Info()
+                SB_Contents_SELECT_Bill_First_Time()
+            End Sub)
     End Sub
 
-    Private Sub AG_Balance_Update_AG(TB_ID As Integer)
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "AG_Balance_Update_Table"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-            .Parameters.AddWithValue("@TB_ID", TB_ID)
-        End With
-        SQL_SP_EXEC(c.Com)
-    End Sub
 
     Public Sub SB_Contents_SELECT_Bill_First_Time()
         Dim C As New C
@@ -168,40 +148,16 @@
     End Sub
 
     Private Sub AG_Balance_Update_TB_Ordered()
-        Dim c As New C
-        Dim Str As String = ""
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "AG_Balance_Update_TB_Ordered"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-            .Parameters.AddWithValue("@TB_ID", Me.TB_TO_Num)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            MsgBox("تم النقل", MsgBoxStyle.Information, "")
-
-
-            For i = 0 To MetroGrid.Rows.Count - 1
-                Str += "," & MetroGrid.Rows(i).Cells("IM_NameCL").Value & "عدد :" & Convert.ToInt16(MetroGrid.Rows(i).Cells("QTY_CL").Value).ToString
-            Next
-
-            Network_Edit_Tracker_insert(Me.TB_From_Lb.Text & Me.TB_To_LB.Text & Str, 0, 33, 3)
-            Tables_Check_isBusy()
-            F_TablesBalance.loadtables()
-            Me.Close()
-        End If
+        Dim savedBill As Integer
+        If Not AuditTableSplitUi.Run(Me, "TableSplit.Confirmed", TB_Num, TB_TO_Num, T_ID, New Dictionary(Of String, Object), savedBill) Then Return
+        AuditDocumentFieldsUi.Refresh(Me,
+            Sub()
+                MsgBox("تم النقل", MsgBoxStyle.Information, "")
+                F_TablesBalance.loadtables()
+                Me.Close()
+            End Sub)
     End Sub
 
-    Private Sub Tables_Check_isBusy()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "Tables_Check_isBusy"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@TB_ID", Me.TB_Num)
-        End With
-        SQL_SP_EXEC(c.Com)
-    End Sub
 
 
     Public Sub Refresh_TB_Balance()
@@ -228,67 +184,66 @@
 
 
     Private Sub ALL_IMGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles ALL_IMGrid.CellContentClick
-        If e.ColumnIndex = 0 Then Fetch_ItemToList()
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex = 0 Then Fetch_ItemToList()
     End Sub
 
 
 
     Public Sub Fetch_ItemToList()
-        Dim C As New C
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "TB_Contents_INSERT_Table_Apart"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@SB_T_ID_From", ALL_IMGrid.CurrentRow.Cells("B_T_ID_CL").Value)
-            .Parameters.AddWithValue("@SB_T_ID_To", Me.T_ID)
-            .Parameters.AddWithValue("@T_ID", ALL_IMGrid.CurrentRow.Cells("T_ID_CL").Value)
-        End With
-        If SQL_SP_EXEC(C.Com) = True Then
-            SB_Contents_SELECT_TB(TB_Num)
-            SB_Contents_SELECT_Bill()
-
-        End If
+        If ALL_IMGrid.CurrentRow Is Nothing OrElse ALL_IMGrid.CurrentRow.IsNewRow OrElse Not ALL_IMGrid.Columns.Contains("T_ID_CL") OrElse Not ALL_IMGrid.Columns.Contains("DataGridViewTextBoxColumn2") Then Return
+        Dim row = ALL_IMGrid.CurrentRow
+        If IsDBNull(row.Cells("T_ID_CL").Value) OrElse IsDBNull(row.Cells("DataGridViewTextBoxColumn2").Value) Then Return
+        Dim values As New Dictionary(Of String, Object) From {{"TargetLineId", CInt(row.Cells("T_ID_CL").Value)}, {"DisplayedQuantity", CDec(row.Cells("DataGridViewTextBoxColumn2").Value)}}
+        Dim savedBill As Integer
+        If Not AuditTableSplitUi.Run(Me, "TableSplit.UnitMoved", TB_Num, TB_TO_Num, T_ID, values, savedBill) Then Return
+        AuditDocumentFieldsUi.Refresh(Me,
+            Sub()
+                SB_Contents_SELECT_TB(TB_Num)
+                SB_Contents_SELECT_Bill()
+            End Sub)
     End Sub
 
     Private Sub MetroGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles MetroGrid.CellContentClick
-        If e.ColumnIndex = 0 Then SB_Contents_Delete_IM()
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex = 0 Then SB_Contents_Delete_IM()
     End Sub
 
     Private Sub SB_Contents_Delete_IM()
-        Dim Row_Index As Integer = MetroGrid.CurrentCell.RowIndex
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "TB_Contents_Delete_IM_Apart"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", MetroGrid.CurrentRow.Cells("IM_T_ID").Value)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            SB_Contents_SELECT_Bill()
-            SB_Contents_SELECT_TB(TB_Num)
-            If Row_Index > 0 Then MetroGrid.CurrentCell = MetroGrid.Rows(Row_Index - 1).Cells("IM_NameCL")
-        End If
+        If MetroGrid.CurrentRow Is Nothing OrElse MetroGrid.CurrentRow.IsNewRow OrElse Not MetroGrid.Columns.Contains("IM_T_ID") OrElse Not MetroGrid.Columns.Contains("QTY_CL") Then Return
+        Dim row = MetroGrid.CurrentRow
+        If IsDBNull(row.Cells("IM_T_ID").Value) OrElse IsDBNull(row.Cells("QTY_CL").Value) Then Return
+        Dim values As New Dictionary(Of String, Object) From {{"TargetLineId", CInt(row.Cells("IM_T_ID").Value)}, {"DisplayedQuantity", CDec(row.Cells("QTY_CL").Value)}}
+        Dim savedBill As Integer
+        If Not AuditTableSplitUi.Run(Me, "TableSplit.UnitReturned", TB_Num, TB_TO_Num, T_ID, values, savedBill) Then Return
+        AuditDocumentFieldsUi.Refresh(Me,
+            Sub()
+                SB_Contents_SELECT_Bill()
+                SB_Contents_SELECT_TB(TB_Num)
+            End Sub)
     End Sub
 
-    Private Sub SB_Contents_Clear_IM()
-        For i = 0 To MetroGrid.Rows.Count - 1
-
-            Dim c As New C
-            With c.Com
-                .Connection = c.Con
-                .CommandText = "TB_Contents_Delete_IM_Apart"
-                .CommandType = CommandType.StoredProcedure
-                .Parameters.AddWithValue("@T_ID", MetroGrid.Rows(i).Cells("IM_T_ID").Value)
-            End With
-            SQL_SP_EXEC(c.Com)
+    Private Function SB_Contents_Clear_IM() As Boolean
+        If Not MetroGrid.Columns.Contains("IM_T_ID") OrElse Not MetroGrid.Columns.Contains("QTY_CL") Then Return False
+        For Each row As DataGridViewRow In MetroGrid.Rows
+            If row.IsNewRow Then Continue For
+            If IsDBNull(row.Cells("IM_T_ID").Value) OrElse IsDBNull(row.Cells("QTY_CL").Value) Then Return False
+            Dim values As New Dictionary(Of String, Object) From {{"TargetLineId", CInt(row.Cells("IM_T_ID").Value)}, {"DisplayedQuantity", CDec(row.Cells("QTY_CL").Value)}}
+            Dim savedBill As Integer
+            If Not AuditTableSplitUi.Run(Me, "TableSplit.UnitReturned", TB_Num, TB_TO_Num, T_ID, values, savedBill) Then
+                AuditDocumentFieldsUi.Refresh(Me,
+                    Sub()
+                        SB_Contents_SELECT_Bill()
+                        SB_Contents_SELECT_TB(TB_Num)
+                    End Sub)
+                Return False
+            End If
         Next
-    End Sub
+        Return True
+    End Function
 
 
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-        SB_Contents_Clear_IM()
-        'AG_Balance_Reset_AG_Balance()
+        If Not SB_Contents_Clear_IM() Then Return
         Me.Close()
     End Sub
 End Class

@@ -1,0 +1,90 @@
+PASS separate partial line-edit domain
+PASS 25 closed actual fields
+PASS excess precision rejected
+PASS negative price rejected
+PASS zero quantity rejected
+PASS zero price remains valid
+PASS unknown fields rejected
+PASS no other clients
+PASS fixture keys unused
+PASS no unreviewed triggers
+PASS actual actor and permissions verified
+PASS known item unit values
+PASS fixture has no offer overrides
+PASS component recipe fixture unused
+PASS competing sale references verified
+PASS control fixture alone does not block other sales
+PASS locked stock read blocks competing legacy sales until transaction ends
+PASS details and event share transaction
+PASS actual details saved with original calculation
+PASS header pure recalculated with existing discount
+PASS 25 real before/after fields
+PASS retry returns original result
+PASS retry creates one event
+PASS same actual values return NoChange
+PASS NoChange creates no false mutation event
+PASS details do not change receipt or treasury values
+PASS alternate actual unit verified
+PASS unit and quantity use original procedure conversion
+PASS POS price operation preserves quantity and discount
+PASS POS price updates actual header
+PASS POS price does not change receipt or treasury values
+PASS item price-change policy enforced
+PASS actual current cost permission enforced
+PASS unit outside item rejected
+PASS missing line rejected
+PASS line moved outside invoice rejected
+PASS stale line rejected
+PASS stale invoice rejected
+PASS permission checked during save Sales
+PASS permission checked during save SB_IM_Update
+PASS permission checked during save Sales_Dis
+PASS void invoice rejected
+PASS approval while dialog open rejected
+PASS approved invoice permits recorded current edit session
+PASS approved edit preserves all receipt and treasury values
+PASS different session cannot reuse edit opening
+PASS fresh insufficient stock rejected
+PASS audit failure prevents saving details
+PASS no committable partial operation after writer failure
+PASS direct quantity edit rebuilds components
+PASS direct quantity edit changes component stock by delta only
+PASS line/header plus removed/created recipe and both stock buckets captured
+PASS components are a second part of the same operation
+PASS replay does not rebuild or consume components again
+PASS unchanged detail save keeps NoChange with recipes
+PASS component detail edit preserves payments
+PASS new unit uses its own recipe instead of old unit recipe
+PASS unit change replaces rather than appends structures
+PASS large recipe detail audit splits complete groups
+PASS all 253 values survive pagination
+PASS inactive detail edit clears stale active components
+PASS component-only shortage rejects whole detail edit
+PASS failure in component audit part prevents partial save
+PASS component audit failure leaves no committable partial change
+PASS rollback restored Agents_Balance_MV
+PASS rollback restored SB_Contents
+PASS rollback restored SB_Contents_Structers
+PASS rollback restored IM_Struct_Menu
+PASS rollback restored Agents_Balance_MV_RCT
+PASS rollback restored Treasury_Balance_MV
+PASS rollback restored Network_Edit_Tracker
+PASS rollback restored Network_Audit_Request
+PASS rollback restored Network_Audit_Event
+PASS rollback restored Network_Audit_Change
+PASS business definition unchanged SB_IM_Unit_Change
+PASS business definition unchanged IM_Conferm_NewPrice
+PASS business definition unchanged AG_Balance_Update_Total
+PASS business definition unchanged AG_Balance_Update_Pied_On_Update
+PASS business definition unchanged Recalculate_Agent_Bill_Total
+PASS business definition unchanged Check_IM_OFFER
+PASS business definition unchanged Network_Audit_Event_Write
+PASS no fixtures retained
+PASS failure triggers rolled back
+PASS item policy restored
+PASS activation unchanged
+PASS permission flags restored
+PASS cost permission restored
+PASS all receipt and treasury values restored after tests
+PASS competing sale fully rolled back
+PASS: 89 sales line edit checks.

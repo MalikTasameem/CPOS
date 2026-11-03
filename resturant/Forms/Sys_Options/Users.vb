@@ -115,9 +115,8 @@ Public Class users
             .Parameters.AddWithValue("@WEB_PASS", PassUserTextBox.Text)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditPeopleCardsUi.Run(Me, c.Com) Then
             MsgBox("تم إضافة المستخدم بنجاح", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الإسم:" & NameUserTextBox.Text & " الصلاحية:" & Valid_Cm.Text & " الخزينة الإفتراضية:" & Treasury_ComboBox.Text & " إمكانية الدخول:" & Allow_Str, 0, 31, 1)
             clear_Text()
             'd_dt.Clear()
             USERS_fill_List()
@@ -193,9 +192,8 @@ Public Class users
             .Parameters.AddWithValue("@WEB_PASS", PassUserTextBox.Text)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditPeopleCardsUi.Run(Me, c.Com) Then
             MsgBox("تم التعديل ", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الإسم السابق:" & User_Name & " الإسم:" & NameUserTextBox.Text & " الصلاحية:" & Valid_Cm.Text & " الخزينة الإفتراضية:" & Treasury_ComboBox.Text & " إمكانية الدخول:" & Allow_Str, 0, 31, 3)
             clear_Text()
             'd_dt.Clear()
             USERS_fill_List()
@@ -215,9 +213,8 @@ Public Class users
             .Parameters.AddWithValue("user_id", ID_u)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditPeopleCardsUi.Run(Me, c.Com) Then
             MsgBox("تم الحذف ", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الإسم:" & User_Name, 0, 31, 2)
             clear_Text()
             'd_dt.Clear()
             USERS_fill_List()

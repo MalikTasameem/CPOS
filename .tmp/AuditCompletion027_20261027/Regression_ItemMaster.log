@@ -1,0 +1,96 @@
+PASS 27 item values plus 2 derived photo metadata
+PASS all format values
+PASS all difference values
+PASS closed item domain
+PASS unknown operation denied
+PASS no other clients
+PASS approved source
+PASS no unreviewed triggers
+PASS unused fixtures IM_Menu
+PASS unused fixtures IM_Units
+PASS unused fixtures IM_QTY_ALERT
+PASS unused fixtures IM_Formating_Menu
+PASS unused fixtures ST_QTY_Deferences
+PASS unused fixtures IM_Struct_Menu
+PASS base units present
+PASS failure trigger name unused
+PASS name persisted
+PASS placeholder becomes enabled
+PASS original photo clearing policy preserved
+PASS server rounds price without client truncation
+PASS units enabled
+PASS cost not changed or rounded
+PASS image metadata clearly derived with NULL after
+PASS fast update replay
+PASS stale update denied
+PASS same identity different payload denied
+PASS all original deletion targets removed ItemsMenu
+PASS all deleted fields captured ItemsMenu
+PASS unmodified legacy recipe retention ItemsMenu
+PASS delete replay ItemsMenu
+PASS deleted item cannot form a new request
+PASS all original deletion targets removed IM_Fast_Mang
+PASS all deleted fields captured IM_Fast_Mang
+PASS unmodified legacy recipe retention IM_Fast_Mang
+PASS delete replay IM_Fast_Mang
+PASS deleted item cannot form a new request
+PASS new default unit uses actual actor
+PASS new default price and generated barcode
+PASS package creates base unit
+PASS base price follows original package calculation
+PASS requested price applies only default package
+PASS alerts enabled by fast update
+PASS existing alerts still prevent deletion
+PASS stock rows still prevent deletion even zero
+PASS 26 units split into complete pages
+PASS no field loss during paging
+PASS stale image rejected
+PASS stale unit rejected
+PASS stale alert rejected
+PASS stale format rejected
+PASS stale difference rejected
+PASS denied user
+PASS denied permission
+PASS denied gate
+PASS denied screen
+PASS detail failure rolls back Item.FastUpdated
+PASS detail failure rolls back Item.Deleted
+PASS partial business deletion rolls back
+PASS legacy rollback cannot report success
+PASS nullable item inputs preserved
+PASS NULL requested price leaves existing price
+PASS large image length without payload copy
+PASS large image digest only
+PASS rollback count IM_Menu
+PASS rollback count IM_Units
+PASS rollback count IM_QTY_ALERT
+PASS rollback count IM_Formating_Menu
+PASS rollback count ST_QTY_Deferences
+PASS rollback count IM_Struct_Menu
+PASS rollback count Units
+PASS rollback count SERVERS
+PASS rollback count Users
+PASS rollback count Users_Validations
+PASS rollback count Network_Edit_Tracker
+PASS rollback count Network_Audit_Request
+PASS rollback count Network_Audit_Event
+PASS rollback count Network_Audit_Change
+PASS definition unchanged item_menu_delete
+PASS definition unchanged item_menu_update_On_Mange_Form
+PASS definition unchanged AA_GET_MAX_IM_UNITS
+PASS definition unchanged AG_BalanceMV_GetSerial_Barcode
+PASS definition unchanged Network_Audit_Request_Begin
+PASS definition unchanged Network_Audit_Event_Write
+PASS all item graphs and images unchanged
+PASS original data unchanged 0
+PASS original data unchanged 1
+PASS original data unchanged 2
+PASS original data unchanged 3
+PASS original data unchanged 4
+PASS original data unchanged 5
+PASS original data unchanged 6
+PASS original data unchanged 7
+PASS domain rollback
+PASS no incomplete requests
+PASS failure trigger removed
+PASS 95 item-master checks.

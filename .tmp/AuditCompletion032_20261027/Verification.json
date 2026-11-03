@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-27",
+  "stage": "032",
+  "status": "code-only-live-validation-pending",
+  "previousLegacyCalls": 55,
+  "remainingLegacyCalls": 46,
+  "remainingFiles": 24,
+  "deferredCustodyReceiptCalls": 6,
+  "migratedCalls": 9,
+  "offlineChecks": 781,
+  "offlineSuites": 29,
+  "directFieldChecks": 321,
+  "buildErrors": 0,
+  "existingBuildWarnings": 6,
+  "embeddedResources": 232,
+  "sql2014SyntaxChecks": 5,
+  "powershellSyntaxChecks": 2,
+  "sqlInstalled": false,
+  "databaseWritesPerformed": false,
+  "runtimeReplaced": false,
+  "primarySha256": "3B38C6228A092A300F6D35304342812551265F4D6E87B982D93CA3A4195AB169",
+  "candidateSha256": "B978C51E90BBC715FEE352A5E313CDB2A1921B76DDB873B4D077C9A8E4BAD918"
+}

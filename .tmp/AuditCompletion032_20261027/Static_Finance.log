@@ -1,0 +1,5 @@
+PASS 33 treasury fields
+PASS 25 account fields
+PASS closed finance domain
+PASS unknown operation denied
+PASS 4 finance checks.

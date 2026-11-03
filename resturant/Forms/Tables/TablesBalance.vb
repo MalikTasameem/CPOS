@@ -1011,13 +1011,14 @@ Public Class TablesBalance
             .Parameters.AddWithValue("@Table_From", tran_F)
             .Parameters.AddWithValue("@Table_To", tran_T)
         End With
-        If SQL_SP_EXEC(C.Com) Then
-            Network_Edit_Tracker_insert("نقل من طاولة  : " + TB_F_txt.Text + " إلى :  " + TB_T_txt.Text, 0, 28, 3)
+        If AuditTablesUi.Run(Me, C.Com) Then
+            AuditTablesUi.Refresh(Me, Sub()
             'TB_Tran_CB.Checked = False
             loadtables()
             'TB_F_txt.Clear()
             'TB_T_txt.Clear()
             Clear_TB_Types_Fields()
+                                     End Sub)
         End If
     End Sub
 

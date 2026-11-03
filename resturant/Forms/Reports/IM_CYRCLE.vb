@@ -472,12 +472,13 @@ Public Class IM_CYRCLE
             .Parameters.AddWithValue("@ST_ID", ST_cm.SelectedValue)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" تدوير كميات الأصناف بمخزن : " & ST_cm.Text & "  من شاشة كشف المخازن ", 0, 23, 3)
+        If AuditInventoryOperationsUi.Run(Me, c.Com, Convert.ToInt32(ST_cm.SelectedValue), 0) Then
             Me.Cursor = Cursors.Default
-            Fill_ALL_IM(0)
-            Make_Hints()
-            MsgBox("تم التدوير", MsgBoxStyle.Information, "")
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                Fill_ALL_IM(0)
+                Make_Hints()
+                MsgBox("تم التدوير", MsgBoxStyle.Information, "")
+            End Sub)
             'Network_Edit_Tracker_insert(" تدوير كمية المخزن:" & ST_cm.Text, 0, 23, 3)
         End If
 
@@ -499,12 +500,13 @@ Public Class IM_CYRCLE
             .CommandType = CommandType.StoredProcedure
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" تدوير متوسط تكلفة الأصناف من شاشة كشف المخازن   : ", 0, 23, 3)
+        If AuditInventoryOperationsUi.Run(Me, c.Com, 1, 0) Then
             Me.Cursor = Cursors.Default
-            Fill_ALL_IM(0)
-            Make_Hints()
-            MsgBox("تم التدوير", MsgBoxStyle.Information, "")
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                Fill_ALL_IM(0)
+                Make_Hints()
+                MsgBox("تم التدوير", MsgBoxStyle.Information, "")
+            End Sub)
             'Network_Edit_Tracker_insert("تدوير تكلفة الخازن", 0, 23, 3)
 
         End If

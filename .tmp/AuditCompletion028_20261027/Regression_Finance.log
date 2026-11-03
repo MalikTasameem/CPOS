@@ -1,0 +1,229 @@
+PASS 33 treasury fields
+PASS 25 account fields
+PASS closed finance domain
+PASS unknown operation denied
+PASS no other clients
+PASS approved source
+PASS unused treasury range
+PASS unused account range
+PASS failure trigger unused
+PASS no unknown finance triggers
+PASS allocated result deposit
+PASS legacy SQL rounding deposit5.55555
+PASS all persisted fields deposit
+PASS idempotent allocation deposit
+PASS all sides void deposit
+PASS void replay deposit
+PASS stale cancellation deposit
+PASS already void deposit
+PASS replay payload mismatch deposit
+PASS allocated result deposit
+PASS legacy SQL rounding deposit1.23449
+PASS all persisted fields deposit
+PASS idempotent allocation deposit
+PASS all sides void deposit
+PASS void replay deposit
+PASS stale cancellation deposit
+PASS already void deposit
+PASS replay payload mismatch deposit
+PASS allocated result deposit
+PASS legacy SQL rounding deposit-7.235
+PASS all persisted fields deposit
+PASS idempotent allocation deposit
+PASS all sides void deposit
+PASS void replay deposit
+PASS stale cancellation deposit
+PASS already void deposit
+PASS replay payload mismatch deposit
+PASS allocated result withdraw
+PASS legacy SQL rounding withdraw5.55555
+PASS all persisted fields withdraw
+PASS idempotent allocation withdraw
+PASS all sides void withdraw
+PASS void replay withdraw
+PASS stale cancellation withdraw
+PASS already void withdraw
+PASS replay payload mismatch withdraw
+PASS allocated result withdraw
+PASS legacy SQL rounding withdraw1.23449
+PASS all persisted fields withdraw
+PASS idempotent allocation withdraw
+PASS all sides void withdraw
+PASS void replay withdraw
+PASS stale cancellation withdraw
+PASS already void withdraw
+PASS replay payload mismatch withdraw
+PASS allocated result withdraw
+PASS legacy SQL rounding withdraw-7.235
+PASS all persisted fields withdraw
+PASS idempotent allocation withdraw
+PASS all sides void withdraw
+PASS void replay withdraw
+PASS stale cancellation withdraw
+PASS already void withdraw
+PASS replay payload mismatch withdraw
+PASS allocated result opening
+PASS legacy SQL rounding opening5.55555
+PASS opening flag preserved
+PASS all persisted fields opening
+PASS idempotent allocation opening
+PASS all sides void opening
+PASS void replay opening
+PASS stale cancellation opening
+PASS already void opening
+PASS replay payload mismatch opening
+PASS allocated result opening
+PASS legacy SQL rounding opening1.23449
+PASS opening flag preserved
+PASS all persisted fields opening
+PASS idempotent allocation opening
+PASS all sides void opening
+PASS void replay opening
+PASS stale cancellation opening
+PASS already void opening
+PASS replay payload mismatch opening
+PASS allocated result opening
+PASS legacy SQL rounding opening-7.235
+PASS opening flag preserved
+PASS all persisted fields opening
+PASS idempotent allocation opening
+PASS all sides void opening
+PASS void replay opening
+PASS stale cancellation opening
+PASS already void opening
+PASS replay payload mismatch opening
+PASS allocated result transfer
+PASS legacy SQL rounding transfer5.55555
+PASS paired transfer directions
+PASS all persisted fields transfer
+PASS idempotent allocation transfer
+PASS all sides void transfer
+PASS void replay transfer
+PASS stale cancellation transfer
+PASS already void transfer
+PASS replay payload mismatch transfer
+PASS allocated result transfer
+PASS legacy SQL rounding transfer1.23449
+PASS paired transfer directions
+PASS all persisted fields transfer
+PASS idempotent allocation transfer
+PASS all sides void transfer
+PASS void replay transfer
+PASS stale cancellation transfer
+PASS already void transfer
+PASS replay payload mismatch transfer
+PASS allocated result transfer
+PASS legacy SQL rounding transfer-7.235
+PASS paired transfer directions
+PASS all persisted fields transfer
+PASS idempotent allocation transfer
+PASS all sides void transfer
+PASS void replay transfer
+PASS stale cancellation transfer
+PASS already void transfer
+PASS replay payload mismatch transfer
+PASS allocated result account
+PASS legacy SQL rounding account5.55555
+PASS all persisted fields account
+PASS idempotent allocation account
+PASS all sides void account
+PASS void replay account
+PASS stale cancellation account
+PASS already void account
+PASS replay payload mismatch account
+PASS allocated result account
+PASS legacy SQL rounding account1.23449
+PASS all persisted fields account
+PASS idempotent allocation account
+PASS all sides void account
+PASS void replay account
+PASS stale cancellation account
+PASS already void account
+PASS replay payload mismatch account
+PASS allocated result account
+PASS legacy SQL rounding account-7.235
+PASS all persisted fields account
+PASS idempotent allocation account
+PASS all sides void account
+PASS void replay account
+PASS stale cancellation account
+PASS already void account
+PASS replay payload mismatch account
+PASS deposit reject disabled
+PASS deposit reject permission
+PASS deposit reject domain
+PASS deposit reject screen
+PASS deposit reject reference
+PASS deposit reject zero
+PASS withdraw reject disabled
+PASS withdraw reject permission
+PASS withdraw reject domain
+PASS withdraw reject screen
+PASS withdraw reject reference
+PASS withdraw reject zero
+PASS transfer reject disabled
+PASS transfer reject permission
+PASS transfer reject domain
+PASS transfer reject screen
+PASS transfer reject reference
+PASS transfer reject zero
+PASS account reject disabled
+PASS account reject permission
+PASS account reject domain
+PASS account reject screen
+PASS account reject reference
+PASS account reject zero
+PASS same account transfer
+PASS same account account
+PASS atomic failure deposit create-event
+PASS atomic failure deposit void-event
+PASS atomic failure deposit legacy
+PASS atomic failure withdraw create-event
+PASS atomic failure withdraw void-event
+PASS atomic failure withdraw legacy
+PASS atomic failure transfer create-event
+PASS atomic failure transfer void-event
+PASS atomic failure transfer legacy
+PASS atomic failure account create-event
+PASS atomic failure account void-event
+PASS atomic failure account legacy
+PASS direct cancellation captures linked transfer
+PASS linked direct cancellation both rows
+PASS stale amount
+PASS receipt-linked movement denied
+PASS competing update blocked
+PASS locked cancel succeeded
+PASS bad allocation range
+PASS legacy transfer group preserved
+PASS large cancellation paged
+PASS all four rows captured
+PASS second part failure atomic
+PASS upsert not exposed
+PASS actor substitution denied
+PASS long text never truncated
+PASS original data unchanged 0
+PASS original data unchanged 1
+PASS original data unchanged 2
+PASS original data unchanged 3
+PASS original data unchanged 4
+PASS original data unchanged 5
+PASS original data unchanged 6
+PASS original data unchanged 7
+PASS definition unchanged Treasury_BalanceMV_insert
+PASS definition unchanged Treasury_BalanceMV_isVoid
+PASS definition unchanged Treasury_BalanceMV_Transfer
+PASS definition unchanged Treasury_BalanceMV_Trans_isVoid
+PASS definition unchanged AG_MV_TRANSACTION_pros
+PASS definition unchanged AA_GET_MAX_ID
+PASS definition unchanged AA_GET_MAX_Treasury_Balance_MV
+PASS definition unchanged AG_BalanceMV_GetMax_Treasury_Tran_ID
+PASS definition unchanged Network_Audit_Request_Begin
+PASS definition unchanged Network_Audit_Event_Write
+PASS rollback count Network_Audit_Request
+PASS rollback count Network_Audit_Event
+PASS rollback count Network_Audit_Change
+PASS rollback count Network_Edit_Tracker
+PASS domain rollback
+PASS no incomplete request
+PASS failure trigger removed
+PASS 228 finance checks.

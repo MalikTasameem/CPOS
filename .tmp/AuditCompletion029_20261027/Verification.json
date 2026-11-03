@@ -1,0 +1,23 @@
+{
+  "Checks": 2374,
+  "Suites": 28,
+  "RuntimeHash": "3188668B9377024D1657053F079274F4BF7465F84E0B3DD08C38FF15AEF1744F",
+  "OriginalHash": "3B38C6228A092A300F6D35304342812551265F4D6E87B982D93CA3A4195AB169",
+  "Database": "CPOS_ACCOUNTING",
+  "InstalledUpdates": [
+    "029",
+    "030"
+  ],
+  "Domains": 20,
+  "Requests": 6,
+  "Events": 6,
+  "Changes": 0,
+  "Incomplete": 0,
+  "TestTriggers": 0,
+  "LegacyCallSites": 57,
+  "LegacyFiles": 28,
+  "BuildErrors": 0,
+  "BuildWarnings": 6,
+  "PrimaryReplaced": false,
+  "UiClickTest": false
+}

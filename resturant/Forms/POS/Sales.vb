@@ -854,58 +854,13 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub SaveAndConfirmBill_WithSingleConnection()
-
+        If Not AuditDocumentWorkflowsUi.Metadata(Me, T_ID, On_Update, DateTimeEx.Value, Notes_txt.Text, Project_cm.SelectedValue) Then Return
+        ' Metadata is committed before the separately confirmed payment flow, as in the existing screen.
         Try
-
-            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
-
-                cn.Open()
-
-                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
-
-                    Try
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                If String.IsNullOrWhiteSpace(Notes_txt.Text) = False Then cmd.Parameters.AddWithValue("@About", Notes_txt.Text)
-                            End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Date",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@Date", DateTimeEx.Value)
-                                cmd.Parameters.AddWithValue("@Month", DateTimeEx.Value.Month)
-                                cmd.Parameters.AddWithValue("@YEAR", DateTimeEx.Value.Year)
-                            End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_AG_Project",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@Proj_ID", Project_cm.SelectedValue)
-                            End Sub)
-
-                        tr.Commit()
-
-                    Catch
-
-                        tr.Rollback()
-                        Throw
-
-                    End Try
-
-                End Using
-
-                ConfermBill(cn)
-
-            End Using
-
+            ConfermBill()
         Catch ex As Exception
-
-            MsgBox(ex.Message)
-
+            MessageBox.Show(Me, "حفظت بيانات الرأس؛ لم تكتمل مرحلة الدفع/الاعتماد. " & ex.Message, "حفظ الفاتورة", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Try
-
     End Sub
 
     Public Sub ConfermBill()
@@ -1002,19 +957,14 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Cancel_Bill()
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 1) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 1, 3)
             isVoid = True
             SelectStateBt()
-        End If
-
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub Tr_BankNum_TextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Total_TextBox1.KeyPress
@@ -1093,11 +1043,11 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         sqlComm.Parameters.AddWithValue("@Barcode", "")
         sqlComm.Parameters.AddWithValue("@Type_ID", Cr_Type_ID)
         sqlComm.Parameters.AddWithValue("@E_mail", "")
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
         sqlComm.Parameters("@AG_ID").Direction = ParameterDirection.Output
 
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If AuditPeopleCardsUi.Run(Me, sqlComm) Then
             MsgBox("تمت إضافة العميــل", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" (من شاشة المبيعات) الزبون:" & AG_Cm.Textt, 0, 27, 1)
             New_AG_ID = sqlComm.Parameters("@AG_ID").Value.ToString()
 
         End If
@@ -1111,21 +1061,29 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             PREV_AG_ID = AG_ID
             AG_ID = AG_Cm.TXT_ID.Text
 
+            If T_ID <= 0 OrElse PREV_AG_ID = AG_ID Then Return
+
             If U_AG_Skip_Max = False Then
                 If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then
                     MsgBox("عذرا ... هذا الزبون قد تخطى سقف الدين الخاص به ولا يمكنك فتح فاتورة جديدة له", MsgBoxStyle.Critical, "خطأ فالإدراج")
                     AG_ID = PREV_AG_ID
                 Else
-                    Save_AG_Name(T_ID, AG_ID, On_Update)
-                    Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, SB_ID, 1, 3)
-                    Fill_All_AG_Proj()
+                    If Not AuditDocumentFieldsUi.Account(Me, T_ID, 1, AG_ID, On_Update) Then
+                        AG_ID = PREV_AG_ID
+                        AuditDocumentFieldsUi.Refresh(Me, Sub() AG_Cm.Set_IM_By_ID(AG_ID), False)
+                        Return
+                    End If
+                    AuditDocumentFieldsUi.Refresh(Me, AddressOf Fill_All_AG_Proj)
                 End If
             Else
                 If CHECK_IF_AGENT_SKIP_MAX_DEBIT(AG_ID) = 1 Then MsgBox("هذا الزبون قد تخطى سقف الدين الخاص به", MsgBoxStyle.Exclamation, "تنويه ")
-                Save_AG_Name(T_ID, AG_ID, On_Update)
-                Network_Edit_Tracker_insert(" تعديل الفاتورة إلي حساب " & AG_Cm.Textt, SB_ID, 1, 3)
+                If Not AuditDocumentFieldsUi.Account(Me, T_ID, 1, AG_ID, On_Update) Then
+                    AG_ID = PREV_AG_ID
+                    AuditDocumentFieldsUi.Refresh(Me, Sub() AG_Cm.Set_IM_By_ID(AG_ID), False)
+                    Return
+                End If
 
-                Fill_All_AG_Proj()
+                AuditDocumentFieldsUi.Refresh(Me, AddressOf Fill_All_AG_Proj)
             End If
 
         End If
@@ -1140,14 +1098,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Public Sub Save_Pro()
-        ' If Project_cm.SelectedValue <= 0 Then Project_cm.SelectedValue = 1
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Update_AG_Project"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-        sqlComm.Parameters.AddWithValue("@Proj_ID", Project_cm.SelectedValue)
-        SQL_SP_EXEC(sqlComm)
+        AuditDocumentWorkflowsUi.Project(Me, T_ID, 1, On_Update, Project_cm.SelectedValue)
     End Sub
 
     Private Sub Discount_txt1_KeyDown(sender As Object, e As KeyEventArgs) Handles Discount_txt1.KeyDown
@@ -1598,6 +1549,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             AG_Type = 3
             F_Receipt = New Receipt
             Receipt_Tran_ID = T_ID
+            F_Receipt.ConfigureEntryContext(1, T_ID)
 
             With F_Receipt
                 Rct_Tr_ID = SB_TR_ID
@@ -1674,102 +1626,18 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Function
 
     Private Function Save_EditChanges() As Boolean
-
         If String.IsNullOrWhiteSpace(Discount_txt1.Text) Then Discount_txt1.Text = "0"
         Discount_calc()
-
         Try
-
-            Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
-
-                cn.Open()
-
-                Using tr As SqlClient.SqlTransaction = cn.BeginTransaction()
-
-                    Try
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Total",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@Total", TOTAL)
-                                cmd.Parameters.AddWithValue("@Disc", Disc)
-                            End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_About",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                If String.IsNullOrWhiteSpace(Notes_txt.Text) = False Then cmd.Parameters.AddWithValue("@About", Notes_txt.Text)
-                            End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_Date",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@Date", DateTimeEx.Value)
-                                cmd.Parameters.AddWithValue("@Month", DateTimeEx.Value.Month)
-                                cmd.Parameters.AddWithValue("@YEAR", DateTimeEx.Value.Year)
-                            End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "AG_Balance_Update_AG_Project",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@T_ID", T_ID)
-                                cmd.Parameters.AddWithValue("@Proj_ID", Project_cm.SelectedValue)
-                            End Sub)
-
-                        Using discountCmd As New SqlClient.SqlCommand(
-                            "Update Agents_Balance_MV SET Discount = @Discount WHERE T_ID = @T_ID",
-                            cn,
-                            tr
-                        )
-
-                            discountCmd.Parameters.AddWithValue("@Discount", Convert.ToDouble(Discount_txt1.Text))
-                            discountCmd.Parameters.AddWithValue("@T_ID", T_ID)
-                            discountCmd.ExecuteNonQuery()
-
-                        End Using
-
-                        'ExecuteEditStoredProcedure(cn, tr, "dbo.Agents_Balance_MV_ConfirmEditAndRepost",
-                        '    Sub(cmd)
-                        '        cmd.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
-                        '        cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
-                        '        cmd.Parameters.Add("@Reason", SqlDbType.NVarChar, 500).Value =
-                        '            "تأكيد تعديل فاتورة مبيعات رقم: " & Bill_ID_Txt.Text
-                        '    End Sub)
-
-                        ExecuteEditStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
-                            Sub(cmd)
-                                cmd.Parameters.AddWithValue("@User_ID", USER_ID)
-                                cmd.Parameters.AddWithValue("@Notes", " تخفيض للفاتورة بقيمة:" & Disc.ToString)
-                                cmd.Parameters.AddWithValue("@Bill_ID", Bill_ID_Txt.Text)
-                                cmd.Parameters.AddWithValue("@Screen_Type", 1)
-                                cmd.Parameters.AddWithValue("@Operation_ID", 3)
-                                cmd.Parameters.AddWithValue("@CP_Name", My.Computer.Name)
-                            End Sub)
-
-                        tr.Commit()
-
-                    Catch
-
-                        tr.Rollback()
-                        Throw
-
-                    End Try
-
-                End Using
-
-            End Using
-
+            If Not AuditDocumentWorkflowsUi.EditFields(Me, T_ID, 1, CDec(TOTAL), CDec(Discount_txt1.Text), DateTimeEx.Value, Notes_txt.Text, Nothing, Project_cm.SelectedValue) Then Return False
+            ' Payment reconciliation remains a separate, explicitly confirmed workflow.
             If ReconcileEditedBillPayments() = False Then Return False
-
             EditPaymentSnapshot = Nothing
             Return True
-
         Catch ex As Exception
-
             MsgBox(ex.Message)
             Return False
-
         End Try
-
     End Function
 
     Private Function ReconcileEditedBillPayments() As Boolean
@@ -1827,8 +1695,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Sub Close_Sale()
-        Update_Discount(T_ID, Discount_txt1.Text)
-        Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & Disc.ToString, Bill_ID_Txt.Text, 1, 3)
+        If Not AuditDocumentFieldsUi.Discount(Me, T_ID, 1, Convert.ToDecimal(Discount_txt1.Text), On_Update) Then Return
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles DGV_Control_btn.Click
@@ -1970,6 +1837,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             AG_Type = 3
             IS_Show_Rctp = True
             F_Receipt = New Receipt
+            F_Receipt.ConfigureEntryContext(1, T_ID)
             F_Receipt.ShowDialog()
             IS_Show_Rctp = False
         End If
@@ -2098,6 +1966,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
         Dim F_Percent_Disc As New Percent_Disc
         F_Percent_Disc.T_ID = T_ID
         F_Percent_Disc.TOTAL = TOTAL
+        F_Percent_Disc.AuditDocumentType = 1
+        F_Percent_Disc.AuditOnUpdate = On_Update
         F_Percent_Disc.ShowDialog()
         Fill_Bill_Info()
     End Sub

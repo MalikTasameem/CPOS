@@ -213,23 +213,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         End With
 
         Return F
-        '-------------------------------------------------------------------------
-        'Dim C As New C
-        'Dim F As Integer = 0
-        'With C.Com
-        '    .Connection = C.Con
-        '    .CommandText = "IM_Check_Neg_QTY_POS_2"
-        '    .CommandType = CommandType.StoredProcedure
-        '    .Parameters.AddWithValue("@F", 0)
-        '    .Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
 
-        '    .Parameters("@F").Direction = ParameterDirection.Output
-        '    If SQL_SP_EXEC(C.Com) Then
-        '        F = .Parameters("@F").Value
-        '    End If
-        'End With
-
-        'Return F
     End Function
 
     Private Sub Change_IM_Qty(def As Integer)
@@ -983,19 +967,14 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Cancel_Bill()
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 1) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_ID_Txt.Text, 1, 3)
             isVoid = True
             SelectStateBt()
-        End If
-
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -1016,14 +995,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         If AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow And AGMetroGrid.Rows.Count > 0 Then Change_IM_Details.ShowDialog()
     End Sub
 
-
-    'Private Sub AGMetroGrid_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles AGMetroGrid.RowsAdded
-    '    ' 'Calc_Total()
-    'End Sub
-
-    'Private Sub AGMetroGrid_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles AGMetroGrid.RowsRemoved
-    '    ' 'Calc_Total()
-    'End Sub
 
     Public Sub Calc_Total()
         TOTAL = 0
@@ -1252,24 +1223,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-
-    'Public Sub Load_IM_ST_QTY(IM_ID, ST_cm, IM_QTY)
-    '    Dim c As New C
-    '    Try
-    '        Dim s As String
-    '        s = "select ISNULL(SUM(QTY),0) AS QTY from ST_Balance_V WHERE IM_ID = '" & IM_ID & "' AND ST_ID = '" & SB_ST_ID & "'"
-    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
-    '        c.Con.Open()
-    '        c.Dr = c.Com.ExecuteReader
-    '        If c.Dr.HasRows Then
-    '            c.Dr.Read()
-    '            IM_QTY = c.Dr("QTY")
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
     Private Sub Fetch_IM_Units()
         Get_Unit = False
         Dim c As New C
@@ -1308,13 +1261,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Public Sub Load_IM_Barcode()
 
 
-        'If S_is_Multi_BAR = True Then
-        '    If Check_IF_Multi_BAR() > 1 Then
-        '        SELECT_Multi_Bar()
-        '        Exit Sub
-        '    End If
-        'End If
-
         IM_Dt.Clear()
         Dim rows As DataRow() = IM_Units_Dt.Select("Barcode = '" & Barcode_SH_txt.Text & "' ")
         If rows.Length > 0 Then
@@ -1326,17 +1272,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             Barcode_IM = Barcode_SH_txt.Text
             U_IM_ID = Convert.ToInt32(row("U_IM_ID"))
             Get_Unit = False
-
-            'Load_IM_ST_QTY_ST_INT(IM_ID, SB_ST_ID, IM_QTY)
-            'Load_IM_Change_Price()
-
-            'If c.Dr("isValid") = 1 Then
-            '    is_Valid = True
-            '    POS_D_Valid.ST_ID = SB_ST_ID
-            '    POS_D_Valid.IM_ID = IM_ID
-            '    POS_D_Valid.ShowDialog()
-            '    If Valid_Allow_IM = False Then Exit Sub
-            'End If
 
             Fetch_IM_Units_By_Bar()
             Barcode_SH_txt.Clear()
@@ -1354,54 +1289,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
         End If
 
-
-
-        '------------------------------------------------------------------------------------------------------------------------------------
-
-
-        'Dim c As New C
-        'IM_Dt.Clear()
-        'Try
-        '    Dim s As String = "select U_IM_ID,IM_ID,item_name,isValid from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
-
-        '    c.Com = New SqlClient.SqlCommand(s, c.Con)
-        '    c.Con.Open()
-
-        '    c.Dr = c.Com.ExecuteReader
-        '    If c.Dr.HasRows Then
-        '        c.Dr.Read()
-        '        IM_ID = c.Dr("IM_ID")
-        '        IM_Name = c.Dr("item_name")
-        '        Barcode_IM = Barcode_SH_txt.Text
-        '        U_IM_ID = c.Dr("U_IM_ID")
-        '        Get_Unit = False
-        '        Load_IM_ST_QTY_ST_INT(IM_ID, SB_ST_ID, IM_QTY)
-        '        Load_IM_Change_Price()
-
-        '        If c.Dr("isValid") = 1 Then
-        '            is_Valid = True
-        '            POS_D_Valid.ST_ID = SB_ST_ID
-        '            POS_D_Valid.IM_ID = IM_ID
-        '            POS_D_Valid.ShowDialog()
-        '            If Valid_Allow_IM = False Then Exit Sub
-        '        End If
-
-        '        Fetch_IM_Units_By_Bar()
-        '        Barcode_SH_txt.Clear()
-        '        ADD_IM()
-        '    Else
-        '        If Barcode_SH_txt.Text.Count >= 8 Then
-        '            Check_If_Mizan()
-        '        Else
-        '            My.Computer.Audio.Play(Application.StartupPath & "\Alert Beep.wav")
-        '            MessageBox.Show("لم يتم التعرف على الإدخال")
-        '            Clear_Barcode()
-        '        End If
-        '    End If
-
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
     End Sub
 
 
@@ -1454,23 +1341,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         End Try
     End Sub
 
-    'Public Sub Load_IM_Change_Price()
-    '    Dim c As New C
-    '    Try
-    '        Dim s As String
-    '        s = "select Percent_Price from Change_Price WHERE GM_ID = (SELECT GM_ID FROM IM_Menu WHERE IM_ID = '" & IM_ID & "') "
-    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
-    '        c.Con.Open()
-    '        c.Dr = c.Com.ExecuteReader
-    '        If c.Dr.HasRows Then
-    '            c.Dr.Read()
-    '            Bercent_Price.Text = c.Dr("Percent_Price")
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
     Private Sub Fetch_IM_Units_By_Bar()
         Get_Unit = False
         'Dim c As New C
@@ -1489,45 +1359,8 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         End Try
         Get_Unit = True
         IM_Fetch_QTY()
-        '-----------------------------------------------------------------------------------------------------------------------------------------
-        'Get_Unit = False
-        'Dim c As New C
-        'U_Dt.Clear()
-        'Try
-        '    Dim s As String
-        '    s = "select U_IM_ID,U_Name from IM_Menu_Units_V  WHERE Barcode = '" & Barcode_IM & "' Order By U_Cargo Asc"
-        '    c.Da = New SqlClient.SqlDataAdapter(s, c.Con)
-        '    c.Da.Fill(U_Dt)
-        '    IM_Unit_cm.DataSource = U_Dt
-        '    IM_Unit_cm.DisplayMember = "U_Name"
-        '    IM_Unit_cm.ValueMember = "U_IM_ID"
-        '    IM_Unit_cm.SelectedValue = U_IM_ID
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
-        'Get_Unit = True
-        'IM_Fetch_QTY()
+
     End Sub
-
-    'Private Function Check_IF_Multi_BAR()
-    '    Dim c As New C
-    '    IM_Dt.Clear()
-    '    Try
-    '        Dim s As String
-    '        s = "select COUNT(U_IM_ID) AS C from IM_units_Search_V WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
-    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
-    '        c.Con.Open()
-    '        c.Dr = c.Com.ExecuteReader
-    '        If c.Dr.HasRows Then
-    '            c.Dr.Read()
-    '            Return c.Dr("C")
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-
-    '    Return 1
-    'End Function
 
     Private Sub Check_If_Mizan()
         Dim c As New C
@@ -1642,82 +1475,9 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             MsgBox(ex.Message)
         End Try
 
-        '----------------------------------------------------------------------------------------------------------
-        'Dim c As New C
-        'Try
-        '    Dim s As String
-        '    s = "select U_ID,U_Cargo,Price,Min_SP from IM_Menu_Units_V WHERE U_IM_ID = '" & IM_Unit_cm.SelectedValue & "'"
-        '    c.Com = New SqlClient.SqlCommand(s, c.Con)
-        '    c.Con.Open()
-        '    c.Dr = c.Com.ExecuteReader
-        '    If c.Dr.HasRows Then
-        '        c.Dr.Read()
-        '        U_Cargo = c.Dr("U_Cargo")
-        '        Dim N As Double = (Convert.ToDouble(IM_QTY) / c.Dr("U_Cargo"))
-        '        Current_QTY.Text = N.ToString("N")
-        '        If String.IsNullOrWhiteSpace(IM_Price.Text) Then IM_Price.Text = c.Dr("Price")
-        '        U_ID = c.Dr("U_ID")
-        '        Min_SP = c.Dr("Min_SP")
-        '    End If
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
     End Sub
 
-    'Private Sub IM_Unit_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles IM_Unit_cm.SelectedValueChanged
-    '    If String.IsNullOrWhiteSpace(Current_QTY.Text) = False And Get_Unit = True Then IM_Fetch_QTY()
-    'End Sub
 
-    '-------------------------------------------------------------------------------------------------------------------
-    'Private Sub Discount_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Discount_txt.KeyDown
-
-    '    If Discount_Distribute = False Then
-    '        If Not String.IsNullOrWhiteSpace(Discount_txt.Text) Then
-    '            Disc = Convert.ToDouble(Discount_txt.Text)
-    '            Pure_txt.Text = TOTAL - Disc
-    '            Pure = TOTAL - Disc
-    '        End If
-    '    Else
-    '        If e.KeyCode = Keys.Return Then
-    '            If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
-    '            If SB_Discount_Distribute(Me.T_ID, Discount_txt.Text) = True Then
-    '                Disc = Discount_txt.Text
-    '                SB_Contents_SELECT_Bill()
-    '            End If
-    '        End If
-    '    End If
-    '    If On_Update = True Then Save_Total(T_ID, TOTAL, Disc)
-    'End Sub
-
-
-    'Private Sub Discount_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Discount_txt.KeyPress
-    '    Check_Only_Float(sender, e)
-    'End Sub
-
-    'Private Sub Discount_txt_KeyUp(sender As Object, e As KeyEventArgs) Handles Discount_txt.KeyUp
-    '    If Discount_Distribute = False Then
-    '        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then
-    '            Disc = 0
-    '            Pure_txt.Text = TOTAL
-    '        Else
-    '            Disc = Convert.ToDouble(Discount_txt.Text)
-    '            Pure_txt.Text = TOTAL - Disc
-    '            Pure = TOTAL - Disc
-    '        End If
-    '    End If
-    'End Sub
-
-    'Private Sub Discount_txt_TextChanged(sender As Object, e As EventArgs) Handles Discount_txt.TextChanged
-    '    Check_Point_in_FloatNum(sender, e)
-    '    If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Disc = 0
-    'End Sub
-    '-------------------------------------------------------------------------------------------------------------------
-
-    'Private Sub IM_Unit_cm_KeyDown(sender As Object, e As KeyEventArgs) Handles IM_Unit_cm.KeyDown
-    '    Select Case e.KeyCode
-    '        Case Keys.Return, Keys.Left : QtyTextBox.Select()
-    '    End Select
-    'End Sub
 
     Private Sub Down_Bill_btn_Click(sender As Object, e As EventArgs) Handles Down_Bill_btn.Click
         Bill_ID_Txt.Text = Convert.ToInt64(Bill_ID_Txt.Text)
@@ -2502,7 +2262,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
     End Sub
 
-
     Private Sub MoveToBill_Btn_Click(sender As Object, e As EventArgs) Handles MoveToBill_Btn.Click
         If PauseCmb.SelectedIndex > -1 Then
             Me.Enabled = False
@@ -2514,11 +2273,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             Me.Enabled = True
         End If
     End Sub
-
-
-    'Private Sub Valid_cm_SelectedValueChanged(sender As Object, e As EventArgs)
-    '    If Get_Unit = True Then IM_Fetch_QTY_OfValid_ST_INT(IM_ID, SB_ST_ID, Valid_cm, Valid_QTY_txt, U_Cargo)
-    'End Sub
 
 
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
@@ -2629,24 +2383,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         Fetch_Pr_Details_()
     End Sub
 
-    'Private Sub Fetch_Pr_Details_()
-    '    Dim c As New C
-    '    Dim Cost As Double = 0
-    '    Try
-    '        Dim s As String
-    '        s = "SELECT ISNULL(SUM(CREDIT),0) AS P FROM SB_V WHERE isVoid = 0 AND Pr_ID = '" & Pr_ID & "' AND BsType_ID = 3"
-    '        c.Com = New SqlClient.SqlCommand(s, c.Con)
-    '        c.Con.Open()
-    '        c.Dr = c.Com.ExecuteReader
-    '        If c.Dr.HasRows Then
-    '            c.Dr.Read()
-    '            MsgBox(" إجمالي المقبوض للورديــة : " + c.Dr("P").ToString, MsgBoxStyle.Information)
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-
-    'End Sub
 
     Private Sub ExitFormButton_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
         Me.Close()
@@ -2670,7 +2406,17 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             Identifiers.Pure = Pure_txt.Text
             Identifiers.SB_ID = SB_ID
 
-            Fast_SB_Discount.ShowDialog()
+            F.AuditOnUpdate = On_Update
+            F.ShowDialog(Me)
+            If F.is_OK Then
+                AuditDocumentFieldsUi.Refresh(Me, Sub()
+                                                     Disc = Identifiers.Disc
+                                                     Pure = Identifiers.Pure
+                                                     Discount_txt.Text = Disc.ToString()
+                                                     Pure_txt.Text = Pure.ToString()
+                                                 End Sub)
+            End If
+            F.Dispose()
 
 
         End If
@@ -2708,11 +2454,12 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             FormType = 1
             AG_Type = 3
             F_Receipt = New Receipt
-            Receipt_Tran_ID = T_ID
 
             With F_Receipt
                 Rct_Tr_ID = SB_TR_ID
                 .ClearFields()
+                Receipt_Tran_ID = T_ID
+                .ConfigureEntryContext(1, T_ID)
                 .Fields_Panel.Enabled = True
                 .AG_Cm.Enabled = False
                 .Barcode_SH_txt.Enabled = False
@@ -2752,7 +2499,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
         Dim f As Items_Search = Items_Search.GetInstance()
 
-        f.ShowDialog()
+        f.ShowDialog(Me)
         f.BringToFront()
         f.WindowState = FormWindowState.Normal
 
@@ -2762,7 +2509,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             'SelectItemById(GLOBAL_IM_ID) 
         End If
     End Sub
-
 
     Private Sub CALC_Btn_Click(sender As Object, e As EventArgs) Handles CALC_Btn.Click
         Shell("calc.exe")
@@ -2782,7 +2528,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
         End If
     End Sub
 
-
     Private Sub Pure_txt_TextChanged(sender As Object, e As EventArgs) Handles Pure_txt.TextChanged
         If is_Use_Total_Port = True Then Show_Total_Port(Pure)
     End Sub
@@ -2790,7 +2535,6 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
     Private Sub AGMetroGrid_DataSourceChanged(sender As Object, e As EventArgs) Handles AGMetroGrid.DataSourceChanged
         Calc_Total()
     End Sub
-
 
     Private Sub Sales_Bill_Page_cm_SelectedValueChanged(sender As Object, e As EventArgs) Handles Sales_Bill_Page_cm.SelectedValueChanged
         If TypeName(Sales_Bill_Page_cm.SelectedValue) = "Integer" Then SELECT_Rpt_Path()

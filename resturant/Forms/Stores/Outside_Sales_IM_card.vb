@@ -224,13 +224,12 @@
 
         If String.IsNullOrWhiteSpace(PriceTextBox.Text) = False Then sqlComm.Parameters.AddWithValue("@SPRICE", Convert.ToDouble(PriceTextBox.Text))
 
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" الصنف:" & mySearchControl.txtSearch.Text & " الوحدة:" & IM_Unit_cm.Text & " العدد:" & QtyTextBox.Text & " السعر:" & PriceTextBox.Text, F_Outside_Sales.Bill_ID_Txt.Text, 35, 1)
-
-            'Update_Total()
-            ClearCatFields()
-            F_Outside_Sales.SELECT_EXP_Cats(T_ID)
-
+        If AuditStockDocumentUi.Run(Me, sqlComm, T_ID, 35) Then
+            Me.Enabled = False
+            AuditStockDocumentUi.Refresh(Me, Sub()
+                ClearCatFields()
+                F_Outside_Sales.SELECT_EXP_Cats(T_ID)
+            End Sub)
             Me.Close()
         End If
     End Sub

@@ -1,0 +1,6 @@
+PASS empty/zero cargo retains normalization
+PASS no unapproved positive-only rule
+PASS nonfinite cargo rejected
+PASS complete unit master
+PASS closed domain
+PASS 5 unit checks.

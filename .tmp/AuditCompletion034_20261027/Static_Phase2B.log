@@ -1,0 +1,21 @@
+PASS fixed canonical token vector/null/empty
+PASS SHA256 known vector
+PASS full request version-1 fixed vector
+PASS request invariant under Arabic culture
+PASS Decimal no display rounding
+PASS Float roundtrip
+PASS Decimal scale normalized
+PASS input order canonicalized
+PASS NaN rejected
+PASS oversized value rejected
+PASS typed value cannot masquerade as Decimal
+PASS SQL date timezone not guessed
+PASS oversized canonical envelope rejected
+PASS XML DTD and entities prohibited
+PASS credential field not allowed
+PASS unknown business actor rejected
+PASS missing caller transaction rejected
+PASS independent path rejects business events
+PASS unknown login rejection contains no old user
+PASS rejected login cannot inherit old session
+PASS: 20 writer checks.

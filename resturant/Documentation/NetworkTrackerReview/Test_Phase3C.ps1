@@ -27,6 +27,8 @@ $sources=@('Models\Audit\AuditEventContext.vb','Models\Audit\AuditEventRequest.v
  'Classes\Audit\AuditContract.vb','Classes\Audit\AuditCanonical.vb','Classes\Audit\AuditMessageFormatter.vb',
  'Classes\Audit\AuditRequestCoordinator.vb','Classes\Audit\AuditWriter.vb','Classes\Audit\AuditSecuritySession.vb',
  'Classes\Audit\AuditSettlementLines.vb','Classes\Audit\AuditSettlementHeader.vb') | ForEach-Object {Join-Path $projectRoot $_}
+$sources += @(Get-ChildItem -LiteralPath (Join-Path $projectRoot 'Classes\Audit') -Filter 'AuditContract.*.vb' | ForEach-Object { $_.FullName })
+$sources += Join-Path $projectRoot 'Classes\Audit\AuditDisplayNameResolver.vb'
 $sources+=Join-Path $PSScriptRoot 'AuditSettlementHeaderTests.vb'
 $exe=Join-Path $output 'AuditSettlementHeaderTests.exe'
 & 'C:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe' /nologo /target:exe /optionstrict+ /imports:System /main:AuditSettlementHeaderTests `

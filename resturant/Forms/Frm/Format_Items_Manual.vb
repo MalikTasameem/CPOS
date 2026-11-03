@@ -580,7 +580,7 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
         If MessageBox.Show("إعتماد أمر التصنيع بشكل نهائي ؟", "حفظ", MessageBoxButtons.OKCancel, _
               MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.OK Then
             If Not SaveLinkedSalesBillSelection() Then Exit Sub
-            If AGMetroGrid.Rows.Count > 0 Then FRM_Manual_Set_Cost()
+            If AGMetroGrid.Rows.Count > 0 AndAlso Not FRM_Manual_Set_Cost() Then Exit Sub
             Save_About(T_ID, Notes_txt.Text)
             Save_Date(T_ID, DateTimeEx)
             Save_Title_Name(T_ID, Title_txt.Text)
@@ -635,18 +635,14 @@ Public Class Format_Items_Manual : Inherits System.Windows.Forms.Form
     End Function
 
     Private Sub Cancel_Bill()
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 18) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
             isVoid = True
             SelectStateBt()
-        End If
-
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -784,6 +780,7 @@ Me.Name.ToString
 
 
     Private Sub SB_Contents_Delete_IM()
+        If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentCell Is Nothing OrElse Not AGMetroGrid.Columns.Contains("DETAILS_T_ID_CL") OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells("DETAILS_T_ID_CL").Value) Then Return
         Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
         Dim c As New C
         With c.Com
@@ -792,15 +789,14 @@ Me.Name.ToString
             .CommandType = CommandType.StoredProcedure
             .Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("DETAILS_T_ID_CL").Value)
         End With
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditInventoryOperationsUi.Run(Me, c.Com, T_ID, 18) Then
 
-            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("FRM_IM_NAME_CL").Value.ToString + " الوحدة:" +
-            AGMetroGrid.CurrentRow.Cells("U_Name_CL").Value.ToString + " العدد:" + AGMetroGrid.CurrentRow.Cells("prc_QTY_CL").Value.ToString _
-            + " التكلفة:" + AGMetroGrid.CurrentRow.Cells("Rtn_Price_CL").Value.ToString + " البيع:" + AGMetroGrid.CurrentRow.Cells("SALE_Price_CL").Value.ToString, Bill_ID_Txt.Text, 13, 2)
 
             'FRM_Manual_Set_Cost()
-            Pch_Contents_SELECT_Bill()
-            If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("FRM_IM_NAME_CL")
+            AuditInventoryOperationsUi.Refresh(Me, Sub()
+                Pch_Contents_SELECT_Bill()
+                If Row_Index > 0 AndAlso Row_Index <= AGMetroGrid.Rows.Count Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("FRM_IM_NAME_CL")
+            End Sub)
             'If MY_Settings.S_Default = 0 Then
             '    Barcode_SH_txt.Select()
             'Else
@@ -1139,6 +1135,9 @@ Me.Name.ToString
 
     Private Sub Frm_Contetnts_Manual_Delete_IM()
         ' Dim Row_Index As Integer = BillMetroGrid.CurrentCell.RowIndex
+        Dim targetGrid = If(TabControl1.SelectedTab Is TabPage2, BillMetroGrid, If(TabControl1.SelectedTab Is TabPage3, ServicesGrid, Nothing))
+        Dim targetColumn = If(TabControl1.SelectedTab Is TabPage2, "T_ID_CL", "T_ID_2_CL")
+        If targetGrid Is Nothing OrElse targetGrid.CurrentRow Is Nothing OrElse Not targetGrid.Columns.Contains(targetColumn) OrElse IsDBNull(targetGrid.CurrentRow.Cells(targetColumn).Value) Then Return
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -1154,21 +1153,9 @@ Me.Name.ToString
             End If
 
         End With
-        If SQL_SP_EXEC(c.Com) = True Then
-
-
-            If TabControl1.SelectedTab Is TabPage2 Then
-                Network_Edit_Tracker_insert(" الصنف:" + BillMetroGrid.CurrentRow.Cells(5).Value.ToString + " الوحدة:" +
-                BillMetroGrid.CurrentRow.Cells(6).Value.ToString + " العدد:" + BillMetroGrid.CurrentRow.Cells(7).Value.ToString _
-                + " التكلفة:" + BillMetroGrid.CurrentRow.Cells(8).Value.ToString, Bill_ID_Txt.Text, 14, 2)
-
-            Else
-                Network_Edit_Tracker_insert(" الإسم:" + ServicesGrid.CurrentRow.Cells(2).Value.ToString + " العدد:" + ServicesGrid.CurrentRow.Cells(4).Value.ToString _
-               + " التكلفة:" + ServicesGrid.CurrentRow.Cells(3).Value.ToString, Bill_ID_Txt.Text, 14, 2)
-            End If
-
+        If AuditInventoryOperationsUi.Run(Me, c.Com, T_ID, 18) Then
             'FRM_Manual_Set_Cost()
-            Pch_Contents_SELECT_Bill()
+            AuditInventoryOperationsUi.Refresh(Me, Sub() Pch_Contents_SELECT_Bill())
             'If MY_Settings.S_Default = 0 Then
             '    Barcode_SH_txt.Select()
             'Else
@@ -1187,13 +1174,15 @@ Me.Name.ToString
         End If
     End Sub
 
-    Public Sub FRM_Manual_Set_Cost()
+    Public Function FRM_Manual_Set_Cost() As Boolean
         Dim sqlComm As New SqlClient.SqlCommand()
         sqlComm.CommandText = "[FRM_Manual_Set_Cost]"
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-        If SQL_SP_EXEC(sqlComm) = True Then Pch_Contents_SELECT_Bill()
-    End Sub
+        If Not AuditInventoryOperationsUi.Run(Me, sqlComm, T_ID, 18) Then Return False
+        AuditInventoryOperationsUi.Refresh(Me, Sub() Pch_Contents_SELECT_Bill())
+        Return True
+    End Function
 
     'Private Sub Valid_cm_SelectedValueChanged(sender As Object, e As EventArgs)
     '    If Get_Unit = True Then IM_Fetch_QTY_OfValid(IM_ID, ST_cm, Valid_cm, Valid_QTY_txt, U_Cargo)
@@ -1643,7 +1632,7 @@ Me.Name.ToString
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@PCH_T_ID", PCH_T_ID)
         sqlComm.Parameters.AddWithValue("@FRM_T_ID", T_ID)
-        If SQL_SP_EXEC(sqlComm) = True Then Pch_Contents_SELECT_Bill()
+        If AuditInventoryOperationsUi.Run(Me, sqlComm, T_ID, 18) Then AuditInventoryOperationsUi.Refresh(Me, Sub() Pch_Contents_SELECT_Bill())
     End Sub
 
     Public Sub check_pch_num(num)
@@ -1704,7 +1693,7 @@ Me.Name.ToString
         sqlComm.Parameters.AddWithValue("@is_Not_Qty", False) 'is_Not_Qty_CB.Checked
         sqlComm.Parameters.AddWithValue("@TYPE", TYPE)
 
-        If SQL_SP_EXEC(sqlComm) = True Then Pch_Contents_SELECT_Bill()
+        If AuditInventoryOperationsUi.Run(Me, sqlComm, T_ID, 18) Then AuditInventoryOperationsUi.Refresh(Me, Sub() Pch_Contents_SELECT_Bill())
     End Sub
 
     Private Sub MOVE_From_SB_Click(sender As Object, e As EventArgs) Handles MOVE_From_SB.Click

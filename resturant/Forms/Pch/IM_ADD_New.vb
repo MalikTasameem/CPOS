@@ -7,7 +7,7 @@
         Me.Dispose()
     End Sub
 
-    Private Sub item_menu_Delete_DisableRows()
+    Private Function item_menu_Delete_DisableRows() As Boolean
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -15,8 +15,8 @@
             .CommandType = CommandType.StoredProcedure
             .Parameters.AddWithValue("@USER_ID", USER_ID)
         End With
-        SQL_SP_EXEC(c.Com)
-    End Sub
+        Return AuditItemLifecycleUi.Run(Me, c.Com)
+    End Function
 
     Private Sub IM_ADD_New_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.F12 Then ConfermButton_Click(sender, e)
@@ -64,7 +64,12 @@
             .Parameters.AddWithValue("@GM_ID", 1)
             .Parameters("@IM_ID").Direction = ParameterDirection.Output
         End With
-        If SQL_SP_EXEC(c.Com) = True Then New_IM_ID = c.Com.Parameters("@IM_ID").Value.ToString()
+        Dim savedId As Integer
+        If AuditItemLifecycleUi.Run(Me, c.Com, savedId) AndAlso savedId > 0 Then
+            New_IM_ID = savedId
+        Else
+            ConfermButton.Enabled = False
+        End If
     End Sub
 
 
@@ -77,7 +82,9 @@
             Exit Sub
         End If
 
-        If Check_Unit_Exist(IM_Unit_cm, Unit_cargo_txt.Text) = 0 Then Unit_Insert(IM_Unit_cm, Unit_cargo_txt.Text, 22)
+        If Check_Unit_Exist(IM_Unit_cm, Unit_cargo_txt.Text) = 0 Then
+            If Not Unit_Insert(IM_Unit_cm, Unit_cargo_txt.Text, 22) Then Return
+        End If
         If String.IsNullOrWhiteSpace(IM_SH_txt.Text) Then
             MsgBox("أدخل اسم الصنف", MsgBoxStyle.Exclamation, "حقل إجباري")
 
@@ -196,13 +203,11 @@
 
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditItemLifecycleUi.Run(Me, c.Com) Then
             'MsgBox("تم الحفظ", MsgBoxStyle.Information)
 
-            Network_Edit_Tracker_insert(" (شاشة إضافة صنف) إسم الصنف:" & IM_SH_txt.Text & " النوع:" & "بضاعة" & " التصنيف:" & GM_Serach.Text & " الرقم:" & IM_Num_txt.Text & _
-                                        " الصلاحية:" & Valid_St & " الوحدة:" & IM_Unit_cm.Text & " باركود:" & Barcode_SH_txt.Text & "  باركود الوحدة2:" & Barcode_By_One_txt.Text, 0, 20, 1)
-
             is_Add_New_IM = True
+            AuditItemLifecycleUi.Refresh(Me, Sub()
             If Call_IM_After_Insert_CB.Checked = True Then
                 If Application.OpenForms().OfType(Of Invoice).Any Then
                     With F_Invoice_IM_card
@@ -232,14 +237,14 @@
             MY_Settings.Save_AppSetting()
 
             Me.Close()
+            End Sub)
         End If
 
     End Sub
 
 
     Private Sub Back_ADD_New_IM_btn_Click(sender As Object, e As EventArgs) Handles ExitFormButton.Click
-        item_menu_Delete_DisableRows()
-        Me.Close()
+        If item_menu_Delete_DisableRows() Then Me.Close()
     End Sub
 
     Private Sub isValid_CB_CheckedChanged(sender As Object, e As EventArgs) Handles isValid_CB.CheckedChanged
@@ -285,42 +290,25 @@
         Else
             If MessageBox.Show(" إضافة " + GM_Serach.Text + " إلى قائمة المجموعات ", " إضافة مجموعة ", MessageBoxButtons.YesNo, _
                                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-                GM_Serach.SelectedValue = Insert_Fast_GM()
+                Dim newGroupId = Insert_Fast_GM()
+                If newGroupId > 0 Then GM_Serach.SelectedValue = newGroupId
             End If
         End If
         ' End If
     End Sub
 
-    Private Function Insert_Fast_GM()
-        Dim GM_New_ID As Integer
-        Dim C As New C
-
-        If GM_Serach.Text.Count < 4 Then
-            Do While GM_Serach.Text.Count < 4
-                GM_Serach.Text = GM_Serach.Text + " "
-            Loop
-        End If
-
-        With C.Com
-            .Connection = C.Con
-            .CommandText = "GM_insert"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@GM_ID", 0)
-            .Parameters.AddWithValue("@GM_Name", Me.GM_Serach.Text)
-            .Parameters.AddWithValue("@POS_isShow", 1)
-            .Parameters.AddWithValue("@Printer_ID", 1)
-            .Parameters.AddWithValue("@Ksh_Screen", My.Computer.Name)
-            .Parameters("@GM_ID").Direction = ParameterDirection.Output
-
-            If SQL_SP_EXEC(C.Com) Then
-                GM_New_ID = .Parameters("@GM_ID").Value.ToString()
-                Network_Edit_Tracker_insert(" التصنيف:" & GM_Serach.Text, 0, 21, 1)
-                Load_GM()
-            End If
-
-        End With
-
-        Return GM_New_ID
+    Private Function Insert_Fast_GM() As Integer
+        If GM_Serach.Text.Length < 4 Then GM_Serach.Text = GM_Serach.Text.PadRight(4)
+        Using command As New System.Data.SqlClient.SqlCommand("GM_insert")
+            command.Parameters.Add("@GM_Name", SqlDbType.NVarChar, 200).Value = GM_Serach.Text
+            command.Parameters.Add("@POS_isShow", SqlDbType.Int).Value = 1
+            command.Parameters.Add("@Printer_ID", SqlDbType.Int).Value = 1
+            command.Parameters.Add("@Ksh_Screen", SqlDbType.NVarChar, 200).Value = My.Computer.Name
+            Dim savedId As Integer
+            If Not AuditGroupsUi.Run(Me, command, savedId) Then Return 0
+            AuditGroupsUi.Refresh(Me, AddressOf Load_GM)
+            Return savedId
+        End Using
     End Function
 
     Private Sub Unit_cargo_txt_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Unit_cargo_txt.KeyPress

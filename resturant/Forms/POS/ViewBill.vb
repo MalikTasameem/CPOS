@@ -19,6 +19,11 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     Public Barcode As String
     Dim isPied As Integer = 0
     Dim On_Update As Boolean
+    Friend ReadOnly Property AuditEditing As Boolean
+        Get
+            Return On_Update
+        End Get
+    End Property
     Public IS_Show_Rctp As Boolean = False
     Dim AG_Balance As Double = 0
     Dim PREV_AG_ID As Integer
@@ -78,6 +83,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Change_IM_Qty(def As Integer)
+        If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentCell Is Nothing OrElse Not AGMetroGrid.Columns.Contains("T_ID_CL") OrElse Not AGMetroGrid.Columns.Contains("QTY_CL") OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) OrElse IsDBNull(AGMetroGrid.CurrentRow.Cells("QTY_CL").Value) Then Return
         Dim SB_T_ID As Integer = AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value
         Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
         Dim c As New C
@@ -88,11 +94,14 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
             .Parameters.AddWithValue("@T_ID", SB_T_ID)
             .Parameters.AddWithValue("@Def", def)
             .Parameters.AddWithValue("@On_Update", On_Update)
+            .Parameters.AddWithValue("@DisplayedQuantity", AGMetroGrid.CurrentRow.Cells("QTY_CL").Value)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
-            ViewBill_Contents_SELECT_Bill()
-            AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
+        If AuditQuoteLinesUi.Run(Me, c.Com, T_ID, On_Update) Then
+            AuditQuoteLinesUi.Refresh(Me, Sub()
+                                               ViewBill_Contents_SELECT_Bill()
+                                               If Row_Index >= 0 AndAlso Row_Index < AGMetroGrid.Rows.Count AndAlso AGMetroGrid.Columns.Contains("EX_Name_CL") Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index).Cells("EX_Name_CL")
+                                           End Sub)
         End If
     End Sub
 
@@ -490,9 +499,6 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
                 End If
 
                 Beep()
-                Save_AG_Name(T_ID, AG_ID, False)
-                Save_About(T_ID, Notes_txt.Text)
-                Save_Date(T_ID, DateTimeEx)
                 ConfermBill()
             End If
 
@@ -501,21 +507,12 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     End Sub
 
     Public Sub ConfermBill()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "ViewBill_ConfermBill"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-            .Parameters.AddWithValue("@TOTAL", TOTAL)
-            .Parameters.AddWithValue("@Discount", Disc)
-            .Parameters.AddWithValue("@Pure", Pure)
-
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            Switch_Dependcy(1)
-            SelectStateBt()
-        End If
+        If Not AuditDocumentWorkflowsUi.QuoteConfirm(Me, T_ID, On_Update, AG_ID, Notes_txt.Text, DateTimeEx.Value, CDec(TOTAL), CDec(Disc), CDec(Pure)) Then Return
+        AuditDocumentFieldsUi.Refresh(Me,
+            Sub()
+                Switch_Dependcy(1)
+                SelectStateBt()
+            End Sub)
     End Sub
 
 
@@ -529,18 +526,14 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Cancel_Bill()
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Void_Row"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 16) Then Return
+        Try
             MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
             isVoid = True
             SelectStateBt()
-        End If
-
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -601,7 +594,8 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub ViewBill_Contents_Delete_IM(T_ID_CL As Integer)
-        Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
+        If T_ID_CL <= 0 Then Return
+        Dim Row_Index As Integer = If(AGMetroGrid.CurrentCell Is Nothing, -1, AGMetroGrid.CurrentCell.RowIndex)
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -609,14 +603,12 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
             .CommandType = CommandType.StoredProcedure
             .Parameters.AddWithValue("@T_ID", T_ID_CL)
         End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" الصنف:" & AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString & " الوحدة:" & AGMetroGrid.CurrentRow.Cells("IMUnit_CL").Value.ToString &
-           " العدد:" & AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString & " السعر:" & AGMetroGrid.CurrentRow.Cells("Price_CL").Value.ToString, Bill_ID_Txt.Text, 16, 2)
-            ViewBill_Contents_SELECT_Bill()
-
-            If Row_Index > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
-
-            Save_Total(T_ID, TOTAL, Disc)
+        If AuditQuoteLinesUi.Run(Me, c.Com, T_ID, On_Update) Then
+            AuditQuoteLinesUi.Refresh(Me, Sub()
+                                               ViewBill_Contents_SELECT_Bill()
+                                               If Row_Index > 0 AndAlso Row_Index - 1 < AGMetroGrid.Rows.Count AndAlso AGMetroGrid.Columns.Contains("EX_Name_CL") Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Row_Index - 1).Cells("EX_Name_CL")
+                                           End Sub)
+            ' The original delete procedure already recalculates the quote inside the audited transaction.
         End If
     End Sub
 
@@ -655,11 +647,11 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
         sqlComm.Parameters.AddWithValue("@Barcode", "")
         sqlComm.Parameters.AddWithValue("@Type_ID", Cr_Type_ID)
         sqlComm.Parameters.AddWithValue("@E_mail", "")
+        sqlComm.Parameters.AddWithValue("@USER_ID", USER_ID)
         sqlComm.Parameters("@AG_ID").Direction = ParameterDirection.Output
 
-        If SQL_SP_EXEC(sqlComm) = True Then
+        If AuditPeopleCardsUi.Run(Me, sqlComm) Then
             MsgBox("تمت إضافة العميــل", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" (من شاشة فواتير العرض) الزبون:" & AG_Cm.Textt, 0, 27, 1)
             New_AG_ID = sqlComm.Parameters("@AG_ID").Value.ToString()
 
         End If
@@ -905,9 +897,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
                 Edit_butt.Text = "إيقاف التعديل"
             End If
         Else
-            Save_Total(T_ID, TOTAL, Disc)
-            Save_About(T_ID, Notes_txt.Text)
-            Save_Date(T_ID, DateTimeEx)
+            If Not AuditDocumentWorkflowsUi.QuoteFinishEdit(Me, T_ID, CDec(TOTAL), CDec(Disc), DateTimeEx.Value, Notes_txt.Text) Then Return
             On_Update = False
             Edit_butt.Text = EditState
             Edit_butt.BackColor = Color.Silver
@@ -979,22 +969,23 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
 
 
     Private Sub Calc_Dicount_Btn_Click(sender As Object, e As EventArgs) Handles Calc_Dicount_Btn.Click
-        If Discount_Distribute = False Then
-            If Not String.IsNullOrWhiteSpace(Discount_txt.Text) Then
-                Disc = Convert.ToDouble(Discount_txt.Text)
-                Pure_txt.Text = TOTAL - Disc
-                Pure = TOTAL - Disc
-            End If
-        Else
-            If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
-            If SB_Discount_Distribute(Me.T_ID, Discount_txt.Text) = True Then
-                Disc = Discount_txt.Text
-                ViewBill_Contents_SELECT_Bill()
-            End If
+        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
+        Dim amount As Decimal
+        If Not Decimal.TryParse(Discount_txt.Text, amount) Then
+            MessageBox.Show(Me, "أدخل قيمة خصم صحيحة.", "خصم العرض", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
-        Update_Discount(T_ID, Discount_txt.Text)
-        Network_Edit_Tracker_insert(" تخفيض للفاتورة بقيمة:" & Disc.ToString, Bill_ID_Txt.Text, 16, 3)
-
+        If Not AuditDocumentWorkflowsUi.QuoteDiscount(Me, T_ID, On_Update, amount, Discount_Distribute) Then Return
+        Disc = CDbl(amount)
+        AuditDocumentFieldsUi.Refresh(Me,
+            Sub()
+                If Discount_Distribute Then
+                    ViewBill_Contents_SELECT_Bill()
+                Else
+                    Pure_txt.Text = (TOTAL - Disc).ToString()
+                    Pure = TOTAL - Disc
+                End If
+            End Sub)
     End Sub
 
 
@@ -1007,13 +998,7 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     End Sub
 
     Public Sub Save_Pro()
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "AG_Balance_Update_AG_Project"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-        sqlComm.Parameters.AddWithValue("@Proj_ID", Project_cm.SelectedValue)
-        SQL_SP_EXEC(sqlComm)
+        AuditDocumentWorkflowsUi.Project(Me, T_ID, 16, On_Update, Project_cm.SelectedValue)
     End Sub
 
     Private Sub Show_Bill_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Show_Bill_CB.CheckedChanged
@@ -1079,14 +1064,8 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
-        Try
-            query("UPDATE ViewBill_Contents SET isDepended = 1 where Bill_T_ID = " & T_ID)
-            MsgBox("تم حـــجز البضاعـــة للزبـــون", MsgBoxStyle.Information, "")
-
-        Catch ex As Exception
-
-        End Try
-
+        If Not AuditDocumentWorkflowsUi.QuoteReserve(Me, T_ID, On_Update) Then Return
+        MsgBox("تم حـــجز البضاعـــة للزبـــون", MsgBoxStyle.Information, "")
     End Sub
 
     Private Sub END_RSV_DATE_ValueChanged(sender As Object, e As EventArgs) Handles END_RSV_DATE.ValueChanged
@@ -1200,19 +1179,16 @@ Public Class ViewBill : Inherits System.Windows.Forms.Form
             PREV_AG_ID = AG_ID
             AG_ID = AG_Cm.TXT_ID.Text
 
-            ' Use the same save procedure here so the audit event follows its actual result.
-            Using sqlComm As New SqlClient.SqlCommand()
-                sqlComm.CommandText = "AG_Balance_Update_AG"
-                sqlComm.CommandType = CommandType.StoredProcedure
-                sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-                sqlComm.Parameters.AddWithValue("@AG_ID", AG_ID)
-                sqlComm.Parameters.AddWithValue("@ON_UPDATE", On_Update)
-                If SQL_SP_EXEC(sqlComm) AndAlso T_ID > 0 AndAlso PREV_AG_ID <> AG_ID Then
-                    Network_Edit_Tracker_insert("تم تغيير حساب عرض السعر؛ رقم العرض: " & Bill_ID_Txt.Text & "؛ رقم الحركة: " & T_ID.ToString() & "؛ من حساب رقم: " & PREV_AG_ID.ToString() & " إلى حساب: " & AG_Cm.Textt & " (" & AG_ID.ToString() & ")", Bill_ID_Txt.Text, 16, 3)
-                End If
-            End Using
+            ' Binding the already-loaded account is not a user edit.
+            If T_ID <= 0 OrElse PREV_AG_ID = AG_ID Then Return
 
-            Fill_All_AG_Proj()
+            If Not AuditDocumentFieldsUi.Account(Me, T_ID, 16, AG_ID, On_Update) Then
+                AG_ID = PREV_AG_ID
+                AuditDocumentFieldsUi.Refresh(Me, Sub() AG_Cm.Set_IM_By_ID(AG_ID), False)
+                Return
+            End If
+
+            AuditDocumentFieldsUi.Refresh(Me, AddressOf Fill_All_AG_Proj)
         End If
 
     End Sub

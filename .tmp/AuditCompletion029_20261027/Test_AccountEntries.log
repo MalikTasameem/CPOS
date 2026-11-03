@@ -1,0 +1,97 @@
+PASS closed entry domain
+PASS complete entry fields
+PASS closed cancellation kind 5
+PASS closed cancellation kind 6
+PASS closed cancellation kind 37
+PASS no other clients
+PASS approved source
+PASS reference account
+PASS test range Agents_Balance_MV
+PASS test range Agents_Balance_MV_RCT
+PASS test range Treasury_Balance_MV
+PASS trigger name free
+PASS no unreviewed triggers
+PASS allocation 5
+PASS rounded amount
+PASS proper side
+PASS stored type account approval
+PASS stored title
+PASS create replay
+PASS complete changes
+PASS no treasury creation
+PASS cancellation
+PASS cancellation replay
+PASS stale cancellation
+PASS create audit failure 5
+PASS create business failure 5
+PASS void audit failure 5
+PASS void business failure 5
+PASS posted entry needs reverse
+PASS deferred cancellation semantics retained
+PASS allocation 6
+PASS rounded amount
+PASS proper side
+PASS stored type account approval
+PASS stored title
+PASS create replay
+PASS complete changes
+PASS no treasury creation
+PASS cancellation
+PASS cancellation replay
+PASS stale cancellation
+PASS create audit failure 6
+PASS create business failure 6
+PASS void audit failure 6
+PASS void business failure 6
+PASS posted entry needs reverse
+PASS deferred cancellation semantics retained
+PASS allocation 37
+PASS rounded amount
+PASS proper side
+PASS stored type account approval
+PASS stored title
+PASS create replay
+PASS complete changes
+PASS no treasury creation
+PASS cancellation
+PASS cancellation replay
+PASS stale cancellation
+PASS create audit failure 37
+PASS create business failure 37
+PASS void audit failure 37
+PASS void business failure 37
+PASS posted entry needs reverse
+PASS deferred cancellation semantics retained
+PASS permission revoked create
+PASS permission revoked void
+PASS disabled user
+PASS disabled domain no fallback
+PASS wrong screen
+PASS custody excluded
+PASS zero rejected
+PASS negative rejected
+PASS request identity conflict
+PASS missing account
+PASS exhausted allocation
+PASS concurrent allocation locked
+PASS rollback table Agents_Balance_MV
+PASS rollback table Treasury_Balance_MV
+PASS rollback table Agents_Balance_MV_RCT
+PASS rollback table SERVERS
+PASS rollback table Users
+PASS rollback table Users_Validations
+PASS rollback table Tables
+PASS rollback table Network_Audit_Request
+PASS rollback table Network_Audit_Event
+PASS rollback table Network_Audit_Change
+PASS rollback table Network_Edit_Tracker
+PASS unchanged procedure Agents_insert_Prev_Balance
+PASS unchanged procedure AA_GET_MAX_ID
+PASS unchanged procedure AG_Balance_Void_Row
+PASS unchanged procedure Agents_Balance_MV_Cancel
+PASS unchanged procedure Agents_Balance_MV_RCT_VOID
+PASS unchanged procedure Network_Audit_Request_Begin
+PASS unchanged procedure Network_Audit_Event_Write
+PASS domains unchanged
+PASS no trigger left
+PASS 96 account entry checks.

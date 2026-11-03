@@ -1,0 +1,2 @@
+PASS TableSplit offline checks=361
+PASS SQL040 outer script and inner writer body syntax (no database execution)

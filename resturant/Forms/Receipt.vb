@@ -1,5 +1,7 @@
 ﻿Imports System.Drawing.Printing
 
+Imports System.Globalization
+
 Public Class Receipt
 
     'Dim rs As New Resizer
@@ -9,12 +11,20 @@ Public Class Receipt
     Public AG_ID As Integer = 0
     Dim IM_Dt As New DataTable
     Dim On_Update As Boolean = False
+    Private receiptOperationInProgress As Boolean
+    Private receiptContextCaptured As Boolean
+    Private receiptEntryFormType As Integer
+    Private receiptDeferredCustodyMode As Boolean
+    Private receiptLinkedTransactionId As Integer
+    Private loadedReceiptType As Integer
+    Private receiptResultNeedsReload As Boolean
 
     Public Clear_Tran_ID As Boolean = True
 
     Dim ReceiptNum As Integer = 0
     'Dim Tr_B As Double = 0
     Private Sub new_butt_Click(sender As Object, e As EventArgs) Handles new_butt.Click
+        If receiptOperationInProgress Then Return
         Make_New_Receipt()
     End Sub
 
@@ -29,7 +39,10 @@ Public Class Receipt
     End Property
 
     Private Sub Make_New_Receipt()
+        If receiptOperationInProgress OrElse receiptResultNeedsReload Then Return
+        Is_ComandSuccess = False
         AG_Cm.Enabled = True
+        ReceiptTypeComboBox.Enabled = True
         Fields_Panel.Enabled = True
         ClearFields()
         save_butt.Enabled = True
@@ -54,6 +67,11 @@ Public Class Receipt
 
 
     Public Sub ClearFields()
+        If receiptOperationInProgress Then Return
+        Reciept_T_ID = 0
+        loadedReceiptType = 0
+        Is_ComandSuccess = False
+        receiptLinkedTransactionId = 0
         For Each a As Control In Fields_Panel.Controls
             If TypeOf a Is TextBox Then
                 a.Text = Nothing
@@ -140,7 +158,7 @@ Public Class Receipt
         End Try
 
 
-        If Application.OpenForms().OfType(Of Sales).Any Then
+        If ReceiptContextType() = 1 AndAlso Application.OpenForms().OfType(Of Sales).Any Then
             If F_Sales.IS_Show_Rctp = True Then
 
                 Select_Receipt(F_Sales.ReceiptsMetroGrid.CurrentRow.Cells("Receipt_T_ID_CL").Value)
@@ -149,9 +167,9 @@ Public Class Receipt
         End If
 
 
-        If FormType = 0 Then
+        If ReceiptContextType() = 0 Then
             '--------------------------------------------------------------------------------------------
-        ElseIf FormType = 1 Then
+        ElseIf ReceiptContextType() = 1 Then
             If isOrder = True Then
                 new_butt.Enabled = False
                 save_butt.Enabled = True
@@ -182,7 +200,7 @@ Public Class Receipt
 
             End If
             '--------------------------------------------------------------------------------------------
-        ElseIf FormType = 2 Then
+        ElseIf ReceiptContextType() = 2 Then
             With F_Pch
                 If .isShowingDetails = True Then
                     Select_Receipt(.ReceiptsMetroGrid.CurrentRow.Cells("Receipt_T_ID_CL").Value)
@@ -199,7 +217,7 @@ Public Class Receipt
                 End If
             End With
 
-        ElseIf FormType = 8 Then
+        ElseIf ReceiptContextType() = 8 Then
             With F_EXP_Details
                 If .isShowingDetails = True Then
                     Select_Receipt(.ReceiptsMetroGrid.CurrentRow.Cells("Receipt_T_ID_CL").Value)
@@ -214,7 +232,7 @@ Public Class Receipt
                 End If
             End With
 
-        ElseIf FormType = 12 Then
+        ElseIf ReceiptContextType() = 12 Then
             With F_Custody
                 new_butt.Enabled = False
                 save_butt.Enabled = True
@@ -232,84 +250,97 @@ Public Class Receipt
     End Sub
 
 
+    Private Sub LockReceiptUntilReload()
+        ' Also protects direct action calls while controls are only partly populated.
+        receiptResultNeedsReload = True
+        Is_ComandSuccess = False
+        On_Update = False
+        Reciept_T_ID = 0
+        ReceiptNum = 0
+        loadedReceiptType = 0
+        receiptLinkedTransactionId = 0
+        Fields_Panel.Enabled = False
+        save_butt.Enabled = False
+        Edit_butt.Enabled = False
+        DeleteButton.Enabled = False
+        print_butt.Enabled = False
+        new_butt.Enabled = False
+    End Sub
+
     Public Sub Select_Receipt(T_ID As Integer)
-        Dim C As New C
-        Dim S As String = "Select * From Receipts_V Where T_ID = '" & T_ID & "'"
-        C.Com = New SqlClient.SqlCommand(S, C.Con)
-        C.Con.Open()
+        If receiptOperationInProgress Then Return
+        LockReceiptUntilReload()
         Try
-            C.Dr = C.Com.ExecuteReader
-            If C.Dr.HasRows Then
-                C.Dr.Read()
-                With Me
-                    Reciept_T_ID = T_ID
-                    Receipt_Tran_ID = C.Dr("Receipt_Tran_ID")
-                    ReceiptNum_Txt.Text = S_Sub_Code & (C.Dr("Receipt_Num")) ' - START_ID).ToString
-                    ReceiptNum = C.Dr("Receipt_Num")
-                    AG_Cm.Set_IM_By_ID(C.Dr("AG_ID"))
+            If T_ID <= 0 Then Throw New ArgumentException("رقم الإيصال المطلوب غير صالح.")
+            Dim table As New DataTable
+            Using connection As New SqlClient.SqlConnection(MY_Settings.SqlConStr)
+                Using command As New SqlClient.SqlCommand("SELECT * FROM dbo.Receipts_V WHERE T_ID=@T_ID", connection)
+                    command.Parameters.Add("@T_ID", SqlDbType.Int).Value = T_ID
+                    connection.Open()
+                    Using reader = command.ExecuteReader()
+                        table.Load(reader)
+                    End Using
+                End Using
+            End Using
+            If table.Rows.Count = 0 Then Throw New InvalidOperationException("لم يتم العثور على الإيصال؛ لم تُفتح عمليات الحفظ أو التعديل.")
 
-                    .ReceiptTypeComboBox.SelectedValue = C.Dr("BsType_ID")
-                    .DateTimeReceipt.Text = C.Dr("Date")
-                    .Receipt_Title_combobox.Text = C.Dr("Receipt_Title")
-                    .Notes_txtb.Text = C.Dr("About")
-                    .Discount_txt.Text = C.Dr("Discount")
-                    '.Treasury_ComboBox.SelectedValue = C.Dr("Tr_ID")
-                    '.payment_Type_combo.SelectedValue = C.Dr("Pay_ID")
-
-                    If IsDBNull(C.Dr("Bank_Name")) = True Then
-                        .payment_Type_combo.SelectedIndex = 0
-                    Else
-                        If String.IsNullOrWhiteSpace(C.Dr("Bank_Name")) = True Then
-                            .payment_Type_combo.SelectedIndex = 0
-                        Else
-                            .payment_Type_combo.SelectedIndex = 1
-                            .bankName_Combo.Text = C.Dr("Bank_Name")
-                            .CheckNum_txtb.Text = C.Dr("CheckNum")
-                        End If
-
-                    End If
-
-
-
-                    .money_num_txtb.Text = C.Dr("Value")
-                    '/ C.Dr("Cr_Equal_Value")
-                    If Convert.ToDouble(.money_num_txtb.Text) < 0 Then .money_num_txtb.Text = .money_num_txtb.Text * -1
-
-                    payment_Type_combo.SelectedValue = C.Dr("Pay_ID")
-                    Treasury_ComboBox.SelectedValue = C.Dr("Tr_ID")
-
-                    If C.Dr("isVoid") = 1 Then
-                        Void_Lb.Visible = True
-                        Void_Lb.BackColor = Color.Red
-                        .Fields_Panel.Enabled = False
-                        .new_butt.Enabled = False
-                        .save_butt.Enabled = False
-                        .print_butt.Enabled = False
-                        .DeleteButton.Enabled = False
-                        Edit_butt.Enabled = False
-
-                    Else
-                        Void_Lb.Visible = False
-                        .Fields_Panel.Enabled = False
-                        .new_butt.Enabled = False
-                        .save_butt.Enabled = False
-                        .print_butt.Enabled = True
-                        Edit_butt.Enabled = True
-                        DeleteButton.Enabled = True
-                    End If
-
-                    '     Load_AG_Balance()
-
-                End With
-
-                ' Else
-                '  MsgBox("لم يتم التعرف على رقم الإيصال", MsgBoxStyle.Exclamation)
+            ' Validate the complete row before touching the displayed receipt.
+            Dim row = table.Rows(0)
+            Dim number = Convert.ToInt32(row("Receipt_Num"))
+            Dim linkedId = If(IsDBNull(row("Receipt_Tran_ID")), 0, Convert.ToInt32(row("Receipt_Tran_ID")))
+            Dim kind = Convert.ToInt32(row("BsType_ID")), agent = Convert.ToInt32(row("AG_ID"))
+            Dim payment = Convert.ToInt32(row("Pay_ID")), treasury = Convert.ToInt32(row("Tr_ID"))
+            Dim receiptDate = Convert.ToDateTime(row("Date"))
+            Dim amount = Convert.ToDecimal(row("Value"))
+            Dim discount = If(IsDBNull(row("Discount")), 0D, Convert.ToDecimal(row("Discount")))
+            Dim isVoid = Convert.ToInt32(row("isVoid")) = 1
+            Dim title = Convert.ToString(row("Receipt_Title")), notes = Convert.ToString(row("About"))
+            Dim bank = Convert.ToString(row("Bank_Name")), cheque = Convert.ToString(row("CheckNum"))
+            If number <= 0 OrElse linkedId < 0 OrElse kind <= 0 OrElse agent <= 0 OrElse payment <= 0 OrElse treasury <= 0 Then
+                Throw New InvalidOperationException("بيانات الإيصال أو مراجعه غير مكتملة.")
             End If
 
+            ReceiptNum_Txt.Text = S_Sub_Code & number.ToString(CultureInfo.CurrentCulture)
+            AG_Cm.Set_IM_By_ID(agent)
+            ReceiptTypeComboBox.SelectedValue = kind
+            DateTimeReceipt.Value = receiptDate
+            Receipt_Title_combobox.Text = title
+            Notes_txtb.Text = notes
+            Discount_txt.Text = discount.ToString(CultureInfo.CurrentCulture)
+            payment_Type_combo.SelectedIndex = If(String.IsNullOrWhiteSpace(bank), 0, 1)
+            If Not String.IsNullOrWhiteSpace(bank) Then
+                bankName_Combo.Text = bank
+                CheckNum_txtb.Text = cheque
+            End If
+            money_num_txtb.Text = Math.Abs(amount).ToString(CultureInfo.CurrentCulture)
+            payment_Type_combo.SelectedValue = payment
+            Treasury_ComboBox.SelectedValue = treasury
+            Dim shownId As Integer
+            If Not Integer.TryParse(AG_Cm.TXT_ID.Text, shownId) OrElse shownId <> agent OrElse AG_ID <> agent OrElse
+                Not TrySelectedReceiptId(ReceiptTypeComboBox, shownId) OrElse shownId <> kind OrElse
+                Not TrySelectedReceiptId(payment_Type_combo, shownId) OrElse shownId <> payment OrElse
+                Not TrySelectedReceiptId(Treasury_ComboBox, shownId) OrElse shownId <> treasury Then
+                Throw New InvalidOperationException("تعذر عرض حساب أو نوع أو خزينة أو طريقة دفع الإيصال بصورة مكتملة.")
+            End If
+            Void_Lb.Visible = isVoid
+            If isVoid Then Void_Lb.BackColor = Color.Red
+            Edit_butt.Text = EditState
+            Edit_butt.BackColor = Color.White
+
+            ' Publish identity only after every field and selection was successfully populated.
+            Reciept_T_ID = T_ID
+            ReceiptNum = number
+            loadedReceiptType = kind
+            receiptLinkedTransactionId = linkedId
+            Receipt_Tran_ID = linkedId
+            print_butt.Enabled = Not isVoid
+            Edit_butt.Enabled = Not isVoid
+            DeleteButton.Enabled = Not isVoid
+            receiptResultNeedsReload = False
         Catch ex As Exception
-            MsgBox(ex.Message)
+            LockReceiptUntilReload()
+            MsgBox("تعذر تحميل الإيصال بالكامل. أعد البحث عنه أو أعد فتح الشاشة؛ عمليات الحفظ والتعديل والإلغاء مقفلة. " & ex.Message, MsgBoxStyle.Exclamation, "لم يكتمل تحميل الإيصال")
         End Try
-        C.Con.Close()
     End Sub
 
     Private Sub money_num_txtb_KeyDown(sender As Object, e As KeyEventArgs) Handles money_num_txtb.KeyDown
@@ -352,51 +383,276 @@ Public Class Receipt
     End Sub
 
     Private Sub save_butt_Click(sender As Object, e As EventArgs) Handles save_butt.Click
-        If Preper_To_Insert() = 1 Then Receipt_Insert()
+        If receiptOperationInProgress OrElse Not save_butt.Enabled OrElse On_Update Then Return
+        Receipt_Insert()
     End Sub
 
-    Private Function Preper_To_Insert()
+    Friend Sub ConfigureEntryContext(kind As Integer, linkedId As Integer)
+        If receiptContextCaptured Then Throw New InvalidOperationException("لا يمكن تغيير مصدر الإيصال بعد فتحه.")
+        If kind <> 0 AndAlso kind <> 1 AndAlso kind <> 2 AndAlso kind <> 8 Then Throw New ArgumentException("مصدر الإيصال العادي غير معتمد.")
+        If linkedId < 0 Then Throw New ArgumentException("رقم المستند المرتبط غير صالح.")
+        receiptEntryFormType = kind
+        receiptLinkedTransactionId = linkedId
+        receiptDeferredCustodyMode = False
+    End Sub
 
-        If AG_ID = 0 Then
-            MsgBox("الرجاء التأكد من صحة إسم العميل", MsgBoxStyle.Exclamation, "خطأ فالحفظ")
-            AG_Cm.Focus()
-            Return 0
+    Friend Sub ConfigureDeferredCustodyReceipt(owner As Custody)
+        If receiptContextCaptured Then Throw New InvalidOperationException("لا يمكن تغيير مصدر الإيصال بعد فتحه.")
+        If owner Is Nothing OrElse owner.IsDisposed OrElse Not Application.OpenForms.Cast(Of Form)().Any(Function(form) Object.ReferenceEquals(form, owner)) Then
+            Throw New InvalidOperationException("مسار العهد المؤجل يتطلب شاشة العهد المفتوحة نفسها.")
         End If
+        receiptEntryFormType = 12
+        receiptDeferredCustodyMode = True
+        ' Keep the deferred custody path's existing link and closing behavior unchanged.
+        receiptLinkedTransactionId = Receipt_Tran_ID
+    End Sub
 
-        If String.IsNullOrWhiteSpace(money_num_txtb.Text) Then
-
-            MsgBox("الرجاء التأكد من إدخال قيمة المعاملة", MsgBoxStyle.Critical, "خطأ فالحفظ")
-            money_num_txtb.Focus()
-            Return 0
-
-        ElseIf Convert.ToDouble(money_num_txtb.Text) = 0 Then
-
-            MsgBox("الرجاء التأكد من إدخال قيمة المعاملة", MsgBoxStyle.Critical, "خطأ فالحفظ")
-            money_num_txtb.Focus()
-            Return 0
-        End If
-
-        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
-
-
-        'If ReceiptTypeComboBox.SelectedValue = 4 Then
-
-        '    If Convert.ToDouble(Treasury_Balance.Text) < Convert.ToDouble(money_num_txtb.Text) Then
-        '        Beep()
-        '        If MessageBox.Show("المبلغ المدخل أكبر من حساب الخزينة ... إستمرار على أي حال", "", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation,
-        '                           MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
-        '            Return 0
-        '        End If
-
-        '    End If
-        'End If
-
-        Return 1
-
+    Private Function ReceiptContextType() As Integer
+        ' An unconfigured instance is an ordinary receipt; never infer custody from global FormType.
+        If receiptEntryFormType = 12 AndAlso Not receiptDeferredCustodyMode Then Throw New InvalidOperationException("مصدر إيصال العهد غير مثبت.")
+        receiptContextCaptured = True
+        Return receiptEntryFormType
     End Function
 
+    Private Function TryBeginReceiptOperation() As Boolean
+        If receiptOperationInProgress OrElse receiptResultNeedsReload Then Return False
+        receiptOperationInProgress = True
+        Is_ComandSuccess = False
+        UseWaitCursor = True
+        Return True
+    End Function
+
+    Private Sub EndReceiptOperation()
+        receiptOperationInProgress = False
+        UseWaitCursor = False
+    End Sub
+
+    Private Shared Function TrySelectedReceiptId(combo As ComboBox, ByRef value As Integer) As Boolean
+        value = 0
+        If combo Is Nothing OrElse combo.SelectedValue Is Nothing OrElse IsDBNull(combo.SelectedValue) OrElse TypeOf combo.SelectedValue Is DataRowView Then Return False
+        Return Integer.TryParse(Convert.ToString(combo.SelectedValue, CultureInfo.InvariantCulture), NumberStyles.Integer, CultureInfo.InvariantCulture, value) AndAlso value > 0
+    End Function
+
+    Private Function Preper_To_Insert() As Integer
+        Dim selectedAgent As Integer, amount As Decimal, discount As Decimal
+        Dim kind As Integer, treasury As Integer, payment As Integer
+        If AG_Cm.TXT_ID Is Nothing OrElse Not Integer.TryParse(AG_Cm.TXT_ID.Text, selectedAgent) OrElse selectedAgent <= 0 OrElse selectedAgent <> AG_ID Then
+            MsgBox("الرجاء التأكد من اختيار الحساب من القائمة", MsgBoxStyle.Exclamation, "خطأ في الحفظ")
+            AG_Cm.Focus() : Return 0
+        End If
+        If Not Decimal.TryParse(money_num_txtb.Text, NumberStyles.Number, CultureInfo.CurrentCulture, amount) OrElse amount = 0D Then
+            MsgBox("أدخل قيمة صحيحة وغير صفرية للمعاملة", MsgBoxStyle.Exclamation, "خطأ في الحفظ")
+            money_num_txtb.Focus() : Return 0
+        End If
+        If String.IsNullOrWhiteSpace(Discount_txt.Text) Then Discount_txt.Text = "0"
+        If Not Decimal.TryParse(Discount_txt.Text, NumberStyles.Number, CultureInfo.CurrentCulture, discount) Then
+            MsgBox("أدخل قيمة صحيحة للخصم", MsgBoxStyle.Exclamation, "خطأ في الحفظ")
+            Discount_txt.Focus() : Return 0
+        End If
+        If Not TrySelectedReceiptId(ReceiptTypeComboBox, kind) OrElse (ReceiptContextType() <> 12 AndAlso kind <> 3 AndAlso kind <> 4) Then
+            MsgBox("حدد نوع الإيصال: قبض أو صرف", MsgBoxStyle.Exclamation, "خطأ في الحفظ") : Return 0
+        End If
+        If On_Update AndAlso ReceiptContextType() <> 12 AndAlso (loadedReceiptType = 0 OrElse loadedReceiptType <> kind) Then
+            MsgBox("لا يمكن تغيير نوع إيصال محفوظ أثناء تعديله؛ أعد تحميل الإيصال", MsgBoxStyle.Exclamation, "خطأ في التعديل") : Return 0
+        End If
+        If Not TrySelectedReceiptId(Treasury_ComboBox, treasury) OrElse Not TrySelectedReceiptId(payment_Type_combo, payment) Then
+            MsgBox("حدد خزينة وطريقة دفع صحيحتين من القائمة", MsgBoxStyle.Exclamation, "خطأ في الحفظ") : Return 0
+        End If
+        Return 1
+    End Function
+
+    Private Function BuildReceiptSaveCommand(updating As Boolean) As SqlClient.SqlCommand
+        Dim amount As Decimal, discount As Decimal, kind As Integer, treasury As Integer, payment As Integer
+        If Not Decimal.TryParse(money_num_txtb.Text, NumberStyles.Number, CultureInfo.CurrentCulture, amount) OrElse
+            Not Decimal.TryParse(Discount_txt.Text, NumberStyles.Number, CultureInfo.CurrentCulture, discount) OrElse
+            Not TrySelectedReceiptId(ReceiptTypeComboBox, kind) OrElse Not TrySelectedReceiptId(Treasury_ComboBox, treasury) OrElse
+            Not TrySelectedReceiptId(payment_Type_combo, payment) Then Throw New InvalidOperationException("تغيرت قيم الإيصال بعد التحقق منها.")
+        Dim command As New SqlClient.SqlCommand(If(updating, "Agents_BalanceMV_Update_RCT", "Agents_BalanceMV_insert_RCT"))
+        command.CommandType = CommandType.StoredProcedure
+        command.Parameters.Add("@T_ID", SqlDbType.Int).Value = If(updating, Reciept_T_ID, 0)
+        If Not updating Then
+            command.Parameters("@T_ID").Direction = ParameterDirection.Output
+            command.Parameters.Add("@Receipt_Num", SqlDbType.Int).Value = 0
+            command.Parameters("@Receipt_Num").Direction = ParameterDirection.Output
+        End If
+        If S_Pr AndAlso Pr_ID > 0 Then command.Parameters.Add("@Pr_ID", SqlDbType.Int).Value = Pr_ID
+        command.Parameters.Add("@Receipt_Tran_ID", SqlDbType.Int).Value = receiptLinkedTransactionId
+        command.Parameters.Add("@AG_ID", SqlDbType.Int).Value = AG_ID
+        command.Parameters.Add("@Date", SqlDbType.DateTime).Value = DateTimeReceipt.Value
+        command.Parameters.AddWithValue("@Receipt_Title", Receipt_Title_combobox.Text)
+        command.Parameters.AddWithValue("@Pure", amount)
+        command.Parameters.AddWithValue("@Discount", discount)
+        command.Parameters.AddWithValue("@About", Notes_txtb.Text)
+        command.Parameters.Add("@BsType_ID", SqlDbType.Int).Value = If(updating, loadedReceiptType, kind)
+        If payment_Type_combo.SelectedIndex = 1 Then
+            command.Parameters.AddWithValue("@Bank_Name", bankName_Combo.Text)
+            command.Parameters.AddWithValue("@CheckNum", CheckNum_txtb.Text)
+        End If
+        command.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+        command.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = treasury
+        command.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = payment
+        Return command
+    End Function
+
+    Private Function BuildReceiptStateCommand(procedureName As String, id As Integer) As SqlClient.SqlCommand
+        If id <= 0 Then Throw New InvalidOperationException("حدد إيصالًا محفوظًا أولًا.")
+        Dim command As New SqlClient.SqlCommand(procedureName)
+        command.CommandType = CommandType.StoredProcedure
+        command.Parameters.Add("@T_ID", SqlDbType.Int).Value = id
+        If procedureName = "Agents_Balance_MV_RCT_OpenForEdit" Then command.Parameters.Add("@User_ID", SqlDbType.Int).Value = USER_ID
+        Return command
+    End Function
+
+    Private Function RecordAuditedReceiptSuccess(savedId As Integer, savedNumber As Integer) As Boolean
+        ' Run=True means committed: record identity/result before any control event or database refresh.
+        Reciept_T_ID = savedId
+        ReceiptNum = savedNumber
+        Is_ComandSuccess = True
+        receiptResultNeedsReload = savedId <= 0 OrElse savedNumber <= 0
+        If receiptResultNeedsReload Then
+            On_Update = False
+            Me.save_butt.Enabled = False
+            Me.new_butt.Enabled = False
+            Me.Edit_butt.Enabled = False
+            Me.DeleteButton.Enabled = False
+            Me.print_butt.Enabled = False
+            Me.Fields_Panel.Enabled = False
+            MsgBox("تمت العملية وتأكد حفظها، لكن تعذر استرجاع رقم الإيصال. لا تكرر الحفظ. ابحث عن الإيصال أو أعد فتح الشاشة للتحقق منه.", MsgBoxStyle.Exclamation, "تم التنفيذ — يلزم إعادة التحميل")
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Sub RefreshReceiptBalancesAndParent()
+        Current_QTY.Text = Show_AG_T_Balance(AG_ID)
+        Dim treasury As Integer
+        If TrySelectedReceiptId(Treasury_ComboBox, treasury) Then Treasury_Balance.Text = Show_TR_T_Balance(treasury)
+        If ReceiptContextType() = 1 AndAlso Application.OpenForms().OfType(Of Sales).Any Then Select_Sales_Receipt(F_Sales.T_ID)
+        If ReceiptContextType() = 2 AndAlso Application.OpenForms().OfType(Of Pch).Any Then Select_Pch_Receipt(F_Pch.T_ID)
+        If ReceiptContextType() = 8 AndAlso Application.OpenForms().OfType(Of EXP_Details).Any Then Select_EX_Receipt(F_EXP_Details.T_ID)
+    End Sub
+
+    Private Sub FinishAuditedReceiptSave()
+        On_Update = False
+        After_Save_Receipt()
+        ReceiptTypeComboBox.Enabled = False
+        Edit_butt.Text = EditState
+        Edit_butt.BackColor = Color.White
+        AuditReceiptUi.Refresh(Me, Sub()
+                                     ReceiptNum_Txt.Text = ReceiptNum.ToString(CultureInfo.CurrentCulture)
+                                     RefreshReceiptBalancesAndParent()
+                                 End Sub)
+        MsgBox("تم حفظ الإيصال", MsgBoxStyle.Information)
+    End Sub
+
+    Private Sub ReportReceiptOperationError(ex As Exception)
+        If Is_ComandSuccess Then
+            MsgBox("تمت العملية، لكن تعذر تحديث الواجهة. لا تكرر الحفظ؛ أعد تحميل الإيصال. " & ex.Message, MsgBoxStyle.Exclamation, "تم التنفيذ")
+        Else
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "لم تتم عملية الإيصال")
+        End If
+    End Sub
 
     Public Sub Receipt_Insert()
+        If receiptOperationInProgress OrElse receiptResultNeedsReload OrElse On_Update OrElse Is_ComandSuccess OrElse Not save_butt.Enabled Then Return
+        If Not TryBeginReceiptOperation() Then Return
+        Try
+            If Preper_To_Insert() <> 1 Then Return
+            If ReceiptContextType() = 12 Then
+                LegacyCustodyReceiptInsert() : Return
+            End If
+            Dim savedId As Integer, savedNumber As Integer, kind As Integer
+            Using command = BuildReceiptSaveCommand(False)
+                kind = CInt(command.Parameters("@BsType_ID").Value)
+                If Not AuditReceiptUi.Run(Me, command, savedId, savedNumber) Then Return
+            End Using
+            If Not RecordAuditedReceiptSuccess(savedId, savedNumber) Then Return
+            loadedReceiptType = kind
+            FinishAuditedReceiptSave()
+        Catch ex As Exception
+            ReportReceiptOperationError(ex)
+        Finally
+            EndReceiptOperation()
+        End Try
+    End Sub
+
+    Public Function Receipt_UPDATE() As Boolean
+        If receiptOperationInProgress OrElse Not On_Update OrElse Reciept_T_ID <= 0 Then Return False
+        If Not TryBeginReceiptOperation() Then Return False
+        Try
+            If Preper_To_Insert() <> 1 Then Return False
+            If ReceiptContextType() = 12 Then Return LegacyCustodyReceiptUpdate()
+            Dim savedId As Integer, savedNumber As Integer
+            Using command = BuildReceiptSaveCommand(True)
+                If Not AuditReceiptUi.Run(Me, command, savedId, savedNumber) Then Return False
+            End Using
+            If Not RecordAuditedReceiptSuccess(savedId, savedNumber) Then Return True
+            ' Existing update semantics: do not call ConfirmEditAndRepost here.
+            FinishAuditedReceiptSave()
+            Return True
+        Catch ex As Exception
+            ReportReceiptOperationError(ex)
+            Return Is_ComandSuccess
+        Finally
+            EndReceiptOperation()
+        End Try
+    End Function
+
+    Private Function OpenReceiptForEdit() As Boolean
+        If receiptOperationInProgress OrElse Reciept_T_ID <= 0 Then Return False
+        If Not TryBeginReceiptOperation() Then Return False
+        Try
+            If ReceiptContextType() = 12 Then Return LegacyCustodyOpenReceiptForEdit()
+            If loadedReceiptType <> 3 AndAlso loadedReceiptType <> 4 Then Throw New InvalidOperationException("نوع الإيصال المحمّل غير صالح؛ أعد تحميله.")
+            Dim savedId As Integer, savedNumber As Integer
+            Using command = BuildReceiptStateCommand("Agents_Balance_MV_RCT_OpenForEdit", Reciept_T_ID)
+                If Not AuditReceiptUi.Run(Me, command, savedId, savedNumber) Then Return False
+            End Using
+            If Not RecordAuditedReceiptSuccess(savedId, savedNumber) Then Return False
+            Return True
+        Catch ex As Exception
+            ReportReceiptOperationError(ex)
+            Return Is_ComandSuccess AndAlso Not receiptResultNeedsReload
+        Finally
+            EndReceiptOperation()
+        End Try
+    End Function
+
+    Public Sub Agents_Balance_MV_RCT_VOID(T_ID As Integer)
+        If receiptOperationInProgress OrElse receiptResultNeedsReload OrElse Void_Lb.Visible OrElse T_ID <= 0 OrElse T_ID <> Reciept_T_ID Then Return
+        If Not TryBeginReceiptOperation() Then Return
+        Try
+            If ReceiptContextType() = 12 Then
+                LegacyCustodyReceiptVoid(T_ID) : Return
+            End If
+            Dim savedId As Integer, savedNumber As Integer
+            Using command = BuildReceiptStateCommand("Agents_Balance_MV_RCT_VOID", T_ID)
+                If Not AuditReceiptUi.Run(Me, command, savedId, savedNumber) Then Return
+            End Using
+            If Not RecordAuditedReceiptSuccess(savedId, savedNumber) Then Return
+            On_Update = False
+            Me.Fields_Panel.Enabled = False
+            Me.save_butt.Enabled = False
+            Me.print_butt.Enabled = False
+            Me.Edit_butt.Enabled = False
+            Me.DeleteButton.Enabled = False
+            Me.Void_Lb.Visible = True
+            Me.Void_Lb.BackColor = Color.Red
+            AuditReceiptUi.Refresh(Me, Sub()
+                                         Me.ReceiptNum_Txt.Text = ReceiptNum.ToString(CultureInfo.CurrentCulture)
+                                         RefreshReceiptBalancesAndParent()
+                                     End Sub)
+            MsgBox("تم إلغاء المعاملة", MsgBoxStyle.Information)
+        Catch ex As Exception
+            ReportReceiptOperationError(ex)
+        Finally
+            EndReceiptOperation()
+        End Try
+    End Sub
+
+
+    Private Sub LegacyCustodyReceiptInsert()
+        If ReceiptContextType() <> 12 Then Throw New InvalidOperationException("مسار الإيصال القديم مخصص للعهد المؤجلة فقط.")
 
         Dim sqlComm As New SqlClient.SqlCommand()
 
@@ -450,10 +706,10 @@ Public Class Receipt
             '    Network_Edit_Tracker_insert(" إيصال للحساب " & AG_Cm.Textt & " بقيمة : " & money_num_txtb.Text, ReceiptNum_Txt.Text, AG_Type, 3)
             'End If
 
-            If FormType = 12 Then If Application.OpenForms().OfType(Of Custody).Any Then F_Custody.Custody_CLOSE()
-            If FormType = 1 Then If Application.OpenForms().OfType(Of Sales).Any Then Select_Sales_Receipt(F_Sales.T_ID)
-            If FormType = 2 Then If Application.OpenForms().OfType(Of Pch).Any Then Select_Pch_Receipt(F_Pch.T_ID)
-            If FormType = 8 Then If Application.OpenForms().OfType(Of EXP_Details).Any Then Select_EX_Receipt(F_EXP_Details.T_ID)
+            If ReceiptContextType() = 12 Then If Application.OpenForms().OfType(Of Custody).Any Then F_Custody.Custody_CLOSE()
+            If ReceiptContextType() = 1 Then If Application.OpenForms().OfType(Of Sales).Any Then Select_Sales_Receipt(F_Sales.T_ID)
+            If ReceiptContextType() = 2 Then If Application.OpenForms().OfType(Of Pch).Any Then Select_Pch_Receipt(F_Pch.T_ID)
+            If ReceiptContextType() = 8 Then If Application.OpenForms().OfType(Of EXP_Details).Any Then Select_EX_Receipt(F_EXP_Details.T_ID)
 
             Treasury_Balance.Text = Show_TR_T_Balance(Treasury_ComboBox.SelectedValue)
             After_Save_Receipt()
@@ -464,7 +720,8 @@ Public Class Receipt
     End Sub
 
 
-    Public Function Receipt_UPDATE() As Boolean
+    Private Function LegacyCustodyReceiptUpdate() As Boolean
+        If ReceiptContextType() <> 12 Then Throw New InvalidOperationException("مسار الإيصال القديم مخصص للعهد المؤجلة فقط.")
 
         Try
 
@@ -514,7 +771,7 @@ Public Class Receipt
                         '        cmd.Parameters.Add("@Reason", SqlDbType.NVarChar, 500).Value = "تعديل إيصال بعد التقييد"
                         '    End Sub)
 
-                        ExecuteReceiptStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
+                        LegacyCustodyExecuteStoredProcedure(cn, tr, "Network_Edit_Tracker_insert",
                             Sub(cmd)
                                 cmd.Parameters.AddWithValue("@User_ID", USER_ID)
                                 cmd.Parameters.AddWithValue("@Notes", " إيصال للحساب " & AG_Cm.Textt & " بقيمة : " & money_num_txtb.Text)
@@ -543,10 +800,10 @@ Public Class Receipt
             Is_ComandSuccess = True
             ReceiptNum_Txt.Text = ReceiptNum
 
-            If FormType = 12 Then If Application.OpenForms().OfType(Of Custody).Any Then F_Custody.Custody_CLOSE()
-            If FormType = 1 Then If Application.OpenForms().OfType(Of Sales).Any Then Select_Sales_Receipt(F_Sales.T_ID)
-            If FormType = 2 Then If Application.OpenForms().OfType(Of Pch).Any Then Select_Pch_Receipt(F_Pch.T_ID)
-            If FormType = 8 Then If Application.OpenForms().OfType(Of EXP_Details).Any Then Select_EX_Receipt(F_EXP_Details.T_ID)
+            If ReceiptContextType() = 12 Then If Application.OpenForms().OfType(Of Custody).Any Then F_Custody.Custody_CLOSE()
+            If ReceiptContextType() = 1 Then If Application.OpenForms().OfType(Of Sales).Any Then Select_Sales_Receipt(F_Sales.T_ID)
+            If ReceiptContextType() = 2 Then If Application.OpenForms().OfType(Of Pch).Any Then Select_Pch_Receipt(F_Pch.T_ID)
+            If ReceiptContextType() = 8 Then If Application.OpenForms().OfType(Of EXP_Details).Any Then Select_EX_Receipt(F_EXP_Details.T_ID)
 
             Treasury_Balance.Text = Show_TR_T_Balance(Treasury_ComboBox.SelectedValue)
             After_Save_Receipt()
@@ -566,7 +823,8 @@ Public Class Receipt
 
     End Function
 
-    Private Sub ExecuteReceiptStoredProcedure(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, procedureName As String, addParameters As Action(Of SqlClient.SqlCommand))
+    Private Sub LegacyCustodyExecuteStoredProcedure(cn As SqlClient.SqlConnection, tr As SqlClient.SqlTransaction, procedureName As String, addParameters As Action(Of SqlClient.SqlCommand))
+        If ReceiptContextType() <> 12 Then Throw New InvalidOperationException("هذا التنفيذ القديم مخصص للعهد المؤجلة فقط.")
 
         Using cmd As New SqlClient.SqlCommand(procedureName, cn, tr)
 
@@ -629,6 +887,7 @@ Public Class Receipt
     End Sub
 
     Private Sub Receipt_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        If receiptOperationInProgress Then Return
         If e.KeyCode = Keys.F1 Then If new_butt.Enabled = True Then new_butt_Click(sender, e)
         If e.KeyCode = Keys.F12 Then If save_butt.Enabled = True Then save_butt_Click(sender, e)
         If e.KeyCode = Keys.F3 Then If DeleteButton.Enabled = True Then DeleteButton_Click(sender, e)
@@ -639,7 +898,12 @@ Public Class Receipt
         End If
     End Sub
 
+    Private Sub Receipt_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If receiptOperationInProgress Then e.Cancel = True
+    End Sub
+
     Private Sub Receipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ReceiptContextType()
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         ThemeManager.ApplyThemeToForm(Me)
         EditState = Edit_butt.Text
@@ -650,7 +914,7 @@ Public Class Receipt
         Load_Data()
         Title_Lb.Text = "شاشة إدراج : " + ReceiptTypeComboBox.Text
         Title_Lb.BackColor = ReceiptTypeComboBox.BackColor
-        ReceiptNum = ReceiptNum_Txt.Text
+        If Reciept_T_ID = 0 Then Integer.TryParse(ReceiptNum_Txt.Text, ReceiptNum)
 
         If AG_ID > 0 Then AG_Cm.Set_IM_By_ID(AG_ID)
 
@@ -669,7 +933,7 @@ Public Class Receipt
             C.Dr = C.Com.ExecuteReader
             If C.Dr.HasRows Then
                 C.Dr.Read()
-                If FormType = 0 Then ClearFields()
+                If ReceiptContextType() = 0 Then ClearFields()
                 ReceiptNum_Txt.Text = C.Dr("MX")
             End If
 
@@ -683,37 +947,52 @@ Public Class Receipt
 
     Dim Tmp_Bill_ID As Integer
     Private Sub Down_Bill_btn_Click(sender As Object, e As EventArgs) Handles Down_Bill_btn.Click
+        If receiptOperationInProgress Then Return
         Tmp_Bill_ID = ReceiptNum
         ReceiptNum_Txt.Text = ReceiptNum - 1
         Get_T_ID()
     End Sub
 
     Public Sub Get_T_ID()
+        If receiptOperationInProgress Then Return
+        Dim requestedNumber As Integer
+        If Not Integer.TryParse(ReceiptNum_Txt.Text, requestedNumber) Then
+            If ReceiptNum > 0 AndAlso ReceiptNum_Txt.Text = S_Sub_Code & ReceiptNum.ToString(CultureInfo.CurrentCulture) Then
+                requestedNumber = ReceiptNum
+            Else
+                LockReceiptUntilReload()
+                MsgBox("أدخل رقم إيصال صحيحًا للبحث", MsgBoxStyle.Exclamation) : Return
+            End If
+        End If
+        LockReceiptUntilReload()
+        If requestedNumber <= 0 Then Return
             Dim C As New C
             Dim S As String = ""
-        S = "Select T_ID From Agents_Balance_MV_RCT Where Receipt_Num = '" & Convert.ToInt64(ReceiptNum_Txt.Text) & "'"
+        S = "Select T_ID From Agents_Balance_MV_RCT Where Receipt_Num = '" & requestedNumber.ToString(CultureInfo.InvariantCulture) & "'"
 
             C.Com = New SqlClient.SqlCommand(S, C.Con)
-            C.Con.Open()
             Try
+                C.Con.Open()
                 C.Dr = C.Com.ExecuteReader
                 If C.Dr.HasRows Then
                     C.Dr.Read()
                     ClearFields()
                     Select_Receipt(C.Dr("T_ID"))
-                    new_butt.Enabled = True
+                    new_butt.Enabled = Not receiptResultNeedsReload
                 Else
                     MsgBox("لم يتم التعرف على الفاتورة", MsgBoxStyle.Exclamation)
                     ReceiptNum_Txt.Text = Tmp_Bill_ID
                 End If
 
             Catch ex As Exception
+                LockReceiptUntilReload()
                 MsgBox(ex.Message)
             End Try
             C.Con.Close()
     End Sub
 
     Private Sub Up_Bill_btn_Click(sender As Object, e As EventArgs) Handles Up_Bill_btn.Click
+        If receiptOperationInProgress Then Return
         If Not String.IsNullOrWhiteSpace(ReceiptNum_Txt.Text) Then
             Tmp_Bill_ID = ReceiptNum
             ReceiptNum_Txt.Text = ReceiptNum + 1
@@ -734,8 +1013,9 @@ Public Class Receipt
     'End Sub
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
+        If receiptOperationInProgress OrElse Not DeleteButton.Enabled OrElse Reciept_T_ID <= 0 Then Return
         Beep()
-        If MessageBox.Show("سيتم حـــذف الإيصال بشكل نهائي وكل المعاملات المتعلقة به ", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+        If MessageBox.Show("سيتم إلغاء الإيصال والمعاملات المتعلقة به. هل تريد الاستمرار؟", "إلغاء الإيصال", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                                        MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then Agents_Balance_MV_RCT_VOID(Reciept_T_ID)
     End Sub
 
@@ -746,7 +1026,8 @@ Public Class Receipt
 
 
 
-    Public Sub Agents_Balance_MV_RCT_VOID(T_ID As Integer)
+    Private Sub LegacyCustodyReceiptVoid(T_ID As Integer)
+        If ReceiptContextType() <> 12 Then Throw New InvalidOperationException("مسار الإلغاء القديم مخصص للعهد المؤجلة فقط.")
         Dim c As New C
         With c.Com
             .Connection = c.Con
@@ -756,22 +1037,24 @@ Public Class Receipt
         End With
         If SQL_SP_EXEC(c.Com) = True Then
             MsgBox("تم إلغــاء المعاملة ", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إلغاء الإيصال", F_Receipt.ReceiptNum_Txt.Text, AG_Type, 3)
+            Network_Edit_Tracker_insert("إلغاء الإيصال", Me.ReceiptNum_Txt.Text, AG_Type, 3)
 
-            If FormType = 1 Then Select_Sales_Receipt(F_Sales.T_ID)
-            If FormType = 2 Then Select_Pch_Receipt(F_Pch.T_ID)
-            If FormType = 8 Then Select_EX_Receipt(F_EXP_Details.T_ID)
-            F_Receipt.Void_Lb.Visible = True
-            F_Receipt.Void_Lb.BackColor = Color.Red
-            F_Receipt.Treasury_ComboBox.Text = Show_TR_T_Balance(F_Receipt.Treasury_ComboBox.SelectedValue)
-            F_Receipt.print_butt.Enabled = False
-            F_Receipt.Edit_butt.Enabled = False
-            F_Receipt.DeleteButton.Enabled = False
+            If ReceiptContextType() = 1 Then Select_Sales_Receipt(F_Sales.T_ID)
+            If ReceiptContextType() = 2 Then Select_Pch_Receipt(F_Pch.T_ID)
+            If ReceiptContextType() = 8 Then Select_EX_Receipt(F_EXP_Details.T_ID)
+            Me.Void_Lb.Visible = True
+            Me.Void_Lb.BackColor = Color.Red
+            Me.Treasury_Balance.Text = Show_TR_T_Balance(Me.Treasury_ComboBox.SelectedValue)
+            Me.print_butt.Enabled = False
+            Me.Edit_butt.Enabled = False
+            Me.DeleteButton.Enabled = False
         End If
 
     End Sub
     Public Sub Fetch_ItemToList()
-        AG_ID = AG_Cm.TXT_ID.Text
+        Dim selectedAgent As Integer
+        If Not Integer.TryParse(AG_Cm.TXT_ID.Text, selectedAgent) OrElse selectedAgent <= 0 Then Return
+        AG_ID = selectedAgent
         Current_QTY.Text = Show_AG_T_Balance(AG_ID)
         Fetch_AG_Currency()
     End Sub
@@ -847,6 +1130,7 @@ Public Class Receipt
 
 
     Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
+        If receiptOperationInProgress OrElse Not Edit_butt.Enabled Then Return
         If Reciept_T_ID > 0 Then
             If On_Update = False Then
 
@@ -858,6 +1142,7 @@ Public Class Receipt
                     Edit_butt.BackColor = Color.Green
                     On_Update = True
                     Fields_Panel.Enabled = True
+                    If ReceiptContextType() <> 12 Then ReceiptTypeComboBox.Enabled = False
                     'Show_IM_btn.Enabled = True
 
                     Edit_butt.Text = "حفظ التعديل"
@@ -872,7 +1157,8 @@ Public Class Receipt
         End If
     End Sub
 
-    Private Function OpenReceiptForEdit() As Boolean
+    Private Function LegacyCustodyOpenReceiptForEdit() As Boolean
+        If ReceiptContextType() <> 12 Then Throw New InvalidOperationException("فتح التعديل القديم مخصص للعهد المؤجلة فقط.")
 
         Try
 
@@ -907,7 +1193,7 @@ Public Class Receipt
     End Sub
 
     Private Sub ReceiptNum_Txt_Enter(sender As Object, e As EventArgs) Handles ReceiptNum_Txt.Enter
-        Tmp_Bill_ID = Convert.ToInt64(ReceiptNum_Txt.Text)
+        Tmp_Bill_ID = ReceiptNum
     End Sub
 
     Private Sub ReceiptNum_Txt_KeyDown(sender As Object, e As KeyEventArgs) Handles ReceiptNum_Txt.KeyDown
@@ -984,7 +1270,8 @@ Public Class Receipt
     End Sub
 
     Private Sub AG_Cm_ID_Changed(sender As Object, e As EventArgs) Handles AG_Cm.ID_Changed
-        If AG_Cm.TXT_ID.Text > 0 Then Fetch_ItemToList()
+        Dim selectedAgent As Integer
+        If Integer.TryParse(AG_Cm.TXT_ID.Text, selectedAgent) AndAlso selectedAgent > 0 Then Fetch_ItemToList()
     End Sub
 
 

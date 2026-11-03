@@ -1,0 +1,8 @@
+PASS new document has stable pre-allocation identity
+PASS existing ID cannot be recreated
+PASS void requires document ID
+PASS oversized title rejected without truncation
+PASS oversized notes rejected without truncation
+PASS accounting edit flags are typed
+PASS void freezes machine negative-stock policy in request
+PASS: 7 header/stock checks.

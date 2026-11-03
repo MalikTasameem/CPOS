@@ -90,17 +90,13 @@
     End Sub
 
     Private Sub SB_VoidBill()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "AG_Balance_Void_Row"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 1) Then Return
+        Try
             If SB_AutoPrint = True Then SB_Report_Cacnel()
             Fill_Bill_Info()
-        End If
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Private Sub SB_Report_Cacnel()

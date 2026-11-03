@@ -1,0 +1,16 @@
+﻿ت	True
+IM_ID	False
+ST_ID	False
+المخزن	True
+المجموعة	False
+رقم الصنف	False
+الباركود	False
+إسم الصنف	True
+الوحدة	True
+الصلاحية	False
+العدد	True
+التكلفة	True
+أخر شراء	False
+سعر البيع	False
+إجمالي التكلفة	True
+item_name	False

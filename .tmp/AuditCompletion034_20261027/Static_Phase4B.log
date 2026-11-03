@@ -1,0 +1,36 @@
+PASS narrow opening-only domain
+PASS closed type and screen mapping 2 / EXP_Details
+PASS message distinguishes opening from saving EXP_Details
+PASS closed type and screen mapping 7 / Pch
+PASS message distinguishes opening from saving Pch
+PASS closed type and screen mapping 8 / IM_Execute
+PASS message distinguishes opening from saving IM_Execute
+PASS closed type and screen mapping 9 / Invoice
+PASS message distinguishes opening from saving Invoice
+PASS closed type and screen mapping 10 / Returns
+PASS message distinguishes opening from saving Returns
+PASS closed type and screen mapping 11 / Returns
+PASS message distinguishes opening from saving Returns
+PASS closed type and screen mapping 12 / Stores_ImmediateOrder
+PASS message distinguishes opening from saving Stores_ImmediateOrder
+PASS closed type and screen mapping 13 / Format_Items_Auto
+PASS message distinguishes opening from saving Format_Items_Auto
+PASS closed type and screen mapping 17 / Inside_Sales
+PASS message distinguishes opening from saving Inside_Sales
+PASS closed type and screen mapping 18 / Format_Items_Manual
+PASS message distinguishes opening from saving Format_Items_Manual
+PASS closed type and screen mapping 35 / Outside_Sales
+PASS message distinguishes opening from saving Outside_Sales
+PASS closed type and screen mapping 35 / Outside_Sales_Touch
+PASS message distinguishes opening from saving Outside_Sales_Touch
+PASS missing document ID rejected
+PASS sales cannot bypass its dedicated path
+PASS screen/type mismatch rejected
+PASS confirmed session required
+PASS no financial mutations in opening inputs
+PASS unknown connection retains pending request
+PASS pending request cannot change document
+PASS pending request cannot change actor
+PASS pending request cannot change session
+PASS unknown result cannot be silently discarded
+PASS: 35 document edit opening checks.

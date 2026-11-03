@@ -227,12 +227,12 @@
         SelectStateBt()
     End Sub
 
-    ' True means the V2 path handled the attempt (including failure); never fall back after a failed write.
-    Private Function TryAuditHeader(action As String) As Boolean
-        If headerBusy Then Return True
+    ' All writes use V2. A disabled gate never enables a legacy fallback.
+    Private Sub TryAuditHeader(action As String)
+        If headerBusy Then Return
         Try
             If pendingHeaderAudit Is Nothing Then
-                If Not AuditSettlementLines.IsEnabled(MY_Settings.SqlConStr) Then Return False
+                If Not AuditSettlementLines.IsEnabled(MY_Settings.SqlConStr) Then Throw New InvalidOperationException("مراقبة التسويات الجديدة غير مفعلة؛ لم يتم حفظ أي تغيير.")
                 pendingHeaderConnection = MY_Settings.SqlConStr
                 pendingHeaderAudit = AuditSettlementHeader.Request(
                     AuditSecuritySession.Current.ContextFor(pendingHeaderConnection, USER_ID, "ST_settlement"), action,
@@ -268,8 +268,7 @@
         Finally
             headerBusy = False
         End Try
-        Return True
-    End Function
+    End Sub
 
     Private Sub FreezeHeaderControls(parent As Control)
         For Each child As Control In parent.Controls
@@ -528,17 +527,11 @@
         If T_ID > 0 Then
             If MessageBox.Show("فتح فاتورة جرد جديدة", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
                                MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
-                If TryAuditHeader("Created") Then Return
-                ClearFields()
-                Insert_NewBill()
-                NewStateBt()
+                TryAuditHeader("Created")
             End If
 
         Else
-            If TryAuditHeader("Created") Then Return
-            ClearFields()
-            Insert_NewBill()
-            NewStateBt()
+            TryAuditHeader("Created")
         End If
     End Sub
 
@@ -551,48 +544,10 @@
             Beep()
             If MessageBox.Show("حفظ فاتورة الجرد ؟", "تنويه", MessageBoxButtons.OKCancel,
                                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign) = Windows.Forms.DialogResult.OK Then
-                'AG_Balance_Update_Invoice_Type()
-                If TryAuditHeader("Approved") Then Return
-                Update_Total()
-                DependingBill(T_ID)
-                Save_Date(T_ID, DateTimeEx)
-                Save_Title_Name(T_ID, Title_txt.Text)
-                Save_About(T_ID, Notes_txt.Text)
-                Switch_Dependcy(1)
-                SelectStateBt()
+                TryAuditHeader("Approved")
             End If
         End If
     End Sub
-
-    'Private Sub AG_Balance_Update_Invoice_Type()
-    '    Dim sqlComm As New SqlClient.SqlCommand
-    '    sqlComm.CommandText = "AG_Balance_Update_Invoice_Type"
-    '    sqlComm.CommandType = CommandType.StoredProcedure
-    '    sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-    '    sqlComm.Parameters.AddWithValue("@Type", Invoice_Type_cm.SelectedIndex)
-    '    SQL_SP_EXEC(sqlComm)
-    'End Sub
-
-    'Private Sub Edit_butt_Click(sender As Object, e As EventArgs) Handles Edit_butt.Click
-    '    If Edit_butt.Text = EditState Then
-    '        Edit_butt.Text = "ح التعديل"
-    '        Enable_Fields()
-    '        AGMetroGrid.BackgroundColor = Color.LightYellow
-    '        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
-    '        If My_Settings.S_Default = 0 Then
-    '            Barcode_SH_txt.Select()
-    '        Else
-    '            IM_SH_txt.Select()
-    '        End If
-    '    Else
-    '        Save_About(T_ID, Notes_txt.Text)
-    '        Save_Date(T_ID, DateTimeEx)
-    '        Edit_butt.Text = EditState
-    '        Disable_Fields()
-    '        SelectStateBt()
-    '    End If
-
-    'End Sub
 
     Private Sub Delete_butt_Click(sender As Object, e As EventArgs) Handles Delete_butt.Click
         If pendingHeaderAudit IsNot Nothing Then
@@ -643,24 +598,7 @@
     End Function
 
     Private Sub Cancel_Bill()
-        If TryAuditHeader("Voided") Then Return
-
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "ST_Settlement_Header_Apply"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", T_ID)
-        sqlComm.Parameters("@T_ID").Direction = ParameterDirection.InputOutput
-        sqlComm.Parameters.AddWithValue("@Action", "Voided")
-        sqlComm.Parameters.AddWithValue("@User_ID", USER_ID)
-        sqlComm.Parameters.AddWithValue("@AllowNegative", IM_min_QTY)
-
-        If SQL_SP_EXEC(sqlComm) = True Then
-            MsgBox("تم إلغاء الفاتورة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert("إلغاء مستند تسوية المخزون؛ T_ID=" & T_ID.ToString(), Bill_ID_Txt.Text, 39, 3)
-            isVoid = True
-            SelectStateBt()
-        End If
-
+        TryAuditHeader("Voided")
     End Sub
 
     Private Sub TreasuryCard_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -769,50 +707,6 @@
     End Sub
 
 
-    Private Sub Update_Total()
-        If String.IsNullOrWhiteSpace(lblQtyPlus.Text) = False Then Save_Total(T_ID, TOTAL, 0)
-    End Sub
-
-
-    Private Sub Insert_NewBill()
-
-        Dim sqlComm As New SqlClient.SqlCommand()
-
-        sqlComm.CommandText = "Agents_BalanceMV_insert"
-        sqlComm.CommandType = CommandType.StoredProcedure
-
-        sqlComm.Parameters.AddWithValue("@T_ID", 0)
-        sqlComm.Parameters.AddWithValue("@Pch_ID", 0)
-        sqlComm.Parameters.AddWithValue("@IMEX_ID", 0)
-        sqlComm.Parameters.AddWithValue("@Jrd_ID", 0)
-        sqlComm.Parameters.AddWithValue("@SRtn_ID", 0)
-        sqlComm.Parameters.AddWithValue("@PRtn_ID", 0)
-        sqlComm.Parameters.AddWithValue("@Receipt_Num", 0)
-        sqlComm.Parameters.AddWithValue("@ST_Tran_ID", 0)
-        sqlComm.Parameters.AddWithValue("@EXP_ID", 0)
-        sqlComm.Parameters.AddWithValue("@Frm_ID", 0)
-        sqlComm.Parameters.AddWithValue("@ViewSB_ID", 0)
-        sqlComm.Parameters.AddWithValue("@InSale_ID", 0)
-        sqlComm.Parameters.AddWithValue("@Outsale_ID", 0)
-        sqlComm.Parameters.AddWithValue("@Frm_ID_M", 0)
-        sqlComm.Parameters.AddWithValue("@ST_Sett_ID", 0)
-        sqlComm.Parameters.AddWithValue("@AG_ID", 1)
-        sqlComm.Parameters.AddWithValue("@Date", Me.DateTimeEx.Value)
-        sqlComm.Parameters.AddWithValue("@BsType_ID", 39)
-        sqlComm.Parameters.AddWithValue("@User_ID", USER_ID)
-        sqlComm.Parameters("@ST_Sett_ID").Direction = ParameterDirection.Output
-        sqlComm.Parameters("@T_ID").Direction = ParameterDirection.Output
-
-        If SQL_SP_EXEC(sqlComm) = True Then
-
-            T_ID = sqlComm.Parameters("@T_ID").Value.ToString()
-
-            LoadSettlement(T_ID)
-        End If
-
-    End Sub
-
-
     Public Sub Pch_Contents_SELECT_Bill()
         Dim lines As New DataTable()
         Using cn As New SqlClient.SqlConnection(MY_Settings.SqlConStr), cmd As New SqlClient.SqlCommand("dbo.ST_QTY_Deferences_Details_V_SELECT_Bill", cn)
@@ -834,44 +728,25 @@
 
 
     Private Sub Delete_Cat()
-        If pendingDeleteAudit IsNot Nothing OrElse AuditSettlementLines.IsEnabled(MY_Settings.SqlConStr) Then
-            If pendingDeleteAudit Is Nothing Then
-                If AGMetroGrid.CurrentRow Is Nothing OrElse Not AGMetroGrid.Columns.Contains("T_ID_CL") Then Throw New InvalidOperationException("اختر سطر التسوية أولًا.")
-                pendingDeleteConnection = MY_Settings.SqlConStr
-                pendingDeleteAudit = AuditSettlementLines.DeleteRequest(AuditSecuritySession.Current.ContextFor(pendingDeleteConnection, USER_ID, "ST_settlement"),
-                    Me.T_ID, Convert.ToInt32(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value), IM_min_QTY)
-            End If
-            FreezePendingDelete(Me)
-            Dim result = AuditSettlementLines.Save(pendingDeleteConnection, pendingDeleteAudit)
-            pendingDeleteAudit = Nothing
-            RestorePendingDelete()
-            Try
-                Pch_Contents_SELECT_Bill()
-            Catch ex As Exception
-                MsgBox("تأكدت نتيجة طلب الحذف، لكن تعذر تحديث عرض السطور. حدّث العرض قبل أي عملية أخرى." & Environment.NewLine & ex.Message, MsgBoxStyle.Exclamation)
-                Return
-            End Try
-            If result.ResultCode.GetValueOrDefault() = 5 Then MsgBox("السطر غير موجود؛ لم تسجل عملية حذف وهمية.", MsgBoxStyle.Information)
-            Return
+        If pendingDeleteAudit Is Nothing Then
+            If Not AuditSettlementLines.IsEnabled(MY_Settings.SqlConStr) Then Throw New InvalidOperationException("مراقبة التسويات الجديدة غير مفعلة؛ لم يتم حذف أي سطر.")
+            If AGMetroGrid.CurrentRow Is Nothing OrElse AGMetroGrid.CurrentRow.IsNewRow OrElse Not AGMetroGrid.Columns.Contains("T_ID_CL") Then Throw New InvalidOperationException("اختر سطر التسوية أولًا.")
+            If IsDBNull(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value) Then Throw New InvalidOperationException("سطر التسوية المحدد غير صالح.")
+            pendingDeleteConnection = MY_Settings.SqlConStr
+            pendingDeleteAudit = AuditSettlementLines.DeleteRequest(AuditSecuritySession.Current.ContextFor(pendingDeleteConnection, USER_ID, "ST_settlement"),
+                Me.T_ID, Convert.ToInt32(AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value), IM_min_QTY)
         End If
-        Dim Row_Index As Integer = AGMetroGrid.CurrentCell.RowIndex
-        Dim sqlComm As New SqlClient.SqlCommand
-        sqlComm.CommandText = "[ST_QTY_Deferences_Details_Delete]"
-        sqlComm.CommandType = CommandType.StoredProcedure
-        sqlComm.Parameters.AddWithValue("@T_ID", AGMetroGrid.CurrentRow.Cells("T_ID_CL").Value)
-        sqlComm.Parameters.AddWithValue("@ExpectedBillId", Me.T_ID)
-        sqlComm.Parameters.AddWithValue("@AllowNegative", IM_min_QTY)
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" الصنف:" + AGMetroGrid.CurrentRow.Cells("EX_Name_CL").Value.ToString + " كمية التسوية:" + AGMetroGrid.CurrentRow.Cells("QTY_CL").Value.ToString, Bill_ID_Txt.Text, 39, 2)
-
+        FreezePendingDelete(Me)
+        Dim result = AuditSettlementLines.Save(pendingDeleteConnection, pendingDeleteAudit)
+        pendingDeleteAudit = Nothing
+        RestorePendingDelete()
+        Try
             Pch_Contents_SELECT_Bill()
-            'Update_Total()
-
-            'If On_Update = True Then If Not IsDBNull(AGMetroGrid.CurrentRow.Cells("NewSale_CL").Value) Then MsgBox("قم بتعديل سعر البيع من شاشة الأصناف", MsgBoxStyle.Information, "")
-            If Row_Index > 0 AndAlso AGMetroGrid.Rows.Count > 0 Then AGMetroGrid.CurrentCell = AGMetroGrid.Rows(Math.Min(Row_Index - 1, AGMetroGrid.Rows.Count - 1)).Cells("EX_Name_CL")
-
-        End If
-
+        Catch ex As Exception
+            MsgBox("تأكدت نتيجة طلب الحذف، لكن تعذر تحديث عرض السطور. حدّث العرض قبل أي عملية أخرى." & Environment.NewLine & ex.Message, MsgBoxStyle.Exclamation)
+            Return
+        End Try
+        If result.ResultCode.GetValueOrDefault() = 5 Then MsgBox("السطر غير موجود؛ لم تسجل عملية حذف وهمية.", MsgBoxStyle.Information)
     End Sub
 
 
@@ -1001,8 +876,7 @@
 
     Private Sub DateTimeEx_KeyDown(sender As Object, e As KeyEventArgs) Handles DateTimeEx.KeyDown
         If e.KeyCode = Keys.Return Then
-            If TryAuditHeader("HeaderSaved") Then Return
-            Save_Date(T_ID, DateTimeEx)
+            TryAuditHeader("HeaderSaved")
         End If
     End Sub
 
@@ -1179,8 +1053,7 @@
 
     Private Sub Title_txt_KeyDown(sender As Object, e As KeyEventArgs) Handles Title_txt.KeyDown
         If e.KeyCode = Keys.Return Then
-            If TryAuditHeader("HeaderSaved") Then Return
-            Save_Title_Name(T_ID, Title_txt.Text)
+            TryAuditHeader("HeaderSaved")
         End If
     End Sub
 
@@ -1198,40 +1071,12 @@
                     Beep()
                     If MessageBox.Show(" سيتم تعديل الفاتورة بشكل مباشر مع كل تغير ... تأكيد التعديل ؟ ", "تعديل فاتورة", MessageBoxButtons.YesNo,
                                  MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.Yes Then
-                        If TryAuditHeader("EditOpened") Then Return
-                        If Open_Agents_Balance_MV_For_Edit(T_ID) = False Then Exit Sub
-
-                        Edit_butt.BackColor = Color.GreenYellow
-                        On_Update = True
-                        AGMetroGrid.Enabled = True
-                        AGMetroGrid.BackgroundColor = Color.LightYellow
-                        AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
-                        ADDCatButton.Enabled = True
-                        RemoveCatButton.Enabled = True
-                        Title_txt.Enabled = True
-                        Ebable_CatFields()
-                        Edit_butt.Text = "إيقاف التعديل"
-                        Network_Edit_Tracker_insert("فتح تعديل مستند تسوية المخزون؛ T_ID=" & T_ID.ToString() & "؛ المدخل: " & User_Name_lb.Text, Bill_ID_Txt.Text, 39, 3)
-                        Notes_txt.Enabled = True
-                        DateTimeEx.Enabled = True
-                        'Invoice_Type_cm.Enabled = True
+                        TryAuditHeader("EditOpened")
 
                     End If
 
                 Else
-                    'AG_Balance_Update_Invoice_Type()
-                    If TryAuditHeader("EditFinished") Then Return
-                    Save_Title_Name(T_ID, Title_txt.Text)
-                    Save_About(T_ID, Notes_txt.Text)
-
-                    Save_Date(T_ID, DateTimeEx)
-                    Save_Total(T_ID, TOTAL, 0)
-
-                    On_Update = False
-                    Edit_butt.Text = EditState
-                    Edit_butt.BackColor = Color.WhiteSmoke
-                    SelectStateBt()
-                    Notes_txt.Enabled = False
+                    TryAuditHeader("EditFinished")
 
                 End If
             Else
@@ -1247,11 +1092,7 @@
                 AGMetroGrid.BackgroundColor = Color.LightYellow
                 AGMetroGrid.RowsDefaultCellStyle.BackColor = Color.LightYellow
             Else
-                Save_About(T_ID, Notes_txt.Text)
-                Save_Date(T_ID, DateTimeEx)
-                Edit_butt.Text = EditState
-                Disable_Fields()
-                SelectStateBt()
+                TryAuditHeader("HeaderSaved")
             End If
 
         End If

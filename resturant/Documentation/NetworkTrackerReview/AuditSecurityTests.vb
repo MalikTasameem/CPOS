@@ -123,6 +123,12 @@ Friend Module AuditSecurityTests
         session.Finish("login")
         Check(storage.Writes.Count = count, "OS shutdown does not fabricate explicit logout")
         Start(session)
+        count = storage.Writes.Count
+        session.InvalidateAfterAdministrativeRestore()
+        Reject(Sub() session.ContextFor("test", 1, "Backup"), "restored database cannot reuse old session")
+        session.Finish("login")
+        Check(storage.Writes.Count = count, "restore invalidation does not write into replaced database")
+        Start(session)
         storage.FailBefore = True
         Reject(Sub() Start(session, 2), "failed user switch cannot activate candidate")
         Check(session.ContextFor("test", 1, "Settlement").ActorUserId.GetValueOrDefault() = 1, "failed user switch keeps old confirmed actor")

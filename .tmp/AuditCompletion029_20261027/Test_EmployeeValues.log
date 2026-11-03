@@ -1,0 +1,101 @@
+PASS complete value row
+PASS closed employee domain
+PASS unknown operation
+PASS no other clients
+PASS approved source
+PASS employee fixture
+PASS unused trigger
+PASS actual identity 0/0
+PASS SQL rounding
+PASS employee and kind
+PASS create replay
+PASS all ten fields
+PASS update value
+PASS update replay
+PASS stale update
+PASS void state
+PASS void replay
+PASS already void
+PASS actual identity 0/1.2345
+PASS SQL rounding
+PASS employee and kind
+PASS create replay
+PASS all ten fields
+PASS update value
+PASS update replay
+PASS stale update
+PASS void state
+PASS void replay
+PASS already void
+PASS actual identity 0/-7.2355
+PASS SQL rounding
+PASS employee and kind
+PASS create replay
+PASS all ten fields
+PASS update value
+PASS update replay
+PASS stale update
+PASS void state
+PASS void replay
+PASS already void
+PASS actual identity 1/0
+PASS SQL rounding
+PASS employee and kind
+PASS create replay
+PASS all ten fields
+PASS update value
+PASS update replay
+PASS stale update
+PASS void state
+PASS void replay
+PASS already void
+PASS actual identity 1/1.2345
+PASS SQL rounding
+PASS employee and kind
+PASS create replay
+PASS all ten fields
+PASS update value
+PASS update replay
+PASS stale update
+PASS void state
+PASS void replay
+PASS already void
+PASS actual identity 1/-7.2355
+PASS SQL rounding
+PASS employee and kind
+PASS create replay
+PASS all ten fields
+PASS update value
+PASS update replay
+PASS stale update
+PASS void state
+PASS void replay
+PASS already void
+PASS audit rollback create
+PASS audit rollback update
+PASS audit rollback void
+PASS deny permission
+PASS deny disabled
+PASS deny domain
+PASS deny wrong employee
+PASS deny period
+PASS deny screen
+PASS long note no truncation
+PASS request collision
+PASS business rollback
+PASS baseline unchanged 0
+PASS baseline unchanged 1
+PASS baseline unchanged 2
+PASS baseline unchanged 3
+PASS baseline unchanged 4
+PASS baseline unchanged 5
+PASS baseline unchanged 6
+PASS definition unchanged Others_Values_Insert
+PASS definition unchanged Others_Values_Update
+PASS definition unchanged Others_Values_Void
+PASS definition unchanged EMP_Insert_Salaries
+PASS definition unchanged Network_Audit_Request_Begin
+PASS definition unchanged Network_Audit_Event_Write
+PASS domains restored
+PASS failure trigger removed
+PASS 100 employee value checks.

@@ -174,16 +174,14 @@
                 .Parameters.AddWithValue("@Barcode", Barcode_IM)
             End With
 
-            If SQL_SP_EXEC(c.Com) = True Then
-                Network_Edit_Tracker_insert(" الصنف:" & mySearchControl.txtSearch.Text & " الوحدة:" & IM_Unit_cm.Text & " العدد:" & QTY_txt.Text & " السعر:" & IM_Cost_txt.Text & " من مخزن:" & ST_cm.Text & " إلى مخزن:" & F_Stores_ImmediateOrder.ST_To_cm.Text, F_Stores_ImmediateOrder.Bill_ID_Txt.Text, 12, 1)
-                'Clear_IM_Fields()
-                F_Stores_ImmediateOrder.St_Trans_Contents_SELECT_Bill()
-
+            If AuditStockDocumentUi.Run(Me, c.Com, T_ID, 12) Then
+                Me.Enabled = False
+                AuditStockDocumentUi.Refresh(Me, Sub()
+                    F_Stores_ImmediateOrder.St_Trans_Contents_SELECT_Bill()
+                End Sub)
                 Me.Close()
             End If
-
         End If
-
     End Sub
 
     Private Function IM_Check_Neg_QTY_()

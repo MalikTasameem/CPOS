@@ -1088,10 +1088,10 @@ Partial Class Pch
         Me.DeliveryingButton.Location = New System.Drawing.Point(268, 3)
         Me.DeliveryingButton.Name = "DeliveryingButton"
         Me.DeliveryingButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.DeliveryingButton.Size = New System.Drawing.Size(62, 74)
+        Me.DeliveryingButton.Size = New System.Drawing.Size(62, 159)
         Me.DeliveryingButton.TabIndex = 304
         Me.DeliveryingButton.TabStop = False
-        Me.DeliveryingButton.Text = " 💵 💳 سداد"
+        Me.DeliveryingButton.Text = " 💵  سداد"
         Me.DeliveryingButton.UseVisualStyleBackColor = False
         '
         'Label8

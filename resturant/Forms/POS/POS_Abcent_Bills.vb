@@ -109,16 +109,7 @@
     End Sub
 
     Private Sub SB_VoidBill(T_ID As Integer, Bill_Num As Integer)
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "AG_Balance_Void_Row"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", T_ID)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert("إلغاء الفاتورة", Bill_Num, 1, 3)
-        End If
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 1) Then Return
     End Sub
 
 End Class

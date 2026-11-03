@@ -1,0 +1,6 @@
+PASS 15 invoice fields
+PASS 24 line fields
+PASS 9 table fields
+PASS closed table domain
+PASS unknown operation denied
+PASS 5 table-operation checks.

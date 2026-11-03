@@ -142,15 +142,20 @@
         sqlComm.Parameters.AddWithValue("@User_ID", USER_ID)
         sqlComm.Parameters("@Tran_ID").Direction = ParameterDirection.Output
 
-        If SQL_SP_EXEC(sqlComm) = True Then
-            MsgBox("تم الإضافة بنجاح", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" من حساب الخزينة:" & F_Treasury_ComboBox.Text & " إلى حساب الخزينة:" & T_Treasury_ComboBox.Text & " القيمة:" & money_num_txtb.Text, Me.ReceiptNum_Txt.Text, 26, 1)
-            Me.ReceiptNum_Txt.Text = sqlComm.Parameters("@Tran_ID").Value.ToString()
+        Dim savedId As Integer
+        If AuditFinanceUi.Run(Me, sqlComm, savedId) Then
+            save_butt.Enabled = False
+            Fields_Panel.Enabled = False
+            AuditFinanceUi.Refresh(Me, Sub()
+                MsgBox("تم الإضافة بنجاح", MsgBoxStyle.Information)
 
-            F_Treasury_Balance.Text = Show_TR_T_Balance(F_Treasury_ComboBox.SelectedValue)
-            T_Treasury_Balance.Text = Show_TR_T_Balance(T_Treasury_ComboBox.SelectedValue)
-            'After_Save_Receipt()
-            Select_Tr_Balance_Transfer()
+                If savedId > 0 Then Me.ReceiptNum_Txt.Text = savedId.ToString()
+
+                F_Treasury_Balance.Text = Show_TR_T_Balance(F_Treasury_ComboBox.SelectedValue)
+                T_Treasury_Balance.Text = Show_TR_T_Balance(T_Treasury_ComboBox.SelectedValue)
+                'After_Save_Receipt()
+                If savedId > 0 Then Select_Tr_Balance_Transfer()
+            End Sub)
         End If
 
 
@@ -351,13 +356,19 @@
         sqlComm.CommandType = CommandType.StoredProcedure
         sqlComm.Parameters.AddWithValue("@Tran_ID", Tran_ID)
 
-        If SQL_SP_EXEC(sqlComm) = True Then
-            Network_Edit_Tracker_insert(" من حساب الخزينة:" & F_Treasury_ComboBox.Text & " إلى حساب الخزينة:" & T_Treasury_ComboBox.Text & " القيمة:" & money_num_txtb.Text, Me.ReceiptNum_Txt.Text, 26, 2)
-            After_Void_Receipt()
+        Dim savedId As Integer
+        If AuditFinanceUi.Run(Me, sqlComm, savedId) Then
+            save_butt.Enabled = False
+            Fields_Panel.Enabled = False
+            Cancel_Btn.Enabled = False
+            AuditFinanceUi.Refresh(Me, Sub()
 
-            F_Treasury_Balance.Text = Show_TR_T_Balance(F_Treasury_ComboBox.SelectedValue)
-            T_Treasury_Balance.Text = Show_TR_T_Balance(T_Treasury_ComboBox.SelectedValue)
+                After_Void_Receipt()
 
+                F_Treasury_Balance.Text = Show_TR_T_Balance(F_Treasury_ComboBox.SelectedValue)
+                T_Treasury_Balance.Text = Show_TR_T_Balance(T_Treasury_ComboBox.SelectedValue)
+
+            End Sub)
         End If
     End Sub
 

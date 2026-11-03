@@ -1039,9 +1039,9 @@ Partial Class Sales
         Me.Panel5.Controls.Add(Me.Show_SumPied_CB)
         Me.Panel5.Controls.Add(Me.User_Name_lb)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(382, 3)
+        Me.Panel5.Location = New System.Drawing.Point(385, 3)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(338, 165)
+        Me.Panel5.Size = New System.Drawing.Size(337, 165)
         Me.Panel5.TabIndex = 703
         '
         'Show_Bill_CB
@@ -1375,9 +1375,9 @@ Partial Class Sales
         Me.DeliveryingButton.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeliveryingButton.Location = New System.Drawing.Point(386, 3)
         Me.DeliveryingButton.Name = "DeliveryingButton"
-        Me.DeliveryingButton.Size = New System.Drawing.Size(53, 76)
+        Me.DeliveryingButton.Size = New System.Drawing.Size(51, 119)
         Me.DeliveryingButton.TabIndex = 304
-        Me.DeliveryingButton.Text = "💵 💳  دفع"
+        Me.DeliveryingButton.Text = "💵  دفع"
         Me.DeliveryingButton.UseVisualStyleBackColor = False
         '
         'SBPauseBtn
@@ -1492,7 +1492,7 @@ Partial Class Sales
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel7.Location = New System.Drawing.Point(3, 3)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(373, 165)
+        Me.Panel7.Size = New System.Drawing.Size(376, 165)
         Me.Panel7.TabIndex = 728
         '
         'Panel8
@@ -1503,9 +1503,9 @@ Partial Class Sales
         Me.Panel8.Controls.Add(Me.Show_Cash_btn)
         Me.Panel8.Controls.Add(Me.OpenCahDR_Btn)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel8.Location = New System.Drawing.Point(726, 3)
+        Me.Panel8.Location = New System.Drawing.Point(728, 3)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(438, 165)
+        Me.Panel8.Size = New System.Drawing.Size(436, 165)
         Me.Panel8.TabIndex = 729
         '
         'TableLayoutPanel1
@@ -1513,7 +1513,7 @@ Partial Class Sales
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.3522!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.6478!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 378.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 381.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Panel5, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel7, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel8, 0, 0)

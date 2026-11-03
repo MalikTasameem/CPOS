@@ -1,0 +1,180 @@
+PASS closed purchase addition domain
+PASS complete purchase row
+PASS receipt entity excluded
+PASS closed input count
+PASS omitted optional inputs remain SQL NULL
+PASS quantity precision retained
+PASS float precision retained
+PASS complete static event type 7
+PASS field catalogue 7 Voided
+PASS field catalogue 7 NeedRepost
+PASS field catalogue 7 NeedCancelReverse
+PASS field catalogue 7 VoidAt
+PASS field catalogue 7 VoidBy
+PASS field catalogue 7 VoidReason
+PASS field catalogue 7 JournalId
+PASS field catalogue 7 DocumentTotal
+PASS field catalogue 7 DocumentPure
+PASS field catalogue 7 Discount
+PASS field catalogue 7 Debit
+PASS field catalogue 7 Credit
+PASS field catalogue 7 Balance
+PASS field catalogue 7 AccountId
+PASS field catalogue 7 Approved
+PASS field catalogue 7 DocumentType
+PASS field catalogue 7 DocumentNumber
+PASS field catalogue 7 DocumentDate
+PASS field catalogue 7 SalesOpen
+PASS field catalogue 7 Paused
+PASS field catalogue 7 OrderDelivered
+PASS field catalogue 7 PaidState
+PASS field catalogue 7 TableId
+PASS field catalogue 7 PurchaseDocumentId
+PASS field catalogue 7 PurchaseDate
+PASS field catalogue 7 PurchaseItemId
+PASS field catalogue 7 PurchaseUnitId
+PASS field catalogue 7 PurchaseStoreId
+PASS field catalogue 7 PurchasePrice
+PASS field catalogue 7 PurchaseExpiryText
+PASS field catalogue 7 PurchaseQuantity
+PASS field catalogue 7 PurchaseTotal
+PASS field catalogue 7 PurchaseNotes
+PASS field catalogue 7 PurchaseBarcode
+PASS field catalogue 7 PurchaseNewSale
+PASS field catalogue 7 PurchaseNewSaleByOne
+PASS field catalogue 7 PurchaseCargo
+PASS field catalogue 7 PurchaseStockQuantity
+PASS field catalogue 7 PurchaseApproved
+PASS field catalogue 7 PurchaseMinSale
+PASS field catalogue 7 PurchaseMinSaleByOne
+PASS field catalogue 7 PurchaseAverageCost
+PASS field catalogue 7 PurchaseMinSale2
+PASS field catalogue 7 PurchaseMinSale2ByOne
+PASS field catalogue 7 PurchaseCostChange
+PASS field catalogue 7 PurchaseStockDifference
+PASS field catalogue 7 PurchaseExpenses
+PASS field catalogue 7 PurchaseOriginalPrice
+PASS field catalogue 7 PurchaseForeignPrice
+PASS field catalogue 7 PurchaseExchangePrice
+PASS field catalogue 7 PurchaseCurrencyId
+PASS field catalogue 7 PurchaseItemName
+PASS field catalogue 7 PurchaseStoreMode
+PASS field catalogue 7 PurchaseItemCost
+PASS field catalogue 7 PurchaseLastLine
+PASS field catalogue 7 PurchaseLastCargoCost
+PASS field catalogue 7 PriceItemId
+PASS field catalogue 7 PriceUnitId
+PASS field catalogue 7 UnitSalePrice
+PASS field catalogue 7 UnitMinimumPrice
+PASS field catalogue 7 UnitMinimumPrice2
+PASS field catalogue 7 ExpiryLineId
+PASS field catalogue 7 ExpiryItemId
+PASS field catalogue 7 ExpiryDate
+PASS field catalogue 7 ItemId
+PASS field catalogue 7 StoreId
+PASS field catalogue 7 ExpiryText
+PASS field catalogue 7 StockQuantity
+PASS closed input count
+PASS omitted optional inputs remain SQL NULL
+PASS quantity precision retained
+PASS float precision retained
+PASS complete static event type 9
+PASS field catalogue 9 Voided
+PASS field catalogue 9 NeedRepost
+PASS field catalogue 9 NeedCancelReverse
+PASS field catalogue 9 VoidAt
+PASS field catalogue 9 VoidBy
+PASS field catalogue 9 VoidReason
+PASS field catalogue 9 JournalId
+PASS field catalogue 9 DocumentTotal
+PASS field catalogue 9 DocumentPure
+PASS field catalogue 9 Discount
+PASS field catalogue 9 Debit
+PASS field catalogue 9 Credit
+PASS field catalogue 9 Balance
+PASS field catalogue 9 AccountId
+PASS field catalogue 9 Approved
+PASS field catalogue 9 DocumentType
+PASS field catalogue 9 DocumentNumber
+PASS field catalogue 9 DocumentDate
+PASS field catalogue 9 SalesOpen
+PASS field catalogue 9 Paused
+PASS field catalogue 9 OrderDelivered
+PASS field catalogue 9 PaidState
+PASS field catalogue 9 TableId
+PASS field catalogue 9 PurchaseDocumentId
+PASS field catalogue 9 PurchaseDate
+PASS field catalogue 9 PurchaseItemId
+PASS field catalogue 9 PurchaseUnitId
+PASS field catalogue 9 PurchaseStoreId
+PASS field catalogue 9 PurchasePrice
+PASS field catalogue 9 PurchaseExpiryText
+PASS field catalogue 9 PurchaseQuantity
+PASS field catalogue 9 PurchaseTotal
+PASS field catalogue 9 PurchaseNotes
+PASS field catalogue 9 PurchaseBarcode
+PASS field catalogue 9 PurchaseNewSale
+PASS field catalogue 9 PurchaseNewSaleByOne
+PASS field catalogue 9 PurchaseCargo
+PASS field catalogue 9 PurchaseStockQuantity
+PASS field catalogue 9 PurchaseApproved
+PASS field catalogue 9 PurchaseMinSale
+PASS field catalogue 9 PurchaseMinSaleByOne
+PASS field catalogue 9 PurchaseAverageCost
+PASS field catalogue 9 PurchaseMinSale2
+PASS field catalogue 9 PurchaseMinSale2ByOne
+PASS field catalogue 9 PurchaseCostChange
+PASS field catalogue 9 PurchaseStockDifference
+PASS field catalogue 9 PurchaseExpenses
+PASS field catalogue 9 PurchaseOriginalPrice
+PASS field catalogue 9 PurchaseForeignPrice
+PASS field catalogue 9 PurchaseExchangePrice
+PASS field catalogue 9 PurchaseCurrencyId
+PASS field catalogue 9 PurchaseItemName
+PASS field catalogue 9 PurchaseStoreMode
+PASS field catalogue 9 PurchaseItemCost
+PASS field catalogue 9 PurchaseLastLine
+PASS field catalogue 9 PurchaseLastCargoCost
+PASS field catalogue 9 PriceItemId
+PASS field catalogue 9 PriceUnitId
+PASS field catalogue 9 UnitSalePrice
+PASS field catalogue 9 UnitMinimumPrice
+PASS field catalogue 9 UnitMinimumPrice2
+PASS field catalogue 9 ExpiryLineId
+PASS field catalogue 9 ExpiryItemId
+PASS field catalogue 9 ExpiryDate
+PASS field catalogue 9 ItemId
+PASS field catalogue 9 StoreId
+PASS field catalogue 9 ExpiryText
+PASS field catalogue 9 StockQuantity
+PASS zero target SelectedItemId
+PASS zero target SelectedUnitId
+PASS zero target SelectedStoreId
+PASS missing input DocumentType
+PASS missing input AdditionalExpiries
+PASS missing input ExpectedPurchaseSnapshot
+PASS missing input OnUpdate
+PASS missing input RequestedQuantity
+PASS null required DocumentType
+PASS null required ExpectedPurchaseSnapshot
+PASS null required SelectedItemId
+PASS nonpositive SQL quantity
+PASS nonpositive SQL quantity
+PASS nonpositive SQL quantity
+PASS unsupported invoice kind
+PASS unsupported invoice kind
+PASS 100 expiry dates accepted
+PASS 101 expiry dates rejected
+PASS invalid expiry format
+PASS invalid expiry format
+PASS barcode SQL length
+PASS invalid event screen
+PASS invalid event parent
+PASS invalid event missing
+PASS invalid event sqltype
+PASS invalid event origin
+PASS invalid event state
+PASS invalid event number
+PASS invalid event kind
+PASS invalid event lineparent
+PASS 179 purchase addition checks.

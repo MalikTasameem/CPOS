@@ -1,0 +1,6 @@
+PASS closed domain
+PASS complete line fields 10
+PASS complete line fields 11
+PASS sales not accepted
+PASS raw SQL not accepted
+PASS 5 return line checks.

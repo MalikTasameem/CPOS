@@ -77,12 +77,11 @@
             .Parameters.AddWithValue("@is_Default", isInvoice_CB.Checked)
             .Parameters.AddWithValue("@Barcode", BarCode_txt.Text)
         End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert(" (من واجهة الأصناف) تعديل بيانات الصنف : " + IM_LB.Text + " / الوحدة : " + U_Name_txt.Text + " / سعر البيع : " + PriceTextBox.Text + " / أساسي : " _
-                                        + Convert.ToInt16(isInvoice_CB.Checked).ToString + " السعر السابق : " + Prev_Price.ToString, F_ItemsMenu.IM_ID _
-                                       , 20, 3)
-            F_ItemsMenu.IM_Units_Select()
-            If isInvoice_CB.Checked = True Then F_ItemsMenu.IM_Select_Qty()
+        If AuditItemUnitsUi.Run(Me, c.Com, Not S_is_Multi_BAR AndAlso Prev_Barcode <> BarCode_txt.Text) Then
+            AuditItemUnitsUi.Refresh(Me, Sub()
+                                             F_ItemsMenu.IM_Units_Select()
+                                             If isInvoice_CB.Checked Then F_ItemsMenu.IM_Select_Qty()
+                                         End Sub)
             Me.Close()
         End If
     End Sub

@@ -9,6 +9,8 @@ $sources = @(
  'Classes\Audit\AuditContract.vb','Classes\Audit\AuditCanonical.vb','Classes\Audit\AuditMessageFormatter.vb',
  'Classes\Audit\AuditRequestCoordinator.vb','Classes\Audit\AuditWriter.vb'
 ) | ForEach-Object { Join-Path $projectRoot $_ }
+$sources += @(Get-ChildItem -LiteralPath (Join-Path $projectRoot 'Classes\Audit') -Filter 'AuditContract.*.vb' | ForEach-Object { $_.FullName })
+$sources += Join-Path $projectRoot 'Classes\Audit\AuditDisplayNameResolver.vb'
 $sources += Join-Path $PSScriptRoot 'AuditWriterTests.vb'
 $exe = Join-Path $output 'AuditWriterTests.exe'
 & $compiler /nologo /target:exe /optionstrict+ /imports:System /main:AuditWriterTests `

@@ -14,6 +14,7 @@ Friend NotInheritable Class AuditWriter
             AuditContract.EventData(lease.Request, item)
             Dim context = lease.Request.Context
             Dim notes = AuditMessageFormatter.Format(lease.Request, item)
+            notes = AuditDisplayNameResolver.Decorate(cn, tx, item, notes)
             Dim changes = AuditCanonical.ChangesXml(item)
             Dim relations = AuditCanonical.RelationsXml(item)
             Dim bytes = AuditCanonical.EventBytes(lease.Request, item, notes, changes, relations)

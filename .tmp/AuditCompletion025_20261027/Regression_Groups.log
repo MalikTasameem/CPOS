@@ -1,0 +1,63 @@
+PASS 13 master fields
+PASS 2 link fields
+PASS closed domain
+PASS unknown operation denied
+PASS no other clients
+PASS approved source
+PASS no unreviewed triggers
+PASS unused group fixture
+PASS no existing fixture links
+PASS failure trigger name unused
+PASS item available for rollback-only reference test
+PASS actual create id/name GeneralMenu
+PASS null/default values GeneralMenu
+PASS replay original id GeneralMenu
+PASS complete created master GeneralMenu
+PASS actual create id/name ItemsMenu
+PASS null/default values ItemsMenu
+PASS replay original id ItemsMenu
+PASS complete created master ItemsMenu
+PASS actual create id/name IM_ADD_New
+PASS null/default values IM_ADD_New
+PASS replay original id IM_ADD_New
+PASS complete created master IM_ADD_New
+PASS actual explicit rank/color/null
+PASS original implicit rank and color reset
+PASS printer link saved
+PASS printer retry does not duplicate
+PASS master and link detail events
+PASS new duplicate link rejected
+PASS link removed from selected group
+PASS unlink replay
+PASS group and all linked printers deleted atomically
+PASS 53 links paged without dropping
+PASS 13 header plus 106 link values
+PASS concurrent link change rejects stale graph
+PASS used group deletion denied
+PASS protected group
+PASS auxiliary update denied
+PASS disabled user
+PASS permission revoked
+PASS detail event failure rolls back deletion
+PASS rollback count General_menu
+PASS rollback count GM_Printer
+PASS rollback count IM_Menu
+PASS rollback count SERVERS
+PASS rollback count Users
+PASS rollback count Users_Validations
+PASS rollback count Network_Edit_Tracker
+PASS rollback count Network_Audit_Request
+PASS rollback count Network_Audit_Event
+PASS rollback count Network_Audit_Change
+PASS procedure unchanged GM_insert
+PASS procedure unchanged GM_update
+PASS procedure unchanged GM_delete
+PASS procedure unchanged AA_GET_MAX_General_menu
+PASS procedure unchanged Network_Audit_Request_Begin
+PASS procedure unchanged Network_Audit_Event_Write
+PASS item reference restored
+PASS domain rollback
+PASS no incomplete requests
+PASS failure trigger removed
+Rollback tests leave no business rows; SQL identity allocation may retain normal gaps in GM_Printer.
+PASS 61 group checks.

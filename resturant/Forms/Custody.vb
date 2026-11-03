@@ -473,6 +473,7 @@
                 With F_Receipt
                     Rct_Tr_ID = SB_TR_ID
                     .ClearFields()
+                    .ConfigureDeferredCustodyReceipt(Me)
                     .Fields_Panel.Enabled = True
                     .AG_Cm.Enabled = False
                     .Barcode_SH_txt.Enabled = False

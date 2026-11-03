@@ -1,0 +1,5 @@
+PASS separate quantity-only domain
+PASS complete component row contract
+PASS stock key and quantity contract
+PASS closed fields
+PASS: 4 quantity step checks.

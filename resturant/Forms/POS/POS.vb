@@ -2762,18 +2762,13 @@ Public Class POS
     End Sub
 
     Private Sub SB_VoidBill()
-        Dim c As New C
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "AG_Balance_Void_Row"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@T_ID", Me.T_ID)
-        End With
-        If SQL_SP_EXEC(c.Com) = True Then
-            Network_Edit_Tracker_insert("إلغاء الفاتورة", SB_ID_Txt.Text, 1, 3)
+        If Not AuditDocumentVoidUi.Run(Me, T_ID, 1) Then Return
+        Try
             If SB_AutoPrint = True Then SB_Report_Cacnel()
             ResetNewBill()
-        End If
+        Catch ex As Exception
+            MessageBox.Show(Me, "حُفظ الإلغاء؛ تعذر تحديث العرض أو الطباعة: " & ex.Message, "إلغاء المستند", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
     End Sub
 
     Public Sub SB_Report_Cacnel()

@@ -219,34 +219,32 @@ Public Class GeneralMenu
             '   .Parameters.AddWithValue("@Cat_ID", IM_CAT_SF.TXT_ID.Text)
         End With
 
-        If SQL_SP_EXEC(C.Com) Then
+        Dim savedId As Integer
+        If AuditGroupsUi.Run(Me, C.Com, savedId) Then
+            AuditGroupsUi.Refresh(Me, Sub()
             MsgBox("تمت إضافة القائمة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" التصنيف:" & SMNameTextBox.Text & " طابعة التجهيز:" & SMPrinterComboBox.Text, 0, 21, 1)
             Clear_Fields()
             DisableTools()
             Load_SM()
+                                     End Sub)
         End If
 
     End Sub
 
 
-    Public Sub Delete_SM()
-        Dim c As New C
-
-        With c.Com
-            .Connection = c.Con
-            .CommandText = "GM_delete"
-            .CommandType = CommandType.StoredProcedure
-            .Parameters.AddWithValue("@GM_ID", GM_ID)
-        End With
-
-        If SQL_SP_EXEC(c.Com) = True Then
-            MsgBox("تم حــذف القائمة", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" التصنيف:" & GM_NAME & " طابعة التجهيز:" & SMPrinterComboBox.Text, 0, 21, 2)
-
-        End If
-
-    End Sub
+    Public Function Delete_SM() As Boolean
+        Using command As New SqlCommand("GM_delete")
+            command.Parameters.Add("@GM_ID", SqlDbType.Int).Value = GM_ID
+            Dim savedId As Integer
+            If Not AuditGroupsUi.Run(Me, command, savedId) Then Return False
+        End Using
+        AuditGroupsUi.Refresh(Me, Sub()
+                                     MsgBox("تم حــذف القائمة", MsgBoxStyle.Information)
+                                     Clear_Fields()
+                                     Load_SM()
+                                 End Sub)
+        Return True
+    End Function
 
     Public Sub Update_SM()
         Format_Name()
@@ -277,12 +275,14 @@ Public Class GeneralMenu
             ' .Parameters.AddWithValue("@Cat_ID", IM_CAT_SF.TXT_ID.Text)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        Dim savedId As Integer
+        If AuditGroupsUi.Run(Me, c.Com, savedId) Then
+            AuditGroupsUi.Refresh(Me, Sub()
             MsgBox("تم التعديل", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" الإسم السابق:" & GM_NAME & " التصنيف:" & SMNameTextBox.Text & " طابعة التجهيز:" & SMPrinterComboBox.Text, 0, 21, 3)
             EditEmpButton.Text = "تعديل"
             DisableTools()
             Load_SM()
+                                     End Sub)
         End If
 
     End Sub
@@ -376,8 +376,6 @@ Public Class GeneralMenu
             If MessageBox.Show(" تـأكيــد حــذف المجمــوعة الرئيسية " + SMNameTextBox.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, _
                               MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
                 Delete_SM()
-                Clear_Fields()
-                Load_SM()
             End If
 
         End If
@@ -464,14 +462,13 @@ Public Class GeneralMenu
     End Sub
 
     Private Sub InsertU_btn_Click(sender As Object, e As EventArgs) Handles InsertU_btn.Click
-        If CHECK_REPT() = 0 Then
-            If GM_ID > 0 Then
-                query("INSERT INTO [dbo].[GM_Printer]([GM_ID],[PTR_ID]) VALUES(" & GM_ID & "," & SMPrinterComboBox.SelectedValue & ")")
-                Load_GM_Printer()
-            End If
-        Else
-            MsgBox(" تم إدراج الطابعة من قبل ", MsgBoxStyle.Exclamation, "")
-        End If
+        If GM_ID <= 0 OrElse SMPrinterComboBox.SelectedValue Is Nothing OrElse TypeOf SMPrinterComboBox.SelectedValue Is DataRowView Then Return
+        Using command As New SqlCommand("GroupPrinter_Insert")
+            command.Parameters.Add("@GM_ID", SqlDbType.Int).Value = GM_ID
+            command.Parameters.Add("@PTR_ID", SqlDbType.Int).Value = Convert.ToInt32(SMPrinterComboBox.SelectedValue)
+            Dim savedId As Integer
+            If AuditGroupsUi.Run(Me, command, savedId) Then AuditGroupsUi.Refresh(Me, AddressOf Load_GM_Printer)
+        End Using
     End Sub
 
     Public Sub Load_GM_Printer()
@@ -502,8 +499,15 @@ Public Class GeneralMenu
     End Function
 
     Private Sub DeleteU_btn_Click(sender As Object, e As EventArgs) Handles DeleteU_btn.Click
-        query("DELETE FROM [dbo].[GM_Printer] WHERE T_ID = " & PRINTER_GRID.CurrentRow.Cells("T_ID").Value)
-        Load_GM_Printer()
+        If GM_ID <= 0 OrElse PRINTER_GRID.CurrentRow Is Nothing OrElse Not PRINTER_GRID.Columns.Contains("T_ID") Then Return
+        Dim value = PRINTER_GRID.CurrentRow.Cells("T_ID").Value
+        If value Is Nothing OrElse IsDBNull(value) Then Return
+        Using command As New SqlCommand("GroupPrinter_Delete")
+            command.Parameters.Add("@GM_ID", SqlDbType.Int).Value = GM_ID
+            command.Parameters.Add("@T_ID", SqlDbType.Int).Value = Convert.ToInt32(value)
+            Dim savedId As Integer
+            If AuditGroupsUi.Run(Me, command, savedId) Then AuditGroupsUi.Refresh(Me, AddressOf Load_GM_Printer)
+        End Using
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click

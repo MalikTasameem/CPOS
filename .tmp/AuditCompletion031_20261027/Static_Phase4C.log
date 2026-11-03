@@ -1,0 +1,8 @@
+PASS separate partial line-edit domain
+PASS 25 closed actual fields
+PASS excess precision rejected
+PASS negative price rejected
+PASS zero quantity rejected
+PASS zero price remains valid
+PASS unknown fields rejected
+PASS: 7 sales line edit checks.

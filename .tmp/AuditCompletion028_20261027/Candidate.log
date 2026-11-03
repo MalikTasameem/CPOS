@@ -1,0 +1,152 @@
+PASS closed domain
+PASS complete line fields 10
+PASS complete line fields 11
+PASS sales not accepted
+PASS raw SQL not accepted
+PASS no other clients
+PASS approved source
+PASS free test range Agents_Balance_MV
+PASS free test range Rtn_Contents
+PASS free test range SB_Contents
+PASS free target store
+PASS unused failure trigger
+PASS no unreviewed triggers
+PASS return allocation 10
+PASS float quantity preserved
+PASS SQL price rounding
+PASS SQL cost rounding
+PASS original SQL total rounding
+PASS return type mapping
+PASS immediate line effect retained
+PASS optional null retained
+PASS idempotent add
+PASS complete header and all 23 line fields
+PASS own header recalculated
+PASS return increment
+PASS quantity replay
+PASS return decrement
+PASS return delete
+PASS delete recalculates own header
+PASS delete replay
+PASS stale delete
+PASS return allocation 10
+PASS float quantity preserved
+PASS SQL price rounding
+PASS SQL cost rounding
+PASS original SQL total rounding
+PASS return type mapping
+PASS immediate line effect retained
+PASS optional null retained
+PASS idempotent add
+PASS complete header and all 23 line fields
+PASS own header recalculated
+PASS return increment
+PASS quantity replay
+PASS return decrement
+PASS return delete
+PASS delete recalculates own header
+PASS delete replay
+PASS stale delete
+PASS changed header
+PASS disabled user
+PASS permission revoked
+PASS domain disabled, no old fallback
+PASS audit failure add
+PASS business failure add
+PASS audit failure delete
+PASS business failure delete
+PASS audit failure quantity
+PASS business failure quantity
+PASS later stock event atomic
+PASS wrong screen
+PASS request identity conflict
+PASS approved requires edit opening
+PASS return allocation 11
+PASS float quantity preserved
+PASS SQL price rounding
+PASS SQL cost rounding
+PASS original SQL total rounding
+PASS return type mapping
+PASS immediate line effect retained
+PASS optional null retained
+PASS idempotent add
+PASS complete header and all 23 line fields
+PASS own header recalculated
+PASS return increment
+PASS quantity replay
+PASS return decrement
+PASS return delete
+PASS delete recalculates own header
+PASS delete replay
+PASS stale delete
+PASS return allocation 11
+PASS float quantity preserved
+PASS SQL price rounding
+PASS SQL cost rounding
+PASS original SQL total rounding
+PASS return type mapping
+PASS immediate line effect retained
+PASS optional null retained
+PASS idempotent add
+PASS complete header and all 23 line fields
+PASS own header recalculated
+PASS return increment
+PASS quantity replay
+PASS return decrement
+PASS return delete
+PASS delete recalculates own header
+PASS delete replay
+PASS stale delete
+PASS changed header
+PASS disabled user
+PASS permission revoked
+PASS domain disabled, no old fallback
+PASS audit failure add
+PASS business failure add
+PASS audit failure delete
+PASS business failure delete
+PASS audit failure quantity
+PASS business failure quantity
+PASS later stock event atomic
+PASS wrong screen
+PASS request identity conflict
+PASS approved requires edit opening
+PASS line belongs to other return
+PASS display stale
+PASS concurrent mutation locked
+PASS locked quantity succeeds
+PASS cannot step to zero
+PASS expiry persisted
+PASS optional values and rounding
+PASS quantity retains source metadata
+PASS sales and return share detail ID
+PASS overlap updates return
+PASS overlap never updates sales line
+PASS overlap never recalculates other bill
+PASS approved with current edit allowed
+PASS void return blocked
+PASS no barcode truncation
+PASS approved with current edit allowed
+PASS void return blocked
+PASS no barcode truncation
+PASS baseline restored Agents_Balance_MV
+PASS baseline restored Rtn_Contents
+PASS baseline restored SB_Contents
+PASS baseline restored Treasury_Balance_MV
+PASS baseline restored Agents_Balance_MV_RCT
+PASS baseline restored ST_Balance
+PASS baseline restored SERVERS
+PASS baseline restored Stores
+PASS baseline restored Network_Audit_Request
+PASS baseline restored Network_Audit_Event
+PASS baseline restored Network_Audit_Change
+PASS baseline restored Network_Edit_Tracker
+PASS definition unchanged Rtn_Contents_INSERT
+PASS definition unchanged Rtn_Contents_Delete_IM
+PASS definition unchanged SB_Contents_Change_IM_Qty
+PASS definition unchanged Recalculate_Agent_Bill_Total
+PASS definition unchanged Network_Audit_Request_Begin
+PASS definition unchanged Network_Audit_Event_Write
+PASS domains restored
+PASS failure trigger removed
+PASS 151 return line checks.

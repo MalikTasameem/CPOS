@@ -1,0 +1,35 @@
+PASS new store empty
+PASS second writer blocked
+PASS dispatch before start denied
+PASS real application actor
+PASS local clock explicit
+PASS pre-restore source retained
+PASS Windows identity retained
+PASS no connection credentials
+PASS no same-instance replay
+PASS no dispatch retry
+PASS false pre-dispatch result denied
+PASS cannot overwrite successful outcome
+PASS successful attempt resolved
+PASS completion survives new instance
+PASS transport error remains unknown
+PASS unknown attempt blocks new dispatch
+PASS cannot review nonexistent attempt
+PASS explicit administrative review permits new attempt
+PASS review does not forge success
+PASS new attempt has new identity
+PASS success before dispatch denied
+PASS crash between start and dispatch retained
+PASS connection failure never reports a restore
+PASS unconfirmed actor denied
+PASS final write failure visible
+PASS durable start remains after final log failure
+PASS checksum corruption blocks new attempt
+PASS oversized record denied
+PASS DTD denied
+PASS escaped database identifier
+PASS backup path is parameterized
+PASS path unchanged
+PASS no automatic timeout retry
+PASS system database denied
+PASS 34 administrative restore checks. No SQL command executed. Fixtures: H:\DESKTOP SYSTEMS\Git Projects\CPOS\.tmp\AuditAdministrativeRestore\LocalJournal_9eac486580d249ada128dce704d9d7fd

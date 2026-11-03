@@ -43,7 +43,8 @@
     End Sub
 
     Private Sub DataGridViewX1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Unit_DataGridView.CellEndEdit
-        If String.IsNullOrWhiteSpace(Unit_DataGridView.CurrentRow.Cells("OFFER_Price_CL").Value) Then Unit_DataGridView.CurrentRow.Cells("OFFER_Price_CL").Value = 0
+        If e.RowIndex < 0 OrElse Unit_DataGridView.CurrentRow Is Nothing OrElse Unit_DataGridView.CurrentRow.IsNewRow Then Return
+        If String.IsNullOrWhiteSpace(Convert.ToString(Unit_DataGridView.CurrentRow.Cells("OFFER_Price_CL").Value)) Then Unit_DataGridView.CurrentRow.Cells("OFFER_Price_CL").Value = 0D
         IM_Units_UpdatePrice()
     End Sub
 
@@ -56,7 +57,11 @@
             .Parameters.AddWithValue("@U_IM_ID", Unit_DataGridView.CurrentRow.Cells("U_IM_ID_CL").Value)
             .Parameters.AddWithValue("@Price", Unit_DataGridView.CurrentRow.Cells("OFFER_Price_CL").Value)
         End With
-        SQL_SP_EXEC(c.Com)
+        If AuditItemUnitsUi.Run(Me, c.Com) Then
+            AuditItemUnitsUi.Refresh(Me, AddressOf IM_Units_Select)
+        Else
+            IM_Units_Select()
+        End If
     End Sub
 
     Private Sub DataGridView1_EditingControlShowing(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles Unit_DataGridView.EditingControlShowing
@@ -93,11 +98,9 @@
             .Parameters.AddWithValue("@USER_ID", USER_ID)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditPricingRulesUi.Run(Me, c.Com) Then
             MsgBox("تم الحفظ", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" إسم الصنف:" & IM_MENU_FS.Textt & " العنوان:" & TITLE_TXT.Text & " من:" & D_F.Text & " إلى:" & D_T.Text & " من ساعة:" _
-                       & T_F.Text & " إلى ساعة:" & T_T.Text, 0, 36, 1)
-            OFFERS_MASTER_V_Select()
+            AuditPricingRulesUi.Refresh(Me, AddressOf OFFERS_MASTER_V_Select)
         End If
 
     End Sub
@@ -108,8 +111,8 @@
     End Sub
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
-        If AGMetroGrid.Rows.Count > 0 Then
-            If MessageBox.Show(" تـأكيــد حــذف العرض الخاص بالصنف " + AGMetroGrid.CurrentRow.Cells("item_name_CL").Value, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, _
+        If AGMetroGrid.CurrentRow IsNot Nothing AndAlso Not AGMetroGrid.CurrentRow.IsNewRow Then
+            If MessageBox.Show(" تـأكيــد حــذف جميع فترات عروض الصنف " & Convert.ToString(AGMetroGrid.CurrentRow.Cells("item_name_CL").Value), "", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, _
                       MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then OFFERS_MASTER_DELETE()
         End If
 
@@ -125,12 +128,9 @@
             .Parameters.AddWithValue("@IM_ID", AGMetroGrid.CurrentRow.Cells(0).Value)
         End With
 
-        If SQL_SP_EXEC(c.Com) = True Then
+        If AuditPricingRulesUi.Run(Me, c.Com) Then
             MsgBox("تم الحذف", MsgBoxStyle.Information)
-            Network_Edit_Tracker_insert(" إسم الصنف:" & AGMetroGrid.CurrentRow.Cells("item_name_CL").Value & " العنوان:" & AGMetroGrid.CurrentRow.Cells("TITLE_CL").Value & " من:" & AGMetroGrid.CurrentRow.Cells("DATE_F_CL").Value & " إلى:" & AGMetroGrid.CurrentRow.Cells("DATE_T_CL").Value & " من ساعة:" _
-                   & AGMetroGrid.CurrentRow.Cells("TIME_F_CL").Value.ToString & " إلى ساعة:" & AGMetroGrid.CurrentRow.Cells("TIME_T_CL").Value.ToString, 0, 36, 2)
-
-            OFFERS_MASTER_V_Select()
+            AuditPricingRulesUi.Refresh(Me, AddressOf OFFERS_MASTER_V_Select)
         End If
 
 

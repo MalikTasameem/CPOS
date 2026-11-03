@@ -1,0 +1,6 @@
+PASS closed entry domain
+PASS complete entry fields
+PASS closed cancellation kind 5
+PASS closed cancellation kind 6
+PASS closed cancellation kind 37
+PASS 5 account entry checks.
