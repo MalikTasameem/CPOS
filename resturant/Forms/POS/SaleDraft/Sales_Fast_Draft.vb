@@ -1553,15 +1553,10 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
                     e.Handled = True
                 End If
 
-            'Case Keys.F8
-            '    If RemoveCatButton.Enabled = True Then
-            '        If dgvSales.Rows.Count > 0 Then
-            '            If MessageBox.Show(" حذف الصنف " + dgvSales.CurrentRow.Cells("EX_Name_CL").Value, "تأكيد", MessageBoxButtons.OKCancel,
-            '                               MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
-            '                SB_Contents_Delete_IM(dgvSales.CurrentRow.Cells("T_ID_CL").Value)
-            '            End If
-            '        End If
-            '    End If
+            Case Keys.F8
+                TryRemoveSelectedDraftItemWithConfirmation()
+                e.Handled = True
+                e.SuppressKeyPress = True
 
             Case Keys.F11
                 If U_SalesDis = True Then Make_Discount()
@@ -4073,17 +4068,37 @@ Me.Name.ToString
 
     Private Sub AGMetroGrid_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSales.KeyDown
         If e.KeyCode = Keys.Delete Then
-            If dgvSales.Rows.Count > 0 And dgvSales.RowsDefaultCellStyle.BackColor = Color.LightYellow Then
-                If MessageBox.Show(" حذف الصنف " + dgvSales.CurrentRow.Cells("EX_Name_CL").Value, "تأكيد", MessageBoxButtons.OKCancel,
-                                   MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Windows.Forms.DialogResult.OK Then
-                    'SB_Contents_Delete_IM(dgvSales.CurrentRow.Cells("T_ID_CL").Value)
-
-                    RemoveCatButton.PerformClick()
-                End If
-            End If
+            TryRemoveSelectedDraftItemWithConfirmation()
+            e.Handled = True
+            e.SuppressKeyPress = True
         End If
 
     End Sub
+
+    Private Function TryRemoveSelectedDraftItemWithConfirmation() As Boolean
+        If Not RemoveCatButton.Enabled OrElse CurrentDraft Is Nothing Then Return False
+        If dgvSales.Rows.Count = 0 OrElse dgvSales.CurrentRow Is Nothing Then Return False
+        If Not dgvSales.Columns.Contains("DraftLineId") Then Return False
+
+        Dim draftLineId As String = Convert.ToString(dgvSales.CurrentRow.Cells("DraftLineId").Value)
+        If String.IsNullOrWhiteSpace(draftLineId) Then Return False
+
+        Dim selectedItem As SaleDraftItem =
+            CurrentDraft.Items.FirstOrDefault(Function(item) item.DraftLineId = draftLineId)
+        If selectedItem Is Nothing Then Return False
+
+        Dim itemName As String = selectedItem.ItemName
+        If String.IsNullOrWhiteSpace(itemName) Then itemName = "المحدد"
+
+        If MessageBox.Show("حذف الصنف " & itemName & "؟",
+                           "تأكيد حذف الصنف",
+                           MessageBoxButtons.OKCancel,
+                           MessageBoxIcon.Question,
+                           MessageBoxDefaultButton.Button1) <> Windows.Forms.DialogResult.OK Then Return False
+
+        RemoveCatButton.PerformClick()
+        Return True
+    End Function
 
     'Private Sub Notes_txt_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles txtNotes.MouseDoubleClick
     '    F_BillNotes = New BillNotes
