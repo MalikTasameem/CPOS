@@ -70,6 +70,8 @@ Public Class DraftSalesManager
         draft.AG_ID = 1
         draft.AG_NAME = ""
         draft.CustomerName = ""
+        draft.CustomerSelectionRequiresValidation = False
+        draft.CustomerCacheUpdatedAt = Nothing
         draft.Total = 0D
         draft.Discount = 0D
         draft.Pure = 0D

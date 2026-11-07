@@ -25,6 +25,8 @@
 
     ' بيانات عرض فقط
     Public Property CustomerName As String
+    Public Property CustomerSelectionRequiresValidation As Boolean
+    Public Property CustomerCacheUpdatedAt As DateTime?
     Public Property TableName As String
 
     ' بعد الترحيل

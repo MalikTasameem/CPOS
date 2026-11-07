@@ -811,7 +811,7 @@ Partial Class Tr_Deposit_Withdraw
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(582, 123)
+        Me.Label4.Location = New System.Drawing.Point(581, 122)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(96, 21)
         Me.Label4.TabIndex = 236

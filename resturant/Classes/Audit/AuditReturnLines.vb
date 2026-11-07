@@ -91,6 +91,7 @@ Friend NotInheritable Class AuditReturnLines
         If create AndAlso Convert.ToInt32(AuditFinance.Parameter(command, "SB_T_ID")) <> billId Then Throw New ArgumentException("إذن السطر لا يطابق الشاشة.")
         If create AndAlso Convert.ToInt32(AuditFinance.Parameter(command, "Rtn_Type_ID")) <> If(kind = 10, 1, 7) Then Throw New ArgumentException("نوع سطر المرتجع لا يطابق الشاشة.")
         For Each name In AuditContract.ReturnInputs(op)
+            Dim type = AuditContract.FieldType(op, name)
             Dim value As Object
             Select Case name
                 Case "DocumentType" : value = kind
@@ -110,9 +111,17 @@ Friend NotInheritable Class AuditReturnLines
                 Case "RequestedExpiry"
                     value = OptionalParameter(command, "D_Vaild")
                     If Not IsDBNull(value) Then value = Convert.ToDateTime(value, CultureInfo.CurrentCulture).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
-                Case Else : value = OptionalParameter(command, AuditContract.ReturnParameter(name))
+                Case Else
+                    value = OptionalParameter(command, AuditContract.ReturnParameter(name))
+                    If Not IsDBNull(value) Then
+                        Select Case type
+                            Case "Decimal" : value = Convert.ToDecimal(value, CultureInfo.CurrentCulture)
+                            Case "Integer" : value = Convert.ToInt32(value, CultureInfo.CurrentCulture)
+                            Case "String" : value = Convert.ToString(value, CultureInfo.CurrentCulture)
+                            Case Else : Throw New ArgumentException("نوع معامل مرتجع اختياري غير معتمد.")
+                        End Select
+                    End If
             End Select
-            Dim type = AuditContract.FieldType(op, name)
             r.Inputs.Add(New AuditInput With {.Name = name, .ValueType = type, .Value = AuditValue.Capture(type, value)})
         Next
         AuditContract.Request(r) : Return r

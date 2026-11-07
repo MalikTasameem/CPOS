@@ -2626,9 +2626,123 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
 
     End Function
 
+    Private Class DraftCustomerValidationInfo
+        Public Property CustomerName As String
+        Public Property CustomerTypeId As Integer
+        Public Property ExceedsDebtLimit As Boolean
+    End Class
+
+    Private Function ValidateDraftCustomerBeforePayment() As Boolean
+        Try
+            Using connection As New SqlConnection(MY_Settings.SqlConStr)
+                connection.Open()
+
+                Using transaction As SqlTransaction = connection.BeginTransaction(IsolationLevel.ReadCommitted)
+                    Dim customer As DraftCustomerValidationInfo =
+                        ReadAndValidateDraftCustomer(connection, transaction, CurrentDraft.AG_ID)
+
+                    transaction.Commit()
+
+                    If customer.ExceedsDebtLimit Then
+                        If U_AG_Skip_Max = False Then
+                            MessageBox.Show("هذا العميل تجاوز سقف الدين ولا يمكن ترحيل الفاتورة له.",
+                                            "تنبيه",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Warning)
+                            Return False
+                        End If
+
+                        MessageBox.Show("تنويه: هذا العميل تجاوز سقف الدين، وسيتم الاستمرار لأن المستخدم يملك صلاحية التجاوز.",
+                                        "تنويه",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information)
+                    End If
+
+                    ApplyValidatedCustomerName(customer.CustomerName)
+                    Return True
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("تعذر التحقق من العميل قبل الدفع. تأكد من عودة الاتصال بالخادم ثم أعد المحاولة." &
+                            Environment.NewLine & ex.Message,
+                            "تعذر التحقق من العميل",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning)
+            Return False
+        End Try
+    End Function
+
+    Private Function ReadAndValidateDraftCustomer(connection As SqlConnection,
+                                                  transaction As SqlTransaction,
+                                                  customerId As Integer) As DraftCustomerValidationInfo
+        Const sql As String =
+            "SELECT A.AG_ID, A.Ag_name, A.Type_ID, ISNULL(A.Max_Debit, 0) AS Max_Debit, " &
+            "ISNULL(M.T_Balance, 0) AS T_Balance " &
+            "FROM dbo.Agents A WITH (UPDLOCK, HOLDLOCK) " &
+            "LEFT JOIN dbo.AGENTS_MENU_V M ON M.AG_ID = A.AG_ID " &
+            "WHERE A.AG_ID = @AG_ID"
+
+        Using command As New SqlCommand(sql, connection, transaction)
+            command.CommandTimeout = 30
+            command.Parameters.Add("@AG_ID", SqlDbType.Int).Value = customerId
+
+            Using reader As SqlDataReader = command.ExecuteReader()
+                If reader.Read() = False Then
+                    Throw New InvalidOperationException(
+                        "العميل المحدد في المسودة لم يعد موجودًا في قاعدة البيانات.")
+                End If
+
+                Dim customerTypeId As Integer = Convert.ToInt32(reader("Type_ID"))
+                If IsAllowedDraftCustomerType(customerTypeId) = False Then
+                    Throw New InvalidOperationException(
+                        "الحساب المحدد ليس من أنواع العملاء المسموح بها في فاتورة المبيعات.")
+                End If
+
+                Dim maxDebit As Decimal = Convert.ToDecimal(reader("Max_Debit"))
+                Dim currentBalance As Decimal = Convert.ToDecimal(reader("T_Balance"))
+
+                Return New DraftCustomerValidationInfo With {
+                    .CustomerName = Convert.ToString(reader("Ag_name")).Trim(),
+                    .CustomerTypeId = customerTypeId,
+                    .ExceedsDebtLimit = maxDebit > 0D AndAlso (currentBalance * -1D) > maxDebit
+                }
+            End Using
+        End Using
+    End Function
+
+    Private Function IsAllowedDraftCustomerType(customerTypeId As Integer) As Boolean
+        Return customerTypeId = 1 OrElse
+               customerTypeId = 2 OrElse
+               customerTypeId = 5 OrElse
+               customerTypeId = 6 OrElse
+               customerTypeId = 7
+    End Function
+
+    Private Sub ApplyValidatedCustomerName(customerName As String)
+        If CurrentDraft Is Nothing OrElse String.IsNullOrWhiteSpace(customerName) Then Return
+
+        If String.Equals(CurrentDraft.CustomerName, customerName, StringComparison.CurrentCulture) AndAlso
+           String.Equals(CurrentDraft.AG_NAME, customerName, StringComparison.CurrentCulture) Then Return
+
+        CurrentDraft.AG_NAME = customerName
+        CurrentDraft.CustomerName = customerName
+        AG_SH_txt.Text = customerName
+        DraftManager.SaveDraft(CurrentDraft)
+    End Sub
+
+    Private Sub TryRollback(transaction As SqlTransaction)
+        If transaction Is Nothing Then Return
+
+        Try
+            transaction.Rollback()
+        Catch
+        End Try
+    End Sub
+
     Private Function PushCurrentDraftToDatabase() As Boolean
 
         If Not ValidateDraftBeforePush() Then Return False
+        If Not ValidateDraftCustomerBeforePayment() Then Return False
 
         DraftCalculator.RecalculateDraft(CurrentDraft)
         UpdateDraftTotalsOnScreen()
@@ -2659,104 +2773,131 @@ Public Class Sales_Fast_Draft : Inherits System.Windows.Forms.Form
             Dim detailsTable As DataTable = BuildDetailsTable(CurrentDraft.Items)
 
             Try
-                Using con As New SqlConnection(MY_Settings.SqlConStr) ' عدّل اسم الاتصال عندك
-                    Using cmd As New SqlCommand(If(useMultiplePayments, "dbo.PushSalesDraft_V2", "dbo.PushSalesDraft"), con)
+                Using con As New SqlConnection(MY_Settings.SqlConStr)
+                    con.Open()
 
-                        cmd.CommandType = CommandType.StoredProcedure
-                        cmd.CommandTimeout = 120
+                    Using transaction As SqlTransaction = con.BeginTransaction(IsolationLevel.Serializable)
+                        Try
+                            Dim validatedCustomer As DraftCustomerValidationInfo =
+                                ReadAndValidateDraftCustomer(con, transaction, CurrentDraft.AG_ID)
 
-                        cmd.Parameters.Add("@AG_ID", SqlDbType.Int).Value = CurrentDraft.AG_ID
+                            If validatedCustomer.ExceedsDebtLimit AndAlso U_AG_Skip_Max = False Then
+                                Throw New InvalidOperationException(
+                                    "هذا العميل تجاوز سقف الدين ولا يمكن ترحيل الفاتورة له.")
+                            End If
 
-                        If CurrentDraft.S_Bill_Pr_ID.HasValue Then
-                            cmd.Parameters.Add("@S_Bill_Pr_ID", SqlDbType.Int).Value = CurrentDraft.S_Bill_Pr_ID.Value
-                        Else
-                            cmd.Parameters.Add("@S_Bill_Pr_ID", SqlDbType.Int).Value = DBNull.Value
-                        End If
+                            Dim isSuccess As Boolean = False
+                            Dim errorMessage As String = "فشل ترحيل الفاتورة."
+                            Dim savedHeaderId As Integer? = Nothing
+                            Dim savedBillId As Integer? = Nothing
 
-                        If CurrentDraft.Table_ID.HasValue Then
-                            cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = CurrentDraft.Table_ID.Value
-                        Else
-                            cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = DBNull.Value
-                        End If
+                            Using cmd As New SqlCommand(If(useMultiplePayments, "dbo.PushSalesDraft_V2", "dbo.PushSalesDraft"), con, transaction)
+                                cmd.CommandType = CommandType.StoredProcedure
+                                cmd.CommandTimeout = 120
 
-                        cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = finalBillDate
-                        cmd.Parameters.Add("@Discount", SqlDbType.Decimal).Value = CurrentDraft.Discount
-                        cmd.Parameters("@Discount").Precision = 18
-                        cmd.Parameters("@Discount").Scale = 3
+                                cmd.Parameters.Add("@AG_ID", SqlDbType.Int).Value = CurrentDraft.AG_ID
 
-                        cmd.Parameters.Add("@About", SqlDbType.NVarChar).Value =
-                        If(String.IsNullOrWhiteSpace(CurrentDraft.About), CType(DBNull.Value, Object), CurrentDraft.About)
-
-                        cmd.Parameters.Add("@BsType_ID", SqlDbType.Int).Value = CurrentDraft.BsType_ID
-                        cmd.Parameters.Add("@isVoid", SqlDbType.Int).Value = CurrentDraft.isVoid
-
-                        If CurrentDraft.isPied.HasValue Then
-                            cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = CurrentDraft.isPied.Value
-                        Else
-                            cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = DBNull.Value
-                        End If
-
-                        cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = CurrentDraft.User_ID
-
-                        If useMultiplePayments Then
-                            SalesPaymentSqlLayer.AddPaymentsParameter(cmd, F.Payments)
-                        Else
-                            cmd.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = Tr_ID
-                            cmd.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = Pay_ID
-                        End If
-                        cmd.Parameters.Add("@Pr_ID", SqlDbType.Int).Value = Pr_ID
-
-                        If CurrentDraft.Markter_ID.HasValue Then
-                            cmd.Parameters.Add("@Markter_ID", SqlDbType.Int).Value = CurrentDraft.Markter_ID.Value
-                        Else
-                            cmd.Parameters.Add("@Markter_ID", SqlDbType.Int).Value = DBNull.Value
-                        End If
-
-                        Dim pDetails As New SqlParameter("@Details", SqlDbType.Structured)
-                        pDetails.TypeName = "dbo.SB_Contents_DraftType"
-                        pDetails.Value = detailsTable
-                        cmd.Parameters.Add(pDetails)
-
-                        con.Open()
-
-                        Using dr As SqlDataReader = cmd.ExecuteReader()
-                            If dr.Read() Then
-
-                                Dim isSuccess As Boolean = False
-
-                                If Not IsDBNull(dr("IsSuccess")) Then
-                                    isSuccess = Convert.ToBoolean(dr("IsSuccess"))
-                                End If
-
-                                If isSuccess Then
-                                    If Not IsDBNull(dr("Header_T_ID")) Then
-                                        CurrentDraft.Final_T_ID = Convert.ToInt32(dr("Header_T_ID"))
-                                        T_ID = CurrentDraft.Final_T_ID
-                                    End If
-
-                                    If Not IsDBNull(dr("SB_ID")) Then
-                                        CurrentDraft.Final_SB_ID = Convert.ToInt32(dr("SB_ID"))
-                                        Bill_ID_Txt.Text = CurrentDraft.Final_SB_ID
-                                    End If
-
-
-
-                                    CurrentDraft.PushedAt = DateTime.Now
-                                    Return True
+                                If CurrentDraft.S_Bill_Pr_ID.HasValue Then
+                                    cmd.Parameters.Add("@S_Bill_Pr_ID", SqlDbType.Int).Value = CurrentDraft.S_Bill_Pr_ID.Value
                                 Else
-                                    Dim errMsg As String = "فشل ترحيل الفاتورة."
-                                    If HasColumn(dr, "ErrorMessage") AndAlso Not IsDBNull(dr("ErrorMessage")) Then
-                                        errMsg = dr("ErrorMessage").ToString()
-                                    End If
-
-                                    MessageBox.Show(errMsg, "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                                    Return False
+                                    cmd.Parameters.Add("@S_Bill_Pr_ID", SqlDbType.Int).Value = DBNull.Value
                                 End If
-                            Else
-                                MessageBox.Show("لم يتم استلام نتيجة من الإجراء.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+                                If CurrentDraft.Table_ID.HasValue Then
+                                    cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = CurrentDraft.Table_ID.Value
+                                Else
+                                    cmd.Parameters.Add("@Table_ID", SqlDbType.Int).Value = DBNull.Value
+                                End If
+
+                                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = finalBillDate
+                                cmd.Parameters.Add("@Discount", SqlDbType.Decimal).Value = CurrentDraft.Discount
+                                cmd.Parameters("@Discount").Precision = 18
+                                cmd.Parameters("@Discount").Scale = 3
+
+                                cmd.Parameters.Add("@About", SqlDbType.NVarChar).Value =
+                                    If(String.IsNullOrWhiteSpace(CurrentDraft.About), CType(DBNull.Value, Object), CurrentDraft.About)
+
+                                cmd.Parameters.Add("@BsType_ID", SqlDbType.Int).Value = CurrentDraft.BsType_ID
+                                cmd.Parameters.Add("@isVoid", SqlDbType.Int).Value = CurrentDraft.isVoid
+
+                                If CurrentDraft.isPied.HasValue Then
+                                    cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = CurrentDraft.isPied.Value
+                                Else
+                                    cmd.Parameters.Add("@isPied", SqlDbType.Int).Value = DBNull.Value
+                                End If
+
+                                cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = CurrentDraft.User_ID
+
+                                If useMultiplePayments Then
+                                    SalesPaymentSqlLayer.AddPaymentsParameter(cmd, F.Payments)
+                                Else
+                                    cmd.Parameters.Add("@Tr_ID", SqlDbType.Int).Value = Tr_ID
+                                    cmd.Parameters.Add("@Pay_ID", SqlDbType.Int).Value = Pay_ID
+                                End If
+                                cmd.Parameters.Add("@Pr_ID", SqlDbType.Int).Value = Pr_ID
+
+                                If CurrentDraft.Markter_ID.HasValue Then
+                                    cmd.Parameters.Add("@Markter_ID", SqlDbType.Int).Value = CurrentDraft.Markter_ID.Value
+                                Else
+                                    cmd.Parameters.Add("@Markter_ID", SqlDbType.Int).Value = DBNull.Value
+                                End If
+
+                                Dim pDetails As New SqlParameter("@Details", SqlDbType.Structured)
+                                pDetails.TypeName = "dbo.SB_Contents_DraftType"
+                                pDetails.Value = detailsTable
+                                cmd.Parameters.Add(pDetails)
+
+                                Using dr As SqlDataReader = cmd.ExecuteReader()
+                                    If dr.Read() Then
+                                        If Not IsDBNull(dr("IsSuccess")) Then
+                                            isSuccess = Convert.ToBoolean(dr("IsSuccess"))
+                                        End If
+
+                                        If isSuccess Then
+                                            If Not IsDBNull(dr("Header_T_ID")) Then
+                                                savedHeaderId = Convert.ToInt32(dr("Header_T_ID"))
+                                            End If
+
+                                            If Not IsDBNull(dr("SB_ID")) Then
+                                                savedBillId = Convert.ToInt32(dr("SB_ID"))
+                                            End If
+                                        ElseIf HasColumn(dr, "ErrorMessage") AndAlso Not IsDBNull(dr("ErrorMessage")) Then
+                                            errorMessage = dr("ErrorMessage").ToString()
+                                        End If
+                                    Else
+                                        errorMessage = "لم يتم استلام نتيجة من الإجراء."
+                                    End If
+                                End Using
+                            End Using
+
+                            If isSuccess AndAlso
+                               (savedHeaderId.HasValue = False OrElse savedBillId.HasValue = False) Then
+                                isSuccess = False
+                                errorMessage = "تم تنفيذ الإجراء دون إرجاع أرقام الفاتورة المطلوبة؛ تم إلغاء العملية حفاظًا على المسودة."
+                            End If
+
+                            If isSuccess = False Then
+                                TryRollback(transaction)
+                                MessageBox.Show(errorMessage, "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error)
                                 Return False
                             End If
-                        End Using
+
+                            transaction.Commit()
+
+                            CurrentDraft.Final_T_ID = savedHeaderId
+                            CurrentDraft.Final_SB_ID = savedBillId
+                            If savedHeaderId.HasValue Then T_ID = savedHeaderId.Value
+                            If savedBillId.HasValue Then Bill_ID_Txt.Text = savedBillId.Value.ToString()
+                            CurrentDraft.AG_NAME = validatedCustomer.CustomerName
+                            CurrentDraft.CustomerName = validatedCustomer.CustomerName
+                            CurrentDraft.CustomerSelectionRequiresValidation = False
+                            CurrentDraft.CustomerCacheUpdatedAt = Nothing
+                            CurrentDraft.PushedAt = DateTime.Now
+                            Return True
+                        Catch
+                            TryRollback(transaction)
+                            Throw
+                        End Try
                     End Using
                 End Using
 
@@ -4058,11 +4199,22 @@ Me.Name.ToString
     End Sub
 
     Private Sub SelectDraftCustomer()
+        EnsureDraftExists()
 
-        Dim f As New AgentsMenu
-        f.is_By_Draft = True
-        f.ShowDialog()
-        If f.is_OK = True Then ChangeDraftCustomer(f.AG_ID, f.AG_NAME)
+        Using f As New DraftCustomerSelector()
+            f.DefaultCustomerId = Default_AG_ID
+            f.DefaultCustomerName = If(Default_AG_ID = CurrentDraft.AG_ID AndAlso
+                                       String.IsNullOrWhiteSpace(CurrentDraft.CustomerName) = False,
+                                       CurrentDraft.CustomerName,
+                                       "نقدي")
+
+            If f.ShowDialog(Me) = DialogResult.OK AndAlso f.IsConfirmed Then
+                ChangeDraftCustomer(f.SelectedCustomerId,
+                                    f.SelectedCustomerName,
+                                    f.SelectedFromLocalCache,
+                                    f.CacheUpdatedAt)
+            End If
+        End Using
 
     End Sub
 
@@ -4249,6 +4401,7 @@ Me.Name.ToString
         If CurrentDraft Is Nothing Then Exit Sub
 
         CurrentDraft.AG_ID = AG_ID
+        CurrentDraft.AG_NAME = AG_SH_txt.Text
         CurrentDraft.CustomerName = AG_SH_txt.Text
 
         'AG_ID = customerId.ToString()
@@ -4302,13 +4455,19 @@ Me.Name.ToString
         End Try
     End Sub
 
-    Private Sub ChangeDraftCustomer(agId As Integer, agName As String)
+    Private Sub ChangeDraftCustomer(agId As Integer,
+                                    agName As String,
+                                    Optional selectedFromLocalCache As Boolean = False,
+                                    Optional cacheUpdatedAt As DateTime? = Nothing)
 
         EnsureDraftExists()
 
         Dim oldCustomerName As String = CurrentDraft.CustomerName
         CurrentDraft.AG_ID = agId
         CurrentDraft.AG_NAME = agName
+        CurrentDraft.CustomerName = agName
+        CurrentDraft.CustomerSelectionRequiresValidation = selectedFromLocalCache
+        CurrentDraft.CustomerCacheUpdatedAt = cacheUpdatedAt
         CurrentDraft.UpdatedAt = DateTime.Now
 
         ' العرض على الشاشة
@@ -4317,7 +4476,9 @@ Me.Name.ToString
 
         DraftManager.SaveDraft(CurrentDraft)
         AddDraftLog("عميل",
-                    "تم تغيير عميل المسودة",
+                    If(selectedFromLocalCache,
+                       "تم تغيير عميل المسودة من الذاكرة المحلية وسيتم التحقق منه عند الحفظ",
+                       "تم تغيير عميل المسودة"),
                     "ChangeCustomerButton",
                     oldCustomerName,
                     agName)
