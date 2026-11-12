@@ -84,6 +84,10 @@ Friend NotInheritable Class AuditDocumentWorkflows
             Dim accounts = AuditSalesQuantity.Rows(cn, tx, "SELECT AG_ID FROM dbo.Agents WITH(HOLDLOCK) WHERE AG_ID=@P0", CInt(V(r, "RequestedAccount")))
             If accounts.Rows.Count <> 1 Then Throw New InvalidOperationException("الحساب المطلوب غير موجود أو مكرر.")
         End If
+        If kind = 1 Then
+            Dim accountId = If(r.Inputs.Any(Function(x) x.Name = "RequestedAccount"), CInt(V(r, "RequestedAccount")), CInt(row("AG_ID")))
+            AgentTypeAccessPolicy.EnsureAgentAllowed(cn, tx, r.Context.ActorUserId.Value, accountId)
+        End If
         If r.OperationCode.StartsWith("Purchase.", StringComparison.Ordinal) AndAlso s.Currency.Rows.Count <> 1 Then Throw New InvalidOperationException("العملة المطلوبة غير موجودة.")
         If {"Quote.Confirmed", "Quote.Reserved", "Quote.DiscountDistributed"}.Contains(r.OperationCode) AndAlso s.QuoteLines.Rows.Count = 0 Then Throw New InvalidOperationException("عرض السعر لا يحتوي أصنافًا.")
         If r.OperationCode = "Quote.DiscountDistributed" Then

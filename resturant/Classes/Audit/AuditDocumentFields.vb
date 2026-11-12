@@ -49,6 +49,7 @@ Friend NotInheritable Class AuditDocumentFields
         If r.OperationCode = "Document.AccountChanged" Then
             Dim accounts = AuditSalesQuantity.Rows(cn, tx, "SELECT AG_ID FROM dbo.Agents WITH(HOLDLOCK) WHERE AG_ID=@P0", CInt(Value(r, "AccountId")))
             If accounts.Rows.Count <> 1 Then Throw New InvalidOperationException("الحساب الجديد غير موجود أو رقمه مكرر.")
+            AgentTypeAccessPolicy.EnsureAgentAllowed(cn, tx, r.Context.ActorUserId.Value, CInt(Value(r, "AccountId")))
         End If
     End Sub
 

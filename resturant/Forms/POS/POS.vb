@@ -1931,6 +1931,11 @@ Public Class POS
 
     Public Sub ConfermBill()
 
+        If Not AgentTypeAccessPolicy.IsAgentAllowed(My_Settings.SqlConStr, USER_ID, AG_ID) Then
+            MsgBox("لا يمكن حفظ الفاتورة على نوع العميل المحدد وفق صلاحية المستخدم الحالي.", MsgBoxStyle.Exclamation, "صلاحية نوع العميل")
+            Return
+        End If
+
         PIED_OK = False
 
         'If MY_Settings.is_Use_Multi_Pay = True Then
@@ -3323,7 +3328,7 @@ Public Class POS
                 Dim paymentSnapshot As SalesBillPaymentSnapshot
                 Try
                     paymentSnapshot = SalesBillPaymentEditService.CaptureSnapshot(T_ID, USER_ID)
-                    If paymentSnapshot.IsAutoPaidAgent AndAlso
+                    If paymentSnapshot.RequiresPaymentReconciliation AndAlso
                        Not SalesBillPaymentEditService.IsReconciliationAvailable() Then
                         MsgBox("لا يمكن فتح تعديل الفاتورة قبل تثبيت طبقة تسوية الدفعات رقم 005.",
                                MsgBoxStyle.Exclamation,
@@ -3384,7 +3389,7 @@ Public Class POS
             Return False
         End If
 
-        If Not EditPaymentSnapshot.IsAutoPaidAgent Then Return True
+        If Not EditPaymentSnapshot.RequiresPaymentReconciliation Then Return True
 
         Dim newPure As Decimal = Convert.ToDecimal(PURE)
         Dim adjustment As Decimal = newPure - EditPaymentSnapshot.NetPaidTotal

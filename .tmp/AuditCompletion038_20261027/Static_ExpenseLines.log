@@ -1,4 +1,0 @@
-PASS closed expense domain
-PASS all seven expense row values
-PASS unrelated entity rejected
-PASS 3 expense line checks.

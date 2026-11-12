@@ -1067,7 +1067,7 @@ Partial Class MainForm
         Me.Panel_Center.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel_Center.Location = New System.Drawing.Point(365, 15)
         Me.Panel_Center.Name = "Panel_Center"
-        Me.Panel_Center.Size = New System.Drawing.Size(460, 465)
+        Me.Panel_Center.Size = New System.Drawing.Size(493, 465)
         Me.Panel_Center.TabIndex = 0
         '
         'Panel_QuickButtons
@@ -1080,7 +1080,7 @@ Partial Class MainForm
         Me.Panel_QuickButtons.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel_QuickButtons.Location = New System.Drawing.Point(0, 10)
         Me.Panel_QuickButtons.Name = "Panel_QuickButtons"
-        Me.Panel_QuickButtons.Size = New System.Drawing.Size(460, 375)
+        Me.Panel_QuickButtons.Size = New System.Drawing.Size(493, 375)
         Me.Panel_QuickButtons.TabIndex = 0
         '
         'Btn_QuickSales
@@ -1131,7 +1131,7 @@ Partial Class MainForm
         Me.Panel_DashBoard_Top.Location = New System.Drawing.Point(0, 0)
         Me.Panel_DashBoard_Top.Name = "Panel_DashBoard_Top"
         Me.Panel_DashBoard_Top.Padding = New System.Windows.Forms.Padding(20)
-        Me.Panel_DashBoard_Top.Size = New System.Drawing.Size(460, 10)
+        Me.Panel_DashBoard_Top.Size = New System.Drawing.Size(493, 10)
         Me.Panel_DashBoard_Top.TabIndex = 1
         '
         'Panel_Shortcuts_Bottom
@@ -1142,7 +1142,7 @@ Partial Class MainForm
         Me.Panel_Shortcuts_Bottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel_Shortcuts_Bottom.Location = New System.Drawing.Point(0, 385)
         Me.Panel_Shortcuts_Bottom.Name = "Panel_Shortcuts_Bottom"
-        Me.Panel_Shortcuts_Bottom.Size = New System.Drawing.Size(460, 80)
+        Me.Panel_Shortcuts_Bottom.Size = New System.Drawing.Size(493, 80)
         Me.Panel_Shortcuts_Bottom.TabIndex = 2
         '
         'Table_Bill_Screen_btn
@@ -1178,10 +1178,10 @@ Partial Class MainForm
         '
         Me.Panel_Right.Controls.Add(Me.GroupBox2)
         Me.Panel_Right.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel_Right.Location = New System.Drawing.Point(825, 15)
+        Me.Panel_Right.Location = New System.Drawing.Point(858, 15)
         Me.Panel_Right.Name = "Panel_Right"
         Me.Panel_Right.Padding = New System.Windows.Forms.Padding(0, 0, 10, 0)
-        Me.Panel_Right.Size = New System.Drawing.Size(360, 465)
+        Me.Panel_Right.Size = New System.Drawing.Size(327, 465)
         Me.Panel_Right.TabIndex = 1
         '
         'GroupBox2
@@ -1194,7 +1194,7 @@ Partial Class MainForm
         Me.GroupBox2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(243, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(18, Byte), Integer))
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(350, 465)
+        Me.GroupBox2.Size = New System.Drawing.Size(317, 465)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "التحذيرات والتذكير"
@@ -1226,7 +1226,7 @@ Partial Class MainForm
         Me.ALERT_DGV.RowHeadersVisible = False
         Me.ALERT_DGV.RowTemplate.Height = 40
         Me.ALERT_DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.ALERT_DGV.Size = New System.Drawing.Size(344, 389)
+        Me.ALERT_DGV.Size = New System.Drawing.Size(311, 389)
         Me.ALERT_DGV.TabIndex = 0
         '
         'Panel_NotifControls
@@ -1237,7 +1237,7 @@ Partial Class MainForm
         Me.Panel_NotifControls.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel_NotifControls.Location = New System.Drawing.Point(3, 28)
         Me.Panel_NotifControls.Name = "Panel_NotifControls"
-        Me.Panel_NotifControls.Size = New System.Drawing.Size(344, 45)
+        Me.Panel_NotifControls.Size = New System.Drawing.Size(311, 45)
         Me.Panel_NotifControls.TabIndex = 1
         '
         'NotifFilter_Cmb
@@ -1246,10 +1246,10 @@ Partial Class MainForm
         Me.NotifFilter_Cmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.NotifFilter_Cmb.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.NotifFilter_Cmb.Items.AddRange(New Object() {"كل الإشعارات", "نواقص مخزن", "صلاحية أصناف", "ديون عملاء"})
-        Me.NotifFilter_Cmb.Location = New System.Drawing.Point(86, 0)
+        Me.NotifFilter_Cmb.Location = New System.Drawing.Point(77, 0)
         Me.NotifFilter_Cmb.Margin = New System.Windows.Forms.Padding(5)
         Me.NotifFilter_Cmb.Name = "NotifFilter_Cmb"
-        Me.NotifFilter_Cmb.Size = New System.Drawing.Size(258, 25)
+        Me.NotifFilter_Cmb.Size = New System.Drawing.Size(234, 25)
         Me.NotifFilter_Cmb.TabIndex = 0
         '
         'MuteAlerts_Btn

@@ -3,6 +3,92 @@
 Public Class User_Valids
     Dim S_ID As Integer
     Dim S_Name As String
+    Private AgentTypesTab As TabPage
+    Private AgentTypesList As CheckedListBox
+    Private AllowAllAgentTypesCheckBox As CheckBox
+
+    Private NotInheritable Class AgentTypeChoice
+        Friend ReadOnly Id As Integer
+        Private ReadOnly DisplayName As String
+
+        Friend Sub New(id As Integer, displayName As String)
+            Me.Id = id
+            Me.DisplayName = displayName
+        End Sub
+
+        Public Overrides Function ToString() As String
+            Return DisplayName
+        End Function
+    End Class
+
+    Private Sub InitializeAgentTypesTab()
+        If AgentTypesTab IsNot Nothing Then Return
+        AgentTypesTab = New TabPage("أنواع العملاء") With {.BackColor = SystemColors.Control, .Padding = New Padding(12)}
+        AllowAllAgentTypesCheckBox = New CheckBox With {
+            .AutoSize = True,
+            .Checked = True,
+            .Font = New Font("Segoe UI Semibold", 11.0!, FontStyle.Bold),
+            .Location = New Point(260, 18),
+            .Text = "السماح بجميع أنواع العملاء والحسابات (افتراضي)"
+        }
+        Dim helpLabel As New Label With {
+            .AutoSize = False,
+            .Font = New Font("Segoe UI", 10.0!),
+            .ForeColor = Color.DimGray,
+            .Location = New Point(18, 55),
+            .Size = New Size(560, 45),
+            .Text = "عند إلغاء السماح للجميع، اختر الأنواع التي يستطيع مستخدمو هذه الصلاحية البحث عنها واستخدامها في الفواتير والإيصالات."
+        }
+        AgentTypesList = New CheckedListBox With {
+            .CheckOnClick = True,
+            .Enabled = False,
+            .Font = New Font("Segoe UI", 11.0!),
+            .Location = New Point(18, 105),
+            .Size = New Size(560, 290),
+            .ThreeDCheckBoxes = True
+        }
+        AddHandler AllowAllAgentTypesCheckBox.CheckedChanged, AddressOf AllowAllAgentTypesCheckBox_CheckedChanged
+        AgentTypesTab.Controls.Add(AllowAllAgentTypesCheckBox)
+        AgentTypesTab.Controls.Add(helpLabel)
+        AgentTypesTab.Controls.Add(AgentTypesList)
+        TabControl1.TabPages.Add(AgentTypesTab)
+    End Sub
+
+    Private Sub AllowAllAgentTypesCheckBox_CheckedChanged(sender As Object, e As EventArgs)
+        If AgentTypesList IsNot Nothing Then AgentTypesList.Enabled = Not AllowAllAgentTypesCheckBox.Checked
+    End Sub
+
+    Private Sub LoadAgentTypes()
+        AgentTypesList.Items.Clear()
+        Using cn As New SqlConnection(My_Settings.SqlConStr)
+            cn.Open()
+            Using cmd As New SqlCommand("SELECT ID,Type_Name FROM dbo.Agents_Types ORDER BY Rank_Num,ID", cn)
+                Using reader = cmd.ExecuteReader()
+                    While reader.Read()
+                        AgentTypesList.Items.Add(New AgentTypeChoice(Convert.ToInt32(reader("ID")), Convert.ToString(reader("Type_Name"))))
+                    End While
+                End Using
+            End Using
+        End Using
+    End Sub
+
+    Private Sub LoadAgentTypeSelection(validationId As Integer)
+        Dim selectedIds = AgentTypeAccessPolicy.LoadValidationTypeIds(My_Settings.SqlConStr, validationId)
+        AllowAllAgentTypesCheckBox.Checked = selectedIds.Count = 0
+        For index = 0 To AgentTypesList.Items.Count - 1
+            Dim item = DirectCast(AgentTypesList.Items(index), AgentTypeChoice)
+            AgentTypesList.SetItemChecked(index, selectedIds.Contains(item.Id))
+        Next
+        AgentTypesList.Enabled = Not AllowAllAgentTypesCheckBox.Checked
+    End Sub
+
+    Private Function SelectedAgentTypeIds() As List(Of Integer)
+        Dim result As New List(Of Integer)()
+        For Each item As Object In AgentTypesList.CheckedItems
+            result.Add(DirectCast(item, AgentTypeChoice).Id)
+        Next
+        Return result
+    End Function
     Private Sub NewEmpButton_Click(sender As Object, e As EventArgs) Handles NewSButton.Click
         SaveSButton.Enabled = True
         EditSButton.Enabled = False
@@ -23,9 +109,8 @@ Public Class User_Valids
     Private Sub Clear_ValidPanel()
         For Each gb As Control In TabControl1.Controls
             ' If TypeOf gb Is GroupBox And gb.Name <> "GroupBox1" Then
-            For Each ch As CheckBox In gb.Controls
-                '  DirectCast(ch, CheckBox).Checked = False
-                ch.Checked = False
+            For Each child As Control In gb.Controls
+                If TypeOf child Is CheckBox Then DirectCast(child, CheckBox).Checked = False
             Next
             ' End If
         Next
@@ -42,6 +127,11 @@ Public Class User_Valids
         SB_Show_Cash_CB.Checked = False
         U_Sell_Under_Min_SP_CB.Checked = False
         Show_IM_Cost_CB.Checked = False
+        Open_Agent_Card_CB.Checked = True
+        AllowAllAgentTypesCheckBox.Checked = True
+        For index = 0 To AgentTypesList.Items.Count - 1
+            AgentTypesList.SetItemChecked(index, False)
+        Next
     End Sub
 
     Public Sub Store_Insert()
@@ -99,7 +189,22 @@ Public Class User_Valids
 
             sqlCon.Open()
             Try
-                sqlComm.ExecuteNonQuery()
+                Using transaction = sqlCon.BeginTransaction(IsolationLevel.Serializable)
+                    sqlComm.Transaction = transaction
+                    Dim previousMax As Integer
+                    Using maxCommand As New SqlCommand("SELECT ISNULL(MAX(T_ID),0) FROM dbo.Users_Validations WITH(UPDLOCK,HOLDLOCK)", sqlCon, transaction)
+                        previousMax = Convert.ToInt32(maxCommand.ExecuteScalar())
+                    End Using
+                    sqlComm.ExecuteNonQuery()
+                    Dim insertedId As Integer
+                    Using idCommand As New SqlCommand("SELECT ISNULL(MAX(T_ID),0) FROM dbo.Users_Validations WITH(UPDLOCK,HOLDLOCK)", sqlCon, transaction)
+                        insertedId = Convert.ToInt32(idCommand.ExecuteScalar())
+                    End Using
+                    If insertedId <= previousMax Then Throw New InvalidOperationException("تعذر تحديد رقم الصلاحية الجديدة.")
+                    AgentTypeAccessPolicy.SaveValidationTypes(sqlCon, transaction, insertedId, AllowAllAgentTypesCheckBox.Checked, SelectedAgentTypeIds())
+                    AgentCardAccessPolicy.SaveValidation(sqlCon, transaction, insertedId, Open_Agent_Card_CB.Checked)
+                    transaction.Commit()
+                End Using
                 MsgBox("تـــم إضافة الصلاحية ", MsgBoxStyle.Information)
                 SNameTextBox.Clear()
                 Load_StoreData()
@@ -112,6 +217,8 @@ Public Class User_Valids
     End Sub
 
     Private Sub STORES_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        InitializeAgentTypesTab()
+        LoadAgentTypes()
         Load_StoreData()
         If S_Tables = False Then
             End_Table_CB.Visible = False
@@ -202,7 +309,13 @@ Public Class User_Valids
 
             sqlCon.Open()
             Try
-                sqlComm.ExecuteNonQuery()
+                Using transaction = sqlCon.BeginTransaction(IsolationLevel.Serializable)
+                    sqlComm.Transaction = transaction
+                    sqlComm.ExecuteNonQuery()
+                    AgentTypeAccessPolicy.SaveValidationTypes(sqlCon, transaction, S_ID, AllowAllAgentTypesCheckBox.Checked, SelectedAgentTypeIds())
+                    AgentCardAccessPolicy.SaveValidation(sqlCon, transaction, S_ID, Open_Agent_Card_CB.Checked)
+                    transaction.Commit()
+                End Using
                 MsgBox("تـــم تعديل الصلاحية ", MsgBoxStyle.Information)
                 Me.Load_StoreData()
                 SNameTextBox.Clear()
@@ -288,6 +401,8 @@ Public Class User_Valids
         End If
 
         C.Con.Close()
+        LoadAgentTypeSelection(S_ID)
+        Open_Agent_Card_CB.Checked = AgentCardAccessPolicy.LoadValidation(My_Settings.SqlConStr, S_ID)
     End Sub
 
     Private Sub DeleteSButton_Click(sender As Object, e As EventArgs) Handles DeleteSButton.Click
@@ -490,6 +605,10 @@ Public Class User_Valids
     End Sub
 
     Private Sub Tr_Widraw_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Tr_Widraw_CB.CheckedChanged, Tr_Deposit_CB.CheckedChanged, Tr_Convert_CB.CheckedChanged, Hide_Unrelated_Tr_CB.CheckedChanged
+        CB_CHecked(sender)
+    End Sub
+
+    Private Sub Open_Agent_Card_CB_CheckedChanged(sender As Object, e As EventArgs) Handles Open_Agent_Card_CB.CheckedChanged
         CB_CHecked(sender)
     End Sub
 End Class

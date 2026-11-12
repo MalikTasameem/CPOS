@@ -30,6 +30,14 @@ Public Class Agent
         If e.KeyCode = Keys.F4 Then If Delete_butt.Enabled = True Then Delete_butt_Click(sender, e)
     End Sub
     Public Sub Agent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            AgentCardAccessPolicy.EnsureAllowed(My_Settings.SqlConStr, USER_ID)
+        Catch ex As Exception
+            MessageBox.Show(Me, ex.Message, "بطاقة العملاء والموردين", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Me.DialogResult = DialogResult.Cancel
+            Me.Close()
+            Return
+        End Try
         ThemeManager.ApplyThemeToForm(Me)
         'If My_Settings.App_Suuply = "RESAL" Then Me.Icon = New Icon(Me.GetType(), "resal_soft.ico")
         EditState = Edit_butt.Text

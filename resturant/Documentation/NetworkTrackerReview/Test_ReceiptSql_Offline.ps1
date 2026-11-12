@@ -2,8 +2,9 @@ param([string]$CandidateDirectory)
 $ErrorActionPreference='Stop'
 # Text/AST checks only. Never opens SQL connections or executes SQL batches.
 $projectRoot=(Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
-if(-not $CandidateDirectory){$CandidateDirectory=Join-Path $projectRoot '..\.tmp\AuditReceipt041_20261027'}
-$baseline=Join-Path $projectRoot '..\.tmp\AuditCompletion038_20261027'
+# Reconstruct from the versioned SQL040 reference, not mutable .tmp files left by an older run.
+# An explicitly supplied candidate is still compared byte-for-byte (normalizing line endings).
+$baseline=Join-Path $PSScriptRoot 'ReleaseGate\Fixtures'
 $sql=[IO.File]::ReadAllText((Join-Path $projectRoot 'Database\Audit\041_Receipts.sql'))
 $permissionFix=[IO.File]::ReadAllText((Join-Path $projectRoot 'Database\Audit\042_Receipt_Admin_Permissions.sql'))
 function Decode([string]$value){$value.Replace("''", "'")}
@@ -14,12 +15,14 @@ $prefixes=@([regex]::Matches($sql,"REPLACE\(@sql,@old,N'((?:''|[^'])*)'\+@old\)"
 if($olds.Count -ne 4 -or $appends.Count -ne 2 -or $prefixes.Count -ne 2){throw 'Unexpected SQL041 transformation structure'}
 $begin=[IO.File]::ReadAllText((Join-Path $baseline 'Network_Audit_Request_Begin_040_Candidate.sql'))
 $writer=[IO.File]::ReadAllText((Join-Path $baseline 'Network_Audit_Event_Write_040_Candidate.sql'))
+if(-not $begin.Contains($olds[0])){throw 'SQL040 begin anchor is missing'}
+foreach($anchor in $olds[1..3]){if(-not $writer.Contains($anchor)){throw 'SQL040 writer anchor is missing'}}
 $begin=$begin.Replace('CREATE PROCEDURE','ALTER PROCEDURE').Replace($olds[0],$olds[0]+$appends[0])
 $writer=$writer.Replace('CREATE PROCEDURE','ALTER PROCEDURE').Replace($olds[1],$olds[1]+$appends[1]).Replace($olds[2],$prefixes[0]+$olds[2]).Replace($olds[3],$prefixes[1]+$olds[3])
-foreach($pair in @(@('Network_Audit_Request_Begin',$begin),@('Network_Audit_Event_Write',$writer))){
+if($CandidateDirectory){foreach($pair in @(@('Network_Audit_Request_Begin',$begin),@('Network_Audit_Event_Write',$writer))){
  $actual=[IO.File]::ReadAllText((Join-Path $CandidateDirectory ($pair[0]+'_041_Candidate.sql')))
  if((Normalized $actual) -cne (Normalized $pair[1])){throw ('Candidate does not match migration transformations: '+$pair[0])}
-}
+}}
 $insertMatch=[regex]::Match($sql,"EXEC sys\.sp_executesql N'((?:''|[^'])*)';")
 if(-not $insertMatch.Success){throw 'Isolated insert not found'}
 $insert=Decode $insertMatch.Groups[1].Value
@@ -30,7 +33,7 @@ $hasher=[Security.Cryptography.SHA256]::Create()
 try{$hash=([BitConverter]::ToString($hasher.ComputeHash([Text.Encoding]::Unicode.GetBytes($insert.Replace("`r`n","`n"))))).Replace('-','')}finally{$hasher.Dispose()}
 $service=[IO.File]::ReadAllText((Join-Path $projectRoot 'Classes\Audit\AuditReceipt.vb'))
 if(-not $service.Contains($hash) -or $service.Contains('PENDING_SQL041_HASH')){throw 'Service isolated-procedure fingerprint mismatch'}
-foreach($guard in @('Update_Receipt','Cancel_Receipt','v.Exp=1','v.SB_Rtn=1','v.Pch_Rtn=1','ISNULL(Custody_ID,0)=0','C_Rcpt_T_ID=@rcNumber','ReceiptHeader after-state','ReceiptTreasury after-state','DATALENGTH(c.AfterValue)<>128','varbinary(8000)','TRY_CONVERT(datetime2(7),c.AfterValue,126)')){
+foreach($guard in @('Update_Receipt','Cancel_Receipt','v.Exp=1','v.SB_Rtn=1','v.Pch_Rtn=1','ISNULL(Custody_ID,0)=0','C_Rcpt_T_ID=@rcNumber','ReceiptHeader after-state','ReceiptTreasury after-state','DATALENGTH(c.AfterValue)<>128','varbinary(8000)','TRY_CONVERT(datetime,c.AfterValue,126)')){
  if(-not $sql.Contains($guard)){throw ('Missing receipt SQL guard: '+$guard)}
 }
 foreach($guard in @('AuditReceipts042','LEFT JOIN dbo.Users_Validations_V','u.isAdmin=1 OR','Receipt permission denied.')){

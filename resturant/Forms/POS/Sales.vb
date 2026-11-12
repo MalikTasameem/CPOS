@@ -314,6 +314,8 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             Else
                 If Open_NewBill_When_OpenSale = True Then ResetNewBill()
             End If
+            AG_Cm.SQL_SearchField_WHERE = AgentTypeAccessPolicy.UserWhereClause(My_Settings.SqlConStr, USER_ID, "Type_ID")
+            AG_Cm.ReloadData()
             ModernLoader.CloseLoader()
         Catch ex As Exception
             ModernLoader.CloseLoader()
@@ -1019,6 +1021,10 @@ Public Class Sales : Inherits System.Windows.Forms.Form
     End Sub
 
     Private Sub ADD_Fast_AG()
+        If Not AgentTypeAccessPolicy.IsTypeAllowed(My_Settings.SqlConStr, USER_ID, Cr_Type_ID) Then
+            MsgBox("لا تملك صلاحية إضافة عميل من النوع الافتراضي لهذه الشاشة.", MsgBoxStyle.Exclamation, "صلاحية نوع العميل")
+            Return
+        End If
         If GET_AG_NO_SPACES(AG_Cm.Textt) = True Then 'AG_Cm.TXT_ID.Text <> 0 Or
             MsgBox("هذا العميل موجود بالفعل", MsgBoxStyle.Critical, "إضافة عميل")
         ElseIf String.IsNullOrWhiteSpace(AG_Cm.Textt) Then
@@ -1601,7 +1607,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             Dim paymentSnapshot As SalesBillPaymentSnapshot =
                 SalesBillPaymentEditService.CaptureSnapshot(T_ID, USER_ID)
 
-            If paymentSnapshot.IsAutoPaidAgent AndAlso
+            If paymentSnapshot.RequiresPaymentReconciliation AndAlso
                Not SalesBillPaymentEditService.IsReconciliationAvailable() Then
                 MsgBox("لا يمكن فتح تعديل الفاتورة قبل تثبيت طبقة تسوية الدفعات رقم 005.",
                        MsgBoxStyle.Exclamation,
@@ -1649,7 +1655,7 @@ Public Class Sales : Inherits System.Windows.Forms.Form
             Return False
         End If
 
-        If Not EditPaymentSnapshot.IsAutoPaidAgent Then Return True
+        If Not EditPaymentSnapshot.RequiresPaymentReconciliation Then Return True
 
         Dim newPure As Decimal = Convert.ToDecimal(Pure)
         Dim adjustment As Decimal = newPure - EditPaymentSnapshot.NetPaidTotal

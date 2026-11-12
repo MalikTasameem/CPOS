@@ -9,6 +9,7 @@ $sources=@('Models\Audit\AuditEventContext.vb','Models\Audit\AuditEventRequest.v
  'Classes\Audit\AuditSalesLineEdit.vb','Classes\Audit\AuditSalesQuantity.vb','Classes\Audit\AuditPeopleCards.vb') | ForEach-Object {Join-Path $projectRoot $_}
 $sources+=Get-ChildItem (Join-Path $projectRoot 'Classes\Audit\AuditContract.*.vb') | ForEach-Object FullName
 $sources += Join-Path $projectRoot 'Classes\Audit\AuditDisplayNameResolver.vb'
+$sources += Join-Path $projectRoot 'Classes\Security\AgentCardAccessPolicy.vb'
 $sources+=Join-Path $PSScriptRoot 'AuditPeopleCardsTests.vb'
 $exe=Join-Path $output 'AuditPeopleCardsTests.exe'
 & 'C:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe' /nologo /target:exe /optionstrict+ /imports:System /main:AuditPeopleCardsTests /reference:System.dll,System.Core.dll,System.Data.dll,System.Xml.dll,System.Xml.Linq.dll "/out:$exe" $sources

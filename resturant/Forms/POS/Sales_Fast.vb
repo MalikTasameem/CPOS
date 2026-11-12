@@ -884,6 +884,11 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
 
     Public Sub ConfermBill()
 
+        If Not AgentTypeAccessPolicy.IsAgentAllowed(My_Settings.SqlConStr, USER_ID, AG_ID) Then
+            MsgBox("لا يمكن حفظ الفاتورة على نوع العميل المحدد وفق صلاحية المستخدم الحالي.", MsgBoxStyle.Exclamation, "صلاحية نوع العميل")
+            Return
+        End If
+
         Dim useMultiplePayments As Boolean =
             AG_ID = Default_AG_ID AndAlso SalesPaymentSqlLayer.IsAvailable()
 
@@ -2285,7 +2290,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
                     Dim paymentSnapshot As SalesBillPaymentSnapshot
                     Try
                         paymentSnapshot = SalesBillPaymentEditService.CaptureSnapshot(T_ID, USER_ID)
-                        If paymentSnapshot.IsAutoPaidAgent AndAlso
+                        If paymentSnapshot.RequiresPaymentReconciliation AndAlso
                            Not SalesBillPaymentEditService.IsReconciliationAvailable() Then
                             MsgBox("لا يمكن فتح تعديل الفاتورة قبل تثبيت طبقة تسوية الدفعات رقم 005.",
                                    MsgBoxStyle.Exclamation,
@@ -2339,7 +2344,7 @@ Public Class Sales_Fast : Inherits System.Windows.Forms.Form
             Return False
         End If
 
-        If Not EditPaymentSnapshot.IsAutoPaidAgent Then Return True
+        If Not EditPaymentSnapshot.RequiresPaymentReconciliation Then Return True
 
         Dim newPure As Decimal = Convert.ToDecimal(Pure)
         Dim adjustment As Decimal = newPure - EditPaymentSnapshot.NetPaidTotal

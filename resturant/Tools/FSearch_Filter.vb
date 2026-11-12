@@ -536,6 +536,11 @@ Public Class FSearch_Filter
             '  MessageBox.Show("يوجد خطأ باتصالك بقاعدة البيانات والخطأ " & vbNewLine & ex.Message)
         End Try
     End Sub
+
+    Public Sub ReloadData()
+        GetLIst_ALL()
+        If Not String.IsNullOrWhiteSpace(Text.Text) Then GetLIst()
+    End Sub
     Private Sub Clickk()
         Try
             ShowFlag = Not ShowFlag

@@ -4,6 +4,7 @@ Public Class SalesBillPaymentSnapshot
     Public Property BillNumber As String
     Public Property AgentID As Integer
     Public Property IsAutoPaidAgent As Boolean
+    Public Property AccountingJournalID As Integer?
     Public Property OriginalPure As Decimal
     Public Property IsDepended As Boolean
     Public Property IsVoid As Boolean
@@ -14,6 +15,14 @@ Public Class SalesBillPaymentSnapshot
     Public ReadOnly Property NetPaidTotal As Decimal
         Get
             Return Payments.Sum(Function(payment) payment.SignedAmount)
+        End Get
+    End Property
+
+    Public ReadOnly Property RequiresPaymentReconciliation As Boolean
+        Get
+            Return IsAutoPaidAgent AndAlso
+                   AccountingJournalID.HasValue AndAlso
+                   AccountingJournalID.Value > 0
         End Get
     End Property
 

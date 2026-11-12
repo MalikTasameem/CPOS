@@ -1,7 +1,7 @@
-param()
+param([string]$OutputDirectory,[string]$ConnectionEnvironmentVariable)
 $ErrorActionPreference='Stop'
 $projectRoot=(Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
-$output=Join-Path $projectRoot '..\.tmp\AuditItemLifecycle038'
+$output=if($OutputDirectory){$OutputDirectory}else{Join-Path $projectRoot '..\.tmp\AuditItemLifecycle038'}
 New-Item -ItemType Directory -Path $output -Force | Out-Null
 $sources=@('Models\Audit\AuditEventContext.vb','Models\Audit\AuditEventRequest.vb','Models\Audit\AuditFieldChange.vb',
  'Classes\Audit\AuditContract.vb','Classes\Audit\AuditCanonical.vb','Classes\Audit\AuditMessageFormatter.vb',
@@ -10,10 +10,14 @@ $sources=@('Models\Audit\AuditEventContext.vb','Models\Audit\AuditEventRequest.v
 $sources+=Get-ChildItem (Join-Path $projectRoot 'Classes\Audit\AuditContract.*.vb') | ForEach-Object FullName
 $sources += Join-Path $projectRoot 'Classes\Audit\AuditDisplayNameResolver.vb'
 $sources+=Join-Path $PSScriptRoot 'AuditItemLifecycleTests.vb'
+$sources+=Join-Path $PSScriptRoot 'AuditItemLifecycleLiveTests.vb'
 $exe=Join-Path $output 'AuditItemLifecycleTests.exe'
 & 'C:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe' /nologo /target:exe /optionstrict+ /imports:System /main:AuditItemLifecycleTests /reference:System.dll,System.Core.dll,System.Data.dll,System.Xml.dll,System.Xml.Linq.dll "/out:$exe" $sources
 if($LASTEXITCODE -ne 0){throw 'Item lifecycle tests did not compile'}
 & $exe
 if($LASTEXITCODE -ne 0){throw 'Item lifecycle tests failed'}
+if($ConnectionEnvironmentVariable){
+ & $exe --live $ConnectionEnvironmentVariable
+ if($LASTEXITCODE -ne 0){throw 'Item lifecycle SQL tests failed'}
+}
 # Offline only. The migration and live transaction/retry/security tests require a separate deployment decision.
-

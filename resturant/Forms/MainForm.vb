@@ -2585,4 +2585,7 @@ WHERE isDepended = 1
         End Try
     End Sub
 
+    Private Sub TitleBar_Panel_Paint(sender As Object, e As PaintEventArgs) Handles TitleBar_Panel.Paint
+
+    End Sub
 End Class

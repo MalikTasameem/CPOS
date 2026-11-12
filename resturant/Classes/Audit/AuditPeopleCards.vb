@@ -80,6 +80,7 @@ Friend NotInheritable Class AuditPeopleCards
         Return If(p Is Nothing, fallback, If(p.Value, DBNull.Value))
     End Function
     Private Shared Sub Permission(cn As SqlConnection, tx As SqlTransaction, context As AuditEventContext, operation As String)
+        If context.ScreenCode = "Agent" Then AgentCardAccessPolicy.EnsureAllowed(cn, tx, context.ActorUserId.Value)
         Dim permissionSql As String
         If operation.StartsWith("User.", StringComparison.Ordinal) Then
             permissionSql = "u.isAdmin=1"

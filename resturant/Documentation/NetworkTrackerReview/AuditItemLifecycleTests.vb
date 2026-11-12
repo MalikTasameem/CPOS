@@ -89,8 +89,12 @@ Friend Module AuditItemLifecycleTests
         End If
         Return AuditItemLifecycle.Events(r, b, a, New DateTime(2026, 10, 27, 12, 0, 0, DateTimeKind.Utc))
     End Function
-    Public Function Main() As Integer
+    Public Function Main(args As String()) As Integer
         Try
+            If args.Length = 2 AndAlso args(0) = "--live" Then
+                AuditItemLifecycleLiveTests.Run(Environment.GetEnvironmentVariable(args(1)))
+                Return 0
+            End If
             For Each op In {"Item.PlaceholderAcquired", "Item.FullSaved", "Item.QuickSaved", "Item.DisabledRowsRemoved"}
                 Dim r = Request(op)
                 Check(AuditContract.Domain(op) = "Catalog.ItemLifecycle", "domain " & op)

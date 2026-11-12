@@ -2,3 +2,6 @@ bin/
 obj/
 .vs/
 *.user
+
+# Local test/build artifacts: retained on disk, excluded from Git.
+/.tmp/

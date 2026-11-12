@@ -23,6 +23,7 @@ Public Class AgentsMenu
         ThemeManager.ApplyThemeToForm(Me)
         'rs.FindAllControls(Me)
         If U_Balance = False Then AG_Account_btn.Visible = False
+        ConfigureAgentAccess()
         Fetch_Agents_Type()
 
         If MY_Settings.is_ByBarInput = True Then
@@ -34,6 +35,22 @@ Public Class AgentsMenu
 
         load_Fast_ag()
     End Sub
+
+    Private Sub ConfigureAgentAccess()
+        AG_Cm.SQL_SearchField_WHERE = AgentTypeAccessPolicy.UserWhereClause(My_Settings.SqlConStr, USER_ID, "Type_ID")
+        AG_Cm.ReloadData()
+        New_AG_Btn.Enabled = AgentTypeAccessPolicy.IsTypeAllowed(My_Settings.SqlConStr, USER_ID, Cr_Type_ID)
+    End Sub
+
+    Private Function EnsureAgentAccess(agentId As Integer) As Boolean
+        Try
+            If AgentTypeAccessPolicy.IsAgentAllowed(My_Settings.SqlConStr, USER_ID, agentId) Then Return True
+            MsgBox("نوع العميل أو الحساب غير مسموح للمستخدم الحالي.", MsgBoxStyle.Exclamation, "صلاحية نوع العميل")
+        Catch ex As Exception
+            MsgBox("تعذر التحقق من صلاحية نوع العميل:" & vbCrLf & ex.Message, MsgBoxStyle.Critical, "صلاحية نوع العميل")
+        End Try
+        Return False
+    End Function
 
     Public Sub load_Fast_ag()
         Agents_Panel.Controls.Clear()
@@ -47,7 +64,7 @@ Public Class AgentsMenu
         Dim s As String = ""
         Dim IMName As String = ""
 
-        s = "select AG_ID,AG_NAME from Agents WHERE isDefaultAG = 1 ORDER BY AG_ID ASC "
+        s = "select A.AG_ID,A.AG_NAME from Agents AS A WHERE A.isDefaultAG = 1" & AgentTypeAccessPolicy.UserWhereClause(My_Settings.SqlConStr, USER_ID, "A.Type_ID") & " ORDER BY A.AG_ID ASC"
 
 
         c.Com = New SqlClient.SqlCommand(s, c.Con)
@@ -117,12 +134,24 @@ Public Class AgentsMenu
     End Sub
 
     Private Sub New_AG_Btn_Click(sender As Object, e As EventArgs) Handles New_AG_Btn.Click
+        If Not AgentTypeAccessPolicy.IsTypeAllowed(My_Settings.SqlConStr, USER_ID, Cr_Type_ID) Then
+            MsgBox("لا تملك صلاحية إضافة عميل من النوع الافتراضي لهذه الشاشة.", MsgBoxStyle.Exclamation, "صلاحية نوع العميل")
+            Return
+        End If
         F_AddFastAgent = New AddFastAgent
         F_AddFastAgent.ShowDialog()
+        AG_Cm.ReloadData()
+        load_Fast_ag()
     End Sub
 
     Private Sub Select_AG_btn_Click(sender As Object, e As EventArgs) Handles Select_AG_btn.Click
-        AG_ID = AG_Cm.TXT_ID.Text
+        Dim selectedAgent As Integer
+        If Not Integer.TryParse(AG_Cm.TXT_ID.Text, selectedAgent) OrElse selectedAgent <= 0 Then
+            MsgBox("اختر العميل أو الحساب من القائمة أولًا.", MsgBoxStyle.Exclamation, "اختيار الحساب")
+            Return
+        End If
+        If Not EnsureAgentAccess(selectedAgent) Then Return
+        AG_ID = selectedAgent
         AG_NAME = AG_Cm.Textt
 
         If is_By_Draft = False Then
@@ -275,6 +304,7 @@ Public Class AgentsMenu
 
         AG_ID = Default_AG_ID
         AG_NAME = "نقدي"
+        If Not EnsureAgentAccess(AG_ID) Then Return
 
         If is_By_Draft = False Then
 
@@ -453,7 +483,7 @@ Public Class AgentsMenu
         Dim Data As Byte()
         Try
             Dim s As String
-            s = "select * from AGENTS_MENU_V WHERE AG_ID = '" & AG_ID & "'"
+            s = "select * from AGENTS_MENU_V WHERE AG_ID = '" & AG_ID & "'" & AgentTypeAccessPolicy.UserWhereClause(My_Settings.SqlConStr, USER_ID, "Type_ID")
 
             c.Com = New SqlClient.SqlCommand(s, c.Con)
             c.Con.Open()
@@ -523,7 +553,7 @@ Public Class AgentsMenu
         IM_Dt.Clear()
         Try
             Dim s As String
-            s = "select * from AGENTS_MENU_V WHERE Barcode = '" & Barcode_SH_txt.Text & "' AND Type_ID IN ('" & Cr_Type_ID & "','" & General_AG_Type_ID & "')"
+            s = "select * from AGENTS_MENU_V WHERE Barcode = '" & Barcode_SH_txt.Text & "' AND Type_ID IN ('" & Cr_Type_ID & "','" & General_AG_Type_ID & "')" & AgentTypeAccessPolicy.UserWhereClause(My_Settings.SqlConStr, USER_ID, "Type_ID")
 
             c.Com = New SqlClient.SqlCommand(s, c.Con)
             c.Con.Open()

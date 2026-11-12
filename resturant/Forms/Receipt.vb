@@ -440,6 +440,10 @@ Public Class Receipt
             MsgBox("الرجاء التأكد من اختيار الحساب من القائمة", MsgBoxStyle.Exclamation, "خطأ في الحفظ")
             AG_Cm.Focus() : Return 0
         End If
+        If Not AgentTypeAccessPolicy.IsAgentAllowed(My_Settings.SqlConStr, USER_ID, selectedAgent) Then
+            MsgBox("نوع العميل أو الحساب غير مسموح للمستخدم الحالي.", MsgBoxStyle.Exclamation, "صلاحية نوع العميل")
+            AG_Cm.Focus() : Return 0
+        End If
         If Not Decimal.TryParse(money_num_txtb.Text, NumberStyles.Number, CultureInfo.CurrentCulture, amount) OrElse amount = 0D Then
             MsgBox("أدخل قيمة صحيحة وغير صفرية للمعاملة", MsgBoxStyle.Exclamation, "خطأ في الحفظ")
             money_num_txtb.Focus() : Return 0
@@ -912,11 +916,13 @@ Public Class Receipt
         Get_MAX_T_ID()
       
         Load_Data()
+        AG_Cm.SQL_SearchField_WHERE = AgentTypeAccessPolicy.UserWhereClause(My_Settings.SqlConStr, USER_ID, "Type_ID")
+        AG_Cm.ReloadData()
         Title_Lb.Text = "شاشة إدراج : " + ReceiptTypeComboBox.Text
         Title_Lb.BackColor = ReceiptTypeComboBox.BackColor
         If Reciept_T_ID = 0 Then Integer.TryParse(ReceiptNum_Txt.Text, ReceiptNum)
 
-        If AG_ID > 0 Then AG_Cm.Set_IM_By_ID(AG_ID)
+        If AG_ID > 0 AndAlso AgentTypeAccessPolicy.IsAgentAllowed(My_Settings.SqlConStr, USER_ID, AG_ID) Then AG_Cm.Set_IM_By_ID(AG_ID)
 
         AG_Show_Balance_CB.Checked = MY_Settings.AG_Show_Balance_in_Receipt
         Show_Treasury_CB.Checked = MY_Settings.Show_Treasury_in_Receipt
@@ -1054,6 +1060,12 @@ Public Class Receipt
     Public Sub Fetch_ItemToList()
         Dim selectedAgent As Integer
         If Not Integer.TryParse(AG_Cm.TXT_ID.Text, selectedAgent) OrElse selectedAgent <= 0 Then Return
+        If Not AgentTypeAccessPolicy.IsAgentAllowed(My_Settings.SqlConStr, USER_ID, selectedAgent) Then
+            MsgBox("نوع العميل أو الحساب غير مسموح للمستخدم الحالي.", MsgBoxStyle.Exclamation, "صلاحية نوع العميل")
+            AG_Cm.TXT_ID.Clear()
+            AG_Cm.Textt = ""
+            Return
+        End If
         AG_ID = selectedAgent
         Current_QTY.Text = Show_AG_T_Balance(AG_ID)
         Fetch_AG_Currency()
@@ -1095,7 +1107,7 @@ Public Class Receipt
         IM_Dt.Clear()
         Try
             Dim s As String
-            s = "select AG_ID,Ag_name,isnull(T_Balance,0) AS T_Balance from Agents WHERE Barcode = '" & Barcode_SH_txt.Text & "'"
+            s = "select AG_ID,Ag_name,isnull(T_Balance,0) AS T_Balance from Agents WHERE Barcode = '" & Barcode_SH_txt.Text & "'" & AgentTypeAccessPolicy.UserWhereClause(My_Settings.SqlConStr, USER_ID, "Type_ID")
 
             C.Com = New SqlClient.SqlCommand(S, C.Con)
             c.Con.Open()

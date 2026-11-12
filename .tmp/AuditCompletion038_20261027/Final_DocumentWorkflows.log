@@ -1,2 +1,0 @@
-PASS DocumentWorkflows offline checks=464
-PASS SQL037 and isolated quote distribution syntax/isolation (no database execution)

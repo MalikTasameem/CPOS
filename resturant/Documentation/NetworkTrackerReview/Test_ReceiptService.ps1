@@ -8,9 +8,10 @@ $sources=@('Models\Audit\AuditEventContext.vb','Models\Audit\AuditEventRequest.v
  'Classes\Audit\AuditRequestCoordinator.vb','Classes\Audit\AuditWriter.vb','Classes\Audit\AuditReceipt.vb') | ForEach-Object {Join-Path $projectRoot $_}
 $sources+=Get-ChildItem -LiteralPath (Join-Path $projectRoot 'Classes\Audit') -Filter 'AuditContract.*.vb' | Select-Object -ExpandProperty FullName
 $sources += Join-Path $projectRoot 'Classes\Audit\AuditDisplayNameResolver.vb'
+$sources += Join-Path $projectRoot 'Classes\Security\AgentTypeAccessPolicy.vb'
 $sources+=Join-Path $PSScriptRoot 'AuditReceiptServiceTests.vb'
 $exe=Join-Path $output 'AuditReceiptServiceTests.exe'
-& 'C:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe' /nologo /target:exe /optionstrict+ /imports:System /main:AuditReceiptServiceTests /reference:System.dll,System.Core.dll,System.Data.dll,System.Xml.dll,System.Xml.Linq.dll "/out:$exe" $sources
+& 'C:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe' /nologo /target:exe /optionstrict+ /imports:System,System.Collections.Generic /main:AuditReceiptServiceTests /reference:System.dll,System.Core.dll,System.Data.dll,System.Xml.dll,System.Xml.Linq.dll "/out:$exe" $sources
 if($LASTEXITCODE -ne 0){throw 'Receipt service tests did not compile'}
 & $exe
 if($LASTEXITCODE -ne 0){throw 'Receipt service tests failed'}

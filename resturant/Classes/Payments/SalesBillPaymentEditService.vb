@@ -44,7 +44,7 @@ Public NotInheritable Class SalesBillPaymentEditService
         Const sql As String =
             "SELECT B.T_ID, ISNULL(CONVERT(NVARCHAR(25), B.SB_ID), N'') AS BillNumber, " &
             "B.AG_ID, ISNULL(B.Pure, 0) AS Pure, ISNULL(B.isDepended, 0) AS isDepended, " &
-            "ISNULL(B.isVoid, 0) AS isVoid, B.BsType_ID, ISNULL(A.is_Auto_Pied, 0) AS is_Auto_Pied " &
+            "ISNULL(B.isVoid, 0) AS isVoid, B.BsType_ID, B.JournalId, ISNULL(A.is_Auto_Pied, 0) AS is_Auto_Pied " &
             "FROM Agents_Balance_MV B LEFT JOIN Agents A ON A.AG_ID = B.AG_ID WHERE B.T_ID = @T_ID; " &
             "SELECT R.T_ID, R.Receipt_Num, R.BsType_ID, R.Pay_ID, R.Tr_ID, " &
             "COALESCE(NULLIF(LTRIM(RTRIM(PM.PAYMENT_NAME)), N''), ABT.Type_Name, N'غير محدد') AS PaymentName, " &
@@ -78,6 +78,7 @@ Public NotInheritable Class SalesBillPaymentEditService
             .BillNumber = Convert.ToString(billRow("BillNumber")),
             .AgentID = Convert.ToInt32(billRow("AG_ID")),
             .IsAutoPaidAgent = Convert.ToBoolean(billRow("is_Auto_Pied")),
+            .AccountingJournalID = NullableInteger(billRow("JournalId")),
             .OriginalPure = Convert.ToDecimal(billRow("Pure")),
             .IsDepended = Convert.ToBoolean(billRow("isDepended")),
             .IsVoid = Convert.ToBoolean(billRow("isVoid")),

@@ -236,6 +236,8 @@ Friend NotInheritable Class AuditReceipt
             ' The existing screen offers cash ID 1 when the payment-method table is empty.
             If Not (payments.Rows.Count = 0 AndAlso InputId(r, "Pay_ID") = 1) AndAlso payments.Rows.Cast(Of DataRow)().Count(Function(x) Not IsDBNull(x(0)) AndAlso CInt(x(0)) = InputId(r, "Pay_ID")) <> 1 Then Throw New InvalidOperationException("طريقة دفع الإيصال غير موجودة أو مكررة.")
         End If
+        Dim receiptAgentId = If(create OrElse r.OperationCode = "Receipt.Updated", InputId(r, "AG_ID"), CInt(s.Header.Rows(0)("AG_ID")))
+        AgentTypeAccessPolicy.EnsureAgentAllowed(cn, tx, r.Context.ActorUserId.Value, receiptAgentId)
     End Sub
     Friend Shared Sub Prepare(connection As String, r As AuditOperationRequest)
         AuditContract.Request(r)

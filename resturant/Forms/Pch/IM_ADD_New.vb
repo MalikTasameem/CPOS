@@ -19,14 +19,25 @@
     End Function
 
     Private Sub IM_ADD_New_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        If e.KeyCode = Keys.F12 Then ConfermButton_Click(sender, e)
+        If e.KeyCode = Keys.F12 Then
+            e.Handled = True
+            e.SuppressKeyPress = True
+            If New_IM_ID > 0 AndAlso ConfermButton.Enabled Then ConfermButton.PerformClick()
+        End If
     End Sub
 
     Private Sub POS_D_Valid_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ConfermButton.Enabled = False
         ThemeManager.ApplyThemeToForm(Me)
         is_Add_New_IM = False
         Load_GM()
         Insert_IM()
+        If New_IM_ID <= 0 Then
+            ' Allocation/audit failed: do not leave a usable form with item ID zero.
+            Me.DialogResult = DialogResult.Cancel
+            Me.Close()
+            Return
+        End If
         Load_Units(IM_Unit_cm)
         Call_IM_After_Insert_CB.Checked = MY_Settings.Call_IM_After_Insert_CB
         IM_SH_txt.Select()
@@ -52,6 +63,8 @@
 
 
     Public Sub Insert_IM()
+        New_IM_ID = 0
+        ConfermButton.Enabled = False
         Dim c As New C
 
         With c.Com
@@ -67,8 +80,7 @@
         Dim savedId As Integer
         If AuditItemLifecycleUi.Run(Me, c.Com, savedId) AndAlso savedId > 0 Then
             New_IM_ID = savedId
-        Else
-            ConfermButton.Enabled = False
+            ConfermButton.Enabled = True
         End If
     End Sub
 
@@ -77,6 +89,7 @@
     Dim Bar02 As Boolean = False
 
     Private Sub ConfermButton_Click(sender As Object, e As EventArgs) Handles ConfermButton.Click
+        If New_IM_ID <= 0 OrElse Not ConfermButton.Enabled Then Return
         If Search_IM() = 1 Then
             MsgBox("إسم الصنف متكرر", MsgBoxStyle.Critical, "خطأ فالإدخال")
             Exit Sub
@@ -178,6 +191,7 @@
     End Function
 
     Private Sub Confirm_IM()
+        If New_IM_ID <= 0 OrElse Not ConfermButton.Enabled Then Return
         Dim c As New C
 
         'If String.IsNullOrWhiteSpace(Barcode_SH_txt.Text) Then Barcode_SH_txt.Text = Get_Barcode_U_IM_ID()

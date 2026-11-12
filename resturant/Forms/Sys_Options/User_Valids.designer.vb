@@ -48,6 +48,7 @@ Partial Class User_Valids
         Me.IM_CB = New System.Windows.Forms.CheckBox()
         Me.FRM_CB = New System.Windows.Forms.CheckBox()
         Me.BalancesCB = New System.Windows.Forms.CheckBox()
+        Me.Open_Agent_Card_CB = New System.Windows.Forms.CheckBox()
         Me.ReportsCB = New System.Windows.Forms.CheckBox()
         Me.Update_IM_QTY_CB = New System.Windows.Forms.CheckBox()
         Me.StExploreCB = New System.Windows.Forms.CheckBox()
@@ -72,11 +73,11 @@ Partial Class User_Valids
         Me.ExpEditCB = New System.Windows.Forms.CheckBox()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
-        Me.Cancel_Receipt_CB = New System.Windows.Forms.CheckBox()
-        Me.Tr_Widraw_CB = New System.Windows.Forms.CheckBox()
-        Me.Tr_Deposit_CB = New System.Windows.Forms.CheckBox()
-        Me.Tr_Convert_CB = New System.Windows.Forms.CheckBox()
         Me.Hide_Unrelated_Tr_CB = New System.Windows.Forms.CheckBox()
+        Me.Tr_Convert_CB = New System.Windows.Forms.CheckBox()
+        Me.Tr_Deposit_CB = New System.Windows.Forms.CheckBox()
+        Me.Tr_Widraw_CB = New System.Windows.Forms.CheckBox()
+        Me.Cancel_Receipt_CB = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -475,6 +476,22 @@ Partial Class User_Valids
         Me.BalancesCB.Text = "الحسابات"
         Me.BalancesCB.UseVisualStyleBackColor = True
         '
+        'Open_Agent_Card_CB
+        '
+        Me.Open_Agent_Card_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Open_Agent_Card_CB.Checked = True
+        Me.Open_Agent_Card_CB.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.Open_Agent_Card_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Open_Agent_Card_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Open_Agent_Card_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Open_Agent_Card_CB.Location = New System.Drawing.Point(275, 288)
+        Me.Open_Agent_Card_CB.Name = "Open_Agent_Card_CB"
+        Me.Open_Agent_Card_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Open_Agent_Card_CB.Size = New System.Drawing.Size(322, 30)
+        Me.Open_Agent_Card_CB.TabIndex = 466
+        Me.Open_Agent_Card_CB.Text = "فتح بطاقة العملاء والموردين"
+        Me.Open_Agent_Card_CB.UseVisualStyleBackColor = True
+        '
         'ReportsCB
         '
         Me.ReportsCB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -844,6 +861,7 @@ Partial Class User_Valids
         'TabPage5
         '
         Me.TabPage5.BackColor = System.Drawing.SystemColors.Control
+        Me.TabPage5.Controls.Add(Me.Open_Agent_Card_CB)
         Me.TabPage5.Controls.Add(Me.Hide_Unrelated_Tr_CB)
         Me.TabPage5.Controls.Add(Me.Tr_Convert_CB)
         Me.TabPage5.Controls.Add(Me.Tr_Deposit_CB)
@@ -862,52 +880,21 @@ Partial Class User_Valids
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "أخرى"
         '
-        'Cancel_Receipt_CB
+        'Hide_Unrelated_Tr_CB
         '
-        Me.Cancel_Receipt_CB.AutoSize = True
-        Me.Cancel_Receipt_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Cancel_Receipt_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Cancel_Receipt_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Cancel_Receipt_CB.Location = New System.Drawing.Point(493, 133)
-        Me.Cancel_Receipt_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Cancel_Receipt_CB.Name = "Cancel_Receipt_CB"
-        Me.Cancel_Receipt_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Cancel_Receipt_CB.Size = New System.Drawing.Size(105, 23)
-        Me.Cancel_Receipt_CB.TabIndex = 461
-        Me.Cancel_Receipt_CB.Text = "إلغاء إيصالات"
-        Me.Cancel_Receipt_CB.UseVisualStyleBackColor = True
-        '
-        'Tr_Widraw_CB
-        '
-        Me.Tr_Widraw_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Tr_Widraw_CB.AutoSize = True
-        Me.Tr_Widraw_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Tr_Widraw_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Tr_Widraw_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Tr_Widraw_CB.Location = New System.Drawing.Point(362, 33)
-        Me.Tr_Widraw_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Tr_Widraw_CB.Name = "Tr_Widraw_CB"
-        Me.Tr_Widraw_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Tr_Widraw_CB.Size = New System.Drawing.Size(124, 23)
-        Me.Tr_Widraw_CB.TabIndex = 462
-        Me.Tr_Widraw_CB.Text = "سحب من الخزينة"
-        Me.Tr_Widraw_CB.UseVisualStyleBackColor = True
-        '
-        'Tr_Deposit_CB
-        '
-        Me.Tr_Deposit_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Tr_Deposit_CB.AutoSize = True
-        Me.Tr_Deposit_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Tr_Deposit_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Tr_Deposit_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Tr_Deposit_CB.Location = New System.Drawing.Point(240, 33)
-        Me.Tr_Deposit_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Tr_Deposit_CB.Name = "Tr_Deposit_CB"
-        Me.Tr_Deposit_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Tr_Deposit_CB.Size = New System.Drawing.Size(98, 23)
-        Me.Tr_Deposit_CB.TabIndex = 463
-        Me.Tr_Deposit_CB.Text = "إيداع للخزينة"
-        Me.Tr_Deposit_CB.UseVisualStyleBackColor = True
+        Me.Hide_Unrelated_Tr_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Hide_Unrelated_Tr_CB.AutoSize = True
+        Me.Hide_Unrelated_Tr_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Hide_Unrelated_Tr_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Hide_Unrelated_Tr_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Hide_Unrelated_Tr_CB.Location = New System.Drawing.Point(322, 245)
+        Me.Hide_Unrelated_Tr_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Hide_Unrelated_Tr_CB.Name = "Hide_Unrelated_Tr_CB"
+        Me.Hide_Unrelated_Tr_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Hide_Unrelated_Tr_CB.Size = New System.Drawing.Size(275, 23)
+        Me.Hide_Unrelated_Tr_CB.TabIndex = 465
+        Me.Hide_Unrelated_Tr_CB.Text = "إخفاء رصيد الخزائن الغير متعلقة بالمستخدم"
+        Me.Hide_Unrelated_Tr_CB.UseVisualStyleBackColor = True
         '
         'Tr_Convert_CB
         '
@@ -925,21 +912,52 @@ Partial Class User_Valids
         Me.Tr_Convert_CB.Text = "تحويل بين الخزائن"
         Me.Tr_Convert_CB.UseVisualStyleBackColor = True
         '
-        'Hide_Unrelated_Tr_CB
+        'Tr_Deposit_CB
         '
-        Me.Hide_Unrelated_Tr_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Hide_Unrelated_Tr_CB.AutoSize = True
-        Me.Hide_Unrelated_Tr_CB.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Hide_Unrelated_Tr_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Hide_Unrelated_Tr_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Hide_Unrelated_Tr_CB.Location = New System.Drawing.Point(322, 245)
-        Me.Hide_Unrelated_Tr_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Hide_Unrelated_Tr_CB.Name = "Hide_Unrelated_Tr_CB"
-        Me.Hide_Unrelated_Tr_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Hide_Unrelated_Tr_CB.Size = New System.Drawing.Size(275, 23)
-        Me.Hide_Unrelated_Tr_CB.TabIndex = 465
-        Me.Hide_Unrelated_Tr_CB.Text = "إخفاء رصيد الخزائن الغير متعلقة بالمستخدم"
-        Me.Hide_Unrelated_Tr_CB.UseVisualStyleBackColor = True
+        Me.Tr_Deposit_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Tr_Deposit_CB.AutoSize = True
+        Me.Tr_Deposit_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Tr_Deposit_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Tr_Deposit_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Tr_Deposit_CB.Location = New System.Drawing.Point(240, 33)
+        Me.Tr_Deposit_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Tr_Deposit_CB.Name = "Tr_Deposit_CB"
+        Me.Tr_Deposit_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Tr_Deposit_CB.Size = New System.Drawing.Size(98, 23)
+        Me.Tr_Deposit_CB.TabIndex = 463
+        Me.Tr_Deposit_CB.Text = "إيداع للخزينة"
+        Me.Tr_Deposit_CB.UseVisualStyleBackColor = True
+        '
+        'Tr_Widraw_CB
+        '
+        Me.Tr_Widraw_CB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Tr_Widraw_CB.AutoSize = True
+        Me.Tr_Widraw_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Tr_Widraw_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Tr_Widraw_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Tr_Widraw_CB.Location = New System.Drawing.Point(362, 33)
+        Me.Tr_Widraw_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Tr_Widraw_CB.Name = "Tr_Widraw_CB"
+        Me.Tr_Widraw_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Tr_Widraw_CB.Size = New System.Drawing.Size(124, 23)
+        Me.Tr_Widraw_CB.TabIndex = 462
+        Me.Tr_Widraw_CB.Text = "سحب من الخزينة"
+        Me.Tr_Widraw_CB.UseVisualStyleBackColor = True
+        '
+        'Cancel_Receipt_CB
+        '
+        Me.Cancel_Receipt_CB.AutoSize = True
+        Me.Cancel_Receipt_CB.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Cancel_Receipt_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Cancel_Receipt_CB.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Cancel_Receipt_CB.Location = New System.Drawing.Point(493, 133)
+        Me.Cancel_Receipt_CB.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Cancel_Receipt_CB.Name = "Cancel_Receipt_CB"
+        Me.Cancel_Receipt_CB.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.Cancel_Receipt_CB.Size = New System.Drawing.Size(105, 23)
+        Me.Cancel_Receipt_CB.TabIndex = 461
+        Me.Cancel_Receipt_CB.Text = "إلغاء إيصالات"
+        Me.Cancel_Receipt_CB.UseVisualStyleBackColor = True
         '
         'User_Valids
         '
@@ -1008,6 +1026,7 @@ Partial Class User_Valids
     Friend WithEvents SalesDisCB As System.Windows.Forms.CheckBox
     Friend WithEvents FRM_CB As System.Windows.Forms.CheckBox
     Friend WithEvents BalancesCB As System.Windows.Forms.CheckBox
+    Friend WithEvents Open_Agent_Card_CB As System.Windows.Forms.CheckBox
     Friend WithEvents ReportsCB As System.Windows.Forms.CheckBox
     Friend WithEvents Update_IM_QTY_CB As System.Windows.Forms.CheckBox
     Friend WithEvents StExploreCB As System.Windows.Forms.CheckBox
